@@ -561,6 +561,13 @@ impl<'a> MakefileAmParser<'a> {
             return None;
         };
 
+        // Strip an inline `#` comment from the value (Automake treats `#` as a comment start
+        // anywhere on the line): `bin_PROGRAMS = foo # note` -> value `foo`, not `foo # note`.
+        let rest = match rest.find('#') {
+            Some(i) => rest[..i].trim_end().to_string(),
+            None => rest,
+        };
+
         // Validate variable name
         if name.is_empty() || name.contains(char::is_whitespace) {
             return None;
