@@ -519,11 +519,20 @@ impl MakefileInGenerator {
         } else {
             out.push_str("all: all-am\n\n");
         }
-        // A pure orchestrator emits no primaries, so no feature method will define all-am:
-        // provide the local (trivial) all-am here.
-        if !self.has_build_primaries() {
-            out.push_str("all-am: Makefile\n\n");
+        // `all-am` is ALWAYS emitted (the recursion engine and install-am depend on it). Its
+        // recipe builds the local program/library outputs via $(MAKE) (relying on per-target or
+        // builtin rules); DATA/HEADERS/SCRIPTS/MANS are install-only and need no build step.
+        let mut build_targets: Vec<String> = Vec::new();
+        for kind in ["PROGRAMS", "LIBRARIES", "LTLIBRARIES"] {
+            for (_p, _nd, targets) in self.collect_primaries(kind) {
+                build_targets.extend(targets);
+            }
         }
+        out.push_str("all-am: Makefile\n");
+        for t in &build_targets {
+            out.push_str(&format!("\t@$(MAKE) {}\n", t));
+        }
+        out.push('\n');
     }
 
     /// The recursive-make engine: the `$(am__recursive_targets)` rule that descends into
@@ -802,14 +811,8 @@ impl MakefileInGenerator {
             }
         }
 
-        // all-am target
-        if !build_targets.is_empty() {
-            out.push_str("all-am: Makefile\n");
-            for t in &build_targets {
-                out.push_str(&format!("\t@$(MAKE) {}\n", t));
-            }
-            out.push('\n');
-        }
+        // all-am is emitted centrally by generate_all_target (always present).
+        let _ = &build_targets;
 
         // Install rules
         let installable: Vec<_> = programs
@@ -1142,14 +1145,8 @@ impl MakefileInGenerator {
             }
         }
 
-        // all-am
-        if !build_targets.is_empty() {
-            out.push_str("all-am: Makefile\n");
-            for t in &build_targets {
-                out.push_str(&format!("\t@$(MAKE) {}\n", t));
-            }
-            out.push('\n');
-        }
+        // all-am is emitted centrally by generate_all_target (always present).
+        let _ = &build_targets;
 
         // Install rules
         let installable: Vec<_> = libraries
