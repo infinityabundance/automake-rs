@@ -69,6 +69,12 @@ impl MakefileInGenerator {
         // 6a. Dependency tracking variables
         self.generate_dep_tracking(&mut output);
 
+        // 6b. Recursive-make variables (SUBDIRS)
+        self.generate_recursion_vars(&mut output);
+
+        // 6c. The default goal `all` must be the first target.
+        self.generate_all_target(&mut output);
+
         // 7. Build rules for primaries
         self.generate_built_sources_rules(&mut output);
         self.generate_yacc_lex_rules(&mut output);
@@ -98,6 +104,9 @@ impl MakefileInGenerator {
 
         // 12. Utility targets (TAGS, cscope, etc.)
         self.generate_utility_targets(&mut output);
+
+        // 12a. Recursive-make engine + dispatch (SUBDIRS)
+        self.generate_recursion_rules(&mut output);
 
         // 13. Passthrough rules
         self.generate_passthrough_rules(&mut output);
@@ -447,6 +456,181 @@ impl MakefileInGenerator {
     }
 
     /// Generate build rules for PROGRAMS primaries.
+    /// The `SUBDIRS` list (whitespace-split), empty if this Makefile.am is not recursive.
+    fn subdirs_list(&self) -> Vec<String> {
+        self.find_variable("SUBDIRS")
+            .map(|v| v.split_whitespace().map(String::from).collect())
+            .unwrap_or_default()
+    }
+
+    fn has_subdirs(&self) -> bool {
+        !self.subdirs_list().is_empty()
+    }
+
+    /// Whether this Makefile.am builds anything locally (vs. a pure SUBDIRS orchestrator).
+    fn has_build_primaries(&self) -> bool {
+        [
+            "PROGRAMS",
+            "LIBRARIES",
+            "LTLIBRARIES",
+            "SCRIPTS",
+            "DATA",
+            "HEADERS",
+            "MANS",
+            "TEXINFOS",
+            "PYTHON",
+            "LISP",
+            "JAVA",
+        ]
+        .iter()
+        .any(|k| !self.collect_primaries(k).is_empty())
+    }
+
+    /// Recursive-make variables (emitted in the variable section when `SUBDIRS` is present).
+    fn generate_recursion_vars(&self, out: &mut String) {
+        if !self.has_subdirs() {
+            return;
+        }
+        out.push_str("RECURSIVE_TARGETS = all-recursive check-recursive cscopelist-recursive \\\n");
+        out.push_str("\tctags-recursive dvi-recursive html-recursive info-recursive \\\n");
+        out.push_str("\tinstall-data-recursive install-dvi-recursive \\\n");
+        out.push_str("\tinstall-exec-recursive install-html-recursive \\\n");
+        out.push_str("\tinstall-info-recursive install-pdf-recursive \\\n");
+        out.push_str("\tinstall-ps-recursive install-recursive installcheck-recursive \\\n");
+        out.push_str("\tinstalldirs-recursive pdf-recursive ps-recursive \\\n");
+        out.push_str("\ttags-recursive uninstall-recursive\n");
+        out.push_str("RECURSIVE_CLEAN_TARGETS = mostlyclean-recursive clean-recursive \\\n");
+        out.push_str("  distclean-recursive maintainer-clean-recursive\n");
+        out.push_str("am__recursive_targets = \\\n");
+        out.push_str("  $(RECURSIVE_TARGETS) \\\n");
+        out.push_str("  $(RECURSIVE_CLEAN_TARGETS) \\\n");
+        out.push_str("  $(am__extra_recursive_targets)\n");
+        // DIST_SUBDIRS defaults to SUBDIRS unless the user set it explicitly.
+        if self.find_variable("DIST_SUBDIRS").is_none() {
+            out.push_str("DIST_SUBDIRS = $(SUBDIRS)\n");
+        }
+    }
+
+    /// The default goal: `all`. Must be the first target so `make` with no args builds it.
+    /// Recursive when `SUBDIRS` is present, otherwise the local `all-am`.
+    fn generate_all_target(&self, out: &mut String) {
+        if self.has_subdirs() {
+            out.push_str("all: all-recursive\n\n");
+        } else {
+            out.push_str("all: all-am\n\n");
+        }
+        // A pure orchestrator emits no primaries, so no feature method will define all-am:
+        // provide the local (trivial) all-am here.
+        if !self.has_build_primaries() {
+            out.push_str("all-am: Makefile\n\n");
+        }
+    }
+
+    /// The recursive-make engine: the `$(am__recursive_targets)` rule that descends into
+    /// `$(SUBDIRS)` (or `$(DIST_SUBDIRS)` for the clean targets) running the matching `*-am`
+    /// target locally, plus the top-level dispatch targets wired to their `-recursive` forms.
+    /// Reconstructed from the observed GNU Automake output (permissively licensed), not its source.
+    fn generate_recursion_rules(&self, out: &mut String) {
+        if !self.has_subdirs() {
+            return;
+        }
+        // The descent loop.
+        out.push_str("$(am__recursive_targets):\n");
+        out.push_str("\t@fail=; \\\n");
+        out.push_str("\tif $(am__make_keepgoing); then \\\n");
+        out.push_str("\t  failcom='fail=yes'; \\\n");
+        out.push_str("\telse \\\n");
+        out.push_str("\t  failcom='exit 1'; \\\n");
+        out.push_str("\tfi; \\\n");
+        out.push_str("\tdot_seen=no; \\\n");
+        out.push_str("\ttarget=`echo $@ | sed s/-recursive//`; \\\n");
+        out.push_str("\tcase \"$@\" in \\\n");
+        out.push_str("\t  distclean-* | maintainer-clean-*) list='$(DIST_SUBDIRS)' ;; \\\n");
+        out.push_str("\t  *) list='$(SUBDIRS)' ;; \\\n");
+        out.push_str("\tesac; \\\n");
+        out.push_str("\tfor subdir in $$list; do \\\n");
+        out.push_str("\t  echo \"Making $$target in $$subdir\"; \\\n");
+        out.push_str("\t  if test \"$$subdir\" = \".\"; then \\\n");
+        out.push_str("\t    dot_seen=yes; \\\n");
+        out.push_str("\t    local_target=\"$$target-am\"; \\\n");
+        out.push_str("\t  else \\\n");
+        out.push_str("\t    local_target=\"$$target\"; \\\n");
+        out.push_str("\t  fi; \\\n");
+        out.push_str("\t  ($(am__cd) $$subdir && $(MAKE) $(AM_MAKEFLAGS) $$local_target) \\\n");
+        out.push_str("\t  || eval $$failcom; \\\n");
+        out.push_str("\tdone; \\\n");
+        out.push_str("\tif test \"$$dot_seen\" = \"no\"; then \\\n");
+        out.push_str("\t  $(MAKE) $(AM_MAKEFLAGS) \"$$target-am\" || exit 1; \\\n");
+        out.push_str("\tfi; test -z \"$$fail\"\n\n");
+
+        // Top-level dispatch -> -recursive. (The non-recursive `install:`/`check:`/`clean:`/
+        // `installcheck:`/`installdirs:` lines are suppressed elsewhere when has_subdirs.)
+        for line in [
+            "check: check-recursive\n",
+            "install: install-recursive\n",
+            "install-exec: install-exec-recursive\n",
+            "install-data: install-data-recursive\n",
+            "uninstall: uninstall-recursive\n",
+            "installcheck: installcheck-recursive\n",
+            "installdirs: installdirs-recursive\n",
+            "clean: clean-recursive\n",
+            "distclean: distclean-recursive\n",
+            "mostlyclean: mostlyclean-recursive\n",
+            "maintainer-clean: maintainer-clean-recursive\n",
+            "dvi: dvi-recursive\n",
+            "html: html-recursive\n",
+            "info: info-recursive\n",
+            "pdf: pdf-recursive\n",
+            "ps: ps-recursive\n",
+            "install-dvi: install-dvi-recursive\n",
+            "install-html: install-html-recursive\n",
+            "install-info: install-info-recursive\n",
+            "install-pdf: install-pdf-recursive\n",
+            "install-ps: install-ps-recursive\n",
+            "tags: tags-recursive\n",
+            "ctags: ctags-recursive\n",
+            "cscopelist: cscopelist-recursive\n",
+        ] {
+            out.push_str(line);
+        }
+        out.push('\n');
+
+        // Local `*-am` stubs the recursion calls for the "." dir. A pure orchestrator defines
+        // none of these via feature methods, so provide empty defaults. (Where a feature method
+        // also defines one, make takes the later definition; harmless for a no-op stub.)
+        if !self.has_build_primaries() {
+            for stub in [
+                "check-am: all-am\n",
+                "install-am: all-am\n",
+                "install-exec-am:\n",
+                "install-data-am:\n",
+                "uninstall-am:\n",
+                "installcheck-am:\n",
+                "installdirs-am:\n",
+                "mostlyclean-am:\n",
+                "clean-am: mostlyclean-am\n",
+                "distclean-am: clean-am\n",
+                "maintainer-clean-am: distclean-am\n",
+                "dvi-am:\n",
+                "html-am:\n",
+                "info-am:\n",
+                "pdf-am:\n",
+                "ps-am:\n",
+                "install-dvi-am:\n",
+                "install-html-am:\n",
+                "install-info-am:\n",
+                "install-pdf-am:\n",
+                "install-ps-am:\n",
+                "tags-am:\n",
+                "ctags-am:\n",
+            ] {
+                out.push_str(stub);
+            }
+            out.push('\n');
+        }
+        out.push_str(".PHONY: $(am__recursive_targets)\n\n");
+    }
+
     fn generate_programs_rules(&self, out: &mut String) {
         let programs = self.collect_primaries("PROGRAMS");
         if programs.is_empty() {
@@ -1498,7 +1682,11 @@ impl MakefileInGenerator {
         let has_exec = self.has_install_exec_targets();
         let has_data = self.has_install_data_targets();
 
-        out.push_str("install: install-am\n");
+        // When SUBDIRS is present `install:` dispatches to install-recursive (emitted by
+        // generate_recursion_rules); only the local install-am body is needed here.
+        if !self.has_subdirs() {
+            out.push_str("install: install-am\n");
+        }
         out.push_str("install-am: all-am\n");
         if has_exec && has_data {
             out.push_str("\t@$(MAKE) $(AM_MAKEFLAGS) install-exec-am install-data-am\n");
@@ -1509,7 +1697,7 @@ impl MakefileInGenerator {
         }
         out.push('\n');
 
-        out.push_str("installcheck: installcheck-am\n\n");
+        if !self.has_subdirs() { out.push_str("installcheck: installcheck-am\n\n"); } else { out.push_str("installcheck-am:\n\n"); }
         out.push_str("install-strip:\n");
         out.push_str("\t$(MAKE) $(AM_MAKEFLAGS) INSTALL_PROGRAM=\"$(INSTALL_STRIP_PROGRAM)\" \\\n");
         out.push_str(
@@ -1551,7 +1739,7 @@ impl MakefileInGenerator {
         out.push_str("install-exec-hook:\n\n");
 
         // installdirs target
-        out.push_str("installdirs: installdirs-am\n");
+        if !self.has_subdirs() { out.push_str("installdirs: installdirs-am\n"); }
         out.push_str("installdirs-am:\n");
         out.push_str("\tfor dir in \"$(DESTDIR)$(bindir)\" \"$(DESTDIR)$(sbindir)\" \"$(DESTDIR)$(libexecdir)\" \"$(DESTDIR)$(datadir)\" \"$(DESTDIR)$(infodir)\" \"$(DESTDIR)$(mandir)\"; do \\\n");
         out.push_str("\t  $(MKDIR_P) $$dir || exit 1; \\\n");
@@ -1692,7 +1880,7 @@ impl MakefileInGenerator {
         out.push_str("\t-rm -rf $(top_srcdir)/autom4te.cache/\n\n");
 
         // --- PHONY targets ---
-        out.push_str("clean: clean-am\n\n");
+        if !self.has_subdirs() { out.push_str("clean: clean-am\n\n"); }
         out.push_str(".PHONY: clean clean-am mostlyclean-am distclean-am maintainer-clean-am\n");
         out.push_str(".PHONY: mostlyclean mostlyclean-am distclean distclean-am\n");
         out.push_str(".PHONY: maintainer-clean maintainer-clean-am\n\n");
@@ -1801,16 +1989,23 @@ impl MakefileInGenerator {
     /// Generate check/test rules.
     fn generate_check_rules(&self, out: &mut String) {
         let tests = self.collect_primaries("TESTS");
+        let subdirs = self.has_subdirs();
         if tests.is_empty() {
             out.push_str("check-am: all-am\n");
-            out.push_str("check: check-am\n\n");
-            out.push_str(".PHONY: check check-am\n\n");
+            if !subdirs {
+                out.push_str("check: check-am\n\n");
+                out.push_str(".PHONY: check check-am\n\n");
+            } else {
+                out.push('\n');
+            }
             return;
         }
 
         out.push_str("check-am: all-am\n");
         out.push_str("\t@$(MAKE) $(AM_MAKEFLAGS) check-TESTS\n\n");
-        out.push_str("check: check-am\n\n");
+        if !subdirs {
+            out.push_str("check: check-am\n\n");
+        }
 
         let _all_tests: Vec<&str> = tests
             .iter()
