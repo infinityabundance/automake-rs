@@ -1453,11 +1453,14 @@ fn test_dependency_tracking() {
     // AMDEP conditionals
     assert!(output.contains("@AMDEP_TRUE@am__include = include"));
     assert!(output.contains("@AMDEP_FALSE@am__include = #"));
-    // Dependency files for each source
-    assert!(output.contains("$(DEPDIR)/foo.$(OBJEXT).Po"));
-    assert!(output.contains("$(DEPDIR)/bar.$(OBJEXT).Po"));
-    // Include directive for dependency files
+    // Dependency files are named after the SOURCE stem (GNU Automake convention).
+    assert!(output.contains("./$(DEPDIR)/foo.Po"));
+    assert!(output.contains("./$(DEPDIR)/bar.Po"));
+    // Include directive carries the am--include-marker config.status greps for.
     assert!(output.contains("@AMDEP_TRUE@@am__include@"));
+    assert!(output.contains("# am--include-marker"));
+    // The stub-creation rule lets a bare `make` materialize missing .Po files.
+    assert!(output.contains("am--depfiles: $(am__depfiles_remade)"));
 }
 
 #[test]

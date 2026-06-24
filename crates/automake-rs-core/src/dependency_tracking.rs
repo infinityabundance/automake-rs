@@ -109,13 +109,15 @@ impl DepTracker {
         let mut result = Vec::new();
         for (src, ext) in sources {
             let base = src.rsplit('/').next().unwrap_or(src);
-            let obj = if let Some(dot) = base.rfind('.') {
-                format!("{}.{}", &base[..dot], ext)
-            } else {
-                format!("{}.{}", base, ext)
+            // GNU Automake names the dependency file after the SOURCE stem (not the object
+            // extension): `hello.c` -> `$(DEPDIR)/hello.Po`, and a libtool object -> `.Plo`.
+            let stem = match base.rfind('.') {
+                Some(dot) => &base[..dot],
+                None => base,
             };
-            // Use $(DEPDIR) make variable for the directory prefix
-            let depfile = format!("$(DEPDIR)/{}.Po", obj);
+            let suffix = if *ext == "lo" { "Plo" } else { "Po" };
+            // Leading `./` matches the oracle's `am__depfiles_remade` / include-marker form.
+            let depfile = format!("./$(DEPDIR)/{}.{}", stem, suffix);
             if seen.insert(depfile.clone()) {
                 result.push(depfile);
             }
@@ -123,20 +125,36 @@ impl DepTracker {
         result
     }
 
-    /// Emit the @AMDEP_TRUE@ include line for dependency files.
+    /// Emit the per-file dependency includes plus the rule that materializes the `.Po` stubs.
+    ///
+    /// This reproduces the GNU Automake mechanism: one `@am__include@ ... # am--include-marker`
+    /// line per object (the trailing marker is what `config.status` greps to pre-create the
+    /// `.deps/*.Po` files), and a `$(am__depfiles_remade)` rule so a bare `make` can create any
+    /// missing stub on demand (make builds an included file then re-reads it). Without this, an
+    /// `include ./$(DEPDIR)/foo.Po` of a non-existent, ruleless file aborts `make`.
     pub fn emit_includes(depfiles: &[String], out: &mut String) {
         if depfiles.is_empty() {
             return;
         }
-        out.push_str("am__include_deps =");
-        for (i, dep) in depfiles.iter().enumerate() {
-            if i % 3 == 0 && i > 0 {
-                out.push_str(" \\\n  ");
-            }
+        // The set of dep files this Makefile knows how to (re)create.
+        out.push_str("am__depfiles_remade =");
+        for dep in depfiles {
             out.push_str(&format!(" {}", dep));
         }
         out.push('\n');
-        out.push_str("@AMDEP_TRUE@@am__include@ @am__quote@$(am__include_deps)@am__quote@\n\n");
+        // One include per object, each tagged with the am--include-marker.
+        for dep in depfiles {
+            out.push_str(&format!(
+                "@AMDEP_TRUE@@am__include@ @am__quote@{}@am__quote@ # am--include-marker\n",
+                dep
+            ));
+        }
+        out.push('\n');
+        // The rule that creates an empty stub for any not-yet-existing dep file.
+        out.push_str("$(am__depfiles_remade):\n");
+        out.push_str("\t@$(MKDIR_P) $(@D)\n");
+        out.push_str("\t@: >>$@\n\n");
+        out.push_str("am--depfiles: $(am__depfiles_remade)\n\n");
     }
 }
 
@@ -351,9 +369,11 @@ mod tests {
         ];
         let depfiles = DepTracker::collect_depfiles(&sources, ".deps");
         assert_eq!(depfiles.len(), 3);
-        assert!(depfiles.contains(&"$(DEPDIR)/foo.$(OBJEXT).Po".to_string()));
-        assert!(depfiles.contains(&"$(DEPDIR)/bar.$(OBJEXT).Po".to_string()));
-        assert!(depfiles.contains(&"$(DEPDIR)/baz.lo.Po".to_string()));
+        // Dep files are named after the SOURCE stem (GNU Automake convention): a non-libtool
+        // object yields `.Po`, a libtool object (`lo`) yields `.Plo`; all with a leading `./`.
+        assert!(depfiles.contains(&"./$(DEPDIR)/foo.Po".to_string()));
+        assert!(depfiles.contains(&"./$(DEPDIR)/bar.Po".to_string()));
+        assert!(depfiles.contains(&"./$(DEPDIR)/baz.Plo".to_string()));
     }
 
     #[test]
