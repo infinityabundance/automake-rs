@@ -1231,8 +1231,11 @@ fn test_vpath_source_prefix() {
     assert!(output.contains("VPATH = @srcdir@"));
     assert!(output.contains("srcdir = @srcdir@"));
     assert!(output.contains("abs_srcdir = @abs_srcdir@"));
-    // Source files use $(srcdir)/ prefix
-    assert!(output.contains("$(srcdir)/myprog.c"));
+    // Compilation goes through the .c.o suffix rule + VPATH (like real automake), and the
+    // program is built by a proper link rule — not a literal `$(srcdir)/myprog.c` prereq.
+    assert!(output.contains(".c.o:"));
+    assert!(output.contains("myprog$(EXEEXT):"));
+    assert!(output.contains("am_myprog_OBJECTS = myprog.$(OBJEXT)"));
 }
 
 #[test]
@@ -1693,8 +1696,10 @@ fn test_vpath_setup_complete() {
     assert!(output.contains("abs_builddir = @abs_builddir@"));
     assert!(output.contains("abs_top_srcdir = @abs_top_srcdir@"));
     assert!(output.contains("abs_top_builddir = @abs_top_builddir@"));
-    // Source file references use $(srcdir)/
-    assert!(output.contains("$(srcdir)/hello.c"));
+    // Compilation uses the .c.o suffix rule + VPATH (real-automake behavior), not a literal
+    // `$(srcdir)/hello.c` source reference.
+    assert!(output.contains(".c.o:"));
+    assert!(output.contains("hello$(EXEEXT):"));
 }
 
 /// Verify LTLIBRARIES VPATH source references.

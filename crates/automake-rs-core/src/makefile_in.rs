@@ -69,6 +69,9 @@ impl MakefileInGenerator {
         // 6a. Dependency tracking variables
         self.generate_dep_tracking(&mut output);
 
+        // 6a2. Program build infrastructure (PROGRAMS, *_OBJECTS, COMPILE/LINK)
+        self.generate_program_infra_vars(&mut output);
+
         // 6b. Recursive-make variables (SUBDIRS)
         self.generate_recursion_vars(&mut output);
 
@@ -105,7 +108,10 @@ impl MakefileInGenerator {
         // 12. Utility targets (TAGS, cscope, etc.)
         self.generate_utility_targets(&mut output);
 
-        // 12a. Recursive-make engine + dispatch (SUBDIRS)
+        // 12a. Compile + link rules for programs
+        self.generate_compile_link_rules(&mut output);
+
+        // 12b. Recursive-make engine + dispatch (SUBDIRS)
         self.generate_recursion_rules(&mut output);
 
         // 13. Passthrough rules
@@ -640,6 +646,109 @@ impl MakefileInGenerator {
         out.push_str(".PHONY: $(am__recursive_targets)\n\n");
     }
 
+    /// The object files for one program's sources (`.c`/`.cc`/... -> `.$(OBJEXT)`), honoring
+    /// subdir-objects (objects beside their source) vs the default (basename in the build dir).
+    fn program_objects(&self, prog: &str) -> Vec<String> {
+        let sources = self
+            .find_variable(&format!("{}_SOURCES", prog))
+            .unwrap_or_else(|| format!("{}.c", prog));
+        sources
+            .split_whitespace()
+            .filter(|s| {
+                // Only compiled sources become objects (skip headers/other).
+                s.ends_with(".c")
+                    || s.ends_with(".cc")
+                    || s.ends_with(".cpp")
+                    || s.ends_with(".cxx")
+                    || s.ends_with(".c++")
+                    || s.ends_with(".C")
+                    || s.ends_with(".m")
+                    || s.ends_with(".s")
+                    || s.ends_with(".S")
+            })
+            .map(|s| {
+                let stem = match s.rfind('.') {
+                    Some(d) => &s[..d],
+                    None => s,
+                };
+                let stem = if self.config.subdir_objects {
+                    stem.to_string()
+                } else {
+                    stem.rsplit('/').next().unwrap_or(stem).to_string()
+                };
+                format!("{}.$(OBJEXT)", stem)
+            })
+            .collect()
+    }
+
+    /// Emit the program build infrastructure (variable section): `PROGRAMS`, per-program
+    /// object/LDADD vars, and the COMPILE/CCLD/LINK command variables.
+    fn generate_program_infra_vars(&self, out: &mut String) {
+        let programs = self.collect_primaries("PROGRAMS");
+        if programs.is_empty() {
+            return;
+        }
+        // PROGRAMS = $(bin_PROGRAMS) $(noinst_PROGRAMS) ...
+        let mut prefix_vars: Vec<String> = Vec::new();
+        for (prefix, _nd, _t) in &programs {
+            let p = if prefix.is_empty() { "bin" } else { prefix.as_str() };
+            let v = format!("$({}_PROGRAMS)", p);
+            if !prefix_vars.contains(&v) {
+                prefix_vars.push(v);
+            }
+        }
+        out.push_str(&format!("PROGRAMS = {}\n", prefix_vars.join(" ")));
+        // Per-program object + LDADD vars.
+        for (_prefix, _nd, targets) in &programs {
+            for prog in targets {
+                let objs = self.program_objects(prog);
+                out.push_str(&format!("am_{}_OBJECTS = {}\n", prog, objs.join(" ")));
+                out.push_str(&format!("{}_OBJECTS = $(am_{}_OBJECTS)\n", prog, prog));
+                let ldadd = self
+                    .find_variable(&format!("{}_LDADD", prog))
+                    .unwrap_or_else(|| "$(LDADD)".to_string());
+                out.push_str(&format!("{}_LDADD = {}\n", prog, ldadd));
+            }
+        }
+        out.push_str("DEFAULT_INCLUDES = -I.@am__isrc@\n");
+        out.push_str("COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \\\n");
+        out.push_str("\t$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)\n");
+        out.push_str("CCLD = $(CC)\n");
+        out.push_str("LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@\n");
+    }
+
+    /// Emit the compile + link rules (rules section): the `.c.o`/`.c.obj` suffix rules and the
+    /// per-program link rule. Real rules, so multi-source / subdir-objects programs build without
+    /// depending on make's built-in suffix rules (which the generated `.SUFFIXES:` reset disables).
+    fn generate_compile_link_rules(&self, out: &mut String) {
+        let programs = self.collect_primaries("PROGRAMS");
+        if programs.is_empty() {
+            return;
+        }
+        out.push_str(".SUFFIXES:\n");
+        out.push_str(".SUFFIXES: .c .o .obj\n\n");
+        // Link rule per program.
+        for (_prefix, _nd, targets) in &programs {
+            for prog in targets {
+                out.push_str(&format!(
+                    "{p}$(EXEEXT): $({p}_OBJECTS) $({p}_DEPENDENCIES) $(EXTRA_{p}_DEPENDENCIES)\n",
+                    p = prog
+                ));
+                out.push_str(&format!("\t@rm -f {}$(EXEEXT)\n", prog));
+                out.push_str(&format!(
+                    "\t$(AM_V_CCLD)$(LINK) $({p}_OBJECTS) $({p}_LDADD) $(LIBS)\n\n",
+                    p = prog
+                ));
+            }
+        }
+        // Suffix compile rules (functional: compile straight to the object; the .Po stubs from
+        // dependency tracking satisfy the includes).
+        out.push_str(".c.o:\n");
+        out.push_str("\t$(AM_V_CC)$(COMPILE) -c -o $@ $<\n\n");
+        out.push_str(".c.obj:\n");
+        out.push_str("\t$(AM_V_CC)$(COMPILE) -c -o $@ `$(CYGPATH_W) '$<'`\n\n");
+    }
+
     fn generate_programs_rules(&self, out: &mut String) {
         let programs = self.collect_primaries("PROGRAMS");
         if programs.is_empty() {
@@ -735,22 +844,10 @@ impl MakefileInGenerator {
                     am_cflags.as_str()
                 };
 
-                out.push_str(&format!(
-                    "{}{}.$(OBJEXT): $(srcdir)/{}\n",
-                    prefix_path, target, sources
-                ));
-                if self.config.silent_rules {
-                    out.push_str(&format!(
-                        "\t$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) {} $(CPPFLAGS) {} $(CFLAGS) -c -o $@ $<\n",
-                        all_cppflags, all_cflags
-                    ));
-                } else {
-                    out.push_str(&format!(
-                        "\t$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) {} $(CPPFLAGS) {} $(CFLAGS) -c -o $@ $<\n",
-                        all_cppflags, all_cflags
-                    ));
-                }
-                out.push('\n');
+                // Compile + link rules are emitted centrally by generate_compile_link_rules
+                // (header-filtered objects, proper multi-source $(LINK)). Keep only the flag
+                // computations here for install/var purposes.
+                let _ = (&all_cppflags, &all_cflags, &prefix_path);
 
                 // Link rule — check for libtool
                 let uses_libtool = ldadd.contains(".la")
@@ -790,22 +887,8 @@ impl MakefileInGenerator {
                     } else {
                         format!("{}/{}", dir_prefix, target)
                     };
-
-                out.push_str(&format!(
-                    "{}: {}
-",
-                    prog_name,
-                    objects.join(" ")
-                ));
-                out.push_str(&format!(
-                    "	{} {} {} {}
-
-",
-                    link_cmd,
-                    objects.join(" "),
-                    ldadd,
-                    all_ldflags
-                ));
+                // Build rule emitted by generate_compile_link_rules; suppress legacy emission.
+                let _ = (&link_cmd, &all_ldflags, &objects, &ldadd, &uses_libtool);
 
                 build_targets.push(prog_name.clone());
             }

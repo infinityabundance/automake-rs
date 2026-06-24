@@ -869,7 +869,14 @@ fn parse_assignment(content: &str) -> Option<(String, AssignmentOp, Vec<String>)
         || name.contains("PYTHON")
         || name.contains("JAVA");
     let values = if is_primary {
-        rest.split_whitespace().map(|s| s.to_string()).collect()
+        // For primaries the value is a target list, so an inline `#` comment must be stripped
+        // (Automake excludes it from the targets). Non-primary variables preserve the full value
+        // verbatim, including any trailing comment, exactly as the GNU oracle does.
+        let r = match rest.find('#') {
+            Some(i) => rest[..i].trim_end(),
+            None => rest,
+        };
+        r.split_whitespace().map(|s| s.to_string()).collect()
     } else {
         vec![rest.to_string()]
     };
