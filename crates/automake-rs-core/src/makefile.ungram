@@ -1,0 +1,112 @@
+// Ungrammar DSL for Makefile.am concrete syntax tree
+//
+// This describes the full syntax tree used by the rowan-based
+// lossless parser. Every node type here becomes a SyntaxKind variant.
+// The CST preserves all whitespace, comments, and formatting for
+// perfect round-tripping and IDE integration.
+//
+// Court: AM.PARSER.MAKEFILE_AM.1
+// Clean-room: POSIX make spec + GNU Automake manual (GFDL)
+
+SourceFile = Statement*
+
+Statement =
+    VariableDef
+  | ConditionalBlock
+  | TargetRule
+  | IncludeDirective
+  | Comment
+  | BlankLine
+
+// ─── Variable Definitions ─────────────────────────────────────
+
+VariableDef =
+    SimpleAssign
+  | AppendAssign
+  | CondAssign
+  | OverrideAssign
+  | PrimaryAssign
+
+SimpleAssign   = Name '=' Value
+AppendAssign   = Name '+=' Value
+CondAssign     = Name '?=' Value
+OverrideAssign = Name ':=' Value
+
+// Primary variable: bin_PROGRAMS = hello world
+PrimaryAssign = PrimaryName '=' Target+
+
+PrimaryName = Prefix? PrimaryKind
+
+Prefix =
+    'bin'
+  | 'sbin'
+  | 'libexec'
+  | 'pkglibexec'
+  | 'lib'
+  | 'pkglib'
+  | 'noinst'
+  | 'check'
+  | 'pkgdata'
+  | 'lisp'
+  | 'python'
+  | 'java'
+  | 'man'
+  | 'info'
+  | 'include'
+  | 'oldinclude'
+  | 'nodist_' Prefix
+  | 'dist_' Prefix
+  | 'nobase_' Prefix
+
+PrimaryKind =
+    'PROGRAMS'
+  | 'LTLIBRARIES'
+  | 'LIBRARIES'
+  | 'SCRIPTS'
+  | 'DATA'
+  | 'HEADERS'
+  | 'MANS'
+  | 'TEXINFOS'
+  | 'TESTS'
+  | 'LISP'
+  | 'PYTHON'
+  | 'JAVA'
+
+// ─── Conditionals ─────────────────────────────────────────────
+
+ConditionalBlock = IfBranch ElseBranch? 'endif'
+
+IfBranch = IfKeyword Condition Statement*
+
+IfKeyword = 'if' | 'if!'
+
+ElseBranch = 'else' Statement*
+
+// ─── Target Rules ─────────────────────────────────────────────
+
+TargetRule = Target ':' Dependency* Recipe*
+
+Target = Name
+Dependency = Name
+
+Recipe = '\t' RecipeText
+
+// ─── Includes ─────────────────────────────────────────────────
+
+IncludeDirective = IncludeKeyword FilePath
+
+IncludeKeyword = 'include' | '-include'
+
+// ─── Tokens ───────────────────────────────────────────────────
+
+Name = ident
+Value = text+
+Target = ident
+Condition = ident
+FilePath = text
+RecipeText = text+
+Comment = '#' text*
+BlankLine = '\n'
+Whitespace = ' ' | '\t'
+Backslash = '\\'
+Newline = '\n' | '\r\n'

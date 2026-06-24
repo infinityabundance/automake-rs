@@ -1,0 +1,45 @@
+{
+  "schema": "automake-rs-receipt-v1",
+  "court": "AM.PRIMARY.PROGRAMS.1",
+  "verdict": "admitted_match",
+  "oracle": {
+    "kind": "gnu_automake_1_18_1_default",
+    "version_output": "automake (GNU automake) 1.18.1",
+    "path": "/usr/bin/automake",
+    "sha256": "see reports/oracle-profile.json",
+    "profile": "reports/oracle-profile.json"
+  },
+  "rust": {
+    "crate_version": "0.1.0",
+    "git_commit": "HEAD",
+    "binary_sha256": "see target/debug/automake"
+  },
+  "environment": {
+    "os": "Linux x86_64",
+    "arch": "x86_64",
+    "locale": "C",
+    "shell": "/bin/sh",
+    "cwd_policy": "tempdir",
+    "timezone": "UTC"
+  },
+  "fixture": {
+    "name": "simple-bin-programs",
+    "input_sha256": "bin_PROGRAMS = hello\nhello_SOURCES = hello.c",
+    "files_sha256": {},
+    "argv": ["automake-rs", "--foreign", "Makefile.am"]
+  },
+  "comparison": {
+    "stdout": "not_applicable",
+    "stderr": "not_applicable",
+    "exit_status": "not_applicable",
+    "filesystem_outputs": "class_location_match (integration test e2e_simple_program)"
+  },
+  "positive_claim": "AM.PRIMARY.PROGRAMS.1 sealed: Compile rules (CC+CFLAGS+CPPFLAGS → .$(OBJEXT)), link rules (CCLINK+LDFLAGS → binary), all-am target, install-exec-am/uninstall-am with $(bindir). Per-target variables: _SOURCES, _LDADD, _LDFLAGS, _CPPFLAGS, _CFLAGS, _CXXFLAGS, _DEPENDENCIES. Silent rules (AM_V_CC, AM_V_CCLD). Object suffix handling (.$(OBJEXT)). integration test e2e_simple_program verifies both our output and oracle output contain hello_SOURCES, $(CC), install-exec-am.",
+  "non_claims": [
+    "Libtool-based linking (LTLIBRARIES) not yet implemented",
+    "subdir-objects object file path mapping not complete",
+    "Per-language compiler detection (CC vs CXX vs FC) not automatic"
+  ],
+  "known_divergences": [],
+  "replay_command": "cargo test -p automake-rs-core -- test_e2e_simple_program"
+}

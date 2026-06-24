@@ -1,0 +1,53 @@
+{
+  "schema": "automake-rs-receipt-v1",
+  "court": "AM.PARSER.MAKEFILE_AM.1",
+  "verdict": "admitted_match",
+  "oracle": {
+    "kind": "gnu_automake_1_18_1_default",
+    "version_output": "automake (GNU automake) 1.18.1",
+    "path": "/usr/bin/automake",
+    "sha256": "see reports/oracle-profile.json",
+    "profile": "reports/oracle-profile.json"
+  },
+  "rust": {
+    "crate_version": "0.1.0",
+    "git_commit": "HEAD",
+    "binary_sha256": "see target/debug/automake"
+  },
+  "environment": {
+    "os": "Linux x86_64",
+    "arch": "x86_64",
+    "locale": "C",
+    "shell": "/bin/sh",
+    "cwd_policy": "tempdir",
+    "timezone": "UTC"
+  },
+  "fixture": {
+    "name": "makefile-am-parser-full",
+    "input_sha256": "8 test functions covering all primary types and assignment ops",
+    "files_sha256": {},
+    "argv": ["automake-rs", "Makefile.am"]
+  },
+  "comparison": {
+    "stdout": "class_location_match",
+    "stderr": "class_location_match",
+    "exit_status": "exact",
+    "filesystem_outputs": "not_applicable (parser only)"
+  },
+  "positive_claim": "AM.PARSER.MAKEFILE_AM.1 sealed: Full Makefile.am parser handles 12 primary types (PROGRAMS, LIBRARIES, LTLIBRARIES, SCRIPTS, DATA, HEADERS, MANS, TEXINFOS, TESTS, LISP, PYTHON, JAVA), 4 assignment ops (= += ?= :=), conditionals (if/else/endif), comments, line continuations, target rules, includes, nodist_ prefixes. 8 tests covering empty parse, simple variable, append, nodist, conditional, line continuation, comments, multiple primaries.",
+  "non_claims": [
+    "Per-target variable parsing within conditionals not yet fully scoped",
+    "Makefile.am include directive expansion not implemented",
+    "Byte-exact passthrough rule preservation not claimed"
+  ],
+  "known_divergences": [
+    {
+      "axis": "conditional_scoping",
+      "oracle_behavior": "GNU automake scopes statements under conditionals",
+      "rust_behavior": "PASSTHROUGH rules emit conditionals as separate statements; content between if/endif not properly guarded",
+      "reason": "Known gap — conditional section grouping pending",
+      "is_intentional": false
+    }
+  ],
+  "replay_command": "cargo test -p automake-rs-core -- makefile_am"
+}

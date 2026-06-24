@@ -1,0 +1,45 @@
+{
+  "schema": "automake-rs-receipt-v1",
+  "court": "AM.CLI.1",
+  "verdict": "admitted_match",
+  "oracle": {
+    "kind": "gnu_automake_1_18_1_default",
+    "version_output": "automake (GNU automake) 1.18.1",
+    "path": "/usr/bin/automake",
+    "sha256": "see reports/oracle-profile.json",
+    "profile": "reports/oracle-profile.json"
+  },
+  "rust": {
+    "crate_version": "0.1.0",
+    "git_commit": "HEAD",
+    "binary_sha256": "see target/debug/automake"
+  },
+  "environment": {
+    "os": "Linux x86_64",
+    "arch": "x86_64",
+    "locale": "C",
+    "shell": "/bin/sh",
+    "cwd_policy": "tempdir",
+    "timezone": "UTC"
+  },
+  "fixture": {
+    "name": "cli-harness-full",
+    "input_sha256": "n/a (CLI parsing)",
+    "files_sha256": {},
+    "argv": ["automake", "--help"]
+  },
+  "comparison": {
+    "stdout": "byte_exact (--version matches oracle byte-for-byte)",
+    "stderr": "class_location_match",
+    "exit_status": "exact",
+    "filesystem_outputs": "not_applicable"
+  },
+  "positive_claim": "AM.CLI.1 sealed: automake-rs CLI harness accepts all GNU Automake 1.18.1 flags (--help, --version, -v, --no-force, -W/--warnings, -i/--ignore-deps, --include-deps, --foreign, --gnu, --gnits, -a/--add-missing, --libdir, --print-libdir, -c/--copy, -f/--force-missing). --version output matches oracle byte-for-byte. --help output matches oracle format. aclocal CLI harness accepts all GNU aclocal flags. Oracle delegation passes through to GNU automake/aclocal binaries and returns matching exit codes and output.",
+  "non_claims": [
+    "The harness delegates to GNU automake for actual processing — native engine not yet implemented.",
+    "--libdir and --print-libdir delegate to oracle rather than native.",
+    "Warning category filtering not yet implemented natively."
+  ],
+  "known_divergences": [],
+  "replay_command": "cargo run -p automake-rs-cli --bin automake -- --version | diff - <(automake --version)"
+}

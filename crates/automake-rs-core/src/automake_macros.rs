@@ -1,0 +1,396 @@
+// automake-rs-core: Core Automake macros — forensic-parity implementation
+//
+// Court: AM.M4.AUTOMAKE.CORE.1
+//
+// Implements the core Automake M4 macros as built-in Rust behavior.
+// These macros are used by Automake to configure its behavior based
+// on configure.ac options. They are NOT copied from GNU Automake .m4
+// files — they are reconstructed from the Automake manual (GFDL) and
+// black-box oracle interrogation.
+//
+// Macros implemented:
+//   - AM_INIT_AUTOMAKE(options...)  — Initialize automake
+//   - AM_CONDITIONAL(cond, expr)     — Define a conditional
+//   - AM_MAINTAINER_MODE             — Enable maintainer mode
+//   - AM_SILENT_RULES([yes|no])      — Enable silent build rules
+//
+// Clean-room references:
+//   - GNU Automake manual §3.1, §3.3, §21 (GFDL)
+//   - Black-box oracle interrogation
+
+use std::collections::HashMap;
+
+/// Result of processing Automake-specific macros from configure.ac.
+#[derive(Debug, Clone)]
+pub struct AutomakeConfig {
+    /// Strictness level: foreign, gnu, or gnits
+    pub strictness: String,
+    /// Whether maintainer mode is enabled
+    pub maintainer_mode: bool,
+    /// Whether silent rules are enabled
+    pub silent_rules: bool,
+    /// Automake version required
+    pub required_version: Option<String>,
+    /// Extra options
+    pub options: Vec<String>,
+    /// Defined conditionals from AM_CONDITIONAL
+    pub conditionals: HashMap<String, bool>,
+    /// Whether dependency tracking is enabled
+    pub dependency_tracking: bool,
+    /// Whether subdir-objects mode is enabled
+    pub subdir_objects: bool,
+    /// Whether tar-pax format is used
+    pub tar_pax: bool,
+    /// Whether to check for missing files
+    pub check_news: bool,
+    /// Whether to enable dejagnu tests
+    pub dejagnu: bool,
+    /// Whether no-define mode (don't define PACKAGE/VERSION)
+    pub no_define: bool,
+    /// Whether to enable nostdinc
+    pub nostdinc: bool,
+}
+
+impl AutomakeConfig {
+    /// Parse AM_INIT_AUTOMAKE options.
+    ///
+    /// The options string comes from the arguments to AM_INIT_AUTOMAKE
+    /// in configure.ac, e.g., AM_INIT_AUTOMAKE([foreign subdir-objects 1.16])
+    pub fn from_options(options: &str) -> Self {
+        let mut config = AutomakeConfig {
+            strictness: "gnu".to_string(), // default
+            maintainer_mode: false,
+            silent_rules: true,
+            required_version: None,
+            options: vec![],
+            conditionals: HashMap::new(),
+            dependency_tracking: true,
+            subdir_objects: false,
+            tar_pax: false,
+            check_news: false,
+            dejagnu: false,
+            no_define: false,
+            nostdinc: false,
+        };
+
+        // Split options by comma or whitespace
+        let parts: Vec<&str> = options
+            .split(|c: char| c == ',' || c.is_whitespace())
+            .map(|s| s.trim().trim_matches(|c| c == '[' || c == ']'))
+            .filter(|s| !s.is_empty())
+            .collect();
+
+        for part in &parts {
+            config.options.push(part.to_string());
+
+            match *part {
+                // Strictness levels
+                "foreign" => config.strictness = "foreign".to_string(),
+                "gnu" => config.strictness = "gnu".to_string(),
+                "gnits" => config.strictness = "gnits".to_string(),
+
+                // Feature flags
+                "subdir-objects" => config.subdir_objects = true,
+                "tar-pax" => config.tar_pax = true,
+                "check-news" | "check_news" => config.check_news = true,
+                "dejagnu" => config.dejagnu = true,
+                "no-define" | "no_define" => config.no_define = true,
+                "nostdinc" => config.nostdinc = true,
+
+                // Version requirement
+                s if s
+                    .chars()
+                    .next()
+                    .map(|c| c.is_ascii_digit())
+                    .unwrap_or(false) =>
+                {
+                    config.required_version = Some(s.to_string());
+                }
+                _ => {}
+            }
+        }
+
+        config
+    }
+
+    /// Check if a conditional is true.
+    pub fn is_conditional_true(&self, name: &str) -> Option<bool> {
+        self.conditionals.get(name).copied()
+    }
+
+    /// Define a conditional (from AM_CONDITIONAL).
+    pub fn define_conditional(&mut self, name: &str, value: bool) {
+        self.conditionals.insert(name.to_string(), value);
+    }
+
+    /// Get the strictness flags to pass to automake.
+    pub fn strictness_flag(&self) -> &str {
+        match self.strictness.as_str() {
+            "foreign" => "--foreign",
+            "gnits" => "--gnits",
+            _ => "--gnu",
+        }
+    }
+
+    /// Generate the AM_INIT_AUTOMAKE macro expansion.
+    /// This is what goes into the generated Makefile.in header.
+    pub fn generate_header(&self) -> String {
+        let mut header = String::new();
+        header.push_str("# Makefile.in generated by automake-rs ");
+        header.push_str(env!("CARGO_PKG_VERSION"));
+        header.push_str(" from Makefile.am.\n");
+        header.push_str(&format!("# {}\n\n", self.strictness_flag()));
+
+        if self.subdir_objects {
+            header.push_str("AUTOMAKE_OPTIONS = subdir-objects\n");
+        }
+        if self.tar_pax {
+            header.push_str("AUTOMAKE_OPTIONS = tar-pax\n");
+        }
+
+        header
+    }
+}
+
+impl Default for AutomakeConfig {
+    fn default() -> Self {
+        Self::from_options("")
+    }
+}
+
+/// AM_INIT_AUTOMAKE macro implementation.
+///
+/// Initializes Automake's configuration based on the options provided
+/// in configure.ac. This is the entry point for Automake to configure
+/// its behavior.
+pub fn am_init_automake(options: &str) -> AutomakeConfig {
+    AutomakeConfig::from_options(options)
+}
+
+/// AM_CONDITIONAL macro implementation.
+///
+/// Defines a conditional that can be used in Makefile.am with if/else/endif.
+pub fn am_conditional(config: &mut AutomakeConfig, name: &str, value: bool) {
+    config.define_conditional(name, value);
+}
+
+/// AM_MAINTAINER_MODE macro implementation.
+///
+/// Enables the --enable-maintainer-mode configure option.
+pub fn am_maintainer_mode(config: &mut AutomakeConfig) {
+    config.maintainer_mode = true;
+}
+
+/// AM_SILENT_RULES macro implementation.
+///
+/// Enables or disables silent build rules (the "CC program.c" style output).
+pub fn am_silent_rules(config: &mut AutomakeConfig, enabled: bool) {
+    config.silent_rules = enabled;
+}
+
+/// AM_PROG_AR — check for archiver.
+/// This macro is used to find a suitable `ar` for static libraries.
+/// For now, this is a stub that provides the default configuration.
+pub fn am_prog_ar() {
+    // Typically this sets AR=ar, ARFLAGS=cru
+    // For the oracle bridge, we delegate to the actual GNU macro
+}
+
+/// AM_PROG_CC_C_O — check if CC understands -c and -o together.
+/// This is important for subdir-objects mode.
+pub fn am_prog_cc_c_o() {
+    // Typically sets AM_PROG_CC_C_O depending on compiler capability
+}
+
+/// Generate the Automake support variable definitions.
+/// These are the standard variables that Automake inserts into Makefile.in.
+pub fn generate_support_variables(config: &AutomakeConfig) -> HashMap<String, String> {
+    let mut vars = HashMap::new();
+
+    vars.insert(
+        "AM_DEFAULT_VERBOSITY".to_string(),
+        if config.silent_rules { "1" } else { "0" }.to_string(),
+    );
+
+    vars.insert(
+        "AM_V".to_string(),
+        if config.silent_rules {
+            "$(AM_DEFAULT_VERBOSITY)"
+        } else {
+            ""
+        }
+        .to_string(),
+    );
+
+    vars.insert(
+        "AM_V_at".to_string(),
+        if config.silent_rules { "@" } else { "" }.to_string(),
+    );
+
+    vars.insert(
+        "AM_DEFAULT_V".to_string(),
+        if config.silent_rules {
+            "$(AM_DEFAULT_VERBOSITY)"
+        } else {
+            ""
+        }
+        .to_string(),
+    );
+
+    vars.insert(
+        "AM_V_lt".to_string(),
+        if config.silent_rules {
+            "$(AM_DEFAULT_VERBOSITY)$(AM_V_lt)"
+        } else {
+            ""
+        }
+        .to_string(),
+    );
+
+    vars
+}
+
+/// Generate the standard Automake variable definitions.
+pub fn generate_standard_variables() -> HashMap<String, String> {
+    let mut vars = HashMap::new();
+
+    // Standard directory variables
+    vars.insert("prefix".to_string(), "@prefix@".to_string());
+    vars.insert("exec_prefix".to_string(), "@exec_prefix@".to_string());
+    vars.insert("bindir".to_string(), "@bindir@".to_string());
+    vars.insert("sbindir".to_string(), "@sbindir@".to_string());
+    vars.insert("libexecdir".to_string(), "@libexecdir@".to_string());
+    vars.insert("datarootdir".to_string(), "@datarootdir@".to_string());
+    vars.insert("datadir".to_string(), "@datadir@".to_string());
+    vars.insert("sysconfdir".to_string(), "@sysconfdir@".to_string());
+    vars.insert("sharedstatedir".to_string(), "@sharedstatedir@".to_string());
+    vars.insert("localstatedir".to_string(), "@localstatedir@".to_string());
+    vars.insert("runstatedir".to_string(), "@runstatedir@".to_string());
+    vars.insert("includedir".to_string(), "@includedir@".to_string());
+    vars.insert("oldincludedir".to_string(), "@oldincludedir@".to_string());
+    vars.insert("docdir".to_string(), "@docdir@".to_string());
+    vars.insert("infodir".to_string(), "@infodir@".to_string());
+    vars.insert("htmldir".to_string(), "@htmldir@".to_string());
+    vars.insert("dvidir".to_string(), "@dvidir@".to_string());
+    vars.insert("pdfdir".to_string(), "@pdfdir@".to_string());
+    vars.insert("psdir".to_string(), "@psdir@".to_string());
+    vars.insert("libdir".to_string(), "@libdir@".to_string());
+    vars.insert("lispdir".to_string(), "@lispdir@".to_string());
+    vars.insert("localedir".to_string(), "@localedir@".to_string());
+    vars.insert("mandir".to_string(), "@mandir@".to_string());
+
+    // Standard program variables
+    vars.insert("CC".to_string(), "@CC@".to_string());
+    vars.insert("CFLAGS".to_string(), "@CFLAGS@".to_string());
+    vars.insert("CXX".to_string(), "@CXX@".to_string());
+    vars.insert("CXXFLAGS".to_string(), "@CXXFLAGS@".to_string());
+    vars.insert("CPPFLAGS".to_string(), "@CPPFLAGS@".to_string());
+    vars.insert("LDFLAGS".to_string(), "@LDFLAGS@".to_string());
+    vars.insert("LIBS".to_string(), "@LIBS@".to_string());
+    vars.insert("DEFS".to_string(), "@DEFS@".to_string());
+    vars.insert("ECHO_C".to_string(), "@ECHO_C@".to_string());
+    vars.insert("ECHO_N".to_string(), "@ECHO_N@".to_string());
+    vars.insert("ECHO_T".to_string(), "@ECHO_T@".to_string());
+
+    // Standard programs
+    vars.insert("INSTALL".to_string(), "@INSTALL@".to_string());
+    vars.insert(
+        "INSTALL_PROGRAM".to_string(),
+        "@INSTALL_PROGRAM@".to_string(),
+    );
+    vars.insert("INSTALL_DATA".to_string(), "@INSTALL_DATA@".to_string());
+    vars.insert("INSTALL_SCRIPT".to_string(), "@INSTALL_SCRIPT@".to_string());
+    vars.insert("INSTALL_HEADER".to_string(), "$(INSTALL_DATA)".to_string());
+    vars.insert(
+        "INSTALL_STRIP_PROGRAM".to_string(),
+        "$(INSTALL_PROGRAM)".to_string(),
+    );
+    vars.insert("MKDIR_P".to_string(), "@MKDIR_P@".to_string());
+    vars.insert("MAKE".to_string(), "make".to_string());
+    vars.insert("SHELL".to_string(), "/bin/sh".to_string());
+
+    // Archive tools
+    vars.insert("AR".to_string(), "@AR@".to_string());
+    vars.insert("ARFLAGS".to_string(), "cru".to_string());
+    vars.insert("RANLIB".to_string(), "@RANLIB@".to_string());
+
+    // Build system
+    vars.insert("OBJEXT".to_string(), "o".to_string());
+    vars.insert("EXEEXT".to_string(), "@EXEEXT@".to_string());
+    vars.insert("LIBTOOL".to_string(), "@LIBTOOL@".to_string());
+    vars.insert("STRIP".to_string(), "@STRIP@".to_string());
+
+    // Package metadata
+    vars.insert("PACKAGE".to_string(), "@PACKAGE@".to_string());
+    vars.insert("VERSION".to_string(), "@VERSION@".to_string());
+    vars.insert("PACKAGE_NAME".to_string(), "@PACKAGE_NAME@".to_string());
+    vars.insert(
+        "PACKAGE_VERSION".to_string(),
+        "@PACKAGE_VERSION@".to_string(),
+    );
+    vars.insert("PACKAGE_STRING".to_string(), "@PACKAGE_STRING@".to_string());
+    vars.insert(
+        "PACKAGE_TARNAME".to_string(),
+        "@PACKAGE_TARNAME@".to_string(),
+    );
+    vars.insert("PACKAGE_URL".to_string(), "@PACKAGE_URL@".to_string());
+
+    vars
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_am_init_automake_default() {
+        let config = am_init_automake("");
+        assert_eq!(config.strictness, "gnu");
+        assert_eq!(config.strictness_flag(), "--gnu");
+    }
+
+    #[test]
+    fn test_am_init_automake_foreign() {
+        let config = am_init_automake("foreign");
+        assert_eq!(config.strictness, "foreign");
+        assert_eq!(config.strictness_flag(), "--foreign");
+    }
+
+    #[test]
+    fn test_am_init_automake_options() {
+        let config = am_init_automake("foreign subdir-objects tar-pax");
+        assert_eq!(config.strictness, "foreign");
+        assert!(config.subdir_objects);
+        assert!(config.tar_pax);
+    }
+
+    #[test]
+    fn test_am_init_automake_version() {
+        let config = am_init_automake("1.16 foreign");
+        assert_eq!(config.required_version, Some("1.16".to_string()));
+        assert_eq!(config.strictness, "foreign");
+    }
+
+    #[test]
+    fn test_am_conditional() {
+        let mut config = AutomakeConfig::default();
+        am_conditional(&mut config, "WANT_FOO", true);
+        assert_eq!(config.is_conditional_true("WANT_FOO"), Some(true));
+    }
+
+    #[test]
+    fn test_generate_standard_variables() {
+        let vars = generate_standard_variables();
+        assert!(vars.contains_key("CC"));
+        assert!(vars.contains_key("prefix"));
+        assert_eq!(vars.get("CC").unwrap(), "@CC@");
+    }
+
+    #[test]
+    fn test_generate_header() {
+        let config = am_init_automake("foreign");
+        let header = config.generate_header();
+        assert!(header.contains("Makefile.in generated"));
+        assert!(header.contains("--foreign"));
+    }
+}

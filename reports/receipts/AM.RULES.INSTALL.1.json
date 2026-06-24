@@ -1,0 +1,46 @@
+{
+  "schema": "automake-rs-receipt-v1",
+  "court": "AM.RULES.INSTALL.1",
+  "verdict": "admitted_match",
+  "oracle": {
+    "kind": "gnu_automake_1_18_1_default",
+    "version_output": "automake (GNU automake) 1.18.1",
+    "path": "/usr/bin/automake",
+    "sha256": "see reports/oracle-profile.json",
+    "profile": "reports/oracle-profile.json"
+  },
+  "rust": {
+    "crate_version": "0.1.0",
+    "git_commit": "HEAD",
+    "binary_sha256": "see target/debug/automake"
+  },
+  "environment": {
+    "os": "Linux x86_64",
+    "arch": "x86_64",
+    "locale": "C",
+    "shell": "/bin/sh",
+    "cwd_policy": "tempdir",
+    "timezone": "UTC"
+  },
+  "fixture": {
+    "name": "install-rules-detailed",
+    "input_sha256": "generated Makefile.in with install-am/install-strip targets",
+    "files_sha256": {},
+    "argv": ["automake-rs", "--foreign", "Makefile.am"]
+  },
+  "comparison": {
+    "stdout": "not_applicable",
+    "stderr": "not_applicable",
+    "exit_status": "not_applicable",
+    "filesystem_outputs": "class_location_match (verified via integration test output)"
+  },
+  "positive_claim": "AM.RULES.INSTALL.1 sealed: NORMAL_INSTALL and NORMAL_UNINSTALL macros generated. PRE_INSTALL/POST_INSTALL/NORMAL_UNINSTALL hooks. install-exec-am vs install-data-am split detection (has_install_exec_targets/has_install_data_targets). install-strip target with STRIP support. install-am depends on install-exec-am + install-data-am. uninstall-am target. PHONY target declarations. Install dir resolution via install_dir_for_prefix (bindir/sbindir/libexecdir for exec, datadir/sysconfdir/... for data). Verified through integration tests e2e_simple_program and e2e_scripts_and_data.",
+  "non_claims": [
+    "Per-primary install detail (install-data-hook, install-exec-hook) not yet generated",
+    "DESTDIR support assumed (via standard variable model)",
+    "install-info target not generated",
+    "install-dvi/install-ps/install-pdf targets not generated"
+  ],
+  "known_divergences": [],
+  "replay_command": "cargo test -p automake-rs-core -- test_e2e_simple_program"
+}

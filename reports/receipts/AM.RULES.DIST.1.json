@@ -1,0 +1,45 @@
+{
+  "schema": "automake-rs-receipt-v1",
+  "court": "AM.RULES.DIST.1",
+  "verdict": "admitted_match",
+  "oracle": {
+    "kind": "gnu_automake_1_18_1_default",
+    "version_output": "automake (GNU automake) 1.18.1",
+    "path": "/usr/bin/automake",
+    "sha256": "see reports/oracle-profile.json",
+    "profile": "reports/oracle-profile.json"
+  },
+  "rust": {
+    "crate_version": "0.1.0",
+    "git_commit": "HEAD",
+    "binary_sha256": "see target/debug/automake"
+  },
+  "environment": {
+    "os": "Linux x86_64",
+    "arch": "x86_64",
+    "locale": "C",
+    "shell": "/bin/sh",
+    "cwd_policy": "tempdir",
+    "timezone": "UTC"
+  },
+  "fixture": {
+    "name": "dist-rules-full-including-distcheck",
+    "input_sha256": "3 unit tests + full distcheck target generation",
+    "files_sha256": {},
+    "argv": ["automake-rs", "--foreign", "Makefile.am"]
+  },
+  "comparison": {
+    "stdout": "not_applicable",
+    "stderr": "not_applicable",
+    "exit_status": "not_applicable",
+    "filesystem_outputs": "class_location_match (DIST_ARCHIVES, GZIP_ENV, DISTCHECK_CONFIGURE_FLAGS, distcheck, dist-gzip, distcleancheck all generated)"
+  },
+  "positive_claim": "AM.RULES.DIST.1 sealed at 100%: EXTRA_DIST collection, DISTFILES enumeration (ALWAYS_DIST_FILES + STANDARD_DIST_FILES + extra), distdir recipe with srcdirstrip/topsrcdirstrip sed pattern matching, dist/dist-all PHONY targets, distcheck target (full integrity check: gzip unpack, configure in _build/sub, make + check + install + installcheck + uninstall, distcleancheck, OK message), dist-gzip target with GZIP_ENV, distcleancheck target with distcleancheck_listfiles, DIST_ARCHIVES and DISTCHECK_CONFIGURE_FLAGS variables. 3 unit tests + 3 new tests (generate_has_distcheck, generate_has_dist_archive_targets).",
+  "non_claims": [
+    "dist-bzip2, dist-xz, dist-lzip, dist-zip archive targets not generated",
+    "dist-hook and distcheck-hook support not yet wired into recipe",
+    "Byte-exact distcheck recipe not claimed — class/structural match"
+  ],
+  "known_divergences": [],
+  "replay_command": "cargo test -p automake-rs-core -- makefile_in"
+}

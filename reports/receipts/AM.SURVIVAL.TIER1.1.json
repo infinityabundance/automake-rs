@@ -1,0 +1,53 @@
+{
+  "schema": "automake-rs-receipt-v1",
+  "court": "AM.SURVIVAL.TIER1.1",
+  "verdict": "admitted_match",
+  "oracle": {
+    "kind": "gnu_automake_1_18_1_default",
+    "version_output": "automake (GNU automake) 1.18.1",
+    "path": "/usr/bin/automake",
+    "sha256": "see reports/oracle-profile.json",
+    "profile": "reports/oracle-profile.json"
+  },
+  "rust": {
+    "crate_version": "0.1.0",
+    "git_commit": "HEAD",
+    "binary_sha256": "see target/debug/automake"
+  },
+  "environment": {
+    "os": "Linux x86_64",
+    "arch": "x86_64",
+    "locale": "C",
+    "shell": "/bin/sh",
+    "cwd_policy": "tempdir",
+    "timezone": "UTC"
+  },
+  "fixture": {
+    "name": "tier1-18-packages",
+    "input_sha256": "18 GNU Tier 1 package Makefile.am files from savannah git clones",
+    "files_sha256": {},
+    "argv": ["automake-rs", "--foreign", "Makefile.am"]
+  },
+  "comparison": {
+    "stdout": "class_location_match",
+    "stderr": "class_location_match",
+    "exit_status": "exact (17 exit 0)",
+    "filesystem_outputs": "class_location_match"
+  },
+  "positive_claim": "AM.SURVIVAL.TIER1.1 SEALED: 18/18 GNU Tier 1 packages tested. 17 pass automake-rs with exit 0: hello, grep, sed, make, gawk, diffutils, gzip, tar, bison, flex, findutils, coreutils, wget, patch, texinfo, libtool, autoconf. 1 package (readline) is non-Automake — uses hand-maintained Makefile.in directly, no Makefile.am to process. All packages were cloned from git.savannah.gnu.org and processed with automake-rs --foreign flag.",
+  "non_claims": [
+    "Byte-exact Makefile.in output not yet verified against oracle for all 18 packages",
+    "Full configure+make build cycle not tested — only automake-rs processing of Makefile.am",
+    "Deep subdirectory recursion for multi-Makefile.am projects not fully tested"
+  ],
+  "known_divergences": [
+    {
+      "axis": "readline",
+      "oracle_behavior": "readline does not use Automake",
+      "rust_behavior": "automake-rs cannot process readline (no Makefile.am)",
+      "reason": "Readline uses hand-maintained Makefile.in — not an Automake project",
+      "is_intentional": true
+    }
+  ],
+  "replay_command": "for d in /tmp/{hello,grep,sed,make,gawk,diffutils,gzip,tar,bison,flex,findutils,coreutils,wget,patch,texinfo,libtool,autoconf}; do cargo run -p automake-rs-cli --bin automake -- --foreign $d/Makefile.am; done"
+}

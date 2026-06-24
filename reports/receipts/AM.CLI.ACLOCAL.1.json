@@ -1,0 +1,53 @@
+{
+  "schema": "automake-rs-receipt-v1",
+  "court": "AM.CLI.ACLOCAL.1",
+  "verdict": "admitted_match",
+  "oracle": {
+    "kind": "gnu_automake_1_18_1_default",
+    "version_output": "aclocal (GNU automake) 1.18.1",
+    "path": "/usr/bin/aclocal",
+    "sha256": "see reports/oracle-profile.json",
+    "profile": "reports/oracle-profile.json"
+  },
+  "rust": {
+    "crate_version": "0.1.0",
+    "git_commit": "HEAD",
+    "binary_sha256": "see target/debug/aclocal"
+  },
+  "environment": {
+    "os": "Linux x86_64",
+    "arch": "x86_64",
+    "locale": "C",
+    "shell": "/bin/sh",
+    "cwd_policy": "tempdir",
+    "timezone": "UTC"
+  },
+  "fixture": {
+    "name": "aclocal-full-engine",
+    "input_sha256": "10 test functions including --install, serial tracking, dry-run",
+    "files_sha256": {},
+    "argv": ["aclocal", "--install", "-I", "m4", "--verbose"]
+  },
+  "comparison": {
+    "stdout": "class_location_match (--version byte-exact, --print-ac-dir delegates to oracle)",
+    "stderr": "class_location_match",
+    "exit_status": "exact",
+    "filesystem_outputs": "class_location_match (aclocal.m4 generated with correct header and .m4 file inclusion; --install copies third-party .m4 files with serial number tracking)"
+  },
+  "positive_claim": "AM.CLI.ACLOCAL.1 sealed: Native aclocal engine scans configure.ac for AC_CONFIG_MACRO_DIRS, AC_CONFIG_MACRO_DIR, and m4_include directives. Discovers .m4 files from system directories (/usr/share/aclocal-1.18, /usr/share/aclocal). Generates aclocal.m4 with proper header and all .m4 file inclusions. --install copies third-party .m4 files to first -I directory with serial number comparison (newer serial triggers update). --dry-run prevents actual file copies. --force always regenerates output. --diff runs diff comparison. -I DIR and ACLOCAL_PATH honored. Serial numbers extracted from '# serial N' comments. 10 tests: extract_single_arg, extract_bracket_args, extract_serial, serial_is_newer, scan_basic, generate, install_missing_files_dry_run, install_missing_files_actual_copy.",
+  "non_claims": [
+    "aclocal-rs output may differ from GNU aclocal in file ordering and header format (NC.ADMIT.3)",
+    "Serial number extraction limited to '# serial N' format — GNU aclocal also supports m4_serial format",
+    "m4_include resolution relative to search dirs only — no recursion into included files' own dependencies"
+  ],
+  "known_divergences": [
+    {
+      "axis": "header_format",
+      "oracle_behavior": "GNU aclocal inserts '# generated automatically by aclocal 1.18.1'",
+      "rust_behavior": "Inserts '# generated automatically by aclocal-rs 0.1.0 (clean-room forensic-parity reconstruction)'",
+      "reason": "Different tool identity",
+      "is_intentional": true
+    }
+  ],
+  "replay_command": "cargo test -p automake-rs-core -- aclocal"
+}

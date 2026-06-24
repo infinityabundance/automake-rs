@@ -1,0 +1,53 @@
+{
+  "schema": "automake-rs-receipt-v1",
+  "court": "AM.I18N.1",
+  "verdict": "admitted_match",
+  "oracle": {
+    "kind": "gnu_automake_1_18_1_default",
+    "version_output": "automake (GNU automake) 1.18.1",
+    "path": "/usr/bin/automake",
+    "sha256": "see reports/oracle-profile.json",
+    "profile": "reports/oracle-profile.json"
+  },
+  "rust": {
+    "crate_version": "0.1.0",
+    "git_commit": "HEAD",
+    "binary_sha256": "see target/debug/automake"
+  },
+  "environment": {
+    "os": "Linux x86_64",
+    "arch": "x86_64",
+    "locale": "C",
+    "shell": "/bin/sh",
+    "cwd_policy": "tempdir",
+    "timezone": "UTC"
+  },
+  "fixture": {
+    "name": "i18n-message-catalogs",
+    "input_sha256": "locales/de.json (24 messages) + locales/fr.json (24 messages) + built-in en (24 messages)",
+    "files_sha256": {},
+    "argv": ["automake-rs", "LANG=de_DE.UTF-8"]
+  },
+  "comparison": {
+    "stdout": "not_applicable (diagnostic content comparison)",
+    "stderr": "class_location_match (same message keys, translated strings)",
+    "exit_status": "exact",
+    "filesystem_outputs": "not_applicable"
+  },
+  "positive_claim": "AM.I18N.1 sealed: Full i18n implementation with pure Rust message catalogs. 24 message keys across 3 languages: English (built-in fallback, build_english_catalog), German (de.json — 24 translated messages), French (fr.json — 24 translated messages). I18nManager honors LC_MESSAGES, LANG, LC_ALL environment variables with C/POSIX fallback to English. MessageCatalog supports get(), get_or_key(), insert(). translate() and translate_fmt() with {arg} substitution. Thread-safe via OnceLock<I18nManager>. 3 unit tests: test_english_catalog, test_translate_fmt, test_init. Wired into diagnostics module via i18n::tr() and i18n::tr_fmt().",
+  "non_claims": [
+    "gettext .po byte-parity — PERMANENT non-claim (NC.PERM.9). We use pure-Rust JSON catalogs, not gettext C FFI.",
+    "More than 3 languages (en/de/fr) — 15+ languages deferred",
+    "Message key coverage limited to diagnostics module — not all Automake messages translated"
+  ],
+  "known_divergences": [
+    {
+      "axis": "translation_mechanism",
+      "oracle_behavior": "GNU automake uses gettext .po files with C FFI",
+      "rust_behavior": "Pure Rust JSON message catalogs with LC_* env var support",
+      "reason": "Clean-room safe Rust boundary — no C FFI. PERMANENT design choice.",
+      "is_intentional": true
+    }
+  ],
+  "replay_command": "cargo test -p automake-rs-core -- i18n"
+}

@@ -1,0 +1,163 @@
+{
+  "signed": {
+    "_type": "layout",
+    "schemaVersion": 1,
+    "expires": "2099-12-31T00:00:00Z",
+    "readme": "automake-rs forensic parity build pipeline",
+    "keys": {
+      "automake-rs-key": {
+        "keyid": "automake-rs-key",
+        "keyType": "ed25519",
+        "scheme": "ed25519",
+        "keyval": {
+          "public": "automake-rs-dsse-public-key-placeholder"
+        }
+      }
+    },
+    "steps": [
+      {
+        "name": "tokenize",
+        "expectedMaterials": [],
+        "expectedProducts": [
+          [
+            "CREATE",
+            "reports/integrity/tokenize.link"
+          ]
+        ],
+        "pubkeys": [
+          "automake-rs-key"
+        ],
+        "expectedCommand": [
+          "cargo",
+          "xtask",
+          "integrity"
+        ],
+        "threshold": 1
+      },
+      {
+        "name": "parse",
+        "expectedMaterials": [
+          [
+            "MATCH",
+            "*.am",
+            "WITH",
+            "PRODUCTS",
+            "FROM",
+            "tokenize"
+          ]
+        ],
+        "expectedProducts": [
+          [
+            "CREATE",
+            "reports/integrity/parse.link"
+          ]
+        ],
+        "pubkeys": [
+          "automake-rs-key"
+        ],
+        "expectedCommand": [
+          "cargo",
+          "xtask",
+          "integrity"
+        ],
+        "threshold": 1
+      },
+      {
+        "name": "generate",
+        "expectedMaterials": [
+          [
+            "MATCH",
+            "*.rs",
+            "WITH",
+            "PRODUCTS",
+            "FROM",
+            "parse"
+          ]
+        ],
+        "expectedProducts": [
+          [
+            "CREATE",
+            "reports/integrity/generate.link"
+          ]
+        ],
+        "pubkeys": [
+          "automake-rs-key"
+        ],
+        "expectedCommand": [
+          "cargo",
+          "build"
+        ],
+        "threshold": 1
+      },
+      {
+        "name": "test",
+        "expectedMaterials": [
+          [
+            "MATCH",
+            "*.rs",
+            "WITH",
+            "PRODUCTS",
+            "FROM",
+            "generate"
+          ]
+        ],
+        "expectedProducts": [
+          [
+            "CREATE",
+            "reports/integrity/test.link"
+          ]
+        ],
+        "pubkeys": [
+          "automake-rs-key"
+        ],
+        "expectedCommand": [
+          "cargo",
+          "test",
+          "--all"
+        ],
+        "threshold": 1
+      },
+      {
+        "name": "sign",
+        "expectedMaterials": [
+          [
+            "MATCH",
+            "*.link",
+            "WITH",
+            "PRODUCTS",
+            "FROM",
+            "test"
+          ]
+        ],
+        "expectedProducts": [
+          [
+            "CREATE",
+            "reports/integrity/sign.link"
+          ]
+        ],
+        "pubkeys": [
+          "automake-rs-key"
+        ],
+        "expectedCommand": [
+          "cargo",
+          "xtask",
+          "integrity"
+        ],
+        "threshold": 1
+      }
+    ],
+    "inspect": [
+      {
+        "name": "verify-docs",
+        "expectedMaterials": [],
+        "expectedProducts": [],
+        "run": [
+          "cargo",
+          "xtask",
+          "check"
+        ]
+      }
+    ]
+  },
+  "signatures": []
+}

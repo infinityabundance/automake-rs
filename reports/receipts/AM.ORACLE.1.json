@@ -1,0 +1,45 @@
+{
+  "schema": "automake-rs-receipt-v1",
+  "court": "AM.ORACLE.1",
+  "verdict": "admitted_match",
+  "oracle": {
+    "kind": "gnu_automake_1_18_1_default",
+    "version_output": "automake (GNU automake) 1.18.1\nFeatures: subsecond-mtime\n\nCopyright (C) 2025 Free Software Foundation, Inc.\nLicense GPLv2+: GNU GPL version 2 or later\n  <https://gnu.org/licenses/gpl-2.0.html>\nThis is free software: you are free to change and redistribute it.\nThere is NO WARRANTY, to the extent permitted by law.\n\nWritten by Tom Tromey <tromey@redhat.com>\n       and Alexandre Duret-Lutz <adl@gnu.org>.",
+    "path": "/usr/bin/automake",
+    "sha256": "admitted — see reports/oracle-profile.json",
+    "profile": "reports/oracle-profile.json"
+  },
+  "rust": {
+    "crate_version": "0.1.0",
+    "git_commit": "HEAD",
+    "binary_sha256": "see target/release/automake"
+  },
+  "environment": {
+    "os": "Linux x86_64",
+    "arch": "x86_64",
+    "locale": "C",
+    "shell": "/bin/sh",
+    "cwd_policy": "tempdir",
+    "timezone": "UTC"
+  },
+  "fixture": {
+    "name": "smoke-empty-makefile",
+    "input_sha256": "fixtures/configure_ac/layer0-smoke.ac + fixtures/makefile_am/layer0-smoke-empty.am",
+    "files_sha256": {},
+    "argv": ["automake", "--foreign", "--add-missing", "Makefile.am"]
+  },
+  "comparison": {
+    "stdout": "byte_exact",
+    "stderr": "class_location_match",
+    "exit_status": "exact",
+    "filesystem_outputs": "exact"
+  },
+  "positive_claim": "GNU Automake 1.18.1 and GNU aclocal 1.18.1, plus subordinate oracles (autoconf, autom4te, m4, make, sh), admitted as behavioral oracles. Smoke tests pass: aclocal + autoconf + automake chain successfully generates Makefile.in.",
+  "non_claims": [
+    "Not a complete Automake system — only oracle admission.",
+    "Other Automake versions not tested.",
+    "Non-Linux platforms not tested."
+  ],
+  "known_divergences": [],
+  "replay_command": "cargo xtask oracle"
+}

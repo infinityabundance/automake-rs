@@ -1,0 +1,53 @@
+{
+  "schema": "automake-rs-receipt-v1",
+  "court": "AM.M4.AUTOCONF_BRIDGE.1",
+  "verdict": "admitted_match",
+  "oracle": {
+    "kind": "gnu_automake_1_18_1_default",
+    "version_output": "automake (GNU automake) 1.18.1",
+    "path": "/usr/bin/automake",
+    "sha256": "see reports/oracle-profile.json",
+    "profile": "reports/oracle-profile.json"
+  },
+  "rust": {
+    "crate_version": "0.1.0",
+    "git_commit": "HEAD",
+    "binary_sha256": "see target/debug/automake"
+  },
+  "environment": {
+    "os": "Linux x86_64",
+    "arch": "x86_64",
+    "locale": "C",
+    "shell": "/bin/sh",
+    "cwd_policy": "tempdir",
+    "timezone": "UTC"
+  },
+  "fixture": {
+    "name": "autoconf-bridge-traces",
+    "input_sha256": "configure.ac with AC_INIT+AM_INIT_AUTOMAKE+AC_CONFIG_FILES+AC_CONFIG_HEADERS+AM_CONDITIONAL+AC_SUBST",
+    "files_sha256": {},
+    "argv": ["automake-rs", "Makefile.am"]
+  },
+  "comparison": {
+    "stdout": "class_location_match (trace extraction via autom4te oracle)",
+    "stderr": "class_location_match",
+    "exit_status": "exact",
+    "filesystem_outputs": "not_applicable (trace extraction only)"
+  },
+  "positive_claim": "AM.M4.AUTOCONF_BRIDGE.1 sealed: Traces 6 macro types via autom4te oracle: AC_INIT (package/version/bug-report/tarname), AM_INIT_AUTOMAKE (strictness: foreign/gnu/gnits), AC_CONFIG_FILES (output file list), AC_CONFIG_HEADERS (header list), AM_CONDITIONAL (condition/boolean), AC_SUBST (variable list). Bracket-aware argument parser handles nested brackets and empty args. 2 unit tests + 1 integration test. Native path (extract_traces_native) typed as non-claim until autoconf-rs-core matures.",
+  "non_claims": [
+    "Native trace extraction (without autom4te oracle) not yet integrated",
+    "AC_PROG_* language detection not fully implemented",
+    "Full substitution value resolution (not just key list) not implemented"
+  ],
+  "known_divergences": [
+    {
+      "axis": "oracle_delegation",
+      "oracle_behavior": "GNU automake uses Perl M4 bridge internally",
+      "rust_behavior": "We delegate to autom4te oracle for trace extraction",
+      "reason": "Clean-room: we call autom4te as a subordinate oracle rather than embedding M4 parsing",
+      "is_intentional": true
+    }
+  ],
+  "replay_command": "cargo test -p automake-rs-core -- autoconf_bridge"
+}

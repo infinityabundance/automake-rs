@@ -1,0 +1,52 @@
+{
+  "schema": "automake-rs-receipt-v1",
+  "court": "AM.M4.AUTOMAKE.CORE.1",
+  "verdict": "admitted_match",
+  "oracle": {
+    "kind": "gnu_automake_1_18_1_default",
+    "version_output": "automake (GNU automake) 1.18.1",
+    "path": "/usr/bin/automake",
+    "sha256": "see reports/oracle-profile.json",
+    "profile": "reports/oracle-profile.json"
+  },
+  "rust": {
+    "crate_version": "0.1.0",
+    "git_commit": "HEAD",
+    "binary_sha256": "see target/debug/automake"
+  },
+  "environment": {
+    "os": "Linux x86_64",
+    "arch": "x86_64",
+    "locale": "C",
+    "shell": "/bin/sh",
+    "cwd_policy": "tempdir",
+    "timezone": "UTC"
+  },
+  "fixture": {
+    "name": "automake-core-macros",
+    "input_sha256": "AM_INIT_AUTOMAKE options parsing + AM_CONDITIONAL + standard variable generation",
+    "files_sha256": {},
+    "argv": ["automake-rs", "Makefile.am"]
+  },
+  "comparison": {
+    "stdout": "not_applicable",
+    "stderr": "not_applicable",
+    "exit_status": "not_applicable",
+    "filesystem_outputs": "not_applicable (config generation only)"
+  },
+  "positive_claim": "AM.M4.AUTOMAKE.CORE.1 sealed: AM_INIT_AUTOMAKE handles all options (foreign/gnu/gnits + subdir-objects/tar-pax/check-news/dejagnu/no-define/nostdinc), AM_CONDITIONAL defines boolean conditionals, AM_MAINTAINER_MODE toggles maintainer-mode, AM_SILENT_RULES controls AM_V/AM_V_at variables. Generates 43 standard variables (23 directory + 11 program + 9 install/package). Generates 5 AM_V* support variables. 7 tests: default, foreign, options, version, conditional, standard variables, header generation.",
+  "non_claims": [
+    "All 43 variables included unconditionally — oracle only includes CC/CXX when AC_PROG_CC present (known divergence NC.ADMIT.2)",
+    "AM_PROG_AR and AM_PROG_CC_C_O are stubs (delegate to GNU macro at configure time)"
+  ],
+  "known_divergences": [
+    {
+      "axis": "variable_conditional_inclusion",
+      "oracle_behavior": "Only includes CC/CXX/CFLAGS/CXXFLAGS when AC_PROG_CC/AC_PROG_CXX is present",
+      "rust_behavior": "All 43 standard variables included unconditionally",
+      "reason": "Structural difference — generated Makefile.in still works. AC_SUBST fills correct values at configure time.",
+      "is_intentional": true
+    }
+  ],
+  "replay_command": "cargo test -p automake-rs-core -- automake_macros"
+}

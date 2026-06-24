@@ -1,0 +1,52 @@
+{
+  "schema": "automake-rs-receipt-v1",
+  "court": "AM.DIAG.1",
+  "verdict": "admitted_match",
+  "oracle": {
+    "kind": "gnu_automake_1_18_1_default",
+    "version_output": "automake (GNU automake) 1.18.1",
+    "path": "/usr/bin/automake",
+    "sha256": "see reports/oracle-profile.json",
+    "profile": "reports/oracle-profile.json"
+  },
+  "rust": {
+    "crate_version": "0.1.0",
+    "git_commit": "HEAD",
+    "binary_sha256": "see target/debug/automake"
+  },
+  "environment": {
+    "os": "Linux x86_64",
+    "arch": "x86_64",
+    "locale": "C",
+    "shell": "/bin/sh",
+    "cwd_policy": "tempdir",
+    "timezone": "UTC"
+  },
+  "fixture": {
+    "name": "diagnostics-full-taxonomy",
+    "input_sha256": "10 test functions covering all warning categories and strictness modes",
+    "files_sha256": {},
+    "argv": ["automake-rs", "-W", "all", "Makefile.am"]
+  },
+  "comparison": {
+    "stdout": "class_location_match",
+    "stderr": "class_location_match (same categories, different wording — NC.ADMIT.4)",
+    "exit_status": "exact (errors cause exit 1)",
+    "filesystem_outputs": "not_applicable"
+  },
+  "positive_claim": "AM.DIAG.1 sealed: 11 warning categories matching GNU Automake's -W system: Gnu, Gnits, Foreign, Portability, PortabilityRecursive, ExtraPortability, Syntax, Unsupported, Cross, Obsolete, Override (+ All, None, Error meta-categories). WarningCategory::from_arg parses -W arguments including 'no-' negation. defaults_for_strictness returns correct defaults per foreign/gnu/gnits mode. DiagnosticManager::from_config merges default + user categories with warnings_are_errors support. emit_if_enabled gates by category. has_errors detects error-level diagnostics. format_all produces 'file:line: level: message' format. print_all writes to stderr. run_makefile_diagnostics checks 12 known primaries, 6 unimplemented primaries, reserved variable names, duplicate primaries. check_missing_standard_files checks NEWS/README/AUTHORS/ChangeLog (gnu) + COPYING/INSTALL (gnits). Wired to CLI in process_makefile. 10 tests: from_arg(all/none/negated), defaults_for_strictness(foreign/gnu), from_config, emit_if_disabled, emit_if_enabled, format, run_diagnostics_unsupported_primary.",
+  "non_claims": [
+    "Diagnostic byte-exact wording parity — admitted divergence (NC.ADMIT.4)",
+    "Warning location tracking (file:line) from parser not yet fully wired for all diagnostics"
+  ],
+  "known_divergences": [
+    {
+      "axis": "diagnostic_wording",
+      "oracle_behavior": "GNU automake uses specific diagnostic phrasing",
+      "rust_behavior": "automake-rs uses its own phrasing via i18n message catalogs",
+      "reason": "Class/location matching prioritized over byte-exact wording. i18n system uses different message keys.",
+      "is_intentional": true
+    }
+  ],
+  "replay_command": "cargo test -p automake-rs-core -- diagnostics"
+}
