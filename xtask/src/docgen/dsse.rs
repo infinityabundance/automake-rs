@@ -113,6 +113,10 @@ pub fn sign_all_documents(key: &[u8], keyid: &str) -> Result<Vec<String>, Vec<St
     for doc in &[
         "STATUS.md",
         "README.md",
+        "crates/automake-rs-core/README.md",
+        "crates/automake-rs-cli/README.md",
+        "crates/automake-oracle-rs/README.md",
+        "crates/automake-casefile-rs/README.md",
         "docs/negative-capabilities.md",
         "docs/parity-ladder.md",
         "docs/compatibility.md",

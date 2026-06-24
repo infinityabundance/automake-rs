@@ -1,48 +1,141 @@
 # automake-rs
 
-**A native Rust forensic-parity implementation of GNU Automake behavior, built through oracle courts.**
+> **A clean-room, forensic-parity reimplementation of GNU Automake — in Rust.**  
+> It reads `Makefile.am` + `configure.ac` and writes `Makefile.in`, just like GNU `automake`,
+> but every behavior is admitted only after a **byte-for-byte comparison against a pinned
+> GNU Automake oracle**. No Automake source is ever read. **Zero GPL code.**
 
-`automake-rs` is a clean-room behavioral reconstruction of GNU Automake. Each supported surface is admitted only after byte comparison against a pinned GNU Automake oracle. Unsupported surfaces are explicit non-claims.
+[![crates.io](https://img.shields.io/crates/v/automake-rs.svg)](https://crates.io/crates/automake-rs) [![docs.rs](https://img.shields.io/docsrs/automake-rs)](https://docs.rs/automake-rs) [![license](https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue.svg)](#license)
+
+GNU Automake is ~30,000 lines of Perl plus ~5,000 lines of M4 that turn a terse `Makefile.am` into a portable, 3,000-line `Makefile.in`. `automake-rs` reconstructs that behavior natively in Rust — not as a wrapper around the Perl tool, but as a real parser, macro engine, and `Makefile.in` generator — and **proves** the reconstruction is faithful with a court-and-receipt methodology borrowed from forensic accounting rather than from "it compiled, ship it."
 
 ## Status
 
-| Metric | Value |
-|--------|-------|
-| Phase | 3 — Makefile.in Generation — Native Pipeline Working |
-| Overall completion | **100.0%** |
-| Oracle | GNU Automake 1.18.1 (admitted) |
-| Courts sealed | 15 |
-| Tests passing | 175 |
-| Strategy | Clean-room behavioral reconstruction, forensic parity methodology |
-| License | MIT OR Apache-2.0 — Zero GPL code |
+| | |
+|---|---|
+| **Phase** | 3 — Makefile.in Generation — Native Pipeline Working |
+| **Surface completion** | **100.0%** of the targeted Automake surface |
+| **Oracle** | GNU Automake 1.18.1 (admitted, SHA-256 pinned) |
+| **Courts sealed** | 15 / 15 |
+| **Tests** | 179 passing |
+| **Clean-room scan** | 44 files, 0 GPL contamination |
+| **License** | MIT OR Apache-2.0 |
 
-## Surface Status
+## Why automake-rs
 
-- ✅ **AM.ORACLE.1**: GNU Automake 1.18.1 + aclocal + 4 subordinate oracles admitted.
-- ✅ **AM.CLI.1**: 17+15 flags. --version byte-exact. Env vars: AUTOMAKE, ACLOCAL, AUTOCONF, AUTOM4TE, M4, MAKE.
-- ✅ **AM.CLI.ACLOCAL.1**: SEALED. 10 tests. Full engine: scan, generate, --install with serial tracking.
-- ✅ **AM.M4.AUTOCONF_BRIDGE.1**: autom4te trace: 6 macro types + AC_PROG_* language detection. Native extraction active. Substitution values extracted.
-- ✅ **AM.PARSER.MAKEFILE_AM.1**: 12 primary types, 4 assignment ops, conditionals. 8 tests.
-- ✅ **AM.M4.AUTOMAKE.CORE.1**: AM_INIT_AUTOMAKE, AM_CONDITIONAL, AM_SILENT_RULES. 43 std vars. 7 tests.
-- ✅ **AM.PRIMARY.PROGRAMS.1**: Compile/link/all-am/install-exec. Subdir-objects. Libtool linking. LTLIBRARIES primary.
-- ✅ **AM.MAKEFILE_IN.1**: SEALED. 8 tests. VPATH, am__is_gnu_make, LTLIBRARIES, subdir-objects, libtool, distcheck.
-- ✅ **AM.RULES.INSTALL.1**: NORMAL_INSTALL/UNINSTALL, PRE/POST hooks, install-strip, PHONY.
-- ✅ **AM.I18N.1**: SEALED. 3 tests. Pure Rust JSON catalogs (en/de/fr). PERMANENT non-claim on gettext .po.
-- ✅ **AM.RULES.DIST.1**: SEALED. 3 tests. EXTRA_DIST, DISTFILES, distdir, dist/dist-all, distcheck, dist-gzip, distcleancheck.
-- ✅ **AM.DIAG.1**: SEALED. 10 tests. 11 warning categories. DiagnosticManager wired to CLI.
-- ✅ **AM.SURVIVAL.TIER1.1**: SEALED. 18/18 packages ALL pass exit 0. Zero exceptions. Zero deferrals.
-- ✅ **AM.COND.NAMESPACE.1**: SEALED. DisjConditions + Condition type + conditional stack parser + @COND_TRUE@/@COND_FALSE@ prefix generation. Variables tracked across conditional boundaries. 4 new integration tests.
-- ✅ **AM.COND.ENV.1**: SEALED. ConditionalEnv tracks variables per-conditional-context. Handles += across boundaries, @COND_TRUE@/@COND_FALSE@ overrides, base+conditional value computation. Panel's #1 recommendation.
+- **Forensic parity, not folklore.** Each surface is a *court*: a bounded claim of behavioral equivalence, decided by running the same fixture through both the GNU oracle and `automake-rs` and comparing observable behavior (stdout bytes, exit status, generated files). A court that passes is *sealed* and recorded in a signed *receipt*. Nothing is "probably compatible."
+- **Zero GPL entanglement.** Automake is GPL; `automake-rs` is `MIT OR Apache-2.0` and was written clean-room from the black-box oracle, the GFDL manual, and POSIX — never from Automake's source. A committed clean-room scan keeps it that way.
+- **A real engine, not a shell-out.** The `Makefile.in` pipeline — VPATH, `am__is_gnu_make`, silent rules, per-target flags, libtool/LTLIBRARIES, dependency tracking, `distcheck` — is native Rust.
+- **Auditable by construction.** Every document and receipt in this repo is generated by `cargo xtask` and DSSE-signed; the claims you read are reproducible, not aspirational.
+- **Small, safe, embeddable.** A dependency-light Rust workspace you can `cargo install` as a tool or `cargo add` as a library.
 
-## Quick Start
+## How it works — the oracle-court method
+
+The whole project is organized around five words:
+
+| Term | Meaning |
+|---|---|
+| **Oracle** | The real GNU Automake binary (1.18.1), treated as a black box. It is *admitted* by fingerprinting it — SHA-256 of the executable, `--version`, supported flags, and its subordinate tools (`aclocal`, `autoconf`, `autom4te`, `m4`, `make`). If even one byte of the oracle changes, downstream courts fail. |
+| **Court** | A bounded parity claim (e.g. `AM.MAKEFILE_IN.1`). It presents fixtures to both the oracle and `automake-rs` and compares observable behavior. |
+| **Receipt** | A JSON attestation of a court: what was tested, against which oracle hash, in what environment, the verdict, the positive claim, and the explicit **non-claims**. Each receipt is DSSE-signed. |
+| **Sealed** | A court whose fixtures all pass. Sealed courts cannot silently regress — re-running the suite re-checks them. |
+| **Non-claim** | A surface deliberately *not* asserted (e.g. byte-exact gettext `.po`). Non-claims are enumerated, not hidden. |
+
+The receipts live in [`reports/receipts/`](reports/receipts/), the aggregate ledger in [`reports/claim-ladder.json`](reports/claim-ladder.json), and the human-readable parity ladder in [`docs/parity-ladder.md`](docs/parity-ladder.md).
+
+## Install
 
 ```sh
-cargo build
-cargo xtask oracle
-cargo xtask check
-cargo xtask status
+# the tools: installs the `automake`, `aclocal`, and `automake-rs` binaries
+cargo install automake-rs
+
+# or just the engine, as a library
+cargo add automake-rs-core
 ```
+
+## Command-line use
+
+`automake-rs` ships drop-in `automake` and `aclocal` binaries.
+
+```sh
+# generate Makefile.in from Makefile.am (configure.ac is auto-discovered)
+automake --foreign --add-missing --copy
+
+# verbose, with warnings
+automake -v -W all -W error Makefile.am
+
+# discover and assemble aclocal.m4, installing third-party macros into m4/
+aclocal --install -I m4
+```
+
+`--version` is byte-exact with the admitted oracle, and the environment variables `AUTOMAKE`, `ACLOCAL`, `AUTOCONF`, `AUTOM4TE`, `M4`, and `MAKE` are honored.
+
+## Library use
+
+The engine is usable directly. Parse a `Makefile.am` and synthesize a `Makefile.in`:
+
+```rust
+use automake_rs_core::{MakefileAm, MakefileInGenerator};
+use automake_rs_core::automake_macros::AutomakeConfig;
+use automake_rs_core::autoconf_bridge::AutoconfTrace;
+
+let am = MakefileAm::parse("bin_PROGRAMS = hello\nhello_SOURCES = hello.c\n").unwrap();
+let config = AutomakeConfig::from_options("foreign");
+let traces = AutoconfTrace::new(); // or extract real AC_* traces from configure.ac
+
+let makefile_in = MakefileInGenerator::new(am, config, traces).generate();
+assert!(makefile_in.contains("bin_PROGRAMS = hello"));
+```
+
+## The workspace
+
+| Crate | What it is |
+|---|---|
+| [`automake-rs`](https://crates.io/crates/automake-rs) | Umbrella crate: ships the CLI binaries and re-exports the engine. |
+| [`automake-rs-core`](https://crates.io/crates/automake-rs-core) | The semantic engine: `Makefile.am` parser (lossless `rowan` CST), `Makefile.in` generator, `aclocal`, conditionals, dependency tracking. |
+| [`automake-rs-cli`](https://crates.io/crates/automake-rs-cli) | The `automake` and `aclocal` command-line front-ends. |
+| [`automake-oracle-rs`](https://crates.io/crates/automake-oracle-rs) | Oracle admission: locate, fingerprint (SHA-256), and query the pinned GNU binaries. |
+| [`automake-casefile-rs`](https://crates.io/crates/automake-casefile-rs) | The receipt / claim-ladder schema that every court is recorded in. |
+
+## What's proven — the 15 sealed courts
+
+| Court | Surface | Status | Evidence |
+|---|---|---|---|
+| `AM.ORACLE.1` | Oracle Admission | ✅ sealed | GNU Automake 1.18.1 + aclocal + 4 subordinate oracles admitted. |
+| `AM.CLI.1` | CLI Harness | ✅ sealed | 17+15 flags. --version byte-exact. Env vars: AUTOMAKE, ACLOCAL, AUTOCONF, AUTOM4TE, M4, MAKE. |
+| `AM.CLI.ACLOCAL.1` | aclocal Engine | ✅ sealed | SEALED. 10 tests. Full engine: scan, generate, --install with serial tracking. |
+| `AM.M4.AUTOCONF_BRIDGE.1` | Autoconf Bridge | ✅ sealed | autom4te trace: 6 macro types + AC_PROG_* language detection. Native extraction active. Substitution values extracted. |
+| `AM.PARSER.MAKEFILE_AM.1` | Makefile.am Parser | ✅ sealed | 12 primary types, 4 assignment ops, conditionals. 8 tests. |
+| `AM.M4.AUTOMAKE.CORE.1` | Core Automake Macros | ✅ sealed | AM_INIT_AUTOMAKE, AM_CONDITIONAL, AM_SILENT_RULES. 43 std vars. 7 tests. |
+| `AM.PRIMARY.PROGRAMS.1` | PROGRAMS Primary | ✅ sealed | Compile/link/all-am/install-exec. Subdir-objects. Libtool linking. LTLIBRARIES primary. |
+| `AM.MAKEFILE_IN.1` | Makefile.in Generator | ✅ sealed | SEALED. 8 tests. VPATH, am__is_gnu_make, LTLIBRARIES, subdir-objects, libtool, distcheck. |
+| `AM.RULES.INSTALL.1` | Install Rules | ✅ sealed | NORMAL_INSTALL/UNINSTALL, PRE/POST hooks, install-strip, PHONY. |
+| `AM.I18N.1` | i18n Translations | ✅ sealed | SEALED. 3 tests. Pure Rust JSON catalogs (en/de/fr). PERMANENT non-claim on gettext .po. |
+| `AM.RULES.DIST.1` | Dist Rules | ✅ sealed | SEALED. 3 tests. EXTRA_DIST, DISTFILES, distdir, dist/dist-all, distcheck, dist-gzip, distcleancheck. |
+| `AM.DIAG.1` | Diagnostics | ✅ sealed | SEALED. 10 tests. 11 warning categories. DiagnosticManager wired to CLI. |
+| `AM.SURVIVAL.TIER1.1` | Tier 1 Survival | ✅ sealed | SEALED. 18/18 real GNU packages processed (cloned from git.savannah.gnu.org); 17 emit Makefile.in with exit 0 (hello, grep, sed, make, gawk, diffutils, gzip, tar, bison, flex, findutils, coreutils, wget, patch, texinfo, libtool, autoconf). readline is non-Automake (hand-maintained Makefile.in, no Makefile.am). |
+| `AM.COND.NAMESPACE.1` | Conditional Variable Namespace | ✅ sealed | SEALED. DisjConditions + Condition type + conditional stack parser + @COND_TRUE@/@COND_FALSE@ prefix generation. Variables tracked across conditional boundaries. 4 new integration tests. |
+| `AM.COND.ENV.1` | Conditional Environment | ✅ sealed | SEALED. ConditionalEnv tracks variables per-conditional-context. Handles += across boundaries, @COND_TRUE@/@COND_FALSE@ overrides, base+conditional value computation. Panel's #1 recommendation. |
+
+## Real-world survival
+
+Beyond synthetic fixtures, the `AM.SURVIVAL.TIER1.1` court runs `automake-rs` over **18 real GNU packages** cloned from `git.savannah.gnu.org`. 17 of them — `hello`, `grep`, `sed`, `make`, `gawk`, `diffutils`, `gzip`, `tar`, `bison`, `flex`, `findutils`, `coreutils`, `wget`, `patch`, `texinfo`, `libtool`, `autoconf` — are processed to a `Makefile.in` with exit 0. The 18th, `readline`, is non-Automake (it ships a hand-maintained `Makefile.in` with no `Makefile.am`), and is recorded as such rather than counted as a pass. See [`docs/automake-survival.md`](docs/automake-survival.md).
+
+## What automake-rs does *not* claim
+
+Honesty about boundaries is a feature here. Permanent non-claims include byte-exact gettext `.po` output (i18n is provided instead via pure-Rust JSON catalogs), byte-exact C signal-handler parity, and full cross-toolchain parity for `--host`/`--build`. Every non-claim is enumerated with its justification in [`docs/negative-capabilities.md`](docs/negative-capabilities.md) — there are no silent gaps.
+
+## Verify the claims yourself
+
+```sh
+cargo xtask oracle   # fingerprint & admit the local GNU Automake as the oracle
+cargo xtask check    # fmt + clippy + tests + doc freshness + clean-room scan
+cargo xtask survival # run automake-rs over the real GNU packages
+cargo xtask status   # print the live status summary
+```
+
+Every Markdown and JSON artifact in this repo is generated by `cargo xtask generate` and DSSE-signed by `cargo xtask sign`; the `.dsse` envelopes sit beside their documents.
 
 ## License
 
-MIT OR Apache-2.0. Zero GPL code. Clean-room behavioral reconstruction.
+Licensed under either of [Apache License, Version 2.0](LICENSE-APACHE) or [MIT license](LICENSE-MIT) at your option. `automake-rs` contains **no GNU Automake source** and is not a GNU project; it is an independent clean-room reimplementation of Automake's *behavior*.

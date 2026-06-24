@@ -4,9 +4,9 @@
 **Overall completion:** 100.0%  
 **Oracle:** GNU Automake 1.18.1 (admitted)  
 **Courts sealed:** 15/15  
-**Tests passing:** 175  
+**Tests passing:** 179  
 **Acceptance gates:** 7/7 PASS  
-**Clean-room scan:** 40 files, 0 GPL contamination  
+**Clean-room scan:** 44 files, 0 GPL contamination  
 **Strategy:** Clean-room behavioral reconstruction. GNU Automake is treated as a black-box oracle. Zero GPL code.  
 **Dependencies:** m4-rs-core 0.1, autoconf-rs-core 0.1
 
@@ -26,7 +26,7 @@
 | AM.I18N.1 | ✅ sealed | SEALED. 3 tests. Pure Rust JSON catalogs (en/de/fr). PERMANENT non-claim on gettext .po. |
 | AM.RULES.DIST.1 | ✅ sealed | SEALED. 3 tests. EXTRA_DIST, DISTFILES, distdir, dist/dist-all, distcheck, dist-gzip, distcleancheck. |
 | AM.DIAG.1 | ✅ sealed | SEALED. 10 tests. 11 warning categories. DiagnosticManager wired to CLI. |
-| AM.SURVIVAL.TIER1.1 | ✅ sealed | SEALED. 18/18 packages ALL pass exit 0. Zero exceptions. Zero deferrals. |
+| AM.SURVIVAL.TIER1.1 | ✅ sealed | SEALED. 18/18 real GNU packages processed (cloned from git.savannah.gnu.org); 17 emit Makefile.in with exit 0 (hello, grep, sed, make, gawk, diffutils, gzip, tar, bison, flex, findutils, coreutils, wget, patch, texinfo, libtool, autoconf). readline is non-Automake (hand-maintained Makefile.in, no Makefile.am). |
 | AM.COND.NAMESPACE.1 | ✅ sealed | SEALED. DisjConditions + Condition type + conditional stack parser + @COND_TRUE@/@COND_FALSE@ prefix generation. Variables tracked across conditional boundaries. 4 new integration tests. |
 | AM.COND.ENV.1 | ✅ sealed | SEALED. ConditionalEnv tracks variables per-conditional-context. Handles += across boundaries, @COND_TRUE@/@COND_FALSE@ overrides, base+conditional value computation. Panel's #1 recommendation. |
 
