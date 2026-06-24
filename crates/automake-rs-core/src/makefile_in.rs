@@ -2240,6 +2240,23 @@ impl MakefileInGenerator {
     }
 
     /// Recursively emit statements, handling conditional blocks properly.
+    /// Append `body` to `out`, prefixing every non-empty line with `prefix` (the
+    /// `@COND_TRUE@`/`@COND_FALSE@` substitution marker). Blank lines are preserved as-is.
+    fn push_prefixed(out: &mut String, body: &str, prefix: &str) {
+        for line in body.split_inclusive('\n') {
+            let trimmed = line.strip_suffix('\n').unwrap_or(line);
+            if trimmed.is_empty() {
+                out.push('\n');
+            } else {
+                out.push_str(prefix);
+                out.push_str(line);
+                if !line.ends_with('\n') {
+                    out.push('\n');
+                }
+            }
+        }
+    }
+
     fn emit_statements(&self, statements: &[AmStatement], out: &mut String) {
         for stmt in statements {
             match stmt {
@@ -2261,18 +2278,21 @@ impl MakefileInGenerator {
                     if_branch,
                     else_branch,
                 } => {
-                    if *negated {
-                        out.push_str(&format!("if! {}\n", condition));
+                    // Conditionals become per-line @COND_TRUE@/@COND_FALSE@ substitution prefixes
+                    // in Makefile.in (NOT literal if/endif, which `make` cannot parse).
+                    let (then_sense, else_sense) = if *negated {
+                        ("FALSE", "TRUE")
                     } else {
-                        out.push_str(&format!("if {}\n", condition));
-                    }
-                    // Emit if-branch body
-                    self.emit_statements(if_branch, out);
+                        ("TRUE", "FALSE")
+                    };
+                    let mut tb = String::new();
+                    self.emit_statements(if_branch, &mut tb);
+                    Self::push_prefixed(out, &tb, &format!("@{}_{}@", condition, then_sense));
                     if !else_branch.is_empty() {
-                        out.push_str("else\n");
-                        self.emit_statements(else_branch, out);
+                        let mut eb = String::new();
+                        self.emit_statements(else_branch, &mut eb);
+                        Self::push_prefixed(out, &eb, &format!("@{}_{}@", condition, else_sense));
                     }
-                    out.push_str("endif\n\n");
                 }
                 AmStatement::Include(file) => {
                     out.push_str(&format!("include {}\n\n", file));

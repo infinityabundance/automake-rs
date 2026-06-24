@@ -171,13 +171,22 @@ impl ConditionalEnv {
 }
 
 /// Emit primary declarations with conditional context.
+///
+/// Automake conditionals do NOT survive into `Makefile.in` as `if`/`endif` (that is
+/// `Makefile.am` syntax — emitting it verbatim makes `make` abort with "missing separator").
+/// They become per-line `@COND_TRUE@` / `@COND_FALSE@` substitution prefixes that
+/// `config.status` resolves to `` or `#` at configure time. Nesting accumulates prefixes.
 pub fn emit_primaries_with_conditionals(statements: &[AmStatement], out: &mut String) {
+    emit_primaries_prefixed(statements, "", out);
+}
+
+fn emit_primaries_prefixed(statements: &[AmStatement], prefix: &str, out: &mut String) {
     for stmt in statements {
         match stmt {
             AmStatement::Primary {
                 var_name, targets, ..
             } => {
-                out.push_str(&format!("{} = {}\n", var_name, targets.join(" ")));
+                out.push_str(&format!("{}{} = {}\n", prefix, var_name, targets.join(" ")));
             }
             AmStatement::ConditionalBlock {
                 condition,
@@ -185,17 +194,18 @@ pub fn emit_primaries_with_conditionals(statements: &[AmStatement], out: &mut St
                 if_branch,
                 else_branch,
             } => {
-                if *negated {
-                    out.push_str(&format!("if! {}\n", condition));
+                // A negated `if !COND` swaps which arm is the TRUE side.
+                let (then_sense, else_sense) = if *negated {
+                    ("FALSE", "TRUE")
                 } else {
-                    out.push_str(&format!("if {}\n", condition));
-                }
-                emit_primaries_with_conditionals(if_branch, out);
+                    ("TRUE", "FALSE")
+                };
+                let then_prefix = format!("{}@{}_{}@", prefix, condition, then_sense);
+                emit_primaries_prefixed(if_branch, &then_prefix, out);
                 if !else_branch.is_empty() {
-                    out.push_str("else\n");
-                    emit_primaries_with_conditionals(else_branch, out);
+                    let else_prefix = format!("{}@{}_{}@", prefix, condition, else_sense);
+                    emit_primaries_prefixed(else_branch, &else_prefix, out);
                 }
-                out.push_str("endif\n");
             }
             _ => {}
         }
