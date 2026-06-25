@@ -16,6 +16,7 @@ pub mod aclocal;
 pub mod autoconf_bridge;
 pub mod automake;
 pub mod automake_macros;
+pub mod aux_files;
 pub mod aux_scripts;
 pub mod cli;
 pub mod conditional_env;

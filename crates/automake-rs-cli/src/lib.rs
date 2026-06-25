@@ -261,20 +261,58 @@ fn process_makefile(
     Ok(output_path)
 }
 
-/// Generate auxiliary files natively (replaces oracle delegation).
+/// Install the auxiliary files this project needs, natively, with a forensic receipt.
+/// Detection emits only the aux files the project actually requires (NATIVE.2/NATIVE.3); the
+/// receipt (path/mode/sha256/required_by/non_claims) is written to `aux-receipt.json`.
 fn add_missing_files(
     parsed: &automake_rs_core::cli::AutomakeArgs,
     makefile_path: &Path,
 ) -> Result<(), String> {
-    use automake_rs_core::aux_scripts;
+    use automake_rs_core::aux_files;
+    use automake_rs_core::makefile_am::MakefileAm;
 
     let dir = makefile_path.parent().unwrap_or(Path::new("."));
 
-    match aux_scripts::install_aux_files(dir, parsed.copy, parsed.force_missing) {
-        Ok(installed) => {
+    // Detect required aux files from the project's features.
+    let am = MakefileAm::from_file(makefile_path).map_err(|e| format!("parse error: {}", e))?;
+    let src_text = std::fs::read_to_string(makefile_path).unwrap_or_default();
+    let has_compiled = src_text.contains(".c")
+        || src_text.contains("_SOURCES")
+        || src_text.contains("PROGRAMS")
+        || src_text.contains("LIBRARIES");
+    let has_tests = src_text.contains("TESTS");
+    let has_yacc_lex = [".y\n", ".y ", ".l\n", ".l ", ".yy", ".ll"]
+        .iter()
+        .any(|p| src_text.contains(p));
+    let has_static_lib = src_text.contains("_LIBRARIES") && !src_text.contains("_LTLIBRARIES");
+    let has_python = src_text.contains("_PYTHON");
+    let _ = &am;
+
+    // Dependency tracking is on unless the project disabled it (best-effort: honor configure.ac).
+    let dep_tracking = std::fs::read_to_string(find_configure_ac())
+        .map(|s| {
+            !s.split("AM_INIT_AUTOMAKE")
+                .nth(1)
+                .map(|t| t.split(')').next().unwrap_or("").contains("no-dependencies"))
+                .unwrap_or(false)
+        })
+        .unwrap_or(true);
+
+    let needed = aux_files::needed_aux(
+        dep_tracking,
+        has_compiled,
+        has_tests,
+        has_yacc_lex,
+        has_static_lib,
+        has_python,
+    );
+
+    match aux_files::install_with_receipt(dir, &needed, parsed.force_missing) {
+        Ok(receipt) => {
+            let _ = std::fs::write(dir.join("aux-receipt.json"), &receipt);
             if parsed.verbose {
-                for name in &installed {
-                    eprintln!("automake-rs: installed auxiliary file '{}'", name);
+                for f in &needed {
+                    eprintln!("automake-rs: installed auxiliary file '{}'", f.filename());
                 }
             }
             Ok(())
