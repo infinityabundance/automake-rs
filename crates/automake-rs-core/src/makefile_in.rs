@@ -22,7 +22,7 @@
 
 use crate::autoconf_bridge::AutoconfTrace;
 use crate::automake_macros::AutomakeConfig;
-use crate::makefile_am::{AmStatement, MakefileAm};
+use crate::makefile_am::{AmStatement, AssignmentOp, MakefileAm};
 
 /// Generate a complete Makefile.in from the parsed inputs.
 pub struct MakefileInGenerator {
@@ -695,11 +695,11 @@ impl MakefileInGenerator {
                     Some(d) => &s[..d],
                     None => s,
                 };
-                let stem = if self.config.subdir_objects {
-                    stem.to_string()
-                } else {
-                    stem.rsplit('/').next().unwrap_or(stem).to_string()
-                };
+                // Keep the source's subdir in the object name (foo/bar.c -> foo/bar.o). GNU make's
+                // suffix rules preserve the directory, so `.c.o`/`.c.lo` builds the subdir object
+                // directly. (Flattening to a basename would need explicit per-object rules, which we
+                // don't emit -- it breaks subdir sources with "No rule to make target 'bar.lo'".)
+                let stem = stem.to_string();
                 format!("{}.$(OBJEXT)", stem)
             })
             .collect()
@@ -765,8 +765,9 @@ impl MakefileInGenerator {
             })
             .map(|s| {
                 let stem = match s.rfind('.') { Some(d) => &s[..d], None => s.as_str() };
-                let stem = if self.config.subdir_objects { stem.to_string() }
-                    else { stem.rsplit('/').next().unwrap_or(stem).to_string() };
+                // Preserve the subdir (see program_objects): foo/bar.cpp -> foo/bar.lo so the
+                // `.cpp.lo` suffix rule can build it.
+                let stem = stem.to_string();
                 format!("{}.lo", stem)
             })
             .collect()
@@ -2634,7 +2635,35 @@ impl MakefileInGenerator {
 
     /// Find a variable value from the Makefile.am statements.
     fn find_variable(&self, name: &str) -> Option<String> {
-        self.find_variable_in(&self.makefile_am.statements, name)
+        // Accumulate unconditional `=`/`+=` definitions so `X = a` followed by `X += b` yields
+        // "a b" (the old "return first match" lost every `+=`, e.g. truncating multi-line
+        // `_SOURCES` to just its first file). Falls back to the recursive lookup (conditional
+        // blocks) when there is no top-level definition.
+        let mut acc: Vec<String> = Vec::new();
+        let mut found = false;
+        for stmt in &self.makefile_am.statements {
+            match stmt {
+                AmStatement::VariableAssignment { name: n, op, values, conditional }
+                    if n == name && conditional.is_none() =>
+                {
+                    match op {
+                        AssignmentOp::Append => acc.extend(values.clone()),
+                        _ => acc = values.clone(),
+                    }
+                    found = true;
+                }
+                AmStatement::Primary { var_name, targets, .. } if var_name == name => {
+                    acc = targets.clone();
+                    found = true;
+                }
+                _ => {}
+            }
+        }
+        if found {
+            Some(acc.join(" "))
+        } else {
+            self.find_variable_in(&self.makefile_am.statements, name)
+        }
     }
 
     fn find_variable_in(&self, statements: &[AmStatement], name: &str) -> Option<String> {
