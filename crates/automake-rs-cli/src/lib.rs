@@ -6,6 +6,8 @@
 //
 // Court: AM.CLI.1 (sealed), AM.MAKEFILE_IN.1 (sealed)
 
+pub mod bootstrap;
+
 use std::fs;
 use std::path::{Path, PathBuf};
 use std::sync::atomic::{AtomicBool, Ordering};
@@ -497,4 +499,111 @@ fn print_aclocal_help() {
     println!("  -W, --warnings=CATEGORY   report the warnings falling in CATEGORY");
     println!();
     println!("aclocal-rs: native Rust reimplementation. Clean-room forensic parity.");
+}
+
+/// Entry point for the `autoreconf-rs` bootstrap driver binary.
+///
+/// Runs the native pipeline (aclocal-rs -> autoconf-rs -> autoheader-rs for configure/config.h.in,
+/// then automake-rs for aux files + every Makefile.in) over the current directory, and writes a
+/// `bootstrap-receipt.json` recording every provider. `--allow-gnu` lifts the default GNU-free gate
+/// (otherwise a GNU or missing native tool fails closed with typed evidence).
+pub fn run_autoreconf() {
+    let args: Vec<String> = std::env::args().skip(1).collect();
+    let mut forbid_gnu = true;
+    let mut verbose = false;
+    let mut dir = ".".to_string();
+    for a in &args {
+        match a.as_str() {
+            "--allow-gnu" => forbid_gnu = false,
+            "--forbid-gnu" => forbid_gnu = true,
+            "-v" | "--verbose" => verbose = true,
+            "-f" | "-i" | "-fi" | "-if" | "--force" | "--install" => {}
+            "-h" | "--help" => {
+                println!("autoreconf-rs - native GNU-free Autotools bootstrap driver");
+                println!("Usage: autoreconf-rs [-fi] [--allow-gnu] [-v] [DIR]");
+                println!("  Runs aclocal-rs/autoconf-rs/autoheader-rs (configure, config.h.in) +");
+                println!("  automake-rs (aux files, Makefile.in). Default: GNU-free (fail closed).");
+                return;
+            }
+            s if !s.starts_with('-') => dir = s.to_string(),
+            _ => {}
+        }
+    }
+    let dir = Path::new(&dir);
+
+    // Stage 1-3: configure / aclocal.m4 / config.h.in via native tools (fail-closed boundary).
+    let report = bootstrap::run_bootstrap(dir, forbid_gnu, verbose);
+
+    // Stage 4-5: aux files + Makefile.in via the sibling automake-rs binary.
+    if let Some(automake) = resolve_automake() {
+        let _ = std::process::Command::new(&automake)
+            .current_dir(dir)
+            .args(["--add-missing", "--copy", "--force-missing", "Makefile.am"])
+            .status();
+        if let Ok(entries) = find_makefile_ams(dir) {
+            for mf in entries {
+                let parent = mf.parent().unwrap_or(dir);
+                let _ = std::process::Command::new(&automake)
+                    .current_dir(parent)
+                    .arg("Makefile.am")
+                    .status();
+            }
+        }
+    } else {
+        eprintln!("autoreconf-rs: native automake binary not found (set AUTOMAKE_RS)");
+    }
+
+    print!("{}", report.receipt_json);
+    if !report.ok {
+        eprintln!("autoreconf-rs: bootstrap incomplete (see bootstrap-receipt.json; configure stage is the autoconf-rs boundary)");
+        std::process::exit(1);
+    }
+}
+
+/// Resolve the native automake binary: env AUTOMAKE_RS, a sibling of this exe, then by name.
+fn resolve_automake() -> Option<PathBuf> {
+    if let Ok(p) = std::env::var("AUTOMAKE_RS") {
+        let pb = PathBuf::from(p);
+        if pb.exists() {
+            return Some(pb);
+        }
+    }
+    if let Ok(exe) = std::env::current_exe() {
+        if let Some(parent) = exe.parent() {
+            let sib = parent.join("automake");
+            if sib.exists() {
+                return Some(sib);
+            }
+        }
+    }
+    for name in ["automake", "automake-rs"] {
+        let path = std::env::var("PATH").unwrap_or_default();
+        for d in path.split(':') {
+            let c = Path::new(d).join(name);
+            if c.exists() {
+                return Some(c);
+            }
+        }
+    }
+    None
+}
+
+/// Recursively collect Makefile.am paths under `dir`.
+fn find_makefile_ams(dir: &Path) -> std::io::Result<Vec<PathBuf>> {
+    let mut out = Vec::new();
+    let mut stack = vec![dir.to_path_buf()];
+    while let Some(d) = stack.pop() {
+        for entry in std::fs::read_dir(&d)?.flatten() {
+            let p = entry.path();
+            if p.is_dir() {
+                let name = p.file_name().and_then(|n| n.to_str()).unwrap_or("");
+                if name != ".git" && name != "autom4te.cache" {
+                    stack.push(p);
+                }
+            } else if p.file_name().and_then(|n| n.to_str()) == Some("Makefile.am") {
+                out.push(p);
+            }
+        }
+    }
+    Ok(out)
 }
