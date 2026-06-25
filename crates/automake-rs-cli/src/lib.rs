@@ -95,12 +95,20 @@ pub fn run_automake() {
     std::process::exit(exit_code);
 }
 
-/// Find configure.ac or configure.in in the current directory.
+/// Find configure.ac or configure.in, walking up from the current directory (a Makefile.am in a
+/// subdir is governed by the top-level configure.ac, which carries AM_INIT_AUTOMAKE options like
+/// `no-dependencies`).
 fn find_configure_ac() -> PathBuf {
-    for name in &["configure.ac", "configure.in"] {
-        let path = Path::new(name);
-        if path.exists() {
-            return path.to_path_buf();
+    let mut dir = std::env::current_dir().unwrap_or_else(|_| PathBuf::from("."));
+    loop {
+        for name in &["configure.ac", "configure.in"] {
+            let path = dir.join(name);
+            if path.exists() {
+                return path;
+            }
+        }
+        if !dir.pop() {
+            break;
         }
     }
     PathBuf::from("configure.ac")
@@ -173,7 +181,28 @@ fn process_makefile(
         ""
     ));
 
-    // Apply dependency tracking flags
+    // Honor AM_INIT_AUTOMAKE global options that the trace doesn't surface (it keeps only
+    // strictness). `no-dependencies` disables dep tracking (otherwise the @AMDEP@ include markers
+    // are emitted but configure defines no AMDEP_TRUE -> literal `@AMDEP_TRUE@` -> "missing
+    // separator"); `subdir-objects` is also recorded.
+    if let Ok(ac) = std::fs::read_to_string(configure_ac) {
+        if let Some(start) = ac.find("AM_INIT_AUTOMAKE") {
+            let tail = &ac[start..];
+            if let (Some(o), Some(c)) = (tail.find('('), tail.find(')')) {
+                if c > o {
+                    let opts = &tail[o + 1..c];
+                    if opts.contains("no-dependencies") {
+                        config.dependency_tracking = false;
+                    }
+                    if opts.contains("subdir-objects") {
+                        config.subdir_objects = true;
+                    }
+                }
+            }
+        }
+    }
+
+    // Explicit CLI flags still win.
     if let Some(enable) = parsed.dependency_tracking_enabled() {
         config.dependency_tracking = enable;
     }

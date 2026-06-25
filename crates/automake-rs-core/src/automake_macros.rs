@@ -90,6 +90,7 @@ impl AutomakeConfig {
                 "gnits" => config.strictness = "gnits".to_string(),
 
                 // Feature flags
+                "no-dependencies" | "no_dependencies" => config.dependency_tracking = false,
                 "subdir-objects" => config.subdir_objects = true,
                 "tar-pax" => config.tar_pax = true,
                 "check-news" | "check_news" => config.check_news = true,

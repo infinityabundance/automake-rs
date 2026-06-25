@@ -79,7 +79,10 @@ impl MakefileInGenerator {
         self.generate_all_target(&mut output);
 
         // The dep-stub rule is a real target -> it MUST come after `all:` (the default goal).
-        crate::dependency_tracking::DepTracker::emit_depfile_rule(&self.collect_all_depfiles(), &mut output);
+        // Only when dependency tracking is enabled (matches generate_dep_tracking).
+        if self.config.dependency_tracking {
+            crate::dependency_tracking::DepTracker::emit_depfile_rule(&self.collect_all_depfiles(), &mut output);
+        }
 
         // 7. Build rules for primaries
         self.generate_built_sources_rules(&mut output);
@@ -352,6 +355,12 @@ impl MakefileInGenerator {
     /// Generate dependency tracking variables (AMDEP, depcomp, .deps/ includes).
     /// Uses the enhanced DepTracker with full compiler mode support.
     fn generate_dep_tracking(&self, out: &mut String) {
+        // `no-dependencies` (AM_INIT_AUTOMAKE) disables dep tracking: configure then defines no
+        // AMDEP_TRUE/am__include, so emitting the @AMDEP@ include markers would leave literal
+        // `@AMDEP_TRUE@` in the Makefile -> "missing separator". Skip the whole mechanism.
+        if !self.config.dependency_tracking {
+            return;
+        }
         let mut has_sources = false;
         for kind in &["PROGRAMS", "LIBRARIES", "LTLIBRARIES"] {
             if !self.collect_primaries(kind).is_empty() {
