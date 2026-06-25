@@ -649,11 +649,9 @@ impl MakefileInGenerator {
     /// The object files for one program's sources (`.c`/`.cc`/... -> `.$(OBJEXT)`), honoring
     /// subdir-objects (objects beside their source) vs the default (basename in the build dir).
     fn program_objects(&self, prog: &str) -> Vec<String> {
-        let sources = self
-            .find_variable(&format!("{}_SOURCES", prog))
-            .unwrap_or_else(|| format!("{}.c", prog));
+        let sources = self.target_sources(prog);
         sources
-            .split_whitespace()
+            .iter()
             .filter(|s| {
                 // Only compiled sources become objects (skip headers/other).
                 s.ends_with(".c")
@@ -682,6 +680,47 @@ impl MakefileInGenerator {
     }
 
     /// Emit the program build infrastructure (variable section): `PROGRAMS`, per-program
+    /// Canonicalize a target name into the form Automake uses for its derived variables: every
+    /// character that is not a letter, digit, or `@` becomes `_` (so `test-program` -> `test_program`,
+    /// `libfoo.a` -> `libfoo_a`). The original name is still used for the build target itself.
+    fn canon(name: &str) -> String {
+        name.chars()
+            .map(|c| if c.is_ascii_alphanumeric() || c == '_' || c == '@' { c } else { '_' })
+            .collect()
+    }
+
+    /// The sources listed for a program/library target (its `_SOURCES`, defaulting to `<name>.c`).
+    fn target_sources(&self, name: &str) -> Vec<String> {
+        self.find_variable(&format!("{}_SOURCES", Self::canon(name)))
+            .unwrap_or_else(|| format!("{}.c", name))
+            .split_whitespace()
+            .map(String::from)
+            .collect()
+    }
+
+    /// Whether a source file is C++ (selects the CXX compile/link toolchain).
+    fn is_cxx_source(s: &str) -> bool {
+        s.ends_with(".cc")
+            || s.ends_with(".cpp")
+            || s.ends_with(".cxx")
+            || s.ends_with(".c++")
+            || s.ends_with(".C")
+            || s.ends_with(".mm")
+    }
+
+    /// Whether a target has any C++ source (so it must link with $(CXXLINK)).
+    fn target_is_cxx(&self, name: &str) -> bool {
+        self.target_sources(name).iter().any(|s| Self::is_cxx_source(s))
+    }
+
+    /// Whether any program in this Makefile.am has C++ sources.
+    fn any_cxx(&self) -> bool {
+        self.collect_primaries("PROGRAMS")
+            .iter()
+            .flat_map(|(_, _, t)| t.iter())
+            .any(|p| self.target_is_cxx(p))
+    }
+
     /// object/LDADD vars, and the COMPILE/CCLD/LINK command variables.
     fn generate_program_infra_vars(&self, out: &mut String) {
         let programs = self.collect_primaries("PROGRAMS");
@@ -698,16 +737,17 @@ impl MakefileInGenerator {
             }
         }
         out.push_str(&format!("PROGRAMS = {}\n", prefix_vars.join(" ")));
-        // Per-program object + LDADD vars.
+        // Per-program object + LDADD vars (variable names use the canonicalized target name).
         for (_prefix, _nd, targets) in &programs {
             for prog in targets {
+                let c = Self::canon(prog);
                 let objs = self.program_objects(prog);
-                out.push_str(&format!("am_{}_OBJECTS = {}\n", prog, objs.join(" ")));
-                out.push_str(&format!("{}_OBJECTS = $(am_{}_OBJECTS)\n", prog, prog));
+                out.push_str(&format!("am_{}_OBJECTS = {}\n", c, objs.join(" ")));
+                out.push_str(&format!("{}_OBJECTS = $(am_{}_OBJECTS)\n", c, c));
                 let ldadd = self
-                    .find_variable(&format!("{}_LDADD", prog))
+                    .find_variable(&format!("{}_LDADD", c))
                     .unwrap_or_else(|| "$(LDADD)".to_string());
-                out.push_str(&format!("{}_LDADD = {}\n", prog, ldadd));
+                out.push_str(&format!("{}_LDADD = {}\n", c, ldadd));
             }
         }
         out.push_str("DEFAULT_INCLUDES = -I.@am__isrc@\n");
@@ -715,6 +755,16 @@ impl MakefileInGenerator {
         out.push_str("\t$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)\n");
         out.push_str("CCLD = $(CC)\n");
         out.push_str("LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@\n");
+        // C++ toolchain (emitted when any program has C++ sources). CXX/CXXFLAGS come from the
+        // project's AC_PROG_CXX via config.status substitution.
+        if self.any_cxx() {
+            out.push_str("CXX = @CXX@\n");
+            out.push_str("CXXFLAGS = @CXXFLAGS@\n");
+            out.push_str("CXXCOMPILE = $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \\\n");
+            out.push_str("\t$(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS)\n");
+            out.push_str("CXXLD = $(CXX)\n");
+            out.push_str("CXXLINK = $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@\n");
+        }
     }
 
     /// Emit the compile + link rules (rules section): the `.c.o`/`.c.obj` suffix rules and the
@@ -725,28 +775,45 @@ impl MakefileInGenerator {
         if programs.is_empty() {
             return;
         }
-        out.push_str(".SUFFIXES:\n");
-        out.push_str(".SUFFIXES: .c .o .obj\n\n");
-        // Link rule per program.
+        let cxx = self.any_cxx();
+        if cxx {
+            out.push_str(".SUFFIXES:\n");
+            out.push_str(".SUFFIXES: .c .cc .cpp .cxx .C .o .obj\n\n");
+        } else {
+            out.push_str(".SUFFIXES:\n");
+            out.push_str(".SUFFIXES: .c .o .obj\n\n");
+        }
+        // Link rule per program (C++ targets link with $(CXXLINK)).
         for (_prefix, _nd, targets) in &programs {
             for prog in targets {
+                let link = if self.target_is_cxx(prog) { "CXXLINK" } else { "LINK" };
+                let c = Self::canon(prog);
+                // The build target keeps the original name; derived vars use the canonical name.
                 out.push_str(&format!(
-                    "{p}$(EXEEXT): $({p}_OBJECTS) $({p}_DEPENDENCIES) $(EXTRA_{p}_DEPENDENCIES)\n",
-                    p = prog
+                    "{p}$(EXEEXT): $({c}_OBJECTS) $({c}_DEPENDENCIES) $(EXTRA_{c}_DEPENDENCIES)\n",
+                    p = prog, c = c
                 ));
                 out.push_str(&format!("\t@rm -f {}$(EXEEXT)\n", prog));
                 out.push_str(&format!(
-                    "\t$(AM_V_CCLD)$(LINK) $({p}_OBJECTS) $({p}_LDADD) $(LIBS)\n\n",
-                    p = prog
+                    "\t$(AM_V_CCLD)$({link}) $({c}_OBJECTS) $({c}_LDADD) $(LIBS)\n\n",
+                    link = link, c = c
                 ));
             }
         }
-        // Suffix compile rules (functional: compile straight to the object; the .Po stubs from
-        // dependency tracking satisfy the includes).
+        // C compile suffix rules.
         out.push_str(".c.o:\n");
         out.push_str("\t$(AM_V_CC)$(COMPILE) -c -o $@ $<\n\n");
         out.push_str(".c.obj:\n");
         out.push_str("\t$(AM_V_CC)$(COMPILE) -c -o $@ `$(CYGPATH_W) '$<'`\n\n");
+        // C++ compile suffix rules (one per common extension).
+        if cxx {
+            for ext in [".cc", ".cpp", ".cxx", ".C"] {
+                out.push_str(&format!("{ext}.o:\n", ext = ext));
+                out.push_str("\t$(AM_V_CXX)$(CXXCOMPILE) -c -o $@ $<\n\n");
+                out.push_str(&format!("{ext}.obj:\n", ext = ext));
+                out.push_str("\t$(AM_V_CXX)$(CXXCOMPILE) -c -o $@ `$(CYGPATH_W) '$<'`\n\n");
+            }
+        }
     }
 
     fn generate_programs_rules(&self, out: &mut String) {
