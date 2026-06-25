@@ -107,3 +107,28 @@ the rest are environment (DEP_MISSING) or deep/link specifics; (3) the structura
 (C++, multi-source, libtool, subdir-objects, per-target flags, Yacc/Lex, no-dependencies) is in
 place. Remaining generator targets: convenience-library `.libs`/link ordering and a few
 generated-source naming edge cases.
+
+## NATIVE.2/NATIVE.3 — the aux-file layer (GNU-free bootstrap, wedge 1)
+automake-rs now supplies the auxiliary files natively (`--add-missing`), so the bootstrap chain no
+longer needs GNU Automake's helper scripts. *Rust owns the court; the emitted artifacts are
+portable POSIX shell* (clean-room, no GNU source copied). `--add-missing` detects the required set
+from the project's features and writes a forensic `aux-receipt.json` (path/mode/sha256/required_by/
+non_claims) per file.
+
+### The ownership ladder (isolating each layer)
+| Mode | configure | aux files | Makefile.in | Result |
+|---|---|---|---|---|
+| **A — makefile-native** | GNU | GNU | **automake-rs** | 31/31 (clean baseline) |
+| **B — aux-native** | GNU | **automake-rs** | **automake-rs** | **31/31** ✓ (aux=ours verified on all 31) |
+| C — configure-native | autoconf-rs | automake-rs | automake-rs | *not yet (next wedge)* |
+| D — bootstrap-native | autoreconf-rs | automake-rs | automake-rs | *the endgame* |
+
+**MODE B result: every project that builds with GNU's aux files also builds with automake-rs's
+aux files — zero regressions.** The aux layer (install-sh/missing/compile/depcomp/test-driver) is a
+proven drop-in. config.guess/config.sub remain GNU-supplied for now (the `config-rs` wedge), and
+libtool stays a marked boundary (`libtool-rs`), per clean boundary hygiene.
+
+**Remaining layers for "no GNU in the bootstrap chain":** MODE C needs `autoconf-rs`/`aclocal-rs`/
+`autoheader-rs` to emit `configure`/`config.h.in`/`aclocal.m4` natively; MODE D wires it all into an
+`autoreconf-rs` driver. Those are the larger lifts — the aux-file wedge (this commit) is the first
+of them landed and verified.
