@@ -77,3 +77,33 @@ their objects and advance to the *next* layer. End-to-end FUNC_OK is steady at *
 before completing: **yacc/lex BUILT_SOURCES ordering** (ply: generated `grammar.h`), **convenience
 (noinst) library linking** (cowsql), and **a few user-variable/include nuances**. Those are the
 next targets; each is a discrete, well-scoped feature rather than a structural gap.
+
+## Session 2 (cont.) — Yacc/Lex, no-dependencies, and MAKE_FAIL forensics
+Three more generator features landed (commits continue from the list above):
+8. **Yacc/Lex + BUILT_SOURCES** — parser sources compile from their generated `.c`; clean direct
+   `$(YACCCOMPILE)/-o` + `$(LEXCOMPILE)/-o` rules + parser-header recovery; `all:` builds
+   `$(BUILT_SOURCES)` first. (ply now runs YACC+LEX, compiles every source, reaches link.)
+9. **`no-dependencies`** — honor the AM_INIT_AUTOMAKE option (the @AMDEP@ include markers were
+   emitted unconditionally; with `no-dependencies`, config.status defines no AMDEP_TRUE, leaving
+   literal `@AMDEP_TRUE@` → "missing separator"). Also `find configure.ac` upward so subdir
+   Makefiles inherit the top-level options. (advancecomp/libchardet/lrc-erasure-code fixed.)
+
+### Forensic categorization of the remaining MAKE_FAILs
+Re-running every MAKE_FAIL repo **serially** (the differential harness runs `-P6` and undercounts
+via timeouts/transient clone failures) gives the real distribution (40 classified):
+
+| Category | Count | Meaning |
+|---|---|---|
+| GENERATOR | 10 | still-actionable generator bugs (further work helps) |
+| LINK | 8 | undefined refs / convenience-lib + `.libs` ordering |
+| DEP_MISSING | 7 | uninstalled system headers/libs (environment, not the generator) |
+| COMPILE | 6 | config-header / compile-flag specifics |
+| **NOW_OK** | **5** | **were MAKE_FAIL in the parallel run; build fine serially** |
+| OTHER | 4 | misc |
+
+**Takeaways:** (1) the parallel FUNC_OK count (45) is a *lower bound* — serial re-test already
+recovers 5, so true functional ≈ **50+**; (2) only ~25% of remaining failures are generator bugs —
+the rest are environment (DEP_MISSING) or deep/link specifics; (3) the structural foundation
+(C++, multi-source, libtool, subdir-objects, per-target flags, Yacc/Lex, no-dependencies) is in
+place. Remaining generator targets: convenience-library `.libs`/link ordering and a few
+generated-source naming edge cases.
