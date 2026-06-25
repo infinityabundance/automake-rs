@@ -672,37 +672,56 @@ impl MakefileInGenerator {
         out.push_str(".PHONY: $(am__recursive_targets)\n\n");
     }
 
-    /// The object files for one program's sources (`.c`/`.cc`/... -> `.$(OBJEXT)`), honoring
-    /// subdir-objects (objects beside their source) vs the default (basename in the build dir).
-    fn program_objects(&self, prog: &str) -> Vec<String> {
-        let sources = self.target_sources(prog);
-        sources
+    /// Whether a file is a compiled source (becomes an object).
+    fn is_compiled_source(s: &str) -> bool {
+        s.ends_with(".c") || s.ends_with(".cc") || s.ends_with(".cpp") || s.ends_with(".cxx")
+            || s.ends_with(".c++") || s.ends_with(".C") || s.ends_with(".m") || s.ends_with(".mm")
+            || s.ends_with(".s") || s.ends_with(".S")
+    }
+
+    /// If a target has per-target compile flags (`X_CPPFLAGS`/`X_CFLAGS`/`X_CXXFLAGS`/...), its
+    /// objects are renamed `{canon}-{stem}` and compiled with a dedicated per-object rule that
+    /// carries those flags. Returns the canonical name (the object-name prefix) when so.
+    fn target_flag_prefix(&self, target: &str) -> Option<String> {
+        let c = Self::canon(target);
+        for suf in ["_CPPFLAGS", "_CFLAGS", "_CXXFLAGS", "_OBJCFLAGS", "_OBJCXXFLAGS"] {
+            if self.find_variable(&format!("{}{}", c, suf)).is_some() {
+                return Some(c);
+            }
+        }
+        None
+    }
+
+    /// The compiled units for a target: `(object, source, is_cxx)` per compiled source.
+    /// `lo` selects libtool (`.lo`) vs ordinary (`.$(OBJEXT)`) objects. The source subdir is kept
+    /// (foo/bar.c -> foo/bar.o); targets with per-target flags get the `{canon}-` filename prefix
+    /// so a dedicated per-object rule can apply them.
+    fn compiled_units(&self, target: &str, lo: bool) -> Vec<(String, String, bool)> {
+        let prefix = self
+            .target_flag_prefix(target)
+            .map(|c| format!("{}-", c))
+            .unwrap_or_default();
+        let ext = if lo { "lo" } else { "$(OBJEXT)" };
+        self.target_sources(target)
             .iter()
-            .filter(|s| {
-                // Only compiled sources become objects (skip headers/other).
-                s.ends_with(".c")
-                    || s.ends_with(".cc")
-                    || s.ends_with(".cpp")
-                    || s.ends_with(".cxx")
-                    || s.ends_with(".c++")
-                    || s.ends_with(".C")
-                    || s.ends_with(".m")
-                    || s.ends_with(".s")
-                    || s.ends_with(".S")
-            })
+            .filter(|s| Self::is_compiled_source(s))
             .map(|s| {
                 let stem = match s.rfind('.') {
                     Some(d) => &s[..d],
-                    None => s,
+                    None => s.as_str(),
                 };
-                // Keep the source's subdir in the object name (foo/bar.c -> foo/bar.o). GNU make's
-                // suffix rules preserve the directory, so `.c.o`/`.c.lo` builds the subdir object
-                // directly. (Flattening to a basename would need explicit per-object rules, which we
-                // don't emit -- it breaks subdir sources with "No rule to make target 'bar.lo'".)
-                let stem = stem.to_string();
-                format!("{}.$(OBJEXT)", stem)
+                let obj = match stem.rfind('/') {
+                    Some(slash) => format!("{}/{}{}.{}", &stem[..slash], prefix, &stem[slash + 1..], ext),
+                    None => format!("{}{}.{}", prefix, stem, ext),
+                };
+                (obj, s.clone(), Self::is_cxx_source(s))
             })
             .collect()
+    }
+
+    /// The object files for one program's sources (`.c`/`.cc`/... -> `.$(OBJEXT)`).
+    fn program_objects(&self, prog: &str) -> Vec<String> {
+        self.compiled_units(prog, false).into_iter().map(|(o, _, _)| o).collect()
     }
 
     /// Emit the program build infrastructure (variable section): `PROGRAMS`, per-program
@@ -756,21 +775,7 @@ impl MakefileInGenerator {
 
     /// The libtool object files (`.lo`) for a library's compiled sources.
     fn library_objects(&self, lib: &str) -> Vec<String> {
-        self.target_sources(lib)
-            .iter()
-            .filter(|s| {
-                s.ends_with(".c") || s.ends_with(".cc") || s.ends_with(".cpp")
-                    || s.ends_with(".cxx") || s.ends_with(".c++") || s.ends_with(".C")
-                    || s.ends_with(".m") || s.ends_with(".mm") || s.ends_with(".s") || s.ends_with(".S")
-            })
-            .map(|s| {
-                let stem = match s.rfind('.') { Some(d) => &s[..d], None => s.as_str() };
-                // Preserve the subdir (see program_objects): foo/bar.cpp -> foo/bar.lo so the
-                // `.cpp.lo` suffix rule can build it.
-                let stem = stem.to_string();
-                format!("{}.lo", stem)
-            })
-            .collect()
+        self.compiled_units(lib, true).into_iter().map(|(o, _, _)| o).collect()
     }
 
     /// Link dependencies derived from an `_LDADD`/`_LIBADD` value: the `.la`/`.a` files (so the
@@ -937,6 +942,38 @@ impl MakefileInGenerator {
                     "\t$(AM_V_CCLD)$(LINK) {rpath}$({c}_OBJECTS) $({c}_LIBADD) $(LIBS)\n\n",
                     rpath = rpath, c = c
                 ));
+            }
+        }
+        // Per-object compile rules for targets that carry per-target flags (their objects are
+        // renamed `{canon}-{stem}` so the generic suffix rules don't apply). Each rule inlines the
+        // target's own _CPPFLAGS/_CFLAGS (or _CXXFLAGS) so e.g. a library's private `-I` is used.
+        for (kind, lo) in [("PROGRAMS", false), ("LTLIBRARIES", true)] {
+            for (_p, _nd, targets) in &self.collect_primaries(kind) {
+                for target in targets {
+                    if self.target_flag_prefix(target).is_none() {
+                        continue;
+                    }
+                    let c = Self::canon(target);
+                    for (obj, src, src_cxx) in self.compiled_units(target, lo) {
+                        out.push_str(&format!("{}: {}\n", obj, src));
+                        let (vtag, comp, fflag) = if src_cxx {
+                            ("CXX", "CXX", "CXXFLAGS")
+                        } else {
+                            ("CC", "CC", "CFLAGS")
+                        };
+                        if libtool {
+                            out.push_str(&format!(
+                                "\t$(AM_V_{v})$(LIBTOOL) $(AM_V_lt) --tag={v} $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $({comp}) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $({c}_CPPFLAGS) $(CPPFLAGS) $({c}_{ff}) $({ff}) -c -o $@ $<\n\n",
+                                v = vtag, comp = comp, c = c, ff = fflag
+                            ));
+                        } else {
+                            out.push_str(&format!(
+                                "\t$(AM_V_{v})$({comp}) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $({c}_CPPFLAGS) $(CPPFLAGS) $({c}_{ff}) $({ff}) -c -o $@ $<\n\n",
+                                v = vtag, comp = comp, c = c, ff = fflag
+                            ));
+                        }
+                    }
+                }
             }
         }
         // C compile suffix rules.
