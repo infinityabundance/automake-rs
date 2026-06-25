@@ -783,7 +783,7 @@ impl MakefileInGenerator {
 
     /// Whether any program OR libtool library has C++ sources.
     fn any_cxx(&self) -> bool {
-        ["PROGRAMS", "LTLIBRARIES"].iter().any(|k| {
+        ["PROGRAMS", "LTLIBRARIES", "LIBRARIES"].iter().any(|k| {
             self.collect_primaries(k)
                 .iter()
                 .flat_map(|(_, _, t)| t.iter())
@@ -815,7 +815,8 @@ impl MakefileInGenerator {
     fn generate_program_infra_vars(&self, out: &mut String) {
         let programs = self.collect_primaries("PROGRAMS");
         let ltlibs = self.collect_primaries("LTLIBRARIES");
-        if programs.is_empty() && ltlibs.is_empty() {
+        let libs = self.collect_primaries("LIBRARIES");
+        if programs.is_empty() && ltlibs.is_empty() && libs.is_empty() {
             return;
         }
         let libtool = self.has_libtool();
@@ -843,6 +844,18 @@ impl MakefileInGenerator {
             }
             out.push_str(&format!("LTLIBRARIES = {}\n", lv.join(" ")));
         }
+        // LIBRARIES = $(noinst_LIBRARIES) $(lib_LIBRARIES) ... (static archives)
+        if !libs.is_empty() {
+            let mut sv: Vec<String> = Vec::new();
+            for (prefix, _nd, _t) in &libs {
+                let p = if prefix.is_empty() { "lib" } else { prefix.as_str() };
+                let v = format!("$({}_LIBRARIES)", p);
+                if !sv.contains(&v) {
+                    sv.push(v);
+                }
+            }
+            out.push_str(&format!("LIBRARIES = {}\n", sv.join(" ")));
+        }
         // Per-program object/LDADD/DEPENDENCIES vars (names use the canonicalized target name).
         for (_prefix, _nd, targets) in &programs {
             for prog in targets {
@@ -865,6 +878,17 @@ impl MakefileInGenerator {
             for lib in targets {
                 let c = Self::canon(lib);
                 let objs = self.library_objects(lib);
+                out.push_str(&format!("am_{}_OBJECTS = {}\n", c, objs.join(" ")));
+                out.push_str(&format!("{}_OBJECTS = $(am_{}_OBJECTS)\n", c, c));
+                let libadd = self.find_variable(&format!("{}_LIBADD", c)).unwrap_or_default();
+                out.push_str(&format!("{}_LIBADD = {}\n", c, libadd));
+            }
+        }
+        // Per-static-library (`.a`) object/LIBADD vars (ordinary `.$(OBJEXT)` objects).
+        for (_prefix, _nd, targets) in &libs {
+            for lib in targets {
+                let c = Self::canon(lib);
+                let objs = self.program_objects(lib);
                 out.push_str(&format!("am_{}_OBJECTS = {}\n", c, objs.join(" ")));
                 out.push_str(&format!("{}_OBJECTS = $(am_{}_OBJECTS)\n", c, c));
                 let libadd = self.find_variable(&format!("{}_LIBADD", c)).unwrap_or_default();
@@ -912,9 +936,11 @@ impl MakefileInGenerator {
     fn generate_compile_link_rules(&self, out: &mut String) {
         let programs = self.collect_primaries("PROGRAMS");
         let ltlibs = self.collect_primaries("LTLIBRARIES");
-        if programs.is_empty() && ltlibs.is_empty() {
+        let libs = self.collect_primaries("LIBRARIES");
+        if programs.is_empty() && ltlibs.is_empty() && libs.is_empty() {
             return;
         }
+        let _ = &libs;
         let cxx = self.any_cxx();
         let libtool = self.has_libtool();
         // .SUFFIXES: list every extension the rules below use.
@@ -970,7 +996,7 @@ impl MakefileInGenerator {
         // Per-object compile rules for targets that carry per-target flags (their objects are
         // renamed `{canon}-{stem}` so the generic suffix rules don't apply). Each rule inlines the
         // target's own _CPPFLAGS/_CFLAGS (or _CXXFLAGS) so e.g. a library's private `-I` is used.
-        for (kind, lo) in [("PROGRAMS", false), ("LTLIBRARIES", true)] {
+        for (kind, lo) in [("PROGRAMS", false), ("LTLIBRARIES", true), ("LIBRARIES", false)] {
             for (_p, _nd, targets) in &self.collect_primaries(kind) {
                 for target in targets {
                     if self.target_flag_prefix(target).is_none() {
@@ -1441,70 +1467,31 @@ impl MakefileInGenerator {
             return;
         }
 
-        let mut build_targets = vec![];
-
+        // Archive rule per static library. Objects come from the canonical $(X_a_OBJECTS) var
+        // (emitted in generate_program_infra_vars); the per-source compile rules come from the
+        // central generate_compile_link_rules (suffix + per-target-flag rules). This replaces the
+        // old path that looked up `{name}_SOURCES` (non-canonical -> missed `libfoo_a_SOURCES` ->
+        // defaulted to `libfoo.c` -> "No rule to make target 'libfoo.c'").
         for (_dir_prefix, _no_dist, targets) in &libraries {
             for target in targets {
-                // Strip .a suffix if present (targets are specified without it in Automake)
-                let lib_name = target.strip_suffix(".a").unwrap_or(target);
-                let sources_var = format!("{}_SOURCES", lib_name);
-                let libadd_var = format!("{}_LIBADD", lib_name);
-                let sources = self
-                    .find_variable(&sources_var)
-                    .unwrap_or_else(|| format!("{}.c", lib_name));
-                let libadd = self.find_variable(&libadd_var).unwrap_or_default();
-
-                // Object files
-                let objects: Vec<String> = sources
-                    .split_whitespace()
-                    .map(|s| {
-                        if s.ends_with(".c") {
-                            s.replace(".c", ".$(OBJEXT)")
-                        } else if s.ends_with(".cc") || s.ends_with(".cpp") {
-                            s.replace(".cc", ".$(OBJEXT)").replace(".cpp", ".$(OBJEXT)")
-                        } else {
-                            format!("{}.$(OBJEXT)", s)
-                        }
-                    })
-                    .collect();
-
-                // Compile each source
-                for (src, obj) in sources.split_whitespace().zip(objects.iter()) {
-                    out.push_str(&format!("{}: $(srcdir)/{}\n", obj, src));
-                    if self.config.silent_rules {
-                        out.push_str(
-                            "\t$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o $@ $<\n"
-                        );
-                    } else {
-                        out.push_str(
-                            "\t$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o $@ $<\n"
-                        );
-                    }
-                    out.push('\n');
-                }
-
-                // Archive rule: ar cru + ranlib
-                out.push_str(&format!("{}.a: {}\n", lib_name, objects.join(" ")));
-                if self.config.silent_rules {
-                    out.push_str(&format!(
-                        "\t$(AM_V_AR)rm -f $@\n\t$(AM_V_at)$(AR) $(ARFLAGS) $@ {} {}\n\t$(AM_V_at)$(RANLIB) $@\n\n",
-                        objects.join(" "),
-                        libadd
-                    ));
+                let archive = if target.ends_with(".a") {
+                    target.clone()
                 } else {
-                    out.push_str(&format!(
-                        "\trm -f $@\n\t$(AR) $(ARFLAGS) $@ {} {}\n\t$(RANLIB) $@\n\n",
-                        objects.join(" "),
-                        libadd
-                    ));
-                }
-
-                build_targets.push(format!("{}.a", lib_name));
+                    format!("{}.a", target)
+                };
+                let c = Self::canon(target);
+                out.push_str(&format!(
+                    "{a}: $({c}_OBJECTS) $({c}_DEPENDENCIES) $(EXTRA_{c}_DEPENDENCIES)\n",
+                    a = archive, c = c
+                ));
+                out.push_str(&format!("\t$(AM_V_at)-rm -f {}\n", archive));
+                out.push_str(&format!(
+                    "\t$(AM_V_AR)$(AR) $(ARFLAGS) {a} $({c}_OBJECTS) $({c}_LIBADD)\n",
+                    a = archive, c = c
+                ));
+                out.push_str(&format!("\t$(AM_V_at)$(RANLIB) {}\n\n", archive));
             }
         }
-
-        // all-am is emitted centrally by generate_all_target (always present).
-        let _ = &build_targets;
 
         // Install rules
         let installable: Vec<_> = libraries
