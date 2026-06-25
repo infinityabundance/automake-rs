@@ -51,3 +51,29 @@ Triaging the MAKE_FAILs and fixing by category, re-measured against the corpus:
   (LTLIBRARIES build rules), **subdir-objects** (subdir sources → subdir objects), a **dep-manifest
   variable-reference bug** (`$(X_SOURCES).Po` for variable-defined/odd-named targets → "missing
   separator"), and project-specific config.h/include-path cases. These are the next targets.
+
+## Generator build-out — session 2 (libtool, subdir-objects, per-target flags)
+Driving the functional rate by closing MAKE_FAIL categories. Each fix is verified in the VM
+against real repos, with core + integration tests kept green throughout. Eight commits:
+
+1. **C++ toolchain** — `.cc/.cpp/.cxx/.C` suffix rules, `CXX*`/`CXXLINK`.
+2. **Target-name canonicalization** — `test-program` → `test_program_*`; fixed bogus objects
+   and incomplete multi-source object lists (rinetd builds).
+3. **Dep-collection correctness** — canonical lookup + real-source filter (no malformed
+   `$(X_SOURCES).Po`; carbon-c-relay builds).
+4. **libtool (LTLIBRARIES)** — `.lo` objects, LTCOMPILE, libtool `LINK`, `.c.lo`/`.cc.lo` rules,
+   per-library link with `-rpath`, `_DEPENDENCIES` from `.la`/`.a` in LDADD. Plus two latent
+   fixes it surfaced: the `$(am__depfiles_remade)` stub rule was emitted before `all:` (default
+   goal became a dep stub) and `AM_V_lt` referenced itself.
+5. **find_variable `+=` accumulation** — multi-line `_SOURCES` were truncated to their first file.
+6. **subdir object paths** — `foo/bar.c` → `foo/bar.lo` so suffix rules build subdir sources.
+7. **per-target compile flags** — `X_CPPFLAGS/X_CFLAGS/X_CXXFLAGS` rename objects `{canon}-{stem}`
+   and get dedicated per-object rules applying those flags.
+
+**Effect:** the structural foundation is now correct for C++, multi-source, libtool, subdir, and
+per-target-flag builds. Repos that previously died at "No rule to make target X.lo" now compile
+their objects and advance to the *next* layer. End-to-end FUNC_OK is steady at **45 / 102 testable
+(~44%)** because the repos these fixes unblocked are libtool-heavy and hit the remaining stack
+before completing: **yacc/lex BUILT_SOURCES ordering** (ply: generated `grammar.h`), **convenience
+(noinst) library linking** (cowsql), and **a few user-variable/include nuances**. Those are the
+next targets; each is a discrete, well-scoped feature rather than a structural gap.
