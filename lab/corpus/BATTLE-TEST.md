@@ -168,3 +168,28 @@ is what needs maturation.** automake-rs's own surface is done for these layers.
 **No GNU in the bootstrap chain is architecturally in place** (driver + aux + Makefile.in are
 native and GNU-free); the remaining work to make real projects bootstrap is in the autoconf-rs /
 aclocal-rs courts (variable substitution + macro coverage), cleanly attributed.
+
+## NATIVE.5–8 — fully GNU-free bootstrap now builds real projects (MODE D > 0)
+Fixed the autoconf-rs boundary (separate repo, also shipped): config.status now substitutes the
+full standard build-variable surface (CC/CFLAGS/AR/OBJEXT/SET_MAKE/install dirs/PACKAGE/VERSION +
+the Automake conditionals AMDEP_TRUE/am__include/am__fastdep*/lispdir/...), and the m4 engine now
+recognizes AC_CONFIG_HEADER + the common Automake/libtool macros (AM_INIT_AUTOMAKE, AM_CONDITIONAL,
+AM_PROG_*, AM_SILENT_RULES, LT_INIT, ...) so they no longer leak literal `@VAR@`/`AC_*` into the
+output. Shipped as autoconf-rs-core / autoconf-rs-cli **0.1.3**.
+
+**MODE D (autoreconf-rs -fi; ZERO GNU: autoconf-rs configure + automake-rs aux + Makefile.in):**
+- Trivial project: builds + runs with `gnu_tools_invoked: []`.
+- Real corpus (31 MODE-A repos): **0 → 2 fully GNU-free end-to-end builds** (circulosmeos/gztool,
+  elmar/ldap-git-backup), and configure-success **2 → 10**.
+
+### Updated ladder
+| Mode | configure | aux | Makefile.in | Result |
+|---|---|---|---|---|
+| A | GNU | GNU | automake-rs | 31/31 |
+| B | GNU | automake-rs | automake-rs | 31/31 |
+| **D** | **autoconf-rs** | **automake-rs** | **automake-rs** | **2/31 (was 0), 10/31 configure-OK; trivial ✓** |
+
+The native bootstrap stack is now **functional end-to-end with zero GNU tools** on real projects —
+the first GNU-free builds. The remaining MODE-D gap is deeper autoconf-rs macro coverage (project
+AM_CONDITIONAL vars, PKG_CHECK_MODULES, individual feature tests), which is the ongoing autoconf-rs
+court — each fix there lifts this number.
