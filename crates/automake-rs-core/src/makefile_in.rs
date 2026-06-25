@@ -361,8 +361,8 @@ impl MakefileInGenerator {
         for kind in &["PROGRAMS", "LIBRARIES", "LTLIBRARIES"] {
             for (_dir, _no_dist, targets) in &self.collect_primaries(kind) {
                 for target in targets {
-                    let lib_name = target.strip_suffix(".a").unwrap_or(target);
-                    let sources_var = format!("{}_SOURCES", lib_name);
+                    // Variables derive from the canonicalized target name (libfoo.a -> libfoo_a).
+                    let sources_var = format!("{}_SOURCES", Self::canon(target));
                     let ext = if *kind == "LTLIBRARIES" {
                         "lo"
                     } else {
@@ -370,7 +370,25 @@ impl MakefileInGenerator {
                     };
                     if let Some(sources) = self.find_variable(&sources_var) {
                         for src in sources.split_whitespace() {
-                            all_sources.push((src.to_string(), ext));
+                            // Only real compiled sources become dep files: skip `$(VAR)` refs,
+                            // `@SUBST@`, headers, and anything without a known source extension
+                            // (otherwise the depfiles/include lines are malformed -> "missing separator").
+                            if src.starts_with("$(") || src.starts_with('@') {
+                                continue;
+                            }
+                            if src.ends_with(".c")
+                                || src.ends_with(".cc")
+                                || src.ends_with(".cpp")
+                                || src.ends_with(".cxx")
+                                || src.ends_with(".c++")
+                                || src.ends_with(".C")
+                                || src.ends_with(".m")
+                                || src.ends_with(".mm")
+                                || src.ends_with(".s")
+                                || src.ends_with(".S")
+                            {
+                                all_sources.push((src.to_string(), ext));
+                            }
                         }
                     }
                 }
