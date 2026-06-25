@@ -1257,16 +1257,17 @@ fn test_yacc_lex_autodetect() {
     };
     let gen = MakefileInGenerator::new(am, config, traces);
     let output = gen.generate();
-    // Yacc/Lex variables emitted
+    // Yacc/Lex toolchain variables emitted (YACC/LEX are substituted; YFLAGS/LFLAGS are user vars).
     assert!(output.contains("YACC = @YACC@"));
     assert!(output.contains("LEX = @LEX@"));
-    assert!(output.contains("YLWRAP = $(top_srcdir)/ylwrap"));
-    // Yacc rule generated
-    assert!(output.contains("parse.c parse.h: parse.y"));
-    assert!(output.contains("$(YACCCOMPILE)"));
-    // Lex rule generated
-    assert!(output.contains("scan.c: scan.l"));
-    assert!(output.contains("$(LEXCOMPILE)"));
+    assert!(output.contains("YACCCOMPILE = $(YACC) $(AM_YFLAGS) $(YFLAGS)"));
+    assert!(output.contains("LEXCOMPILE = $(LEX) $(AM_LFLAGS) $(LFLAGS)"));
+    // Yacc generates parse.c (and the parse.h header rule); Lex generates scan.c.
+    assert!(output.contains("parse.c: parse.y"), "yacc rule: {}", output);
+    assert!(output.contains("parse.h: parse.c"), "yacc header rule: {}", output);
+    assert!(output.contains("$(YACCCOMPILE) -o parse.c parse.y"), "yacc recipe: {}", output);
+    assert!(output.contains("scan.c: scan.l"), "lex rule: {}", output);
+    assert!(output.contains("$(LEXCOMPILE) -o scan.c scan.l"), "lex recipe: {}", output);
 }
 
 #[test]

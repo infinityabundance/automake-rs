@@ -411,79 +411,67 @@ impl MakefileInGenerator {
     }
 
     /// Generate BUILT_SOURCES ordering rules — ensures these files are built first.
-    fn generate_built_sources_rules(&self, out: &mut String) {
-        let built = self.find_variable("BUILT_SOURCES");
-        if let Some(ref sources) = built {
-            if !sources.is_empty() {
-                out.push_str(&format!("BUILT_SOURCES = {}\n", sources));
-                out.push_str("$(BUILT_SOURCES):\n\t@:\n\n");
-            }
-        }
+    fn generate_built_sources_rules(&self, _out: &mut String) {
+        // BUILT_SOURCES is emitted as a normal user variable (generate_user_variables); the targets
+        // it names are built by their own rules (Yacc/Lex headers, user rules passed through). The
+        // old `$(BUILT_SOURCES): @:` no-op shadowed those real rules ("overriding recipe") and left
+        // generated headers uncreated, so it is intentionally not emitted here.
     }
 
     /// Auto-detect Yacc (.y) and Lex (.l) sources and generate rules.
     /// When a program's SOURCES contain .y or .l files, generate YACC/LEX
     /// rules using ylwrap to handle output file renaming.
     fn generate_yacc_lex_rules(&self, out: &mut String) {
-        let mut has_yacc = false;
-        let mut has_lex = false;
-
-        // Scan all programs and libraries for .y/.l sources
+        // Collect (source, generated.c) for every Yacc/Lex source across all targets.
+        let mut yacc: Vec<(String, String)> = Vec::new();
+        let mut lex: Vec<(String, String)> = Vec::new();
         for kind in &["PROGRAMS", "LIBRARIES", "LTLIBRARIES"] {
             for (_dir, _no_dist, targets) in &self.collect_primaries(kind) {
                 for target in targets {
-                    let lib_name = target.strip_suffix(".a").unwrap_or(target);
-                    let sources_var = format!("{}_SOURCES", lib_name);
-                    if let Some(sources) = self.find_variable(&sources_var) {
-                        for src in sources.split_whitespace() {
-                            if src.ends_with(".y") || src.ends_with(".ypp") || src.ends_with(".y++")
-                            {
-                                let base = src
-                                    .trim_end_matches(".y")
-                                    .trim_end_matches(".ypp")
-                                    .trim_end_matches(".y++");
-                                let c_output = format!("{}.c", base);
-                                let h_output = format!("{}.h", base);
-                                out.push_str(&format!("{} {}: {}\n", c_output, h_output, src));
-                                out.push_str("\t$(AM_V_YACC)$(YACC) $(AM_YFLAGS) $(YFLAGS) $<\n");
-                                out.push_str(&format!(
-                                    "\t$(SHELL) $(YLWRAP) $< {}.c {} y.tab.c {}.h y.tab.h -- $(YACCCOMPILE)\n\n",
-                                    base, h_output, base
-                                ));
-                                has_yacc = true;
-                            }
-                            if src.ends_with(".l") || src.ends_with(".ll") || src.ends_with(".lpp")
-                            {
-                                let base = src
-                                    .trim_end_matches(".l")
-                                    .trim_end_matches(".ll")
-                                    .trim_end_matches(".lpp");
-                                let c_output = format!("{}.c", base);
-                                out.push_str(&format!("{}: {}\n", c_output, src));
-                                out.push_str("\t$(AM_V_LEX)$(LEX) $(AM_LFLAGS) $(LFLAGS) $<\n");
-                                out.push_str(&format!(
-                                    "\t$(SHELL) $(YLWRAP) $< lex.yy.c {} -- $(LEXCOMPILE)\n\n",
-                                    c_output
-                                ));
-                                has_lex = true;
-                            }
+                    for s in self.target_sources(target) {
+                        let Some(gen) = Self::lexyacc_generated(&s) else { continue };
+                        let is_yacc = s.ends_with(".y") || s.ends_with(".yy")
+                            || s.ends_with(".ypp") || s.ends_with(".y++");
+                        let pair = (s.clone(), gen);
+                        if is_yacc {
+                            if !yacc.contains(&pair) { yacc.push(pair); }
+                        } else if !lex.contains(&pair) {
+                            lex.push(pair);
                         }
                     }
                 }
             }
         }
-
-        // Emit ylwrap check if yacc or lex is used
-        if has_yacc || has_lex {
-            out.push_str("YLWRAP = $(top_srcdir)/ylwrap\n");
-            out.push_str("YACC = @YACC@\n");
-            out.push_str("YFLAGS = @YFLAGS@\n");
-            out.push_str("AM_YFLAGS = \n");
-            out.push_str("LEX = @LEX@\n");
-            out.push_str("LFLAGS = @LFLAGS@\n");
-            out.push_str("AM_LFLAGS = \n");
-            out.push_str("YACCCOMPILE = $(YACC) $(AM_YFLAGS) $(YFLAGS)\n");
-            out.push_str("LEXCOMPILE = $(LEX) $(AM_LFLAGS) $(LFLAGS)\n\n");
+        if yacc.is_empty() && lex.is_empty() {
+            return;
+        }
+        // Toolchain vars. AM_YFLAGS/AM_LFLAGS come from the user's Makefile.am (emitted by
+        // generate_user_variables) -- do NOT redefine them here (that dropped a project's `-d`,
+        // so no parser header was generated). $(YACCCOMPILE -o ...) uses modern bison/flex `-o`
+        // which writes the C file and, with `-d`/`--header-file`, the header alongside it.
+        // YACC/LEX are config.status substitutions (AC_PROG_YACC/AC_PROG_LEX); YFLAGS/LFLAGS are
+        // user/make variables (NOT @-substituted) -- emitting `@YFLAGS@` would leave a literal that
+        // flex/bison try to open as a file. Leave them undefined (empty) unless the user set them.
+        out.push_str("YACC = @YACC@\n");
+        out.push_str("LEX = @LEX@\n");
+        out.push_str("YACCCOMPILE = $(YACC) $(AM_YFLAGS) $(YFLAGS)\n");
+        out.push_str("LEXCOMPILE = $(LEX) $(AM_LFLAGS) $(LFLAGS)\n\n");
+        for (src, gen) in &yacc {
+            let stem = gen.rfind('.').map(|d| &gen[..d]).unwrap_or(gen);
+            let header = format!("{}.h", stem);
+            out.push_str(&format!("{}: {}\n", gen, src));
+            out.push_str(&format!("\t$(AM_V_YACC)$(YACCCOMPILE) -o {} {}\n\n", gen, src));
+            // The parser header is produced as a side effect of building the .c (bison -d). The
+            // recovery recipe regenerates it if it went missing (the standard Automake idiom).
+            out.push_str(&format!("{}: {}\n", header, gen));
+            out.push_str(&format!(
+                "\t@if test ! -f $@; then rm -f {g}; $(MAKE) $(AM_MAKEFLAGS) {g}; else :; fi\n\n",
+                g = gen
+            ));
+        }
+        for (src, gen) in &lex {
+            out.push_str(&format!("{}: {}\n", gen, src));
+            out.push_str(&format!("\t$(AM_V_LEX)$(LEXCOMPILE) -o {} {}\n\n", gen, src));
         }
     }
 
@@ -546,10 +534,18 @@ impl MakefileInGenerator {
     /// The default goal: `all`. Must be the first target so `make` with no args builds it.
     /// Recursive when `SUBDIRS` is present, otherwise the local `all-am`.
     fn generate_all_target(&self, out: &mut String) {
-        if self.has_subdirs() {
-            out.push_str("all: all-recursive\n\n");
+        let final_target = if self.has_subdirs() { "all-recursive" } else { "all-am" };
+        // BUILT_SOURCES (generated headers etc.) must exist before anything is compiled, so make
+        // `all` build them first, then dispatch to all-am/all-recursive.
+        let has_built = self
+            .find_variable("BUILT_SOURCES")
+            .map(|v| !v.trim().is_empty())
+            .unwrap_or(false);
+        if has_built {
+            out.push_str("all: $(BUILT_SOURCES)\n");
+            out.push_str(&format!("\t$(MAKE) $(AM_MAKEFLAGS) {}\n\n", final_target));
         } else {
-            out.push_str("all: all-am\n\n");
+            out.push_str(&format!("all: {}\n\n", final_target));
         }
         // `all-am` is ALWAYS emitted (the recursion engine and install-am depend on it). Its
         // recipe builds the local program/library outputs via $(MAKE) (relying on per-target or
@@ -679,6 +675,20 @@ impl MakefileInGenerator {
             || s.ends_with(".s") || s.ends_with(".S")
     }
 
+    /// If `s` is a Yacc (`.y*`) or Lex (`.l*`) source, the C/C++ file it generates
+    /// (`grammar.y` -> `grammar.c`); otherwise `None`.
+    fn lexyacc_generated(s: &str) -> Option<String> {
+        for (suf, gen) in [
+            (".ypp", ".cpp"), (".y++", ".c++"), (".yy", ".cc"), (".y", ".c"),
+            (".lpp", ".cpp"), (".l++", ".c++"), (".ll", ".cc"), (".l", ".c"),
+        ] {
+            if s.ends_with(suf) {
+                return Some(format!("{}{}", &s[..s.len() - suf.len()], gen));
+            }
+        }
+        None
+    }
+
     /// If a target has per-target compile flags (`X_CPPFLAGS`/`X_CFLAGS`/`X_CXXFLAGS`/...), its
     /// objects are renamed `{canon}-{stem}` and compiled with a dedicated per-object rule that
     /// carries those flags. Returns the canonical name (the object-name prefix) when so.
@@ -704,17 +714,21 @@ impl MakefileInGenerator {
         let ext = if lo { "lo" } else { "$(OBJEXT)" };
         self.target_sources(target)
             .iter()
-            .filter(|s| Self::is_compiled_source(s))
-            .map(|s| {
-                let stem = match s.rfind('.') {
-                    Some(d) => &s[..d],
-                    None => s.as_str(),
+            .filter_map(|s| {
+                // Yacc/Lex sources compile from the C file they generate (grammar.y -> grammar.c).
+                let comp = Self::lexyacc_generated(s).unwrap_or_else(|| s.clone());
+                if !Self::is_compiled_source(&comp) {
+                    return None;
+                }
+                let stem = match comp.rfind('.') {
+                    Some(d) => &comp[..d],
+                    None => comp.as_str(),
                 };
                 let obj = match stem.rfind('/') {
                     Some(slash) => format!("{}/{}{}.{}", &stem[..slash], prefix, &stem[slash + 1..], ext),
                     None => format!("{}{}.{}", prefix, stem, ext),
                 };
-                (obj, s.clone(), Self::is_cxx_source(s))
+                Some((obj, comp.clone(), Self::is_cxx_source(&comp)))
             })
             .collect()
     }
