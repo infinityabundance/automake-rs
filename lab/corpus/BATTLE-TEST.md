@@ -26,7 +26,7 @@ aux files; only the `Makefile.in`s are automake-rs's).
 
 | Outcome | Count |
 |---|---|
-| **FUNC_OK — builds end-to-end with automake-rs Makefiles** | **40 / 99 testable (~40%)** |
+| **FUNC_OK — builds end-to-end with automake-rs Makefiles** | **45** (was 40; +5 from the fixes below) |
 | MAKE_FAIL — configures, build fails on a feature gap | 54 |
 | CONFIGURE_FAIL | 5 |
 | (clone failures this run, excluded) | 14 |
@@ -41,3 +41,13 @@ GitHub code search (42 automake signatures) → 5070-repo pool → GraphQL star 
 validation in the VM with full bootstrap (`./autogen.sh`/`./bootstrap`/`autoreconf`,
 automake 1.18.1 & 1.16.5), a 748-package dependency manifest (`automake-corpus-deps.txt`),
 and apt-file dependency auto-resolution.
+
+## Build-out progress (driving the functional rate up)
+Triaging the MAKE_FAILs and fixing by category, re-measured against the corpus:
+- **C++ toolchain** — added `.cc/.cpp/.cxx/.C` suffix rules + `CXX*`/`CXXLINK` (C++ projects compiled).
+- **Target-name canonicalization** — `test-program` → `test_program_*` derived vars; fixed bogus
+  `test-program.o` and incomplete multi-source object lists (e.g. `rinetd` now builds end-to-end).
+- FUNC_OK **40 → 45**. Remaining MAKE_FAIL categories, by frequency: **libtool `.la` libraries**
+  (LTLIBRARIES build rules), **subdir-objects** (subdir sources → subdir objects), a **dep-manifest
+  variable-reference bug** (`$(X_SOURCES).Po` for variable-defined/odd-named targets → "missing
+  separator"), and project-specific config.h/include-path cases. These are the next targets.
