@@ -237,15 +237,11 @@ pub fn generate_support_variables(config: &AutomakeConfig) -> HashMap<String, St
         .to_string(),
     );
 
-    vars.insert(
-        "AM_V_lt".to_string(),
-        if config.silent_rules {
-            "$(AM_DEFAULT_VERBOSITY)$(AM_V_lt)"
-        } else {
-            ""
-        }
-        .to_string(),
-    );
+    // libtool verbosity: select via $(V) through helper vars (see am__v_lt_* in
+    // generate_support_variables). It must NOT reference itself -- the old
+    // "$(AM_DEFAULT_VERBOSITY)$(AM_V_lt)" form made make abort with
+    // "Recursive variable 'AM_V_lt' references itself".
+    vars.insert("AM_V_lt".to_string(), "$(am__v_lt_$(V))".to_string());
 
     vars
 }

@@ -150,7 +150,15 @@ impl DepTracker {
             ));
         }
         out.push('\n');
-        // The rule that creates an empty stub for any not-yet-existing dep file.
+    }
+
+    /// Emit the rule that materializes the `.Po` stubs. This is a real target, so it MUST appear
+    /// in the rules section AFTER `all:` — otherwise it becomes make's default goal and a bare
+    /// `make` builds a dep stub instead of the project. (GNU Automake emits it near the end too.)
+    pub fn emit_depfile_rule(depfiles: &[String], out: &mut String) {
+        if depfiles.is_empty() {
+            return;
+        }
         out.push_str("$(am__depfiles_remade):\n");
         out.push_str("\t@$(MKDIR_P) $(@D)\n");
         out.push_str("\t@: >>$@\n\n");

@@ -78,12 +78,17 @@ impl MakefileInGenerator {
         // 6c. The default goal `all` must be the first target.
         self.generate_all_target(&mut output);
 
+        // The dep-stub rule is a real target -> it MUST come after `all:` (the default goal).
+        crate::dependency_tracking::DepTracker::emit_depfile_rule(&self.collect_all_depfiles(), &mut output);
+
         // 7. Build rules for primaries
         self.generate_built_sources_rules(&mut output);
         self.generate_yacc_lex_rules(&mut output);
         self.generate_programs_rules(&mut output);
         self.generate_libraries_rules(&mut output);
-        self.generate_ltlibraries_rules(&mut output);
+        // libtool library compile/link rules are emitted centrally by generate_compile_link_rules
+        // and generate_program_infra_vars (the legacy emitter produced libfoo.la.la and duplicate
+        // install recipes).
         self.generate_scripts_rules(&mut output);
         self.generate_data_rules(&mut output);
         self.generate_headers_rules(&mut output);
@@ -209,6 +214,11 @@ impl MakefileInGenerator {
             out.push_str("am__v_CCLD_ = $(am__v_CCLD_$(AM_DEFAULT_VERBOSITY))\n");
             out.push_str("am__v_CCLD_0 = @echo \"  CCLD    \" $@;\n");
             out.push_str("am__v_CCLD_1 = \n");
+
+            // libtool verbosity helpers (AM_V_lt = $(am__v_lt_$(V)) is set in automake_macros).
+            out.push_str("am__v_lt_ = $(am__v_lt_$(AM_DEFAULT_VERBOSITY))\n");
+            out.push_str("am__v_lt_0 = --silent\n");
+            out.push_str("am__v_lt_1 = \n");
 
             out.push_str("AM_V_AR = $(am__v_AR_$(V))\n");
             out.push_str("am__v_AR_ = $(am__v_AR_$(AM_DEFAULT_VERBOSITY))\n");
@@ -356,18 +366,19 @@ impl MakefileInGenerator {
         let tracker = crate::dependency_tracking::DepTracker::new();
         tracker.emit_variables(out);
 
-        // Collect .Po/.Plo files using the dedup-capable collector
+        let depfiles = self.collect_all_depfiles();
+        crate::dependency_tracking::DepTracker::emit_includes(&depfiles, out);
+    }
+
+    /// Collect the `.Po`/`.Plo` dependency files for every compiled source across all targets.
+    fn collect_all_depfiles(&self) -> Vec<String> {
         let mut all_sources: Vec<(String, &str)> = Vec::new();
         for kind in &["PROGRAMS", "LIBRARIES", "LTLIBRARIES"] {
             for (_dir, _no_dist, targets) in &self.collect_primaries(kind) {
                 for target in targets {
                     // Variables derive from the canonicalized target name (libfoo.a -> libfoo_a).
                     let sources_var = format!("{}_SOURCES", Self::canon(target));
-                    let ext = if *kind == "LTLIBRARIES" {
-                        "lo"
-                    } else {
-                        "$(OBJEXT)"
-                    };
+                    let ext = if *kind == "LTLIBRARIES" { "lo" } else { "$(OBJEXT)" };
                     if let Some(sources) = self.find_variable(&sources_var) {
                         for src in sources.split_whitespace() {
                             // Only real compiled sources become dep files: skip `$(VAR)` refs,
@@ -394,12 +405,9 @@ impl MakefileInGenerator {
                 }
             }
         }
-
         let source_refs: Vec<(&str, &str)> =
             all_sources.iter().map(|(s, e)| (s.as_str(), *e)).collect();
-        let depfiles =
-            crate::dependency_tracking::DepTracker::collect_depfiles(&source_refs, &tracker.depdir);
-        crate::dependency_tracking::DepTracker::emit_includes(&depfiles, out);
+        crate::dependency_tracking::DepTracker::collect_depfiles(&source_refs, ".deps")
     }
 
     /// Generate BUILT_SOURCES ordering rules — ensures these files are built first.
@@ -731,31 +739,82 @@ impl MakefileInGenerator {
         self.target_sources(name).iter().any(|s| Self::is_cxx_source(s))
     }
 
-    /// Whether any program in this Makefile.am has C++ sources.
+    /// Whether any program OR libtool library has C++ sources.
     fn any_cxx(&self) -> bool {
-        self.collect_primaries("PROGRAMS")
+        ["PROGRAMS", "LTLIBRARIES"].iter().any(|k| {
+            self.collect_primaries(k)
+                .iter()
+                .flat_map(|(_, _, t)| t.iter())
+                .any(|p| self.target_is_cxx(p))
+        })
+    }
+
+    /// Whether this Makefile.am builds any libtool libraries (so the libtool toolchain is needed).
+    fn has_libtool(&self) -> bool {
+        !self.collect_primaries("LTLIBRARIES").is_empty()
+    }
+
+    /// The libtool object files (`.lo`) for a library's compiled sources.
+    fn library_objects(&self, lib: &str) -> Vec<String> {
+        self.target_sources(lib)
             .iter()
-            .flat_map(|(_, _, t)| t.iter())
-            .any(|p| self.target_is_cxx(p))
+            .filter(|s| {
+                s.ends_with(".c") || s.ends_with(".cc") || s.ends_with(".cpp")
+                    || s.ends_with(".cxx") || s.ends_with(".c++") || s.ends_with(".C")
+                    || s.ends_with(".m") || s.ends_with(".mm") || s.ends_with(".s") || s.ends_with(".S")
+            })
+            .map(|s| {
+                let stem = match s.rfind('.') { Some(d) => &s[..d], None => s.as_str() };
+                let stem = if self.config.subdir_objects { stem.to_string() }
+                    else { stem.rsplit('/').next().unwrap_or(stem).to_string() };
+                format!("{}.lo", stem)
+            })
+            .collect()
+    }
+
+    /// Link dependencies derived from an `_LDADD`/`_LIBADD` value: the `.la`/`.a` files (so the
+    /// program/library is rebuilt after, and ordered after, the libraries it links).
+    fn ldadd_deps(ldadd: &str) -> String {
+        ldadd
+            .split_whitespace()
+            .filter(|t| t.ends_with(".la") || t.ends_with(".a"))
+            .collect::<Vec<_>>()
+            .join(" ")
     }
 
     /// object/LDADD vars, and the COMPILE/CCLD/LINK command variables.
     fn generate_program_infra_vars(&self, out: &mut String) {
         let programs = self.collect_primaries("PROGRAMS");
-        if programs.is_empty() {
+        let ltlibs = self.collect_primaries("LTLIBRARIES");
+        if programs.is_empty() && ltlibs.is_empty() {
             return;
         }
+        let libtool = self.has_libtool();
         // PROGRAMS = $(bin_PROGRAMS) $(noinst_PROGRAMS) ...
-        let mut prefix_vars: Vec<String> = Vec::new();
-        for (prefix, _nd, _t) in &programs {
-            let p = if prefix.is_empty() { "bin" } else { prefix.as_str() };
-            let v = format!("$({}_PROGRAMS)", p);
-            if !prefix_vars.contains(&v) {
-                prefix_vars.push(v);
+        if !programs.is_empty() {
+            let mut prefix_vars: Vec<String> = Vec::new();
+            for (prefix, _nd, _t) in &programs {
+                let p = if prefix.is_empty() { "bin" } else { prefix.as_str() };
+                let v = format!("$({}_PROGRAMS)", p);
+                if !prefix_vars.contains(&v) {
+                    prefix_vars.push(v);
+                }
             }
+            out.push_str(&format!("PROGRAMS = {}\n", prefix_vars.join(" ")));
         }
-        out.push_str(&format!("PROGRAMS = {}\n", prefix_vars.join(" ")));
-        // Per-program object + LDADD vars (variable names use the canonicalized target name).
+        // LTLIBRARIES = $(lib_LTLIBRARIES) $(noinst_LTLIBRARIES) ...
+        if !ltlibs.is_empty() {
+            let mut lv: Vec<String> = Vec::new();
+            for (prefix, _nd, _t) in &ltlibs {
+                let p = if prefix.is_empty() { "lib" } else { prefix.as_str() };
+                let v = format!("$({}_LTLIBRARIES)", p);
+                if !lv.contains(&v) {
+                    lv.push(v);
+                }
+            }
+            out.push_str(&format!("LTLIBRARIES = {}\n", lv.join(" ")));
+        }
+        // Per-program object/LDADD/DEPENDENCIES vars (names use the canonicalized target name).
         for (_prefix, _nd, targets) in &programs {
             for prog in targets {
                 let c = Self::canon(prog);
@@ -766,13 +825,40 @@ impl MakefileInGenerator {
                     .find_variable(&format!("{}_LDADD", c))
                     .unwrap_or_else(|| "$(LDADD)".to_string());
                 out.push_str(&format!("{}_LDADD = {}\n", c, ldadd));
+                let deps = Self::ldadd_deps(&ldadd);
+                if !deps.is_empty() {
+                    out.push_str(&format!("{}_DEPENDENCIES = {}\n", c, deps));
+                }
+            }
+        }
+        // Per-libtool-library object/LIBADD vars.
+        for (_prefix, _nd, targets) in &ltlibs {
+            for lib in targets {
+                let c = Self::canon(lib);
+                let objs = self.library_objects(lib);
+                out.push_str(&format!("am_{}_OBJECTS = {}\n", c, objs.join(" ")));
+                out.push_str(&format!("{}_OBJECTS = $(am_{}_OBJECTS)\n", c, c));
+                let libadd = self.find_variable(&format!("{}_LIBADD", c)).unwrap_or_default();
+                out.push_str(&format!("{}_LIBADD = {}\n", c, libadd));
             }
         }
         out.push_str("DEFAULT_INCLUDES = -I.@am__isrc@\n");
         out.push_str("COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \\\n");
         out.push_str("\t$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)\n");
         out.push_str("CCLD = $(CC)\n");
-        out.push_str("LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@\n");
+        if libtool {
+            // libtool toolchain: LINK and the .lo compile go through $(LIBTOOL).
+            out.push_str("LIBTOOL = @LIBTOOL@\n");
+            out.push_str("LTCOMPILE = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \\\n");
+            out.push_str("\t$(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) \\\n");
+            out.push_str("\t$(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) \\\n");
+            out.push_str("\t$(AM_CFLAGS) $(CFLAGS)\n");
+            out.push_str("LINK = $(LIBTOOL) $(AM_V_lt) --tag=CC $(AM_LIBTOOLFLAGS) \\\n");
+            out.push_str("\t$(LIBTOOLFLAGS) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \\\n");
+            out.push_str("\t$(AM_LDFLAGS) $(LDFLAGS) -o $@\n");
+        } else {
+            out.push_str("LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@\n");
+        }
         // C++ toolchain (emitted when any program has C++ sources). CXX/CXXFLAGS come from the
         // project's AC_PROG_CXX via config.status substitution.
         if self.any_cxx() {
@@ -782,6 +868,12 @@ impl MakefileInGenerator {
             out.push_str("\t$(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS)\n");
             out.push_str("CXXLD = $(CXX)\n");
             out.push_str("CXXLINK = $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@\n");
+            if libtool {
+                out.push_str("LTCXXCOMPILE = $(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) \\\n");
+                out.push_str("\t$(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) \\\n");
+                out.push_str("\t$(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) \\\n");
+                out.push_str("\t$(AM_CXXFLAGS) $(CXXFLAGS)\n");
+            }
         }
     }
 
@@ -790,21 +882,28 @@ impl MakefileInGenerator {
     /// depending on make's built-in suffix rules (which the generated `.SUFFIXES:` reset disables).
     fn generate_compile_link_rules(&self, out: &mut String) {
         let programs = self.collect_primaries("PROGRAMS");
-        if programs.is_empty() {
+        let ltlibs = self.collect_primaries("LTLIBRARIES");
+        if programs.is_empty() && ltlibs.is_empty() {
             return;
         }
         let cxx = self.any_cxx();
+        let libtool = self.has_libtool();
+        // .SUFFIXES: list every extension the rules below use.
+        let mut sfx = String::from(".c");
         if cxx {
-            out.push_str(".SUFFIXES:\n");
-            out.push_str(".SUFFIXES: .c .cc .cpp .cxx .C .o .obj\n\n");
-        } else {
-            out.push_str(".SUFFIXES:\n");
-            out.push_str(".SUFFIXES: .c .o .obj\n\n");
+            sfx.push_str(" .cc .cpp .cxx .C");
         }
-        // Link rule per program (C++ targets link with $(CXXLINK)).
+        if libtool {
+            sfx.push_str(" .lo");
+        }
+        sfx.push_str(" .o .obj");
+        out.push_str(".SUFFIXES:\n");
+        out.push_str(&format!(".SUFFIXES: {}\n\n", sfx));
+        // Link rule per program. In a libtool project everything links through $(LINK) (libtool
+        // link mode); otherwise C++ targets link with $(CXXLINK).
         for (_prefix, _nd, targets) in &programs {
             for prog in targets {
-                let link = if self.target_is_cxx(prog) { "CXXLINK" } else { "LINK" };
+                let link = if self.target_is_cxx(prog) && !libtool { "CXXLINK" } else { "LINK" };
                 let c = Self::canon(prog);
                 // The build target keeps the original name; derived vars use the canonical name.
                 out.push_str(&format!(
@@ -818,11 +917,36 @@ impl MakefileInGenerator {
                 ));
             }
         }
+        // Link rule per libtool library: $(LINK) builds the .la; installable libraries need -rpath.
+        for (prefix, _nd, targets) in &ltlibs {
+            let installable = matches!(prefix.as_str(), "" | "lib" | "pkglib");
+            let rpath = if installable {
+                let dir = if prefix.is_empty() { "lib" } else { prefix.as_str() };
+                format!("-rpath $({}dir) ", dir)
+            } else {
+                String::new()
+            };
+            for lib in targets {
+                let c = Self::canon(lib);
+                out.push_str(&format!(
+                    "{l}: $({c}_OBJECTS) $({c}_DEPENDENCIES) $(EXTRA_{c}_DEPENDENCIES)\n",
+                    l = lib, c = c
+                ));
+                out.push_str(&format!(
+                    "\t$(AM_V_CCLD)$(LINK) {rpath}$({c}_OBJECTS) $({c}_LIBADD) $(LIBS)\n\n",
+                    rpath = rpath, c = c
+                ));
+            }
+        }
         // C compile suffix rules.
         out.push_str(".c.o:\n");
         out.push_str("\t$(AM_V_CC)$(COMPILE) -c -o $@ $<\n\n");
         out.push_str(".c.obj:\n");
         out.push_str("\t$(AM_V_CC)$(COMPILE) -c -o $@ `$(CYGPATH_W) '$<'`\n\n");
+        if libtool {
+            out.push_str(".c.lo:\n");
+            out.push_str("\t$(AM_V_CC)$(LTCOMPILE) -c -o $@ $<\n\n");
+        }
         // C++ compile suffix rules (one per common extension).
         if cxx {
             for ext in [".cc", ".cpp", ".cxx", ".C"] {
@@ -830,6 +954,10 @@ impl MakefileInGenerator {
                 out.push_str("\t$(AM_V_CXX)$(CXXCOMPILE) -c -o $@ $<\n\n");
                 out.push_str(&format!("{ext}.obj:\n", ext = ext));
                 out.push_str("\t$(AM_V_CXX)$(CXXCOMPILE) -c -o $@ `$(CYGPATH_W) '$<'`\n\n");
+                if libtool {
+                    out.push_str(&format!("{ext}.lo:\n", ext = ext));
+                    out.push_str("\t$(AM_V_CXX)$(LTCXXCOMPILE) -c -o $@ $<\n\n");
+                }
             }
         }
     }
@@ -1034,7 +1162,8 @@ impl MakefileInGenerator {
     ///   - VPATH $(srcdir)/ source references for out-of-tree builds
     ///   - -rpath for installed libtool libraries
     ///   - Install/uninstall via libtool --mode=install
-    fn generate_ltlibraries_rules(&self, out: &mut String) {
+    #[allow(dead_code)]
+    fn generate_ltlibraries_rules_legacy(&self, out: &mut String) {
         let libraries = self.collect_primaries("LTLIBRARIES");
         if libraries.is_empty() {
             return;
