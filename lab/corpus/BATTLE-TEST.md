@@ -263,3 +263,30 @@ did not move the corpus because nested-`AS_IF` rescan is still broken. The next 
 that rescan path in autoconf-rs's expander; it is the highest-leverage remaining fix and is a
 focused core-engine task. Corpus build verdicts continue to run in the QEMU 1000-corpus VM
 (host-side runs are macro-expansion diagnosis only).
+
+## NATIVE — core m4 nested-macro fix + autoconf chain (this section, all shipped)
+Cracked and shipped the major core-engine blocker plus the next several layers it exposed. Each
+fix is verified with a clean build (clock-skew workaround) + cleared cache.
+
+1. **m4-rs nested-macro rescan (THE core fix)** — the expander's self-reference guard blocked ANY
+   re-entrant same-macro call at the same depth, dropping legitimately-nested calls (`AS_IF` inside
+   `AS_IF`) so the inner one leaked as a bare token. Now only argument-less self-reference (true
+   `define(x,x)` loops) is blocked; nested calls with args expand, backstopped by the call-depth
+   limit. **Shipped: m4-rs-core 0.1.4 + facade 0.1.5.** Verified: nested `AS_IF` fully expands.
+2. **autoconf-rs chain (0.1.7)** built on it: AS_IF `:`-guarded then + else branch (empty/AC_DEFINE
+   then-blocks no longer make `if c; then fi`); `AC_CONFIG_HEADER` singular prescan (config.h is
+   created); drop the `@%:@undef` quadrigraph template (no more `stray @`); standard `PACKAGE_*`
+   undef/define entries.
+
+**Effect:** troglobit/redir advanced from CONFIGURE_RUN_FAIL through *five* successive layers
+(nested-AS_IF → AS_IF-else → config.h creation → `@` stray → PACKAGE defines) and now generates a
+valid configure + config.h with zero GNU tools — concrete, compounding progress on the dominant
+AS_IF-heavy failure class.
+
+**Honest count:** the MODE-D *batch* still reads 2/32. Two reasons: (a) the batch harness remains
+unreliable (redir configures cleanly when driven manually but the batch marks it CONFIGURE_RUN_FAIL
+— a moded.sh driver/cache discrepancy still to resolve), and (b) repos clear these layers only to
+hit the next (config.status header-path for PACKAGE_*, real `-l` probing, etc.). The nested-macro
+fix is nonetheless the single biggest correctness gain of the campaign — it unblocks configure
+*generation* for the AS_IF-heavy majority. The marathon continues layer by layer; this section
+shipped the hardest core-engine fix and four more on top of it.
