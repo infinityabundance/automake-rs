@@ -240,3 +240,26 @@ in autoconf-rs. The verified-stable facts remain: MODE A 31/31, **MODE B (aux-na
 trivial projects bootstrap fully GNU-free. The arg_text fix is correct and shipped, but its corpus
 impact can't be measured cleanly until the determinism bug is resolved — that determinism fix is now
 the true next priority, ahead of further macro work.
+
+## NATIVE — correction + precisely-isolated core m4 blocker (reliable, clean-build)
+**Correction to the previous section:** the reported "path-dependent nondeterminism" was an
+artifact of the clock-skew stale-build bug, not a real defect. With a verified clean build
+(forced source-mtime bump + `cargo clean`), redir is **deterministic = 6 leftover macros across
+4 different working directories** — no nondeterminism. The lesson stands: under host clock skew
+cargo silently serves stale objects, so every autoconf-rs measurement must use a forced clean
+build (the earlier "0 / it works" readings were stale binaries + the autom4te cache).
+
+**The real blocker, now cleanly isolated (clean build, cache-cleared):** nested user-macro
+expansion. A minimal `AS_IF([c],[ AS_IF([d],[x]) ])` — nothing else — leaves the inner `AS_IF`
+as a bare token (its `(...)` args dropped during rescan). The `arg_text` one-level-quote fix
+(shipped in autoconf-rs 0.1.6, correct m4 semantics, all core tests green) was necessary but
+NOT sufficient: the inner macro's arguments are still lost when an outer user-macro body is
+re-expanded. That is the single core-engine defect gating the AS_IF-heavy majority of the
+corpus (nearly every real configure.ac uses nested `AS_IF`).
+
+**Honest state (reliable):** MODE A 31/31, **MODE B (aux-native) 31/31**, trivial GNU-free
+bootstrap ✓. MODE D real-corpus builds remain **2** (gztool, ldap-git-backup) — the arg_text fix
+did not move the corpus because nested-`AS_IF` rescan is still broken. The next change is fixing
+that rescan path in autoconf-rs's expander; it is the highest-leverage remaining fix and is a
+focused core-engine task. Corpus build verdicts continue to run in the QEMU 1000-corpus VM
+(host-side runs are macro-expansion diagnosis only).
