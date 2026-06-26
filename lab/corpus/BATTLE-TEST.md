@@ -290,3 +290,17 @@ hit the next (config.status header-path for PACKAGE_*, real `-l` probing, etc.).
 fix is nonetheless the single biggest correctness gain of the campaign — it unblocks configure
 *generation* for the AS_IF-heavy majority. The marathon continues layer by layer; this section
 shipped the hardest core-engine fix and four more on top of it.
+
+## NATIVE — harness correctness fix (MODE-D count now trustworthy)
+The MODE-D batch harness only ran autoheader when configure.ac contained `AC_CONFIG_HEADERS`
+(plural), so projects using the singular `AC_CONFIG_HEADER` got no config.h.in and were
+mis-recorded as CONFIGURE_RUN_FAIL. Rewrote the harness to invoke the **real `autoreconf-rs -fi`
+driver** (exactly what a user runs) instead of reimplementing the steps. With that:
+- redir correctly moves CONFIGURE_RUN_FAIL → **MAKE_FAIL** (it does configure now).
+- **configure-OK rose 10 → 12** of 31; FUNC_OK steady at 2 (the configure-OK repos now fail at
+  `make` on the next layer — config.status's PACKAGE_* header path / real `-l` probing).
+
+Net for the section: the m4-rs nested-macro core fix + autoconf-rs 0.1.7 chain are shipped, the
+harness now reports reality, and the remaining gap is a concrete ordered list (config.status header
+code-path for PACKAGE_*, then real library probing). The honest MODE-D figure is **2 GNU-free
+end-to-end builds, 12/31 configure-OK** — up from 2/10 configure-OK at the section start.
