@@ -138,7 +138,10 @@ pub fn run_bootstrap(dir: &Path, forbid_gnu: bool, verbose: bool) -> BootstrapRe
     };
 
     if verbose { eprintln!("autoreconf-rs: aclocal -> aclocal.m4"); }
-    let _ = run(&aclocal, &[cf.file_name().unwrap().to_str().unwrap()], Some(Path::new("aclocal.m4")));
+    // aclocal-rs writes aclocal.m4 itself (its -o default). Do NOT also capture its stdout into
+    // aclocal.m4 — that clobbered the real file with empty stdout, leaving 0-line aclocal.m4 so
+    // autoconf had no macro definitions to prepend (AX_*/AM_* "command not found"). Let it write.
+    let _ = run(&aclocal, &[cf.file_name().unwrap().to_str().unwrap()], None);
 
     if verbose { eprintln!("autoreconf-rs: autoconf -> configure"); }
     let cfg_ok = run(&autoconf, &[cf.file_name().unwrap().to_str().unwrap()], Some(Path::new("configure")));
