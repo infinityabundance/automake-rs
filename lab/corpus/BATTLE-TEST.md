@@ -218,3 +218,25 @@ trivial cases.
 (m4 quoting/rescan correctness + feature-test macros with real `$CC`/`pkg-config` probing + the
 project macro tail). This campaign moved it from 0 to the first real GNU-free builds and isolated the
 exact next engine defect; it is a sustained multi-session effort, not a single fix.
+
+## NATIVE — m4 arg-collection fix + two measurement-blocking infra bugs (this section)
+Implemented the isolated m4 fix: `args.rs::arg_text` now strips exactly **one** quote level (m4
+semantics) instead of all levels, so nested macros keep their own quoting (AS_IF-inside-AS_IF no
+longer leaks). All autoconf-rs core tests green; shipped as **autoconf-rs 0.1.6**.
+
+While verifying it, two infrastructure bugs surfaced that **block reliable corpus measurement** and
+explain the erratic readings throughout this campaign:
+1. **Stale incremental builds under host clock skew.** The session date advanced; cargo then
+   reported edited sources as `Fresh` and silently linked stale object code — so several
+   autoconf-rs edits were *not actually in the binary under test*. Workaround: full `cargo clean` +
+   bump all source mtimes before building.
+2. **Path-dependent expansion nondeterminism.** The same binary, on the same cache-cleared input,
+   produces different output in different working directories (redir: 0 leftover macros in one dir,
+   6 in another — each deterministic within its dir). This makes any MODE-D count unreliable until
+   fixed.
+
+**Consequence (honest):** MODE-D progress cannot be trustworthily quantified until bug #2 is fixed
+in autoconf-rs. The verified-stable facts remain: MODE A 31/31, **MODE B (aux-native) 31/31**, and
+trivial projects bootstrap fully GNU-free. The arg_text fix is correct and shipped, but its corpus
+impact can't be measured cleanly until the determinism bug is resolved — that determinism fix is now
+the true next priority, ahead of further macro work.
