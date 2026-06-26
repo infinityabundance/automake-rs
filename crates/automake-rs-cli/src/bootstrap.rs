@@ -141,7 +141,7 @@ pub fn run_bootstrap(dir: &Path, forbid_gnu: bool, verbose: bool) -> BootstrapRe
     let _ = run(&aclocal, &[cf.file_name().unwrap().to_str().unwrap()], Some(Path::new("aclocal.m4")));
 
     if verbose { eprintln!("autoreconf-rs: autoconf -> configure"); }
-    let cfg_ok = run(&autoconf, &["--force", cf.file_name().unwrap().to_str().unwrap()], Some(Path::new("configure")));
+    let cfg_ok = run(&autoconf, &[cf.file_name().unwrap().to_str().unwrap()], Some(Path::new("configure")));
     if cfg_ok {
         #[cfg(unix)]
         {
@@ -154,7 +154,7 @@ pub fn run_bootstrap(dir: &Path, forbid_gnu: bool, verbose: bool) -> BootstrapRe
 
     if needs_header {
         if verbose { eprintln!("autoreconf-rs: autoheader -> config.h.in"); }
-        let _ = run(&autoheader, &["--force", cf.file_name().unwrap().to_str().unwrap()], Some(Path::new("config.h.in")));
+        let _ = run(&autoheader, &[cf.file_name().unwrap().to_str().unwrap()], Some(Path::new("config.h.in")));
     }
 
     // Steps 4 + 5 (aux + Makefile.in) are automake-rs itself; the caller runs them after this
