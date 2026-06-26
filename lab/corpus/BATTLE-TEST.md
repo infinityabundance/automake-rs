@@ -193,3 +193,28 @@ The native bootstrap stack is now **functional end-to-end with zero GNU tools** 
 the first GNU-free builds. The remaining MODE-D gap is deeper autoconf-rs macro coverage (project
 AM_CONDITIONAL vars, PKG_CHECK_MODULES, individual feature tests), which is the ongoing autoconf-rs
 court — each fix there lifts this number.
+
+## NATIVE — campaign status + the precise remaining m4 bug (ground-truth, cache-free)
+Pushed the autoconf-rs macro surface hard this campaign (config.status full variable substitution +
+~130 macros registered, shipped as autoconf-rs 0.1.5). Net effect, measured **cache-free** (critical
+— see below): MODE D rose **0 → 2 fully GNU-free end-to-end builds** (gztool, ldap-git-backup) and
+configure-success **2 → 10** of 32.
+
+**Measurement hazard found:** autoconf-rs's autom4te cache (`./autom4te.cache/*.json`) silently
+serves stale results; several "it works now" readings were cache hits. The harness now
+`rm -rf autom4te.cache` before each generation, and the ground-truth MODE-D count is **2/32**,
+deterministic and reproduced on both host and VM.
+
+**The precise remaining blocker (isolated):** nested macros leak. In redir, an outer `AS_IF` whose
+2nd argument contains an inner `AS_IF([...],[...])` *followed by* `AC_CHECK_LIB(...)` loses the inner
+`AS_IF`'s parenthesized args, leaving a bare `AS_IF` token → `AS_IF: command not found`. Root cause:
+`args.rs::arg_text` strips quote delimiters at **every** nesting level, but m4 must strip only **one**
+level on argument collection — so the inner macro's own quoting is destroyed before rescan. Fixing
+that (one-level quote stripping) is the next high-leverage autoconf-rs change; it is a core-engine
+edit and needs the cache-free deterministic harness to verify without regressing the 2 working +
+trivial cases.
+
+**Honest scope:** "the whole 1000 building independently" remains the full autoconf reimplementation
+(m4 quoting/rescan correctness + feature-test macros with real `$CC`/`pkg-config` probing + the
+project macro tail). This campaign moved it from 0 to the first real GNU-free builds and isolated the
+exact next engine defect; it is a sustained multi-session effort, not a single fix.
