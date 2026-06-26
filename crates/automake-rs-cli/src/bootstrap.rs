@@ -95,7 +95,9 @@ pub fn run_bootstrap(dir: &Path, forbid_gnu: bool, verbose: bool) -> BootstrapRe
         }
     };
     let ac_text = std::fs::read_to_string(&cf).unwrap_or_default();
-    let needs_header = ac_text.contains("AC_CONFIG_HEADERS") || ac_text.contains("AC_CONFIG_HEADER");
+    let needs_header = ac_text.contains("AC_CONFIG_HEADERS")
+        || ac_text.contains("AC_CONFIG_HEADER")
+        || ac_text.contains("AM_CONFIG_HEADER");
 
     // Resolve the native stage tools. automake-rs is self (this binary's own generator).
     let aclocal = resolve_tool("aclocal", "ACLOCAL_RS", &["aclocal-rs", "acrs-aclocal", "aclocal"]);
