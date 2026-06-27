@@ -414,6 +414,7 @@ fn diag_line(cf: &str, mk: &str) -> String {
     for log in [mk, cf] {
         for l in log.lines() {
             let ll = l.to_lowercase();
+            if ll.contains("confdefs.h: no such file") { continue; }
             if ll.contains("configure: error")
                 || ll.contains("syntax error")
                 || ll.contains("command not found")
@@ -462,4 +463,14 @@ fn write_index(out_dir: &Path) {
         "recipes": lines,
     });
     let _ = std::fs::write(out_dir.join("INDEX.json"), serde_json::to_string_pretty(&index).unwrap_or_default() + "\n");
+}
+
+/// `xtask atlas-index <out-dir>` — rebuild INDEX.json from existing recipes (no builds). Used after
+/// parallel atlas workers populate the recipe dir.
+pub fn index_only() -> ExitCode {
+    let args: Vec<String> = std::env::args().collect();
+    let out_dir = PathBuf::from(args.get(2).cloned().unwrap_or_else(|| "atlas/recipes".into()));
+    write_index(&out_dir);
+    println!("atlas-index: rebuilt INDEX.json in {}", out_dir.display());
+    ExitCode::SUCCESS
 }
