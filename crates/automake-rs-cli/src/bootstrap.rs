@@ -158,8 +158,13 @@ pub fn run_bootstrap(dir: &Path, forbid_gnu: bool, verbose: bool) -> BootstrapRe
     }
 
     if needs_header {
-        if verbose { eprintln!("autoreconf-rs: autoheader -> config.h.in"); }
-        let _ = run(&autoheader, &[cf.file_name().unwrap().to_str().unwrap()], Some(Path::new("config.h.in")));
+        // The header template name is NOT always config.h.in — AC_CONFIG_HEADERS([ethtool-config.h])
+        // means autoheader must write ethtool-config.h.in (else config.status creates an empty
+        // header and the program sees `PACKAGE undeclared`). Parse the configured header name.
+        let header = config_header_name(&ac_text);
+        let header_in = format!("{}.in", header);
+        if verbose { eprintln!("autoreconf-rs: autoheader -> {}", header_in); }
+        let _ = run(&autoheader, &[cf.file_name().unwrap().to_str().unwrap()], Some(Path::new(&header_in)));
     }
 
     // Steps 4 + 5 (aux + Makefile.in) are automake-rs itself; the caller runs them after this
@@ -216,4 +221,31 @@ fn step_json(stage: &str, status: &str, detail: &str, provider: Option<&str>) ->
 
 fn err_receipt(msg: &str) -> String {
     format!("{{ \"native_bootstrap\": false, \"error\": {:?} }}\n", msg)
+}
+
+/// Extract the first config-header name from AC_CONFIG_HEADERS / AC_CONFIG_HEADER / AM_CONFIG_HEADER
+/// (e.g. `ethtool-config.h`), defaulting to `config.h`. Only the first whitespace-separated token of
+/// the first arg names the header to generate.
+fn config_header_name(ac_text: &str) -> String {
+    for macro_name in ["AC_CONFIG_HEADERS", "AC_CONFIG_HEADER", "AM_CONFIG_HEADER"] {
+        if let Some(pos) = ac_text.find(macro_name) {
+            let after = &ac_text[pos + macro_name.len()..];
+            if let Some(open) = after.find('(') {
+                if let Some(close) = after[open..].find(')') {
+                    let inner = &after[open + 1..open + close];
+                    let first = inner
+                        .trim()
+                        .trim_start_matches('[')
+                        .split([']', ',', ' ', '\t', '\n'])
+                        .next()
+                        .unwrap_or("")
+                        .trim();
+                    if !first.is_empty() {
+                        return first.to_string();
+                    }
+                }
+            }
+        }
+    }
+    "config.h".to_string()
 }
