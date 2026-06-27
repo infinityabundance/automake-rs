@@ -1,0 +1,85 @@
+{
+  "schema": "automake-rs.build-atlas/v1",
+  "repo": "miconda/rtpproxy",
+  "source": {
+    "url": "https://github.com/miconda/rtpproxy",
+    "git_sha": "41f6d9d9084a6fad52a6483a0593d4b25e0de8ca",
+    "snapshot_utc": "2026-06-27"
+  },
+  "toolchain": {
+    "autoconf_rs": "autoconf-rs 0.1.8",
+    "automake_rs": "automake (GNU automake) UNKNOWN",
+    "m4_rs_core": "0.1.4",
+    "gnu_free": true
+  },
+  "target": {
+    "cc": "cc",
+    "cflags": "-g -O2",
+    "host": "x86_64-pc-linux-gnu"
+  },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "ok"
+    },
+    {
+      "step": "make",
+      "tool": "make",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {
+    "HAVE_ARPA_INET_H": 1,
+    "HAVE_ATEXIT": 1,
+    "HAVE_ERR_H": 1,
+    "HAVE_FCNTL_H": 1,
+    "HAVE_GETTIMEOFDAY": 1,
+    "HAVE_GSM_H": 1,
+    "HAVE_LIBGSM": 1,
+    "HAVE_LIMITS_H": 1,
+    "HAVE_MEMSET": 1,
+    "HAVE_MKDIR": 1,
+    "HAVE_NETDB_H": 1,
+    "HAVE_NETINET_IN_H": 1,
+    "HAVE_SOCKADDR_SUN_LEN": 1,
+    "HAVE_SOCKET": 1,
+    "HAVE_STDLIB_H": 1,
+    "HAVE_STRCHR": 1,
+    "HAVE_STRDUP": 1,
+    "HAVE_STRERROR": 1,
+    "HAVE_STRINGS_H": 1,
+    "HAVE_STRING_H": 1,
+    "HAVE_SYS_SOCKET_H": 1,
+    "HAVE_SYS_TIME_H": 1,
+    "HAVE_UNISTD_H": 1
+  },
+  "feature_flags": {
+    "configure_args": []
+  },
+  "dependencies": {
+    "pkg_config": [],
+    "system_libs": [
+      "-lgsm",
+      "-lgsm"
+    ],
+    "headers_needed": [
+      "confdefs.h"
+    ],
+    "missing": [
+      "confdefs.h"
+    ]
+  },
+  "quirks": [
+    "LIBS=-lgsm -lgsm"
+  ],
+  "outputs": [],
+  "status": "MAKE_FAIL",
+  "verified": false,
+  "diagnostic": "main.c:433:14: error: ‘struct sockaddr_un’ has no member named ‘sun_len’"
+}

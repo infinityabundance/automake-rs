@@ -37,6 +37,8 @@ mod truth;
 use std::path::Path;
 use std::process::{Command, ExitCode};
 
+mod atlas;
+
 fn main() -> ExitCode {
     let args: Vec<String> = std::env::args().collect();
     let command = args.get(1).map(|s| s.as_str()).unwrap_or("check");
@@ -48,6 +50,7 @@ fn main() -> ExitCode {
         "test" => run_test(),
         "oracle" => run_oracle_admission(),
         "compare" => compare::run(),
+        "atlas" => atlas::run(),
         "generate" => run_generate(),
         "receipts" => run_receipt_check(),
         "claims" => run_claim_check(),
