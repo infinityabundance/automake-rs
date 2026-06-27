@@ -895,7 +895,10 @@ impl MakefileInGenerator {
                 out.push_str(&format!("{}_LIBADD = {}\n", c, libadd));
             }
         }
-        out.push_str("DEFAULT_INCLUDES = -I.@am__isrc@\n");
+        // Include -I$(top_builddir) so sources in a SUBDIR can find the top-level generated config.h
+        // (matches GNU automake). Without it, lib/foo.c -> `config.h: No such file` even though
+        // config.h exists and DEFS=-DHAVE_CONFIG_H requested it. For the top dir, top_builddir=.
+        out.push_str("DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)\n");
         out.push_str("COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \\\n");
         out.push_str("\t$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)\n");
         out.push_str("CCLD = $(CC)\n");
