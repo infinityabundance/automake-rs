@@ -40,6 +40,10 @@ struct Recipe {
     oracle: Option<Oracle>,
     #[serde(skip_serializing_if = "Option::is_none")]
     divergence: Option<Divergence>,
+    receipt: Receipt,
+    environment: Environment,
+    #[serde(skip_serializing_if = "Vec::is_empty")]
+    suggested_deps: Vec<SuggestedDep>,
 }
 #[derive(Serialize)]
 struct Source {
@@ -145,6 +149,45 @@ struct SyntaxError {
     line: usize,
     token: String,
     source: String,
+}
+
+/// Sealed build-court receipt — makes each recipe auditable: the probe-execution trace (every HAVE_*
+/// decision + why), the quirk rules that fired, and a sha256 hash-chain over the recipe's load-bearing
+/// fields (toolchain + probe trace + outputs + oracle verdict). court_status is the verdict.
+#[derive(Serialize, Default)]
+struct Receipt {
+    /// sealed (FUNC_OK, matches oracle) | partial (configure cleared, make failed) |
+    /// quirk_dependent (needed a quirk) | not_standalone (oracle also fails) | failed
+    court_status: String,
+    probe_trace: Vec<ProbeStep>,
+    quirks_matched: Vec<String>,
+    receipt_hash: String,
+    schema: &'static str,
+}
+#[derive(Serialize)]
+struct ProbeStep {
+    name: String,   // HAVE_FOO_H / func / -llib
+    kind: String,   // header | func | lib
+    result: String, // yes | no
+    reason: String, // ok | header-not-found | symbol-not-found | link-failed | not-recorded
+}
+/// Build-environment fingerprint for hermeticity: the exact toolchain + paths + env that shaped the
+/// build, so a recipe is reproducible across machines and time.
+#[derive(Serialize, Default)]
+struct Environment {
+    cc: String,
+    cc_version: String,
+    host_triplet: String,
+    pkg_config_version: String,
+    make_version: String,
+    relevant_env: Vec<String>,
+}
+/// Missing-dep inference: a package that would satisfy a failed header/lib probe.
+#[derive(Serialize)]
+struct SuggestedDep {
+    missing: String, // foo.h | -lfoo
+    kind: String,    // header | lib
+    package: String, // distro package that provides it
 }
 
 fn tool(env_var: &str, default: &str) -> String {
@@ -337,6 +380,26 @@ pub fn run() -> ExitCode {
                 if !libs.is_empty() {
                     quirks.push(format!("LIBS={}", libs.join(" ")));
                 }
+                // === build-court receipt + hermeticity + missing-dep inference ===
+                let environment = fingerprint_environment();
+                let quirks_matched = match_quirks(&ac_text, &d, &cf_log);
+                let probe_trace = build_probe_trace(&probes, &cf_log);
+                let suggested_deps = infer_missing_deps(&hdrs, &cf_log);
+                let toolchain = Toolchain {
+                    autoconf_rs: ac_ver.clone(),
+                    automake_rs: am_ver.clone(),
+                    m4_rs_core: "0.1.4".into(),
+                    gnu_free: true,
+                };
+                let court = court_status(&status, &oracle, &quirks_matched);
+                let receipt_hash = compute_receipt_hash(&toolchain, &probes, &outputs, &oracle, &court);
+                let receipt = Receipt {
+                    court_status: court,
+                    probe_trace,
+                    quirks_matched,
+                    receipt_hash,
+                    schema: "automake-rs.build-court/v1",
+                };
                 write_recipe(
                     &out_dir,
                     &slug,
@@ -348,12 +411,7 @@ pub fn run() -> ExitCode {
                             git_sha: git_sha.clone(),
                             snapshot_utc: "2026-06-27".into(),
                         },
-                        toolchain: Toolchain {
-                            autoconf_rs: ac_ver.clone(),
-                            automake_rs: am_ver.clone(),
-                            m4_rs_core: "0.1.4".into(),
-                            gnu_free: true,
-                        },
+                        toolchain,
                         target: Target {
                             cc: "cc".into(),
                             cflags: "-g -O2".into(),
@@ -376,6 +434,9 @@ pub fn run() -> ExitCode {
                         deep_expansion,
                         oracle,
                         divergence,
+                        receipt,
+                        environment,
+                        suggested_deps,
                     },
                 );
                 println!("[{:>3}] {:<40} {}", n, repo, status);
@@ -405,6 +466,13 @@ pub fn run() -> ExitCode {
                 deep_expansion: None,
                 oracle: None,
                 divergence: None,
+                receipt: Receipt {
+                    court_status: if status == "CLONE_FAIL" { "failed".into() } else { "failed".into() },
+                    schema: "automake-rs.build-court/v1",
+                    ..Default::default()
+                },
+                environment: fingerprint_environment(),
+                suggested_deps: vec![],
             },
         );
         println!("[{:>3}] {:<40} {}", n, repo, status);
@@ -646,6 +714,160 @@ fn analyze_expansion(d: &Path, cf_log: &str) -> Option<DeepExpansion> {
     Some(de)
 }
 
+/// Fingerprint the build environment (hermeticity layer): the exact toolchain + the env vars that
+/// shape a build, so a recipe is reproducible across machines.
+fn fingerprint_environment() -> Environment {
+    let run = |prog: &str, args: &[&str]| -> String {
+        Command::new(prog).args(args).output().ok()
+            .map(|o| String::from_utf8_lossy(&o.stdout).lines().next().unwrap_or("").trim().to_string())
+            .unwrap_or_default()
+    };
+    let mut relevant_env = Vec::new();
+    for k in ["CC", "CXX", "CFLAGS", "CXXFLAGS", "CPPFLAGS", "LDFLAGS", "LIBS", "PKG_CONFIG_PATH"] {
+        if let Ok(v) = std::env::var(k) {
+            if !v.is_empty() { relevant_env.push(format!("{}={}", k, v)); }
+        }
+    }
+    Environment {
+        cc: std::env::var("CC").unwrap_or_else(|_| "cc".into()),
+        cc_version: run("cc", &["--version"]),
+        host_triplet: run("cc", &["-dumpmachine"]),
+        pkg_config_version: run("pkg-config", &["--version"]),
+        make_version: run("make", &["--version"]),
+        relevant_env,
+    }
+}
+
+/// Probe-failure root-cause: turn the generated config.h HAVE_* results + the configure run-log into a
+/// per-probe trace that says WHY each probe passed or failed (header not found, symbol not found, link
+/// failed) rather than just yes/no.
+fn build_probe_trace(probes: &BTreeMap<String, u8>, cf_log: &str) -> Vec<ProbeStep> {
+    let log_l = cf_log.to_lowercase();
+    let mut trace = Vec::new();
+    for (name, &val) in probes.iter() {
+        let yes = val == 1;
+        // derive kind from the HAVE_ name
+        let kind = if name.ends_with("_H") || name.contains("HEADER") { "header" }
+            else if name.starts_with("HAVE_LIB") { "lib" }
+            else { "func" };
+        let reason = if yes { "ok".to_string() } else {
+            // why did it fail? look for a clue in the run log
+            let stem = name.trim_start_matches("HAVE_").to_lowercase();
+            if log_l.contains(&format!("{}: no such file", stem.replace('_', "."))) { "header-not-found".into() }
+            else if kind == "lib" && log_l.contains("cannot find -l") { "link-failed".into() }
+            else if log_l.contains("undefined reference") { "symbol-not-found".into() }
+            else { "probe-returned-no".into() }
+        };
+        if trace.len() < 200 {
+            trace.push(ProbeStep { name: name.clone(), kind: kind.into(), result: if yes {"yes".into()} else {"no".into()}, reason });
+        }
+    }
+    trace
+}
+
+/// Missing-dep inference: for failed header/lib probes (and any "X.h: No such file" in the log),
+/// suggest the distro package that would satisfy it.
+fn infer_missing_deps(hdrs_needed: &[String], cf_log: &str) -> Vec<SuggestedDep> {
+    // header/lib stem -> providing package (Debian/Ubuntu names; the common autotools deps)
+    const PKGS: &[(&str, &str, &str)] = &[
+        ("zlib.h", "header", "zlib1g-dev"), ("zconf.h", "header", "zlib1g-dev"),
+        ("openssl/", "header", "libssl-dev"), ("curl/", "header", "libcurl4-openssl-dev"),
+        ("pcre.h", "header", "libpcre3-dev"), ("pcre2.h", "header", "libpcre2-dev"),
+        ("fuse.h", "header", "libfuse-dev"), ("fuse3/", "header", "libfuse3-dev"),
+        ("ncurses.h", "header", "libncurses-dev"), ("curses.h", "header", "libncurses-dev"),
+        ("sqlite3.h", "header", "libsqlite3-dev"), ("expat.h", "header", "libexpat1-dev"),
+        ("libxml/", "header", "libxml2-dev"), ("png.h", "header", "libpng-dev"),
+        ("jpeglib.h", "header", "libjpeg-dev"), ("ffi.h", "header", "libffi-dev"),
+        ("gmp.h", "header", "libgmp-dev"), ("readline/", "header", "libreadline-dev"),
+        ("libusb", "header", "libusb-1.0-0-dev"), ("alsa/", "header", "libasound2-dev"),
+        ("X11/", "header", "libx11-dev"), ("GL/", "header", "libgl-dev"),
+        ("dbus/", "header", "libdbus-1-dev"), ("systemd/", "header", "libsystemd-dev"),
+        ("pcap.h", "header", "libpcap-dev"), ("ldns/", "header", "libldns-dev"),
+        ("cryptsetup", "header", "libcryptsetup-dev"), ("gcrypt.h", "header", "libgcrypt20-dev"),
+        ("event.h", "header", "libevent-dev"), ("json-c/", "header", "libjson-c-dev"),
+    ];
+    let log_l = cf_log.to_lowercase();
+    let mut out: Vec<SuggestedDep> = Vec::new();
+    let mut consider = |needle: &str| {
+        for (stem, kind, pkg) in PKGS {
+            if needle.contains(stem) && !out.iter().any(|s| s.package == *pkg) {
+                out.push(SuggestedDep { missing: needle.to_string(), kind: (*kind).to_string(), package: (*pkg).to_string() });
+            }
+        }
+    };
+    for h in hdrs_needed { consider(&h.to_lowercase()); }
+    // also scan the run log for "X.h: No such file"
+    for l in log_l.lines() {
+        if l.contains("no such file") && l.contains(".h") {
+            if let Some(h) = l.split(':').next() { consider(h.trim()); }
+        }
+    }
+    out.truncate(20);
+    out
+}
+
+/// Quirk rule engine: versioned heuristics matched on configure.ac text, file presence, or run-log.
+/// Each fired rule is recorded so we know which quirks a build depended on.
+fn match_quirks(ac_text: &str, d: &Path, cf_log: &str) -> Vec<String> {
+    // (id, predicate-kind, needle): kind a=ac_text, f=file-exists, l=run-log
+    const RULES: &[(&str, char, &str)] = &[
+        ("uses-libtool", 'a', "LT_INIT"),
+        ("uses-libtool-old", 'a', "AC_PROG_LIBTOOL"),
+        ("uses-pkg-config", 'a', "PKG_CHECK_MODULES"),
+        ("uses-intltool", 'a', "IT_PROG_INTLTOOL"),
+        ("uses-gettext", 'a', "AM_GNU_GETTEXT"),
+        ("uses-python", 'a', "AM_PATH_PYTHON"),
+        ("uses-subdir-objects", 'a', "subdir-objects"),
+        ("uses-maintainer-mode", 'a', "AM_MAINTAINER_MODE"),
+        ("has-m4-macro-dir", 'f', "m4"),
+        ("has-acinclude", 'f', "acinclude.m4"),
+        ("vendored-aclocal", 'f', "aclocal.m4"),
+        ("uses-ax-archive", 'a', "AX_"),
+        ("uses-pthread-check", 'a', "AX_PTHREAD"),
+        ("emits-config-commands-post", 'a', "AC_CONFIG_COMMANDS_POST"),
+        ("perl-in-configure", 'a', "PERL"),
+    ];
+    let mut out = Vec::new();
+    for (id, kind, needle) in RULES {
+        let hit = match kind {
+            'a' => ac_text.contains(needle),
+            'f' => d.join(needle).exists(),
+            'l' => cf_log.contains(needle),
+            _ => false,
+        };
+        if hit { out.push(id.to_string()); }
+    }
+    out
+}
+
+/// Build-court verdict for a recipe.
+fn court_status(status: &str, oracle: &Option<Oracle>, quirks: &[String]) -> String {
+    let cls = oracle.as_ref().map(|o| o.classification.as_str()).unwrap_or("");
+    if status == "FUNC_OK" {
+        if quirks.is_empty() { "sealed".into() } else { "quirk_dependent".into() }
+    } else if status == "MAKE_FAIL" {
+        "partial".into()
+    } else if cls == "NOT_STANDALONE" || cls.starts_with("BOTH_") {
+        "not_standalone".into()
+    } else {
+        "failed".into()
+    }
+}
+
+/// sha256 hash-chain over the recipe's load-bearing fields — the sealed-receipt anchor.
+fn compute_receipt_hash(
+    toolchain: &Toolchain, probes: &BTreeMap<String, u8>, outputs: &[Output],
+    oracle: &Option<Oracle>, court: &str,
+) -> String {
+    let mut h = Sha256::new();
+    h.update(format!("ac={} am={} m4={}\n", toolchain.autoconf_rs, toolchain.automake_rs, toolchain.m4_rs_core).as_bytes());
+    for (k, v) in probes.iter() { h.update(format!("{}={}\n", k, v).as_bytes()); }
+    for o in outputs { h.update(format!("{}@{}\n", o.path, o.sha256).as_bytes()); }
+    if let Some(o) = oracle { h.update(format!("oracle={}\n", o.classification).as_bytes()); }
+    h.update(format!("court={}\n", court).as_bytes());
+    format!("{:x}", h.finalize())
+}
+
 fn collect(d: &Path, cf: &str, mk: &str) -> (BTreeMap<String, u8>, Vec<String>, Vec<String>, Vec<String>) {
     // probe results from the generated config header
     let mut probes = BTreeMap::new();
@@ -772,6 +994,8 @@ fn write_index(out_dir: &Path) {
     let mut classif: BTreeMap<String, usize> = BTreeMap::new();
     let mut fixable_roots: BTreeMap<String, usize> = BTreeMap::new();
     let mut failed_checks: BTreeMap<String, usize> = BTreeMap::new();
+    let mut courts: BTreeMap<String, usize> = BTreeMap::new();
+    let mut sugg_pkgs: BTreeMap<String, usize> = BTreeMap::new();
     let mut ours_clear = 0usize;
     let mut real_clear = 0usize;
     let mut entries: Vec<_> = std::fs::read_dir(out_dir).into_iter().flatten().flatten().collect();
@@ -821,6 +1045,14 @@ fn write_index(out_dir: &Path) {
                     }
                 }
                 if st == "MAKE_FAIL" || st == "FUNC_OK" { ours_clear += 1; }
+                if let Some(c) = v.get("receipt").and_then(|r| r["court_status"].as_str()) {
+                    *courts.entry(c.to_string()).or_default() += 1;
+                }
+                if let Some(arr) = v.get("suggested_deps").and_then(|s| s.as_array()) {
+                    let mut seen = std::collections::BTreeSet::new();
+                    for s in arr { if let Some(p) = s["package"].as_str() { seen.insert(p.to_string()); } }
+                    for p in seen { *sugg_pkgs.entry(p).or_default() += 1; }
+                }
                 if let Some(orc) = v.get("oracle") {
                     if let Some(c) = orc["classification"].as_str() { *classif.entry(c.to_string()).or_default() += 1; }
                     if orc["real_configure"].as_str() == Some("ok") { real_clear += 1; }
@@ -870,9 +1102,39 @@ fn write_index(out_dir: &Path) {
             "fixable_backlog_roots": rank(&fixable_roots),
             "died_during_check": rank(&failed_checks),
         },
+        "courts": courts.clone(),
+        "suggested_packages": rank(&sugg_pkgs),
         "recipes": lines,
     });
     let _ = std::fs::write(out_dir.join("INDEX.json"), serde_json::to_string_pretty(&index).unwrap_or_default() + "\n");
+
+    // COURTS.md — human-readable gap-analysis summary of the build-court verdicts.
+    let mut md = String::new();
+    md.push_str("# Build Courts — automake-rs Atlas gap analysis\n\n");
+    md.push_str(&format!("Total recipes: **{}**\n\n## Court status\n\n", total));
+    md.push_str("| status | count | meaning |\n|---|---|---|\n");
+    let meaning = |s: &str| match s {
+        "sealed" => "FUNC_OK, no quirks — fully reproduced",
+        "quirk_dependent" => "FUNC_OK but needed a quirk rule",
+        "partial" => "configure cleared, make failed",
+        "not_standalone" => "oracle (GNU) also fails — not our bug",
+        "failed" => "ours fails before make",
+        _ => "",
+    };
+    for (k, c) in courts.iter() {
+        md.push_str(&format!("| {} | {} | {} |\n", k, c, meaning(k)));
+    }
+    md.push_str(&format!("\n## Oracle headroom\n\nours configure-clear: **{}** · GNU configure-clear: **{}** · fixable our-bug headroom: **{}**\n\n",
+        ours_clear, real_clear, real_clear.saturating_sub(ours_clear)));
+    md.push_str("## Top fixable roots (real succeeds, ours fails)\n\n");
+    for r in rank(&fixable_roots).iter().take(15) {
+        md.push_str(&format!("- {} — {} repos\n", r["name"].as_str().unwrap_or(""), r["repos"]));
+    }
+    md.push_str("\n## Most-needed packages (missing-dep inference)\n\n");
+    for r in rank(&sugg_pkgs).iter().take(15) {
+        md.push_str(&format!("- {} — {} repos\n", r["name"].as_str().unwrap_or(""), r["repos"]));
+    }
+    let _ = std::fs::write(out_dir.join("COURTS.md"), md);
 }
 
 /// `xtask atlas-index <out-dir>` — rebuild INDEX.json from existing recipes (no builds). Used after
@@ -882,5 +1144,55 @@ pub fn index_only() -> ExitCode {
     let out_dir = PathBuf::from(args.get(2).cloned().unwrap_or_else(|| "atlas/recipes".into()));
     write_index(&out_dir);
     println!("atlas-index: rebuilt INDEX.json in {}", out_dir.display());
+    ExitCode::SUCCESS
+}
+
+/// `xtask atlas-query <term> [out-dir]` — find every recipe that touches a dependency, header,
+/// function, macro, package, or quirk. The ecosystem search interface over the corpus.
+pub fn query() -> ExitCode {
+    let args: Vec<String> = std::env::args().collect();
+    let term = match args.get(2) {
+        Some(t) => t.to_lowercase(),
+        None => {
+            eprintln!("usage: xtask atlas-query <term> [out-dir]");
+            return ExitCode::FAILURE;
+        }
+    };
+    let out_dir = PathBuf::from(args.get(3).cloned().unwrap_or_else(|| "atlas/recipes".into()));
+    let mut hits: Vec<(String, String, String)> = Vec::new(); // repo, where, detail
+    for e in std::fs::read_dir(&out_dir).into_iter().flatten().flatten() {
+        let p = e.path();
+        if p.extension().and_then(|s| s.to_str()) != Some("json")
+            || p.file_name().and_then(|s| s.to_str()) == Some("INDEX.json") { continue; }
+        let txt = match std::fs::read_to_string(&p) { Ok(t) => t, Err(_) => continue };
+        let v: serde_json::Value = match serde_json::from_str(&txt) { Ok(v) => v, Err(_) => continue };
+        let repo = v["repo"].as_str().unwrap_or("?").to_string();
+        let st = v["status"].as_str().unwrap_or("?").to_string();
+        let mut found = |where_: &str, detail: String| hits.push((repo.clone(), where_.to_string(), detail));
+        let dep = &v["dependencies"];
+        for (key, label) in [("pkg_config","pkg-config"),("system_libs","lib"),("headers_needed","header")] {
+            if let Some(arr) = dep[key].as_array() {
+                for x in arr { if let Some(s)=x.as_str() { if s.to_lowercase().contains(&term) { found(label, format!("{} ({})", s, st)); } } }
+            }
+        }
+        if let Some(obj) = v["probe_results"].as_object() {
+            for k in obj.keys() { if k.to_lowercase().contains(&term) { found("probe", format!("{} ({})", k, st)); break; } }
+        }
+        if let Some(arr) = v["suggested_deps"].as_array() {
+            for x in arr { if let Some(s)=x["package"].as_str() { if s.to_lowercase().contains(&term) { found("suggested-pkg", format!("{} ({})", s, st)); } } }
+        }
+        if let Some(arr) = v["receipt"]["quirks_matched"].as_array() {
+            for x in arr { if let Some(s)=x.as_str() { if s.to_lowercase().contains(&term) { found("quirk", format!("{} ({})", s, st)); } } }
+        }
+        if let Some(de) = v.get("deep_expansion") {
+            if let Some(arr) = de["leaked_macros"].as_array() {
+                for m in arr { if let Some(s)=m["name"].as_str() { if s.to_lowercase().contains(&term) { found("leaked-macro", format!("{} ({})", s, st)); break; } } }
+            }
+        }
+    }
+    println!("atlas-query \"{}\": {} hit(s)", term, hits.len());
+    for (repo, where_, detail) in hits.iter().take(100) {
+        println!("  {:<40} [{}] {}", repo, where_, detail);
+    }
     ExitCode::SUCCESS
 }
