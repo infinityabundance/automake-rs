@@ -103,6 +103,12 @@ struct DeepExpansion {
     cache_var_anomalies: Vec<String>,
     /// Leftover `@VAR@` substitution placeholders config.status never filled.
     residual_placeholders: Vec<String>,
+    /// The last `checking for …` message printed before configure died — names the actual probe ours
+    /// broke on (the real divergence), not the cascade line where the shell finally reports a syntax
+    /// error. This is the actionable root: "ours died during <this check>".
+    failed_during_check: String,
+    /// Lines of configure-run output AFTER the last checking message (the crash's immediate fallout).
+    failure_tail: Vec<String>,
 }
 /// The GNU-autotools oracle outcome for the SAME repo, run right after ours on a git-reset tree.
 /// This is the compass: `classification` says whether a failure is OUR bug (real succeeds, we don't —
@@ -610,6 +616,33 @@ fn analyze_expansion(d: &Path, cf_log: &str) -> Option<DeepExpansion> {
             }
         }
     }
+    // Name the probe ours died on: the last `checking …` message printed before the run ended, plus
+    // the few lines after it (the crash fallout). configure prints "checking X... " with no newline,
+    // so the message + the failure often share a line; we split on "checking" to recover it.
+    {
+        let log_lines: Vec<&str> = cf_log.lines().collect();
+        let mut last_check_idx = None;
+        for (i, l) in log_lines.iter().enumerate() {
+            if l.contains("checking ") {
+                last_check_idx = Some(i);
+            }
+        }
+        if let Some(i) = last_check_idx {
+            if let Some(pos) = log_lines[i].find("checking ") {
+                de.failed_during_check = log_lines[i][pos..].chars().take(80).collect();
+            }
+            de.failure_tail = log_lines[i..]
+                .iter()
+                .take(5)
+                .map(|s| s.trim().chars().take(80).collect::<String>())
+                .filter(|s| !s.is_empty())
+                .collect();
+        } else if !log_lines.is_empty() {
+            de.failure_tail = log_lines.iter().rev().take(4).rev()
+                .map(|s| s.trim().chars().take(80).collect::<String>())
+                .filter(|s| !s.is_empty()).collect();
+        }
+    }
     Some(de)
 }
 
@@ -738,6 +771,7 @@ fn write_index(out_dir: &Path) {
     // Oracle compass: classification counts + the fixable backlog (roots of OURS_BUG repos, ranked).
     let mut classif: BTreeMap<String, usize> = BTreeMap::new();
     let mut fixable_roots: BTreeMap<String, usize> = BTreeMap::new();
+    let mut failed_checks: BTreeMap<String, usize> = BTreeMap::new();
     let mut ours_clear = 0usize;
     let mut real_clear = 0usize;
     let mut entries: Vec<_> = std::fs::read_dir(out_dir).into_iter().flatten().flatten().collect();
@@ -774,6 +808,16 @@ fn write_index(out_dir: &Path) {
                         let mut seen = std::collections::BTreeSet::new();
                         for r in arr { if let Some(s) = r.as_str() { seen.insert(s.to_string()); } }
                         for s in seen { *residual.entry(s).or_default() += 1; }
+                    }
+                    // the actual probe ours died on (the divergence root, not the cascade line)
+                    if st != "FUNC_OK" {
+                        if let Some(c) = de["failed_during_check"].as_str() {
+                            if !c.is_empty() {
+                                // normalize: drop trailing "... <value>" so similar checks bucket together
+                                let norm = c.split("...").next().unwrap_or(c).trim().to_string();
+                                *failed_checks.entry(norm).or_default() += 1;
+                            }
+                        }
                     }
                 }
                 if st == "MAKE_FAIL" || st == "FUNC_OK" { ours_clear += 1; }
@@ -824,6 +868,7 @@ fn write_index(out_dir: &Path) {
             "headroom_our_bugs": real_clear.saturating_sub(ours_clear),
             "classification": classif,
             "fixable_backlog_roots": rank(&fixable_roots),
+            "died_during_check": rank(&failed_checks),
         },
         "recipes": lines,
     });
