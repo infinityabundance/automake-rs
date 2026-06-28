@@ -1104,14 +1104,30 @@ fn diag_line(cf: &str, mk: &str) -> String {
 /// | clone_failed) and exits non-zero on anything but a clean reproduction — so it gates regressions.
 pub fn replay() -> ExitCode {
     let args: Vec<String> = std::env::args().collect();
-    let recipe_path = match args.get(2) {
-        Some(p) => PathBuf::from(p),
+    let arg = match args.get(2) {
+        Some(p) => p.clone(),
         None => {
-            eprintln!("usage: cargo xtask atlas-replay <recipe.json> [--keep]");
+            eprintln!("usage: cargo xtask atlas-replay <recipe.json | owner/name | slug> [--keep]");
+            eprintln!("  resolves a recipe by path, by `owner/name`, or by `owner__name` slug under atlas/recipes/");
             return ExitCode::from(2);
         }
     };
     let keep = args.iter().any(|a| a == "--keep");
+    // Resolve the recipe: an existing path, else a repo slug under atlas/recipes/ (owner/name or owner__name).
+    let recipe_path = {
+        let direct = PathBuf::from(&arg);
+        if direct.is_file() {
+            direct
+        } else {
+            let slug = arg.replace('/', "__");
+            let cand = PathBuf::from("atlas/recipes").join(format!("{}.json", slug));
+            if cand.is_file() { cand } else {
+                eprintln!("atlas-replay: no recipe found for '{}' (tried {} and atlas/recipes/{}.json)", arg, direct.display(), slug);
+                return ExitCode::from(2);
+            }
+        }
+    };
+    eprintln!("atlas-replay: recipe {}", recipe_path.display());
     let v: serde_json::Value = match std::fs::read_to_string(&recipe_path).ok().and_then(|s| serde_json::from_str(&s).ok()) {
         Some(v) => v,
         None => { eprintln!("atlas-replay: cannot read/parse {}", recipe_path.display()); return ExitCode::from(2); }
@@ -1142,7 +1158,9 @@ pub fn replay() -> ExitCode {
     let mut replay_status = "clone_failed";
     let mut sha_used = String::new();
 
+    eprintln!("  [1/5] clone {} ...", url);
     let (cloned, _) = run_timed(&base, 120, "git", &["clone", "-q", &url, d.to_str().unwrap()]);
+    eprintln!("        clone: {}", if cloned { "ok" } else { "FAIL" });
     steps.push(serde_json::json!({"step": "clone", "status": if cloned {"ok"} else {"fail"}}));
     let mut out_compare = serde_json::json!({});
     let mut matched = 0usize; let mut mismatched = 0usize; let mut missing = 0usize;
@@ -1153,18 +1171,25 @@ pub fn replay() -> ExitCode {
             Command::new("git").args(["rev-parse", "HEAD"]).current_dir(&d).output().ok()
                 .map(|o| String::from_utf8_lossy(&o.stdout).trim().to_string()).unwrap_or_default()
         };
+        eprintln!("  [2/5] checkout {} ({})", &sha_used[..sha_used.len().min(12)], if pin_ok { "pinned" } else { "HEAD fallback — pinned sha gone" });
         steps.push(serde_json::json!({"step": "checkout", "sha": sha_used, "pinned": pin_ok, "status": if pin_ok {"ok"} else {"head-fallback"}}));
 
         replay_status = "build_failed";
+        eprintln!("  [3/5] autoreconf-rs -fi ...");
         let (_a, _) = run_timed(&d, 150, &ars, &["-fi", "."]);
         let gen_ok = d.join("configure").exists();
+        eprintln!("        autoreconf: {}", if gen_ok { "ok (configure generated)" } else { "FAIL (no configure)" });
         steps.push(serde_json::json!({"step": "autoreconf", "tool": ars, "status": if gen_ok {"ok"} else {"fail"}}));
         if gen_ok {
+            eprintln!("  [4/5] ./configure {} ...", cfg_args.join(" "));
             let argref: Vec<&str> = cfg_args.iter().map(|s| s.as_str()).collect();
             let (cfok, cfl) = run_timed(&d, 180, "./configure", &argref);
+            eprintln!("        configure: {}", if cfok { "ok" } else { "FAIL" });
             steps.push(serde_json::json!({"step": "configure", "args": cfg_args, "status": if cfok {"ok"} else {"fail"}}));
             if cfok {
+                eprintln!("  [5/5] make -j2 ...");
                 let (mkok, mkl) = run_timed(&d, 300, "make", &["-j2"]);
+                eprintln!("        make: {}", if mkok { "ok" } else { "FAIL" });
                 steps.push(serde_json::json!({"step": "make", "status": if mkok {"ok"} else {"fail"}}));
                 let _ = (cfl, mkl);
                 // verify: rebuilt artifacts vs recipe outputs (by path -> sha256)
@@ -1179,6 +1204,9 @@ pub fn replay() -> ExitCode {
                     }
                 }
                 out_compare = serde_json::json!({"matched": matched, "mismatched": mismatched, "missing": missing, "details": details});
+                if !recipe_outputs.is_empty() {
+                    eprintln!("        verify: {} matched, {} hash-mismatch, {} missing (of {} recorded outputs)", matched, mismatched, missing, recipe_outputs.len());
+                }
                 replay_status = if !mkok { "build_failed" }
                     else if recipe_outputs.is_empty() { "reproduced_no_outputs" }
                     else if mismatched == 0 && missing == 0 { "reproduced" }

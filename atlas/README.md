@@ -69,6 +69,55 @@ Turns the atlas from a *record* into a *reproducer*. `atlas-replay <recipe.json>
 artifacts) · `diverged` (built, but some output hashes differ — expected for non-reproducible binaries
 that embed timestamps/paths) · `build_failed` · `clone_failed`.
 
+### Usage
+
+```sh
+# by repo slug (resolved under atlas/recipes/), by owner/name, or by explicit path:
+cargo xtask atlas-replay ayumin/open-cobol
+cargo xtask atlas-replay ayumin__open-cobol
+cargo xtask atlas-replay atlas/recipes/ayumin__open-cobol.json --keep   # --keep leaves the build dir
+
+# same tool env as the atlas scan (GNU-free):
+AUTOCONF_RS=… AUTOHEADER_RS=… ACLOCAL_RS=… AUTOMAKE_RS=… AUTORECONF_RS=… cargo xtask atlas-replay <repo>
+```
+
+Progress is logged to stderr; the machine-readable receipt goes to stdout (and a file). Exit code is
+`0` only for a clean reproduction — so `atlas-replay` drops straight into CI as a regression gate.
+
+### Demo (replaying `ayumin/open-cobol`)
+
+```text
+atlas-replay: recipe atlas/recipes/ayumin__open-cobol.json
+  [1/5] clone https://github.com/ayumin/open-cobol ...
+        clone: ok
+  [2/5] checkout 72578e8fe3f1 (pinned)
+  [3/5] autoreconf-rs -fi ...
+        autoreconf: ok (configure generated)
+  [4/5] ./configure  ...
+        configure: ok
+  [5/5] make -j2 ...
+        make: ok
+        verify: 6 matched, 4 hash-mismatch, 2 missing (of 12 recorded outputs)
+
+atlas-replay: ayumin/open-cobol — diverged (receipt: /tmp/atlasreplay_ayumin__open-cobol/replay-receipt.json)
+```
+
+(`libcob.a` and `libcob.so.1.0.0` reproduce byte-for-byte; the mismatches are `tests/atconfig`, which
+embeds the build path, and the `libcob.so` symlink — i.e. the non-deterministic artifacts, correctly
+flagged.)
+
+### Limitations
+
+- **Non-reproducible binaries.** Most C toolchains embed timestamps / absolute paths / symlinks, so a
+  byte-identical `reproduced` is the exception; `diverged` with a per-artifact breakdown is the norm and
+  is the honest signal. Use the breakdown, not just the top-line status.
+- **Network + toolchain required.** Replay clones from GitHub and needs a C compiler + make on `PATH`
+  and the `*_RS` tools in the env (same as the scan).
+- **Pinned-sha drift.** If the recorded `git_sha` is gone upstream, replay falls back to HEAD and records
+  `pinned:false` — a `diverged`/`build_failed` from a HEAD fallback is *recipe rot*, not a real regression.
+- **First-error diagnostics only.** A failed replay records the first hard error; deep triage still wants
+  the recipe's `deep_expansion` / `divergence`.
+
 ## Analytics (`ANALYTICS.md` + `INDEX.json` → `analytics`)
 
 Self-documenting corpus intelligence, regenerated on every index:
