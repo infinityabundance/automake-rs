@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.11",
+    "autoconf_rs": "autoconf-rs 0.1.12",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -51,59 +51,49 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1413: syntax error near unexpected token `_WIN32,have_os_win32=yes,have_os_win32=no'",
+  "diagnostic": "./configure: line 1535: AC_OPTIMIZE: command not found",
   "deep_expansion": {
-    "configure_lines": 2972,
+    "configure_lines": 3016,
     "leaked_macros": [
       {
-        "name": "AC_CHECK_DECL",
-        "line": 1413,
-        "context": "AC_CHECK_DECL(_WIN32,have_os_win32=yes,have_os_win32=no)"
-      },
-      {
-        "name": "AC_CHECK_DECL",
-        "line": 1416,
-        "context": "AC_CHECK_DECL(__APPLE__,have_os_apple=yes,have_os_apple=no)"
-      },
-      {
         "name": "AC_PATH_PTHREAD",
-        "line": 1844,
+        "line": 1888,
         "context": "AC_PATH_PTHREAD(have_pthread=yes)"
       },
       {
         "name": "AC_PATH_JPEG",
-        "line": 1848,
+        "line": 1892,
         "context": "AC_PATH_JPEG(have_jpeg=\"yes\", have_jpeg=\"no\")"
       },
       {
         "name": "AC_PATH_TIFF",
-        "line": 1853,
+        "line": 1897,
         "context": "AC_PATH_TIFF(have_tiff=\"yes\", have_tiff=\"no\")"
       }
     ],
-    "heredoc_openers": 41,
-    "heredoc_terminators": 41,
+    "heredoc_openers": 43,
+    "heredoc_terminators": 43,
     "heredoc_imbalance": 0,
     "syntax_errors": [
       {
-        "line": 1413,
-        "token": "_WIN32,have_os_win32=yes",
-        "source": "AC_CHECK_DECL(_WIN32,have_os_win32=yes,have_os_win32=no)",
+        "line": 1888,
+        "token": "have_pthread=yes",
+        "source": "AC_PATH_PTHREAD(have_pthread=yes)",
         "block": [
-          "1409: fi",
-          "1410: ",
-          "1411: # Special cases",
-          "1412: ",
-          "1413: AC_CHECK_DECL(_WIN32,have_os_win32=yes,have_os_win32=no)",
-          "1414: ",
-          "1415: ",
-          "1416: AC_CHECK_DECL(__APPLE__,have_os_apple=yes,have_os_apple=no)"
+          "1884:   :",
+          "1885:   ",
+          "1886: else",
+          "1887:   :",
+          "1888:   AC_PATH_PTHREAD(have_pthread=yes)",
+          "1889: fi",
+          "1890: ",
+          "1891: # Search JPEG library"
         ]
       }
     ],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2459: do eval test \\${$as_var+y} \\"
+      "line 2503: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
@@ -128,27 +118,28 @@
       "DEFS",
       "LIBOBJS",
       "INSTALL",
-      "host_os",
       "host_cpu",
       "version_info",
-      "host_alias",
-      "host_vendor"
+      "host_os",
+      "host_vendor",
+      "host_alias"
     ],
-    "failed_during_check": "",
+    "failed_during_check": "checking for iconv... yes",
     "failure_tail": [
-      "./configure: line 1413: syntax error near unexpected token `_WIN32,have_os_win32",
-      "./configure: line 1413: `AC_CHECK_DECL(_WIN32,have_os_win32=yes,have_os_win32=no"
+      "checking for iconv... yes",
+      "./configure: line 1888: syntax error near unexpected token `have_pthread=yes'",
+      "./configure: line 1888: `  AC_PATH_PTHREAD(have_pthread=yes)'"
     ],
     "conftest_corruption": [],
-    "conftest_directives_intact": 37,
+    "conftest_directives_intact": 41,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
+      "\\nint main (void)\\n{\\n#ifndef _WIN32\\n(void) _WIN32;\\n#endif\\n;\\nreturn 0;\\n}",
+      "\\nint main (void)\\n{\\n#ifndef __APPLE__\\n(void) __APPLE__;\\n#endif\\n;\\nreturn 0;\\n}",
       "char sqrt();\\nint main() { return sqrt(); }",
       "char libiconv_open();\\nint main() { return libiconv_open(); }",
       "#include <$ac_hdr>",
-      "#include <time.h>",
-      "#include <sys/wait.h>",
-      "#include <$ac_hdr>"
+      "#include <time.h>"
     ]
   },
   "oracle": {
@@ -161,14 +152,13 @@
   },
   "divergence": {
     "stage": "configure",
-    "ours_error": "line 1413: AC_CHECK_DECL(_WIN32,have_os_win32=yes,have_os_win32=no) (near `_WIN32,have_os_win32=yes`)",
+    "ours_error": "line 1888: AC_PATH_PTHREAD(have_pthread=yes) (near `have_pthread=yes`)",
     "ours_error_context": [
-      "AC_CHECK_DECL(_WIN32,have_os_win32=yes,have_os_win32=no)"
+      "AC_PATH_PTHREAD(have_pthread=yes)"
     ],
-    "ours_configure_lines": 2972,
+    "ours_configure_lines": 3016,
     "real_configure_lines": 24399,
     "macros_ours_left_undefined": [
-      "AC_CHECK_DECL",
       "AC_PATH_JPEG",
       "AC_PATH_PTHREAD",
       "AC_PATH_TIFF"
@@ -189,7 +179,7 @@
         "verified": false
       }
     ],
-    "receipt_hash": "2773c3e2545a109ff7c723fda694935077c798e77c58dfa5bd682fd13b40a266",
+    "receipt_hash": "be1af0f3b4c4402fd0e1069bc86fc140a829d5455289cbb813d68894a53ad853",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {

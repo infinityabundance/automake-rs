@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.11",
+    "autoconf_rs": "autoconf-rs 0.1.12",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,15 +26,19 @@
     {
       "step": "configure",
       "tool": "./configure",
-      "status": "fail"
+      "status": "ok"
     },
     {
-      "step": "auto-quirk",
-      "tool": "quirk-engine",
+      "step": "make",
+      "tool": "make",
       "status": "fail"
     }
   ],
-  "probe_results": {},
+  "probe_results": {
+    "HAVE_FCNTL_CLOSEM": 1,
+    "HAVE_PROGRAM_INVOCATION_SHORT_NAME": 1,
+    "HAVE___PROGNAME": 1
+  },
   "feature_flags": {
     "configure_args": []
   },
@@ -49,46 +53,19 @@
     "subdirs"
   ],
   "outputs": [],
-  "status": "CONFIGURE_RUN_FAIL",
+  "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1520: syntax error near unexpected token `F_CLOSEM,'",
+  "diagnostic": "",
   "deep_expansion": {
-    "configure_lines": 2636,
-    "leaked_macros": [
-      {
-        "name": "AC_CHECK_DECL",
-        "line": 1520,
-        "context": "AC_CHECK_DECL(F_CLOSEM,"
-      },
-      {
-        "name": "AC_DEFINE",
-        "line": 1521,
-        "context": "AC_DEFINE([HAVE_FCNTL_CLOSEM], [1],"
-      }
-    ],
-    "heredoc_openers": 31,
-    "heredoc_terminators": 31,
+    "configure_lines": 2654,
+    "leaked_macros": [],
+    "heredoc_openers": 32,
+    "heredoc_terminators": 32,
     "heredoc_imbalance": 0,
-    "syntax_errors": [
-      {
-        "line": 1520,
-        "token": "F_CLOSEM,",
-        "source": "AC_CHECK_DECL(F_CLOSEM,",
-        "block": [
-          "1516: else",
-          "1517:   printf '%s\\n' \"no\"",
-          "1518: fi",
-          "1519: ",
-          "1520: AC_CHECK_DECL(F_CLOSEM,",
-          "1521:               AC_DEFINE([HAVE_FCNTL_CLOSEM], [1],",
-          "1522:                          [Define to 1 if you have fcntl(F_CLOSEM)]),",
-          "1523:               ,"
-        ]
-      }
-    ],
+    "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2160: do eval test \\${$as_var+y} \\"
+      "line 2178: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
@@ -98,14 +75,16 @@
       "PACKAGE_STRING",
       "PACKAGE_BUGREPORT"
     ],
-    "failed_during_check": "checking for ssize_t... yes",
+    "failed_during_check": "checking for sysconf... yes",
     "failure_tail": [
-      "checking for ssize_t... yes",
-      "./configure: line 1520: syntax error near unexpected token `F_CLOSEM,'",
-      "./configure: line 1520: `AC_CHECK_DECL(F_CLOSEM,'"
+      "checking for sysconf... yes",
+      "configure: creating Makefile",
+      "configure: creating include/Makefile",
+      "configure: creating src/Makefile",
+      "configure: creating config.h"
     ],
     "conftest_corruption": [],
-    "conftest_directives_intact": 21,
+    "conftest_directives_intact": 23,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
       "#include <sys/types.h>\\nint main() { return sizeof(off_t) >= 8 ? 0 : 1; }",
@@ -122,37 +101,36 @@
     "real_make": "fail",
     "real_configure_lines": 17129,
     "real_first_error": "",
-    "classification": "OURS_BUG_CONFIGURE"
-  },
-  "divergence": {
-    "stage": "configure",
-    "ours_error": "line 1520: AC_CHECK_DECL(F_CLOSEM, (near `F_CLOSEM,`)",
-    "ours_error_context": [
-      "AC_CHECK_DECL(F_CLOSEM,"
-    ],
-    "ours_configure_lines": 2636,
-    "real_configure_lines": 17129,
-    "macros_ours_left_undefined": [
-      "AC_CHECK_DECL",
-      "AC_DEFINE"
-    ]
+    "classification": "BOTH_MAKE_FAIL"
   },
   "receipt": {
-    "court_status": "failed",
-    "probe_trace": [],
+    "court_status": "partial",
+    "probe_trace": [
+      {
+        "name": "HAVE_FCNTL_CLOSEM",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_PROGRAM_INVOCATION_SHORT_NAME",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE___PROGNAME",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      }
+    ],
     "quirks_matched": [
       "uses-libtool",
       "uses-subdir-objects",
       "vendored-aclocal"
     ],
-    "quirks_applied": [
-      {
-        "id": "uses-subdir-objects",
-        "action": "--disable-dependency-tracking",
-        "verified": false
-      }
-    ],
-    "receipt_hash": "2773c3e2545a109ff7c723fda694935077c798e77c58dfa5bd682fd13b40a266",
+    "receipt_hash": "da33319b8fb01d0e5d99a3d3430c5f55ded4727d2e408694deea96c4d42380bb",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {

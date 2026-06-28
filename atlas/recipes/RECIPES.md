@@ -1,6 +1,6 @@
 # Atlas Recipes — working / non-working roster
 
-Total **434** recipes. **Working (built end-to-end): 3** · non-working: 133 partial · 102 not-standalone · 196 failed.
+Total **434** recipes. **Working (built end-to-end): 3** · non-working: 139 partial · 102 not-standalone · 190 failed.
 
 "Working" means the full pipeline (autoreconf → configure → make) succeeded under the GNU-free toolchain. `quirk_dependent` needed an auto-applied quirk; `sealed` needed none.
 
@@ -12,7 +12,7 @@ Total **434** recipes. **Working (built end-to-end): 3** · non-working: 133 par
 | chimari/MaCoPiX | quirk_dependent |
 | cosmos72/twin | quirk_dependent |
 
-## 🟡 Non-working — partial (configure cleared, make failed) (133)
+## 🟡 Non-working — partial (configure cleared, make failed) (139)
 
 | repo | stage | first error |
 | --- | --- | --- |
@@ -27,6 +27,7 @@ Total **434** recipes. **Working (built end-to-end): 3** · non-working: 133 par
 | allinurl/gwsocket | MAKE_FAIL |  |
 | alobbs/macchanger | MAKE_FAIL |  |
 | Alpacius/a6 | MAKE_FAIL |  |
+| AltSysrq/libbsd-minimal | MAKE_FAIL |  |
 | ampledata/ldsped | MAKE_FAIL |  |
 | anatol/google-coredumper | MAKE_FAIL |  |
 | anchor/filtergen | MAKE_FAIL |  |
@@ -36,9 +37,11 @@ Total **434** recipes. **Working (built end-to-end): 3** · non-working: 133 par
 | antonblanchard/qtrace-tools | MAKE_FAIL |  |
 | arcalex/racktk | MAKE_FAIL |  |
 | arjunchitturi/htmlstreamparser | MAKE_FAIL |  |
+| asciinema/libtsm | MAKE_FAIL |  |
 | audionuma/libtruepeak | MAKE_FAIL |  |
 | b/ION | MAKE_FAIL |  |
 | Bader-Research/snap-graph | MAKE_FAIL | for _AC_LANG compiler vendor... ./configure: line 1429: break_AC_LANG_ABBREV: command not  |
+| barak/djview4 | MAKE_FAIL | conftest.d/conftest.sh: line 1: creating: command not found |
 | barak/vobcopy | MAKE_FAIL | ./configure: line 1364: AX_CFLAGS_WARN_ALL: command not found |
 | BatchDrake/lfsrintruder | MAKE_FAIL |  |
 | benegon/ntp | MAKE_FAIL |  |
@@ -108,6 +111,8 @@ Total **434** recipes. **Working (built end-to-end): 3** · non-working: 133 par
 | Distrotech/libsecret | MAKE_FAIL |  |
 | Distrotech/minicom | MAKE_FAIL | /tmp/atlasx_Distrotech__minicom/s/missing: line 52: automake-1.11: command not found |
 | djandruczyk/eXtace | MAKE_FAIL | checking for esd_monitor_stream in -lesd... ./configure: line 1456: esd-config: command no |
+| dmtx/dmtx-utils | MAKE_FAIL |  |
+| dmtx/dmtx-wrappers | MAKE_FAIL |  |
 | Drive-Trust-Alliance/sedutil | MAKE_FAIL |  |
 | drmingdrmer/lrc-erasure-code | MAKE_FAIL |  |
 | dsigma/dfu-util | MAKE_FAIL |  |
@@ -141,6 +146,7 @@ Total **434** recipes. **Working (built end-to-end): 3** · non-working: 133 par
 | google/ios-webkit-debug-proxy | MAKE_FAIL |  |
 | grant-h/usbutils-portable | MAKE_FAIL |  |
 | greyltc/android_external_sshfs | MAKE_FAIL |  |
+| grobian/carbon-c-relay | MAKE_FAIL |  |
 | GroovIM/transport | MAKE_FAIL |  |
 | gucong/robotxq | MAKE_FAIL |  |
 | habanero-rice/habanero-upc | MAKE_FAIL |  |
@@ -150,7 +156,7 @@ Total **434** recipes. **Working (built end-to-end): 3** · non-working: 133 par
 | hyrathb/mentohust | MAKE_FAIL |  |
 | idosch/ethtool | MAKE_FAIL |  |
 
-## ❌ Non-working — failed (ours fails before make) (196)
+## ❌ Non-working — failed (ours fails before make) (190)
 
 | repo | stage | first error |
 | --- | --- | --- |
@@ -175,14 +181,12 @@ Total **434** recipes. **Working (built end-to-end): 3** · non-working: 133 par
 | alk/malloc-trace-replay | CONFIGURE_RUN_FAIL |  |
 | allinurl/goaccess | CONFIGURE_RUN_FAIL | ./configure: line 1361: syntax error near unexpected token `to' |
 | AlmuHS/GNUMach_SMP | CONFIGURE_RUN_FAIL | ./configure: line 1349: $'\f': command not found |
-| AltSysrq/libbsd-minimal | CONFIGURE_RUN_FAIL | ./configure: line 1520: syntax error near unexpected token `F_CLOSEM,' |
 | AmkG/hl | CONFIGURE_RUN_FAIL | checking how to get an intptr_t type with ranges... configure: error: We can't find out wh |
 | andrewshadura/tnat64 | CONFIGURE_RUN_FAIL | configure: error: 'Could not find library containing connect()' |
-| anewhuahua/bilitw | CONFIGURE_RUN_FAIL | ./configure: line 1885: syntax error near unexpected token `tar' |
+| anewhuahua/bilitw | CONFIGURE_RUN_FAIL | ./configure: line 1894: ./contrib/yaml-0.1.4/configure: No such file or directory |
 | arbor/gzsig | CONFIGURE_RUN_FAIL | configure: error: OpenSSL not found |
-| arthurdejong/nss-pam-ldapd | CONFIGURE_RUN_FAIL | ./configure: line 1351: syntax error near unexpected token `compat' |
+| arthurdejong/nss-pam-ldapd | CONFIGURE_RUN_FAIL | ./configure: line 1885: ac_cv_have_decl_setusershell,: command not found |
 | ARVE-Research/LPJ-LMfire | CONFIGURE_RUN_FAIL | ./configure: line 1377: syntax error near unexpected token `NETCDF_CC,' |
-| asciinema/libtsm | CONFIGURE_RUN_FAIL | ./configure: line 1541: syntax error near unexpected token `GtkTsm' |
 | asnelt/rrep | CONFIGURE_RUN_FAIL | configure: error: Invalid value for --with-included-regex: |
 | aspiers/stow | CONFIGURE_RUN_FAIL | ./configure: line 1389: syntax error near unexpected token `[' |
 | assaferan/omf5 | CONFIGURE_RUN_FAIL | ./configure: line 1377: is: command not found |
@@ -193,9 +197,8 @@ Total **434** recipes. **Working (built end-to-end): 3** · non-working: 133 par
 | b4n/ctpl | CONFIGURE_RUN_FAIL | ./configure: line 1402: syntax error near unexpected token `1.9' |
 | badoo/libpssh | CONFIGURE_RUN_FAIL | checking libevent install prefix... configure: error: Can't find libevent headers under  d |
 | balde/balde | CONFIGURE_RUN_FAIL | configure: error: no -fvisibility=hidden support found in , balde requires -fvisibility=hi |
-| barak/djview4 | CONFIGURE_RUN_FAIL | conftest.d/conftest.sh: line 1: creating: command not found |
-| barak/djvulibre | CONFIGURE_RUN_FAIL | ./configure: line 1413: syntax error near unexpected token `_WIN32,have_os_win32=yes,have_ |
-| barak/oaklisp | CONFIGURE_RUN_FAIL | _AC_LANG_PREFIXFLAGS for maximum warnings... ./configure: line 1537: syntax error near une |
+| barak/djvulibre | CONFIGURE_RUN_FAIL | ./configure: line 1535: AC_OPTIMIZE: command not found |
+| barak/oaklisp | CONFIGURE_RUN_FAIL | _AC_LANG_PREFIXFLAGS for maximum warnings... ./configure: line 1544: syntax error near une |
 | baszoetekouw/pinfo | CONFIGURE_RUN_FAIL | ./configure: line 1429: syntax error near unexpected token `else' |
 | bcoin-org/libtorsion | CONFIGURE_RUN_FAIL | configure: error: language C required |
 | bdwgc/bdwgc | CONFIGURE_RUN_FAIL | ./configure: line 1574: syntax error near unexpected token `(' |
@@ -231,7 +234,7 @@ Total **434** recipes. **Working (built end-to-end): 3** · non-working: 133 par
 | cisco/libamvp | CONFIGURE_RUN_FAIL | ./configure: line 1453: syntax error near unexpected token `fi' |
 | cisco/opus | CONFIGURE_RUN_FAIL | ./configure: line 1397: AC_MINGW32: command not found |
 | cjcole/libgolle | CONFIGURE_RUN_FAIL | ./configure: line 1519: DX_PDF_FEATURE: command not found |
-| CkNoSFeRaTU/pidgin | CONFIGURE_RUN_FAIL | ./configure: line 1441: syntax error near unexpected token `__SUNPRO_C,' |
+| CkNoSFeRaTU/pidgin | CONFIGURE_RUN_FAIL | ./configure: line 1521: LT_LIB_M: command not found |
 | claesenm/EnsembleSVM | CONFIGURE_RUN_FAIL | ./configure: line 1749: syntax error near unexpected token `fi' |
 | cmand/yarrp | CONFIGURE_RUN_FAIL | ./configure: line 1646: pthread-config: command not found |
 | coapp-packages/libunistring | CONFIGURE_RUN_FAIL | ./configure: line 1346: is: command not found |
@@ -253,7 +256,7 @@ Total **434** recipes. **Working (built end-to-end): 3** · non-working: 133 par
 | cpu-pool/cpuminer-opt-cpupower | CONFIGURE_RUN_FAIL | configure: error: OpenSSL crypto library required |
 | cr-marcstevens/m4gb | CONFIGURE_RUN_FAIL | ./configure: line 1345: This: command not found |
 | cryptozeny/cpuminer-opt-sugarchain | CONFIGURE_RUN_FAIL | configure: error: OpenSSL crypto library required |
-| CS198NDSGChanBrianJoe/html5rdp | CONFIGURE_RUN_FAIL | ./configure: line 1538: syntax error near unexpected token `png_get_io_ptr,' |
+| CS198NDSGChanBrianJoe/html5rdp | CONFIGURE_RUN_FAIL | ./configure: line 1814: syntax error near unexpected token `;' |
 | cschwan/hep-ga | CONFIGURE_RUN_FAIL |  |
 | cslarsen/mickey-scheme | CONFIGURE_RUN_FAIL | configure: error: readline test failed (--without-readline to disable) |
 | cwi-dis/ambulant | CONFIGURE_RUN_FAIL | configure: error: Your platform is not currently supported |
@@ -281,11 +284,9 @@ Total **434** recipes. **Working (built end-to-end): 3** · non-working: 133 par
 | djn3m0/debit | CONFIGURE_RUN_FAIL | ./configure: line 1378: AX_CHECK_ALIGNED_ACCESS_REQUIRED: command not found |
 | dleonard0/pktstat | CONFIGURE_RUN_FAIL | checking for library containing socket... ./configure: line 1394: syntax error near unexpe |
 | dmalhotra/pvfmm | CONFIGURE_RUN_FAIL | ./configure: line 1506: syntax error near unexpected token `and' |
-| dmtx/dmtx-utils | CONFIGURE_RUN_FAIL | ./configure: line 1342: syntax error near unexpected token `common' |
-| dmtx/dmtx-wrappers | CONFIGURE_RUN_FAIL | ./configure: line 1419: syntax error near unexpected token `phpize' |
-| dreibh/sctplib | CONFIGURE_RUN_FAIL | ./configure: line 1447: syntax error near unexpected token `sys/time.h' |
+| dreibh/sctplib | CONFIGURE_RUN_FAIL | ./configure: line 1727: syntax error near unexpected token `2.0.0,' |
 | DrMcCoy/NWNTools | CONFIGURE_RUN_FAIL |  |
-| drycpp/libposix | CONFIGURE_RUN_FAIL | ./configure: line 1348: syntax error near unexpected token `lib' |
+| drycpp/libposix | CONFIGURE_RUN_FAIL | ./configure: line 1579: syntax error near unexpected token `accept4' |
 | dyninc/OpenBFDD | CONFIGURE_RUN_FAIL | ./configure: line 1378: syntax error near unexpected token `Wall,' |
 | e2guardian/e2guardian | CONFIGURE_RUN_FAIL |  |
 | ecerulm/autotools-template | CONFIGURE_RUN_FAIL | ./configure: line 1715: syntax error near unexpected token `)' |
@@ -322,22 +323,21 @@ Total **434** recipes. **Working (built end-to-end): 3** · non-working: 133 par
 | GenABEL-Project/ProbABEL | CONFIGURE_RUN_FAIL | ./configure: line 1411: syntax error near unexpected token `will' |
 | geofft/sbuild | CONFIGURE_RUN_FAIL | ./configure: line 1348: syntax error near unexpected token `newline' |
 | GerHobbelt/html2db | CONFIGURE_RUN_FAIL | ./configure: line 1394: syntax error near unexpected token `)' |
-| giuseppe/containers-dedup | CONFIGURE_RUN_FAIL | ./configure: line 1405: syntax error near unexpected token `limits.h' |
+| giuseppe/containers-dedup | CONFIGURE_RUN_FAIL | ./configure: line 1418: syntax error near unexpected token `limits.h' |
 | GNOME/goffice | CONFIGURE_RUN_FAIL | ./configure: command substitution: line 1638: syntax error near unexpected token `)' |
-| golems/ach | CONFIGURE_RUN_FAIL | ./configure: line 1395: syntax error near unexpected token `PRIuPTR,' |
+| golems/ach | CONFIGURE_RUN_FAIL | ./configure: line 1414: ac_cv_have_decl_PRIuPTR,PRIu64,PRIx64=no: command not found |
 | goodspeed34/ws63flash | CONFIGURE_RUN_FAIL | configure: error: |
 | gordonjcp/nekostring | CONFIGURE_RUN_FAIL | ./configure: line 1414: syntax error near unexpected token `2.0.0,' |
 | gpudirect/libibverbs | CONFIGURE_RUN_FAIL | ./configure: line 1436: syntax error near unexpected token `;' |
 | graydon/monotone | CONFIGURE_RUN_FAIL | ./configure: line 1361: syntax error near unexpected token `is' |
 | graygnuorg/pound | CONFIGURE_RUN_FAIL | ./configure: line 1475: AC_TYPE_UNSIGNED_LONG_LONG_INT: command not found |
-| grobian/carbon-c-relay | CONFIGURE_RUN_FAIL | ./configure: line 1505: syntax error near unexpected token `dispatch/dispatch.h' |
 | groonga/groonga | CONFIGURE_RUN_FAIL | ./configure: line 2665: ./version.sh: No such file or directory |
 | guardianproject/libsqlfs | CONFIGURE_RUN_FAIL | configure: error: --with-sqlcipher was given but test failed |
 | gvvaughan/slingshot | CONFIGURE_RUN_FAIL | for a Lua interpreter with version >= 5.1, < 5.4... configure: error: cannot find suitable |
 | hackerschoice/gsocket | CONFIGURE_RUN_FAIL | configure: error: libnet 1.1.x not found |
 | HansWessels/gup | CONFIGURE_RUN_FAIL | ./configure: line 1354: GUP_CYGWIN: command not found |
 | hermansr/psid64 | CONFIGURE_RUN_FAIL | ./configure: line 1465: AX_FUNC_MKDIR: command not found |
-| HewlettPackard/netperf | CONFIGURE_RUN_FAIL | ./configure: line 1355: syntax error near unexpected token `src/missing' |
+| HewlettPackard/netperf | CONFIGURE_RUN_FAIL | ./configure: line 1387: syntax error near unexpected token `m' |
 | hexagonal-sun/bic | CONFIGURE_RUN_FAIL | ./configure: line 1414: AX_LIB_READLINE: command not found |
 | hgst/libnvme | CONFIGURE_RUN_FAIL | ./configure: line 1476: pthread-config: command not found |
 | hholzgra/connector-c-examples | CONFIGURE_RUN_FAIL | checking for mysql_config executable... ./configure: line 2527: syntax error: unexpected e |
@@ -347,7 +347,7 @@ Total **434** recipes. **Working (built end-to-end): 3** · non-working: 133 par
 | hroptatyr/truffle | CONFIGURE_RUN_FAIL | ./configure: line 1384: syntax error near unexpected token `(' |
 | hroptatyr/yuck | CONFIGURE_RUN_FAIL | ./configure: line 1384: syntax error near unexpected token `(' |
 | HSU-ANT/gstpeaq | CONFIGURE_RUN_FAIL | ./configure: line 1474: syntax error near unexpected token `gst-launch' |
-| idiap/juicer | CONFIGURE_RUN_FAIL | ./configure: line 1408: syntax error near unexpected token `Required' |
+| idiap/juicer | CONFIGURE_RUN_FAIL | configure: error: Required library TRACTER not found |
 | iem-projects/ncview | CONFIGURE_RUN_FAIL | ./configure: line 1341: AC_PATH_NETCDF: command not found |
 | igmhub/likely | CONFIGURE_RUN_FAIL | ./configure: line 1351: AX_EXT: command not found |
 

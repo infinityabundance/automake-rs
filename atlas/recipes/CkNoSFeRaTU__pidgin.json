@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.11",
+    "autoconf_rs": "autoconf-rs 0.1.12",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -34,7 +34,10 @@
     "configure_args": []
   },
   "dependencies": {
-    "pkg_config": [],
+    "pkg_config": [
+      "checking for glib-2.0 >= 2.16.0 gobject-2.0 gmodule-2.0 gthread-2.0... yes",
+      "checking for gio-unix-2.0 >= 2.26... yes"
+    ],
     "system_libs": [],
     "headers_needed": [],
     "missing": []
@@ -47,54 +50,39 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1441: syntax error near unexpected token `__SUNPRO_C,'",
+  "diagnostic": "./configure: line 1521: LT_LIB_M: command not found",
   "deep_expansion": {
-    "configure_lines": 6500,
+    "configure_lines": 6541,
     "leaked_macros": [
       {
-        "name": "AC_CHECK_DECL",
-        "line": 1441,
-        "context": "AC_CHECK_DECL(__SUNPRO_C, SUNCC=\"yes\", SUNCC=\"no\")"
-      },
-      {
-        "name": "AC_CHECK_DECL",
-        "line": 1704,
-        "context": "AC_CHECK_DECL(IPV6_V6ONLY,"
-      },
-      {
-        "name": "AC_DEFINE",
-        "line": 1705,
-        "context": "AC_DEFINE([HAVE_IPV6_V6ONLY],[1],"
-      },
-      {
         "name": "AC_PROG_PERL_MODULES",
-        "line": 4020,
+        "line": 4061,
         "context": "AC_PROG_PERL_MODULES(ExtUtils::MakeMaker, , have_makemaker=no)"
       }
     ],
-    "heredoc_openers": 105,
-    "heredoc_terminators": 105,
+    "heredoc_openers": 107,
+    "heredoc_terminators": 107,
     "heredoc_imbalance": 0,
     "syntax_errors": [
       {
-        "line": 1441,
-        "token": "__SUNPRO_C,",
-        "source": "AC_CHECK_DECL(__SUNPRO_C, SUNCC=\"yes\", SUNCC=\"no\")",
+        "line": 2014,
+        "token": "else",
+        "source": "else",
         "block": [
-          "1437: else",
-          "1438:   printf '%s\\n' \"no\"",
-          "1439: fi",
-          "1440: ",
-          "1441: AC_CHECK_DECL(__SUNPRO_C, SUNCC=\"yes\", SUNCC=\"no\")",
-          "1442: ",
-          "1443: printf '%s\\n' \"yes\"",
-          "1444: printf %s \"checking for sys/wait.h... \""
+          "2010: ",
+          "2011: ",
+          "2012: if test x\"$EXTRA_VERSION\" != \"x\" ; then",
+          "2013: \t# Define unquoted: DISPLAY_VERSION",
+          "2014: else",
+          "2015: \t# Define unquoted: DISPLAY_VERSION",
+          "2016: fi",
+          "2017: "
         ]
       }
     ],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 5956: do eval test \\${$as_var+y} \\"
+      "line 5997: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
@@ -105,22 +93,22 @@
       "PACKAGE_STRING",
       "PACKAGE_BUGREPORT"
     ],
-    "failed_during_check": "checking for alloca... no",
+    "failed_during_check": "checking for gio-unix-2.0 >= 2.26... yes",
     "failure_tail": [
-      "checking for alloca... no",
-      "./configure: line 1441: syntax error near unexpected token `__SUNPRO_C,'",
-      "./configure: line 1441: `AC_CHECK_DECL(__SUNPRO_C, SUNCC=\"yes\", SUNCC=\"no\")'"
+      "checking for gio-unix-2.0 >= 2.26... yes",
+      "./configure: line 2014: syntax error near unexpected token `else'",
+      "./configure: line 2014: `else'"
     ],
     "conftest_corruption": [],
-    "conftest_directives_intact": 105,
+    "conftest_directives_intact": 110,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
       "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar alloca();\\nint main() { return alloca(); }",
+      "\\nint main (void)\\n{\\n#ifndef __SUNPRO_C\\n(void) __SUNPRO_C;\\n#endif\\n;\\nreturn 0;\\n}",
       "#include <sys/wait.h>",
       "#include <$ac_hdr>",
       "int main() { const int x = 1; return x-1; }",
-      "#include <sys/types.h>\\n#include <stdint.h>\\n#include <stddef.h>\\nint main() { static int 1 - 2 * !((long int) (sizeof (time_t)) <= 0)test_arr",
-      "int main() { int x = 1; return *(char*)&x; }"
+      "#include <sys/types.h>\\n#include <stdint.h>\\n#include <stddef.h>\\nint main() { static int 1 - 2 * !((long int) (sizeof (time_t)) <= 0)test_arr"
     ]
   },
   "oracle": {
@@ -141,7 +129,7 @@
       "vendored-aclocal",
       "perl-in-configure"
     ],
-    "receipt_hash": "7ce013376826229435a725231a088a6b4ca9c70c0f0c2c61a569acc421b80cc1",
+    "receipt_hash": "033510fd1ffcd13cdb705cd1b60426e2656611c8ebbbfaf7e09d5ae64ccc723d",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {

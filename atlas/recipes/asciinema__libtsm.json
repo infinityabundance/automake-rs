@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.11",
+    "autoconf_rs": "autoconf-rs 0.1.12",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,11 +26,11 @@
     {
       "step": "configure",
       "tool": "./configure",
-      "status": "fail"
+      "status": "ok"
     },
     {
-      "step": "auto-quirk",
-      "tool": "quirk-engine",
+      "step": "make",
+      "tool": "make",
       "status": "fail"
     }
   ],
@@ -50,41 +50,19 @@
     "subdirs"
   ],
   "outputs": [],
-  "status": "CONFIGURE_RUN_FAIL",
+  "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1541: syntax error near unexpected token `GtkTsm'",
+  "diagnostic": "",
   "deep_expansion": {
-    "configure_lines": 2678,
-    "leaked_macros": [
-      {
-        "name": "AC_ERROR",
-        "line": 1541,
-        "context": "AC_ERROR(GtkTsm dependencies not found)"
-      }
-    ],
+    "configure_lines": 2679,
+    "leaked_macros": [],
     "heredoc_openers": 17,
     "heredoc_terminators": 17,
     "heredoc_imbalance": 0,
-    "syntax_errors": [
-      {
-        "line": 1541,
-        "token": "GtkTsm",
-        "source": "AC_ERROR(GtkTsm dependencies not found)",
-        "block": [
-          "1537: ",
-          "1538: ",
-          "1539: if test ! \"x$have_gtktsm\" = \"xyes\" ; then",
-          "1540:         if test \"x$enable_gtktsm\" = \"xyes\" ; then",
-          "1541:                 AC_ERROR(GtkTsm dependencies not found)",
-          "1542:         else",
-          "1543:                 enable_gtktsm=\"no\"",
-          "1544:         fi"
-        ]
-      }
-    ],
+    "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2180: do eval test \\${$as_var+y} \\"
+      "line 2181: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
@@ -108,21 +86,23 @@
       "DEFS",
       "LIBOBJS",
       "INSTALL",
+      "host_vendor",
+      "host_cpu",
       "XKBCOMMON_CFLAGS",
       "host_alias",
-      "PACKAGE_DESCRIPTION",
-      "GTKTSM_CFLAGS",
-      "CHECK_LIBS",
-      "CHECK_CFLAGS",
       "GTKTSM_LIBS",
-      "host_cpu",
-      "host_os"
+      "CHECK_LIBS",
+      "PACKAGE_DESCRIPTION",
+      "CHECK_CFLAGS",
+      "GTKTSM_CFLAGS"
     ],
-    "failed_during_check": "checking for gtk+-3.0 cairo pango pangocairo xkbcommon... yes",
+    "failed_during_check": "checking whether to enable code optimizations... yes (default)",
     "failure_tail": [
-      "checking for gtk+-3.0 cairo pango pangocairo xkbcommon... yes",
-      "./configure: line 1541: syntax error near unexpected token `GtkTsm'",
-      "./configure: line 1541: `                AC_ERROR(GtkTsm dependencies not found)"
+      "checking whether to enable code optimizations... yes (default)",
+      "configure: creating Makefile",
+      "configure: creating src/tsm/libtsm.pc",
+      "configure: creating config.h",
+      "configure: creating ./config.status"
     ],
     "conftest_corruption": [],
     "conftest_directives_intact": 1,
@@ -137,22 +117,18 @@
     "real_make": "ok",
     "real_configure_lines": 17102,
     "real_first_error": "",
-    "classification": "OURS_BUG_CONFIGURE"
+    "classification": "OURS_BUG_MAKE"
   },
   "divergence": {
-    "stage": "configure",
-    "ours_error": "line 1541: AC_ERROR(GtkTsm dependencies not found) (near `GtkTsm`)",
-    "ours_error_context": [
-      "AC_ERROR(GtkTsm dependencies not found)"
-    ],
-    "ours_configure_lines": 2678,
+    "stage": "make",
+    "ours_error": "",
+    "ours_error_context": [],
+    "ours_configure_lines": 2679,
     "real_configure_lines": 17102,
-    "macros_ours_left_undefined": [
-      "AC_ERROR"
-    ]
+    "macros_ours_left_undefined": []
   },
   "receipt": {
-    "court_status": "failed",
+    "court_status": "partial",
     "probe_trace": [],
     "quirks_matched": [
       "uses-libtool",
@@ -160,14 +136,7 @@
       "uses-subdir-objects",
       "vendored-aclocal"
     ],
-    "quirks_applied": [
-      {
-        "id": "uses-subdir-objects",
-        "action": "--disable-dependency-tracking",
-        "verified": false
-      }
-    ],
-    "receipt_hash": "2773c3e2545a109ff7c723fda694935077c798e77c58dfa5bd682fd13b40a266",
+    "receipt_hash": "8105b1398715d5f2f7d2c9e580a167c37c8fb5cca45fa7db1a91a12f21bb29b8",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {

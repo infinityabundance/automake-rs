@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.11",
+    "autoconf_rs": "autoconf-rs 0.1.12",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,61 +26,52 @@
     {
       "step": "configure",
       "tool": "./configure",
-      "status": "fail"
+      "status": "ok"
     },
     {
-      "step": "auto-quirk",
-      "tool": "quirk-engine",
+      "step": "make",
+      "tool": "make",
       "status": "fail"
     }
   ],
-  "probe_results": {},
+  "probe_results": {
+    "HAVE_GZIP": 1,
+    "HAVE_LZ4": 1,
+    "HAVE_ONIGURAMA": 1,
+    "HAVE_PCRE": 1,
+    "HAVE_PCRE2": 1,
+    "HAVE_SNAPPY": 1,
+    "HAVE_SSL": 1
+  },
   "feature_flags": {
     "configure_args": []
   },
   "dependencies": {
     "pkg_config": [],
-    "system_libs": [],
+    "system_libs": [
+      "-lm",
+      "-pthread"
+    ],
     "headers_needed": [],
     "missing": []
   },
-  "quirks": [],
+  "quirks": [
+    "LIBS=-lm -pthread"
+  ],
   "outputs": [],
-  "status": "CONFIGURE_RUN_FAIL",
+  "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1505: syntax error near unexpected token `dispatch/dispatch.h'",
+  "diagnostic": "",
   "deep_expansion": {
-    "configure_lines": 2978,
-    "leaked_macros": [
-      {
-        "name": "AC_CHECK_HEADERS_ONCE",
-        "line": 1504,
-        "context": "AC_CHECK_HEADERS_ONCE(\\"
-      }
-    ],
-    "heredoc_openers": 42,
-    "heredoc_terminators": 42,
+    "configure_lines": 2986,
+    "leaked_macros": [],
+    "heredoc_openers": 43,
+    "heredoc_terminators": 43,
     "heredoc_imbalance": 0,
-    "syntax_errors": [
-      {
-        "line": 1505,
-        "token": "dispatch/dispatch.h",
-        "source": "dispatch/dispatch.h \\",
-        "block": [
-          "1501:   printf '%s\\n' \"no\"",
-          "1502: fi; done",
-          "1503: # non-mandatory headers",
-          "1504: AC_CHECK_HEADERS_ONCE(\\",
-          "1505: \t\t\t\t  dispatch/dispatch.h \\",
-          "1506: \t\t\t\t  semaphore.h \\",
-          "1507: \t\t\t\t  )",
-          "1508: "
-        ]
-      }
-    ],
+    "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2502: do eval test \\${$as_var+y} \\"
+      "line 2510: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
@@ -104,23 +95,24 @@
       "DEFS",
       "LIBOBJS",
       "INSTALL",
+      "LIBPCRE",
       "LIBPCRE2",
-      "LIBSNAPPY",
-      "RELEASEDATE",
-      "LIBSSL",
-      "LIBLZ4",
-      "LIBONIGURUMA",
       "LIBGZIP",
-      "LIBPCRE"
+      "RELEASEDATE",
+      "LIBONIGURUMA",
+      "LIBLZ4",
+      "LIBSSL",
+      "LIBSNAPPY"
     ],
-    "failed_during_check": "checking for unistd.h... yes",
+    "failed_during_check": "checking for regexec in -lonig... yes",
     "failure_tail": [
-      "checking for unistd.h... yes",
-      "./configure: line 1505: syntax error near unexpected token `dispatch/dispatch.h'",
-      "./configure: line 1505: `\t\t\t\t  dispatch/dispatch.h \\'"
+      "checking for regexec in -lonig... yes",
+      "configure: creating Makefile",
+      "configure: creating config.h",
+      "configure: creating ./config.status"
     ],
     "conftest_corruption": [],
-    "conftest_directives_intact": 18,
+    "conftest_directives_intact": 19,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
       "char sqrt ();\\nint main() { return sqrt (); }",
@@ -128,7 +120,7 @@
       "char socket ();\\nint main() { return socket (); }",
       "char pthread_create ();\\nint main() { return pthread_create (); }",
       "#include <$ac_hdr>",
-      "inline int foo() { return 0; }\\nint main() { return foo(); }"
+      "#include <$ac_hdr>"
     ]
   },
   "oracle": {
@@ -137,35 +129,67 @@
     "real_make": "ok",
     "real_configure_lines": 7473,
     "real_first_error": "",
-    "classification": "OURS_BUG_CONFIGURE"
+    "classification": "OURS_BUG_MAKE"
   },
   "divergence": {
-    "stage": "configure",
-    "ours_error": "line 1505: dispatch/dispatch.h \\ (near `dispatch/dispatch.h`)",
-    "ours_error_context": [
-      "dispatch/dispatch.h \\"
-    ],
-    "ours_configure_lines": 2978,
+    "stage": "make",
+    "ours_error": "",
+    "ours_error_context": [],
+    "ours_configure_lines": 2986,
     "real_configure_lines": 7473,
-    "macros_ours_left_undefined": [
-      "AC_CHECK_HEADERS_ONCE"
-    ]
+    "macros_ours_left_undefined": []
   },
   "receipt": {
-    "court_status": "failed",
-    "probe_trace": [],
+    "court_status": "partial",
+    "probe_trace": [
+      {
+        "name": "HAVE_GZIP",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_LZ4",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_ONIGURAMA",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_PCRE",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_PCRE2",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SNAPPY",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SSL",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      }
+    ],
     "quirks_matched": [
       "uses-maintainer-mode",
       "vendored-aclocal"
     ],
-    "quirks_applied": [
-      {
-        "id": "uses-maintainer-mode",
-        "action": "--disable-maintainer-mode",
-        "verified": false
-      }
-    ],
-    "receipt_hash": "2773c3e2545a109ff7c723fda694935077c798e77c58dfa5bd682fd13b40a266",
+    "receipt_hash": "6a80aff3ebb2d96080045eca46a714b18f53005d651b53707c4f5610ca4e5904",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {

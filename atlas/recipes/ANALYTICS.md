@@ -1,6 +1,6 @@
 # Atlas Analytics — corpus intelligence
 
-Total recipes: **434** · court mix: 196 failed, 102 not_standalone, 133 partial, 3 quirk_dependent
+Total recipes: **434** · court mix: 190 failed, 102 not_standalone, 139 partial, 3 quirk_dependent
 
 ## Quirk hotspots (automation candidates)
 
@@ -29,9 +29,9 @@ Quirks matched across recipes — the most frequent are the highest-leverage to 
 | check | repos |
 | --- | --- |
 | checking whether pthreads work with -mt | 9 |
-| checking for unistd.h | 7 |
 | checking for malloc | 6 |
 | checking for strstr | 6 |
+| checking for unistd.h | 6 |
 | checking pkg-config is at least version 0.9.0 | 6 |
 | checking for C++ compiler | 5 |
 | checking endianness | 4 |
@@ -58,14 +58,14 @@ Quirks matched across recipes — the most frequent are the highest-leverage to 
 | 31220 | cydhaselton/mono-android | failed |
 | 28582 | ayumin/open-cobol | quirk_dependent |
 | 27709 | cosmos72/twin | quirk_dependent |
-| 25240 | hkerem/squid3-ssl | failed |
+| 25289 | hkerem/squid3-ssl | failed |
 | 24557 | chimari/MaCoPiX | quirk_dependent |
 | 19212 | csmith-project/creduce | partial |
 | 14102 | daveyc/gawk_zos | partial |
 
 ## Partial -> full shortlist
 
-**133** recipes cleared configure but failed make; **65** of those are `OURS_BUG_MAKE` (GNU makes it, we don't) — the closest wins. Top blockers:
+**139** recipes cleared configure but failed make; **69** of those are `OURS_BUG_MAKE` (GNU makes it, we don't) — the closest wins. Top blockers:
 
 | blocker | repos |
 | --- | --- |

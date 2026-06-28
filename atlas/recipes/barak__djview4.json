@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.11",
+    "autoconf_rs": "autoconf-rs 0.1.12",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,11 +26,11 @@
     {
       "step": "configure",
       "tool": "./configure",
-      "status": "fail"
+      "status": "ok"
     },
     {
-      "step": "auto-quirk",
-      "tool": "quirk-engine",
+      "step": "make",
+      "tool": "make",
       "status": "fail"
     }
   ],
@@ -49,41 +49,19 @@
     "subdirs"
   ],
   "outputs": [],
-  "status": "CONFIGURE_RUN_FAIL",
+  "status": "MAKE_FAIL",
   "verified": false,
   "diagnostic": "conftest.d/conftest.sh: line 1: creating: command not found",
   "deep_expansion": {
-    "configure_lines": 3216,
-    "leaked_macros": [
-      {
-        "name": "AC_CHECK_DECL",
-        "line": 2005,
-        "context": "AC_CHECK_DECL(Q_WS_X11, ac_qt_x11=yes, , #include <QtGlobal>)"
-      }
-    ],
-    "heredoc_openers": 26,
-    "heredoc_terminators": 26,
+    "configure_lines": 3238,
+    "leaked_macros": [],
+    "heredoc_openers": 27,
+    "heredoc_terminators": 27,
     "heredoc_imbalance": 0,
-    "syntax_errors": [
-      {
-        "line": 2005,
-        "token": "Q_WS_X11,",
-        "source": "AC_CHECK_DECL(Q_WS_X11, ac_qt_x11=yes, , #include <QtGlobal>)",
-        "block": [
-          "2001:     ac_qt_x11=no",
-          "2002:     # Language: C++",
-          "2003:     saved_CXXFLAGS=$CXXFLAGS",
-          "2004:     CXXFLAGS=\"$CXXFLAGS -I$QT_INSTALL_HEADERS -I$QT_INSTALL_HEADERS/QtCore\"",
-          "2005:     AC_CHECK_DECL(Q_WS_X11, ac_qt_x11=yes, , #include <QtGlobal>)",
-          "2006:     CXXFLAGS=$saved_CXXFLAGS",
-          "2007:     # Restore language",
-          "2008:     if test \"$ac_qt_x11\" != yes ; then"
-        ]
-      }
-    ],
+    "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2714: do eval test \\${$as_var+y} \\"
+      "line 2736: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
@@ -107,27 +85,29 @@
       "DEFS",
       "LIBOBJS",
       "INSTALL",
-      "host_cpu",
       "host_vendor",
-      "OPTS",
-      "QMAKEFLAGS",
       "QMAKEARG",
-      "QMAKELIBS",
-      "LIBTOOL_DEPS",
+      "NSDEJAVU_LIBS",
+      "QMAKEFLAGS",
       "host_os",
+      "host_cpu",
+      "LIBTOOL_DEPS",
+      "OPTS",
       "NSDEJAVU_CFLAGS"
     ],
     "failed_during_check": "checking for X11/IntrinsicP.h... yes",
     "failure_tail": [
       "checking for X11/IntrinsicP.h... yes",
-      "./configure: line 2005: syntax error near unexpected token `Q_WS_X11,'",
-      "./configure: line 2005: `    AC_CHECK_DECL(Q_WS_X11, ac_qt_x11=yes, , #include <"
+      "./configure: line 2130: printf: v_ver: invalid number",
+      "configure: creating Makefile",
+      "configure: creating src/Makefile",
+      "configure: creating nsdejavu/Makefile"
     ],
     "conftest_corruption": [
       "line 1885: # <stdio.h> (include eaten)",
       "line 1886: # <tiffio.h> (include eaten)"
     ],
-    "conftest_directives_intact": 14,
+    "conftest_directives_intact": 17,
     "conftest_directives_mangled": 2,
     "conftest_programs": [
       "#include <$ac_hdr>",
@@ -144,36 +124,17 @@
     "real_make": "fail",
     "real_configure_lines": 25246,
     "real_first_error": "",
-    "classification": "OURS_BUG_CONFIGURE"
-  },
-  "divergence": {
-    "stage": "configure",
-    "ours_error": "line 2005: AC_CHECK_DECL(Q_WS_X11, ac_qt_x11=yes, , #include <QtGlobal>) (near `Q_WS_X11,`)",
-    "ours_error_context": [
-      "AC_CHECK_DECL(Q_WS_X11, ac_qt_x11=yes, , #include <QtGlobal>)"
-    ],
-    "ours_configure_lines": 3216,
-    "real_configure_lines": 25246,
-    "macros_ours_left_undefined": [
-      "AC_CHECK_DECL"
-    ]
+    "classification": "BOTH_MAKE_FAIL"
   },
   "receipt": {
-    "court_status": "failed",
+    "court_status": "partial",
     "probe_trace": [],
     "quirks_matched": [
       "uses-libtool",
       "uses-subdir-objects",
       "vendored-aclocal"
     ],
-    "quirks_applied": [
-      {
-        "id": "uses-subdir-objects",
-        "action": "--disable-dependency-tracking",
-        "verified": false
-      }
-    ],
-    "receipt_hash": "2773c3e2545a109ff7c723fda694935077c798e77c58dfa5bd682fd13b40a266",
+    "receipt_hash": "3728e9ec1fe34ce1cc5b5c45caa085500cb64551edf576d3edef1841b2f8ca1c",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {

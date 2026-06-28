@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.11",
+    "autoconf_rs": "autoconf-rs 0.1.12",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,6 +26,11 @@
     {
       "step": "configure",
       "tool": "./configure",
+      "status": "ok"
+    },
+    {
+      "step": "make",
+      "tool": "make",
       "status": "fail"
     }
   ],
@@ -34,49 +39,32 @@
     "configure_args": []
   },
   "dependencies": {
-    "pkg_config": [],
-    "system_libs": [],
+    "pkg_config": [
+      "checking for libdmtx >= 0.7.0... yes"
+    ],
+    "system_libs": [
+      "-lm"
+    ],
     "headers_needed": [],
     "missing": []
   },
   "quirks": [
     "libtool",
     "pkg-config",
-    "subdirs"
+    "subdirs",
+    "LIBS=-lm"
   ],
   "outputs": [],
-  "status": "CONFIGURE_RUN_FAIL",
+  "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1342: syntax error near unexpected token `common'",
+  "diagnostic": "",
   "deep_expansion": {
     "configure_lines": 2542,
-    "leaked_macros": [
-      {
-        "name": "AC_CONFIG_LIBOBJ_DIR",
-        "line": 1342,
-        "context": "AC_CONFIG_LIBOBJ_DIR(common)"
-      }
-    ],
+    "leaked_macros": [],
     "heredoc_openers": 20,
     "heredoc_terminators": 20,
     "heredoc_imbalance": 0,
-    "syntax_errors": [
-      {
-        "line": 1342,
-        "token": "common",
-        "source": "AC_CONFIG_LIBOBJ_DIR(common)",
-        "block": [
-          "1338: ",
-          "1339: ",
-          "1340: ",
-          "1341: ac_macro_dir=m4",
-          "1342: AC_CONFIG_LIBOBJ_DIR(common)",
-          "1343: ",
-          "1344: ",
-          "1345: "
-        ]
-      }
-    ],
+    "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
       "line 2066: do eval test \\${$as_var+y} \\"
@@ -103,15 +91,18 @@
       "DEFS",
       "LIBOBJS",
       "INSTALL",
-      "DMTX_CFLAGS",
+      "MAGICK_CFLAGS",
       "MAGICK_LIBS",
-      "DMTX_LIBS",
-      "MAGICK_CFLAGS"
+      "DMTX_CFLAGS",
+      "DMTX_LIBS"
     ],
-    "failed_during_check": "",
+    "failed_during_check": "checking for getopt_long... yes",
     "failure_tail": [
-      "./configure: line 1342: syntax error near unexpected token `common'",
-      "./configure: line 1342: `AC_CONFIG_LIBOBJ_DIR(common)'"
+      "checking for getopt_long... yes",
+      "configure: creating Makefile",
+      "configure: creating dmtxquery/Makefile",
+      "configure: creating dmtxread/Makefile",
+      "configure: creating dmtxwrite/Makefile"
     ],
     "conftest_corruption": [],
     "conftest_directives_intact": 4,
@@ -129,29 +120,25 @@
     "real_make": "ok",
     "real_configure_lines": 15414,
     "real_first_error": "",
-    "classification": "OURS_BUG_CONFIGURE"
+    "classification": "OURS_BUG_MAKE"
   },
   "divergence": {
-    "stage": "configure",
-    "ours_error": "line 1342: AC_CONFIG_LIBOBJ_DIR(common) (near `common`)",
-    "ours_error_context": [
-      "AC_CONFIG_LIBOBJ_DIR(common)"
-    ],
+    "stage": "make",
+    "ours_error": "",
+    "ours_error_context": [],
     "ours_configure_lines": 2542,
     "real_configure_lines": 15414,
-    "macros_ours_left_undefined": [
-      "AC_CONFIG_LIBOBJ_DIR"
-    ]
+    "macros_ours_left_undefined": []
   },
   "receipt": {
-    "court_status": "failed",
+    "court_status": "partial",
     "probe_trace": [],
     "quirks_matched": [
       "uses-libtool-old",
       "uses-pkg-config",
       "vendored-aclocal"
     ],
-    "receipt_hash": "2773c3e2545a109ff7c723fda694935077c798e77c58dfa5bd682fd13b40a266",
+    "receipt_hash": "8105b1398715d5f2f7d2c9e580a167c37c8fb5cca45fa7db1a91a12f21bb29b8",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
