@@ -703,20 +703,22 @@ fn analyze_expansion(d: &Path, cf_log: &str) -> Option<DeepExpansion> {
     // where `include`/`ifdef`/`define` builtins expand inside conftest C source). Track only inside
     // conftest heredoc regions so real `# comment` shell lines aren't misread.
     {
+        // in_conftest spans ONLY a real conftest heredoc: `cat … <<_ACEOF >conftest.$ac_ext` … `_ACEOF`
+        // (not the prologue's `/* confdefs.h */` init, which would flag real shell comments).
         let mut in_conftest = false;
         for (i, l) in lines.iter().enumerate() {
             let t = l.trim_start();
-            if l.contains("<<_ACEOF") || l.contains("/* confdefs.h */") || l.contains("/* end confdefs.h */") {
+            if l.contains("<<_ACEOF") && (l.contains(">conftest") || l.contains("confdefs.h -")) {
                 in_conftest = true;
             } else if l.trim() == "_ACEOF" {
                 in_conftest = false;
             }
-            // intact directive
             if t.starts_with("#include") || t.starts_with("#ifdef") || t.starts_with("#ifndef")
                 || t.starts_with("#define") || t.starts_with("#if ") || t.starts_with("#endif") {
                 de.conftest_directives_intact += 1;
             }
-            // mangled: `# <hdr>` (include eaten), or inside conftest a bare `# WORD` (ifdef/define eaten)
+            // mangled directives only inside a conftest: `# <hdr>` (include eaten) or `# WORD` (ifdef/
+            // define eaten). Outside conftests, `# ...` is a legitimate shell comment — never flagged.
             if in_conftest && (t.starts_with("# <")
                 || (t.starts_with("# ") && t.len() > 2 && t.as_bytes()[2].is_ascii_alphanumeric())) {
                 de.conftest_directives_mangled += 1;
