@@ -161,15 +161,24 @@ struct Receipt {
     court_status: String,
     probe_trace: Vec<ProbeStep>,
     quirks_matched: Vec<String>,
+    #[serde(skip_serializing_if = "Vec::is_empty")]
+    quirks_applied: Vec<QuirkApplied>,
     receipt_hash: String,
     schema: &'static str,
 }
 #[derive(Serialize)]
 struct ProbeStep {
-    name: String,   // HAVE_FOO_H / func / -llib
+    name: String,   // HAVE_FOO_H / func | -llib
     kind: String,   // header | func | lib
     result: String, // yes | no
     reason: String, // ok | header-not-found | symbol-not-found | link-failed | not-recorded
+}
+/// An auto-applied quirk fix and whether it actually helped (re-run cleared a stage it didn't before).
+#[derive(Serialize)]
+struct QuirkApplied {
+    id: String,
+    action: String,  // the GNU-free fix applied (configure flag / mkdir / env)
+    verified: bool,  // true = the build got further AFTER applying it
 }
 /// Build-environment fingerprint for hermeticity: the exact toolchain + paths + env that shaped the
 /// build, so a recipe is reproducible across machines and time.
@@ -363,6 +372,22 @@ pub fn run() -> ExitCode {
                         }
                     }
                 }
+                // === auto-apply quirks: if configure failed, try GNU-free quirk fixes and re-run ===
+                let quirks_matched = match_quirks(&ac_text, &d, &cf_log);
+                let mut quirks_applied = Vec::new();
+                if !scan_only && status == "CONFIGURE_RUN_FAIL" {
+                    let (ap, ns, oki) = auto_apply_quirks(&d, &quirks_matched, &status);
+                    if !ap.is_empty() {
+                        pipeline.push(Step {
+                            step: "auto-quirk".into(),
+                            tool: "quirk-engine".into(),
+                            status: if ns == "FUNC_OK" || ns == "MAKE_FAIL" { "ok".into() } else { "fail".into() },
+                        });
+                        quirks_applied = ap;
+                        status = ns;
+                        if oki { ok += 1; }
+                    }
+                }
                 let (probes, libs, hdrs, pkgs) = collect(&d, &cf_log, &mk_log);
                 if status != "FUNC_OK" {
                     diagnostic = diag_line(&cf_log, &mk_log);
@@ -382,7 +407,6 @@ pub fn run() -> ExitCode {
                 }
                 // === build-court receipt + hermeticity + missing-dep inference ===
                 let environment = fingerprint_environment();
-                let quirks_matched = match_quirks(&ac_text, &d, &cf_log);
                 let probe_trace = build_probe_trace(&probes, &cf_log);
                 let suggested_deps = infer_missing_deps(&hdrs, &cf_log);
                 let toolchain = Toolchain {
@@ -397,6 +421,7 @@ pub fn run() -> ExitCode {
                     court_status: court,
                     probe_trace,
                     quirks_matched,
+                    quirks_applied,
                     receipt_hash,
                     schema: "automake-rs.build-court/v1",
                 };
@@ -838,6 +863,44 @@ fn match_quirks(ac_text: &str, d: &Path, cf_log: &str) -> Vec<String> {
         if hit { out.push(id.to_string()); }
     }
     out
+}
+
+/// GNU-free fix for a matched quirk: a `./configure` flag (or empty if the quirk has no auto-fix).
+/// Never copies GNU aux or invokes GNU tools — only flags/env/mkdir are permitted.
+fn quirk_fix(id: &str) -> Option<String> {
+    match id {
+        "uses-maintainer-mode" => Some("--disable-maintainer-mode".into()),
+        "uses-subdir-objects" => Some("--disable-dependency-tracking".into()),
+        _ => None,
+    }
+}
+
+/// Auto-apply quirks: when configure failed, collect GNU-free configure flags from the matched fixable
+/// quirks, re-run configure (+make), and record which quirks actually got the build further. Returns
+/// (applied-with-verdict, possibly-improved-status). `ok_inc` is set true if it newly reached FUNC_OK.
+fn auto_apply_quirks(d: &Path, matched: &[String], cur_status: &str) -> (Vec<QuirkApplied>, String, bool) {
+    let mut applied = Vec::new();
+    let fixes: Vec<(String, String)> = matched
+        .iter()
+        .filter_map(|id| quirk_fix(id).map(|f| (id.clone(), f)))
+        .collect();
+    if fixes.is_empty() || matches!(cur_status, "MAKE_FAIL" | "FUNC_OK") {
+        return (applied, cur_status.to_string(), false);
+    }
+    let flag_args: Vec<&str> = fixes.iter().map(|(_, f)| f.as_str()).collect();
+    let (cfok, _) = run_timed(d, 180, "./configure", &flag_args);
+    let mut new_status = cur_status.to_string();
+    let mut ok_inc = false;
+    if cfok {
+        new_status = "MAKE_FAIL".to_string();
+        let (mkok, _) = run_timed(d, 300, "make", &["-j2"]);
+        if mkok { new_status = "FUNC_OK".to_string(); ok_inc = true; }
+    }
+    // verified = applying the quirks actually cleared configure (which had failed before)
+    for (id, action) in fixes {
+        applied.push(QuirkApplied { id, action, verified: cfok });
+    }
+    (applied, new_status, ok_inc)
 }
 
 /// Build-court verdict for a recipe.
