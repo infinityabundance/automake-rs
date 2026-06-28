@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "csete/gpredict",
   "source": {
     "url": "https://github.com/csete/gpredict",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.8",
+    "autoconf_rs": "autoconf-rs 0.1.11",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,6 +26,11 @@
     {
       "step": "configure",
       "tool": "./configure",
+      "status": "ok"
+    },
+    {
+      "step": "make",
+      "tool": "make",
       "status": "fail"
     }
   ],
@@ -35,16 +40,117 @@
   },
   "dependencies": {
     "pkg_config": [],
-    "system_libs": [],
+    "system_libs": [
+      "-lm",
+      "-lcurl",
+      "-lgtk-3",
+      "-lgdk-3",
+      "-lz",
+      "-lpangocairo-1.0",
+      "-lpango-1.0",
+      "-lharfbuzz",
+      "-latk-1.0",
+      "-lcairo-gobject",
+      "-lcairo",
+      "-lgdk_pixbuf-2.0",
+      "-lgio-2.0",
+      "-lgobject-2.0",
+      "-lglib-2.0"
+    ],
     "headers_needed": [],
     "missing": []
   },
   "quirks": [
     "libtool",
-    "subdirs"
+    "subdirs",
+    "LIBS=-lm -lcurl -lgtk-3 -lgdk-3 -lz -lpangocairo-1.0 -lpango-1.0 -lharfbuzz -latk-1.0 -lcairo-gobject -lcairo -lgdk_pixbuf-2.0 -lgio-2.0 -lgobject-2.0 -lglib-2.0"
   ],
   "outputs": [],
-  "status": "CONFIGURE_RUN_FAIL",
+  "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1365: syntax error near unexpected token `0.21'"
+  "diagnostic": "",
+  "deep_expansion": {
+    "configure_lines": 2587,
+    "leaked_macros": [],
+    "heredoc_openers": 19,
+    "heredoc_terminators": 19,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2094: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PKG_CONFIG",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL",
+      "srcdir",
+      "prefix",
+      "exec_prefix",
+      "CC",
+      "CFLAGS",
+      "CPPFLAGS",
+      "LDFLAGS",
+      "LIBS",
+      "CXX",
+      "CXXFLAGS",
+      "CPP",
+      "DEFS",
+      "LIBOBJS",
+      "INSTALL",
+      "PACKAGE_LIBS",
+      "GETTEXT_PACKAGE",
+      "PACKAGE_CFLAGS"
+    ],
+    "failed_during_check": "checking for sin in -lm... yes",
+    "failure_tail": [
+      "checking for sin in -lm... yes",
+      "configure: creating Makefile",
+      "configure: creating doc/Makefile",
+      "configure: creating doc/man/gpredict.1",
+      "configure: creating doc/man/Makefile"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 1,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "char strerror ();\\nint main() { return strerror (); }",
+      "#include <$ac_hdr>",
+      "char sin();\\nint main() { return sin(); }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "fail",
+    "real_make": "skipped",
+    "real_configure_lines": 15358,
+    "real_first_error": "./configure: line 4537: syntax error near unexpected token `0.21'",
+    "classification": "OURS_BETTER"
+  },
+  "receipt": {
+    "court_status": "partial",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool",
+      "uses-intltool",
+      "uses-subdir-objects",
+      "uses-maintainer-mode",
+      "vendored-aclocal"
+    ],
+    "receipt_hash": "9e6ab9c737cd5741d33e6b7a2a4c17852e20d3f94d1c7453def12b16b5ad39d3",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

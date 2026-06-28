@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "cooljeanius/pkg-config",
   "source": {
     "url": "https://github.com/cooljeanius/pkg-config",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.8",
+    "autoconf_rs": "autoconf-rs 0.1.11",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,11 +26,11 @@
     {
       "step": "configure",
       "tool": "./configure",
-      "status": "ok"
+      "status": "fail"
     },
     {
-      "step": "make",
-      "tool": "make",
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
       "status": "fail"
     }
   ],
@@ -51,7 +51,189 @@
     "subdirs"
   ],
   "outputs": [],
-  "status": "MAKE_FAIL",
+  "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": ""
+  "diagnostic": "./configure: line 1338: and: command not found",
+  "deep_expansion": {
+    "configure_lines": 2987,
+    "leaked_macros": [
+      {
+        "name": "m4_warning",
+        "line": 1653,
+        "context": "m4_warning(Unknown MACRO-NAME option 'OPTION-LIST')"
+      },
+      {
+        "name": "AC_CONFIG_COMMANDS_PRE",
+        "line": 2263,
+        "context": "AC_CONFIG_COMMANDS_PRE(m4_provide_if([_AM_COMPILER_EXEEXT],"
+      },
+      {
+        "name": "AC_CONFIG_COMMANDS_PRE",
+        "line": 2470,
+        "context": "AC_CONFIG_COMMANDS_PRE("
+      },
+      {
+        "name": "AC_MSG_ERROR",
+        "line": 2472,
+        "context": "AC_MSG_ERROR([[conditional \"NATIVE_WIN32\" was never defined."
+      },
+      {
+        "name": "AC_RUN_LOG",
+        "line": 2575,
+        "context": "AC_RUN_LOG($PKG_CONFIG --exists --print-errors \"MODULES\"); then"
+      },
+      {
+        "name": "AC_RUN_LOG",
+        "line": 2589,
+        "context": "AC_RUN_LOG($PKG_CONFIG --exists --print-errors \"\"); then"
+      },
+      {
+        "name": "AC_RUN_LOG",
+        "line": 2691,
+        "context": "AC_RUN_LOG($PKG_CONFIG --exists --print-errors \"\"); then"
+      },
+      {
+        "name": "AC_RUN_LOG",
+        "line": 2704,
+        "context": "AC_RUN_LOG($PKG_CONFIG --exists --print-errors \"\"); then"
+      },
+      {
+        "name": "AC_RUN_LOG",
+        "line": 2805,
+        "context": "AC_RUN_LOG($PKG_CONFIG --exists --print-errors \"MODULE\"); then"
+      },
+      {
+        "name": "AC_RUN_LOG",
+        "line": 2831,
+        "context": "AC_RUN_LOG($PKG_CONFIG --exists --print-errors \"\"); then"
+      },
+      {
+        "name": "AC_CONFIG_COMMANDS_PRE",
+        "line": 2860,
+        "context": "AC_CONFIG_COMMANDS_PRE("
+      },
+      {
+        "name": "AC_MSG_ERROR",
+        "line": 2862,
+        "context": "AC_MSG_ERROR([[conditional \"INTERNAL_GLIB\" was never defined."
+      },
+      {
+        "name": "AC_RUN_LOG",
+        "line": 2894,
+        "context": "AC_RUN_LOG($PKG_CONFIG --exists --print-errors \"glib_module\"); then"
+      },
+      {
+        "name": "AC_RUN_LOG",
+        "line": 2907,
+        "context": "AC_RUN_LOG($PKG_CONFIG --exists --print-errors \"glib_module\"); then"
+      },
+      {
+        "name": "AC_CONFIG_COMMANDS_PRE",
+        "line": 2980,
+        "context": "AC_CONFIG_COMMANDS_PRE("
+      },
+      {
+        "name": "AC_MSG_ERROR",
+        "line": 2982,
+        "context": "AC_MSG_ERROR([[conditional \"HOST_TOOL\" was never defined."
+      }
+    ],
+    "heredoc_openers": 7,
+    "heredoc_terminators": 7,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1553,
+        "token": "&&",
+        "source": "&& break",
+        "block": [
+          "1549:   case $_am_tool in",
+          "1550:   gnutar)",
+          "1551:     for _am_tar in tar gnutar gtar;",
+          "1552:     do",
+          "1553:        && break",
+          "1554:     done",
+          "1555:     am__tar=\"$_am_tar --format= -chf - \"'\"$$tardir\"'",
+          "1556:     am__tar_=\"$_am_tar --format= -chf - \"'\"$tardir\"'"
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2842: if test x\"${}\" = x\"\"\"\"; then"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "VARIABLE",
+      "ifGNUmake",
+      "PKG_CONFIG",
+      "pkgconfigdir",
+      "noarch_pkgconfigdir"
+    ],
+    "failed_during_check": "checking how to create a  tar archive... ./configure: line 1553: syntax error ne",
+    "failure_tail": [
+      "checking how to create a  tar archive... ./configure: line 1553: syntax error ne",
+      "./configure: line 1553: `       && break'"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 5,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "#include <$ac_hdr>",
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { size_t x; return 0; }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func();\\nint main() { return $ac_func(); }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "ok",
+    "real_configure_lines": 23427,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE"
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "line 1553: && break (near `&&`)",
+    "ours_error_context": [
+      "&& break"
+    ],
+    "ours_configure_lines": 2987,
+    "real_configure_lines": 23427,
+    "macros_ours_left_undefined": [
+      "AC_CONFIG_COMMANDS_PRE",
+      "AC_MSG_ERROR",
+      "AC_RUN_LOG",
+      "m4_warning"
+    ]
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool",
+      "uses-pkg-config",
+      "uses-maintainer-mode",
+      "has-m4-macro-dir",
+      "vendored-aclocal",
+      "uses-ax-archive"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-maintainer-mode",
+        "action": "--disable-maintainer-mode",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "2773c3e2545a109ff7c723fda694935077c798e77c58dfa5bd682fd13b40a266",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

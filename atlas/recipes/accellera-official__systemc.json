@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "accellera-official/systemc",
   "source": {
     "url": "https://github.com/accellera-official/systemc",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.8",
+    "autoconf_rs": "autoconf-rs 0.1.11",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,6 +26,11 @@
     {
       "step": "configure",
       "tool": "./configure",
+      "status": "fail"
+    },
+    {
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
       "status": "fail"
     }
   ],
@@ -47,5 +52,126 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "whether we are using a Clang/LLVM C++ compiler... ./configure: line 1374: syntax error near unexpected token `('"
+  "diagnostic": "whether we are using a Clang/LLVM C++ compiler... ./configure: line 1378: syntax error near unexpected token `('",
+  "deep_expansion": {
+    "configure_lines": 3155,
+    "leaked_macros": [],
+    "heredoc_openers": 21,
+    "heredoc_terminators": 23,
+    "heredoc_imbalance": 2,
+    "syntax_errors": [
+      {
+        "line": 1378,
+        "token": "(",
+        "source": "int main() {",
+        "block": [
+          "1374: else",
+          "1375:   :",
+          "1376:   # Language: C++",
+          "1377:    ",
+          "1378: int main() { ",
+          "1379: #ifndef __clang__",
+          "1380: not clang",
+          "1381: #endif"
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2550: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL",
+      "srcdir",
+      "prefix",
+      "exec_prefix",
+      "CC",
+      "CFLAGS",
+      "CPPFLAGS",
+      "LDFLAGS",
+      "LIBS",
+      "CXX",
+      "CXXFLAGS",
+      "CPP",
+      "DEFS",
+      "LIBOBJS",
+      "INSTALL",
+      "rootdocdir",
+      "LDFLAG_RPATH",
+      "host_cpu",
+      "PKGCONFIG_CFLAGS",
+      "EXTRA_ASFLAGS",
+      "OPT_CXXFLAGS",
+      "PTHREAD_CC",
+      "LIB_ARCH_SUFFIX",
+      "QT_ARCH"
+    ],
+    "failed_during_check": "",
+    "failure_tail": [
+      "whether we are using a Clang/LLVM C++ compiler... ./configure: line 1378: syntax",
+      "./configure: line 1378: `int main() { '"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 13,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar pthread_join();\\nint main() { return pthread_join(); }",
+      "#include <pthread.h>\\nstatic void routine(void *a) { a = 0; }\\nstatic void *start_routine(void *a) { return a; }\\nint main() { pthread_t th; pthread_attr_t attr;\\npthread_create(&th, 0, start_routine, 0);\\npthread_join(th, 0);\\npthread_attr_init(&attr);\\npthread_cleanup_push(routine, 0);\\npthread_cleanup_pop(0) /* ; */ ; return 0; }",
+      "#include <pthread.h>\\nint main() { int attr = $attr; return attr /* ; */ ; return 0; }",
+      "\\n#include <pthread.h>\\nint main() { int i = PTHREAD_PRIO_INHERIT; ; return 0; }",
+      "\\nint main() {\\n#ifdef DEBUG_SYSTEMC\\nint ok;\\n#else\\nchoke me\\n#endif\\n; return 0; }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "ok",
+    "real_configure_lines": 20879,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE"
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "line 1378: int main() { (near `(`)",
+    "ours_error_context": [
+      "int main() {"
+    ],
+    "ours_configure_lines": 3155,
+    "real_configure_lines": 20879,
+    "macros_ours_left_undefined": []
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool",
+      "uses-subdir-objects",
+      "vendored-aclocal",
+      "uses-ax-archive",
+      "uses-pthread-check"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-subdir-objects",
+        "action": "--disable-dependency-tracking",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "2773c3e2545a109ff7c723fda694935077c798e77c58dfa5bd682fd13b40a266",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "GalliumOS/xfce4-session",
   "source": {
     "url": "https://github.com/GalliumOS/xfce4-session",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.8",
+    "autoconf_rs": "autoconf-rs 0.1.11",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,6 +26,11 @@
     {
       "step": "configure",
       "tool": "./configure",
+      "status": "fail"
+    },
+    {
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
       "status": "fail"
     }
   ],
@@ -46,5 +51,118 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1380: syntax error near unexpected token `intltool_minimum_version,'"
+  "diagnostic": "./configure: line 1482: AC_CHECK_LIBM: command not found",
+  "deep_expansion": {
+    "configure_lines": 2725,
+    "leaked_macros": [],
+    "heredoc_openers": 26,
+    "heredoc_terminators": 26,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1487,
+        "token": "XDT_CHECK_LIBSM",
+        "source": "XDT_CHECK_LIBSM()",
+        "block": [
+          "1483: ",
+          "1484: ",
+          "1485: XDT_CHECK_LIBX11_REQUIRE()",
+          "1486: ",
+          "1487: XDT_CHECK_LIBSM()",
+          "1488: ",
+          "1489: ac_LIBS=\"$LIBS\"",
+          "1490: LIBS=\"$LIBS $LIBSM_LDFLAGS $LIBSM_LIBS\""
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2236: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL",
+      "srcdir",
+      "prefix",
+      "exec_prefix",
+      "CC",
+      "CFLAGS",
+      "CPPFLAGS",
+      "LDFLAGS",
+      "LIBS",
+      "CXX",
+      "CXXFLAGS",
+      "CPP",
+      "DEFS",
+      "LIBOBJS",
+      "INSTALL",
+      "host_alias",
+      "BACKEND",
+      "host_vendor",
+      "host_os",
+      "HELPER_PATH_PREFIX",
+      "host_cpu",
+      "LIBM",
+      "XSESSION_PREFIX",
+      "XFCE_GLADE_CATALOG_PATH"
+    ],
+    "failed_during_check": "checking for malloc... yes",
+    "failure_tail": [
+      "checking for malloc... yes",
+      "./configure: line 1482: AC_CHECK_LIBM: command not found",
+      "./configure: line 1487: syntax error near unexpected token `XDT_CHECK_LIBSM'",
+      "./configure: line 1487: `XDT_CHECK_LIBSM()'"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 15,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "#include <$ac_hdr>",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func();\\nint main() { return $ac_func(); }",
+      "inline int foo() { return 0; }\\nint main() { return foo(); }",
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { mode_t x; return 0; }",
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { pid_t x; return 0; }",
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { size_t x; return 0; }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "fail",
+    "real_configure": "skipped",
+    "real_make": "skipped",
+    "real_configure_lines": 0,
+    "real_first_error": "xfce4-session/Makefile.am:110: error: HAVE_POLKIT does not appear in AM_CONDITIONAL",
+    "classification": "OURS_BETTER"
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool",
+      "uses-intltool",
+      "uses-maintainer-mode",
+      "vendored-aclocal"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-maintainer-mode",
+        "action": "--disable-maintainer-mode",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "7ce013376826229435a725231a088a6b4ca9c70c0f0c2c61a569acc421b80cc1",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

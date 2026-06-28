@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "endlessm/xapian-bridge",
   "source": {
     "url": "https://github.com/endlessm/xapian-bridge",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.8",
+    "autoconf_rs": "autoconf-rs 0.1.11",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -34,7 +34,10 @@
     "configure_args": []
   },
   "dependencies": {
-    "pkg_config": [],
+    "pkg_config": [
+      "checking for gio-2.0 >= 2.40.0",
+      "libsoup-2.4 >= 2.48.0"
+    ],
     "system_libs": [],
     "headers_needed": [],
     "missing": []
@@ -46,5 +49,116 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1334: syntax error near unexpected token `_XAPIAN_BRIDGE_VERSION_MACRO,'"
+  "diagnostic": "./configure: line 1909: syntax error near unexpected token `EOS_COVERAGE_RULES'",
+  "deep_expansion": {
+    "configure_lines": 2962,
+    "leaked_macros": [
+      {
+        "name": "AM_SUBST_NOTMAKE",
+        "line": 1909,
+        "context": "AM_SUBST_NOTMAKE(EOS_COVERAGE_RULES)"
+      },
+      {
+        "name": "AM_SUBST_NOTMAKE",
+        "line": 1912,
+        "context": "AM_SUBST_NOTMAKE(EOS_COVERAGE_CLEAN_RULES)"
+      }
+    ],
+    "heredoc_openers": 17,
+    "heredoc_terminators": 17,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1909,
+        "token": "EOS_COVERAGE_RULES",
+        "source": "AM_SUBST_NOTMAKE(EOS_COVERAGE_RULES)",
+        "block": [
+          "1905:   :",
+          "1906:   ",
+          "1907: fi",
+          "1908:     # We only want to define this to use it for full substitution, not as a ",
+          "1909:     AM_SUBST_NOTMAKE(EOS_COVERAGE_RULES)",
+          "1910: ",
+          "1911:     ",
+          "1912:     AM_SUBST_NOTMAKE(EOS_COVERAGE_CLEAN_RULES)"
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2486: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PKG_CONFIG",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL",
+      "srcdir",
+      "prefix",
+      "exec_prefix",
+      "CC",
+      "CFLAGS",
+      "CPPFLAGS",
+      "LDFLAGS",
+      "LIBS",
+      "CXX",
+      "CXXFLAGS",
+      "CPP",
+      "DEFS",
+      "LIBOBJS",
+      "INSTALL",
+      "EOS_C_COVERAGE_CFLAGS",
+      "systemdsystemunitdir",
+      "EOS_COVERAGE_CLEAN_RULES",
+      "XAPIAN_BRIDGE_API_VERSION",
+      "EOS_DEFAULT_COVERAGE_DIR",
+      "EOS_JS_COVERAGE_LOG_FLAGS",
+      "EOS_C_COVERAGE_LDFLAGS",
+      "XAPIAN_BRIDGE_API_NAME"
+    ],
+    "failed_during_check": "checking where to put coverage data... in default location (_coverage)",
+    "failure_tail": [
+      "checking where to put coverage data... in default location (_coverage)",
+      "./configure: line 1909: syntax error near unexpected token `EOS_COVERAGE_RULES'",
+      "./configure: line 1909: `    AM_SUBST_NOTMAKE(EOS_COVERAGE_RULES)'"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 1,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "#include <sys/types.h>\\nint main() { return sizeof(off_t) >= 8 ? 0 : 1; }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "fail",
+    "real_make": "skipped",
+    "real_configure_lines": 16583,
+    "real_first_error": "configure: error: Package requirements (gio-2.0 >= 2.40.0",
+    "classification": "BOTH_CONFIGURE_FAIL"
+  },
+  "receipt": {
+    "court_status": "not_standalone",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool-old",
+      "uses-pkg-config",
+      "has-m4-macro-dir",
+      "vendored-aclocal"
+    ],
+    "receipt_hash": "9b1e2700fe968e7a3321342ca953e7c699643cc7f6208188c454b461278951a7",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

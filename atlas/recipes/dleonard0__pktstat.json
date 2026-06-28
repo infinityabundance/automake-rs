@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "dleonard0/pktstat",
   "source": {
     "url": "https://github.com/dleonard0/pktstat",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.8",
+    "autoconf_rs": "autoconf-rs 0.1.11",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -36,16 +36,98 @@
   "dependencies": {
     "pkg_config": [],
     "system_libs": [],
-    "headers_needed": [
-      "confdefs.h"
-    ],
-    "missing": [
-      "confdefs.h"
-    ]
+    "headers_needed": [],
+    "missing": []
   },
   "quirks": [],
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "configure: error: Cannot proceed without a packet capture library"
+  "diagnostic": "checking for library containing socket... ./configure: line 1394: syntax error near unexpected token `printf'",
+  "deep_expansion": {
+    "configure_lines": 2872,
+    "leaked_macros": [],
+    "heredoc_openers": 46,
+    "heredoc_terminators": 46,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1394,
+        "token": "printf",
+        "source": "fi\tprintf %s \"checking for library containing gethostbyname... \"",
+        "block": [
+          "1390:   printf '%s\\n' \"no\"",
+          "1391:   LIBS=$_acs_save_LIBS",
+          "1392:   :",
+          "1393:   ",
+          "1394: fi\tprintf %s \"checking for library containing gethostbyname... \"",
+          "1395: _acs_save_LIBS=$LIBS",
+          "1396: ac_res=",
+          "1397: for ac_lib in '' nsl; do"
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2396: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT"
+    ],
+    "failed_during_check": "checking for library containing gethostbyname... \"'",
+    "failure_tail": [
+      "./configure: line 1394: `fi\tprintf %s \"checking for library containing gethostby"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 40,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "char socket ();\\nint main() { return socket (); }",
+      "char gethostbyname ();\\nint main() { return gethostbyname (); }",
+      "char pcap_open_live ();\\nint main() { return pcap_open_live (); }",
+      "char exp ();\\nint main() { return exp (); }",
+      "char tgoto ();\\nint main() { return tgoto (); }",
+      "char initscr ();\\nint main() { return initscr (); }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "ok",
+    "real_configure_lines": 8025,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE"
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "line 1394: fi\tprintf %s \"checking for library containing gethostbyname... \" (near `printf`)",
+    "ours_error_context": [
+      "fi\tprintf %s \"checking for library containing gethostbyname... \""
+    ],
+    "ours_configure_lines": 2872,
+    "real_configure_lines": 8025,
+    "macros_ours_left_undefined": []
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "vendored-aclocal"
+    ],
+    "receipt_hash": "2773c3e2545a109ff7c723fda694935077c798e77c58dfa5bd682fd13b40a266",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

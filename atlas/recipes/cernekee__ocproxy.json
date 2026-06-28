@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "cernekee/ocproxy",
   "source": {
     "url": "https://github.com/cernekee/ocproxy",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.8",
+    "autoconf_rs": "autoconf-rs 0.1.11",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -45,5 +45,100 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1396: debug: command not found"
+  "diagnostic": "./configure: line 1437: syntax error near unexpected token `WFLAGS,'",
+  "deep_expansion": {
+    "configure_lines": 2533,
+    "leaked_macros": [
+      {
+        "name": "AS_COMPILER_FLAGS",
+        "line": 1437,
+        "context": "AS_COMPILER_FLAGS(WFLAGS,"
+      }
+    ],
+    "heredoc_openers": 19,
+    "heredoc_terminators": 19,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1437,
+        "token": "WFLAGS,",
+        "source": "AS_COMPILER_FLAGS(WFLAGS,",
+        "block": [
+          "1433: ",
+          "1434: ",
+          "1435: EXTRA_PC_LIBS=\"\"",
+          "1436: ",
+          "1437: AS_COMPILER_FLAGS(WFLAGS,",
+          "1438:         \"-Wall",
+          "1439:          -Wextra",
+          "1440:          -Wno-missing-field-initializers"
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2057: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT"
+    ],
+    "failed_during_check": "",
+    "failure_tail": [
+      "./configure: line 1437: syntax error near unexpected token `WFLAGS,'",
+      "./configure: line 1437: `AS_COMPILER_FLAGS(WFLAGS,'"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 2,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "#include <$ac_hdr>",
+      "char event_add ();\\nint main() { return event_add (); }",
+      "#include <$ac_hdr>"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "ok",
+    "real_configure_lines": 7601,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE"
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "line 1437: AS_COMPILER_FLAGS(WFLAGS, (near `WFLAGS,`)",
+    "ours_error_context": [
+      "AS_COMPILER_FLAGS(WFLAGS,"
+    ],
+    "ours_configure_lines": 2533,
+    "real_configure_lines": 7601,
+    "macros_ours_left_undefined": [
+      "AS_COMPILER_FLAGS"
+    ]
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "has-acinclude",
+      "vendored-aclocal",
+      "uses-ax-archive",
+      "uses-pthread-check"
+    ],
+    "receipt_hash": "2773c3e2545a109ff7c723fda694935077c798e77c58dfa5bd682fd13b40a266",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

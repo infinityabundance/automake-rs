@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "cisco/libamvp",
   "source": {
     "url": "https://github.com/cisco/libamvp",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.8",
+    "autoconf_rs": "autoconf-rs 0.1.11",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,11 +26,11 @@
     {
       "step": "configure",
       "tool": "./configure",
-      "status": "ok"
+      "status": "fail"
     },
     {
-      "step": "make",
-      "tool": "make",
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
       "status": "fail"
     }
   ],
@@ -49,7 +49,101 @@
     "subdirs"
   ],
   "outputs": [],
-  "status": "MAKE_FAIL",
+  "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": ""
+  "diagnostic": "./configure: line 1453: syntax error near unexpected token `fi'",
+  "deep_expansion": {
+    "configure_lines": 1624,
+    "leaked_macros": [],
+    "heredoc_openers": 7,
+    "heredoc_terminators": 7,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1453,
+        "token": "fi",
+        "source": "fi",
+        "block": [
+          "1449: # libamvp library installation dir - only used when building just the app",
+          "1450: if test \"x$disable_lib\" = \"xyes\" ; then",
+          "1451:     # Check --with-libamvp-dir option",
+          "1452: ",
+          "1453: fi",
+          "1454: ",
+          "1455: # Libcurl installation path",
+          "1456: if test \"x$disable_lib\" != \"xyes\" ; then"
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL"
+    ],
+    "failed_during_check": "",
+    "failure_tail": [
+      "./configure: line 1453: syntax error near unexpected token `fi'",
+      "./configure: line 1453: `fi'"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 0,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "char  ();\\nint main() { return  (); }",
+      "char amvp_init_cert_request();\\nint main() { return amvp_init_cert_request(); }",
+      "char curl_easy_init();\\nint main() { return curl_easy_init(); }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "ok",
+    "real_configure_lines": 15305,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE"
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "line 1453: fi (near `fi`)",
+    "ours_error_context": [
+      "fi"
+    ],
+    "ours_configure_lines": 1624,
+    "real_configure_lines": 15305,
+    "macros_ours_left_undefined": []
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool",
+      "uses-subdir-objects",
+      "uses-maintainer-mode",
+      "has-m4-macro-dir",
+      "vendored-aclocal"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-subdir-objects",
+        "action": "--disable-dependency-tracking",
+        "verified": false
+      },
+      {
+        "id": "uses-maintainer-mode",
+        "action": "--disable-maintainer-mode",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "2773c3e2545a109ff7c723fda694935077c798e77c58dfa5bd682fd13b40a266",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

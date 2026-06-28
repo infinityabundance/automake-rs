@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "greyltc/android_external_sshfs",
   "source": {
     "url": "https://github.com/greyltc/android_external_sshfs",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.8",
+    "autoconf_rs": "autoconf-rs 0.1.11",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -34,40 +34,108 @@
       "status": "fail"
     }
   ],
-  "probe_results": {
-    "HAVE_LIBDL": 1
-  },
+  "probe_results": {},
   "feature_flags": {
     "configure_args": []
   },
   "dependencies": {
     "pkg_config": [
       "checking OpenSSH version... 9.6 >= 4.4, disabling NODELAY workaround",
-      "checking for fuse >= 2.3 glib-2.0 gthread-2.0... yes",
-      "OpenSSH version... 9.6 >= 4.4, disabling NODELAY workaround",
-      "OpenSSH version... 9.6 >= 4.4, disabling NODELAY workaround"
+      "checking for fuse >= 2.3 glib-2.0 gthread-2.0... yes"
     ],
-    "system_libs": [
-      "-ldl",
-      "-ldl"
-    ],
-    "headers_needed": [
-      "confdefs.h",
-      "fuse_lowlevel.h",
-      "glib.h"
-    ],
-    "missing": [
-      "confdefs.h",
-      "fuse_lowlevel.h",
-      "glib.h"
-    ]
+    "system_libs": [],
+    "headers_needed": [],
+    "missing": []
   },
   "quirks": [
-    "pkg-config",
-    "LIBS=-ldl -ldl"
+    "pkg-config"
   ],
   "outputs": [],
   "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "/usr/include/fuse/fuse_common.h:33:2: error: #error Please add -D_FILE_OFFSET_BITS=64 to your compile flags!"
+  "diagnostic": "",
+  "deep_expansion": {
+    "configure_lines": 2489,
+    "leaked_macros": [],
+    "heredoc_openers": 18,
+    "heredoc_terminators": 18,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2013: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL",
+      "srcdir",
+      "prefix",
+      "exec_prefix",
+      "CC",
+      "CFLAGS",
+      "CPPFLAGS",
+      "LDFLAGS",
+      "LIBS",
+      "CXX",
+      "CXXFLAGS",
+      "CPP",
+      "DEFS",
+      "LIBOBJS",
+      "INSTALL",
+      "sshnodelay_libs"
+    ],
+    "failed_during_check": "checking for fuse_opt_parse... yes",
+    "failure_tail": [
+      "checking for fuse_opt_parse... yes",
+      "configure: creating Makefile",
+      "configure: creating config.h",
+      "configure: creating ./config.status"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 2,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "char dlsym ();\\nint main() { return dlsym (); }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar fuse_opt_parse();\\nint main() { return fuse_opt_parse(); }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "ok",
+    "real_configure_lines": 6064,
+    "real_first_error": "",
+    "classification": "OURS_BUG_MAKE"
+  },
+  "divergence": {
+    "stage": "make",
+    "ours_error": "",
+    "ours_error_context": [],
+    "ours_configure_lines": 2489,
+    "real_configure_lines": 6064,
+    "macros_ours_left_undefined": []
+  },
+  "receipt": {
+    "court_status": "partial",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-pkg-config",
+      "vendored-aclocal"
+    ],
+    "receipt_hash": "669364662a5baae3128755acbdb4ce60d78c7cc5d6eb53bbab5c8e3b8eb436d0",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "cooljeanius/libUnixToOSX",
   "source": {
     "url": "https://github.com/cooljeanius/libUnixToOSX",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.8",
+    "autoconf_rs": "autoconf-rs 0.1.11",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,6 +26,11 @@
     {
       "step": "configure",
       "tool": "./configure",
+      "status": "fail"
+    },
+    {
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
       "status": "fail"
     }
   ],
@@ -48,5 +53,143 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "Try 0 --help for more information.: syntax error in expression (error token is \"Try 0 --help for more information.\")"
+  "diagnostic": "Try 0 --help for more information.: syntax error in expression (error token is \"Try 0 --help for more information.\")",
+  "deep_expansion": {
+    "configure_lines": 11880,
+    "leaked_macros": [
+      {
+        "name": "AC_RUN_IFELSE",
+        "line": 2714,
+        "context": "AC_RUN_IFELSE([AC_LANG_SOURCE([["
+      },
+      {
+        "name": "AC_RUN_IFELSE",
+        "line": 2751,
+        "context": "AC_RUN_IFELSE([AC_LANG_SOURCE([["
+      },
+      {
+        "name": "AC_RUN_IFELSE",
+        "line": 2783,
+        "context": "AC_RUN_IFELSE([AC_LANG_SOURCE([["
+      },
+      {
+        "name": "AC_DEFINE",
+        "line": 3050,
+        "context": "AC_DEFINE([FCHOWNAT_NOFOLLOW_BUG... \""
+      },
+      {
+        "name": "AC_DEFINE",
+        "line": 3058,
+        "context": "AC_DEFINE([FCHOWNAT_NOFOLLOW_BUG();"
+      },
+      {
+        "name": "AC_DEFINE",
+        "line": 3061,
+        "context": "AC_DEFINE([FCHOWNAT_NOFOLLOW_BUG(); }"
+      }
+    ],
+    "heredoc_openers": 633,
+    "heredoc_terminators": 633,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [],
+    "cache_var_anomalies": [
+      "line 66: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "PACKAGE_NAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_TARNAME",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL",
+      "srcdir",
+      "prefix",
+      "exec_prefix",
+      "HAVE_STRINGS_H",
+      "RELOCATABLE_LIBRARY_PATH",
+      "REPLACE_MKFIFO",
+      "REPLACE_CLOSEDIR",
+      "HAVE_VASPRINTF",
+      "PTHREAD_H_DEFINES_STRUCT_TIMESPEC",
+      "REPLACE_STRERRORNAME_NP",
+      "REPLACE_STRTOIMAX",
+      "REPLACE_WCWIDTH",
+      "REPLACE_STDIO_READ_FUNCS",
+      "HAVE_WCSWIDTH",
+      "GNULIB_LOGBL",
+      "REPLACE_WCRTOMB",
+      "GNULIB_SCANDIR",
+      "REPLACE_ROUNDL",
+      "REPLACE_LOCALECONV",
+      "HAVE_VDPRINTF",
+      "HAVE_FFSL",
+      "GNULIB_HYPOTF",
+      "HAVE_MKSTEMPS",
+      "HAVE_SYS_LOADAVG_H"
+    ],
+    "failed_during_check": "checking for C++ compiler... c++",
+    "failure_tail": [
+      "checking for C++ compiler... c++",
+      "if  is properly declared... how to print strings... for sysroot... the maximum l",
+      "printf",
+      "print -r",
+      "cat"
+    ],
+    "conftest_corruption": [
+      "line 2750: # and ttys (like /dev/tty). On Mac OS X  (ifdef/define eaten)",
+      "line 2782: # and ttys (like /dev/tty). On Mac OS X  (ifdef/define eaten)"
+    ],
+    "conftest_directives_intact": 1077,
+    "conftest_directives_mangled": 2,
+    "conftest_programs": [
+      "/* end confdefs.h */\\nint main() { return 0; }",
+      "/* end confdefs.h */\\n#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $1();\\nint main() { return $1(); }",
+      "/* end confdefs.h */\\n#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar [$1]();\\nint main() { return [$1](); }",
+      "/* end confdefs.h */\\n#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $1();\\nint main() { return $1(); }",
+      "/* end confdefs.h */\\n#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar shl_load();\\nint main() { return shl_load(); }",
+      "/* end confdefs.h */\\n#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar lt_cv_dlopen=shl_load();\\nint main() { return lt_cv_dlopen=shl_load(); }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "fail",
+    "real_configure": "skipped",
+    "real_make": "skipped",
+    "real_configure_lines": 0,
+    "real_first_error": "aclocal: error: couldn't open directory '/opt/sw/share/gnulib/m4': No such file or directory",
+    "classification": "OURS_BETTER"
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool",
+      "uses-subdir-objects",
+      "uses-maintainer-mode",
+      "has-m4-macro-dir",
+      "has-acinclude",
+      "vendored-aclocal"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-subdir-objects",
+        "action": "--disable-dependency-tracking",
+        "verified": false
+      },
+      {
+        "id": "uses-maintainer-mode",
+        "action": "--disable-maintainer-mode",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "7ce013376826229435a725231a088a6b4ca9c70c0f0c2c61a569acc421b80cc1",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

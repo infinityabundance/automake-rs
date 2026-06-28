@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "envytools/valgrind",
   "source": {
     "url": "https://github.com/envytools/valgrind",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.8",
+    "autoconf_rs": "autoconf-rs 0.1.11",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -27,6 +27,11 @@
       "step": "configure",
       "tool": "./configure",
       "status": "fail"
+    },
+    {
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
+      "status": "fail"
     }
   ],
   "probe_results": {},
@@ -45,5 +50,108 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1395: syntax error near unexpected token `('"
+  "diagnostic": "./configure: line 1400: syntax error near unexpected token `('",
+  "deep_expansion": {
+    "configure_lines": 9245,
+    "leaked_macros": [],
+    "heredoc_openers": 191,
+    "heredoc_terminators": 191,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1400,
+        "token": "(",
+        "source": "apparently causes problems on older Linux distros (eg. with",
+        "block": [
+          "1396: fi",
+          "1397: done",
+          "1398: printf '%s\\n' \"${OBJC-not found}\"",
+          "1399: fi",
+          "1400:  apparently causes problems on older Linux distros (eg. with",
+          "1401: # autoconf 2.59).  If we ever have any Objective-C code in the Valgrind code",
+          "1402: # base (eg. most likely as Darwin-specific tests) we'll need one of the",
+          "1403: # following:"
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 8754: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT"
+    ],
+    "failed_during_check": "checking for Objective-C compiler... gcc",
+    "failure_tail": [
+      "checking for Objective-C compiler... gcc",
+      "./configure: line 1400: syntax error near unexpected token `('",
+      "./configure: line 1400: ` apparently causes problems on older Linux distros (eg."
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 119,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "\\nint main() {\\nreturn 0;\\n; return 0; }",
+      "\\n#include <sys/prctl.h>\\n\\nint main() {  ; return 0; }",
+      "#include <features.h>",
+      "#include <features.h>\\n#if defined(__GNU_LIBRARY__) && defined(__GLIBC__) && defined(__GLIBC_MINOR_\\nglibc version is: __GLIBC__ __GLIBC_MINOR__\\n#endif",
+      "\\n#define _GNU_SOURCE\\n#include <fcntl.h>\\n#include <unistd.h>\\n\\nint main() {\\nint a = AT_FDCWD;\\n; return 0; }",
+      "\\n#define _GNU_SOURCE\\n#include <string.h>\\n\\nint main() {\\nchar *d;\\nchar *s;\\nsize_t n = 0;\\nchar *r = stpncpy(d, s, n);\\n; return 0; }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "fail",
+    "real_configure_lines": 19262,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE"
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "line 1400: apparently causes problems on older Linux distros (eg. with (near `(`)",
+    "ours_error_context": [
+      "apparently causes problems on older Linux distros (eg. with"
+    ],
+    "ours_configure_lines": 9245,
+    "real_configure_lines": 19262,
+    "macros_ours_left_undefined": []
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-subdir-objects",
+      "uses-maintainer-mode",
+      "vendored-aclocal",
+      "perl-in-configure"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-subdir-objects",
+        "action": "--disable-dependency-tracking",
+        "verified": false
+      },
+      {
+        "id": "uses-maintainer-mode",
+        "action": "--disable-maintainer-mode",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "2773c3e2545a109ff7c723fda694935077c798e77c58dfa5bd682fd13b40a266",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

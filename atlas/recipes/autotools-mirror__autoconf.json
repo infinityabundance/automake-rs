@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "autotools-mirror/autoconf",
   "source": {
     "url": "https://github.com/autotools-mirror/autoconf",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.8",
+    "autoconf_rs": "autoconf-rs 0.1.11",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -43,5 +43,149 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": ""
+  "diagnostic": "whether directories can have trailing spaces... for GNU M4 that supports accurate traces... ./configure: line 1498: syntax error near unexpe",
+  "deep_expansion": {
+    "configure_lines": 2749,
+    "leaked_macros": [
+      {
+        "name": "m4_defn",
+        "line": 1304,
+        "context": "m4_defn(autoconf_PACKAGE_NAME) configure m4_esyscmd([build-aux/git-versi"
+      },
+      {
+        "name": "AC_PATH_PROGS_FEATURE_CHECK",
+        "line": 1498,
+        "context": "AC_PATH_PROGS_FEATURE_CHECK(M4, m4 gm4 gnum4,"
+      },
+      {
+        "name": "AS_ECHO",
+        "line": 1515,
+        "context": "AS_ECHO([\"$as_me:${as_lineno-$LINENO}: trying $ac_path_M4\"]) \\"
+      },
+      {
+        "name": "AC_MSG_ERROR",
+        "line": 1525,
+        "context": "AC_MSG_ERROR([no acceptable m4 could be found in \\$PATH."
+      },
+      {
+        "name": "m4_provide_if",
+        "line": 1678,
+        "context": "m4_provide_if(AC_PROG_AWK, , AC_PROG_AWK)"
+      },
+      {
+        "name": "m4_defn",
+        "line": 2611,
+        "context": "m4_defn(autoconf_PACKAGE_NAME) config.status m4_esyscmd([build-aux/git-v"
+      }
+    ],
+    "heredoc_openers": 16,
+    "heredoc_terminators": 16,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1498,
+        "token": "M4,",
+        "source": "AC_PATH_PROGS_FEATURE_CHECK(M4, m4 gm4 gnum4,",
+        "block": [
+          "1494:   :",
+          "1495:   rm -f conftest.m4f",
+          "1496: ac_had_posixly_correct=${POSIXLY_CORRECT:+yes}",
+          "1497: unset POSIXLY_CORRECT",
+          "1498: AC_PATH_PROGS_FEATURE_CHECK(M4, m4 gm4 gnum4,",
+          "1499:       dnl Creative quoting here to avoid raw dnl and ifdef in configure.",
+          "1500:       # Root out GNU M4 1.4.5, as well as non-GNU m4 that ignore -t, -F.",
+          "1501:       # Root out GNU M4 1.4.15 with buggy false negative replacement strstr."
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2272: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL",
+      "srcdir",
+      "prefix",
+      "exec_prefix",
+      "CC",
+      "CFLAGS",
+      "CPPFLAGS",
+      "LDFLAGS",
+      "LIBS",
+      "CXX",
+      "CXXFLAGS",
+      "CPP",
+      "DEFS",
+      "LIBOBJS",
+      "INSTALL",
+      "build_os",
+      "M4_DEBUGFILE",
+      "ac_cv_dir_trailing_space",
+      "M4_GNU",
+      "EMACS",
+      "host_cpu",
+      "build_alias",
+      "host_os",
+      "ac_cv_unsupported_fs_chars"
+    ],
+    "failed_during_check": "checking for characters that cannot appear in file names... none",
+    "failure_tail": [
+      "for a shell whose -n mode is known to work... checking for characters that canno",
+      "whether directories can have trailing spaces... for GNU M4 that supports accurat",
+      "./configure: line 1498: `AC_PATH_PROGS_FEATURE_CHECK(M4, m4 gm4 gnum4,'"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 0,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": []
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "ok",
+    "real_configure_lines": 4760,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE"
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "line 1498: AC_PATH_PROGS_FEATURE_CHECK(M4, m4 gm4 gnum4, (near `M4,`)",
+    "ours_error_context": [
+      "AC_PATH_PROGS_FEATURE_CHECK(M4, m4 gm4 gnum4,"
+    ],
+    "ours_configure_lines": 2749,
+    "real_configure_lines": 4760,
+    "macros_ours_left_undefined": [
+      "AC_MSG_ERROR",
+      "AC_PATH_PROGS_FEATURE_CHECK",
+      "AS_ECHO",
+      "m4_defn",
+      "m4_provide_if"
+    ]
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "has-m4-macro-dir",
+      "vendored-aclocal",
+      "perl-in-configure"
+    ],
+    "receipt_hash": "2773c3e2545a109ff7c723fda694935077c798e77c58dfa5bd682fd13b40a266",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "GenABEL-Project/ProbABEL",
   "source": {
     "url": "https://github.com/GenABEL-Project/ProbABEL",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.8",
+    "autoconf_rs": "autoconf-rs 0.1.11",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -27,6 +27,11 @@
       "step": "configure",
       "tool": "./configure",
       "status": "fail"
+    },
+    {
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
+      "status": "fail"
     }
   ],
   "probe_results": {},
@@ -45,5 +50,106 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1406: syntax error near unexpected token `will'"
+  "diagnostic": "./configure: line 1411: syntax error near unexpected token `will'",
+  "deep_expansion": {
+    "configure_lines": 2761,
+    "leaked_macros": [],
+    "heredoc_openers": 29,
+    "heredoc_terminators": 29,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1411,
+        "token": "will",
+        "source": "done will not overwrite them",
+        "block": [
+          "1407:   if command -v \"$ac_prog\" >/dev/null 2>&1; then",
+          "1408:     CXX=$ac_prog",
+          "1409:     break",
+          "1410:   fi",
+          "1411: done will not overwrite them",
+          "1412: # with its own defaults",
+          "1413: # Check for C++ compiler",
+          "1414: ac_ct_CXX=${CXX-g++}"
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2285: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT"
+    ],
+    "failed_during_check": "",
+    "failure_tail": [
+      "./configure: line 1411: syntax error near unexpected token `will'",
+      "./configure: line 1411: `done will not overwrite them'"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 20,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar alloca();\\nint main() { return alloca(); }",
+      "#include <$ac_hdr>",
+      "#include <$ac_hdr>",
+      "#include <stdbool.h>",
+      "inline int foo() { return 0; }\\nint main() { return foo(); }",
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { off_t x; return 0; }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "ok",
+    "real_configure_lines": 8302,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE"
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "line 1411: done will not overwrite them (near `will`)",
+    "ours_error_context": [
+      "done will not overwrite them"
+    ],
+    "ours_configure_lines": 2761,
+    "real_configure_lines": 8302,
+    "macros_ours_left_undefined": []
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-subdir-objects",
+      "uses-maintainer-mode",
+      "vendored-aclocal"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-subdir-objects",
+        "action": "--disable-dependency-tracking",
+        "verified": false
+      },
+      {
+        "id": "uses-maintainer-mode",
+        "action": "--disable-maintainer-mode",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "2773c3e2545a109ff7c723fda694935077c798e77c58dfa5bd682fd13b40a266",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

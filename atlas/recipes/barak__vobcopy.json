@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "barak/vobcopy",
   "source": {
     "url": "https://github.com/barak/vobcopy",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.8",
+    "autoconf_rs": "autoconf-rs 0.1.11",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,6 +26,11 @@
     {
       "step": "configure",
       "tool": "./configure",
+      "status": "ok"
+    },
+    {
+      "step": "make",
+      "tool": "make",
       "status": "fail"
     }
   ],
@@ -35,19 +40,91 @@
   },
   "dependencies": {
     "pkg_config": [],
-    "system_libs": [],
-    "headers_needed": [
-      "confdefs.h"
+    "system_libs": [
+      "-ldvdread"
     ],
-    "missing": [
-      "confdefs.h"
-    ]
+    "headers_needed": [],
+    "missing": []
   },
   "quirks": [
-    "autoconf-archive-macros"
+    "autoconf-archive-macros",
+    "LIBS=-ldvdread"
   ],
   "outputs": [],
-  "status": "CONFIGURE_RUN_FAIL",
+  "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1359: AX_CFLAGS_WARN_ALL: command not found"
+  "diagnostic": "./configure: line 1364: AX_CFLAGS_WARN_ALL: command not found",
+  "deep_expansion": {
+    "configure_lines": 2562,
+    "leaked_macros": [],
+    "heredoc_openers": 27,
+    "heredoc_terminators": 27,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2086: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT"
+    ],
+    "failed_during_check": "checking for getopt_long... yes",
+    "failure_tail": [
+      "checking for getopt_long... yes",
+      "configure: creating Makefile",
+      "configure: creating config.h",
+      "configure: creating ./config.status"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 17,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "char DVDOpen ();\\nint main() { return DVDOpen (); }",
+      "#include <$ac_hdr>",
+      "#include <stdbool.h>",
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { off_t x; return 0; }",
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { size_t x; return 0; }",
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { ssize_t x; return 0; }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "ok",
+    "real_configure_lines": 7049,
+    "real_first_error": "",
+    "classification": "OURS_BUG_MAKE"
+  },
+  "divergence": {
+    "stage": "make",
+    "ours_error": "",
+    "ours_error_context": [],
+    "ours_configure_lines": 2562,
+    "real_configure_lines": 7049,
+    "macros_ours_left_undefined": []
+  },
+  "receipt": {
+    "court_status": "partial",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-subdir-objects",
+      "vendored-aclocal",
+      "uses-ax-archive"
+    ],
+    "receipt_hash": "669364662a5baae3128755acbdb4ce60d78c7cc5d6eb53bbab5c8e3b8eb436d0",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "hackerschoice/gsocket",
   "source": {
     "url": "https://github.com/hackerschoice/gsocket",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.8",
+    "autoconf_rs": "autoconf-rs 0.1.11",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -27,6 +27,11 @@
       "step": "configure",
       "tool": "./configure",
       "status": "fail"
+    },
+    {
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
+      "status": "fail"
     }
   ],
   "probe_results": {},
@@ -36,12 +41,8 @@
   "dependencies": {
     "pkg_config": [],
     "system_libs": [],
-    "headers_needed": [
-      "confdefs.h"
-    ],
-    "missing": [
-      "confdefs.h"
-    ]
+    "headers_needed": [],
+    "missing": []
   },
   "quirks": [
     "libtool",
@@ -50,5 +51,109 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "configure: error: make not found"
+  "diagnostic": "configure: error: libnet 1.1.x not found",
+  "deep_expansion": {
+    "configure_lines": 2900,
+    "leaked_macros": [],
+    "heredoc_openers": 35,
+    "heredoc_terminators": 35,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2372: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL",
+      "srcdir",
+      "prefix",
+      "exec_prefix",
+      "CC",
+      "CFLAGS",
+      "CPPFLAGS",
+      "LDFLAGS",
+      "LIBS",
+      "CXX",
+      "CXXFLAGS",
+      "CPP",
+      "DEFS",
+      "LIBOBJS",
+      "INSTALL",
+      "CFLAGS_STATIC",
+      "PERM_DSO",
+      "SONAME_GSOCKET_UCHROOT_DSO",
+      "LDADD_LIBDL",
+      "LDADD_STATIC",
+      "PROGRAMS_TEST_TOOLS",
+      "REALPREFIX",
+      "SONAME_GSOCKET_DSO",
+      "PROGRAMS_TEST_LIB"
+    ],
+    "failed_during_check": "checking for socket in -lsocket... no",
+    "failure_tail": [
+      "checking for socket in -lsocket... no",
+      "no",
+      "no",
+      "configure: error: libnet 1.1.x not found"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 13,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "#include <sys/wait.h>",
+      "#include <$ac_hdr>",
+      "#include <openssl/srp.h>",
+      "int main() { const int x = 1; return x-1; }",
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { pid_t x; return 0; }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar memcmp();\\nint main() { return memcmp(); }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "ok",
+    "real_configure_lines": 8696,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE"
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "",
+    "ours_error_context": [],
+    "ours_configure_lines": 2900,
+    "real_configure_lines": 8696,
+    "macros_ours_left_undefined": []
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool",
+      "uses-maintainer-mode",
+      "vendored-aclocal"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-maintainer-mode",
+        "action": "--disable-maintainer-mode",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "2773c3e2545a109ff7c723fda694935077c798e77c58dfa5bd682fd13b40a266",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

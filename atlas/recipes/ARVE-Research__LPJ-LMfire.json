@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "ARVE-Research/LPJ-LMfire",
   "source": {
     "url": "https://github.com/ARVE-Research/LPJ-LMfire",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.8",
+    "autoconf_rs": "autoconf-rs 0.1.11",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,11 +26,6 @@
     {
       "step": "configure",
       "tool": "./configure",
-      "status": "ok"
-    },
-    {
-      "step": "make",
-      "tool": "make",
       "status": "fail"
     }
   ],
@@ -50,7 +45,103 @@
     "subdirs"
   ],
   "outputs": [],
-  "status": "MAKE_FAIL",
+  "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": ""
+  "diagnostic": "./configure: line 1377: syntax error near unexpected token `NETCDF_CC,'",
+  "deep_expansion": {
+    "configure_lines": 1518,
+    "leaked_macros": [
+      {
+        "name": "PKG_CHECK_VAR",
+        "line": 1377,
+        "context": "PKG_CHECK_VAR(NETCDF_CC,      netcdf-fortran, ccompiler)"
+      },
+      {
+        "name": "PKG_CHECK_VAR",
+        "line": 1378,
+        "context": "PKG_CHECK_VAR(NETCDF_FC,      netcdf-fortran, fcompiler)"
+      },
+      {
+        "name": "PKG_CHECK_VAR",
+        "line": 1379,
+        "context": "PKG_CHECK_VAR(NETCDF_FCFLAGS, netcdf-fortran, includedir)"
+      }
+    ],
+    "heredoc_openers": 4,
+    "heredoc_terminators": 4,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1377,
+        "token": "NETCDF_CC,",
+        "source": "PKG_CHECK_VAR(NETCDF_CC,      netcdf-fortran, ccompiler)",
+        "block": [
+          "1373:   ",
+          "1374: fi",
+          "1375: ",
+          "1376: ",
+          "1377: PKG_CHECK_VAR(NETCDF_CC,      netcdf-fortran, ccompiler)",
+          "1378: PKG_CHECK_VAR(NETCDF_FC,      netcdf-fortran, fcompiler)",
+          "1379: PKG_CHECK_VAR(NETCDF_FCFLAGS, netcdf-fortran, includedir)",
+          "1380: "
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL"
+    ],
+    "failed_during_check": "checking for netcdf-fortran... yes",
+    "failure_tail": [
+      "checking for netcdf-fortran... yes",
+      "./configure: line 1377: syntax error near unexpected token `NETCDF_CC,'",
+      "./configure: line 1377: `PKG_CHECK_VAR(NETCDF_CC,      netcdf-fortran, ccompiler"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 0,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": []
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "fail",
+    "real_configure_lines": 23106,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE"
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "line 1377: PKG_CHECK_VAR(NETCDF_CC,      netcdf-fortran, ccompiler) (near `NETCDF_CC,`)",
+    "ours_error_context": [
+      "PKG_CHECK_VAR(NETCDF_CC,      netcdf-fortran, ccompiler)"
+    ],
+    "ours_configure_lines": 1518,
+    "real_configure_lines": 23106,
+    "macros_ours_left_undefined": [
+      "PKG_CHECK_VAR"
+    ]
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool",
+      "uses-pkg-config",
+      "has-m4-macro-dir",
+      "vendored-aclocal"
+    ],
+    "receipt_hash": "2773c3e2545a109ff7c723fda694935077c798e77c58dfa5bd682fd13b40a266",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

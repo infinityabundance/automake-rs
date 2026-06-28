@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "detomastah/adwc",
   "source": {
     "url": "https://github.com/detomastah/adwc",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.8",
+    "autoconf_rs": "autoconf-rs 0.1.11",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -35,15 +35,11 @@
   },
   "dependencies": {
     "pkg_config": [
-      "wayland-server egl >= 7.10 glesv2... no"
+      "checking for wayland-server egl >= 7.10 glesv2... no"
     ],
     "system_libs": [],
-    "headers_needed": [
-      "confdefs.h"
-    ],
-    "missing": [
-      "confdefs.h"
-    ]
+    "headers_needed": [],
+    "missing": []
   },
   "quirks": [
     "libtool",
@@ -53,5 +49,115 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1680: syntax error near unexpected token `libjpeg'"
+  "diagnostic": "./configure: line 1666: syntax error near unexpected token `libjpeg'",
+  "deep_expansion": {
+    "configure_lines": 2908,
+    "leaked_macros": [
+      {
+        "name": "AC_ERROR",
+        "line": 1666,
+        "context": "AC_ERROR(libjpeg not found)"
+      },
+      {
+        "name": "AC_ERROR",
+        "line": 1830,
+        "context": "AC_ERROR(weston-launch requires pam)"
+      }
+    ],
+    "heredoc_openers": 20,
+    "heredoc_terminators": 20,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1666,
+        "token": "libjpeg",
+        "source": "AC_ERROR(libjpeg not found)",
+        "block": [
+          "1662: fi",
+          "1663: if test x$have_jpeglib = xyes; then",
+          "1664:   IMAGE_LIBS=\"$IMAGE_LIBS -ljpeg\"",
+          "1665: else",
+          "1666:   AC_ERROR(libjpeg not found)",
+          "1667: fi",
+          "1668: ",
+          "1669: COMPOSITOR_LIBS=\"$COMPOSITOR_LIBS $IMAGE_LIBS\""
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2422: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PKG_CONFIG",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL",
+      "srcdir",
+      "prefix",
+      "exec_prefix",
+      "CC",
+      "CFLAGS",
+      "CPPFLAGS",
+      "LDFLAGS",
+      "LIBS",
+      "CXX",
+      "CXXFLAGS",
+      "CPP",
+      "DEFS",
+      "LIBOBJS",
+      "INSTALL",
+      "IMAGE_LIBS",
+      "DLOPEN_LIBS",
+      "IMAGE_CFLAGS",
+      "GCC_CFLAGS",
+      "XSERVER_PATH"
+    ],
+    "failed_during_check": "checking for jpeg_CreateDecompress in -ljpeg... yes",
+    "failure_tail": [
+      "checking for jpeg_CreateDecompress in -ljpeg... yes",
+      "./configure: line 1666: syntax error near unexpected token `libjpeg'",
+      "./configure: line 1666: `  AC_ERROR(libjpeg not found)'"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 4,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar dlopen();\\nint main() { return dlopen(); }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func();\\nint main() { return $ac_func(); }",
+      "char jpeg_CreateDecompress();\\nint main() { return jpeg_CreateDecompress(); }",
+      "char pam_open_session();\\nint main() { return pam_open_session(); }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "fail",
+    "real_make": "skipped",
+    "real_configure_lines": 17472,
+    "real_first_error": "configure: error: Package requirements (wayland-server egl >= 7.10 glesv2) were not met:",
+    "classification": "BOTH_CONFIGURE_FAIL"
+  },
+  "receipt": {
+    "court_status": "not_standalone",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool",
+      "uses-pkg-config",
+      "vendored-aclocal"
+    ],
+    "receipt_hash": "9b1e2700fe968e7a3321342ca953e7c699643cc7f6208188c454b461278951a7",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

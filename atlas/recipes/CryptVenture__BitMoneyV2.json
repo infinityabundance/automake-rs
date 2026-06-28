@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "CryptVenture/BitMoneyV2",
   "source": {
     "url": "https://github.com/CryptVenture/BitMoneyV2",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.8",
+    "autoconf_rs": "autoconf-rs 0.1.11",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,11 +26,11 @@
     {
       "step": "configure",
       "tool": "./configure",
-      "status": "ok"
+      "status": "fail"
     },
     {
-      "step": "make",
-      "tool": "make",
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
       "status": "fail"
     }
   ],
@@ -55,7 +55,87 @@
     "LIBS=-lcrypto -lanl"
   ],
   "outputs": [],
-  "status": "MAKE_FAIL",
+  "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "libzerocoin/bignum.h:53:24: error: invalid use of incomplete type ‘BIGNUM’ {aka ‘struct bignum_st’}"
+  "diagnostic": "configure: error: comparison",
+  "deep_expansion": {
+    "configure_lines": 6769,
+    "leaked_macros": [],
+    "heredoc_openers": 124,
+    "heredoc_terminators": 127,
+    "heredoc_imbalance": 3,
+    "syntax_errors": [],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 4760: if test \"${$base_frameworksax_cv_check_ldflags__+set}\" = set"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "CXX",
+      "CXXFLAGS",
+      "PKG_CONFIG"
+    ],
+    "failed_during_check": "checking for Objective-C++ compiler... clang++",
+    "failure_tail": [
+      "checking for Objective-C++ compiler... clang++",
+      "configure: error: comparison",
+      "tool",
+      "reorg",
+      "tests"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 78,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "char main();\\nint main() { return main(); }",
+      "char main();\\nint main() { return main(); }",
+      "char main();\\nint main() { return main(); }",
+      "char main();\\nint main() { return main(); }",
+      "char main();\\nint main() { return main(); }",
+      "char main();\\nint main() { return main(); }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "fail",
+    "real_make": "skipped",
+    "real_configure_lines": 34063,
+    "real_first_error": "configure: error: Found Berkeley DB other than 4.8, required for portable wallets (--with-incompatible-bdb to ignore or ",
+    "classification": "BOTH_CONFIGURE_FAIL"
+  },
+  "receipt": {
+    "court_status": "not_standalone",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool",
+      "uses-pkg-config",
+      "uses-subdir-objects",
+      "uses-maintainer-mode",
+      "vendored-aclocal",
+      "uses-ax-archive",
+      "uses-pthread-check"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-subdir-objects",
+        "action": "--disable-dependency-tracking",
+        "verified": false
+      },
+      {
+        "id": "uses-maintainer-mode",
+        "action": "--disable-maintainer-mode",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "9b1e2700fe968e7a3321342ca953e7c699643cc7f6208188c454b461278951a7",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

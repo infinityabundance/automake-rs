@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "golems/ach",
   "source": {
     "url": "https://github.com/golems/ach",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.8",
+    "autoconf_rs": "autoconf-rs 0.1.11",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -27,6 +27,11 @@
       "step": "configure",
       "tool": "./configure",
       "status": "fail"
+    },
+    {
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
+      "status": "fail"
     }
   ],
   "probe_results": {},
@@ -36,12 +41,8 @@
   "dependencies": {
     "pkg_config": [],
     "system_libs": [],
-    "headers_needed": [
-      "confdefs.h"
-    ],
-    "missing": [
-      "confdefs.h"
-    ]
+    "headers_needed": [],
+    "missing": []
   },
   "quirks": [
     "autoconf-archive-macros",
@@ -51,5 +52,130 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1390: syntax error near unexpected token `PRIuPTR,'"
+  "diagnostic": "./configure: line 1395: syntax error near unexpected token `PRIuPTR,'",
+  "deep_expansion": {
+    "configure_lines": 3374,
+    "leaked_macros": [
+      {
+        "name": "AC_CHECK_DECL",
+        "line": 1395,
+        "context": "AC_CHECK_DECL(PRIuPTR,"
+      },
+      {
+        "name": "AC_DEFINE",
+        "line": 1397,
+        "context": "AC_DEFINE([PRIuPTR], [\"ul\"], [Assume this is unsigned long]))"
+      },
+      {
+        "name": "AC_CHECK_DECL",
+        "line": 1552,
+        "context": "AC_CHECK_DECL(_POSIX_THREAD_PROCESS_SHARED,"
+      },
+      {
+        "name": "AC_MSG_ERROR",
+        "line": 1554,
+        "context": "AC_MSG_ERROR([process-shared condition variables are required]))"
+      }
+    ],
+    "heredoc_openers": 32,
+    "heredoc_terminators": 32,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1395,
+        "token": "PRIuPTR,",
+        "source": "AC_CHECK_DECL(PRIuPTR,",
+        "block": [
+          "1391: ## MISC SUPPORT ##",
+          "1392: ##################",
+          "1393: ",
+          "1394: # Check 32/64 safe format specifiers",
+          "1395: AC_CHECK_DECL(PRIuPTR,",
+          "1396:         ,",
+          "1397:         AC_DEFINE([PRIuPTR], [\"ul\"], [Assume this is unsigned long]))",
+          "1398: printf %s \"checking for library containing clock_gettime... \""
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2875: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT"
+    ],
+    "failed_during_check": "checking for working const... no",
+    "failure_tail": [
+      "checking for working const... no",
+      "./configure: line 1395: syntax error near unexpected token `PRIuPTR,'",
+      "./configure: line 1395: `AC_CHECK_DECL(PRIuPTR,'"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 13,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "void foo(char * restrict p) { *p = 0; }\\nint main() { char c; foo(&c); return 0; }",
+      "inline int foo() { return 0; }\\nint main() { return foo(); }",
+      "int main() { const int x = 1; return x-1; }",
+      "char clock_gettime ();\\nint main() { return clock_gettime (); }",
+      "char shm_open ();\\nint main() { return shm_open (); }",
+      "char res_search ();\\nint main() { return res_search (); }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "fail",
+    "real_configure_lines": 26213,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE"
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "line 1395: AC_CHECK_DECL(PRIuPTR, (near `PRIuPTR,`)",
+    "ours_error_context": [
+      "AC_CHECK_DECL(PRIuPTR,"
+    ],
+    "ours_configure_lines": 3374,
+    "real_configure_lines": 26213,
+    "macros_ours_left_undefined": [
+      "AC_CHECK_DECL",
+      "AC_DEFINE",
+      "AC_MSG_ERROR"
+    ]
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool-old",
+      "uses-python",
+      "uses-subdir-objects",
+      "has-m4-macro-dir",
+      "vendored-aclocal",
+      "uses-ax-archive"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-subdir-objects",
+        "action": "--disable-dependency-tracking",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "2773c3e2545a109ff7c723fda694935077c798e77c58dfa5bd682fd13b40a266",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

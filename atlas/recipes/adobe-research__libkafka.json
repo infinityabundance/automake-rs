@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "adobe-research/libkafka",
   "source": {
     "url": "https://github.com/adobe-research/libkafka",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.8",
+    "autoconf_rs": "autoconf-rs 0.1.11",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -27,6 +27,11 @@
       "step": "configure",
       "tool": "./configure",
       "status": "fail"
+    },
+    {
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
+      "status": "fail"
     }
   ],
   "probe_results": {},
@@ -45,5 +50,104 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1341: syntax error near unexpected token `('"
+  "diagnostic": "./configure: line 1346: syntax error near unexpected token `('",
+  "deep_expansion": {
+    "configure_lines": 2606,
+    "leaked_macros": [],
+    "heredoc_openers": 16,
+    "heredoc_terminators": 16,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1346,
+        "token": "(",
+        "source": "printf '%s\\n' \"configure: WARNING: cannot find sources (lib/src) in $src",
+        "block": [
+          "1342: # Requires Autoconf >= 2.59",
+          "1343: # AC_CONFIG_SRCDIR: record the source tree and sanity-check the unique file ",
+          "1344: test \"x$srcdir\" = x && srcdir=.",
+          "1345: if test ! -f \"$srcdir/lib/src\"; then",
+          "1346:   printf '%s\\n' \"configure: WARNING: cannot find sources (lib/src) in $srcdi",
+          "1347: fi",
+          "1348: ac_macro_dir=m4",
+          "1349: ac_aux_dir=config"
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2130: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL",
+      "srcdir",
+      "prefix",
+      "exec_prefix",
+      "CC",
+      "CFLAGS",
+      "CPPFLAGS",
+      "LDFLAGS",
+      "LIBS",
+      "CXX",
+      "CXXFLAGS",
+      "CPP",
+      "DEFS",
+      "LIBOBJS",
+      "INSTALL",
+      "COVERAGE_CFLAGS",
+      "COVERAGE_LDFLAGS",
+      "HAVE_GTEST",
+      "COVERAGE_CXXFLAGS"
+    ],
+    "failed_during_check": "",
+    "failure_tail": [
+      "./configure: line 1346: syntax error near unexpected token `('",
+      "./configure: line 1346: `  printf '%s\\n' \"configure: WARNING: cannot find source"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 0,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": []
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "fail",
+    "real_make": "skipped",
+    "real_configure_lines": 19483,
+    "real_first_error": "configure: error: Google Test was enabled, but no viable version could be found.",
+    "classification": "BOTH_CONFIGURE_FAIL"
+  },
+  "receipt": {
+    "court_status": "not_standalone",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool-old",
+      "uses-subdir-objects",
+      "has-m4-macro-dir",
+      "vendored-aclocal"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-subdir-objects",
+        "action": "--disable-dependency-tracking",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "9b1e2700fe968e7a3321342ca953e7c699643cc7f6208188c454b461278951a7",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

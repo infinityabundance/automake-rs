@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "ademakov/Oroch",
   "source": {
     "url": "https://github.com/ademakov/Oroch",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.8",
+    "autoconf_rs": "autoconf-rs 0.1.11",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -27,6 +27,11 @@
       "step": "configure",
       "tool": "./configure",
       "status": "fail"
+    },
+    {
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
+      "status": "fail"
     }
   ],
   "probe_results": {},
@@ -36,12 +41,8 @@
   "dependencies": {
     "pkg_config": [],
     "system_libs": [],
-    "headers_needed": [
-      "confdefs.h"
-    ],
-    "missing": [
-      "confdefs.h"
-    ]
+    "headers_needed": [],
+    "missing": []
   },
   "quirks": [
     "autoconf-archive-macros",
@@ -50,5 +51,99 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1407: syntax error near unexpected token `done'"
+  "diagnostic": "./configure: line 1412: syntax error near unexpected token `done'",
+  "deep_expansion": {
+    "configure_lines": 2472,
+    "leaked_macros": [],
+    "heredoc_openers": 17,
+    "heredoc_terminators": 17,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1412,
+        "token": "done",
+        "source": "fi; done",
+        "block": [
+          "1408: if ac_fn_c_try_compile; then",
+          "1409:   printf '%s\\n' \"yes\"",
+          "1410: else",
+          "1411:   printf '%s\\n' \"no\"",
+          "1412: fi; done",
+          "1413: ",
+          "1414: printf %s \"checking for C++17 support... \"",
+          "1415: ax_cxx_std_ok=no"
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 1996: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "CXX",
+      "CXXFLAGS",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT"
+    ],
+    "failed_during_check": "",
+    "failure_tail": [
+      "./configure: line 1412: syntax error near unexpected token `done'",
+      "./configure: line 1412: `fi; done'"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 1,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "#include <$ac_hdr>"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "ok",
+    "real_configure_lines": 7920,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE"
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "line 1412: fi; done (near `done`)",
+    "ours_error_context": [
+      "fi; done"
+    ],
+    "ours_configure_lines": 2472,
+    "real_configure_lines": 7920,
+    "macros_ours_left_undefined": []
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-subdir-objects",
+      "has-m4-macro-dir",
+      "vendored-aclocal",
+      "uses-ax-archive"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-subdir-objects",
+        "action": "--disable-dependency-tracking",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "2773c3e2545a109ff7c723fda694935077c798e77c58dfa5bd682fd13b40a266",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "gyoto/Gyoto",
   "source": {
     "url": "https://github.com/gyoto/Gyoto",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.8",
+    "autoconf_rs": "autoconf-rs 0.1.11",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,11 +26,6 @@
     {
       "step": "configure",
       "tool": "./configure",
-      "status": "ok"
-    },
-    {
-      "step": "make",
-      "tool": "make",
       "status": "fail"
     }
   ],
@@ -50,7 +45,97 @@
     "subdirs"
   ],
   "outputs": [],
-  "status": "MAKE_FAIL",
+  "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": ""
+  "diagnostic": "./configure: line 1421: syntax error near unexpected token `:'",
+  "deep_expansion": {
+    "configure_lines": 4028,
+    "leaked_macros": [
+      {
+        "name": "AC_RUN_LOG",
+        "line": 1427,
+        "context": "AC_RUN_LOG(: FLAGS=\"$FLAGS\")"
+      },
+      {
+        "name": "AC_RUN_LOG",
+        "line": 2143,
+        "context": "AC_RUN_LOG(: FLAGS=\"$FLAGS\")"
+      }
+    ],
+    "heredoc_openers": 34,
+    "heredoc_terminators": 34,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1421,
+        "token": ":",
+        "source": "*\" $flag \"* ) AC_RUN_LOG(: FLAGS already contains $flag) ;;",
+        "block": [
+          "1417: ",
+          "1418: if test -n \"$$1\"; then",
+          "1419:   ",
+          "1420:   case \" printf '%s\\n' \"$$1\" \" in",
+          "1421:   *\" $flag \"* ) AC_RUN_LOG(: FLAGS already contains $flag) ;;",
+          "1422: esac",
+          "1423:   ",
+          "1424: else"
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "CXX",
+      "CXXFLAGS",
+      "PKG_CONFIG"
+    ],
+    "failed_during_check": "checking for C++17 support... yes",
+    "failure_tail": [
+      "checking for C++17 support... yes",
+      "./configure: line 1421: syntax error near unexpected token `:'",
+      "./configure: line 1421: `  *\" $flag \"* ) AC_RUN_LOG(: FLAGS already contains $fl"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 38,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "\\nint main() {  ; return 0; }",
+      "#include <fenv.h>\\nint main() { feenableexcept(FE_DIVBYZERO); ; return 0; }",
+      "\\n#include <sys/types.h>\\ntypedef void (* set_size_t_t) (size_t val);\\ntypedef void (* set_unsigned_long_t) (unsigned long);\\nsize_t size_t_value;\\nvoid set_size_t (size_t v) {size_t_value = v;}\\nint main(int, char**) {\\nset_unsigned_long_t ulsetter = &set_size_t;\\n(*ulsetter)(25);\\nif (size_t_value != 25) return 1;\\nreturn 0;\\n}",
+      "#include <Python.h>",
+      "",
+      "#include <boost/multiprecision/cpp_dec_float.hpp>"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "fail",
+    "real_make": "skipped",
+    "real_configure_lines": 29346,
+    "real_first_error": "configure: error: cannot find the flags to link with Boost mpi",
+    "classification": "BOTH_CONFIGURE_FAIL"
+  },
+  "receipt": {
+    "court_status": "not_standalone",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool",
+      "has-m4-macro-dir",
+      "vendored-aclocal",
+      "uses-ax-archive",
+      "uses-pthread-check"
+    ],
+    "receipt_hash": "9b1e2700fe968e7a3321342ca953e7c699643cc7f6208188c454b461278951a7",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

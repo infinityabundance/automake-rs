@@ -1,13 +1,13 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "BOINC/boinc",
   "source": {
     "url": "https://github.com/BOINC/boinc",
-    "git_sha": "7423b8e2bf4640a5ad59101051345ae543aa5ced",
+    "git_sha": "7f57465d11019c2bc0d3141afff04c31d03f2d45",
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.8",
+    "autoconf_rs": "autoconf-rs 0.1.11",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -27,6 +27,11 @@
       "step": "configure",
       "tool": "./configure",
       "status": "fail"
+    },
+    {
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
+      "status": "fail"
     }
   ],
   "probe_results": {},
@@ -36,12 +41,8 @@
   "dependencies": {
     "pkg_config": [],
     "system_libs": [],
-    "headers_needed": [
-      "confdefs.h"
-    ],
-    "missing": [
-      "confdefs.h"
-    ]
+    "headers_needed": [],
+    "missing": []
   },
   "quirks": [
     "autoconf-archive-macros",
@@ -52,5 +53,147 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "configure: error:"
+  "diagnostic": "configure: error:",
+  "deep_expansion": {
+    "configure_lines": 37561,
+    "leaked_macros": [
+      {
+        "name": "m4_divert_once",
+        "line": 1520,
+        "context": "m4_divert_once(HELP_ENABLE,"
+      }
+    ],
+    "heredoc_openers": 283,
+    "heredoc_terminators": 283,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 3496: if test \"${$varname+set}\" = set; then",
+      "line 3897: if test \"${$varname+set}\" = set; then",
+      "line 5121: if test \"${$varname+set}\" = set; then",
+      "line 5522: if test \"${$varname+set}\" = set; then",
+      "line 5749: if test \"${$varname+set}\" = set; then",
+      "line 6150: if test \"${$varname+set}\" = set; then",
+      "line 6376: if test \"${$varname+set}\" = set; then",
+      "line 6777: if test \"${$varname+set}\" = set; then",
+      "line 7003: if test \"${$varname+set}\" = set; then",
+      "line 7404: if test \"${$varname+set}\" = set; then",
+      "line 7630: if test \"${$varname+set}\" = set; then",
+      "line 8031: if test \"${$varname+set}\" = set; then",
+      "line 8257: if test \"${$varname+set}\" = set; then",
+      "line 8658: if test \"${$varname+set}\" = set; then",
+      "line 8884: if test \"${$varname+set}\" = set; then",
+      "line 9285: if test \"${$varname+set}\" = set; then",
+      "line 9511: if test \"${$varname+set}\" = set; then",
+      "line 9912: if test \"${$varname+set}\" = set; then",
+      "line 10138: if test \"${$varname+set}\" = set; then"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PKG_CONFIG",
+      "pkgconfigdir",
+      "CXX",
+      "CXXFLAGS",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL",
+      "srcdir",
+      "prefix",
+      "exec_prefix",
+      "CC",
+      "CFLAGS",
+      "CPPFLAGS",
+      "LDFLAGS",
+      "LIBS",
+      "CPP",
+      "DEFS",
+      "LIBOBJS",
+      "INSTALL",
+      "PTHREAD_CC",
+      "CLIENT_BIN_FILENAME",
+      "WX_CFLAGS_ONLY",
+      "host_vendor",
+      "WX_SHARED",
+      "boinc_alt_platform",
+      "WX_LIBS_STATIC"
+    ],
+    "failed_during_check": "checking whether g++ supports C++11... no",
+    "failure_tail": [
+      "checking whether g++ supports C++11... no",
+      "configure: error:",
+      "================================================================================",
+      "ERROR: A C++11 compliant compiler is required to build BOINC.",
+      "Please use a newer compiler version (e.g., GCC 4.8+, Clang 3.3+)."
+    ],
+    "conftest_corruption": [
+      "line 15582: # if HAVE_WINDOWS_H && defined(_WIN32) (ifdef/define eaten)",
+      "line 15584: # endif (ifdef/define eaten)",
+      "line 15585: # include <GL/gl.h> (ifdef/define eaten)",
+      "line 15645: # if HAVE_WINDOWS_H && defined(_WIN32) (ifdef/define eaten)",
+      "line 15647: # endif (ifdef/define eaten)",
+      "line 15648: # include <GL/glu.h> (ifdef/define eaten)",
+      "line 15794: # if HAVE_WINDOWS_H && (defined(_WIN32)  (ifdef/define eaten)",
+      "line 15796: # endif (ifdef/define eaten)",
+      "line 15797: # include <GL/glut.h> (ifdef/define eaten)"
+    ],
+    "conftest_directives_intact": 862,
+    "conftest_directives_mangled": 9,
+    "conftest_programs": [
+      "\\n#include <memory>\\n#include <array>\\n#include <functional>\\n\\nint main() {\\nauto ptr = std::make_shared<int>(42);\\nstd::array<int, 5> arr = {{1, 2, 3, 4, 5}};\\nauto lambda = [](int x) { return x * 2; };\\nreturn lambda(*ptr) + arr[0];\\n; return 0; }",
+      "\\n\\n#define CONFIG_TEST\\nint foo() {return 1;}\\n\\nint main() {  return foo();  ; return 0; }",
+      "\\n\\n#define CONFIG_TEST\\nint foo() {return 1;}\\n\\nint main() {  return foo();  ; return 0; }",
+      "\\n\\n#define CONFIG_TEST\\nint foo() {return 1;}\\n\\nint main() {  return foo();  ; return 0; }",
+      "\\n\\n#define CONFIG_TEST\\nint foo() {return 1;}\\n\\nint main() {  return foo();  ; return 0; }",
+      "\\n\\n#define CONFIG_TEST\\nint foo() {return 1;}\\n\\nint main() {  return foo();  ; return 0; }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "fail",
+    "real_make": "skipped",
+    "real_configure_lines": 67898,
+    "real_first_error": "configure: error:",
+    "classification": "BOTH_CONFIGURE_FAIL"
+  },
+  "receipt": {
+    "court_status": "not_standalone",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool",
+      "uses-libtool-old",
+      "uses-pkg-config",
+      "uses-subdir-objects",
+      "uses-maintainer-mode",
+      "has-m4-macro-dir",
+      "vendored-aclocal",
+      "uses-ax-archive",
+      "uses-pthread-check"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-subdir-objects",
+        "action": "--disable-dependency-tracking",
+        "verified": false
+      },
+      {
+        "id": "uses-maintainer-mode",
+        "action": "--disable-maintainer-mode",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "9b1e2700fe968e7a3321342ca953e7c699643cc7f6208188c454b461278951a7",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

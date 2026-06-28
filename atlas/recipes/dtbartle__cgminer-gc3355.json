@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "dtbartle/cgminer-gc3355",
   "source": {
     "url": "https://github.com/dtbartle/cgminer-gc3355",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.8",
+    "autoconf_rs": "autoconf-rs 0.1.11",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,11 +26,11 @@
     {
       "step": "configure",
       "tool": "./configure",
-      "status": "ok"
+      "status": "fail"
     },
     {
-      "step": "make",
-      "tool": "make",
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
       "status": "fail"
     }
   ],
@@ -50,7 +50,178 @@
     "subdirs"
   ],
   "outputs": [],
-  "status": "MAKE_FAIL",
+  "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": ""
+  "diagnostic": "./configure: line 1351: []: command not found",
+  "deep_expansion": {
+    "configure_lines": 2966,
+    "leaked_macros": [
+      {
+        "name": "m4_defn",
+        "line": 1492,
+        "context": "m4_defn(gltests_LIBOBJ)"
+      },
+      {
+        "name": "m4_defn",
+        "line": 1498,
+        "context": "m4_defn(gltests_LIBOBJ)"
+      },
+      {
+        "name": "m4_defn",
+        "line": 1502,
+        "context": "m4_defn(gltests_LIBOBJ)"
+      },
+      {
+        "name": "AC_CHECK_FUNCS_ONCE",
+        "line": 1508,
+        "context": "AC_CHECK_FUNCS_ONCE([sigaction])"
+      },
+      {
+        "name": "m4_defn",
+        "line": 1519,
+        "context": "m4_defn(gltests_LIBOBJ)"
+      },
+      {
+        "name": "AC_CHECK_FUNCS_ONCE",
+        "line": 1525,
+        "context": "AC_CHECK_FUNCS_ONCE([sigaltstack siginterrupt])"
+      },
+      {
+        "name": "m4_defn",
+        "line": 1568,
+        "context": "m4_defn(gltests_LIBOBJ)"
+      },
+      {
+        "name": "AC_LANG_CONFTEST",
+        "line": 1639,
+        "context": "AC_LANG_CONFTEST("
+      },
+      {
+        "name": "AC_CHECK_HEADERS_ONCE",
+        "line": 1690,
+        "context": "AC_CHECK_HEADERS_ONCE([wchar.h])"
+      },
+      {
+        "name": "AC_LANG_CONFTEST",
+        "line": 1728,
+        "context": "AC_LANG_CONFTEST("
+      },
+      {
+        "name": "m4_syscmd",
+        "line": 2082,
+        "context": "m4_syscmd([test ! -d ]m4_defn([gl_LIBSOURCES_DIR])[ ||"
+      },
+      {
+        "name": "AC_CONFIG_COMMANDS_PRE",
+        "line": 2096,
+        "context": "AC_CONFIG_COMMANDS_PRE(["
+      },
+      {
+        "name": "AC_CONFIG_COMMANDS_PRE",
+        "line": 2145,
+        "context": "AC_CONFIG_COMMANDS_PRE("
+      },
+      {
+        "name": "AC_SUBST",
+        "line": 2156,
+        "context": "AC_SUBST([gltests_LIBOBJS], [$gltests_libobjs])"
+      },
+      {
+        "name": "AC_SUBST",
+        "line": 2157,
+        "context": "AC_SUBST([gltests_LTLIBOBJS], [$gltests_ltlibobjs])"
+      }
+    ],
+    "heredoc_openers": 31,
+    "heredoc_terminators": 32,
+    "heredoc_imbalance": 1,
+    "syntax_errors": [
+      {
+        "line": 1468,
+        "token": "(",
+        "source": "]], [m4_defn([",
+        "block": [
+          "1464:   gl_cond_libtool=false",
+          "1465:   gl_libdeps=",
+          "1466:   gl_ltlibdeps=",
+          "1467:   gl_m4_base='m4'",
+          "1468:   ]], [m4_defn([",
+          "1469:   case [] in",
+          "1470:   *[!a-zA-Z0-9_./-]*)  ;;",
+          "1471:   *) ["
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PKG_CONFIG"
+    ],
+    "failed_during_check": "",
+    "failure_tail": [
+      "./configure: line 1356: []: command not found",
+      "./configure: line 1357: []: command not found",
+      "./configure: line 1468: syntax error near unexpected token `('",
+      "./configure: line 1468: `  ]], [m4_defn(['"
+    ],
+    "conftest_corruption": [
+      "line 1780: # <stdint.h> (include eaten)",
+      "line 1875: # <limits.h>] (include eaten)",
+      "line 1909: # <limits.h>] (include eaten)"
+    ],
+    "conftest_directives_intact": 22,
+    "conftest_directives_mangled": 3,
+    "conftest_programs": [
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { $ac_type x; return 0; }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar [sigprocmask]();\\nint main() { return [sigprocmask](); }",
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { $ac_type x; return 0; }",
+      "[[[# <stddef.h>\\nint test[2 * (sizeof NULL == sizeof (void *)) -1];\\n]]\\nint main() {  ; return 0; }]",
+      "[\\n[[\\n# __STDC_LIMIT_MACROS 1 /* to make it work also in C++ mode */\\n# __STDC_CONSTANT_MACROS 1 /* to make it work also in C++ mode */\\n# _GL_JUST_INCLUDE_SYSTEM_STDINT_H 1 /* work if build isn't clean */\\n# <stdint.h>\\n/* Dragonfly defines WCHAR_MIN\\nint main() { WCHAR_MAX only in <wchar.h>.  */\\n#if !(defined WCHAR_MIN && defined WCHAR_MAX)\\n#error \"WCHAR_MIN ; return 0; }]",
+      "#include <$ac_hdr>"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "fail",
+    "real_make": "skipped",
+    "real_configure_lines": 21802,
+    "real_first_error": "configure: error: No mining configured in",
+    "classification": "BOTH_CONFIGURE_FAIL"
+  },
+  "receipt": {
+    "court_status": "not_standalone",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool",
+      "uses-pkg-config",
+      "uses-subdir-objects",
+      "uses-maintainer-mode",
+      "has-m4-macro-dir",
+      "vendored-aclocal"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-subdir-objects",
+        "action": "--disable-dependency-tracking",
+        "verified": false
+      },
+      {
+        "id": "uses-maintainer-mode",
+        "action": "--disable-maintainer-mode",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "9b1e2700fe968e7a3321342ca953e7c699643cc7f6208188c454b461278951a7",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "aspiers/stow",
   "source": {
     "url": "https://github.com/aspiers/stow",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.8",
+    "autoconf_rs": "autoconf-rs 0.1.11",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -43,5 +43,96 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1383: pmdir: command not found"
+  "diagnostic": "./configure: line 1389: syntax error near unexpected token `['",
+  "deep_expansion": {
+    "configure_lines": 2464,
+    "leaked_macros": [
+      {
+        "name": "AC_CONFIG_COMMANDS_POST",
+        "line": 1389,
+        "context": "AC_CONFIG_COMMANDS_POST(["
+      }
+    ],
+    "heredoc_openers": 16,
+    "heredoc_terminators": 16,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1389,
+        "token": "[",
+        "source": "AC_CONFIG_COMMANDS_POST([",
+        "block": [
+          "1385:               print'`",
+          "1386: ",
+          "1387: # Check --with-pmdir option",
+          "1388: ",
+          "1389: AC_CONFIG_COMMANDS_POST([",
+          "1390:   eval pmdir=\"$PMDIR\"",
+          "1391:   cat <<EOF",
+          "1392: "
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 1988: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT"
+    ],
+    "failed_during_check": "checking Test::Output... no",
+    "failure_tail": [
+      "checking Test::Output... no",
+      "./configure: line 1389: syntax error near unexpected token `['",
+      "./configure: line 1389: `AC_CONFIG_COMMANDS_POST(['"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 0,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": []
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "ok",
+    "real_configure_lines": 3808,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE"
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "line 1389: AC_CONFIG_COMMANDS_POST([ (near `[`)",
+    "ours_error_context": [
+      "AC_CONFIG_COMMANDS_POST(["
+    ],
+    "ours_configure_lines": 2464,
+    "real_configure_lines": 3808,
+    "macros_ours_left_undefined": [
+      "AC_CONFIG_COMMANDS_POST"
+    ]
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "vendored-aclocal",
+      "emits-config-commands-post",
+      "perl-in-configure"
+    ],
+    "receipt_hash": "2773c3e2545a109ff7c723fda694935077c798e77c58dfa5bd682fd13b40a266",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

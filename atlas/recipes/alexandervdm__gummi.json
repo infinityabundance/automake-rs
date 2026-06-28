@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "alexandervdm/gummi",
   "source": {
     "url": "https://github.com/alexandervdm/gummi",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.8",
+    "autoconf_rs": "autoconf-rs 0.1.11",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -46,5 +46,95 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1349: syntax error near unexpected token `_ah_verbatim_USE_SYNCTEX1,'"
+  "diagnostic": "./configure: line 1378: syntax error near unexpected token `2.20.0,'",
+  "deep_expansion": {
+    "configure_lines": 2647,
+    "leaked_macros": [
+      {
+        "name": "AM_PATH_GLIB_2_0",
+        "line": 1378,
+        "context": "AM_PATH_GLIB_2_0(2.20.0, "
+      },
+      {
+        "name": "AM_PATH_GTK_3_0",
+        "line": 1404,
+        "context": "AM_PATH_GTK_3_0(3.20.0, "
+      }
+    ],
+    "heredoc_openers": 23,
+    "heredoc_terminators": 23,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1378,
+        "token": "2.20.0,",
+        "source": "AM_PATH_GLIB_2_0(2.20.0,",
+        "block": [
+          "1374: export INTLTOOL_EXTRACT INTLTOOL_MERGE INTLTOOL_UPDATE",
+          "1375: ",
+          "1376: ",
+          "1377: # Checks for libraries.",
+          "1378: AM_PATH_GLIB_2_0(2.20.0, ",
+          "1379: \t GUI_CFLAGS=\"$GUI_CFLAGS $GLIB_CFLAGS\"",
+          "1380: \t GUI_LIBS=\"$GUI_LIBS $GLIB_LIBS\"",
+          "1381: \t, AC_MSG_ERROR([You need Glib >= 2.20.0 to build $PACKAGE]))"
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2162: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT"
+    ],
+    "failed_during_check": "",
+    "failure_tail": [
+      "./configure: line 1378: syntax error near unexpected token `2.20.0,'",
+      "./configure: line 1378: `AM_PATH_GLIB_2_0(2.20.0, '"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 6,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "char clock_gettime();\\nint main() { return clock_gettime(); }",
+      "#include <$ac_hdr>",
+      "#include <stdbool.h>",
+      "int main() { const int x = 1; return x-1; }",
+      "inline int foo() { return 0; }\\nint main() { return foo(); }",
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { size_t x; return 0; }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "fail",
+    "real_make": "skipped",
+    "real_configure_lines": 7792,
+    "real_first_error": "./configure: line 4613: IT_PROG_INTLTOOL: command not found",
+    "classification": "BOTH_CONFIGURE_FAIL"
+  },
+  "receipt": {
+    "court_status": "not_standalone",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-pkg-config",
+      "uses-intltool",
+      "vendored-aclocal"
+    ],
+    "receipt_hash": "9b1e2700fe968e7a3321342ca953e7c699643cc7f6208188c454b461278951a7",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

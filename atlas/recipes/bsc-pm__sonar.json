@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "bsc-pm/sonar",
   "source": {
     "url": "https://github.com/bsc-pm/sonar",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.8",
+    "autoconf_rs": "autoconf-rs 0.1.11",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,11 +26,11 @@
     {
       "step": "configure",
       "tool": "./configure",
-      "status": "ok"
+      "status": "fail"
     },
     {
-      "step": "make",
-      "tool": "make",
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
       "status": "fail"
     }
   ],
@@ -49,7 +49,138 @@
     "libtool"
   ],
   "outputs": [],
-  "status": "MAKE_FAIL",
+  "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "chmod: cannot access 'config.status': No such file or directory"
+  "diagnostic": "./configure: line 1449: syntax error near unexpected token `newline'",
+  "deep_expansion": {
+    "configure_lines": 1978,
+    "leaked_macros": [
+      {
+        "name": "AC_LANG_CASE",
+        "line": 1449,
+        "context": "AC_LANG_CASE("
+      },
+      {
+        "name": "AC_REQUIRE",
+        "line": 1451,
+        "context": "AC_REQUIRE([AC_PROG_CC])"
+      },
+      {
+        "name": "AC_REQUIRE",
+        "line": 1459,
+        "context": "AC_REQUIRE([AC_PROG_CXX])"
+      },
+      {
+        "name": "AC_REQUIRE",
+        "line": 1467,
+        "context": "AC_REQUIRE([AC_PROG_F77])"
+      },
+      {
+        "name": "AC_REQUIRE",
+        "line": 1475,
+        "context": "AC_REQUIRE([AC_PROG_FC])"
+      },
+      {
+        "name": "AC_RUN_LOG",
+        "line": 1552,
+        "context": "AC_RUN_LOG(: FLAGS=\"$FLAGS\")"
+      },
+      {
+        "name": "AC_RUN_LOG",
+        "line": 1571,
+        "context": "AC_RUN_LOG(: FLAGS=\"$FLAGS\")"
+      },
+      {
+        "name": "AC_RUN_LOG",
+        "line": 1644,
+        "context": "AC_RUN_LOG(: FLAGS=\"$FLAGS\")"
+      },
+      {
+        "name": "AC_RUN_LOG",
+        "line": 1696,
+        "context": "AC_RUN_LOG(: FLAGS=\"$FLAGS\")"
+      }
+    ],
+    "heredoc_openers": 15,
+    "heredoc_terminators": 15,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1449,
+        "token": "newline",
+        "source": "AC_LANG_CASE(",
+        "block": [
+          "1445: fi; done",
+          "1446: ",
+          "1447: # Find and check the MPI library",
+          "1448: ",
+          "1449:      AC_LANG_CASE(",
+          "1450:      C, ",
+          "1451:          AC_REQUIRE([AC_PROG_CC])",
+          "1452:          if [[ ! -z \"$MPICC\" ]]; then"
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "CXX",
+      "CXXFLAGS"
+    ],
+    "failed_during_check": "checking for unistd.h... no",
+    "failure_tail": [
+      "checking for unistd.h... no",
+      "./configure: line 1449: syntax error near unexpected token `newline'",
+      "./configure: line 1449: `     AC_LANG_CASE('"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 6,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "#include <$ac_hdr>",
+      "#include <$ac_hdr>",
+      "\\nint main() {  ; return 0; }",
+      "\\nint main() {  ; return 0; }",
+      "char MPI_Init_thread ();\\nint main() { return MPI_Init_thread (); }",
+      "#include <$ac_hdr>"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "fail",
+    "real_make": "skipped",
+    "real_configure_lines": 21537,
+    "real_first_error": "configure: error: ovni ovni.h header file not found",
+    "classification": "BOTH_CONFIGURE_FAIL"
+  },
+  "receipt": {
+    "court_status": "not_standalone",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool",
+      "uses-subdir-objects",
+      "has-m4-macro-dir",
+      "vendored-aclocal",
+      "uses-ax-archive"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-subdir-objects",
+        "action": "--disable-dependency-tracking",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "9b1e2700fe968e7a3321342ca953e7c699643cc7f6208188c454b461278951a7",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

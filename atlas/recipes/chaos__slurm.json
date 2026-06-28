@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "chaos/slurm",
   "source": {
     "url": "https://github.com/chaos/slurm",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.8",
+    "autoconf_rs": "autoconf-rs 0.1.11",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -27,6 +27,11 @@
       "step": "configure",
       "tool": "./configure",
       "status": "fail"
+    },
+    {
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
+      "status": "fail"
     }
   ],
   "probe_results": {},
@@ -36,12 +41,8 @@
   "dependencies": {
     "pkg_config": [],
     "system_libs": [],
-    "headers_needed": [
-      "confdefs.h"
-    ],
-    "missing": [
-      "confdefs.h"
-    ]
+    "headers_needed": [],
+    "missing": []
   },
   "quirks": [
     "libtool",
@@ -50,5 +51,134 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1343: X_AC_GPL_LICENSED: command not found"
+  "diagnostic": "./configure: line 1348: X_AC_GPL_LICENSED: command not found",
+  "deep_expansion": {
+    "configure_lines": 3026,
+    "leaked_macros": [
+      {
+        "name": "AM_PATH_GTK_2_0",
+        "line": 1697,
+        "context": "AM_PATH_GTK_2_0(2.7.1, ac_have_gtk=\"yes\", ac_have_gtk=\"no\", gthread)"
+      }
+    ],
+    "heredoc_openers": 29,
+    "heredoc_terminators": 29,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1663,
+        "token": ",",
+        "source": "ACX_PTHREAD(, printf '%s\\n' \"configure: error: Error: Cannot figure out ",
+        "block": [
+          "1659:   printf '%s\\n' \"no\"",
+          "1660: fi; done",
+          "1661: ",
+          "1662: ",
+          "1663: ACX_PTHREAD(, printf '%s\\n' \"configure: error: Error: Cannot figure out how ",
+          "1664: exit 1)",
+          "1665: ",
+          "1666: # Always define WITH_PTHREADS if we make it this far"
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2550: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PKG_CONFIG",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL",
+      "srcdir",
+      "prefix",
+      "exec_prefix",
+      "CC",
+      "CFLAGS",
+      "CPPFLAGS",
+      "LDFLAGS",
+      "LIBS",
+      "CXX",
+      "CXXFLAGS",
+      "CPP",
+      "DEFS",
+      "LIBOBJS",
+      "INSTALL",
+      "HAVE_ELAN",
+      "UTIL_LIBS",
+      "BG_L_P_LOADED",
+      "BGL_LOADED",
+      "AUTHD_LIBS",
+      "REAL_BG_L_P_LOADED",
+      "HAVE_SOME_CURSES",
+      "SO_LDFLAGS"
+    ],
+    "failed_during_check": "checking for unsetenv... yes",
+    "failure_tail": [
+      "checking for unsetenv... yes",
+      "./configure: line 1663: syntax error near unexpected token `,'",
+      "./configure: line 1663: `ACX_PTHREAD(, printf '%s\\n' \"configure: error: Error: C"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 11,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "char socket ();\\nint main() { return socket (); }",
+      "char gethostbyname ();\\nint main() { return gethostbyname (); }",
+      "char hstrerror ();\\nint main() { return hstrerror (); }",
+      "char kstat_open ();\\nint main() { return kstat_open (); }",
+      "#include <$ac_hdr>",
+      "#include <sys/wait.h>"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "fail",
+    "real_configure_lines": 27692,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE"
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "line 1663: ACX_PTHREAD(, printf '%s\\n' \"configure: error: Error: Cannot figure out  (near `,`)",
+    "ours_error_context": [
+      "ACX_PTHREAD(, printf '%s\\n' \"configure: error: Error: Cannot figure out "
+    ],
+    "ours_configure_lines": 3026,
+    "real_configure_lines": 27692,
+    "macros_ours_left_undefined": [
+      "AM_PATH_GTK_2_0"
+    ]
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool-old",
+      "uses-maintainer-mode",
+      "vendored-aclocal"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-maintainer-mode",
+        "action": "--disable-maintainer-mode",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "2773c3e2545a109ff7c723fda694935077c798e77c58dfa5bd682fd13b40a266",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

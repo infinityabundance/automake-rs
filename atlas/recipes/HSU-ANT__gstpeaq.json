@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "HSU-ANT/gstpeaq",
   "source": {
     "url": "https://github.com/HSU-ANT/gstpeaq",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.8",
+    "autoconf_rs": "autoconf-rs 0.1.11",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -47,5 +47,89 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1347: syntax error near unexpected token `ENABLE_MAN,'"
+  "diagnostic": "./configure: line 1474: syntax error near unexpected token `gst-launch'",
+  "deep_expansion": {
+    "configure_lines": 2534,
+    "leaked_macros": [
+      {
+        "name": "AC_WARN",
+        "line": 1474,
+        "context": "AC_WARN(gst-launch not found, cannot run all tests)"
+      }
+    ],
+    "heredoc_openers": 18,
+    "heredoc_terminators": 18,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1474,
+        "token": "gst-launch",
+        "source": "AC_WARN(gst-launch not found, cannot run all tests)",
+        "block": [
+          "1470: # Check for programs in PATH",
+          "1471: for ac_prog in gst-launch-$GST_API_VERSION gst-launch; do if command -v \"$ac",
+          "1472: if test \"x$GSTLAUNCH\" = \"x:\"; then",
+          "1473: :",
+          "1474: AC_WARN(gst-launch not found, cannot run all tests)",
+          "1475: else",
+          "1476: :",
+          "1477: "
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2058: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT"
+    ],
+    "failed_during_check": "checking for gstreamer-1.0... no",
+    "failure_tail": [
+      "checking for gstreamer-1.0... no",
+      "configure: Using  as the plugin install location",
+      "./configure: line 1474: syntax error near unexpected token `gst-launch'",
+      "./configure: line 1474: `AC_WARN(gst-launch not found, cannot run all tests)'"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 2,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar malloc();\\nint main() { return malloc(); }",
+      "char exp();\\nint main() { return exp(); }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "fail",
+    "real_configure": "skipped",
+    "real_make": "skipped",
+    "real_configure_lines": 0,
+    "real_first_error": "Makefile.am: error: required file './ChangeLog' not found",
+    "classification": "OURS_BETTER"
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool-old",
+      "uses-pkg-config",
+      "has-m4-macro-dir",
+      "vendored-aclocal"
+    ],
+    "receipt_hash": "7ce013376826229435a725231a088a6b4ca9c70c0f0c2c61a569acc421b80cc1",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

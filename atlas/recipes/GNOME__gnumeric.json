@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "GNOME/gnumeric",
   "source": {
     "url": "https://github.com/GNOME/gnumeric",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.8",
+    "autoconf_rs": "autoconf-rs 0.1.11",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,6 +26,11 @@
     {
       "step": "configure",
       "tool": "./configure",
+      "status": "fail"
+    },
+    {
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
       "status": "fail"
     }
   ],
@@ -49,5 +54,132 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1342: syntax error near unexpected token `version_iface,'"
+  "diagnostic": "./configure: line 1374: GTK_DOC_CHECK: command not found",
+  "deep_expansion": {
+    "configure_lines": 3792,
+    "leaked_macros": [
+      {
+        "name": "AC_CHECK_DECL",
+        "line": 1762,
+        "context": "AC_CHECK_DECL(fdopen, fdopen_works=yes, fdopen_works=no)"
+      },
+      {
+        "name": "AC_CHECK_DECL",
+        "line": 1768,
+        "context": "AC_CHECK_DECL(fdopen, fdopen_works=yes, fdopen_works=no)"
+      }
+    ],
+    "heredoc_openers": 39,
+    "heredoc_terminators": 39,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1380,
+        "token": "po-functions",
+        "source": "IT_PO_SUBDIR(po-functions)",
+        "block": [
+          "1376: INTLTOOL_EXTRACT='${top_srcdir}/intltool-extract'",
+          "1377: INTLTOOL_MERGE='${top_srcdir}/intltool-merge'",
+          "1378: INTLTOOL_UPDATE='${top_srcdir}/intltool-update'",
+          "1379: export INTLTOOL_EXTRACT INTLTOOL_MERGE INTLTOOL_UPDATE",
+          "1380: IT_PO_SUBDIR(po-functions)",
+          "1381: ",
+          "1382: # Determine the host system type. Uses config.guess if available, falls back",
+          "1383: # CROSS.020: Integrated config.guess/config.sub shell-out with uname fallbac"
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 3292: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PKG_CONFIG",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL",
+      "srcdir",
+      "prefix",
+      "exec_prefix",
+      "CC",
+      "CFLAGS",
+      "CPPFLAGS",
+      "LDFLAGS",
+      "LIBS",
+      "CXX",
+      "CXXFLAGS",
+      "CPP",
+      "DEFS",
+      "LIBOBJS",
+      "INSTALL",
+      "COMPONENT_DIR",
+      "GIOVERRIDESDIR",
+      "GDA_LIBS",
+      "ACLOCAL_AMFLAGS",
+      "GNM_PY_LDFLAGS",
+      "GNOMEDB_LIBS",
+      "GNUMERIC_API_VER_",
+      "GOFFICE_PLUGINS_DIR"
+    ],
+    "failed_during_check": "",
+    "failure_tail": [
+      "./configure: line 1374: GTK_DOC_CHECK: command not found",
+      "./configure: line 1380: syntax error near unexpected token `po-functions'",
+      "./configure: line 1380: `IT_PO_SUBDIR(po-functions)'"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 33,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "#include <zlib.h>",
+      "#include <sys/time.h>\\nint main() { struct timeval tv; ; return 0; }",
+      "#include <sys/time.h>\\nint main() { struct timeval tv; ; return 0; }",
+      "#include <math.h>\\nint main() { double f = M_PI ; return 0; }",
+      "#include <math.h>\\nint main() { double f = M_PI ; return 0; }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar PX_open_gsf();\\nint main() { return PX_open_gsf(); }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "fail",
+    "real_make": "skipped",
+    "real_configure_lines": 20547,
+    "real_first_error": "./configure: line 3581: GTK_DOC_CHECK: command not found",
+    "classification": "BOTH_CONFIGURE_FAIL"
+  },
+  "receipt": {
+    "court_status": "not_standalone",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool",
+      "uses-pkg-config",
+      "uses-intltool",
+      "uses-gettext",
+      "uses-maintainer-mode",
+      "vendored-aclocal",
+      "uses-ax-archive",
+      "perl-in-configure"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-maintainer-mode",
+        "action": "--disable-maintainer-mode",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "9b1e2700fe968e7a3321342ca953e7c699643cc7f6208188c454b461278951a7",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

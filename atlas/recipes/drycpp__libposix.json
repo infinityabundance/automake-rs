@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "drycpp/libposix",
   "source": {
     "url": "https://github.com/drycpp/libposix",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.8",
+    "autoconf_rs": "autoconf-rs 0.1.11",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,6 +26,11 @@
     {
       "step": "configure",
       "tool": "./configure",
+      "status": "fail"
+    },
+    {
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
       "status": "fail"
     }
   ],
@@ -47,5 +52,120 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1343: syntax error near unexpected token `lib'"
+  "diagnostic": "./configure: line 1348: syntax error near unexpected token `lib'",
+  "deep_expansion": {
+    "configure_lines": 2622,
+    "leaked_macros": [
+      {
+        "name": "AC_CONFIG_LIBOBJ_DIR",
+        "line": 1348,
+        "context": "AC_CONFIG_LIBOBJ_DIR(lib)"
+      },
+      {
+        "name": "AC_CHECK_HEADERS_ONCE",
+        "line": 1514,
+        "context": "AC_CHECK_HEADERS_ONCE(mqueue.h)"
+      },
+      {
+        "name": "AC_CHECK_FUNCS_ONCE",
+        "line": 1571,
+        "context": "AC_CHECK_FUNCS_ONCE(accept4)"
+      }
+    ],
+    "heredoc_openers": 18,
+    "heredoc_terminators": 18,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1348,
+        "token": "lib",
+        "source": "AC_CONFIG_LIBOBJ_DIR(lib)",
+        "block": [
+          "1344:   printf '%s\\n' \"configure: WARNING: cannot find sources (src/posix++.h) in ",
+          "1345: fi",
+          "1346: ac_aux_dir=etc/aclocal",
+          "1347: ac_macro_dir=etc/aclocal",
+          "1348: AC_CONFIG_LIBOBJ_DIR(lib)",
+          "1349: ",
+          "1350: ",
+          "1351: "
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2146: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "CXX",
+      "CXXFLAGS",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT"
+    ],
+    "failed_during_check": "",
+    "failure_tail": [
+      "./configure: line 1348: syntax error near unexpected token `lib'",
+      "./configure: line 1348: `AC_CONFIG_LIBOBJ_DIR(lib)'"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 2,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "#include <assert.h>",
+      "#include <stdbool.h>"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "ok",
+    "real_configure_lines": 20506,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE"
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "line 1348: AC_CONFIG_LIBOBJ_DIR(lib) (near `lib`)",
+    "ours_error_context": [
+      "AC_CONFIG_LIBOBJ_DIR(lib)"
+    ],
+    "ours_configure_lines": 2622,
+    "real_configure_lines": 20506,
+    "macros_ours_left_undefined": [
+      "AC_CHECK_FUNCS_ONCE",
+      "AC_CHECK_HEADERS_ONCE",
+      "AC_CONFIG_LIBOBJ_DIR"
+    ]
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool",
+      "uses-subdir-objects",
+      "vendored-aclocal",
+      "uses-ax-archive"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-subdir-objects",
+        "action": "--disable-dependency-tracking",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "2773c3e2545a109ff7c723fda694935077c798e77c58dfa5bd682fd13b40a266",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

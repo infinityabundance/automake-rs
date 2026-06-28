@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "ederc/gb",
   "source": {
     "url": "https://github.com/ederc/gb",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.8",
+    "autoconf_rs": "autoconf-rs 0.1.11",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -27,6 +27,11 @@
       "step": "configure",
       "tool": "./configure",
       "status": "fail"
+    },
+    {
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
+      "status": "fail"
     }
   ],
   "probe_results": {},
@@ -36,12 +41,8 @@
   "dependencies": {
     "pkg_config": [],
     "system_libs": [],
-    "headers_needed": [
-      "confdefs.h"
-    ],
-    "missing": [
-      "confdefs.h"
-    ]
+    "headers_needed": [],
+    "missing": []
   },
   "quirks": [
     "autoconf-archive-macros",
@@ -51,5 +52,126 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1627: AC_OPENMP: command not found"
+  "diagnostic": "for OpenMP flag of _AC_LANG compiler... ./configure: line 1715: AX_LANG_COMPILER_MS: command not found",
+  "deep_expansion": {
+    "configure_lines": 3819,
+    "leaked_macros": [],
+    "heredoc_openers": 52,
+    "heredoc_terminators": 52,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 2019,
+        "token": "else",
+        "source": "else",
+        "block": [
+          "2015:           if test \"$ax_cv_have_altivec_ext\" = yes; then",
+          "2016:             ",
+          "2017:             # Requires Autoconf >= 2.64  :",
+          "2018:   ",
+          "2019: else",
+          "2020:   :",
+          "2021:   ",
+          "2022: fi"
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 3343: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT"
+    ],
+    "failed_during_check": "checking the number of available CPUs... unable to detect (assuming 1) ",
+    "failure_tail": [
+      "for OpenCL library... checking the number of available CPUs... unable to detect ",
+      "for ... ./configure: line 1980: test: too many arguments",
+      "./configure: line 2019: syntax error near unexpected token `else'",
+      "./configure: line 2019: `else'"
+    ],
+    "conftest_corruption": [
+      "line 1800: # if defined(HAVE_WINDOWS_H) && defined( (ifdef/define eaten)",
+      "line 1802: # endif (ifdef/define eaten)",
+      "line 1803: # ifdef HAVE_CL_CL_H (ifdef/define eaten)",
+      "line 1805: # elif defined(HAVE_OPENCL_CL_H) (ifdef/define eaten)",
+      "line 1807: # else (ifdef/define eaten)",
+      "line 1809: # endif (ifdef/define eaten)",
+      "line 1820: # if defined(HAVE_WINDOWS_H) && defined( (ifdef/define eaten)",
+      "line 1822: # endif (ifdef/define eaten)",
+      "line 1823: # ifdef HAVE_CL_CL_H (ifdef/define eaten)",
+      "line 1825: # elif defined(HAVE_OPENCL_CL_H) (ifdef/define eaten)",
+      "line 1827: # else (ifdef/define eaten)",
+      "line 1829: # endif (ifdef/define eaten)",
+      "line 1840: # if defined(HAVE_WINDOWS_H) && defined( (ifdef/define eaten)",
+      "line 1842: # endif (ifdef/define eaten)",
+      "line 1843: # ifdef HAVE_CL_CL_H (ifdef/define eaten)",
+      "line 1845: # elif defined(HAVE_OPENCL_CL_H) (ifdef/define eaten)",
+      "line 1847: # else (ifdef/define eaten)",
+      "line 1849: # endif (ifdef/define eaten)",
+      "line 1868: # if defined(HAVE_WINDOWS_H) && defined( (ifdef/define eaten)",
+      "line 1870: # endif (ifdef/define eaten)"
+    ],
+    "conftest_directives_intact": 36,
+    "conftest_directives_mangled": 24,
+    "conftest_programs": [
+      "char main();\\nint main() { return main(); }",
+      "#include <$ac_hdr>",
+      "inline int foo() { return 0; }\\nint main() { return foo(); }",
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { int32_t x; return 0; }",
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { int64_t x; return 0; }",
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { size_t x; return 0; }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "ok",
+    "real_configure_lines": 23300,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE"
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "line 2019: else (near `else`)",
+    "ours_error_context": [
+      "else"
+    ],
+    "ours_configure_lines": 3819,
+    "real_configure_lines": 23300,
+    "macros_ours_left_undefined": []
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool",
+      "uses-maintainer-mode",
+      "has-m4-macro-dir",
+      "vendored-aclocal",
+      "uses-ax-archive"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-maintainer-mode",
+        "action": "--disable-maintainer-mode",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "2773c3e2545a109ff7c723fda694935077c798e77c58dfa5bd682fd13b40a266",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

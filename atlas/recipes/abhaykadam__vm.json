@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "abhaykadam/vm",
   "source": {
     "url": "https://github.com/abhaykadam/vm",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.8",
+    "autoconf_rs": "autoconf-rs 0.1.11",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,6 +26,11 @@
     {
       "step": "configure",
       "tool": "./configure",
+      "status": "ok"
+    },
+    {
+      "step": "make",
+      "tool": "make",
       "status": "fail"
     }
   ],
@@ -35,19 +40,108 @@
   },
   "dependencies": {
     "pkg_config": [],
-    "system_libs": [],
-    "headers_needed": [
-      "confdefs.h"
+    "system_libs": [
+      "-lm",
+      "-lz"
     ],
-    "missing": [
-      "confdefs.h"
-    ]
+    "headers_needed": [],
+    "missing": []
   },
   "quirks": [
-    "subdirs"
+    "subdirs",
+    "LIBS=-lm -lz"
   ],
   "outputs": [],
-  "status": "CONFIGURE_RUN_FAIL",
+  "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1671: 0: command not found"
+  "diagnostic": "",
+  "deep_expansion": {
+    "configure_lines": 2766,
+    "leaked_macros": [],
+    "heredoc_openers": 40,
+    "heredoc_terminators": 40,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2289: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL",
+      "srcdir",
+      "prefix",
+      "exec_prefix",
+      "CC",
+      "CFLAGS",
+      "CPPFLAGS",
+      "LDFLAGS",
+      "LIBS",
+      "CXX",
+      "CXXFLAGS",
+      "CPP",
+      "DEFS",
+      "LIBOBJS",
+      "INSTALL",
+      "PKGDATADIR",
+      "DATADIR"
+    ],
+    "failed_during_check": "checking for the",
+    "failure_tail": [
+      "The 'autoconf' tool could not interpret the macro checking for the",
+      "presence of the GTK development library (libgtk-3-dev) in your system.",
+      "Multi2Sim will be permanently compiled without support for GTK.",
+      "Before releasing a version with this configuration (running 'make dist'),",
+      "please install this package and rerun 'autoconf'. This will guarantee"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 36,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "#include <sys/wait.h>",
+      "#include <$ac_hdr>",
+      "#include <elf.h>",
+      "#include <zlib.h>",
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { int16_t x; return 0; }",
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { int32_t x; return 0; }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "ok",
+    "real_configure_lines": 8739,
+    "real_first_error": "",
+    "classification": "OURS_BUG_MAKE"
+  },
+  "divergence": {
+    "stage": "make",
+    "ours_error": "",
+    "ours_error_context": [],
+    "ours_configure_lines": 2766,
+    "real_configure_lines": 8739,
+    "macros_ours_left_undefined": []
+  },
+  "receipt": {
+    "court_status": "partial",
+    "probe_trace": [],
+    "quirks_matched": [
+      "vendored-aclocal"
+    ],
+    "receipt_hash": "669364662a5baae3128755acbdb4ce60d78c7cc5d6eb53bbab5c8e3b8eb436d0",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

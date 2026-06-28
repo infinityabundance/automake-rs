@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "CkNoSFeRaTU/pidgin",
   "source": {
     "url": "https://github.com/CkNoSFeRaTU/pidgin",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.8",
+    "autoconf_rs": "autoconf-rs 0.1.11",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -36,12 +36,8 @@
   "dependencies": {
     "pkg_config": [],
     "system_libs": [],
-    "headers_needed": [
-      "confdefs.h"
-    ],
-    "missing": [
-      "confdefs.h"
-    ]
+    "headers_needed": [],
+    "missing": []
   },
   "quirks": [
     "libtool",
@@ -51,5 +47,109 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1436: syntax error near unexpected token `__SUNPRO_C,'"
+  "diagnostic": "./configure: line 1441: syntax error near unexpected token `__SUNPRO_C,'",
+  "deep_expansion": {
+    "configure_lines": 6500,
+    "leaked_macros": [
+      {
+        "name": "AC_CHECK_DECL",
+        "line": 1441,
+        "context": "AC_CHECK_DECL(__SUNPRO_C, SUNCC=\"yes\", SUNCC=\"no\")"
+      },
+      {
+        "name": "AC_CHECK_DECL",
+        "line": 1704,
+        "context": "AC_CHECK_DECL(IPV6_V6ONLY,"
+      },
+      {
+        "name": "AC_DEFINE",
+        "line": 1705,
+        "context": "AC_DEFINE([HAVE_IPV6_V6ONLY],[1],"
+      },
+      {
+        "name": "AC_PROG_PERL_MODULES",
+        "line": 4020,
+        "context": "AC_PROG_PERL_MODULES(ExtUtils::MakeMaker, , have_makemaker=no)"
+      }
+    ],
+    "heredoc_openers": 105,
+    "heredoc_terminators": 105,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1441,
+        "token": "__SUNPRO_C,",
+        "source": "AC_CHECK_DECL(__SUNPRO_C, SUNCC=\"yes\", SUNCC=\"no\")",
+        "block": [
+          "1437: else",
+          "1438:   printf '%s\\n' \"no\"",
+          "1439: fi",
+          "1440: ",
+          "1441: AC_CHECK_DECL(__SUNPRO_C, SUNCC=\"yes\", SUNCC=\"no\")",
+          "1442: ",
+          "1443: printf '%s\\n' \"yes\"",
+          "1444: printf %s \"checking for sys/wait.h... \""
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 5956: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PKG_CONFIG",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT"
+    ],
+    "failed_during_check": "checking for alloca... no",
+    "failure_tail": [
+      "checking for alloca... no",
+      "./configure: line 1441: syntax error near unexpected token `__SUNPRO_C,'",
+      "./configure: line 1441: `AC_CHECK_DECL(__SUNPRO_C, SUNCC=\"yes\", SUNCC=\"no\")'"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 105,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar alloca();\\nint main() { return alloca(); }",
+      "#include <sys/wait.h>",
+      "#include <$ac_hdr>",
+      "int main() { const int x = 1; return x-1; }",
+      "#include <sys/types.h>\\n#include <stdint.h>\\n#include <stddef.h>\\nint main() { static int 1 - 2 * !((long int) (sizeof (time_t)) <= 0)test_arr",
+      "int main() { int x = 1; return *(char*)&x; }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "fail",
+    "real_configure": "skipped",
+    "real_make": "skipped",
+    "real_configure_lines": 0,
+    "real_first_error": "configure.ac:263: error: possibly undefined macro: AC_PROG_INTLTOOL",
+    "classification": "OURS_BETTER"
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool-old",
+      "uses-pkg-config",
+      "has-acinclude",
+      "vendored-aclocal",
+      "perl-in-configure"
+    ],
+    "receipt_hash": "7ce013376826229435a725231a088a6b4ca9c70c0f0c2c61a569acc421b80cc1",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

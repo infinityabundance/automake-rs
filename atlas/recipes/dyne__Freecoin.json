@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "dyne/Freecoin",
   "source": {
     "url": "https://github.com/dyne/Freecoin",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.8",
+    "autoconf_rs": "autoconf-rs 0.1.11",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -27,6 +27,11 @@
       "step": "configure",
       "tool": "./configure",
       "status": "fail"
+    },
+    {
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
+      "status": "fail"
     }
   ],
   "probe_results": {},
@@ -34,7 +39,9 @@
     "configure_args": []
   },
   "dependencies": {
-    "pkg_config": [],
+    "pkg_config": [
+      "checking for libssl >= 0.9... yes"
+    ],
     "system_libs": [],
     "headers_needed": [],
     "missing": []
@@ -47,5 +54,99 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1374: syntax error near unexpected token `AC_PACKAGE_URL,'"
+  "diagnostic": "checking which GUI is selected... ./configure: line 2638: syntax error near unexpected token `fi'",
+  "deep_expansion": {
+    "configure_lines": 3974,
+    "leaked_macros": [],
+    "heredoc_openers": 37,
+    "heredoc_terminators": 37,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 2638,
+        "token": "fi",
+        "source": "fi",
+        "block": [
+          "2634: ",
+          "2635: \tif test x$have_mswin = xyes; then",
+          "2636: \t   # TODO",
+          "2637: \t   \t",
+          "2638: \tfi",
+          "2639: ",
+          "2640: \tif test x$have_mingw = xyes; then",
+          "2641: \t   "
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 3497: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT"
+    ],
+    "failed_during_check": "checking which GUI is selected... ./configure: line 2638: syntax error near unex",
+    "failure_tail": [
+      "checking which GUI is selected... ./configure: line 2638: syntax error near unex",
+      "./configure: line 2638: `\tfi'"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 7,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "#include <$ac_hdr>",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func();\\nint main() { return $ac_func(); }",
+      "char MD5_Init();\\nint main() { return MD5_Init(); }",
+      "\\n@%:@include <boost/version.hpp>\\n\\nint main() {\\n#if BOOST_VERSION >= $WANT_BOOST_VERSION\\n// Everything is okay\\n#else\\n#  error Boost version is too old\\n#endif\\n; return 0; }",
+      "\\n@%:@include <boost/version.hpp>\\n\\nint main() {\\n#if BOOST_VERSION >= $WANT_BOOST_VERSION\\n// Everything is okay\\n#else\\n#  error Boost version is too old\\n#endif\\n; return 0; }",
+      "@%:@include <boost/system/error_code.hpp>\\nint main() { boost::system::system_category ; return 0; }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "fail",
+    "real_make": "skipped",
+    "real_configure_lines": 9977,
+    "real_first_error": "configure: error: Could not find a version of the library!",
+    "classification": "BOTH_CONFIGURE_FAIL"
+  },
+  "receipt": {
+    "court_status": "not_standalone",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-pkg-config",
+      "uses-subdir-objects",
+      "uses-maintainer-mode",
+      "has-m4-macro-dir",
+      "vendored-aclocal",
+      "uses-ax-archive"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-subdir-objects",
+        "action": "--disable-dependency-tracking",
+        "verified": false
+      },
+      {
+        "id": "uses-maintainer-mode",
+        "action": "--disable-maintainer-mode",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "9b1e2700fe968e7a3321342ca953e7c699643cc7f6208188c454b461278951a7",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "chaupal/jxta-c",
   "source": {
     "url": "https://github.com/chaupal/jxta-c",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.8",
+    "autoconf_rs": "autoconf-rs 0.1.11",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,6 +26,11 @@
     {
       "step": "configure",
       "tool": "./configure",
+      "status": "ok"
+    },
+    {
+      "step": "make",
+      "tool": "make",
       "status": "fail"
     }
   ],
@@ -35,16 +40,110 @@
   },
   "dependencies": {
     "pkg_config": [],
-    "system_libs": [],
+    "system_libs": [
+      "-lcrypt",
+      "-lcrypto",
+      "-lexpat"
+    ],
     "headers_needed": [],
     "missing": []
   },
   "quirks": [
     "libtool",
-    "subdirs"
+    "subdirs",
+    "LIBS=-lcrypt -lcrypto -lexpat"
   ],
   "outputs": [],
-  "status": "CONFIGURE_RUN_FAIL",
+  "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1349: AC_ISC_POSIX: command not found"
+  "diagnostic": "./configure: line 1379: AM_PROG_CC_STDC: command not found",
+  "deep_expansion": {
+    "configure_lines": 3033,
+    "leaked_macros": [],
+    "heredoc_openers": 22,
+    "heredoc_terminators": 22,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2525: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL",
+      "srcdir",
+      "prefix",
+      "exec_prefix",
+      "CC",
+      "CFLAGS",
+      "CPPFLAGS",
+      "LDFLAGS",
+      "LIBS",
+      "CXX",
+      "CXXFLAGS",
+      "CPP",
+      "DEFS",
+      "LIBOBJS",
+      "INSTALL",
+      "SQLITE_LIBS",
+      "SQLITE_CPPFLAGS",
+      "target_alias",
+      "XML2_CPPFLAGS",
+      "CS_DIR",
+      "XML2_LIBS",
+      "apr_threadpool",
+      "APR_CPPFLAGS",
+      "APR_LIBS"
+    ],
+    "failed_during_check": "checking for apr_thread_pool.h... yes",
+    "failure_tail": [
+      "checking for apr_thread_pool.h... yes",
+      "creating -lcrypt-config - generic  of -lcrypt -lcrypto -lexpat",
+      "configure: creating Makefile",
+      "configure: creating src/Makefile",
+      "configure: creating src/jpr/Makefile"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 2,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "#include <apr//os.h>",
+      "char XML_ParserCreate();\\nint main() { return XML_ParserCreate(); }",
+      "char BN_new();\\nint main() { return BN_new(); }",
+      "char getaddrinfo();\\nint main() { return getaddrinfo(); }",
+      "char crypt_r();\\nint main() { return crypt_r(); }",
+      "#include <$ac_hdr>"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "fail",
+    "real_make": "skipped",
+    "real_configure_lines": 18009,
+    "real_first_error": "configure: error: apr-util does not support SQLite3, as required by JXTA",
+    "classification": "OURS_BETTER"
+  },
+  "receipt": {
+    "court_status": "partial",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool-old",
+      "vendored-aclocal"
+    ],
+    "receipt_hash": "9e6ab9c737cd5741d33e6b7a2a4c17852e20d3f94d1c7453def12b16b5ad39d3",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

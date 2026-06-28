@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "flux-framework/flux-security",
   "source": {
     "url": "https://github.com/flux-framework/flux-security",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.8",
+    "autoconf_rs": "autoconf-rs 0.1.11",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,6 +26,11 @@
     {
       "step": "configure",
       "tool": "./configure",
+      "status": "fail"
+    },
+    {
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
       "status": "fail"
     }
   ],
@@ -48,5 +53,124 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 583: syntax error near unexpected token `('"
+  "diagnostic": "./configure: line 585: syntax error near unexpected token `('",
+  "deep_expansion": {
+    "configure_lines": 3133,
+    "leaked_macros": [],
+    "heredoc_openers": 23,
+    "heredoc_terminators": 23,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 585,
+        "token": "(",
+        "source": "PACKAGE_VERSION='m4_esyscmd(git describe --always | awk '/.*/ {sub(/^v/,",
+        "block": [
+          "581: ",
+          "582: # Identity of this package.",
+          "583: PACKAGE_NAME='flux-security'",
+          "584: PACKAGE_TARNAME='flux-security'",
+          "585: PACKAGE_VERSION='m4_esyscmd(git describe --always | awk '/.*/ {sub(/^v/, \"\")",
+          "586: PACKAGE_STRING='flux-security m4_esyscmd(git describe --always | awk '/.*/ {",
+          "587: PACKAGE_BUGREPORT=''",
+          "588: PACKAGE_URL=''"
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2657: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PKG_CONFIG",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL",
+      "srcdir",
+      "prefix",
+      "exec_prefix",
+      "CC",
+      "CFLAGS",
+      "CPPFLAGS",
+      "LDFLAGS",
+      "LIBS",
+      "CXX",
+      "CXXFLAGS",
+      "CPP",
+      "DEFS",
+      "LIBOBJS",
+      "INSTALL",
+      "fluxsecurityincludedir",
+      "pkgconfigdir",
+      "fluxlibexecdir",
+      "PAM_LIBS",
+      "AX_POINT_VERSION",
+      "CODE_COVERAGE_RULES",
+      "fluximpcfdir",
+      "AX_MAJOR_VERSION"
+    ],
+    "failed_during_check": "",
+    "failure_tail": [
+      "./configure: line 585: syntax error near unexpected token `('",
+      "./configure: line 585: `PACKAGE_VERSION='m4_esyscmd(git describe --always | awk "
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 6,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "char floor();\\nint main() { return floor(); }",
+      "\\nint main() {\\n#if !($vencpp)\\nthisisanerror;\\n#endif\\n; return 0; }",
+      "#include <$ac_hdr>",
+      "#include <linux/bpf.h>",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar pipe2();\\nint main() { return pipe2(); }",
+      "char pam_start();\\nint main() { return pam_start(); }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "fail",
+    "real_make": "skipped",
+    "real_configure_lines": 18145,
+    "real_first_error": "checking for MUNGE... configure: error: Package requirements (munge) were not met:",
+    "classification": "BOTH_CONFIGURE_FAIL"
+  },
+  "receipt": {
+    "court_status": "not_standalone",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool",
+      "uses-pkg-config",
+      "uses-python",
+      "uses-subdir-objects",
+      "uses-maintainer-mode",
+      "vendored-aclocal",
+      "uses-ax-archive"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-subdir-objects",
+        "action": "--disable-dependency-tracking",
+        "verified": false
+      },
+      {
+        "id": "uses-maintainer-mode",
+        "action": "--disable-maintainer-mode",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "9b1e2700fe968e7a3321342ca953e7c699643cc7f6208188c454b461278951a7",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

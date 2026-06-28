@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "HansWessels/gup",
   "source": {
     "url": "https://github.com/HansWessels/gup",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.8",
+    "autoconf_rs": "autoconf-rs 0.1.11",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,11 +26,11 @@
     {
       "step": "configure",
       "tool": "./configure",
-      "status": "ok"
+      "status": "fail"
     },
     {
-      "step": "make",
-      "tool": "make",
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
       "status": "fail"
     }
   ],
@@ -49,7 +49,97 @@
     "subdirs"
   ],
   "outputs": [],
-  "status": "MAKE_FAIL",
+  "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "/bin/bash: ./config.status: No such file or directory"
+  "diagnostic": "./configure: line 1354: GUP_CYGWIN: command not found",
+  "deep_expansion": {
+    "configure_lines": 1552,
+    "leaked_macros": [
+      {
+        "name": "_LT_OPTION_DEFUN_m4_bpatsubst",
+        "line": 1391,
+        "context": "_LT_OPTION_DEFUN_m4_bpatsubst(LT_INIT__DISABLE-STATIC, ^A-Z0-9_, _)"
+      }
+    ],
+    "heredoc_openers": 11,
+    "heredoc_terminators": 11,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1391,
+        "token": "LT_INIT__DISABLE-STATIC,",
+        "source": "_LT_OPTION_DEFUN_m4_bpatsubst(LT_INIT__DISABLE-STATIC, ^A-Z0-9_, _)",
+        "block": [
+          "1387: for ac_tool in \"${ac_tool_prefix}nm\" \"nm\"; do if command -v \"$ac_tool\" >/dev",
+          "1388: # Check for ln -s",
+          "1389: LN_S='ln -s'",
+          "1390: SET_MAKE=''",
+          "1391: _LT_OPTION_DEFUN_m4_bpatsubst(LT_INIT__DISABLE-STATIC, ^A-Z0-9_, _)",
+          "1392: ",
+          "1393: _acrs_write_libtool",
+          "1394: "
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL"
+    ],
+    "failed_during_check": "",
+    "failure_tail": [
+      "./configure: line 1354: GUP_CYGWIN: command not found",
+      "./configure: line 1378: GUP_COPTIONS: command not found",
+      "./configure: line 1391: syntax error near unexpected token `LT_INIT__DISABLE-STA",
+      "./configure: line 1391: `_LT_OPTION_DEFUN_m4_bpatsubst(LT_INIT__DISABLE-STATIC, "
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 17,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "#include <$ac_hdr>",
+      "#include <sys/types.h>\\n#include <stdint.h>\\n#include <stddef.h>\\nint main() { static int 1 - 2 * !((long int) (sizeof (short)) <= 0)test_arra",
+      "#include <sys/types.h>\\n#include <stdint.h>\\n#include <stddef.h>\\nint main() { static int 1 - 2 * !((long int) (sizeof (int)) <= 0)test_array;",
+      "#include <sys/types.h>\\n#include <stdint.h>\\n#include <stddef.h>\\nint main() { static int 1 - 2 * !((long int) (sizeof (long)) <= 0)test_array",
+      "#include <sys/types.h>\\n#include <stdint.h>\\n#include <stddef.h>\\nint main() { static int 1 - 2 * !((long int) (sizeof (long long)) <= 0)test_",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar mmap();\\nint main() { return mmap(); }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "fail",
+    "real_configure": "skipped",
+    "real_make": "skipped",
+    "real_configure_lines": 0,
+    "real_first_error": "aclocal: warning: couldn't open directory ' m4': No such file or directory",
+    "classification": "OURS_BETTER"
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool",
+      "uses-maintainer-mode",
+      "has-m4-macro-dir",
+      "has-acinclude",
+      "vendored-aclocal"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-maintainer-mode",
+        "action": "--disable-maintainer-mode",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "7ce013376826229435a725231a088a6b4ca9c70c0f0c2c61a569acc421b80cc1",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "cmbi/hssp",
   "source": {
     "url": "https://github.com/cmbi/hssp",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.8",
+    "autoconf_rs": "autoconf-rs 0.1.11",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,6 +26,11 @@
     {
       "step": "configure",
       "tool": "./configure",
+      "status": "ok"
+    },
+    {
+      "step": "make",
+      "tool": "make",
       "status": "fail"
     }
   ],
@@ -34,22 +39,83 @@
     "configure_args": []
   },
   "dependencies": {
-    "pkg_config": [
-      "for boostlib >= ... yes"
-    ],
+    "pkg_config": [],
     "system_libs": [],
-    "headers_needed": [
-      "confdefs.h"
-    ],
-    "missing": [
-      "confdefs.h"
-    ]
+    "headers_needed": [],
+    "missing": []
   },
   "quirks": [
     "autoconf-archive-macros"
   ],
   "outputs": [],
-  "status": "CONFIGURE_RUN_FAIL",
+  "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 2646: =printf: command not found"
+  "diagnostic": "",
+  "deep_expansion": {
+    "configure_lines": 4030,
+    "leaked_macros": [],
+    "heredoc_openers": 69,
+    "heredoc_terminators": 69,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 3554: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT"
+    ],
+    "failed_during_check": "checking for strerror... yes",
+    "failure_tail": [
+      "checking for strerror... yes",
+      "configure: creating Makefile",
+      "configure: creating config.h",
+      "configure: creating ./config.status"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 31,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "\\n@%:@include <boost/version.hpp>\\n\\nint main() {\\n#if BOOST_VERSION >= $WANT_BOOST_VERSION\\n// Everything is okay\\n#else\\n#  error Boost version is too old\\n#endif\\n; return 0; }",
+      "\\n@%:@include <boost/version.hpp>\\n\\nint main() {\\n#if BOOST_VERSION >= $WANT_BOOST_VERSION\\n// Everything is okay\\n#else\\n#  error Boost version is too old\\n#endif\\n; return 0; }",
+      "@%:@include <boost/date_time/gregorian/gregorian_types.hpp>\\nint main() { using namespace boost::gregorian; date d(2002,Jan,10);\\nreturn 0;\\n; return 0; }",
+      "char exit();\\nint main() { return exit(); }",
+      "char exit();\\nint main() { return exit(); }",
+      "char main();\\nint main() { return main(); }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "fail",
+    "real_make": "skipped",
+    "real_configure_lines": 10373,
+    "real_first_error": "configure: error: Could not link against boost_filesystem !",
+    "classification": "OURS_BETTER"
+  },
+  "receipt": {
+    "court_status": "partial",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-subdir-objects",
+      "has-m4-macro-dir",
+      "vendored-aclocal",
+      "uses-ax-archive",
+      "perl-in-configure"
+    ],
+    "receipt_hash": "9e6ab9c737cd5741d33e6b7a2a4c17852e20d3f94d1c7453def12b16b5ad39d3",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "enki/libev",
   "source": {
     "url": "https://github.com/enki/libev",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.8",
+    "autoconf_rs": "autoconf-rs 0.1.11",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -35,23 +35,8 @@
     }
   ],
   "probe_results": {
-    "HAVE_CLOCK_GETTIME": 1,
     "HAVE_CLOCK_SYSCALL": 1,
-    "HAVE_EPOLL_CTL": 1,
-    "HAVE_EVENTFD": 1,
-    "HAVE_FLOOR": 1,
-    "HAVE_INOTIFY_INIT": 1,
-    "HAVE_LIBRT": 1,
-    "HAVE_NANOSLEEP": 1,
-    "HAVE_POLL": 1,
-    "HAVE_SELECT": 1,
-    "HAVE_SIGNALFD": 1,
-    "HAVE_SYSCALL": 1,
-    "HAVE_SYS_EPOLL_H": 1,
-    "HAVE_SYS_EVENTFD_H": 1,
-    "HAVE_SYS_INOTIFY_H": 1,
-    "HAVE_SYS_SELECT_H": 1,
-    "HAVE_SYS_SIGNALFD_H": 1
+    "HAVE_FLOOR": 1
   },
   "feature_flags": {
     "configure_args": []
@@ -59,20 +44,117 @@
   "dependencies": {
     "pkg_config": [],
     "system_libs": [
-      "-lrt",
-      "-lrt",
-      "-lrt",
-      "-lrt"
+      "-lm"
     ],
     "headers_needed": [],
     "missing": []
   },
   "quirks": [
     "libtool",
-    "LIBS=-lrt -lrt -lrt -lrt"
+    "LIBS=-lm"
   ],
   "outputs": [],
   "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "config.h:47:24: error: invalid suffix \"_\" on integer constant"
+  "diagnostic": "",
+  "deep_expansion": {
+    "configure_lines": 2496,
+    "leaked_macros": [],
+    "heredoc_openers": 21,
+    "heredoc_terminators": 21,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2020: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL",
+      "srcdir",
+      "prefix",
+      "exec_prefix",
+      "CC",
+      "CFLAGS",
+      "CPPFLAGS",
+      "LDFLAGS",
+      "LIBS",
+      "CXX",
+      "CXXFLAGS",
+      "CPP",
+      "DEFS",
+      "LIBOBJS",
+      "INSTALL"
+    ],
+    "failed_during_check": "checking for library containing floor... -lm",
+    "failure_tail": [
+      "checking for library containing floor... -lm",
+      "configure: creating Makefile",
+      "configure: creating config.h",
+      "configure: creating ./config.status"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 7,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "#include <$ac_hdr>",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func();\\nint main() { return $ac_func(); }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func();\\nint main() { return $ac_func(); }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func();\\nint main() { return $ac_func(); }",
+      "char floor ();\\nint main() { return floor (); }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "ok",
+    "real_configure_lines": 15228,
+    "real_first_error": "",
+    "classification": "OURS_BUG_MAKE"
+  },
+  "divergence": {
+    "stage": "make",
+    "ours_error": "",
+    "ours_error_context": [],
+    "ours_configure_lines": 2496,
+    "real_configure_lines": 15228,
+    "macros_ours_left_undefined": []
+  },
+  "receipt": {
+    "court_status": "partial",
+    "probe_trace": [
+      {
+        "name": "HAVE_CLOCK_SYSCALL",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_FLOOR",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      }
+    ],
+    "quirks_matched": [
+      "uses-libtool-old",
+      "uses-maintainer-mode",
+      "vendored-aclocal"
+    ],
+    "receipt_hash": "cc3c454812b998b064f1736b06cc750f75c6f9644f0848cfdc8618c5cc9782fa",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

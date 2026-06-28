@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "allinurl/goaccess",
   "source": {
     "url": "https://github.com/allinurl/goaccess",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.8",
+    "autoconf_rs": "autoconf-rs 0.1.11",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -46,5 +46,93 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1356: syntax error near unexpected token `to'"
+  "diagnostic": "./configure: line 1361: syntax error near unexpected token `to'",
+  "deep_expansion": {
+    "configure_lines": 3702,
+    "leaked_macros": [],
+    "heredoc_openers": 97,
+    "heredoc_terminators": 97,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1361,
+        "token": "to",
+        "source": "fi to select an",
+        "block": [
+          "1357:       CC=$ac_prog",
+          "1358:       break",
+          "1359:     fi",
+          "1360:   done",
+          "1361: fi to select an",
+          "1362: # empty default instead.",
+          "1363: : ${CFLAGS=\"\"}",
+          "1364: "
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 3206: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT"
+    ],
+    "failed_during_check": "",
+    "failure_tail": [
+      "./configure: line 1361: syntax error near unexpected token `to'",
+      "./configure: line 1361: `fi to select an'"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 106,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "char libintl_dgettext();\\nint main() { return libintl_dgettext(); }",
+      "char dgettext();\\nint main() { return dgettext(); }",
+      "char pthread_create();\\nint main() { return pthread_create(); }",
+      "#include <$ac_hdr>",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func();\\nint main() { return $ac_func(); }",
+      "char SSL_CTX_new();\\nint main() { return SSL_CTX_new(); }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "ok",
+    "real_configure_lines": 11009,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE"
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "line 1361: fi to select an (near `to`)",
+    "ours_error_context": [
+      "fi to select an"
+    ],
+    "ours_configure_lines": 3702,
+    "real_configure_lines": 11009,
+    "macros_ours_left_undefined": []
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-gettext",
+      "vendored-aclocal"
+    ],
+    "receipt_hash": "2773c3e2545a109ff7c723fda694935077c798e77c58dfa5bd682fd13b40a266",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

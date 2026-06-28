@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "BunsenLabs/plank",
   "source": {
     "url": "https://github.com/BunsenLabs/plank",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.8",
+    "autoconf_rs": "autoconf-rs 0.1.11",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,11 +26,11 @@
     {
       "step": "configure",
       "tool": "./configure",
-      "status": "ok"
+      "status": "fail"
     },
     {
-      "step": "make",
-      "tool": "make",
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
       "status": "fail"
     }
   ],
@@ -50,7 +50,82 @@
     "subdirs"
   ],
   "outputs": [],
-  "status": "MAKE_FAIL",
+  "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": ""
+  "diagnostic": "./configure: line 1462: GLIB_GSETTINGS: command not found",
+  "deep_expansion": {
+    "configure_lines": 1990,
+    "leaked_macros": [],
+    "heredoc_openers": 10,
+    "heredoc_terminators": 10,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PKG_CONFIG"
+    ],
+    "failed_during_check": "checking for cos in -lm... yes",
+    "failure_tail": [
+      "checking for cos in -lm... yes",
+      "./configure: line 1462: GLIB_GSETTINGS: command not found",
+      "configure: error: Vala must be built with --enable-vapigen"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 1,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "char _mwvalidcheckl();\\nint main() { return _mwvalidcheckl(); }",
+      "char cos();\\nint main() { return cos(); }",
+      "char cos();\\nint main() { return cos(); }",
+      "char XIBarrierReleasePointer();\\nint main() { return XIBarrierReleasePointer(); }",
+      "char XFixesDestroyPointerBarrier();\\nint main() { return XFixesDestroyPointerBarrier(); }",
+      "#include <$ac_hdr>"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "fail",
+    "real_configure": "skipped",
+    "real_make": "skipped",
+    "real_configure_lines": 0,
+    "real_first_error": "Can't exec \"intltoolize\": No such file or directory at /usr/share/autoconf/Autom4te/FileUtils.pm line 293.",
+    "classification": "OURS_BETTER"
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool",
+      "uses-pkg-config",
+      "uses-intltool",
+      "uses-subdir-objects",
+      "uses-maintainer-mode",
+      "has-m4-macro-dir",
+      "vendored-aclocal"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-subdir-objects",
+        "action": "--disable-dependency-tracking",
+        "verified": false
+      },
+      {
+        "id": "uses-maintainer-mode",
+        "action": "--disable-maintainer-mode",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "7ce013376826229435a725231a088a6b4ca9c70c0f0c2c61a569acc421b80cc1",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

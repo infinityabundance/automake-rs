@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "AegisEmu/AegisEmu",
   "source": {
     "url": "https://github.com/AegisEmu/AegisEmu",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.8",
+    "autoconf_rs": "autoconf-rs 0.1.11",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,6 +26,11 @@
     {
       "step": "configure",
       "tool": "./configure",
+      "status": "fail"
+    },
+    {
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
       "status": "fail"
     }
   ],
@@ -47,5 +52,101 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1372: syntax error near unexpected token `_ah_template_USE_EPOLL,'"
+  "diagnostic": "configure: error: Subversion not found",
+  "deep_expansion": {
+    "configure_lines": 3209,
+    "leaked_macros": [],
+    "heredoc_openers": 32,
+    "heredoc_terminators": 32,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2689: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL",
+      "srcdir",
+      "prefix",
+      "exec_prefix",
+      "CC",
+      "CFLAGS",
+      "CPPFLAGS",
+      "LDFLAGS",
+      "LIBS",
+      "CXX",
+      "CXXFLAGS",
+      "CPP",
+      "DEFS",
+      "LIBOBJS",
+      "INSTALL",
+      "PCRE_CFLAGS",
+      "POSTGRESQL_CFLAGS",
+      "POSTGRESQL_LDFLAGS",
+      "PTHREAD_CC",
+      "MYSQL_CFLAGS",
+      "LIB_EXPORT",
+      "MYSQL_VERSION",
+      "PTHREAD_LIBS",
+      "PTHREAD_CFLAGS"
+    ],
+    "failed_during_check": "checking endianness... big-endian",
+    "failure_tail": [
+      "checking endianness... big-endian",
+      "configure: error: Subversion not found"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 11,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "int main() { int x = 1; return *(char*)&x; }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar pthread_join();\\nint main() { return pthread_join(); }",
+      "char compress();\\nint main() { return compress(); }",
+      "char ftime ();\\nint main() { return ftime (); }",
+      "char SHA1_Init();\\nint main() { return SHA1_Init(); }",
+      "char SHA1_Init();\\nint main() { return SHA1_Init(); }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "fail",
+    "real_make": "skipped",
+    "real_configure_lines": 21143,
+    "real_first_error": "configure: error: Subversion not found",
+    "classification": "BOTH_CONFIGURE_FAIL"
+  },
+  "receipt": {
+    "court_status": "not_standalone",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool-old",
+      "uses-maintainer-mode",
+      "has-m4-macro-dir",
+      "vendored-aclocal",
+      "uses-ax-archive"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-maintainer-mode",
+        "action": "--disable-maintainer-mode",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "9b1e2700fe968e7a3321342ca953e7c699643cc7f6208188c454b461278951a7",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

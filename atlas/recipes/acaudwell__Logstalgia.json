@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "acaudwell/Logstalgia",
   "source": {
     "url": "https://github.com/acaudwell/Logstalgia",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.8",
+    "autoconf_rs": "autoconf-rs 0.1.11",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,6 +26,11 @@
     {
       "step": "configure",
       "tool": "./configure",
+      "status": "fail"
+    },
+    {
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
       "status": "fail"
     }
   ],
@@ -46,5 +51,114 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1417: syntax error near unexpected token `)'"
+  "diagnostic": "./configure: line 1420: syntax error near unexpected token `)'",
+  "deep_expansion": {
+    "configure_lines": 3469,
+    "leaked_macros": [],
+    "heredoc_openers": 33,
+    "heredoc_terminators": 33,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1420,
+        "token": ")",
+        "source": "*-darwin* )",
+        "block": [
+          "1416: ",
+          "1417:  # Precious variable GL_LIBS",
+          "1418: ",
+          "1419: ",
+          "1420:     *-darwin* ) ",
+          "1421:  ",
+          "1422:  if test \"x$with_xquartz_gl\" != \"xno\"; then",
+          "1423: :"
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2993: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT"
+    ],
+    "failed_during_check": "",
+    "failure_tail": [
+      "./configure: line 1420: syntax error near unexpected token `)'",
+      "./configure: line 1420: `    *-darwin* ) '"
+    ],
+    "conftest_corruption": [
+      "line 1480: # if defined(HAVE_WINDOWS_H) && defined( (ifdef/define eaten)",
+      "line 1482: # endif (ifdef/define eaten)",
+      "line 1483: # ifdef HAVE_GL_GL_H (ifdef/define eaten)",
+      "line 1485: # elif defined(HAVE_OPENGL_GL_H) (ifdef/define eaten)",
+      "line 1487: # else (ifdef/define eaten)",
+      "line 1489: # endif (ifdef/define eaten)",
+      "line 1543: # if defined(HAVE_WINDOWS_H) && defined( (ifdef/define eaten)",
+      "line 1545: # endif (ifdef/define eaten)",
+      "line 1546: # ifdef HAVE_GL_GL_H (ifdef/define eaten)",
+      "line 1548: # elif defined(HAVE_OPENGL_GL_H) (ifdef/define eaten)",
+      "line 1550: # else (ifdef/define eaten)",
+      "line 1552: # endif (ifdef/define eaten)",
+      "line 1706: # if defined(HAVE_WINDOWS_H) && defined( (ifdef/define eaten)",
+      "line 1708: # endif (ifdef/define eaten)",
+      "line 1709: # ifdef HAVE_GL_GLU_H (ifdef/define eaten)",
+      "line 1711: # elif defined(HAVE_OPENGL_GLU_H) (ifdef/define eaten)",
+      "line 1713: # else (ifdef/define eaten)",
+      "line 1715: # endif (ifdef/define eaten)",
+      "line 1765: # if defined(HAVE_WINDOWS_H) && defined( (ifdef/define eaten)",
+      "line 1767: # endif (ifdef/define eaten)"
+    ],
+    "conftest_directives_intact": 10,
+    "conftest_directives_mangled": 30,
+    "conftest_programs": [
+      "#include <$ac_hdr>",
+      "\\n# if defined(HAVE_WINDOWS_H) && defined(_WIN32)\\n#   include <windows.h>\\n# endif\\n# ifdef HAVE_GL_GL_H\\n#   include <GL/gl.h>\\n# elif defined(HAVE_OPENGL_GL_H)\\n#   include <OpenGL/gl.h>\\n# else\\n#   error no gl.h\\n# endif\\n",
+      "\\n# if defined(HAVE_WINDOWS_H) && defined(_WIN32)\\n#   include <windows.h>\\n# endif\\n# ifdef HAVE_GL_GL_H\\n#   include <GL/gl.h>\\n# elif defined(HAVE_OPENGL_GL_H)\\n#   include <OpenGL/gl.h>\\n# else\\n#   error no gl.h\\n# endif\\n",
+      "#include <$ac_hdr>",
+      "#include <$ac_hdr>",
+      "\\n# if defined(HAVE_WINDOWS_H) && defined(_WIN32)\\n#   include <windows.h>\\n# endif\\n# ifdef HAVE_GL_GLU_H\\n#   include <GL/glu.h>\\n# elif defined(HAVE_OPENGL_GLU_H)\\n#   include <OpenGL/glu.h>\\n# else\\n#   error no glu.h\\n# endif\\n"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "fail",
+    "real_make": "skipped",
+    "real_configure_lines": 9844,
+    "real_first_error": "configure: error: Could not link against boost_filesystem !",
+    "classification": "BOTH_CONFIGURE_FAIL"
+  },
+  "receipt": {
+    "court_status": "not_standalone",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-pkg-config",
+      "uses-subdir-objects",
+      "has-m4-macro-dir",
+      "vendored-aclocal",
+      "uses-ax-archive"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-subdir-objects",
+        "action": "--disable-dependency-tracking",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "9b1e2700fe968e7a3321342ca953e7c699643cc7f6208188c454b461278951a7",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

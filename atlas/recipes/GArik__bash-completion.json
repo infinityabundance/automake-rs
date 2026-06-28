@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "GArik/bash-completion",
   "source": {
     "url": "https://github.com/GArik/bash-completion",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.8",
+    "autoconf_rs": "autoconf-rs 0.1.11",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -31,7 +31,7 @@
     {
       "step": "make",
       "tool": "make",
-      "status": "ok"
+      "status": "fail"
     }
   ],
   "probe_results": {},
@@ -47,64 +47,88 @@
   "quirks": [
     "subdirs"
   ],
-  "outputs": [
-    {
-      "path": "depcomp",
-      "sha256": "16d184959f7532ce",
-      "kind": "executable"
-    },
-    {
-      "path": "missing",
-      "sha256": "4a4f76d45d999ca6",
-      "kind": "executable"
-    },
-    {
-      "path": "compile",
-      "sha256": "9277c97b212b37d2",
-      "kind": "executable"
-    },
-    {
-      "path": "configure",
-      "sha256": "c6779aac65ac5691",
-      "kind": "executable"
-    },
-    {
-      "path": "test/runInstall",
-      "sha256": "aa8a68e3d2c71324",
-      "kind": "executable"
-    },
-    {
-      "path": "test/runUnit",
-      "sha256": "db19c32b21915773",
-      "kind": "executable"
-    },
-    {
-      "path": "test/runCompletion",
-      "sha256": "c2d04562b8583668",
-      "kind": "executable"
-    },
-    {
-      "path": "test/runLint",
-      "sha256": "1b4cd5a176125f9c",
-      "kind": "executable"
-    },
-    {
-      "path": "test/generate",
-      "sha256": "0a7cfbcedbdc89a2",
-      "kind": "executable"
-    },
-    {
-      "path": "test/run",
-      "sha256": "e7fa66ffc18a4957",
-      "kind": "executable"
-    },
-    {
-      "path": "install-sh",
-      "sha256": "852947c4fef9cdc1",
-      "kind": "executable"
-    }
-  ],
-  "status": "FUNC_OK",
-  "verified": true,
-  "diagnostic": ""
+  "outputs": [],
+  "status": "MAKE_FAIL",
+  "verified": false,
+  "diagnostic": "",
+  "deep_expansion": {
+    "configure_lines": 2387,
+    "leaked_macros": [],
+    "heredoc_openers": 16,
+    "heredoc_terminators": 16,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 1911: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL",
+      "srcdir",
+      "prefix",
+      "exec_prefix",
+      "CC",
+      "CFLAGS",
+      "CPPFLAGS",
+      "LDFLAGS",
+      "LIBS",
+      "CXX",
+      "CXXFLAGS",
+      "CPP",
+      "DEFS",
+      "LIBOBJS",
+      "INSTALL",
+      "compatdir"
+    ],
+    "failed_during_check": "",
+    "failure_tail": [
+      "configure: creating bash-completion.pc",
+      "configure: creating bash-completion-config.cmake",
+      "configure: creating bash-completion-config-version.cmake",
+      "configure: creating ./config.status"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 0,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": []
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "ok",
+    "real_configure_lines": 3674,
+    "real_first_error": "",
+    "classification": "OURS_BUG_MAKE"
+  },
+  "divergence": {
+    "stage": "make",
+    "ours_error": "",
+    "ours_error_context": [],
+    "ours_configure_lines": 2387,
+    "real_configure_lines": 3674,
+    "macros_ours_left_undefined": []
+  },
+  "receipt": {
+    "court_status": "partial",
+    "probe_trace": [],
+    "quirks_matched": [
+      "vendored-aclocal"
+    ],
+    "receipt_hash": "669364662a5baae3128755acbdb4ce60d78c7cc5d6eb53bbab5c8e3b8eb436d0",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

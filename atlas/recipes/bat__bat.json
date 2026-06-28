@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "bat/bat",
   "source": {
     "url": "https://github.com/bat/bat",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.8",
+    "autoconf_rs": "autoconf-rs 0.1.11",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -36,12 +36,8 @@
   "dependencies": {
     "pkg_config": [],
     "system_libs": [],
-    "headers_needed": [
-      "confdefs.h"
-    ],
-    "missing": [
-      "confdefs.h"
-    ]
+    "headers_needed": [],
+    "missing": []
   },
   "quirks": [
     "autoconf-archive-macros",
@@ -51,5 +47,111 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1376: debug: command not found"
+  "diagnostic": "./configure: line 1885: syntax error near unexpected token `)'",
+  "deep_expansion": {
+    "configure_lines": 3192,
+    "leaked_macros": [],
+    "heredoc_openers": 24,
+    "heredoc_terminators": 24,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1885,
+        "token": ")",
+        "source": "exit 1)",
+        "block": [
+          "1881: ",
+          "1882: # Check --enable-roostats option",
+          "1883: ",
+          "1884: ",
+          "1885: exit 1)",
+          "1886: ",
+          "1887: ",
+          "1888: #"
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2716: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL",
+      "srcdir",
+      "prefix",
+      "exec_prefix",
+      "CC",
+      "CFLAGS",
+      "CPPFLAGS",
+      "LDFLAGS",
+      "LIBS",
+      "CXX",
+      "CXXFLAGS",
+      "CPP",
+      "DEFS",
+      "LIBOBJS",
+      "INSTALL",
+      "BAT_MANUAL_PDF",
+      "SHLIBEXT",
+      "ROOTLIBDIR",
+      "PKG_LIBS",
+      "ROOTETCDIR",
+      "CUBAINCLUDE",
+      "ROOTLIBDIRFLAGS",
+      "ROOTCFLAGS",
+      "CUBALIB"
+    ],
+    "failed_during_check": "checking for utime... no",
+    "failure_tail": [
+      "checking for utime... no",
+      "for OpenMP flag of _AC_LANG compiler... ./configure: line 1531: test: =: unary o",
+      "compiling without cuba",
+      "./configure: line 1885: syntax error near unexpected token `)'",
+      "./configure: line 1885: `exit 1)'"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 6,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar utime();\\nint main() { return utime(); }",
+      "\\n@%:@include <omp.h>\\n\\nstatic void\\nparallel_fill(int * data, int n)\\n{\\nint i;\\n@%:@pragma omp parallel for\\nfor (i = 0; i < n; ++i)\\ndata[i] = i;\\n}\\n",
+      "\\n@%:@include <omp.h>\\n\\nstatic void\\nparallel_fill(int * data, int n)\\n{\\nint i;\\n@%:@pragma omp parallel for\\nfor (i = 0; i < n; ++i)\\ndata[i] = i;\\n}\\n",
+      "#include <$ac_hdr>",
+      "\\n\\n#include <cuba.h>\\nint integrand(const int * ndim, const double xx[], const int * ncomp, double\\n\\nint main()\\n{\\nint ndim, ncomp, nvec, flags, seed, mineval, maxeval, nnew;\\ndouble epsrel, epsabs, flatness;\\nint * nregions, *fail, *neval;\\ndouble * integral, *error, *prob;\\nconst char * statefile = \"\";",
+      "\\n\\n#include <cuba.h>\\nint integrand(const int * ndim, const double xx[], const int * ncomp, double\\n\\nint main()\\n{\\nint ndim, ncomp, nvec, flags, seed, mineval, maxeval, nnew;\\ndouble epsrel, epsabs, flatness;\\nint *nregions, *fail, *neval;\\ndouble *integral, *error, *prob;\\nconst char *statefile = \"\";"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "fail",
+    "real_make": "skipped",
+    "real_configure_lines": 20986,
+    "real_first_error": "configure: error: Need rootcling (ROOT-6) or rlibmap (ROOT-5).",
+    "classification": "BOTH_CONFIGURE_FAIL"
+  },
+  "receipt": {
+    "court_status": "not_standalone",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool",
+      "vendored-aclocal",
+      "uses-ax-archive"
+    ],
+    "receipt_hash": "9b1e2700fe968e7a3321342ca953e7c699643cc7f6208188c454b461278951a7",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

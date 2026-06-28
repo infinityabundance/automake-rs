@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "claesenm/EnsembleSVM",
   "source": {
     "url": "https://github.com/claesenm/EnsembleSVM",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.8",
+    "autoconf_rs": "autoconf-rs 0.1.11",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,11 +26,11 @@
     {
       "step": "configure",
       "tool": "./configure",
-      "status": "ok"
+      "status": "fail"
     },
     {
-      "step": "make",
-      "tool": "make",
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
       "status": "fail"
     }
   ],
@@ -50,7 +50,104 @@
     "subdirs"
   ],
   "outputs": [],
-  "status": "MAKE_FAIL",
+  "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": ""
+  "diagnostic": "./configure: line 1749: syntax error near unexpected token `fi'",
+  "deep_expansion": {
+    "configure_lines": 2140,
+    "leaked_macros": [],
+    "heredoc_openers": 19,
+    "heredoc_terminators": 19,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1749,
+        "token": "fi",
+        "source": "fi",
+        "block": [
+          "1745:         done",
+          "1746:         printf '%s\\n' \"$attr_name\"",
+          "1747:         if test \"$attr_name\" != PTHREAD_CREATE_JOINABLE; then",
+          "1748:             # Define unquoted: PTHREAD_CREATE_JOINABLE",
+          "1749:         fi",
+          "1750: ",
+          "1751:         printf %s \"checking if more special flags are required for pthreads.",
+          "1752:         flag=no"
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "CXX",
+      "CXXFLAGS"
+    ],
+    "failed_during_check": "checking for C++11 support... yes",
+    "failure_tail": [
+      "checking for C++11 support... yes",
+      "./configure: line 1749: syntax error near unexpected token `fi'",
+      "./configure: line 1749: `        fi'"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 20,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar malloc();\\nint main() { return malloc(); }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar realloc();\\nint main() { return realloc(); }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar strtod();\\nint main() { return strtod(); }",
+      "#include <$ac_hdr>",
+      "#include <stdbool.h>",
+      "inline int foo() { return 0; }\\nint main() { return foo(); }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "fail",
+    "real_configure_lines": 21885,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE"
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "line 1749: fi (near `fi`)",
+    "ours_error_context": [
+      "fi"
+    ],
+    "ours_configure_lines": 2140,
+    "real_configure_lines": 21885,
+    "macros_ours_left_undefined": []
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool",
+      "uses-libtool-old",
+      "uses-subdir-objects",
+      "has-m4-macro-dir",
+      "vendored-aclocal",
+      "uses-ax-archive",
+      "uses-pthread-check"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-subdir-objects",
+        "action": "--disable-dependency-tracking",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "2773c3e2545a109ff7c723fda694935077c798e77c58dfa5bd682fd13b40a266",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

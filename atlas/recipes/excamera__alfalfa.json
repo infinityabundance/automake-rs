@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "excamera/alfalfa",
   "source": {
     "url": "https://github.com/excamera/alfalfa",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.8",
+    "autoconf_rs": "autoconf-rs 0.1.11",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -36,12 +36,8 @@
   "dependencies": {
     "pkg_config": [],
     "system_libs": [],
-    "headers_needed": [
-      "confdefs.h"
-    ],
-    "missing": [
-      "confdefs.h"
-    ]
+    "headers_needed": [],
+    "missing": []
   },
   "quirks": [
     "libtool",
@@ -51,5 +47,70 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "configure: error: cannot find perl"
+  "diagnostic": "configure: error: Unable to find libjpeg.",
+  "deep_expansion": {
+    "configure_lines": 2738,
+    "leaked_macros": [],
+    "heredoc_openers": 29,
+    "heredoc_terminators": 29,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2262: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT"
+    ],
+    "failed_during_check": "checking for library containing jpeg_CreateDecompress... no",
+    "failure_tail": [
+      "checking for library containing jpeg_CreateDecompress... no",
+      "configure: error: Unable to find libjpeg."
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 20,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "char jpeg_CreateDecompress ();\\nint main() { return jpeg_CreateDecompress (); }",
+      "#include <$ac_hdr>",
+      "#include <$ac_hdr>",
+      "inline int foo() { return 0; }\\nint main() { return foo(); }",
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { int16_t x; return 0; }",
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { int32_t x; return 0; }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "fail",
+    "real_make": "skipped",
+    "real_configure_lines": 21457,
+    "real_first_error": "configure: error: yasm or nasm required for assembly; ASM functions are disabled. Install one of those to use SSE2 in th",
+    "classification": "BOTH_CONFIGURE_FAIL"
+  },
+  "receipt": {
+    "court_status": "not_standalone",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool",
+      "uses-pkg-config",
+      "has-m4-macro-dir",
+      "vendored-aclocal",
+      "perl-in-configure"
+    ],
+    "receipt_hash": "9b1e2700fe968e7a3321342ca953e7c699643cc7f6208188c454b461278951a7",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

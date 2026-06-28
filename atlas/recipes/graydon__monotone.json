@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "graydon/monotone",
   "source": {
     "url": "https://github.com/graydon/monotone",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.8",
+    "autoconf_rs": "autoconf-rs 0.1.11",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -46,5 +46,138 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1356: syntax error near unexpected token `is'"
+  "diagnostic": "./configure: line 1361: syntax error near unexpected token `is'",
+  "deep_expansion": {
+    "configure_lines": 3923,
+    "leaked_macros": [
+      {
+        "name": "AC_OUTPUT_COMMANDS",
+        "line": 1636,
+        "context": "AC_OUTPUT_COMMANDS("
+      },
+      {
+        "name": "_AC_LANG_DISPATCH",
+        "line": 2059,
+        "context": "_AC_LANG_DISPATCH(AC_LANG_BOOL_COMPILE_TRY, _AC_LANG, @%:@include <limit"
+      },
+      {
+        "name": "_AC_LANG_DISPATCH",
+        "line": 2079,
+        "context": "_AC_LANG_DISPATCH(AC_LANG_BOOL_COMPILE_TRY, _AC_LANG, ,((int)(char)-1) <"
+      },
+      {
+        "name": "AC_INCLUDES_DEFAULT",
+        "line": 2117,
+        "context": "AC_INCLUDES_DEFAULT()"
+      },
+      {
+        "name": "AC_INCLUDES_DEFAULT",
+        "line": 2147,
+        "context": "AC_INCLUDES_DEFAULT()"
+      },
+      {
+        "name": "AC_INCLUDES_DEFAULT",
+        "line": 2177,
+        "context": "AC_INCLUDES_DEFAULT()"
+      },
+      {
+        "name": "AC_INCLUDES_DEFAULT",
+        "line": 2220,
+        "context": "AC_INCLUDES_DEFAULT()"
+      }
+    ],
+    "heredoc_openers": 63,
+    "heredoc_terminators": 63,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1361,
+        "token": "is",
+        "source": "fi is implied by  and in any case has",
+        "block": [
+          "1357:       CC=$ac_prog",
+          "1358:       break",
+          "1359:     fi",
+          "1360:   done",
+          "1361: fi is implied by  and in any case has",
+          "1362: ",
+          "1363: ",
+          "1364: "
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 3447: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PKG_CONFIG",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT"
+    ],
+    "failed_during_check": "",
+    "failure_tail": [
+      "./configure: line 1361: syntax error near unexpected token `is'",
+      "./configure: line 1361: `fi is implied by  and in any case has'"
+    ],
+    "conftest_corruption": [
+      "line 1845: # Note that we can't use cat confdefs.h  (ifdef/define eaten)",
+      "line 1855: # redirect standard input.  Instead, we  (ifdef/define eaten)"
+    ],
+    "conftest_directives_intact": 68,
+    "conftest_directives_mangled": 2,
+    "conftest_programs": [
+      "int main() { const int x = 1; return x-1; }",
+      "inline int foo() { return 0; }\\nint main() { return foo(); }",
+      "\\nint main() { (void)1 ; return 0; }",
+      "#include <$ac_hdr>",
+      "#include <stdbool.h>",
+      "#include <$ac_hdr>"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "fail",
+    "real_configure_lines": 12800,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE"
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "line 1361: fi is implied by  and in any case has (near `is`)",
+    "ours_error_context": [
+      "fi is implied by  and in any case has"
+    ],
+    "ours_configure_lines": 3923,
+    "real_configure_lines": 12800,
+    "macros_ours_left_undefined": [
+      "AC_INCLUDES_DEFAULT",
+      "AC_OUTPUT_COMMANDS",
+      "_AC_LANG_DISPATCH"
+    ]
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-gettext",
+      "has-m4-macro-dir",
+      "vendored-aclocal"
+    ],
+    "receipt_hash": "2773c3e2545a109ff7c723fda694935077c798e77c58dfa5bd682fd13b40a266",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

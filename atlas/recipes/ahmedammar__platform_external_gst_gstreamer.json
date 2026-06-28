@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "ahmedammar/platform_external_gst_gstreamer",
   "source": {
     "url": "https://github.com/ahmedammar/platform_external_gst_gstreamer",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.8",
+    "autoconf_rs": "autoconf-rs 0.1.11",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,6 +26,11 @@
     {
       "step": "configure",
       "tool": "./configure",
+      "status": "fail"
+    },
+    {
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
       "status": "fail"
     }
   ],
@@ -47,5 +52,151 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1334: AG_GST_INIT: command not found"
+  "diagnostic": "./configure: line 1339: AG_GST_INIT: command not found",
+  "deep_expansion": {
+    "configure_lines": 3477,
+    "leaked_macros": [
+      {
+        "name": "AS_NANO",
+        "line": 1345,
+        "context": "AS_NANO(GST_GIT=\"no\", GST_GIT=\"yes\")"
+      },
+      {
+        "name": "AS_LIBTOOL",
+        "line": 1401,
+        "context": "AS_LIBTOOL(GST, 29, 0, 29)"
+      },
+      {
+        "name": "AS_PATH_PYTHON",
+        "line": 1583,
+        "context": "AS_PATH_PYTHON(2.1)"
+      },
+      {
+        "name": "AS_AC_EXPAND",
+        "line": 2174,
+        "context": "AS_AC_EXPAND(LIBDIR, $libdir)"
+      },
+      {
+        "name": "AS_AC_EXPAND",
+        "line": 2176,
+        "context": "AS_AC_EXPAND(DATADIR, $datadir)"
+      },
+      {
+        "name": "AS_AC_EXPAND",
+        "line": 2238,
+        "context": "AS_AC_EXPAND(GST_PLUGIN_SCANNER_INSTALLED,${libexecdir}/gstreamer-$GST_M"
+      }
+    ],
+    "heredoc_openers": 51,
+    "heredoc_terminators": 51,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1345,
+        "token": "GST_GIT=\"no\",",
+        "source": "AS_NANO(GST_GIT=\"no\", GST_GIT=\"yes\")",
+        "block": [
+          "1341: ",
+          "1342: ",
+          "1343: AS_VERSION",
+          "1344: ",
+          "1345: AS_NANO(GST_GIT=\"no\", GST_GIT=\"yes\")",
+          "1346: ",
+          "1347: # AC_CONFIG_SRCDIR: record the source tree and sanity-check the unique file ",
+          "1348: test \"x$srcdir\" = x && srcdir=."
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2959: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL",
+      "srcdir",
+      "prefix",
+      "exec_prefix",
+      "CC",
+      "CFLAGS",
+      "CPPFLAGS",
+      "LDFLAGS",
+      "LIBS",
+      "CXX",
+      "CXXFLAGS",
+      "CPP",
+      "DEFS",
+      "LIBOBJS",
+      "INSTALL",
+      "AM_DEFAULT_VERBOSITY",
+      "GST_OPTION_CXXFLAGS",
+      "ENABLE_SUBUNIT",
+      "GST_LIB_LDFLAGS",
+      "PROFILE_CFLAGS",
+      "GST_ALL_LDFLAGS",
+      "GST_HAVE_GLIB_2_8_DEFINE",
+      "GST_ALL_CXXFLAGS",
+      "ACLOCAL_AMFLAGS"
+    ],
+    "failed_during_check": "",
+    "failure_tail": [
+      "./configure: line 1339: AG_GST_INIT: command not found",
+      "./configure: line 1343: AS_VERSION: command not found",
+      "./configure: line 1345: syntax error near unexpected token `GST_GIT=\"no\",'",
+      "./configure: line 1345: `AS_NANO(GST_GIT=\"no\", GST_GIT=\"yes\")'"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 58,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "#include <sys/types.h>\\nint main() { return sizeof(off_t) >= 8 ? 0 : 1; }",
+      "#include <$ac_hdr>",
+      "#include <$ac_hdr>",
+      "#include <$ac_hdr>",
+      "#include <$ac_hdr>",
+      "#include <$ac_hdr>"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "fail",
+    "real_configure": "skipped",
+    "real_make": "skipped",
+    "real_configure_lines": 0,
+    "real_first_error": "aclocal: error: couldn't open directory 'common/m4': No such file or directory",
+    "classification": "OURS_BETTER"
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-pkg-config",
+      "uses-gettext",
+      "uses-maintainer-mode",
+      "has-m4-macro-dir",
+      "vendored-aclocal",
+      "perl-in-configure"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-maintainer-mode",
+        "action": "--disable-maintainer-mode",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "7ce013376826229435a725231a088a6b4ca9c70c0f0c2c61a569acc421b80cc1",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

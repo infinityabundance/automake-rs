@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "AdolfVonKleist/Phonetisaurus",
   "source": {
     "url": "https://github.com/AdolfVonKleist/Phonetisaurus",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.8",
+    "autoconf_rs": "autoconf-rs 0.1.11",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,11 +26,11 @@
     {
       "step": "configure",
       "tool": "./configure",
-      "status": "ok"
+      "status": "fail"
     },
     {
-      "step": "make",
-      "tool": "make",
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
       "status": "fail"
     }
   ],
@@ -39,7 +39,9 @@
     "configure_args": []
   },
   "dependencies": {
-    "pkg_config": [],
+    "pkg_config": [
+      "./configure: line 1390: `   AX_PYTHON_DEVEL(>= '$PYTHON_VERSION')'"
+    ],
     "system_libs": [],
     "headers_needed": [],
     "missing": []
@@ -49,7 +51,107 @@
     "libtool"
   ],
   "outputs": [],
-  "status": "MAKE_FAIL",
+  "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": ""
+  "diagnostic": "./configure: line 1390: syntax error near unexpected token `>'",
+  "deep_expansion": {
+    "configure_lines": 1749,
+    "leaked_macros": [
+      {
+        "name": "AX_PYTHON_DEVEL",
+        "line": 1390,
+        "context": "AX_PYTHON_DEVEL(>= '$PYTHON_VERSION')"
+      },
+      {
+        "name": "AC_CHECK_MATH_FUNC",
+        "line": 1596,
+        "context": "AC_CHECK_MATH_FUNC(exp10)"
+      },
+      {
+        "name": "AX_OPENMP",
+        "line": 1719,
+        "context": "AX_OPENMP(AC_DEFINE(HAVE_OPENMP,1,[Define if OpenMP is enabled]) have_op"
+      }
+    ],
+    "heredoc_openers": 22,
+    "heredoc_terminators": 22,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1390,
+        "token": ">",
+        "source": "AX_PYTHON_DEVEL(>= '$PYTHON_VERSION')",
+        "block": [
+          "1386: ",
+          "1387: if test x\"$PYTHON\" != x && test \"$PYTHON\" != \":\"; then",
+          "1388:    PYTHON_CPPFLAGS=",
+          "1389:    PYTHON_LIBS=",
+          "1390:    AX_PYTHON_DEVEL(>= '$PYTHON_VERSION')",
+          "1391: fi",
+          "1392: ",
+          "1393: "
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "CXX",
+      "CXXFLAGS"
+    ],
+    "failed_during_check": "",
+    "failure_tail": [
+      "./configure: line 1390: syntax error near unexpected token `>'",
+      "./configure: line 1390: `   AX_PYTHON_DEVEL(>= '$PYTHON_VERSION')'"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 18,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "char getgid();\\nint main() { return getgid(); }",
+      "char dlopen();\\nint main() { return dlopen(); }",
+      "char cos();\\nint main() { return cos(); }",
+      "char pthread_mutex_init();\\nint main() { return pthread_mutex_init(); }",
+      "#include <$ac_hdr>",
+      "inline int foo() { return 0; }\\nint main() { return foo(); }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "fail",
+    "real_configure": "skipped",
+    "real_make": "skipped",
+    "real_configure_lines": 0,
+    "real_first_error": "configure.ac:71: error: possibly undefined macro: AC_CHECK_MATH_FUNC",
+    "classification": "OURS_BETTER"
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool",
+      "uses-python",
+      "uses-maintainer-mode",
+      "vendored-aclocal",
+      "uses-ax-archive"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-maintainer-mode",
+        "action": "--disable-maintainer-mode",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "7ce013376826229435a725231a088a6b4ca9c70c0f0c2c61a569acc421b80cc1",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

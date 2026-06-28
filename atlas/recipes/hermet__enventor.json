@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "hermet/enventor",
   "source": {
     "url": "https://github.com/hermet/enventor",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.8",
+    "autoconf_rs": "autoconf-rs 0.1.11",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -34,14 +34,12 @@
     "configure_args": []
   },
   "dependencies": {
-    "pkg_config": [],
-    "system_libs": [],
-    "headers_needed": [
-      "confdefs.h"
+    "pkg_config": [
+      "checking for  eo >= 1.18.0 efl >= 1.18.0 eina >= 1.18.0 eet >= 1.18.0 elementary"
     ],
-    "missing": [
-      "confdefs.h"
-    ]
+    "system_libs": [],
+    "headers_needed": [],
+    "missing": []
   },
   "quirks": [
     "libtool",
@@ -52,5 +50,94 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1443: AM_PROG_AS: command not found"
+  "diagnostic": "./configure: line 1531: syntax error near unexpected token `eet-eet,'",
+  "deep_expansion": {
+    "configure_lines": 2613,
+    "leaked_macros": [
+      {
+        "name": "m4_translit",
+        "line": 1531,
+        "context": "m4_translit(eet-eet, -A-Z, _a-z)=${_efl_with_binary}"
+      },
+      {
+        "name": "m4_translit",
+        "line": 1546,
+        "context": "m4_translit(edje-cc, -A-Z, _a-z)=${_efl_with_binary}"
+      }
+    ],
+    "heredoc_openers": 17,
+    "heredoc_terminators": 17,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1531,
+        "token": "eet-eet,",
+        "source": "m4_translit(eet-eet, -A-Z, _a-z)=${_efl_with_binary}",
+        "block": [
+          "1527: ",
+          "1528: # Check --with-eet-eet option",
+          "1529: ",
+          "1530: ",
+          "1531: m4_translit(eet-eet, -A-Z, _a-z)=${_efl_with_binary}",
+          "1532: printf '%s\\n' \"configure:  set to ${_efl_with_binary}m4_translit(eet-eet, -A",
+          "1533: ",
+          "1534: with_binary_m4_defn(DOWN)=${_efl_with_binary}"
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2137: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT"
+    ],
+    "failed_during_check": "checking for  eo >= 1.18.0 efl >= 1.18.0 eina >= 1.18.0 eet >= 1.18.0 elementary",
+    "failure_tail": [
+      "checking for  eo >= 1.18.0 efl >= 1.18.0 eina >= 1.18.0 eet >= 1.18.0 elementary",
+      "./configure: line 1531: syntax error near unexpected token `eet-eet,'",
+      "./configure: line 1531: `m4_translit(eet-eet, -A-Z, _a-z)=${_efl_with_binary}'"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 0,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "int main(){}"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "fail",
+    "real_make": "skipped",
+    "real_configure_lines": 18415,
+    "real_first_error": "configure: error: Package requirements ( eo >= 1.18.0 efl >= 1.18.0 eina >= 1.18.0 eet >= 1.18.0 elementary >= 1.18.0 ev",
+    "classification": "BOTH_CONFIGURE_FAIL"
+  },
+  "receipt": {
+    "court_status": "not_standalone",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool",
+      "uses-libtool-old",
+      "uses-pkg-config",
+      "uses-gettext",
+      "has-m4-macro-dir",
+      "vendored-aclocal"
+    ],
+    "receipt_hash": "9b1e2700fe968e7a3321342ca953e7c699643cc7f6208188c454b461278951a7",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

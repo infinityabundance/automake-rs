@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "godsflaw/xor_toolkit",
   "source": {
     "url": "https://github.com/godsflaw/xor_toolkit",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.8",
+    "autoconf_rs": "autoconf-rs 0.1.11",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -31,85 +31,95 @@
     {
       "step": "make",
       "tool": "make",
-      "status": "ok"
+      "status": "fail"
     }
   ],
-  "probe_results": {
-    "HAVE_DMALLOC_H": 1,
-    "HAVE_ERRNO_H": 1,
-    "HAVE_FCNTL_H": 1,
-    "HAVE_STDIO_H": 1,
-    "HAVE_STDLIB_H": 1,
-    "HAVE_STRING_H": 1,
-    "HAVE_SYS_STAT_H": 1,
-    "HAVE_SYS_TYPES_H": 1,
-    "HAVE_UNISTD_H": 1
-  },
+  "probe_results": {},
   "feature_flags": {
     "configure_args": []
   },
   "dependencies": {
     "pkg_config": [],
     "system_libs": [],
-    "headers_needed": [
-      "confdefs.h"
-    ],
-    "missing": [
-      "confdefs.h"
-    ]
+    "headers_needed": [],
+    "missing": []
   },
   "quirks": [
     "libtool",
     "subdirs"
   ],
-  "outputs": [
-    {
-      "path": "mkinstalldirs",
-      "sha256": "83cea13a5eb25b44",
-      "kind": "executable"
-    },
-    {
-      "path": "src/xor_toolkit",
-      "sha256": "fe2d8bce5b62a42a",
-      "kind": "executable"
-    },
-    {
-      "path": "depcomp",
-      "sha256": "62a491921ac62718",
-      "kind": "executable"
-    },
-    {
-      "path": "missing",
-      "sha256": "4a4f76d45d999ca6",
-      "kind": "executable"
-    },
-    {
-      "path": "compile",
-      "sha256": "227f04d59a811333",
-      "kind": "executable"
-    },
-    {
-      "path": "libtool",
-      "sha256": "1c6c3d50a729eb8e",
-      "kind": "executable"
-    },
-    {
-      "path": "bootstrap",
-      "sha256": "7478dfaa8481fc6d",
-      "kind": "executable"
-    },
-    {
-      "path": "configure",
-      "sha256": "896cfd1ab54efdb3",
-      "kind": "executable"
-    },
-    {
-      "path": "install-sh",
-      "sha256": "852947c4fef9cdc1",
-      "kind": "executable"
-    }
-  ],
-  "status": "FUNC_OK",
-  "verified": true,
-  "diagnostic": ""
+  "outputs": [],
+  "status": "MAKE_FAIL",
+  "verified": false,
+  "diagnostic": "",
+  "deep_expansion": {
+    "configure_lines": 2450,
+    "leaked_macros": [],
+    "heredoc_openers": 19,
+    "heredoc_terminators": 19,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 1974: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT"
+    ],
+    "failed_during_check": "checking for malloc... yes",
+    "failure_tail": [
+      "checking for malloc... yes",
+      "configure: creating Makefile",
+      "configure: creating src/Makefile",
+      "configure: creating config.h",
+      "configure: creating ./config.status"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 3,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "#include <$ac_hdr>",
+      "int main() { const int x = 1; return x-1; }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar malloc();\\nint main() { return malloc(); }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "ok",
+    "real_configure_lines": 15216,
+    "real_first_error": "",
+    "classification": "OURS_BUG_MAKE"
+  },
+  "divergence": {
+    "stage": "make",
+    "ours_error": "",
+    "ours_error_context": [],
+    "ours_configure_lines": 2450,
+    "real_configure_lines": 15216,
+    "macros_ours_left_undefined": []
+  },
+  "receipt": {
+    "court_status": "partial",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool-old",
+      "vendored-aclocal"
+    ],
+    "receipt_hash": "669364662a5baae3128755acbdb4ce60d78c7cc5d6eb53bbab5c8e3b8eb436d0",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

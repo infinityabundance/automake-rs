@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "commiyou/iniparser",
   "source": {
     "url": "https://github.com/commiyou/iniparser",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.8",
+    "autoconf_rs": "autoconf-rs 0.1.11",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -31,7 +31,7 @@
     {
       "step": "make",
       "tool": "make",
-      "status": "ok"
+      "status": "fail"
     }
   ],
   "probe_results": {},
@@ -41,47 +41,82 @@
   "dependencies": {
     "pkg_config": [],
     "system_libs": [],
-    "headers_needed": [
-      "confdefs.h"
-    ],
-    "missing": [
-      "confdefs.h"
-    ]
+    "headers_needed": [],
+    "missing": []
   },
   "quirks": [],
-  "outputs": [
-    {
-      "path": "depcomp",
-      "sha256": "16d184959f7532ce",
-      "kind": "executable"
-    },
-    {
-      "path": "missing",
-      "sha256": "4a4f76d45d999ca6",
-      "kind": "executable"
-    },
-    {
-      "path": "compile",
-      "sha256": "9277c97b212b37d2",
-      "kind": "executable"
-    },
-    {
-      "path": "configure",
-      "sha256": "bc07190018f83515",
-      "kind": "executable"
-    },
-    {
-      "path": "iniparser",
-      "sha256": "10d4f5d98e09757b",
-      "kind": "executable"
-    },
-    {
-      "path": "install-sh",
-      "sha256": "852947c4fef9cdc1",
-      "kind": "executable"
-    }
-  ],
-  "status": "FUNC_OK",
-  "verified": true,
-  "diagnostic": ""
+  "outputs": [],
+  "status": "MAKE_FAIL",
+  "verified": false,
+  "diagnostic": "",
+  "deep_expansion": {
+    "configure_lines": 2470,
+    "leaked_macros": [],
+    "heredoc_openers": 21,
+    "heredoc_terminators": 21,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 1994: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT"
+    ],
+    "failed_during_check": "checking for uint8_t... yes",
+    "failure_tail": [
+      "checking for uint8_t... yes",
+      "configure: creating Makefile",
+      "configure: creating config.h",
+      "configure: creating ./config.status"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 8,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "inline int foo() { return 0; }\\nint main() { return foo(); }",
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { size_t x; return 0; }",
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { uint16_t x; return 0; }",
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { uint32_t x; return 0; }",
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { uint8_t x; return 0; }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "ok",
+    "real_configure_lines": 6801,
+    "real_first_error": "",
+    "classification": "OURS_BUG_MAKE"
+  },
+  "divergence": {
+    "stage": "make",
+    "ours_error": "",
+    "ours_error_context": [],
+    "ours_configure_lines": 2470,
+    "real_configure_lines": 6801,
+    "macros_ours_left_undefined": []
+  },
+  "receipt": {
+    "court_status": "partial",
+    "probe_trace": [],
+    "quirks_matched": [
+      "vendored-aclocal"
+    ],
+    "receipt_hash": "669364662a5baae3128755acbdb4ce60d78c7cc5d6eb53bbab5c8e3b8eb436d0",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "google/hiba",
   "source": {
     "url": "https://github.com/google/hiba",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.8",
+    "autoconf_rs": "autoconf-rs 0.1.11",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -36,12 +36,8 @@
   "dependencies": {
     "pkg_config": [],
     "system_libs": [],
-    "headers_needed": [
-      "confdefs.h"
-    ],
-    "missing": [
-      "confdefs.h"
-    ]
+    "headers_needed": [],
+    "missing": []
   },
   "quirks": [
     "libtool"
@@ -49,5 +45,90 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "configure: error: no"
+  "diagnostic": "./configure: line 1537: syntax error near unexpected token `newline'",
+  "deep_expansion": {
+    "configure_lines": 2954,
+    "leaked_macros": [
+      {
+        "name": "AC_CHECK_DECL",
+        "line": 1537,
+        "context": "AC_CHECK_DECL("
+      }
+    ],
+    "heredoc_openers": 37,
+    "heredoc_terminators": 37,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1537,
+        "token": "newline",
+        "source": "AC_CHECK_DECL(",
+        "block": [
+          "1533: fi",
+          "1534: LDFLAGS=\"$save_LDFLAGS\"",
+          "1535: ",
+          "1536: # Check for definition of max hostname length",
+          "1537: AC_CHECK_DECL(",
+          "1538: \tHOST_NAME_MAX, , AC_DEFINE([HOST_NAME_MAX], [64], [",
+          "1539: \t\tMaximum supported hostname size if not already defined by OS.",
+          "1540: \t]), #include <limits.h>,"
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2464: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT"
+    ],
+    "failed_during_check": "checking whether linker supports hardening options... yes",
+    "failure_tail": [
+      "checking whether linker supports hardening options... yes",
+      "./configure: line 1537: syntax error near unexpected token `newline'",
+      "./configure: line 1537: `AC_CHECK_DECL('"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 12,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "\\nint main() {  ; return 0; }",
+      "\\nint main() {  ; return 0; }",
+      "\\nint main() {  ; return 0; }",
+      "\\nint main() {  ; return 0; }",
+      "\\nint main() {  ; return 0; }",
+      "\\nint main() {  ; return 0; }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "fail",
+    "real_make": "skipped",
+    "real_configure_lines": 15496,
+    "real_first_error": "configure: error:",
+    "classification": "BOTH_CONFIGURE_FAIL"
+  },
+  "receipt": {
+    "court_status": "not_standalone",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool",
+      "vendored-aclocal"
+    ],
+    "receipt_hash": "9b1e2700fe968e7a3321342ca953e7c699643cc7f6208188c454b461278951a7",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

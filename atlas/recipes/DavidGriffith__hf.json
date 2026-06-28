@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "DavidGriffith/hf",
   "source": {
     "url": "https://github.com/DavidGriffith/hf",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.8",
+    "autoconf_rs": "autoconf-rs 0.1.11",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -36,12 +36,8 @@
   "dependencies": {
     "pkg_config": [],
     "system_libs": [],
-    "headers_needed": [
-      "confdefs.h"
-    ],
-    "missing": [
-      "confdefs.h"
-    ]
+    "headers_needed": [],
+    "missing": []
   },
   "quirks": [
     "subdirs"
@@ -49,5 +45,94 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1718: syntax error near unexpected token `1.2.0,,'"
+  "diagnostic": "./configure: line 1735: syntax error near unexpected token `1.2.0,,'",
+  "deep_expansion": {
+    "configure_lines": 2795,
+    "leaked_macros": [
+      {
+        "name": "AM_PATH_GTK",
+        "line": 1735,
+        "context": "AM_PATH_GTK(1.2.0,,"
+      },
+      {
+        "name": "AC_MSG_ERROR",
+        "line": 1736,
+        "context": "AC_MSG_ERROR(Cannot find GTK: Is gtk-config in path?))"
+      }
+    ],
+    "heredoc_openers": 45,
+    "heredoc_terminators": 45,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1735,
+        "token": "1.2.0,,",
+        "source": "AM_PATH_GTK(1.2.0,,",
+        "block": [
+          "1731: ",
+          "1732: ",
+          "1733: ",
+          "1734: ",
+          "1735: AM_PATH_GTK(1.2.0,,",
+          "1736:             AC_MSG_ERROR(Cannot find GTK: Is gtk-config in path?))",
+          "1737: ",
+          "1738: # Checks for directories, needed needed for hfterm's help and example fixtex"
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2319: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT"
+    ],
+    "failed_during_check": "checking for strtoul... yes",
+    "failure_tail": [
+      "checking for strtoul... yes",
+      "./configure: line 1735: syntax error near unexpected token `1.2.0,,'",
+      "./configure: line 1735: `AM_PATH_GTK(1.2.0,,'"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 41,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "char set_hwparams();\\nint main() { return set_hwparams(); }",
+      "char initscr();\\nint main() { return initscr(); }",
+      "#include <sys/wait.h>",
+      "#include <$ac_hdr>",
+      "#include <$ac_hdr>",
+      "#include <$ac_hdr>"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "fail",
+    "real_configure": "skipped",
+    "real_make": "skipped",
+    "real_configure_lines": 0,
+    "real_first_error": "configure.ac:73: error: possibly undefined macro: AM_PATH_GTK",
+    "classification": "OURS_BETTER"
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "vendored-aclocal"
+    ],
+    "receipt_hash": "7ce013376826229435a725231a088a6b4ca9c70c0f0c2c61a569acc421b80cc1",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

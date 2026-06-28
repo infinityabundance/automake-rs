@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "deepin-community/motif",
   "source": {
     "url": "https://github.com/deepin-community/motif",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.8",
+    "autoconf_rs": "autoconf-rs 0.1.11",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,6 +26,11 @@
     {
       "step": "configure",
       "tool": "./configure",
+      "status": "ok"
+    },
+    {
+      "step": "make",
+      "tool": "make",
       "status": "fail"
     }
   ],
@@ -36,18 +41,104 @@
   "dependencies": {
     "pkg_config": [],
     "system_libs": [],
-    "headers_needed": [
-      "confdefs.h"
-    ],
-    "missing": [
-      "confdefs.h"
-    ]
+    "headers_needed": [],
+    "missing": []
   },
   "quirks": [
     "subdirs"
   ],
   "outputs": [],
-  "status": "CONFIGURE_RUN_FAIL",
+  "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1402: LT_LIB_XTHREADS: command not found"
+  "diagnostic": "./configure: line 1407: LT_LIB_XTHREADS: command not found",
+  "deep_expansion": {
+    "configure_lines": 3250,
+    "leaked_macros": [],
+    "heredoc_openers": 51,
+    "heredoc_terminators": 51,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2774: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL",
+      "srcdir",
+      "prefix",
+      "exec_prefix",
+      "CC",
+      "CFLAGS",
+      "CPPFLAGS",
+      "LDFLAGS",
+      "LIBS",
+      "CXX",
+      "CXXFLAGS",
+      "CPP",
+      "DEFS",
+      "LIBOBJS",
+      "INSTALL",
+      "INCDIR",
+      "OM22_COMPATIBILITY_TRUE",
+      "CDE_CONFIGURATION_TOP",
+      "LIBDIR",
+      "LIB_XP",
+      "CURRENT",
+      "REVISION",
+      "AGE",
+      "XMBINDDIR_FALLBACK"
+    ],
+    "failed_during_check": "checking for libXp... checking for X11/extensions/Print.h... no",
+    "failure_tail": [
+      "checking for libXp... checking for X11/extensions/Print.h... no",
+      "./configure: line 1986: AC_FIND_XFT: command not found",
+      "./configure: line 1987: AC_IMAGE_SUPPORT: command not found",
+      "configure: creating Makefile",
+      "configure: creating bitmaps/Makefile"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 52,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "#include <$ac_hdr>",
+      "#include <$ac_hdr>",
+      "#include <$ac_hdr>",
+      "#include <$ac_hdr>",
+      "#include <sys/wait.h>",
+      "#include <$ac_hdr>"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "fail",
+    "real_configure": "skipped",
+    "real_make": "skipped",
+    "real_configure_lines": 0,
+    "real_first_error": "Makefile.am: error: required file './AUTHORS' not found",
+    "classification": "OURS_BETTER"
+  },
+  "receipt": {
+    "court_status": "partial",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-maintainer-mode",
+      "has-acinclude",
+      "vendored-aclocal"
+    ],
+    "receipt_hash": "9e6ab9c737cd5741d33e6b7a2a4c17852e20d3f94d1c7453def12b16b5ad39d3",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "barak/djview4",
   "source": {
     "url": "https://github.com/barak/djview4",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.8",
+    "autoconf_rs": "autoconf-rs 0.1.11",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -27,6 +27,11 @@
       "step": "configure",
       "tool": "./configure",
       "status": "fail"
+    },
+    {
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
+      "status": "fail"
     }
   ],
   "probe_results": {},
@@ -36,12 +41,8 @@
   "dependencies": {
     "pkg_config": [],
     "system_libs": [],
-    "headers_needed": [
-      "confdefs.h"
-    ],
-    "missing": [
-      "confdefs.h"
-    ]
+    "headers_needed": [],
+    "missing": []
   },
   "quirks": [
     "libtool",
@@ -50,5 +51,137 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "conftest.d/conftest.sh: line 1: creating: command not found"
+  "diagnostic": "conftest.d/conftest.sh: line 1: creating: command not found",
+  "deep_expansion": {
+    "configure_lines": 3216,
+    "leaked_macros": [
+      {
+        "name": "AC_CHECK_DECL",
+        "line": 2005,
+        "context": "AC_CHECK_DECL(Q_WS_X11, ac_qt_x11=yes, , #include <QtGlobal>)"
+      }
+    ],
+    "heredoc_openers": 26,
+    "heredoc_terminators": 26,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 2005,
+        "token": "Q_WS_X11,",
+        "source": "AC_CHECK_DECL(Q_WS_X11, ac_qt_x11=yes, , #include <QtGlobal>)",
+        "block": [
+          "2001:     ac_qt_x11=no",
+          "2002:     # Language: C++",
+          "2003:     saved_CXXFLAGS=$CXXFLAGS",
+          "2004:     CXXFLAGS=\"$CXXFLAGS -I$QT_INSTALL_HEADERS -I$QT_INSTALL_HEADERS/QtCore\"",
+          "2005:     AC_CHECK_DECL(Q_WS_X11, ac_qt_x11=yes, , #include <QtGlobal>)",
+          "2006:     CXXFLAGS=$saved_CXXFLAGS",
+          "2007:     # Restore language",
+          "2008:     if test \"$ac_qt_x11\" != yes ; then"
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2714: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL",
+      "srcdir",
+      "prefix",
+      "exec_prefix",
+      "CC",
+      "CFLAGS",
+      "CPPFLAGS",
+      "LDFLAGS",
+      "LIBS",
+      "CXX",
+      "CXXFLAGS",
+      "CPP",
+      "DEFS",
+      "LIBOBJS",
+      "INSTALL",
+      "host_cpu",
+      "host_vendor",
+      "OPTS",
+      "QMAKEFLAGS",
+      "QMAKEARG",
+      "QMAKELIBS",
+      "LIBTOOL_DEPS",
+      "host_os",
+      "NSDEJAVU_CFLAGS"
+    ],
+    "failed_during_check": "checking for X11/IntrinsicP.h... yes",
+    "failure_tail": [
+      "checking for X11/IntrinsicP.h... yes",
+      "./configure: line 2005: syntax error near unexpected token `Q_WS_X11,'",
+      "./configure: line 2005: `    AC_CHECK_DECL(Q_WS_X11, ac_qt_x11=yes, , #include <"
+    ],
+    "conftest_corruption": [
+      "line 1885: # <stdio.h> (include eaten)",
+      "line 1886: # <tiffio.h> (include eaten)"
+    ],
+    "conftest_directives_intact": 14,
+    "conftest_directives_mangled": 2,
+    "conftest_programs": [
+      "#include <$ac_hdr>",
+      "#include <time.h>",
+      "#include <sys/wait.h>",
+      "#include <$ac_hdr>",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar fork();\\nint main() { return fork(); }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar fseeko();\\nint main() { return fseeko(); }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "fail",
+    "real_configure_lines": 25246,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE"
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "line 2005: AC_CHECK_DECL(Q_WS_X11, ac_qt_x11=yes, , #include <QtGlobal>) (near `Q_WS_X11,`)",
+    "ours_error_context": [
+      "AC_CHECK_DECL(Q_WS_X11, ac_qt_x11=yes, , #include <QtGlobal>)"
+    ],
+    "ours_configure_lines": 3216,
+    "real_configure_lines": 25246,
+    "macros_ours_left_undefined": [
+      "AC_CHECK_DECL"
+    ]
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool",
+      "uses-subdir-objects",
+      "vendored-aclocal"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-subdir-objects",
+        "action": "--disable-dependency-tracking",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "2773c3e2545a109ff7c723fda694935077c798e77c58dfa5bd682fd13b40a266",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

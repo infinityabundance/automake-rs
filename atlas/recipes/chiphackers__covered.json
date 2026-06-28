@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "chiphackers/covered",
   "source": {
     "url": "https://github.com/chiphackers/covered",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.8",
+    "autoconf_rs": "autoconf-rs 0.1.11",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -36,12 +36,8 @@
   "dependencies": {
     "pkg_config": [],
     "system_libs": [],
-    "headers_needed": [
-      "confdefs.h"
-    ],
-    "missing": [
-      "confdefs.h"
-    ]
+    "headers_needed": [],
+    "missing": []
   },
   "quirks": [
     "autoconf-archive-macros",
@@ -50,5 +46,121 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1474: COVERED_TCLTK: command not found"
+  "diagnostic": "./configure: line 1485: COVERED_TCLTK: command not found",
+  "deep_expansion": {
+    "configure_lines": 2816,
+    "leaked_macros": [],
+    "heredoc_openers": 35,
+    "heredoc_terminators": 35,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1552,
+        "token": "done",
+        "source": "fi; done",
+        "block": [
+          "1548: if ac_fn_c_try_compile; then",
+          "1549:   printf '%s\\n' \"yes\"",
+          "1550: else",
+          "1551:   printf '%s\\n' \"no\"",
+          "1552: fi; done",
+          "1553: for ac_hdr in string.h; do printf %s \"checking for $ac_hdr... \"",
+          "1554: cat confdefs.h 2>/dev/null - <<_ACEOF >conftest.$ac_ext",
+          "1555: #include <$ac_hdr>"
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2336: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL",
+      "srcdir",
+      "prefix",
+      "exec_prefix",
+      "CC",
+      "CFLAGS",
+      "CPPFLAGS",
+      "LDFLAGS",
+      "LIBS",
+      "CXX",
+      "CXXFLAGS",
+      "CPP",
+      "DEFS",
+      "LIBOBJS",
+      "INSTALL",
+      "CVERINC",
+      "CVERLIB",
+      "host_cpu",
+      "VCSLIB",
+      "NCVLIB",
+      "IVINC",
+      "IVLIB",
+      "IVDIR",
+      "NCVINC"
+    ],
+    "failed_during_check": "checking for gzdopen in -lz... yes",
+    "failure_tail": [
+      "checking for gzdopen in -lz... yes",
+      "./configure: line 1485: COVERED_TCLTK: command not found",
+      "./configure: line 1488: COVERED_PROG_BROWSER: command not found",
+      "./configure: line 1490: COVERED_DEBUG: command not found",
+      "./configure: line 1492: COVERED_PROFILER: command not found"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 30,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "#include <sys/types.h>\\nint main() { return sizeof(off_t) >= 8 ? 0 : 1; }",
+      "int main() { int x = 1; return *(char*)&x; }",
+      "char gzdopen();\\nint main() { return gzdopen(); }",
+      "#include <$ac_hdr>",
+      "#include <$ac_hdr>",
+      "#include <$ac_hdr>"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "ok",
+    "real_configure_lines": 9896,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE"
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "line 1552: fi; done (near `done`)",
+    "ours_error_context": [
+      "fi; done"
+    ],
+    "ours_configure_lines": 2816,
+    "real_configure_lines": 9896,
+    "macros_ours_left_undefined": []
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "has-acinclude",
+      "vendored-aclocal",
+      "uses-ax-archive"
+    ],
+    "receipt_hash": "2773c3e2545a109ff7c723fda694935077c798e77c58dfa5bd682fd13b40a266",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

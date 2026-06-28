@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "bjoernvoss/RNAHeliCes",
   "source": {
     "url": "https://github.com/bjoernvoss/RNAHeliCes",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.8",
+    "autoconf_rs": "autoconf-rs 0.1.11",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,11 +26,6 @@
     {
       "step": "configure",
       "tool": "./configure",
-      "status": "ok"
-    },
-    {
-      "step": "make",
-      "tool": "make",
       "status": "fail"
     }
   ],
@@ -51,7 +46,169 @@
     "subdirs"
   ],
   "outputs": [],
-  "status": "MAKE_FAIL",
+  "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": ""
+  "diagnostic": "./configure: line 1582: syntax error near unexpected token `done'",
+  "deep_expansion": {
+    "configure_lines": 2233,
+    "leaked_macros": [
+      {
+        "name": "AC_LANG_PREPROC_REQUIRE",
+        "line": 1974,
+        "context": "AC_LANG_PREPROC_REQUIRE()AC_LANG_CONFTEST(AC_LANG_SOURCE([[#include <boo"
+      },
+      {
+        "name": "m4_indir",
+        "line": 2006,
+        "context": "m4_indir(AC_DEFUN,"
+      },
+      {
+        "name": "m4_pushdef",
+        "line": 2008,
+        "context": "m4_pushdef([BOOST_Library], [Bind])dnl"
+      },
+      {
+        "name": "m4_popdef",
+        "line": 2010,
+        "context": "m4_popdef([BOOST_Library])dnl"
+      },
+      {
+        "name": "m4_indir",
+        "line": 2014,
+        "context": "m4_indir(AC_DEFUN,"
+      },
+      {
+        "name": "m4_pushdef",
+        "line": 2016,
+        "context": "m4_pushdef([BOOST_Library], [Integer])dnl"
+      },
+      {
+        "name": "m4_popdef",
+        "line": 2018,
+        "context": "m4_popdef([BOOST_Library])dnl"
+      },
+      {
+        "name": "m4_indir",
+        "line": 2021,
+        "context": "m4_indir(AC_DEFUN,"
+      },
+      {
+        "name": "m4_pushdef",
+        "line": 2023,
+        "context": "m4_pushdef([BOOST_Library], [Lexical_Cast])dnl"
+      },
+      {
+        "name": "m4_popdef",
+        "line": 2025,
+        "context": "m4_popdef([BOOST_Library])dnl"
+      },
+      {
+        "name": "m4_indir",
+        "line": 2028,
+        "context": "m4_indir(AC_DEFUN,"
+      },
+      {
+        "name": "m4_pushdef",
+        "line": 2030,
+        "context": "m4_pushdef([BOOST_Library], [Pool])dnl"
+      },
+      {
+        "name": "m4_popdef",
+        "line": 2032,
+        "context": "m4_popdef([BOOST_Library])dnl"
+      },
+      {
+        "name": "m4_indir",
+        "line": 2035,
+        "context": "m4_indir(AC_DEFUN,"
+      },
+      {
+        "name": "m4_pushdef",
+        "line": 2037,
+        "context": "m4_pushdef([BOOST_Library], [Smart_Ptr])dnl"
+      },
+      {
+        "name": "m4_popdef",
+        "line": 2039,
+        "context": "m4_popdef([BOOST_Library])dnl"
+      }
+    ],
+    "heredoc_openers": 35,
+    "heredoc_terminators": 35,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1582,
+        "token": "done",
+        "source": "fi; done",
+        "block": [
+          "1578: if ac_fn_c_try_compile; then",
+          "1579:   printf '%s\\n' \"yes\"",
+          "1580: else",
+          "1581:   printf '%s\\n' \"no\"",
+          "1582: fi; done",
+          "1583: #for ac_hdr in cstdarg stdarg.h; do printf %s \"checking for $ac_hdr... \"",
+          "1584: cat confdefs.h 2>/dev/null - <<_ACEOF >conftest.$ac_ext",
+          "1585: #include <$ac_hdr>"
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PKG_CONFIG",
+      "LDFLAGS"
+    ],
+    "failed_during_check": "checking for Fortran 77 compiler... gfortran",
+    "failure_tail": [
+      "checking for Fortran 77 compiler... gfortran",
+      "o----------------------------------",
+      "| Checking for std headers",
+      "o----------------------------------",
+      "./configure: line 1582: syntax error near unexpected token `done'"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 36,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "#include <stdbool.h>",
+      "inline int foo() { return 0; }\\nint main() { return foo(); }",
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { size_t x; return 0; }",
+      "#include <cstdint>",
+      "#include <$ac_hdr>",
+      "#include <$ac_hdr>"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "fail",
+    "real_make": "skipped",
+    "real_configure_lines": 21259,
+    "real_first_error": "configure: error: invalid value: boost_major_version=",
+    "classification": "BOTH_CONFIGURE_FAIL"
+  },
+  "receipt": {
+    "court_status": "not_standalone",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool",
+      "uses-libtool-old",
+      "uses-pkg-config",
+      "has-m4-macro-dir",
+      "vendored-aclocal",
+      "uses-ax-archive"
+    ],
+    "receipt_hash": "9b1e2700fe968e7a3321342ca953e7c699643cc7f6208188c454b461278951a7",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "bgpsecurity/rpstir",
   "source": {
     "url": "https://github.com/bgpsecurity/rpstir",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.8",
+    "autoconf_rs": "autoconf-rs 0.1.11",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -27,6 +27,11 @@
       "step": "configure",
       "tool": "./configure",
       "status": "fail"
+    },
+    {
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
+      "status": "fail"
     }
   ],
   "probe_results": {},
@@ -45,5 +50,94 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1355: syntax error near unexpected token `line'"
+  "diagnostic": "./configure: line 1360: syntax error near unexpected token `line'",
+  "deep_expansion": {
+    "configure_lines": 3679,
+    "leaked_macros": [],
+    "heredoc_openers": 46,
+    "heredoc_terminators": 46,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1360,
+        "token": "line",
+        "source": "fi line from causing configure to complain about a",
+        "block": [
+          "1356: # build-aux/tap-driver.sh is checked in to keep the above",
+          "1357: # # Require auxiliary file ",
+          "1358: if test ! -f \"$ac_aux_dir/\"; then",
+          "1359:   printf '%s\\n' \"configure: WARNING: missing auxiliary file: \" >&2",
+          "1360: fi line from causing configure to complain about a",
+          "1361: # mising file if the user has automake 1.11.)",
+          "1362: ",
+          "1363: "
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2260: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT"
+    ],
+    "failed_during_check": "",
+    "failure_tail": [
+      "./configure: line 1360: syntax error near unexpected token `line'",
+      "./configure: line 1360: `fi line from causing configure to complain about a'"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 19,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "char  ();\\nint main() { return  (); }",
+      "char  ();\\nint main() { return  (); }",
+      "char  ();\\nint main() { return  (); }",
+      "char  ();\\nint main() { return  (); }",
+      "char  ();\\nint main() { return  (); }",
+      "char  ();\\nint main() { return  (); }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "fail",
+    "real_make": "skipped",
+    "real_configure_lines": 9062,
+    "real_first_error": "configure: error: cryptlib is required for building this project",
+    "classification": "BOTH_CONFIGURE_FAIL"
+  },
+  "receipt": {
+    "court_status": "not_standalone",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-python",
+      "uses-maintainer-mode",
+      "has-m4-macro-dir",
+      "vendored-aclocal",
+      "uses-ax-archive",
+      "uses-pthread-check"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-maintainer-mode",
+        "action": "--disable-maintainer-mode",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "9b1e2700fe968e7a3321342ca953e7c699643cc7f6208188c454b461278951a7",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "FrodeSolheim/fs-uae",
   "source": {
     "url": "https://github.com/FrodeSolheim/fs-uae",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.8",
+    "autoconf_rs": "autoconf-rs 0.1.11",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,6 +26,11 @@
     {
       "step": "configure",
       "tool": "./configure",
+      "status": "fail"
+    },
+    {
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
       "status": "fail"
     }
   ],
@@ -48,5 +53,166 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1420: syntax error near unexpected token `3.11'"
+  "diagnostic": "./configure: line 1621: syntax error near unexpected token `-no-pie,'",
+  "deep_expansion": {
+    "configure_lines": 5718,
+    "leaked_macros": [
+      {
+        "name": "AX_CHECK_LINK_FLAG",
+        "line": 1621,
+        "context": "AX_CHECK_LINK_FLAG(-no-pie,"
+      },
+      {
+        "name": "AX_GCC_BUILTIN",
+        "line": 2157,
+        "context": "AX_GCC_BUILTIN(__builtin_bswap16)"
+      },
+      {
+        "name": "AX_GCC_BUILTIN",
+        "line": 2158,
+        "context": "AX_GCC_BUILTIN(__builtin_bswap32)"
+      },
+      {
+        "name": "AX_GCC_BUILTIN",
+        "line": 2159,
+        "context": "AX_GCC_BUILTIN(__builtin_bswap64)"
+      },
+      {
+        "name": "AX_GCC_BUILTIN",
+        "line": 2160,
+        "context": "AX_GCC_BUILTIN(__builtin_expect)"
+      },
+      {
+        "name": "AX_GCC_FUNC_ATTRIBUTE",
+        "line": 2595,
+        "context": "AX_GCC_FUNC_ATTRIBUTE(always_inline)"
+      },
+      {
+        "name": "AX_GCC_FUNC_ATTRIBUTE",
+        "line": 2596,
+        "context": "AX_GCC_FUNC_ATTRIBUTE(fastcall)"
+      },
+      {
+        "name": "AX_GCC_FUNC_ATTRIBUTE",
+        "line": 2597,
+        "context": "AX_GCC_FUNC_ATTRIBUTE(format)"
+      },
+      {
+        "name": "AX_GCC_FUNC_ATTRIBUTE",
+        "line": 2598,
+        "context": "AX_GCC_FUNC_ATTRIBUTE(noinline)"
+      },
+      {
+        "name": "AX_GCC_FUNC_ATTRIBUTE",
+        "line": 2599,
+        "context": "AX_GCC_FUNC_ATTRIBUTE(noreturn)"
+      },
+      {
+        "name": "AX_GCC_FUNC_ATTRIBUTE",
+        "line": 2600,
+        "context": "AX_GCC_FUNC_ATTRIBUTE(regparm)"
+      },
+      {
+        "name": "AX_GCC_FUNC_ATTRIBUTE",
+        "line": 2601,
+        "context": "AX_GCC_FUNC_ATTRIBUTE(unused)"
+      },
+      {
+        "name": "AX_GCC_VAR_ATTRIBUTE",
+        "line": 2603,
+        "context": "AX_GCC_VAR_ATTRIBUTE(unused)"
+      }
+    ],
+    "heredoc_openers": 163,
+    "heredoc_terminators": 163,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1621,
+        "token": "-no-pie,",
+        "source": "AX_CHECK_LINK_FLAG(-no-pie,",
+        "block": [
+          "1617: ",
+          "1618: ",
+          "1619: ",
+          "1620: ",
+          "1621: AX_CHECK_LINK_FLAG(-no-pie,",
+          "1622: no_pie=yes,",
+          "1623: no_pie=no)",
+          "1624: "
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 5216: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PKG_CONFIG",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT"
+    ],
+    "failed_during_check": "checking for 64-bit off_t... yes",
+    "failure_tail": [
+      "checking for 64-bit off_t... yes",
+      "./configure: line 1621: syntax error near unexpected token `-no-pie,'",
+      "./configure: line 1621: `AX_CHECK_LINK_FLAG(-no-pie,'"
+    ],
+    "conftest_corruption": [
+      "line 3769: # include <byteswap.h> (ifdef/define eaten)",
+      "line 3792: # include <byteswap.h> (ifdef/define eaten)"
+    ],
+    "conftest_directives_intact": 237,
+    "conftest_directives_mangled": 2,
+    "conftest_programs": [
+      "#include <sys/types.h>\\nint main() { return sizeof(off_t) >= 8 ? 0 : 1; }",
+      "char ftime();\\nint main() { return ftime(); }",
+      "char dlopen();\\nint main() { return dlopen(); }",
+      "char floor();\\nint main() { return floor(); }",
+      "char Pm_Initialize();\\nint main() { return Pm_Initialize(); }",
+      "#include <$ac_hdr>"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "fail",
+    "real_make": "skipped",
+    "real_configure_lines": 18821,
+    "real_first_error": "configure: error: Package requirements (libmpeg2 libmpeg2convert) were not met:",
+    "classification": "BOTH_CONFIGURE_FAIL"
+  },
+  "receipt": {
+    "court_status": "not_standalone",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool-old",
+      "uses-pkg-config",
+      "uses-python",
+      "uses-subdir-objects",
+      "vendored-aclocal",
+      "uses-ax-archive",
+      "uses-pthread-check"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-subdir-objects",
+        "action": "--disable-dependency-tracking",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "9b1e2700fe968e7a3321342ca953e7c699643cc7f6208188c454b461278951a7",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

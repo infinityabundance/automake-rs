@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "affix/MSNC",
   "source": {
     "url": "https://github.com/affix/MSNC",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.8",
+    "autoconf_rs": "autoconf-rs 0.1.11",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -36,12 +36,8 @@
   "dependencies": {
     "pkg_config": [],
     "system_libs": [],
-    "headers_needed": [
-      "confdefs.h"
-    ],
-    "missing": [
-      "confdefs.h"
-    ]
+    "headers_needed": [],
+    "missing": []
   },
   "quirks": [
     "subdirs"
@@ -49,5 +45,137 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1445: syntax error near unexpected token `location'"
+  "diagnostic": "./configure: line 1473: syntax error near unexpected token `location'",
+  "deep_expansion": {
+    "configure_lines": 2787,
+    "leaked_macros": [
+      {
+        "name": "AC_CHECKING",
+        "line": 1473,
+        "context": "AC_CHECKING(location of ncurses.h file)"
+      },
+      {
+        "name": "AC_ERROR",
+        "line": 1644,
+        "context": "AC_ERROR(You don't seem to have the curses headers installed)"
+      },
+      {
+        "name": "AC_LIB_APPENDTOVAR",
+        "line": 1654,
+        "context": "AC_LIB_APPENDTOVAR(CPPFLAGS, $INCICONV)"
+      }
+    ],
+    "heredoc_openers": 23,
+    "heredoc_terminators": 23,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1473,
+        "token": "location",
+        "source": "AC_CHECKING(location of ncurses.h file)",
+        "block": [
+          "1469: ",
+          "1470: \tif $search_ncurses",
+          "1471: \tthen",
+          "1472: \t\t",
+          "1473:     AC_CHECKING(location of ncurses.h file)",
+          "1474: ",
+          "1475:     ",
+          "1476:     if $search_ncurses"
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2302: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL",
+      "srcdir",
+      "prefix",
+      "exec_prefix",
+      "CC",
+      "CFLAGS",
+      "CPPFLAGS",
+      "LDFLAGS",
+      "LIBS",
+      "CXX",
+      "CXXFLAGS",
+      "CPP",
+      "DEFS",
+      "LIBOBJS",
+      "INSTALL",
+      "CURSES_LIBS",
+      "SSLLIB",
+      "TFLIB",
+      "SSLINC",
+      "LTLIBICONV",
+      "LIBICONV",
+      "CURSES_INCLUDEDIR",
+      "tmsnc_VERSION"
+    ],
+    "failed_during_check": "checking for socket... yes",
+    "failure_tail": [
+      "checking for socket... yes",
+      "./configure: line 1473: syntax error near unexpected token `location'",
+      "./configure: line 1473: `    AC_CHECKING(location of ncurses.h file)'"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 9,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { pid_t x; return 0; }",
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { size_t x; return 0; }",
+      "#include <time.h>",
+      "char gethostbyname ();\\nint main() { return gethostbyname (); }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar socket();\\nint main() { return socket(); }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func();\\nint main() { return $ac_func(); }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "ok",
+    "real_configure_lines": 8505,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE"
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "line 1473: AC_CHECKING(location of ncurses.h file) (near `location`)",
+    "ours_error_context": [
+      "AC_CHECKING(location of ncurses.h file)"
+    ],
+    "ours_configure_lines": 2787,
+    "real_configure_lines": 8505,
+    "macros_ours_left_undefined": [
+      "AC_CHECKING",
+      "AC_ERROR",
+      "AC_LIB_APPENDTOVAR"
+    ]
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "has-m4-macro-dir",
+      "vendored-aclocal"
+    ],
+    "receipt_hash": "2773c3e2545a109ff7c723fda694935077c798e77c58dfa5bd682fd13b40a266",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

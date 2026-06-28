@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "hightman/xunsearch",
   "source": {
     "url": "https://github.com/hightman/xunsearch",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.8",
+    "autoconf_rs": "autoconf-rs 0.1.11",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -34,14 +34,12 @@
     "configure_args": []
   },
   "dependencies": {
-    "pkg_config": [],
-    "system_libs": [],
-    "headers_needed": [
-      "confdefs.h"
+    "pkg_config": [
+      "configure: error: event2/event.h NOT FOUND. please check your libevent install d"
     ],
-    "missing": [
-      "confdefs.h"
-    ]
+    "system_libs": [],
+    "headers_needed": [],
+    "missing": []
   },
   "quirks": [
     "subdirs"
@@ -49,5 +47,81 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "union semun for semaphore...... ./configure: line 1340: This: command not found"
+  "diagnostic": "./configure: line 1345: This: command not found",
+  "deep_expansion": {
+    "configure_lines": 2958,
+    "leaked_macros": [],
+    "heredoc_openers": 36,
+    "heredoc_terminators": 36,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2482: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL",
+      "srcdir",
+      "prefix",
+      "exec_prefix",
+      "CC",
+      "CFLAGS",
+      "CPPFLAGS",
+      "LDFLAGS",
+      "LIBS",
+      "CXX",
+      "CXXFLAGS",
+      "CPP",
+      "DEFS",
+      "LIBOBJS",
+      "INSTALL"
+    ],
+    "failed_during_check": "checking for sun_len in sys/un.h... checking for event2/event.h of libevent... n",
+    "failure_tail": [
+      "union semun for semaphore...... checking for sun_len in sys/un.h... checking for",
+      "configure: error: event2/event.h NOT FOUND. please check your libevent install d"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 30,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "#include <sys/types.h>\\nint main() { return sizeof(off_t) >= 8 ? 0 : 1; }",
+      "\\n#include <sys/types.h>\\n#include <sys/ipc.h>\\n#include <sys/sem.h>\\n\\nint main() { union semun arg; ; return 0; }",
+      "char event_base_new();\\nint main() { return event_base_new(); }",
+      "char scws_new();\\nint main() { return scws_new(); }",
+      "\\n\\n#include <xapian.h>\\n\\nint main() {\\nXapian::Document doc;\\nXapian::TermGenerator indexer;\\nindexer.load_scws(NULL, 0, 0);\\nindexer.set_document(doc);\\n; return 0; }\\n",
+      "char pthread_mutex_init();\\nint main() { return pthread_mutex_init(); }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "fail",
+    "real_make": "skipped",
+    "real_configure_lines": 9311,
+    "real_first_error": "configure: error: scws.h NOT FOUND. please check your scws install directory. >= 1.1.6",
+    "classification": "BOTH_CONFIGURE_FAIL"
+  },
+  "receipt": {
+    "court_status": "not_standalone",
+    "probe_trace": [],
+    "quirks_matched": [
+      "vendored-aclocal"
+    ],
+    "receipt_hash": "9b1e2700fe968e7a3321342ca953e7c699643cc7f6208188c454b461278951a7",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

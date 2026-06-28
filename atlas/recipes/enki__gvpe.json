@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "enki/gvpe",
   "source": {
     "url": "https://github.com/enki/gvpe",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.8",
+    "autoconf_rs": "autoconf-rs 0.1.11",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,11 +26,11 @@
     {
       "step": "configure",
       "tool": "./configure",
-      "status": "ok"
+      "status": "fail"
     },
     {
-      "step": "make",
-      "tool": "make",
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
       "status": "fail"
     }
   ],
@@ -50,7 +50,126 @@
     "subdirs"
   ],
   "outputs": [],
-  "status": "MAKE_FAIL",
+  "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": ""
+  "diagnostic": "configure: error: cannot find install-sh, install.sh, or shtool in \".\" \"./..\" \"./../..\"",
+  "deep_expansion": {
+    "configure_lines": 10255,
+    "leaked_macros": [],
+    "heredoc_openers": 143,
+    "heredoc_terminators": 142,
+    "heredoc_imbalance": -1,
+    "syntax_errors": [],
+    "cache_var_anomalies": [
+      "line 120: do eval test x\\${$as_var+set} = xset \\",
+      "line 1733: if eval \"test \\\"\\${$3+set}\\\"\" = set; then :",
+      "line 1736: if eval \"test \\\"\\${$3+set}\\\"\" = set; then :",
+      "line 1799: if eval \"test \\\"\\${$3+set}\\\"\" = set; then :",
+      "line 1863: if eval \"test \\\"\\${$3+set}\\\"\" = set; then :",
+      "line 1894: if eval \"test \\\"\\${$3+set}\\\"\" = set; then :",
+      "line 1989: if eval \"test \\\"\\${$3+set}\\\"\" = set; then :",
+      "line 2056: if eval \"test \\\"\\${$3+set}\\\"\" = set; then :",
+      "line 2059: if eval \"test \\\"\\${$3+set}\\\"\" = set; then :",
+      "line 2122: if eval \"test \\\"\\${$3+set}\\\"\" = set; then :",
+      "line 2189: if eval \"test \\\"\\${$3+set}\\\"\" = set; then :",
+      "line 8906: do eval test x\\${$as_var+set} = xset \\"
+    ],
+    "residual_placeholders": [
+      "TOP",
+      "srcdir",
+      "datadir",
+      "docdir",
+      "infodir",
+      "localedir",
+      "mandir",
+      "configure_input",
+      "top_builddir",
+      "top_build_prefix",
+      "abs_srcdir",
+      "top_srcdir",
+      "abs_top_srcdir",
+      "builddir",
+      "abs_builddir",
+      "abs_top_builddir",
+      "INSTALL",
+      "MKDIR_P",
+      "POFILES",
+      "GMOFILES",
+      "UPDATEPOFILES",
+      "DUMMYPOFILES",
+      "CATALOGS"
+    ],
+    "failed_during_check": "",
+    "failure_tail": [
+      "configure: error: cannot find install-sh, install.sh, or shtool in \".\" \"./..\" \"."
+    ],
+    "conftest_corruption": [
+      "line 2004: # include <limits.h> (ifdef/define eaten)",
+      "line 2006: # include <assert.h> (ifdef/define eaten)",
+      "line 2204: # include <limits.h> (ifdef/define eaten)",
+      "line 2206: # include <assert.h> (ifdef/define eaten)",
+      "line 5701: # include <limits.h> (ifdef/define eaten)",
+      "line 5703: # include <assert.h> (ifdef/define eaten)",
+      "line 5760: # include <limits.h> (ifdef/define eaten)",
+      "line 5762: # include <assert.h> (ifdef/define eaten)",
+      "line 6738: # include <limits.h> (ifdef/define eaten)",
+      "line 6740: # include <assert.h> (ifdef/define eaten)",
+      "line 6797: # include <limits.h> (ifdef/define eaten)",
+      "line 6799: # include <assert.h> (ifdef/define eaten)",
+      "line 6917: # define ISLOWER(c) ('a' <= (c) && (c) < (ifdef/define eaten)",
+      "line 6918: # define TOUPPER(c) (ISLOWER(c) ? 'A' +  (ifdef/define eaten)",
+      "line 6920: # define ISLOWER(c) \\ (ifdef/define eaten)",
+      "line 6924: # define TOUPPER(c) (ISLOWER(c) ? ((c) | (ifdef/define eaten)",
+      "line 7385: # define ISLOWER(c) ('a' <= (c) && (c) < (ifdef/define eaten)",
+      "line 7386: # define TOUPPER(c) (ISLOWER(c) ? 'A' +  (ifdef/define eaten)",
+      "line 7388: # define ISLOWER(c) \\ (ifdef/define eaten)",
+      "line 7392: # define TOUPPER(c) (ISLOWER(c) ? ((c) | (ifdef/define eaten)"
+    ],
+    "conftest_directives_intact": 188,
+    "conftest_directives_mangled": 24,
+    "conftest_programs": [
+      "/* end confdefs.h.  */\\n$4\\n#include <$2>",
+      "/* end confdefs.h.  */\\n#include <$2>",
+      "/* end confdefs.h.  */\\n$4\\n#include <$2>",
+      "/* end confdefs.h.  */\\n$4\\nint\\nmain ()\\n{\\nif (sizeof ($2))\\nreturn 0;\\n;\\nreturn 0;\\n}",
+      "/* end confdefs.h.  */\\n$4\\nint\\nmain ()\\n{\\nif (sizeof (($2)))\\nreturn 0;\\n;\\nreturn 0;\\n}",
+      "/* end confdefs.h.  */\\n/* Define $2 to an innocuous variant, in case <limits.h> declares $2.\\nFor example, HP-UX 11i <limits.h> declares gettimeofday.  */\\n#define $2 innocuous_$2\\n\\n/* System header to define __stub macros and hopefully few prototypes,\\nwhich can conflict with char $2 (); below.\\nPrefer <limits.h> to <assert.h> if __STDC__ is defined, since\\n<limits.h> exists even on freestanding compilers.  */\\n\\n#ifdef __STDC__\\n# include <limits.h>"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "fail",
+    "real_configure": "skipped",
+    "real_make": "skipped",
+    "real_configure_lines": 0,
+    "real_first_error": "aclocal: error: configure.ac:231: file 'libev/libev.m4' does not exist",
+    "classification": "OURS_BETTER"
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-gettext",
+      "uses-maintainer-mode",
+      "has-m4-macro-dir",
+      "vendored-aclocal",
+      "uses-ax-archive"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-maintainer-mode",
+        "action": "--disable-maintainer-mode",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "7ce013376826229435a725231a088a6b4ca9c70c0f0c2c61a569acc421b80cc1",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

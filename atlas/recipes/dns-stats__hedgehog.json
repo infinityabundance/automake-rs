@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "dns-stats/hedgehog",
   "source": {
     "url": "https://github.com/dns-stats/hedgehog",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.8",
+    "autoconf_rs": "autoconf-rs 0.1.11",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -46,5 +46,88 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1389: AM_PATH_PYTHON: command not found"
+  "diagnostic": "./configure: line 1679: syntax error near unexpected token `]]'",
+  "deep_expansion": {
+    "configure_lines": 2948,
+    "leaked_macros": [],
+    "heredoc_openers": 36,
+    "heredoc_terminators": 36,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1679,
+        "token": "]]",
+        "source": "]]))",
+        "block": [
+          "1675: # error BOOST_VERSION is not defined",
+          "1676: #elif BOOST_VERSION < $boost_version_req",
+          "1677: # error Boost headers version < $boost_version_req",
+          "1678: #endif",
+          "1679: ]]))",
+          "1680:     # If the user provided a value to --with-boost, use it and only it.",
+          "1681:     case $with_boost in #(",
+          "1682:       ''|yes) set x '' /opt/local/include /usr/local/include /opt/include \\"
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2472: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT"
+    ],
+    "failed_during_check": "checking for python... /usr/bin/python3",
+    "failure_tail": [
+      "checking for python... /usr/bin/python3",
+      "configure: Building Web Component...",
+      "./configure: line 1679: syntax error near unexpected token `]]'",
+      "./configure: line 1679: `]]))'"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 34,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "#include <$ac_hdr>",
+      "int main() { const int x = 1; return x-1; }",
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { int16_t x; return 0; }",
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { int32_t x; return 0; }",
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { int64_t x; return 0; }",
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { int8_t x; return 0; }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "fail",
+    "real_make": "skipped",
+    "real_configure_lines": 22897,
+    "real_first_error": "configure: error: cannot find the flags to link with Boost filesystem",
+    "classification": "BOTH_CONFIGURE_FAIL"
+  },
+  "receipt": {
+    "court_status": "not_standalone",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool",
+      "uses-libtool-old",
+      "uses-python",
+      "has-m4-macro-dir",
+      "vendored-aclocal"
+    ],
+    "receipt_hash": "9b1e2700fe968e7a3321342ca953e7c699643cc7f6208188c454b461278951a7",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

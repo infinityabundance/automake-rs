@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "AltSysrq/libbsd-minimal",
   "source": {
     "url": "https://github.com/AltSysrq/libbsd-minimal",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.8",
+    "autoconf_rs": "autoconf-rs 0.1.11",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -27,6 +27,11 @@
       "step": "configure",
       "tool": "./configure",
       "status": "fail"
+    },
+    {
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
+      "status": "fail"
     }
   ],
   "probe_results": {},
@@ -36,12 +41,8 @@
   "dependencies": {
     "pkg_config": [],
     "system_libs": [],
-    "headers_needed": [
-      "confdefs.h"
-    ],
-    "missing": [
-      "confdefs.h"
-    ]
+    "headers_needed": [],
+    "missing": []
   },
   "quirks": [
     "libtool",
@@ -50,5 +51,116 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1515: syntax error near unexpected token `F_CLOSEM,'"
+  "diagnostic": "./configure: line 1520: syntax error near unexpected token `F_CLOSEM,'",
+  "deep_expansion": {
+    "configure_lines": 2636,
+    "leaked_macros": [
+      {
+        "name": "AC_CHECK_DECL",
+        "line": 1520,
+        "context": "AC_CHECK_DECL(F_CLOSEM,"
+      },
+      {
+        "name": "AC_DEFINE",
+        "line": 1521,
+        "context": "AC_DEFINE([HAVE_FCNTL_CLOSEM], [1],"
+      }
+    ],
+    "heredoc_openers": 31,
+    "heredoc_terminators": 31,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1520,
+        "token": "F_CLOSEM,",
+        "source": "AC_CHECK_DECL(F_CLOSEM,",
+        "block": [
+          "1516: else",
+          "1517:   printf '%s\\n' \"no\"",
+          "1518: fi",
+          "1519: ",
+          "1520: AC_CHECK_DECL(F_CLOSEM,",
+          "1521:               AC_DEFINE([HAVE_FCNTL_CLOSEM], [1],",
+          "1522:                          [Define to 1 if you have fcntl(F_CLOSEM)]),",
+          "1523:               ,"
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2160: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT"
+    ],
+    "failed_during_check": "checking for ssize_t... yes",
+    "failure_tail": [
+      "checking for ssize_t... yes",
+      "./configure: line 1520: syntax error near unexpected token `F_CLOSEM,'",
+      "./configure: line 1520: `AC_CHECK_DECL(F_CLOSEM,'"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 21,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "#include <sys/types.h>\\nint main() { return sizeof(off_t) >= 8 ? 0 : 1; }",
+      "#include <$ac_hdr>",
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { uid_t x; return 0; }",
+      "inline int foo() { return 0; }\\nint main() { return foo(); }",
+      "int main() { int x; __typeof__(x) y = 1; return y-1; }",
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { int64_t x; return 0; }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "fail",
+    "real_configure_lines": 17129,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE"
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "line 1520: AC_CHECK_DECL(F_CLOSEM, (near `F_CLOSEM,`)",
+    "ours_error_context": [
+      "AC_CHECK_DECL(F_CLOSEM,"
+    ],
+    "ours_configure_lines": 2636,
+    "real_configure_lines": 17129,
+    "macros_ours_left_undefined": [
+      "AC_CHECK_DECL",
+      "AC_DEFINE"
+    ]
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool",
+      "uses-subdir-objects",
+      "vendored-aclocal"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-subdir-objects",
+        "action": "--disable-dependency-tracking",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "2773c3e2545a109ff7c723fda694935077c798e77c58dfa5bd682fd13b40a266",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

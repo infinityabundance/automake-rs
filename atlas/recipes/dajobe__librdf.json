@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "dajobe/librdf",
   "source": {
     "url": "https://github.com/dajobe/librdf",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.8",
+    "autoconf_rs": "autoconf-rs 0.1.11",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,6 +26,11 @@
     {
       "step": "configure",
       "tool": "./configure",
+      "status": "fail"
+    },
+    {
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
       "status": "fail"
     }
   ],
@@ -48,5 +53,146 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "checking whether cc is clang... expr: syntax error: unexpected argument '10000'"
+  "diagnostic": "expr: syntax error: unexpected argument '10000'",
+  "deep_expansion": {
+    "configure_lines": 3930,
+    "leaked_macros": [
+      {
+        "name": "m4_undefine",
+        "line": 1472,
+        "context": "m4_undefine(# Check for C++ compiler"
+      },
+      {
+        "name": "m4_undefine",
+        "line": 1481,
+        "context": "m4_undefine(# Check for Fortran 77 compiler"
+      },
+      {
+        "name": "LT_CONFIG_LTDL_DIR",
+        "line": 1499,
+        "context": "LT_CONFIG_LTDL_DIR(libltdl)"
+      }
+    ],
+    "heredoc_openers": 46,
+    "heredoc_terminators": 46,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1472,
+        "token": "newline",
+        "source": "m4_undefine(# Check for C++ compiler",
+        "block": [
+          "1468: # Check for ln -s",
+          "1469: LN_S='ln -s'",
+          "1470: SET_MAKE=''",
+          "1471: ",
+          "1472: m4_undefine(# Check for C++ compiler",
+          "1473: ac_ct_CXX=${CXX-g++}",
+          "1474: for ac_prog in g++ c++ clang++; do",
+          "1475:   if command -v \"$ac_prog\" >/dev/null 2>&1; then"
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 3437: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PKG_CONFIG",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL",
+      "srcdir",
+      "prefix",
+      "exec_prefix",
+      "CC",
+      "CFLAGS",
+      "CPPFLAGS",
+      "LDFLAGS",
+      "LIBS",
+      "CXX",
+      "CXXFLAGS",
+      "CPP",
+      "DEFS",
+      "LIBOBJS",
+      "INSTALL",
+      "VIRTUOSO_LIBS",
+      "RASQAL_MAX_VERSION",
+      "SQLITE_LIBS",
+      "LIBRDF_EXTERNAL_LIBS",
+      "LIBRDF_LDFLAGS",
+      "RASQAL_MIN_VERSION",
+      "MEM",
+      "ODBC_LIBS"
+    ],
+    "failed_during_check": "checking whether cc is clang... ./configure: line 1472: syntax error near unexpe",
+    "failure_tail": [
+      "checking whether cc is clang... ./configure: line 1472: syntax error near unexpe",
+      "./configure: line 1472: `m4_undefine(# Check for C++ compiler'"
+    ],
+    "conftest_corruption": [
+      "line 1872: # <db.h>]] (include eaten)",
+      "line 1891: # <db.h>]] (include eaten)",
+      "line 1907: # <db.h>]] (include eaten)",
+      "line 1924: # <db.h>]] (include eaten)",
+      "line 1943: # <db.h>]] (include eaten)",
+      "line 1960: # <db.h>]] (include eaten)",
+      "line 1975: # <db.h>]] (include eaten)",
+      "line 1990: # <db.h>]] (include eaten)",
+      "line 2005: # <db.h>]] (include eaten)",
+      "line 2032: # <db.h>]] (include eaten)"
+    ],
+    "conftest_directives_intact": 27,
+    "conftest_directives_mangled": 10,
+    "conftest_programs": [
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { $ac_type x; return 0; }",
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { $ac_type x; return 0; }",
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { $ac_type x; return 0; }",
+      "#include <sys/types.h>\\n#include <stdint.h>\\n#include <stddef.h>\\nint main() { static int test_array[1 - 2 * !((long int) (sizeof (unsigned ch",
+      "#include <sys/types.h>\\n#include <stdint.h>\\n#include <stddef.h>\\nint main() { static int test_array[1 - 2 * !((long int) (sizeof (unsigned in",
+      "#include <sys/types.h>\\n#include <stdint.h>\\n#include <stddef.h>\\nint main() { static int test_array[1 - 2 * !((long int) (sizeof (unsigned lo"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "fail",
+    "real_configure": "skipped",
+    "real_make": "skipped",
+    "real_configure_lines": 0,
+    "real_first_error": "automake: error: cannot open < gtk-doc.make: No such file or directory",
+    "classification": "OURS_BETTER"
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool",
+      "uses-pkg-config",
+      "uses-maintainer-mode",
+      "has-acinclude",
+      "vendored-aclocal",
+      "uses-ax-archive",
+      "perl-in-configure"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-maintainer-mode",
+        "action": "--disable-maintainer-mode",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "7ce013376826229435a725231a088a6b4ca9c70c0f0c2c61a569acc421b80cc1",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

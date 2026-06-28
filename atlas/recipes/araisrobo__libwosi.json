@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "araisrobo/libwosi",
   "source": {
     "url": "https://github.com/araisrobo/libwosi",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.8",
+    "autoconf_rs": "autoconf-rs 0.1.11",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -38,12 +38,8 @@
       "checking for check >= 0.9.4... no"
     ],
     "system_libs": [],
-    "headers_needed": [
-      "confdefs.h"
-    ],
-    "missing": [
-      "confdefs.h"
-    ]
+    "headers_needed": [],
+    "missing": []
   },
   "quirks": [
     "libtool",
@@ -53,5 +49,84 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1441: syntax error near unexpected token `else'"
+  "diagnostic": "./configure: line 1442: syntax error near unexpected token `else'",
+  "deep_expansion": {
+    "configure_lines": 2690,
+    "leaked_macros": [],
+    "heredoc_openers": 20,
+    "heredoc_terminators": 20,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1442,
+        "token": "else",
+        "source": "else",
+        "block": [
+          "1438: ",
+          "1439: #     LIBUSB_CFLAGS=\"$CFLAGS $LIBUSB_CFLAGS\"",
+          "1440: #     LIBUSB_LIBS=\"$USB_LIBS $LIBUSB_LIBS\"",
+          "1441: #   ",
+          "1442: else",
+          "1443: :",
+          "1444: ",
+          "1445: fi"
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2171: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT"
+    ],
+    "failed_during_check": "checking for check >= 0.9.4... no",
+    "failure_tail": [
+      "checking for check >= 0.9.4... no",
+      "yes",
+      "./configure: line 1442: syntax error near unexpected token `else'",
+      "./configure: line 1442: `else'"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 8,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar clock_gettime();\\nint main() { return clock_gettime(); }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar libusb_get_device_list();\\nint main() { return libusb_get_device_list(); }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar ftdi_usb_open();\\nint main() { return ftdi_usb_open(); }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar ftdi_read_data_submit();\\nint main() { return ftdi_read_data_submit(); }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "fail",
+    "real_make": "skipped",
+    "real_configure_lines": 19798,
+    "real_first_error": "configure: error: Package requirements (check >= 0.9.4) were not met:",
+    "classification": "BOTH_CONFIGURE_FAIL"
+  },
+  "receipt": {
+    "court_status": "not_standalone",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool-old",
+      "uses-pkg-config",
+      "vendored-aclocal"
+    ],
+    "receipt_hash": "9b1e2700fe968e7a3321342ca953e7c699643cc7f6208188c454b461278951a7",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

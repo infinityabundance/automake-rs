@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "GNOME/goffice",
   "source": {
     "url": "https://github.com/GNOME/goffice",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.8",
+    "autoconf_rs": "autoconf-rs 0.1.11",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -27,6 +27,11 @@
       "step": "configure",
       "tool": "./configure",
       "status": "fail"
+    },
+    {
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
+      "status": "fail"
     }
   ],
   "probe_results": {},
@@ -34,7 +39,10 @@
     "configure_args": []
   },
   "dependencies": {
-    "pkg_config": [],
+    "pkg_config": [
+      "./configure: line 1486: /dev/nullpkg-config: Permission denied",
+      "./configure: line 1638: /dev/nullpkg-config: Permission denied"
+    ],
     "system_libs": [],
     "headers_needed": [],
     "missing": []
@@ -49,5 +57,160 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1342: syntax error near unexpected token `version_iface,'"
+  "diagnostic": "./configure: command substitution: line 1638: syntax error near unexpected token `)'",
+  "deep_expansion": {
+    "configure_lines": 3659,
+    "leaked_macros": [
+      {
+        "name": "AC_CHECK_DECL",
+        "line": 1991,
+        "context": "AC_CHECK_DECL(fdopen, fdopen_works=yes, fdopen_works=no)"
+      },
+      {
+        "name": "AC_CHECK_DECL",
+        "line": 1996,
+        "context": "AC_CHECK_DECL(fdopen, fdopen_works=yes, fdopen_works=no)"
+      }
+    ],
+    "heredoc_openers": 55,
+    "heredoc_terminators": 55,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1638,
+        "token": ")",
+        "source": "if (gsrev.revision < `echo \"$LIBGS_REQUIRED\" | sed -e 's/\\.//'`)",
+        "block": [
+          "1634:     gsapi_revision_t gsrev;",
+          "1635: ",
+          "1636:     if (gsapi_revision (&gsrev, sizeof (gsrev)) != 0)",
+          "1637:         return 1;",
+          "1638:     if (gsrev.revision < `echo \"$LIBGS_REQUIRED\" | sed -e 's/\\.//'`)",
+          "1639:         return 1;",
+          "1640:  ; return 0; }",
+          "1641: _ACEOF"
+        ]
+      },
+      {
+        "line": 1649,
+        "token": "",
+        "source": "printf '%s\\n' \"$have_libgs\"",
+        "block": [
+          "1645: else",
+          "1646:   :",
+          "1647:   have_libgs=no",
+          "1648: fi",
+          "1649:     printf '%s\\n' \"$have_libgs\"",
+          "1650:     # Restore language",
+          "1651:     LIBS=$save_LIBS",
+          "1652:     if test \"x$have_libgs\" = \"xno\"; then"
+        ]
+      },
+      {
+        "line": 3660,
+        "token": "",
+        "source": "",
+        "block": [
+          "3656: \tUI:\t\t\t${ui_msg}",
+          "3657: \tConfiguration backend:\t${conf_msg}",
+          "3658:     Build gtk_mac_integration:\t${os_osx}",
+          "3659: \""
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 3167: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PKG_CONFIG",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL",
+      "srcdir",
+      "prefix",
+      "exec_prefix",
+      "CC",
+      "CFLAGS",
+      "CPPFLAGS",
+      "LDFLAGS",
+      "LIBS",
+      "CXX",
+      "CXXFLAGS",
+      "CPP",
+      "DEFS",
+      "LIBOBJS",
+      "INSTALL",
+      "INTROSPECTION_CFLAGS",
+      "VERSION_INFO",
+      "TYPELIBDIR",
+      "EXTRA_DEPS",
+      "goffice_datadir",
+      "INTROSPECTION_SCANNER",
+      "host_alias",
+      "INTROSPECTION_MAKEFILE"
+    ],
+    "failed_during_check": "checking for ... no",
+    "failure_tail": [
+      "checking for ... no",
+      "./configure: command substitution: line 1490: unexpected EOF while looking for m",
+      "./configure: command substitution: line 1638: syntax error near unexpected token",
+      "./configure: command substitution: line 1638: `)'",
+      "./configure: command substitution: line 1649: syntax error: unexpected end of fi"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 56,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "#include <sys/types.h>\\nint main() { return sizeof(off_t) >= 8 ? 0 : 1; }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func();\\nint main() { return $ac_func(); }",
+      "char gsapi_new_instance();\\nint main() { return gsapi_new_instance(); }",
+      "\\n#include <ghostscript/iapi.h>\\n\\nint main() {\\ngsapi_revision_t gsrev;\\n\\nif (gsapi_revision (&gsrev, sizeof (gsrev)) != 0)\\nreturn 1;\\nif (gsrev.revision < `echo \"$LIBGS_REQUIRED\" | sed -e 's/\\.//'`)\\nreturn 1;\\n; return 0; }",
+      "char g_settings_new();\\nint main() { return g_settings_new(); }",
+      "\\nint main() {  ; return 0; }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "fail",
+    "real_configure": "skipped",
+    "real_make": "skipped",
+    "real_configure_lines": 0,
+    "real_first_error": "automake: error: cannot open < gtk-doc.make: No such file or directory",
+    "classification": "OURS_BETTER"
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool",
+      "uses-pkg-config",
+      "uses-intltool",
+      "uses-gettext",
+      "uses-maintainer-mode",
+      "vendored-aclocal",
+      "uses-ax-archive",
+      "perl-in-configure"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-maintainer-mode",
+        "action": "--disable-maintainer-mode",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "7ce013376826229435a725231a088a6b4ca9c70c0f0c2c61a569acc421b80cc1",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

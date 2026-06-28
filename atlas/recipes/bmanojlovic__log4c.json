@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "bmanojlovic/log4c",
   "source": {
     "url": "https://github.com/bmanojlovic/log4c",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.8",
+    "autoconf_rs": "autoconf-rs 0.1.11",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -36,12 +36,8 @@
   "dependencies": {
     "pkg_config": [],
     "system_libs": [],
-    "headers_needed": [
-      "confdefs.h"
-    ],
-    "missing": [
-      "confdefs.h"
-    ]
+    "headers_needed": [],
+    "missing": []
   },
   "quirks": [
     "libtool",
@@ -50,5 +46,114 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1720: syntax error near unexpected token `1.95.1'"
+  "diagnostic": "./configure: line 1725: syntax error near unexpected token `1.95.1'",
+  "deep_expansion": {
+    "configure_lines": 2786,
+    "leaked_macros": [
+      {
+        "name": "AM_PATH_EXPAT",
+        "line": 1725,
+        "context": "AM_PATH_EXPAT(1.95.1)"
+      }
+    ],
+    "heredoc_openers": 29,
+    "heredoc_terminators": 29,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1725,
+        "token": "1.95.1",
+        "source": "AM_PATH_EXPAT(1.95.1)",
+        "block": [
+          "1721: # Check --with-expat option",
+          "1722: ",
+          "1723: if test x$with_expat = xyes ; then",
+          "1724:  use_expat=yes",
+          "1725:  AM_PATH_EXPAT(1.95.1)",
+          "1726: fi",
+          "1727: ",
+          "1728: # "
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2310: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL",
+      "srcdir",
+      "prefix",
+      "exec_prefix",
+      "CC",
+      "CFLAGS",
+      "CPPFLAGS",
+      "LDFLAGS",
+      "LIBS",
+      "CXX",
+      "CXXFLAGS",
+      "CPP",
+      "DEFS",
+      "LIBOBJS",
+      "INSTALL",
+      "HAVE_LATEX",
+      "LOG4C_MINOR_VERSION",
+      "host_vendor",
+      "HAVE_DOT",
+      "host_alias",
+      "LOG4C_MAJOR_VERSION",
+      "LOG4C_MICRO_VERSION",
+      "LT_VERSION",
+      "host_os"
+    ],
+    "failed_during_check": "checking for sbrk... yes",
+    "failure_tail": [
+      "checking for sbrk... yes",
+      "./configure: line 1725: syntax error near unexpected token `1.95.1'",
+      "./configure: line 1725: ` AM_PATH_EXPAT(1.95.1)'"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 19,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "#include <pthread.h>",
+      "#include <$ac_hdr>",
+      "int main() { const int x = 1; return x-1; }",
+      "inline int foo() { return 0; }\\nint main() { return foo(); }",
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { size_t x; return 0; }",
+      "#include <time.h>"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "fail",
+    "real_configure": "skipped",
+    "real_make": "skipped",
+    "real_configure_lines": 0,
+    "real_first_error": "configure.in:206: error: possibly undefined macro: AM_PATH_EXPAT",
+    "classification": "OURS_BETTER"
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool-old",
+      "vendored-aclocal"
+    ],
+    "receipt_hash": "7ce013376826229435a725231a088a6b4ca9c70c0f0c2c61a569acc421b80cc1",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }
