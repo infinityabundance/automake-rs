@@ -409,8 +409,10 @@ fn analyze_expansion(d: &Path, cf_log: &str) -> Option<DeepExpansion> {
                 });
             }
         }
-        // Heredoc accounting for conftest probes.
-        if l.contains("<<_ACEOF") && (l.contains(">conftest") || l.contains("confdefs.h")) {
+        // Heredoc accounting: count ALL `<<_ACEOF` openers (conftest probes, config.status, help)
+        // vs lone `_ACEOF` terminators. A genuine imbalance == a missing opener (the compile-probe
+        // emitted as raw shell -> `syntax error near '('`), not just legit multi-heredoc usage.
+        if l.contains("<<_ACEOF") || l.contains("<<\\_ACEOF") {
             de.heredoc_openers += 1;
         }
         if l.trim() == "_ACEOF" {
@@ -587,6 +589,12 @@ fn write_index(out_dir: &Path) {
     let mut by_status: BTreeMap<String, usize> = BTreeMap::new();
     let mut total = 0;
     let mut lines = Vec::new();
+    // Corpus-wide expansion-bug tallies — rank the fixes by how many repos each unblocks.
+    let mut leaked: BTreeMap<String, usize> = BTreeMap::new();
+    let mut syntax_tokens: BTreeMap<String, usize> = BTreeMap::new();
+    let mut residual: BTreeMap<String, usize> = BTreeMap::new();
+    let mut heredoc_broken = 0usize;
+    let mut with_leaks = 0usize;
     let mut entries: Vec<_> = std::fs::read_dir(out_dir).into_iter().flatten().flatten().collect();
     entries.sort_by_key(|e| e.file_name());
     for e in entries {
@@ -601,13 +609,48 @@ fn write_index(out_dir: &Path) {
                 *by_status.entry(st.clone()).or_default() += 1;
                 total += 1;
                 lines.push(serde_json::json!({"repo": repo, "status": st, "verified": v["verified"]}));
+                if let Some(de) = v.get("deep_expansion") {
+                    if let Some(arr) = de["leaked_macros"].as_array() {
+                        if !arr.is_empty() { with_leaks += 1; }
+                        // count each macro NAME once per repo (repos-unblocked, not raw occurrences)
+                        let mut seen = std::collections::BTreeSet::new();
+                        for m in arr {
+                            if let Some(name) = m["name"].as_str() { seen.insert(name.to_string()); }
+                        }
+                        for name in seen { *leaked.entry(name).or_default() += 1; }
+                    }
+                    if de["heredoc_imbalance"].as_i64().unwrap_or(0) != 0 { heredoc_broken += 1; }
+                    if let Some(arr) = de["syntax_errors"].as_array() {
+                        for s in arr {
+                            if let Some(tok) = s["token"].as_str() { if !tok.is_empty() { *syntax_tokens.entry(tok.to_string()).or_default() += 1; } }
+                        }
+                    }
+                    if let Some(arr) = de["residual_placeholders"].as_array() {
+                        let mut seen = std::collections::BTreeSet::new();
+                        for r in arr { if let Some(s) = r.as_str() { seen.insert(s.to_string()); } }
+                        for s in seen { *residual.entry(s).or_default() += 1; }
+                    }
+                }
             }
         }
     }
+    // rank helper: map -> Vec of {name,repos} sorted desc, top 30
+    let rank = |m: &BTreeMap<String, usize>| -> Vec<serde_json::Value> {
+        let mut v: Vec<_> = m.iter().map(|(k, c)| (k.clone(), *c)).collect();
+        v.sort_by(|a, b| b.1.cmp(&a.1).then(a.0.cmp(&b.0)));
+        v.into_iter().take(30).map(|(k, c)| serde_json::json!({"name": k, "repos": c})).collect()
+    };
     let index = serde_json::json!({
         "schema": "automake-rs.build-atlas/index/v1",
         "total": total,
         "by_status": by_status,
+        "expansion_bugs": {
+            "repos_with_leaked_macros": with_leaks,
+            "repos_with_heredoc_imbalance": heredoc_broken,
+            "top_leaked_macros": rank(&leaked),
+            "top_syntax_tokens": rank(&syntax_tokens),
+            "top_residual_placeholders": rank(&residual),
+        },
         "recipes": lines,
     });
     let _ = std::fs::write(out_dir.join("INDEX.json"), serde_json::to_string_pretty(&index).unwrap_or_default() + "\n");
