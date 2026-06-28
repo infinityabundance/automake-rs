@@ -1215,6 +1215,34 @@ fn write_recipe(out_dir: &Path, slug: &str, rec: Recipe) {
     }
 }
 
+/// Classify a `divergence.ours_error` into an ACTIONABLE root. The shell error format is
+/// `line N: <offending> (near `<token>`)` — that backtick is the SHELL's own quoting, not a backtick in
+/// the source (the old "backtick-in-source" bucket was an artifact of matching it). So: if <offending>
+/// is a macro call (UPPER/_ identifier immediately followed by `(`), the root is that leaked macro
+/// (`macro:NAME`, aggregating with macros_ours_left_undefined); otherwise bucket by the near-token
+/// (fi/else -> unbalanced conditional; a punctuation token -> that syntax token).
+fn bucket_error(e: &str) -> String {
+    let txt = e.find(": ").map(|p| &e[p + 2..]).unwrap_or(e);
+    let offending = txt.split(" (near").next().unwrap_or(txt).trim();
+    let mac: String = offending.chars().take_while(|c| c.is_ascii_alphanumeric() || *c == '_').collect();
+    if !mac.is_empty()
+        && mac.starts_with(|c: char| c.is_ascii_uppercase() || c == '_')
+        && mac.chars().any(|c| c.is_ascii_uppercase())
+        && offending[mac.len()..].starts_with('(')
+    {
+        return format!("macro:{}", mac);
+    }
+    let near = txt.find("near `").map(|i| &txt[i + 6..]).and_then(|s| s.split('`').next()).unwrap_or("").trim();
+    match near {
+        "fi" | "else" | "then" | "elif" => "syntax:unbalanced-conditional".to_string(),
+        "done" | "do" => "syntax:unbalanced-loop".to_string(),
+        "esac" | "in" => "syntax:unbalanced-case".to_string(),
+        "" => "syntax:other".to_string(),
+        t if t.chars().all(|c| !c.is_ascii_alphanumeric()) => format!("syntax:token:{}", t),
+        _ => "syntax:other".to_string(),
+    }
+}
+
 fn write_index(out_dir: &Path) {
     let mut by_status: BTreeMap<String, usize> = BTreeMap::new();
     let mut total = 0;
@@ -1350,11 +1378,7 @@ fn write_index(out_dir: &Path) {
                     }
                     if seen.is_empty() {
                         if let Some(e) = dv["ours_error"].as_str() { if !e.is_empty() {
-                            let bucket = if e.contains("near `fi`")||e.contains("near `else`") { "unbalanced-conditional".to_string() }
-                                else if e.contains("int main") { "missing-heredoc-opener".to_string() }
-                                else if e.contains('`') { "backtick-in-source".to_string() }
-                                else { "other-syntax".to_string() };
-                            seen.insert(format!("syntax:{}", bucket));
+                            seen.insert(bucket_error(e));
                         }}
                     }
                     for s in seen { *fixable_roots.entry(s).or_default() += 1; }
