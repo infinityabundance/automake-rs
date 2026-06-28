@@ -252,27 +252,37 @@ pub fn run() -> ExitCode {
 
                 let mut cf_log = String::new();
                 let mut mk_log = String::new();
+                // ATLAS_SCAN_ONLY=1: stop after generating configure. The deep_expansion ranking
+                // (leaked macros, heredoc balance, residual @VAR@) is static analysis of the GENERATED
+                // configure — it needs neither a configure-run nor make. Scan-only sweeps the full 1000
+                // in a fraction of the time (no per-repo 120s/300s timeouts), giving the ranked backlog
+                // fast. The full run (with run+make, for FUNC_OK) stays the default.
+                let scan_only = std::env::var("ATLAS_SCAN_ONLY").is_ok();
                 if d.join("configure").exists() {
-                    status = "CONFIGURE_RUN_FAIL".to_string();
-                    let (cfok, cfl) = run_timed(&d, 180, "./configure", &[]);
-                    cf_log = cfl;
-                    pipeline.push(Step {
-                        step: "configure".into(),
-                        tool: "./configure".into(),
-                        status: if cfok { "ok".into() } else { "fail".into() },
-                    });
-                    if cfok {
-                        status = "MAKE_FAIL".to_string();
-                        let (mkok, mkl) = run_timed(&d, 300, "make", &["-j2"]);
-                        mk_log = mkl;
+                    if scan_only {
+                        status = "CONFIGURE_GENERATED".to_string();
+                    } else {
+                        status = "CONFIGURE_RUN_FAIL".to_string();
+                        let (cfok, cfl) = run_timed(&d, 180, "./configure", &[]);
+                        cf_log = cfl;
                         pipeline.push(Step {
-                            step: "make".into(),
-                            tool: "make".into(),
-                            status: if mkok { "ok".into() } else { "fail".into() },
+                            step: "configure".into(),
+                            tool: "./configure".into(),
+                            status: if cfok { "ok".into() } else { "fail".into() },
                         });
-                        if mkok {
-                            status = "FUNC_OK".to_string();
-                            ok += 1;
+                        if cfok {
+                            status = "MAKE_FAIL".to_string();
+                            let (mkok, mkl) = run_timed(&d, 300, "make", &["-j2"]);
+                            mk_log = mkl;
+                            pipeline.push(Step {
+                                step: "make".into(),
+                                tool: "make".into(),
+                                status: if mkok { "ok".into() } else { "fail".into() },
+                            });
+                            if mkok {
+                                status = "FUNC_OK".to_string();
+                                ok += 1;
+                            }
                         }
                     }
                 }
