@@ -83,8 +83,14 @@ fn tool(env_var: &str, default: &str) -> String {
 }
 
 /// Run `cmd` (wrapped in coreutils `timeout`) in `dir`, capturing combined stdout+stderr.
+/// `-k 10 -s KILL`: send SIGKILL at the deadline (unignorable) plus a 10s kill-after grace, so a
+/// build that traps/ignores SIGTERM (or a configure that infinite-loops) can never hang the worker.
 fn run_timed(dir: &Path, secs: u32, program: &str, args: &[&str]) -> (bool, String) {
     let out = Command::new("timeout")
+        .arg("-k")
+        .arg("10")
+        .arg("-s")
+        .arg("KILL")
         .arg(secs.to_string())
         .arg(program)
         .args(args)
