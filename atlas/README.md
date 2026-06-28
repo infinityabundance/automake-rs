@@ -54,6 +54,8 @@ ranked backlog: defeat the top root, the headroom shrinks, the next pass starts 
 
 ## Replay (`atlas-replay` — reproducer + regression gate)
 
+![atlas-replay reproducing ayumin/open-cobol from its recipe](replay-demo.gif)
+
 Turns the atlas from a *record* into a *reproducer*. `atlas-replay <recipe.json>`:
 
 1. clones the repo at the recipe's pinned `source.git_sha` into a clean dir (falls back to HEAD if the
