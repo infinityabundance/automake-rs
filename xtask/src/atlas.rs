@@ -36,6 +36,10 @@ struct Recipe {
     diagnostic: String,
     #[serde(skip_serializing_if = "Option::is_none")]
     deep_expansion: Option<DeepExpansion>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    oracle: Option<Oracle>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    divergence: Option<Divergence>,
 }
 #[derive(Serialize)]
 struct Source {
@@ -99,6 +103,30 @@ struct DeepExpansion {
     cache_var_anomalies: Vec<String>,
     /// Leftover `@VAR@` substitution placeholders config.status never filled.
     residual_placeholders: Vec<String>,
+}
+/// The GNU-autotools oracle outcome for the SAME repo, run right after ours on a git-reset tree.
+/// This is the compass: `classification` says whether a failure is OUR bug (real succeeds, we don't —
+/// fixable, with the divergence below showing where) or not-standalone (real fails too).
+#[derive(Serialize, Default)]
+struct Oracle {
+    real_autoreconf: String,     // ok | fail
+    real_configure: String,      // ok | fail | skipped
+    real_make: String,           // ok | fail | skipped
+    real_configure_lines: usize,
+    real_first_error: String,
+    /// BOTH_OK | OURS_BUG_CONFIGURE | OURS_BUG_MAKE | OURS_GEN_FAIL | NOT_STANDALONE |
+    /// BOTH_CONFIGURE_FAIL | BOTH_MAKE_FAIL | OURS_BETTER | UNKNOWN
+    classification: String,
+}
+/// Where ours diverges from a real run that got further — only populated for OURS_BUG_* recipes.
+#[derive(Serialize, Default)]
+struct Divergence {
+    stage: String,                         // autoreconf | configure | make
+    ours_error: String,                    // ours' first hard error line
+    ours_error_context: Vec<String>,       // generated-shell lines around the failure (the actual bug site)
+    ours_configure_lines: usize,
+    real_configure_lines: usize,
+    macros_ours_left_undefined: Vec<String>, // leaked macros = the macros to define/fix
 }
 #[derive(Serialize)]
 struct LeakedMacro {
@@ -293,6 +321,13 @@ pub fn run() -> ExitCode {
                 let verified = status == "FUNC_OK";
                 let outputs = if verified { collect_outputs(&d) } else { Vec::new() };
                 let deep_expansion = analyze_expansion(&d, &cf_log);
+                // The compass: run the GNU-autotools oracle on the same repo and classify ours vs it.
+                let (oracle, divergence) = if std::env::var("ATLAS_ORACLE").is_ok() {
+                    let (o, dv) = run_oracle(&d, &status, &deep_expansion);
+                    (Some(o), dv)
+                } else {
+                    (None, None)
+                };
                 if !libs.is_empty() {
                     quirks.push(format!("LIBS={}", libs.join(" ")));
                 }
@@ -333,6 +368,8 @@ pub fn run() -> ExitCode {
                         verified,
                         diagnostic,
                         deep_expansion,
+                        oracle,
+                        divergence,
                     },
                 );
                 println!("[{:>3}] {:<40} {}", n, repo, status);
@@ -360,6 +397,8 @@ pub fn run() -> ExitCode {
                 verified: false,
                 diagnostic,
                 deep_expansion: None,
+                oracle: None,
+                divergence: None,
             },
         );
         println!("[{:>3}] {:<40} {}", n, repo, status);
@@ -389,6 +428,97 @@ fn quirks_from_ac(ac: &str, d: &Path) -> Vec<String> {
         q.push("subdirs".into());
     }
     q
+}
+
+/// Run the REAL GNU autotools (system autoreconf/aclocal/autoconf + configure[+make]) on a git-reset
+/// copy of the repo, then classify ours vs the oracle. `ours_status` is our pipeline's final status.
+/// Returns the Oracle outcome and — when ours fails but the oracle got further — the Divergence that
+/// shows exactly what to fix. Gated by ATLAS_ORACLE=1 (it ~doubles per-repo time).
+fn run_oracle(
+    d: &Path,
+    ours_status: &str,
+    de: &Option<DeepExpansion>,
+) -> (Oracle, Option<Divergence>) {
+    let mut o = Oracle::default();
+    // snapshot ours' configure size + error before we reset the tree
+    let ours_cfg_lines = std::fs::read_to_string(d.join("configure"))
+        .map(|s| s.lines().count())
+        .unwrap_or(0);
+    // reset the working tree so the real run starts clean (remove our generated files)
+    let _ = Command::new("git").arg("-C").arg(d).arg("clean").arg("-fdxq").status();
+    let _ = Command::new("git").arg("-C").arg(d).arg("checkout").arg("--").arg(".").status();
+
+    let (ar_ok, ar_log) = run_timed(d, 150, "autoreconf", &["-fi", "."]);
+    o.real_autoreconf = if ar_ok && d.join("configure").exists() { "ok".into() } else { "fail".into() };
+    if o.real_autoreconf != "ok" {
+        o.real_first_error = first_err(&ar_log);
+        o.real_configure = "skipped".into();
+        o.real_make = "skipped".into();
+    } else {
+        let (cf_ok, cf_log) = run_timed(d, 180, "./configure", &[]);
+        o.real_configure_lines = std::fs::read_to_string(d.join("configure")).map(|s| s.lines().count()).unwrap_or(0);
+        o.real_configure = if cf_ok { "ok".into() } else { o.real_first_error = first_err(&cf_log); "fail".into() };
+        if cf_ok {
+            let (mk_ok, _mk) = run_timed(d, 300, "make", &["-j2"]);
+            o.real_make = if mk_ok { "ok".into() } else { "fail".into() };
+        } else {
+            o.real_make = "skipped".into();
+        }
+    }
+
+    let ours_cleared = matches!(ours_status, "MAKE_FAIL" | "FUNC_OK");
+    let ours_made = ours_status == "FUNC_OK";
+    let real_cleared = o.real_configure == "ok";
+    let real_made = o.real_make == "ok";
+    o.classification = if !real_cleared && o.real_autoreconf != "ok" {
+        if ours_status == "CONFIGURE_GEN_FAIL" { "NOT_STANDALONE".into() } else { "OURS_BETTER".into() }
+    } else if !real_cleared {
+        if ours_cleared { "OURS_BETTER".into() } else { "BOTH_CONFIGURE_FAIL".into() }
+    } else if !ours_cleared {
+        if ours_status == "CONFIGURE_GEN_FAIL" { "OURS_GEN_FAIL".into() } else { "OURS_BUG_CONFIGURE".into() }
+    } else if real_made && !ours_made {
+        "OURS_BUG_MAKE".into()
+    } else if ours_made && real_made {
+        "BOTH_OK".into()
+    } else {
+        "BOTH_MAKE_FAIL".into()
+    };
+
+    // Divergence detail only for the fixable buckets (real got further than ours).
+    let div = if o.classification.starts_with("OURS_BUG") || o.classification == "OURS_GEN_FAIL" {
+        let dd = de.as_ref();
+        Some(Divergence {
+            stage: if o.classification == "OURS_BUG_MAKE" { "make".into() }
+                   else if o.classification == "OURS_GEN_FAIL" { "autoreconf".into() }
+                   else { "configure".into() },
+            ours_error: dd.and_then(|x| x.syntax_errors.first().map(|s| format!("line {}: {} (near `{}`)", s.line, s.source, s.token)))
+                .unwrap_or_default(),
+            ours_error_context: dd.map(|x| x.syntax_errors.iter().take(3).map(|s| s.source.clone()).collect()).unwrap_or_default(),
+            ours_configure_lines: ours_cfg_lines,
+            real_configure_lines: o.real_configure_lines,
+            macros_ours_left_undefined: dd.map(|x| {
+                let mut v: Vec<String> = x.leaked_macros.iter().map(|m| m.name.clone()).collect();
+                v.sort(); v.dedup(); v.truncate(15); v
+            }).unwrap_or_default(),
+        })
+    } else {
+        None
+    };
+    (o, div)
+}
+
+/// First hard error line from a log (configure/autoreconf), skipping known noise.
+fn first_err(log: &str) -> String {
+    for l in log.lines() {
+        let ll = l.to_lowercase();
+        if ll.contains("confdefs.h: no such file") { continue; }
+        if ll.contains("error:") || ll.contains("syntax error") || ll.contains("command not found")
+            || ll.contains("no such file") || ll.contains("undefined macro") || ll.contains("possibly undefined")
+        {
+            return l.trim().chars().take(120).collect();
+        }
+    }
+    String::new()
 }
 
 /// Forensic scan of the generated `configure` plus the configure run-log. Surfaces the exact
@@ -605,6 +735,11 @@ fn write_index(out_dir: &Path) {
     let mut residual: BTreeMap<String, usize> = BTreeMap::new();
     let mut heredoc_broken = 0usize;
     let mut with_leaks = 0usize;
+    // Oracle compass: classification counts + the fixable backlog (roots of OURS_BUG repos, ranked).
+    let mut classif: BTreeMap<String, usize> = BTreeMap::new();
+    let mut fixable_roots: BTreeMap<String, usize> = BTreeMap::new();
+    let mut ours_clear = 0usize;
+    let mut real_clear = 0usize;
     let mut entries: Vec<_> = std::fs::read_dir(out_dir).into_iter().flatten().flatten().collect();
     entries.sort_by_key(|e| e.file_name());
     for e in entries {
@@ -641,6 +776,28 @@ fn write_index(out_dir: &Path) {
                         for s in seen { *residual.entry(s).or_default() += 1; }
                     }
                 }
+                if st == "MAKE_FAIL" || st == "FUNC_OK" { ours_clear += 1; }
+                if let Some(orc) = v.get("oracle") {
+                    if let Some(c) = orc["classification"].as_str() { *classif.entry(c.to_string()).or_default() += 1; }
+                    if orc["real_configure"].as_str() == Some("ok") { real_clear += 1; }
+                }
+                // fixable backlog: roots of repos where real got further than ours
+                if let Some(dv) = v.get("divergence") {
+                    let mut seen = std::collections::BTreeSet::new();
+                    if let Some(arr) = dv["macros_ours_left_undefined"].as_array() {
+                        for m in arr { if let Some(s) = m.as_str() { seen.insert(format!("macro:{}", s)); } }
+                    }
+                    if seen.is_empty() {
+                        if let Some(e) = dv["ours_error"].as_str() { if !e.is_empty() {
+                            let bucket = if e.contains("near `fi`")||e.contains("near `else`") { "unbalanced-conditional".to_string() }
+                                else if e.contains("int main") { "missing-heredoc-opener".to_string() }
+                                else if e.contains('`') { "backtick-in-source".to_string() }
+                                else { "other-syntax".to_string() };
+                            seen.insert(format!("syntax:{}", bucket));
+                        }}
+                    }
+                    for s in seen { *fixable_roots.entry(s).or_default() += 1; }
+                }
             }
         }
     }
@@ -660,6 +817,13 @@ fn write_index(out_dir: &Path) {
             "top_leaked_macros": rank(&leaked),
             "top_syntax_tokens": rank(&syntax_tokens),
             "top_residual_placeholders": rank(&residual),
+        },
+        "oracle_compass": {
+            "ours_configure_clear": ours_clear,
+            "real_configure_clear": real_clear,
+            "headroom_our_bugs": real_clear.saturating_sub(ours_clear),
+            "classification": classif,
+            "fixable_backlog_roots": rank(&fixable_roots),
         },
         "recipes": lines,
     });
