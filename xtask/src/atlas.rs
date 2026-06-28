@@ -1097,6 +1097,117 @@ fn diag_line(cf: &str, mk: &str) -> String {
     String::new()
 }
 
+/// `xtask atlas-replay <recipe.json> [--keep]` — REPRODUCER + regression gate. Reads a recipe, clones
+/// the repo at the pinned git_sha into a clean dir, re-applies the recorded pass_pipeline + the
+/// configure flags from feature_flags/quirks_applied, rebuilds, and verifies the rebuilt artifacts'
+/// sha256s against the recipe's `outputs`. Emits a replay receipt (reproduced | diverged | build_failed
+/// | clone_failed) and exits non-zero on anything but a clean reproduction — so it gates regressions.
+pub fn replay() -> ExitCode {
+    let args: Vec<String> = std::env::args().collect();
+    let recipe_path = match args.get(2) {
+        Some(p) => PathBuf::from(p),
+        None => {
+            eprintln!("usage: cargo xtask atlas-replay <recipe.json> [--keep]");
+            return ExitCode::from(2);
+        }
+    };
+    let keep = args.iter().any(|a| a == "--keep");
+    let v: serde_json::Value = match std::fs::read_to_string(&recipe_path).ok().and_then(|s| serde_json::from_str(&s).ok()) {
+        Some(v) => v,
+        None => { eprintln!("atlas-replay: cannot read/parse {}", recipe_path.display()); return ExitCode::from(2); }
+    };
+
+    let repo = v["repo"].as_str().unwrap_or("").to_string();
+    let url = v["source"]["url"].as_str().filter(|s| !s.is_empty()).map(|s| s.to_string())
+        .unwrap_or_else(|| format!("https://github.com/{}", repo));
+    let pinned_sha = v["source"]["git_sha"].as_str().unwrap_or("").to_string();
+    // configure flags: feature_flags.configure_args + any --flag actions the recipe's quirks applied
+    let mut cfg_args: Vec<String> = v["feature_flags"]["configure_args"].as_array().into_iter().flatten()
+        .filter_map(|x| x.as_str().map(|s| s.to_string())).collect();
+    if let Some(qa) = v["receipt"]["quirks_applied"].as_array() {
+        for q in qa { if let Some(a) = q["action"].as_str() { if a.starts_with("--") && !cfg_args.iter().any(|c| c == a) { cfg_args.push(a.to_string()); } } }
+    }
+    let recipe_outputs: BTreeMap<String, String> = v["outputs"].as_array().into_iter().flatten()
+        .filter_map(|o| Some((o["path"].as_str()?.to_string(), o["sha256"].as_str()?.to_string()))).collect();
+
+    // autoreconf-rs resolves AUTOCONF_RS / AUTOMAKE_RS from the env itself (same as the atlas run).
+    let ars = tool("AUTORECONF_RS", "autoreconf-rs");
+
+    let base = std::env::temp_dir().join(format!("atlasreplay_{}", repo.replace('/', "__")));
+    let _ = std::fs::remove_dir_all(&base);
+    std::fs::create_dir_all(&base).ok();
+    let d = base.join("s");
+
+    let mut steps: Vec<serde_json::Value> = Vec::new();
+    let mut replay_status = "clone_failed";
+    let mut sha_used = String::new();
+
+    let (cloned, _) = run_timed(&base, 120, "git", &["clone", "-q", &url, d.to_str().unwrap()]);
+    steps.push(serde_json::json!({"step": "clone", "status": if cloned {"ok"} else {"fail"}}));
+    let mut out_compare = serde_json::json!({});
+    let mut matched = 0usize; let mut mismatched = 0usize; let mut missing = 0usize;
+    if cloned {
+        // pin to the recorded sha for a faithful replay; fall back to HEAD if the sha is gone.
+        let pin_ok = !pinned_sha.is_empty() && Command::new("git").args(["checkout", "-q", &pinned_sha]).current_dir(&d).status().map(|s| s.success()).unwrap_or(false);
+        sha_used = if pin_ok { pinned_sha.clone() } else {
+            Command::new("git").args(["rev-parse", "HEAD"]).current_dir(&d).output().ok()
+                .map(|o| String::from_utf8_lossy(&o.stdout).trim().to_string()).unwrap_or_default()
+        };
+        steps.push(serde_json::json!({"step": "checkout", "sha": sha_used, "pinned": pin_ok, "status": if pin_ok {"ok"} else {"head-fallback"}}));
+
+        replay_status = "build_failed";
+        let (_a, _) = run_timed(&d, 150, &ars, &["-fi", "."]);
+        let gen_ok = d.join("configure").exists();
+        steps.push(serde_json::json!({"step": "autoreconf", "tool": ars, "status": if gen_ok {"ok"} else {"fail"}}));
+        if gen_ok {
+            let argref: Vec<&str> = cfg_args.iter().map(|s| s.as_str()).collect();
+            let (cfok, cfl) = run_timed(&d, 180, "./configure", &argref);
+            steps.push(serde_json::json!({"step": "configure", "args": cfg_args, "status": if cfok {"ok"} else {"fail"}}));
+            if cfok {
+                let (mkok, mkl) = run_timed(&d, 300, "make", &["-j2"]);
+                steps.push(serde_json::json!({"step": "make", "status": if mkok {"ok"} else {"fail"}}));
+                let _ = (cfl, mkl);
+                // verify: rebuilt artifacts vs recipe outputs (by path -> sha256)
+                let rebuilt = collect_outputs(&d);
+                let rebuilt_map: BTreeMap<String, String> = rebuilt.iter().map(|o| (o.path.clone(), o.sha256.clone())).collect();
+                let mut details = Vec::new();
+                for (path, want) in &recipe_outputs {
+                    match rebuilt_map.get(path) {
+                        Some(got) if got == want => { matched += 1; details.push(serde_json::json!({"path": path, "verdict": "match"})); }
+                        Some(got) => { mismatched += 1; details.push(serde_json::json!({"path": path, "verdict": "hash-mismatch", "recipe": want, "replay": got})); }
+                        None => { missing += 1; details.push(serde_json::json!({"path": path, "verdict": "missing-in-replay"})); }
+                    }
+                }
+                out_compare = serde_json::json!({"matched": matched, "mismatched": mismatched, "missing": missing, "details": details});
+                replay_status = if !mkok { "build_failed" }
+                    else if recipe_outputs.is_empty() { "reproduced_no_outputs" }
+                    else if mismatched == 0 && missing == 0 { "reproduced" }
+                    else { "diverged" };
+            }
+        }
+    }
+
+    let receipt = serde_json::json!({
+        "schema": "automake-rs.replay-receipt/v1",
+        "repo": repo, "recipe": recipe_path.display().to_string(),
+        "replay_status": replay_status,
+        "pinned_sha": pinned_sha, "sha_replayed": sha_used,
+        "configure_args": cfg_args,
+        "steps": steps,
+        "output_verification": out_compare,
+    });
+    let receipt_path = base.join("replay-receipt.json");
+    let _ = std::fs::write(&receipt_path, serde_json::to_string_pretty(&receipt).unwrap_or_default() + "\n");
+    println!("{}", serde_json::to_string_pretty(&receipt).unwrap_or_default());
+    println!("\natlas-replay: {} — {} (receipt: {})", repo, replay_status, receipt_path.display());
+    if !keep { let _ = std::fs::remove_dir_all(&base); }
+
+    match replay_status {
+        "reproduced" | "reproduced_no_outputs" => ExitCode::SUCCESS,
+        _ => ExitCode::from(1), // gate: any divergence / failure is non-zero
+    }
+}
+
 fn write_recipe(out_dir: &Path, slug: &str, rec: Recipe) {
     let path = out_dir.join(format!("{}.json", slug));
     if let Ok(s) = serde_json::to_string_pretty(&rec) {

@@ -49,6 +49,25 @@ ranked backlog: defeat the top root, the headroom shrinks, the next pass starts 
   package / quirk / macro.
 - **Re-index**: `cargo xtask atlas-index <out-dir>` rebuilds `INDEX.json` + `COURTS.md` +
   `ANALYTICS.md` from existing recipes (no builds).
+- **Replay**: `cargo xtask atlas-replay <recipe.json> [--keep]` reproduces a recipe in a clean dir and
+  verifies it (see below).
+
+## Replay (`atlas-replay` — reproducer + regression gate)
+
+Turns the atlas from a *record* into a *reproducer*. `atlas-replay <recipe.json>`:
+
+1. clones the repo at the recipe's pinned `source.git_sha` into a clean dir (falls back to HEAD if the
+   sha is gone, and records which it used),
+2. re-applies the recorded pipeline — `autoreconf-rs -fi`, `./configure` with the recipe's
+   `feature_flags.configure_args` + any `--flag` from `receipt.quirks_applied`, then `make`,
+3. **verifies** the rebuilt artifacts' sha256 against the recipe's `outputs` (per-path match /
+   hash-mismatch / missing),
+4. emits a `automake-rs.replay-receipt/v1` receipt and **exits non-zero on anything but a clean
+   reproduction** — so it gates regressions in CI.
+
+`replay_status`: `reproduced` (all outputs match) · `reproduced_no_outputs` (built, recipe had no
+artifacts) · `diverged` (built, but some output hashes differ — expected for non-reproducible binaries
+that embed timestamps/paths) · `build_failed` · `clone_failed`.
 
 ## Analytics (`ANALYTICS.md` + `INDEX.json` → `analytics`)
 
