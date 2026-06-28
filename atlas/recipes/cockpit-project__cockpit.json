@@ -1,0 +1,61 @@
+{
+  "schema": "automake-rs.build-atlas/v1",
+  "repo": "cockpit-project/cockpit",
+  "source": {
+    "url": "https://github.com/cockpit-project/cockpit",
+    "git_sha": "262565fb117b9b05765580256f5665b36a4449e2",
+    "snapshot_utc": "2026-06-27"
+  },
+  "toolchain": {
+    "autoconf_rs": "autoconf-rs 0.1.8",
+    "automake_rs": "automake (GNU automake) UNKNOWN",
+    "m4_rs_core": "0.1.4",
+    "gnu_free": true
+  },
+  "target": {
+    "cc": "cc",
+    "cflags": "-g -O2",
+    "host": "x86_64-pc-linux-gnu"
+  },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {},
+  "feature_flags": {
+    "configure_args": []
+  },
+  "dependencies": {
+    "pkg_config": [
+      "checking for gio-2.0 >= 2.68 gio-unix-2.0... yes",
+      "checking for libsystemd >= 235... yes",
+      "checking for json-glib-1.0 >= 1.4... yes",
+      "checking for gnutls >= 3.6.0... yes",
+      "checking for krb5-gssapi >= 1.11 krb5 >= 1.11... yes",
+      "configure: error: systemd's pkg-config file doesn't contain 'systemdsystemunitdi"
+    ],
+    "system_libs": [],
+    "headers_needed": [
+      "confdefs.h"
+    ],
+    "missing": [
+      "confdefs.h"
+    ]
+  },
+  "quirks": [
+    "autoconf-archive-macros",
+    "pkg-config"
+  ],
+  "outputs": [],
+  "status": "CONFIGURE_RUN_FAIL",
+  "verified": false,
+  "diagnostic": "configure: error: systemd's pkg-config file doesn't contain 'systemdsystemunitdir' variable"
+}

@@ -1,0 +1,62 @@
+{
+  "schema": "automake-rs.build-atlas/v1",
+  "repo": "embtom/kmscube",
+  "source": {
+    "url": "https://github.com/embtom/kmscube",
+    "git_sha": "5b3d5dd9a6fb71f2ecdfee7f3cbeedbe8ba59f64",
+    "snapshot_utc": "2026-06-27"
+  },
+  "toolchain": {
+    "autoconf_rs": "autoconf-rs 0.1.8",
+    "automake_rs": "automake (GNU automake) UNKNOWN",
+    "m4_rs_core": "0.1.4",
+    "gnu_free": true
+  },
+  "target": {
+    "cc": "cc",
+    "cflags": "-g -O2",
+    "host": "x86_64-pc-linux-gnu"
+  },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "ok"
+    },
+    {
+      "step": "make",
+      "tool": "make",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {},
+  "feature_flags": {
+    "configure_args": []
+  },
+  "dependencies": {
+    "pkg_config": [
+      "checking for libdrm >= 2.4.71... yes",
+      "checking for gbm >= 13.0... yes",
+      "checking for gstreamer-1.0 >= 1.6.0 gstreamer-plugins-base-1.0 >= 1.6.0 gstreame"
+    ],
+    "system_libs": [],
+    "headers_needed": [
+      "drm_fourcc.h"
+    ],
+    "missing": [
+      "drm_fourcc.h"
+    ]
+  },
+  "quirks": [
+    "pkg-config"
+  ],
+  "outputs": [],
+  "status": "MAKE_FAIL",
+  "verified": false,
+  "diagnostic": "common.h:33:10: fatal error: drm_fourcc.h: No such file or directory"
+}

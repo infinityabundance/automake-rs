@@ -1,0 +1,58 @@
+{
+  "schema": "automake-rs.build-atlas/v1",
+  "repo": "ederlf/horse",
+  "source": {
+    "url": "https://github.com/ederlf/horse",
+    "git_sha": "5c0b78c539b32e202f53f727e423d073b8c69570",
+    "snapshot_utc": "2026-06-27"
+  },
+  "toolchain": {
+    "autoconf_rs": "autoconf-rs 0.1.8",
+    "automake_rs": "automake (GNU automake) UNKNOWN",
+    "m4_rs_core": "0.1.4",
+    "gnu_free": true
+  },
+  "target": {
+    "cc": "cc",
+    "cflags": "-g -O2",
+    "host": "x86_64-pc-linux-gnu"
+  },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "ok"
+    },
+    {
+      "step": "make",
+      "tool": "make",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {},
+  "feature_flags": {
+    "configure_args": []
+  },
+  "dependencies": {
+    "pkg_config": [],
+    "system_libs": [],
+    "headers_needed": [
+      "cfluid/of_client.h"
+    ],
+    "missing": [
+      "cfluid/of_client.h"
+    ]
+  },
+  "quirks": [
+    "libtool"
+  ],
+  "outputs": [],
+  "status": "MAKE_FAIL",
+  "verified": false,
+  "diagnostic": "src/sim/of_manager.h:4:10: fatal error: cfluid/of_client.h: No such file or directory"
+}

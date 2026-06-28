@@ -1,0 +1,58 @@
+{
+  "schema": "automake-rs.build-atlas/v1",
+  "repo": "Evolix/uvrrpd",
+  "source": {
+    "url": "https://github.com/Evolix/uvrrpd",
+    "git_sha": "9f813eadc9849c78e41788a80e6fb895d8debc32",
+    "snapshot_utc": "2026-06-27"
+  },
+  "toolchain": {
+    "autoconf_rs": "autoconf-rs 0.1.8",
+    "automake_rs": "automake (GNU automake) UNKNOWN",
+    "m4_rs_core": "0.1.4",
+    "gnu_free": true
+  },
+  "target": {
+    "cc": "cc",
+    "cflags": "-g -O2",
+    "host": "x86_64-pc-linux-gnu"
+  },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "ok"
+    },
+    {
+      "step": "make",
+      "tool": "make",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {},
+  "feature_flags": {
+    "configure_args": []
+  },
+  "dependencies": {
+    "pkg_config": [],
+    "system_libs": [],
+    "headers_needed": [
+      "confdefs.h"
+    ],
+    "missing": [
+      "confdefs.h"
+    ]
+  },
+  "quirks": [
+    "libtool"
+  ],
+  "outputs": [],
+  "status": "MAKE_FAIL",
+  "verified": false,
+  "diagnostic": "vrrp_ip4.c:183:17: error: converting a packed ‘struct vrrphdr’ pointer (alignment 1) to a ‘short unsigned int’ pointer (alignment 2) may res"
+}

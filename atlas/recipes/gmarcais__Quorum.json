@@ -1,0 +1,76 @@
+{
+  "schema": "automake-rs.build-atlas/v1",
+  "repo": "gmarcais/Quorum",
+  "source": {
+    "url": "https://github.com/gmarcais/Quorum",
+    "git_sha": "c7ed1bd8f801636a2144677fd595ce83f6b5e1a0",
+    "snapshot_utc": "2026-06-27"
+  },
+  "toolchain": {
+    "autoconf_rs": "autoconf-rs 0.1.8",
+    "automake_rs": "automake (GNU automake) UNKNOWN",
+    "m4_rs_core": "0.1.4",
+    "gnu_free": true
+  },
+  "target": {
+    "cc": "cc",
+    "cflags": "-g -O2",
+    "host": "x86_64-pc-linux-gnu"
+  },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "ok"
+    },
+    {
+      "step": "make",
+      "tool": "make",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {
+    "HAVE_INT128": 1,
+    "HAVE_LIBPTHREAD": 1,
+    "HAVE_LIBRT": 1,
+    "HAVE_NUMERIC_LIMITS128": 1,
+    "HAVE_STDLIB_H": 1,
+    "HAVE_STRING_H": 1
+  },
+  "feature_flags": {
+    "configure_args": []
+  },
+  "dependencies": {
+    "pkg_config": [
+      "Package jellyfish-2.0 was not found in the pkg-config search path."
+    ],
+    "system_libs": [
+      "-lrt",
+      "-lpthread",
+      "-lrt",
+      "-lpthread",
+      "-lrt",
+      "-lpthread"
+    ],
+    "headers_needed": [
+      "confdefs.h"
+    ],
+    "missing": [
+      "confdefs.h"
+    ]
+  },
+  "quirks": [
+    "libtool",
+    "pkg-config",
+    "LIBS=-lrt -lpthread -lrt -lpthread -lrt -lpthread"
+  ],
+  "outputs": [],
+  "status": "MAKE_FAIL",
+  "verified": false,
+  "diagnostic": "Makefile:882: rcdir/local.mk: No such file or directory"
+}

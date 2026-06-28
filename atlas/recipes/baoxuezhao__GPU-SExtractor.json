@@ -1,0 +1,96 @@
+{
+  "schema": "automake-rs.build-atlas/v1",
+  "repo": "baoxuezhao/GPU-SExtractor",
+  "source": {
+    "url": "https://github.com/baoxuezhao/GPU-SExtractor",
+    "git_sha": "7f3f5809c39d1f19f8337754ddf23f093c54acc3",
+    "snapshot_utc": "2026-06-27"
+  },
+  "toolchain": {
+    "autoconf_rs": "autoconf-rs 0.1.8",
+    "automake_rs": "automake (GNU automake) UNKNOWN",
+    "m4_rs_core": "0.1.4",
+    "gnu_free": true
+  },
+  "target": {
+    "cc": "cc",
+    "cflags": "-g -O2",
+    "host": "x86_64-pc-linux-gnu"
+  },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {
+    "HAVE_ATEXIT": 1,
+    "HAVE_ATLAS": 1,
+    "HAVE_DLFCN_H": 1,
+    "HAVE_FCNTL_H": 1,
+    "HAVE_FFTW": 1,
+    "HAVE_FSEEKO": 1,
+    "HAVE_GETENV": 1,
+    "HAVE_GETPAGESIZE": 1,
+    "HAVE_INTTYPES_H": 1,
+    "HAVE_LIBCBLAS": 1,
+    "HAVE_LIBLAPACK": 1,
+    "HAVE_LIBM": 1,
+    "HAVE_LIMITS_H": 1,
+    "HAVE_LOGF": 1,
+    "HAVE_MALLOC_H": 1,
+    "HAVE_MEMCPY": 1,
+    "HAVE_MEMMOVE": 1,
+    "HAVE_MEMORY_H": 1,
+    "HAVE_MEMSET": 1,
+    "HAVE_MKDIR": 1,
+    "HAVE_MMAP": 1,
+    "HAVE_MUNMAP": 1,
+    "HAVE_SINCOS": 1,
+    "HAVE_STDINT_H": 1,
+    "HAVE_STDLIB_H": 1,
+    "HAVE_STRFTIME": 1,
+    "HAVE_STRINGS_H": 1,
+    "HAVE_STRING_H": 1,
+    "HAVE_STRSTR": 1,
+    "HAVE_SYS_MMAN_H": 1,
+    "HAVE_SYS_STAT_H": 1,
+    "HAVE_SYS_TYPES_H": 1,
+    "HAVE_UNISTD_H": 1
+  },
+  "feature_flags": {
+    "configure_args": []
+  },
+  "dependencies": {
+    "pkg_config": [],
+    "system_libs": [
+      "-L/usr/local/atlas/lib",
+      "-llapack",
+      "-lcblas",
+      "-latlas",
+      "-lfftw3",
+      "-lm"
+    ],
+    "headers_needed": [
+      "confdefs.h"
+    ],
+    "missing": [
+      "confdefs.h"
+    ]
+  },
+  "quirks": [
+    "libtool",
+    "subdirs",
+    "LIBS=-L/usr/local/atlas/lib -llapack -lcblas -latlas -lfftw3 -lm"
+  ],
+  "outputs": [],
+  "status": "CONFIGURE_RUN_FAIL",
+  "verified": false,
+  "diagnostic": "./configure: line 1391: AM_PROG_CC_STDC: command not found"
+}

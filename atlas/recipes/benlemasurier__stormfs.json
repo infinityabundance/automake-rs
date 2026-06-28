@@ -1,0 +1,63 @@
+{
+  "schema": "automake-rs.build-atlas/v1",
+  "repo": "benlemasurier/stormfs",
+  "source": {
+    "url": "https://github.com/benlemasurier/stormfs",
+    "git_sha": "08876fd0b74052ae41ed106ca9cf93269dbefb29",
+    "snapshot_utc": "2026-06-27"
+  },
+  "toolchain": {
+    "autoconf_rs": "autoconf-rs 0.1.8",
+    "automake_rs": "automake (GNU automake) UNKNOWN",
+    "m4_rs_core": "0.1.4",
+    "gnu_free": true
+  },
+  "target": {
+    "cc": "cc",
+    "cflags": "-g -O2",
+    "host": "x86_64-pc-linux-gnu"
+  },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "ok"
+    },
+    {
+      "step": "make",
+      "tool": "make",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {},
+  "feature_flags": {
+    "configure_args": []
+  },
+  "dependencies": {
+    "pkg_config": [
+      "checking for fuse >= 2.8.3... yes",
+      "checking for glib-2.0 >= 2.22.5... yes",
+      "checking for libcurl >= 7.16.0... yes"
+    ],
+    "system_libs": [],
+    "headers_needed": [
+      "glib.h"
+    ],
+    "missing": [
+      "glib.h"
+    ]
+  },
+  "quirks": [
+    "pkg-config",
+    "subdirs"
+  ],
+  "outputs": [],
+  "status": "MAKE_FAIL",
+  "verified": false,
+  "diagnostic": "proxy.c:20:10: fatal error: glib.h: No such file or directory"
+}

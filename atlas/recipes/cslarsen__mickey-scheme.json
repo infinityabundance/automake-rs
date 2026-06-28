@@ -1,0 +1,70 @@
+{
+  "schema": "automake-rs.build-atlas/v1",
+  "repo": "cslarsen/mickey-scheme",
+  "source": {
+    "url": "https://github.com/cslarsen/mickey-scheme",
+    "git_sha": "157a94955d3b8e45dded8bbb4e290809f5ae1f30",
+    "snapshot_utc": "2026-06-27"
+  },
+  "toolchain": {
+    "autoconf_rs": "autoconf-rs 0.1.8",
+    "automake_rs": "automake (GNU automake) UNKNOWN",
+    "m4_rs_core": "0.1.4",
+    "gnu_free": true
+  },
+  "target": {
+    "cc": "cc",
+    "cflags": "-g -O2",
+    "host": "x86_64-pc-linux-gnu"
+  },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "ok"
+    },
+    {
+      "step": "make",
+      "tool": "make",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {},
+  "feature_flags": {
+    "configure_args": []
+  },
+  "dependencies": {
+    "pkg_config": [],
+    "system_libs": [
+      "-lreadline",
+      "-lffi",
+      "-ldl",
+      "-lreadline",
+      "-lffi",
+      "-ldl",
+      "-lreadline",
+      "-lffi",
+      "-ldl"
+    ],
+    "headers_needed": [
+      "confdefs.h"
+    ],
+    "missing": [
+      "confdefs.h"
+    ]
+  },
+  "quirks": [
+    "libtool",
+    "subdirs",
+    "LIBS=-lreadline -lffi -ldl -lreadline -lffi -ldl -lreadline -lffi -ldl"
+  ],
+  "outputs": [],
+  "status": "MAKE_FAIL",
+  "verified": false,
+  "diagnostic": "collect2: error: ld returned 1 exit status"
+}

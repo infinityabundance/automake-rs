@@ -1,0 +1,64 @@
+{
+  "schema": "automake-rs.build-atlas/v1",
+  "repo": "hafslund/cc2531-sniffer",
+  "source": {
+    "url": "https://github.com/hafslund/cc2531-sniffer",
+    "git_sha": "e5937f0174c05876f37ec579e2f0b133b7d48b62",
+    "snapshot_utc": "2026-06-27"
+  },
+  "toolchain": {
+    "autoconf_rs": "autoconf-rs 0.1.8",
+    "automake_rs": "automake (GNU automake) UNKNOWN",
+    "m4_rs_core": "0.1.4",
+    "gnu_free": true
+  },
+  "target": {
+    "cc": "cc",
+    "cflags": "-g -O2",
+    "host": "x86_64-pc-linux-gnu"
+  },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "ok"
+    },
+    {
+      "step": "make",
+      "tool": "make",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {
+    "HAVE_STDLIB_H": 1
+  },
+  "feature_flags": {
+    "configure_args": []
+  },
+  "dependencies": {
+    "pkg_config": [
+      "checking for libusb-1.0 >= 1.0.10... yes"
+    ],
+    "system_libs": [],
+    "headers_needed": [
+      "confdefs.h",
+      "libusb.h"
+    ],
+    "missing": [
+      "confdefs.h",
+      "libusb.h"
+    ]
+  },
+  "quirks": [
+    "pkg-config"
+  ],
+  "outputs": [],
+  "status": "MAKE_FAIL",
+  "verified": false,
+  "diagnostic": "cc2531.c:1:10: fatal error: libusb.h: No such file or directory"
+}

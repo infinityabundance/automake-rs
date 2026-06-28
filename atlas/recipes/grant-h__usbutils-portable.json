@@ -1,0 +1,65 @@
+{
+  "schema": "automake-rs.build-atlas/v1",
+  "repo": "grant-h/usbutils-portable",
+  "source": {
+    "url": "https://github.com/grant-h/usbutils-portable",
+    "git_sha": "9a390f61abd881c03117f0f4eeadf7ca4a6e128a",
+    "snapshot_utc": "2026-06-27"
+  },
+  "toolchain": {
+    "autoconf_rs": "autoconf-rs 0.1.8",
+    "automake_rs": "automake (GNU automake) UNKNOWN",
+    "m4_rs_core": "0.1.4",
+    "gnu_free": true
+  },
+  "target": {
+    "cc": "cc",
+    "cflags": "-g -O2",
+    "host": "x86_64-pc-linux-gnu"
+  },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {
+    "HAVE_BYTESWAP_H": 1,
+    "HAVE_ICONV": 1,
+    "HAVE_LIBZ": 1,
+    "HAVE_NL_LANGINFO": 1
+  },
+  "feature_flags": {
+    "configure_args": []
+  },
+  "dependencies": {
+    "pkg_config": [
+      "checking for libusb-1.0 >= 1.0.14... yes"
+    ],
+    "system_libs": [
+      "-lz",
+      "-lz"
+    ],
+    "headers_needed": [
+      "confdefs.h"
+    ],
+    "missing": [
+      "confdefs.h"
+    ]
+  },
+  "quirks": [
+    "pkg-config",
+    "subdirs",
+    "LIBS=-lz -lz"
+  ],
+  "outputs": [],
+  "status": "CONFIGURE_RUN_FAIL",
+  "verified": false,
+  "diagnostic": "./configure: line 2189: ./usbhid-dump/configure: No such file or directory"
+}

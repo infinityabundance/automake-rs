@@ -1,0 +1,64 @@
+{
+  "schema": "automake-rs.build-atlas/v1",
+  "repo": "ClusterLabs/cluster-glue",
+  "source": {
+    "url": "https://github.com/ClusterLabs/cluster-glue",
+    "git_sha": "5d5e9bf2ce3728d909b0691b243274032741e92c",
+    "snapshot_utc": "2026-06-27"
+  },
+  "toolchain": {
+    "autoconf_rs": "autoconf-rs 0.1.8",
+    "automake_rs": "automake (GNU automake) UNKNOWN",
+    "m4_rs_core": "0.1.4",
+    "gnu_free": true
+  },
+  "target": {
+    "cc": "cc",
+    "cflags": "-g -O2",
+    "host": "x86_64-pc-linux-gnu"
+  },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {},
+  "feature_flags": {
+    "configure_args": []
+  },
+  "dependencies": {
+    "pkg_config": [
+      "PKG_CONFIG=`command -v pkg-config 2>/dev/null`",
+      "printf '%s\\n' \"configure: error: systemd support requested but pkg-config unable",
+      "for ac_prog in pkg-config; do ac_path=`command -v \"$ac_prog\" 2>/dev/null`; if te",
+      "if pkg-config --exists \"libxml-2.0\" 2>/dev/null; then",
+      "XML_CFLAGS=`pkg-config --cflags \"libxml-2.0\" 2>/dev/null`",
+      "XML_LIBS=`pkg-config --libs \"libxml-2.0\" 2>/dev/null`",
+      "if pkg-config --exists \"dbus-1, dbus-glib-1\" 2>/dev/null; then",
+      "DBUS_CFLAGS=`pkg-config --cflags \"dbus-1, dbus-glib-1\" 2>/dev/null`"
+    ],
+    "system_libs": [],
+    "headers_needed": [
+      "confdefs.h"
+    ],
+    "missing": [
+      "confdefs.h"
+    ]
+  },
+  "quirks": [
+    "libtool",
+    "pkg-config",
+    "subdirs"
+  ],
+  "outputs": [],
+  "status": "CONFIGURE_RUN_FAIL",
+  "verified": false,
+  "diagnostic": "printf '%s\\n' \"configure: error: systemd support requested but pkg-config unable to query systemd package\" >&2"
+}
