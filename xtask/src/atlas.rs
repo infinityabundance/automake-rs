@@ -445,7 +445,7 @@ pub fn run() -> ExitCode {
                     &out_dir,
                     &slug,
                     Recipe {
-                        schema: "automake-rs.build-atlas/v1",
+                        schema: "automake-rs.build-atlas/v2",
                         repo: repo.to_string(),
                         source: Source {
                             url: format!("https://github.com/{}", repo),
@@ -490,7 +490,7 @@ pub fn run() -> ExitCode {
             &out_dir,
             &slug,
             Recipe {
-                schema: "automake-rs.build-atlas/v1",
+                schema: "automake-rs.build-atlas/v2",
                 repo: repo.to_string(),
                 source: Source { url: format!("https://github.com/{}", repo), git_sha, snapshot_utc: "2026-06-27".into() },
                 toolchain: Toolchain { autoconf_rs: ac_ver.clone(), automake_rs: am_ver.clone(), m4_rs_core: "0.1.4".into(), gnu_free: true },
@@ -1209,7 +1209,7 @@ fn write_index(out_dir: &Path) {
         v.into_iter().take(30).map(|(k, c)| serde_json::json!({"name": k, "repos": c})).collect()
     };
     let index = serde_json::json!({
-        "schema": "automake-rs.build-atlas/index/v1",
+        "schema": "automake-rs.build-atlas/index/v2",
         "total": total,
         "by_status": by_status,
         "expansion_bugs": {
