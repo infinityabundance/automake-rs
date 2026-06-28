@@ -1123,6 +1123,15 @@ fn write_index(out_dir: &Path) {
     let mut sugg_pkgs: BTreeMap<String, usize> = BTreeMap::new();
     let mut ours_clear = 0usize;
     let mut real_clear = 0usize;
+    // Analytics: quirk hotspots (automation candidates), dependency patterns, heavy hitters,
+    // partial->full candidates (configure cleared but make fails where GNU makes — the closest wins).
+    let mut quirk_hot: BTreeMap<String, usize> = BTreeMap::new();
+    let mut hdr_needed: BTreeMap<String, usize> = BTreeMap::new();
+    let mut dep_missing: BTreeMap<String, usize> = BTreeMap::new();
+    let mut heavy: Vec<(usize, String, String)> = Vec::new();
+    let mut p2f_diag: BTreeMap<String, usize> = BTreeMap::new();
+    let mut partial_total = 0usize;
+    let mut p2f_make = 0usize;
     let mut entries: Vec<_> = std::fs::read_dir(out_dir).into_iter().flatten().flatten().collect();
     entries.sort_by_key(|e| e.file_name());
     for e in entries {
@@ -1179,6 +1188,45 @@ fn write_index(out_dir: &Path) {
                     for s in arr { if let Some(p) = s["package"].as_str() { seen.insert(p.to_string()); } }
                     for p in seen { *sugg_pkgs.entry(p).or_default() += 1; }
                 }
+                // quirk hotspots — the automation candidates (count each quirk once per repo)
+                if let Some(arr) = v.get("receipt").and_then(|r| r["quirks_matched"].as_array()) {
+                    for q in arr { if let Some(s) = q.as_str() { *quirk_hot.entry(s.to_string()).or_default() += 1; } }
+                }
+                // dependency patterns — headers needed / deps missing
+                if let Some(dep) = v.get("dependencies") {
+                    if let Some(arr) = dep["headers_needed"].as_array() {
+                        for h in arr { if let Some(s) = h.as_str() { *hdr_needed.entry(s.to_string()).or_default() += 1; } }
+                    }
+                    if let Some(arr) = dep["missing"].as_array() {
+                        for m in arr { if let Some(s) = m.as_str() { *dep_missing.entry(s.to_string()).or_default() += 1; } }
+                    }
+                }
+                // heavy hitters — configure size as a complexity proxy
+                if let Some(de) = v.get("deep_expansion") {
+                    let cl = de["configure_lines"].as_u64().unwrap_or(0) as usize;
+                    if cl > 0 {
+                        let court = v.get("receipt").and_then(|r| r["court_status"].as_str()).unwrap_or("?").to_string();
+                        heavy.push((cl, repo.clone(), court));
+                    }
+                }
+                // partial -> full candidates: configure cleared, make failed, and GNU makes it (OURS_BUG_MAKE)
+                let court = v.get("receipt").and_then(|r| r["court_status"].as_str()).unwrap_or("");
+                if court == "partial" {
+                    partial_total += 1;
+                    if v.get("oracle").and_then(|o| o["classification"].as_str()) == Some("OURS_BUG_MAKE") {
+                        p2f_make += 1;
+                        if let Some(d) = v["diagnostic"].as_str() { if !d.is_empty() {
+                            // bucket leaked-macro / undefined-macro diagnostics together by the macro name
+                            let bucket = if let Some(pos) = d.find(": command not found") {
+                                let pre = &d[..pos];
+                                format!("leaked-macro:{}", pre.rsplit([' ', ':']).next().unwrap_or(pre))
+                            } else if d.contains("undefined macro") {
+                                "undefined-macro".to_string()
+                            } else { d.chars().take(40).collect::<String>() };
+                            *p2f_diag.entry(bucket).or_default() += 1;
+                        }}
+                    }
+                }
                 if let Some(orc) = v.get("oracle") {
                     if let Some(c) = orc["classification"].as_str() { *classif.entry(c.to_string()).or_default() += 1; }
                     if orc["real_configure"].as_str() == Some("ok") { real_clear += 1; }
@@ -1209,6 +1257,11 @@ fn write_index(out_dir: &Path) {
         v.sort_by(|a, b| b.1.cmp(&a.1).then(a.0.cmp(&b.0)));
         v.into_iter().take(30).map(|(k, c)| serde_json::json!({"name": k, "repos": c})).collect()
     };
+    let heavy_hitters_json: Vec<serde_json::Value> = {
+        let mut h = heavy.clone();
+        h.sort_by(|a, b| b.0.cmp(&a.0));
+        h.into_iter().take(15).map(|(l, r, c)| serde_json::json!({"repo": r, "configure_lines": l, "court": c})).collect()
+    };
     let index = serde_json::json!({
         "schema": "automake-rs.build-atlas/index/v2",
         "total": total,
@@ -1231,6 +1284,17 @@ fn write_index(out_dir: &Path) {
         },
         "courts": courts.clone(),
         "suggested_packages": rank(&sugg_pkgs),
+        "analytics": {
+            "quirk_hotspots": rank(&quirk_hot),
+            "most_needed_headers": rank(&hdr_needed),
+            "most_missing_deps": rank(&dep_missing),
+            "heavy_hitters": heavy_hitters_json,
+            "partial_to_full": {
+                "partial_total": partial_total,
+                "ours_bug_make": p2f_make,
+                "top_blockers": rank(&p2f_diag),
+            },
+        },
         "recipes": lines,
     });
     let _ = std::fs::write(out_dir.join("INDEX.json"), serde_json::to_string_pretty(&index).unwrap_or_default() + "\n");
@@ -1262,6 +1326,47 @@ fn write_index(out_dir: &Path) {
         md.push_str(&format!("- {} — {} repos\n", r["name"].as_str().unwrap_or(""), r["repos"]));
     }
     let _ = std::fs::write(out_dir.join("COURTS.md"), md);
+
+    // ANALYTICS.md — self-documenting corpus intelligence: quirk hotspots (automation candidates),
+    // failure modes, dependency patterns, heavy hitters, and the partial->full shortlist.
+    let mut a = String::new();
+    a.push_str("# Atlas Analytics — corpus intelligence\n\n");
+    a.push_str(&format!("Total recipes: **{}** · court mix: {}\n\n",
+        total, courts.iter().map(|(k, c)| format!("{} {}", c, k)).collect::<Vec<_>>().join(", ")));
+
+    a.push_str("## Quirk hotspots (automation candidates)\n\nQuirks matched across recipes — the most frequent are the highest-leverage to auto-apply.\n\n| quirk | repos |\n| --- | --- |\n");
+    for r in rank(&quirk_hot).iter().take(15) {
+        a.push_str(&format!("| {} | {} |\n", r["name"].as_str().unwrap_or(""), r["repos"]));
+    }
+
+    a.push_str("\n## Top failure roots (the check ours died on)\n\n| check | repos |\n| --- | --- |\n");
+    for r in rank(&failed_checks).iter().take(10) {
+        a.push_str(&format!("| {} | {} |\n", r["name"].as_str().unwrap_or(""), r["repos"]));
+    }
+
+    a.push_str("\n## Dependency patterns\n\n**Most-needed headers**\n\n| header | repos |\n| --- | --- |\n");
+    for r in rank(&hdr_needed).iter().take(12) {
+        a.push_str(&format!("| {} | {} |\n", r["name"].as_str().unwrap_or(""), r["repos"]));
+    }
+    if !dep_missing.is_empty() {
+        a.push_str("\n**Most-missing deps**\n\n| dep | repos |\n| --- | --- |\n");
+        for r in rank(&dep_missing).iter().take(12) {
+            a.push_str(&format!("| {} | {} |\n", r["name"].as_str().unwrap_or(""), r["repos"]));
+        }
+    }
+
+    a.push_str("\n## Heavy hitters (configure size = complexity proxy)\n\n| configure lines | repo | court |\n| --- | --- | --- |\n");
+    let mut hh = heavy.clone();
+    hh.sort_by(|x, y| y.0.cmp(&x.0));
+    for (l, r, c) in hh.into_iter().take(12) {
+        a.push_str(&format!("| {} | {} | {} |\n", l, r, c));
+    }
+
+    a.push_str(&format!("\n## Partial -> full shortlist\n\n**{}** recipes cleared configure but failed make; **{}** of those are `OURS_BUG_MAKE` (GNU makes it, we don't) — the closest wins. Top blockers:\n\n| blocker | repos |\n| --- | --- |\n", partial_total, p2f_make));
+    for r in rank(&p2f_diag).iter().take(12) {
+        a.push_str(&format!("| {} | {} |\n", r["name"].as_str().unwrap_or(""), r["repos"]));
+    }
+    let _ = std::fs::write(out_dir.join("ANALYTICS.md"), a);
 }
 
 /// `xtask atlas-index <out-dir>` — rebuild INDEX.json from existing recipes (no builds). Used after

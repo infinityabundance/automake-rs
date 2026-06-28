@@ -47,5 +47,17 @@ ranked backlog: defeat the top root, the headroom shrinks, the next pass starts 
   fast generate-only expansion sweep (no configure-run/make).
 - **Query**: `cargo xtask atlas-query <term>` finds every recipe touching a dep / header / probe /
   package / quirk / macro.
-- **Re-index**: `cargo xtask atlas-index <out-dir>` rebuilds `INDEX.json` + `COURTS.md` from existing
-  recipes (no builds).
+- **Re-index**: `cargo xtask atlas-index <out-dir>` rebuilds `INDEX.json` + `COURTS.md` +
+  `ANALYTICS.md` from existing recipes (no builds).
+
+## Analytics (`ANALYTICS.md` + `INDEX.json` → `analytics`)
+
+Self-documenting corpus intelligence, regenerated on every index:
+
+- **Quirk hotspots** — `quirks_matched` tallied across recipes; the most frequent are the
+  highest-leverage to auto-apply (the automation backlog).
+- **Top failure roots** — the `checking for …` the build actually died on, ranked by repos.
+- **Dependency patterns** — most-needed headers / most-missing deps.
+- **Heavy hitters** — configure size as a complexity proxy (also surfaces runaway-expansion bugs).
+- **Partial → full shortlist** — recipes that cleared configure but failed make, and how many are
+  `OURS_BUG_MAKE` (GNU makes it, we don't) — the closest wins, with their top blockers.
