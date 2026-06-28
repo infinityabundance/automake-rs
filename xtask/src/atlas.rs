@@ -34,6 +34,8 @@ struct Recipe {
     status: String,
     verified: bool,
     diagnostic: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    deep_expansion: Option<DeepExpansion>,
 }
 #[derive(Serialize)]
 struct Source {
@@ -76,6 +78,39 @@ struct Output {
     path: String,
     sha256: String,
     kind: String,
+}
+
+/// Deep-expansion forensics on the GENERATED configure — the diagnostics that otherwise require
+/// hand-spelunking each configure on the VM. Captured per recipe so a bug is readable from the atlas.
+#[derive(Serialize, Default)]
+struct DeepExpansion {
+    configure_lines: usize,
+    /// Autoconf/m4 macro calls that survived into the generated shell unexpanded (AC_/AX_/AM_/LT_/
+    /// PKG_/AS_/m4_/_AC_…) — each is a missing or partial macro definition leaking its arg list.
+    leaked_macros: Vec<LeakedMacro>,
+    /// `cat … <<_ACEOF >conftest` openers vs lone `_ACEOF` terminators. A negative imbalance is the
+    /// missing-heredoc-opener bug (compile probe emitted as raw shell -> `syntax error near '('`).
+    heredoc_openers: usize,
+    heredoc_terminators: usize,
+    heredoc_imbalance: i64,
+    /// Each `./configure: line N: syntax error …` cross-referenced to the offending source line(s).
+    syntax_errors: Vec<SyntaxError>,
+    /// Malformed `${…}` cache-var references (embedded newline, PID-garbage `$$`, empty `${}`).
+    cache_var_anomalies: Vec<String>,
+    /// Leftover `@VAR@` substitution placeholders config.status never filled.
+    residual_placeholders: Vec<String>,
+}
+#[derive(Serialize)]
+struct LeakedMacro {
+    name: String,
+    line: usize,
+    context: String,
+}
+#[derive(Serialize)]
+struct SyntaxError {
+    line: usize,
+    token: String,
+    source: String,
 }
 
 fn tool(env_var: &str, default: &str) -> String {
@@ -247,6 +282,7 @@ pub fn run() -> ExitCode {
                 }
                 let verified = status == "FUNC_OK";
                 let outputs = if verified { collect_outputs(&d) } else { Vec::new() };
+                let deep_expansion = analyze_expansion(&d, &cf_log);
                 if !libs.is_empty() {
                     quirks.push(format!("LIBS={}", libs.join(" ")));
                 }
@@ -286,6 +322,7 @@ pub fn run() -> ExitCode {
                         status: status.clone(),
                         verified,
                         diagnostic,
+                        deep_expansion,
                     },
                 );
                 println!("[{:>3}] {:<40} {}", n, repo, status);
@@ -312,6 +349,7 @@ pub fn run() -> ExitCode {
                 status: status.clone(),
                 verified: false,
                 diagnostic,
+                deep_expansion: None,
             },
         );
         println!("[{:>3}] {:<40} {}", n, repo, status);
@@ -341,6 +379,96 @@ fn quirks_from_ac(ac: &str, d: &Path) -> Vec<String> {
         q.push("subdirs".into());
     }
     q
+}
+
+/// Forensic scan of the generated `configure` plus the configure run-log. Surfaces the exact
+/// expansion failures (leaked macros, heredoc imbalance, syntax-error source context, malformed
+/// cache vars, residual @VAR@) so each can be fixed from the recipe without re-running on the VM.
+fn analyze_expansion(d: &Path, cf_log: &str) -> Option<DeepExpansion> {
+    let cfg = std::fs::read_to_string(d.join("configure")).ok()?;
+    let lines: Vec<&str> = cfg.lines().collect();
+    let mut de = DeepExpansion {
+        configure_lines: lines.len(),
+        ..Default::default()
+    };
+
+    const MACRO_PREFIXES: &[&str] =
+        &["AC_", "AX_", "AM_", "LT_", "PKG_", "AS_", "AH_", "_AC_", "_AX_", "_LT_", "m4_", "AT_"];
+    for (i, l) in lines.iter().enumerate() {
+        let t = l.trim_start();
+        // A leaked macro call: <PREFIX><UPPER/under name>( at the start of a shell statement.
+        if let Some(pfx) = MACRO_PREFIXES.iter().find(|p| t.starts_with(**p)) {
+            // name = leading run of [A-Za-z0-9_], must be followed by '(' to be a macro call.
+            let name: String = t.chars().take_while(|c| c.is_ascii_alphanumeric() || *c == '_').collect();
+            let after = &t[name.len()..];
+            if after.starts_with('(') && name.len() > pfx.len() && de.leaked_macros.len() < 40 {
+                de.leaked_macros.push(LeakedMacro {
+                    name,
+                    line: i + 1,
+                    context: t.chars().take(72).collect(),
+                });
+            }
+        }
+        // Heredoc accounting for conftest probes.
+        if l.contains("<<_ACEOF") && (l.contains(">conftest") || l.contains("confdefs.h")) {
+            de.heredoc_openers += 1;
+        }
+        if l.trim() == "_ACEOF" {
+            de.heredoc_terminators += 1;
+        }
+        // Malformed cache-var refs.
+        if t.contains("${") {
+            if let Some(rest) = t.split("${").nth(1) {
+                let head = rest.chars().take(2).collect::<String>();
+                if head.starts_with('$') || head.starts_with(' ') || head.starts_with('}') {
+                    if de.cache_var_anomalies.len() < 20 {
+                        de.cache_var_anomalies.push(format!("line {}: {}", i + 1, t.chars().take(60).collect::<String>()));
+                    }
+                }
+            }
+        }
+        // Residual substitution placeholders (@VAR@ that config.status never filled).
+        let mut rest = *l;
+        while let Some(a) = rest.find('@') {
+            let tail = &rest[a + 1..];
+            if let Some(b) = tail.find('@') {
+                let var = &tail[..b];
+                if !var.is_empty()
+                    && var.chars().all(|c| c.is_ascii_alphanumeric() || c == '_')
+                    && var.chars().next().map(|c| c.is_ascii_alphabetic() || c == '_').unwrap_or(false)
+                    && de.residual_placeholders.len() < 30
+                    && !de.residual_placeholders.iter().any(|s| s == var)
+                {
+                    de.residual_placeholders.push(var.to_string());
+                }
+                rest = &tail[b + 1..];
+            } else {
+                break;
+            }
+        }
+    }
+    de.heredoc_imbalance = de.heredoc_terminators as i64 - de.heredoc_openers as i64;
+
+    // Cross-reference each "./configure: line N: syntax error" with its source line.
+    for ll in cf_log.lines() {
+        if ll.contains("syntax error") {
+            if let Some(npos) = ll.find("line ") {
+                let num: String = ll[npos + 5..].chars().take_while(|c| c.is_ascii_digit()).collect();
+                if let Ok(n) = num.parse::<usize>() {
+                    let token = ll
+                        .split("unexpected token")
+                        .nth(1)
+                        .map(|s| s.trim().trim_matches('`').trim_matches('\'').chars().take(24).collect::<String>())
+                        .unwrap_or_default();
+                    let source = lines.get(n.saturating_sub(1)).map(|s| s.trim().chars().take(72).collect()).unwrap_or_default();
+                    if de.syntax_errors.len() < 20 {
+                        de.syntax_errors.push(SyntaxError { line: n, token, source });
+                    }
+                }
+            }
+        }
+    }
+    Some(de)
 }
 
 fn collect(d: &Path, cf: &str, mk: &str) -> (BTreeMap<String, u8>, Vec<String>, Vec<String>, Vec<String>) {
