@@ -122,6 +122,10 @@ struct DeepExpansion {
     /// corruption ratio for fast triage.
     conftest_directives_intact: usize,
     conftest_directives_mangled: usize,
+    /// The actual C conftest programs the macros emitted (the body between `<<_ACEOF >conftest` and
+    /// `_ACEOF`) — the deep macro-OUTPUT context. Debugging a compile/link probe needs to see the
+    /// exact C source that was compiled (intact or mangled), not infer it.
+    conftest_programs: Vec<String>,
 }
 /// The GNU-autotools oracle outcome for the SAME repo, run right after ours on a git-reset tree.
 /// This is the compass: `classification` says whether a failure is OUR bug (real succeeds, we don't —
@@ -158,6 +162,9 @@ struct SyntaxError {
     line: usize,
     token: String,
     source: String,
+    /// The surrounding generated-shell construct (a few lines either side) — the syntactic context a
+    /// human needs to see WHY it broke (the enclosing if/case/heredoc), not just the one error line.
+    block: Vec<String>,
 }
 
 /// Sealed build-court receipt — makes each recipe auditable: the probe-execution trace (every HAVE_*
@@ -706,12 +713,19 @@ fn analyze_expansion(d: &Path, cf_log: &str) -> Option<DeepExpansion> {
         // in_conftest spans ONLY a real conftest heredoc: `cat … <<_ACEOF >conftest.$ac_ext` … `_ACEOF`
         // (not the prologue's `/* confdefs.h */` init, which would flag real shell comments).
         let mut in_conftest = false;
+        let mut cur_program: Vec<String> = Vec::new();
         for (i, l) in lines.iter().enumerate() {
             let t = l.trim_start();
             if l.contains("<<_ACEOF") && (l.contains(">conftest") || l.contains("confdefs.h -")) {
                 in_conftest = true;
+                cur_program.clear();
             } else if l.trim() == "_ACEOF" {
+                if in_conftest && !cur_program.is_empty() && de.conftest_programs.len() < 6 {
+                    de.conftest_programs.push(cur_program.join("\\n"));
+                }
                 in_conftest = false;
+            } else if in_conftest && cur_program.len() < 12 {
+                cur_program.push(l.trim().chars().take(76).collect());
             }
             if t.starts_with("#include") || t.starts_with("#ifdef") || t.starts_with("#ifndef")
                 || t.starts_with("#define") || t.starts_with("#if ") || t.starts_with("#endif") {
@@ -742,8 +756,14 @@ fn analyze_expansion(d: &Path, cf_log: &str) -> Option<DeepExpansion> {
                         .map(|s| s.trim().trim_matches('`').trim_matches('\'').chars().take(24).collect::<String>())
                         .unwrap_or_default();
                     let source = lines.get(n.saturating_sub(1)).map(|s| s.trim().chars().take(72).collect()).unwrap_or_default();
+                    // capture the enclosing construct: 4 lines before .. 3 after the error line
+                    let lo = n.saturating_sub(5);
+                    let hi = (n + 3).min(lines.len());
+                    let block: Vec<String> = (lo..hi)
+                        .map(|j| format!("{}: {}", j + 1, lines[j].chars().take(76).collect::<String>()))
+                        .collect();
                     if de.syntax_errors.len() < 20 {
-                        de.syntax_errors.push(SyntaxError { line: n, token, source });
+                        de.syntax_errors.push(SyntaxError { line: n, token, source, block });
                     }
                 }
             }
