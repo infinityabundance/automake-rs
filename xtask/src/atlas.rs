@@ -113,6 +113,15 @@ struct DeepExpansion {
     failed_during_check: String,
     /// Lines of configure-run output AFTER the last checking message (the crash's immediate fallout).
     failure_tail: Vec<String>,
+    /// Conftest archaeology: C preprocessor directives MANGLED by m4 expanding `include`/`ifdef`/
+    /// `define` builtins inside conftest source — `#include <x>` -> `# <x>`, `#ifdef Y` -> `# Y`.
+    /// Each entry is `line N: <mangled text> (<which directive eaten>)`. A non-empty list means
+    /// compile/link probes are silently failing on corrupted conftests (deep autotools bug).
+    conftest_corruption: Vec<String>,
+    /// Count of intact vs mangled `#include`/directive lines in the generated configure — the headline
+    /// corruption ratio for fast triage.
+    conftest_directives_intact: usize,
+    conftest_directives_mangled: usize,
 }
 /// The GNU-autotools oracle outcome for the SAME repo, run right after ours on a git-reset tree.
 /// This is the compass: `classification` says whether a failure is OUR bug (real succeeds, we don't —
@@ -690,6 +699,35 @@ fn analyze_expansion(d: &Path, cf_log: &str) -> Option<DeepExpansion> {
     }
     de.heredoc_imbalance = de.heredoc_terminators as i64 - de.heredoc_openers as i64;
 
+    // Conftest archaeology: detect C preprocessor directives mangled by m4 (the deep autotools bug
+    // where `include`/`ifdef`/`define` builtins expand inside conftest C source). Track only inside
+    // conftest heredoc regions so real `# comment` shell lines aren't misread.
+    {
+        let mut in_conftest = false;
+        for (i, l) in lines.iter().enumerate() {
+            let t = l.trim_start();
+            if l.contains("<<_ACEOF") || l.contains("/* confdefs.h */") || l.contains("/* end confdefs.h */") {
+                in_conftest = true;
+            } else if l.trim() == "_ACEOF" {
+                in_conftest = false;
+            }
+            // intact directive
+            if t.starts_with("#include") || t.starts_with("#ifdef") || t.starts_with("#ifndef")
+                || t.starts_with("#define") || t.starts_with("#if ") || t.starts_with("#endif") {
+                de.conftest_directives_intact += 1;
+            }
+            // mangled: `# <hdr>` (include eaten), or inside conftest a bare `# WORD` (ifdef/define eaten)
+            if in_conftest && (t.starts_with("# <")
+                || (t.starts_with("# ") && t.len() > 2 && t.as_bytes()[2].is_ascii_alphanumeric())) {
+                de.conftest_directives_mangled += 1;
+                let which = if t.starts_with("# <") { "include eaten" } else { "ifdef/define eaten" };
+                if de.conftest_corruption.len() < 20 {
+                    de.conftest_corruption.push(format!("line {}: {} ({})", i + 1, t.chars().take(40).collect::<String>(), which));
+                }
+            }
+        }
+    }
+
     // Cross-reference each "./configure: line N: syntax error" with its source line.
     for ll in cf_log.lines() {
         if ll.contains("syntax error") {
@@ -1053,6 +1091,7 @@ fn write_index(out_dir: &Path) {
     let mut residual: BTreeMap<String, usize> = BTreeMap::new();
     let mut heredoc_broken = 0usize;
     let mut with_leaks = 0usize;
+    let mut conftest_corrupt = 0usize;
     // Oracle compass: classification counts + the fixable backlog (roots of OURS_BUG repos, ranked).
     let mut classif: BTreeMap<String, usize> = BTreeMap::new();
     let mut fixable_roots: BTreeMap<String, usize> = BTreeMap::new();
@@ -1086,6 +1125,7 @@ fn write_index(out_dir: &Path) {
                         for name in seen { *leaked.entry(name).or_default() += 1; }
                     }
                     if de["heredoc_imbalance"].as_i64().unwrap_or(0) != 0 { heredoc_broken += 1; }
+                    if de["conftest_directives_mangled"].as_u64().unwrap_or(0) > 0 { conftest_corrupt += 1; }
                     if let Some(arr) = de["syntax_errors"].as_array() {
                         for s in arr {
                             if let Some(tok) = s["token"].as_str() { if !tok.is_empty() { *syntax_tokens.entry(tok.to_string()).or_default() += 1; } }
@@ -1153,6 +1193,7 @@ fn write_index(out_dir: &Path) {
         "expansion_bugs": {
             "repos_with_leaked_macros": with_leaks,
             "repos_with_heredoc_imbalance": heredoc_broken,
+            "repos_with_conftest_corruption": conftest_corrupt,
             "top_leaked_macros": rank(&leaked),
             "top_syntax_tokens": rank(&syntax_tokens),
             "top_residual_placeholders": rank(&residual),
