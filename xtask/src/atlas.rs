@@ -731,14 +731,15 @@ fn analyze_expansion(d: &Path, cf_log: &str) -> Option<DeepExpansion> {
                 || t.starts_with("#define") || t.starts_with("#if ") || t.starts_with("#endif") {
                 de.conftest_directives_intact += 1;
             }
-            // mangled directives only inside a conftest: `# <hdr>` (include eaten) or `# WORD` (ifdef/
-            // define eaten). Outside conftests, `# ...` is a legitimate shell comment — never flagged.
-            if in_conftest && (t.starts_with("# <")
-                || (t.starts_with("# ") && t.len() > 2 && t.as_bytes()[2].is_ascii_alphanumeric())) {
+            // Mangled directive inside a conftest. Only the UNAMBIGUOUS forms are flagged: `# <hdr>`
+            // (an eaten `#include <...>`) and `# "hdr"` (eaten `#include "..."`). The earlier `# WORD`
+            // heuristic (eaten `#ifdef`/`#define`) is indistinguishable from a legitimate shell comment
+            // (e.g. AC_DEFINE's `# Define unquoted: USE_STRUCT_MNTTAB`) and produced 55 false positives,
+            // so it's dropped — `#ifdef`/`#define` corruption is still implied when `# <` co-occurs.
+            if in_conftest && (t.starts_with("# <") || t.starts_with("# \"")) {
                 de.conftest_directives_mangled += 1;
-                let which = if t.starts_with("# <") { "include eaten" } else { "ifdef/define eaten" };
                 if de.conftest_corruption.len() < 20 {
-                    de.conftest_corruption.push(format!("line {}: {} ({})", i + 1, t.chars().take(40).collect::<String>(), which));
+                    de.conftest_corruption.push(format!("line {}: {} (include eaten)", i + 1, t.chars().take(40).collect::<String>()));
                 }
             }
         }
