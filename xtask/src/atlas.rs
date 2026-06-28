@@ -82,11 +82,24 @@ fn tool(env_var: &str, default: &str) -> String {
     std::env::var(env_var).unwrap_or_else(|_| default.to_string())
 }
 
-/// Run `cmd` (wrapped in coreutils `timeout`) in `dir`, capturing combined stdout+stderr.
-/// `-k 10 -s KILL`: send SIGKILL at the deadline (unignorable) plus a 10s kill-after grace, so a
-/// build that traps/ignores SIGTERM (or a configure that infinite-loops) can never hang the worker.
+/// Run `cmd` (wrapped in coreutils `timeout`) in `dir`, capturing combined stdout+stderr to a FILE.
+/// Two layers stop a build from ever hanging the worker:
+///   * `timeout -k 10 -s KILL` — SIGKILL at the deadline (unignorable) + a 10s grace.
+///   * redirect to a file, NOT a pipe — `.output()` would block reading the stdout pipe until EOF,
+///     which orphaned grandchildren (that survive the kill) hold open forever. `.status()` only
+///     waits for the direct child (timeout), so leaked children can never wedge us.
 fn run_timed(dir: &Path, secs: u32, program: &str, args: &[&str]) -> (bool, String) {
-    let out = Command::new("timeout")
+    use std::fs::File;
+    let log = dir.join(".atlas_runlog");
+    let f = match File::create(&log) {
+        Ok(f) => f,
+        Err(e) => return (false, e.to_string()),
+    };
+    let f2 = match f.try_clone() {
+        Ok(f) => f,
+        Err(e) => return (false, e.to_string()),
+    };
+    let status = Command::new("timeout")
         .arg("-k")
         .arg("10")
         .arg("-s")
@@ -95,14 +108,15 @@ fn run_timed(dir: &Path, secs: u32, program: &str, args: &[&str]) -> (bool, Stri
         .arg(program)
         .args(args)
         .current_dir(dir)
-        .output();
-    match out {
-        Ok(o) => {
-            let mut s = String::from_utf8_lossy(&o.stdout).into_owned();
-            s.push_str(&String::from_utf8_lossy(&o.stderr));
-            (o.status.success(), s)
-        }
-        Err(e) => (false, e.to_string()),
+        .stdin(std::process::Stdio::null())
+        .stdout(f)
+        .stderr(f2)
+        .status();
+    let text = std::fs::read_to_string(&log).unwrap_or_default();
+    let _ = std::fs::remove_file(&log);
+    match status {
+        Ok(s) => (s.success(), text),
+        Err(e) => (false, format!("{}\n{}", text, e)),
     }
 }
 
