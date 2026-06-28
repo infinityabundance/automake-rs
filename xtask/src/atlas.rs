@@ -1271,6 +1271,8 @@ fn write_index(out_dir: &Path) {
     let mut p2f_diag: BTreeMap<String, usize> = BTreeMap::new();
     let mut partial_total = 0usize;
     let mut p2f_make = 0usize;
+    // working/non-working roster for RECIPES.md: (court_status, status, repo, diagnostic)
+    let mut roster: Vec<(String, String, String, String)> = Vec::new();
     let mut entries: Vec<_> = std::fs::read_dir(out_dir).into_iter().flatten().flatten().collect();
     entries.sort_by_key(|e| e.file_name());
     for e in entries {
@@ -1322,6 +1324,12 @@ fn write_index(out_dir: &Path) {
                 if let Some(c) = v.get("receipt").and_then(|r| r["court_status"].as_str()) {
                     *courts.entry(c.to_string()).or_default() += 1;
                 }
+                roster.push((
+                    v.get("receipt").and_then(|r| r["court_status"].as_str()).unwrap_or("?").to_string(),
+                    st.clone(),
+                    repo.clone(),
+                    v["diagnostic"].as_str().unwrap_or("").chars().take(90).collect::<String>(),
+                ));
                 if let Some(arr) = v.get("suggested_deps").and_then(|s| s.as_array()) {
                     let mut seen = std::collections::BTreeSet::new();
                     for s in arr { if let Some(p) = s["package"].as_str() { seen.insert(p.to_string()); } }
@@ -1502,6 +1510,47 @@ fn write_index(out_dir: &Path) {
         a.push_str(&format!("| {} | {} |\n", r["name"].as_str().unwrap_or(""), r["repos"]));
     }
     let _ = std::fs::write(out_dir.join("ANALYTICS.md"), a);
+
+    // RECIPES.md — the working / non-working roster. "Working" = built end-to-end (FUNC_OK, i.e. court
+    // sealed or quirk_dependent). Non-working is split: partial (configure cleared, make failed),
+    // not_standalone (GNU also fails — not our bug), failed (ours fails before make).
+    roster.sort_by(|x, y| x.2.to_lowercase().cmp(&y.2.to_lowercase()));
+    let count = |court: &str| roster.iter().filter(|(c, _, _, _)| c == court).count();
+    let working = count("sealed") + count("quirk_dependent");
+    let mut r = String::new();
+    r.push_str("# Atlas Recipes — working / non-working roster\n\n");
+    r.push_str(&format!("Total **{}** recipes. **Working (built end-to-end): {}** · non-working: {} partial · {} not-standalone · {} failed.\n\n",
+        total, working, count("partial"), count("not_standalone"), count("failed")));
+    r.push_str("\"Working\" means the full pipeline (autoreconf → configure → make) succeeded under the GNU-free toolchain. `quirk_dependent` needed an auto-applied quirk; `sealed` needed none.\n\n");
+
+    r.push_str(&format!("## ✅ Working ({})\n\n", working));
+    let work_rows: Vec<_> = roster.iter().filter(|(c, _, _, _)| c == "sealed" || c == "quirk_dependent").collect();
+    if work_rows.is_empty() {
+        r.push_str("_None in this scan slice._\n\n");
+    } else {
+        r.push_str("| repo | court |\n| --- | --- |\n");
+        for (c, _s, repo, _d) in &work_rows { r.push_str(&format!("| {} | {} |\n", repo, c)); }
+        r.push('\n');
+    }
+
+    for (title, court, with_diag) in [
+        ("🟡 Non-working — partial (configure cleared, make failed)", "partial", true),
+        ("❌ Non-working — failed (ours fails before make)", "failed", true),
+        ("⚪ Non-working — not standalone (GNU autotools also fails; not our bug)", "not_standalone", false),
+    ] {
+        let rows: Vec<_> = roster.iter().filter(|(c, _, _, _)| c == court).collect();
+        r.push_str(&format!("## {} ({})\n\n", title, rows.len()));
+        if rows.is_empty() { r.push_str("_None._\n\n"); continue; }
+        if with_diag {
+            r.push_str("| repo | stage | first error |\n| --- | --- | --- |\n");
+            for (_c, s, repo, d) in rows { r.push_str(&format!("| {} | {} | {} |\n", repo, s, d.replace('|', "\\|"))); }
+        } else {
+            r.push_str("| repo | stage |\n| --- | --- |\n");
+            for (_c, s, repo, _d) in rows { r.push_str(&format!("| {} | {} |\n", repo, s)); }
+        }
+        r.push('\n');
+    }
+    let _ = std::fs::write(out_dir.join("RECIPES.md"), r);
 }
 
 /// `xtask atlas-index <out-dir>` — rebuild INDEX.json from existing recipes (no builds). Used after
