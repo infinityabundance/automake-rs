@@ -51,6 +51,7 @@ fn main() -> ExitCode {
         "oracle" => run_oracle_admission(),
         "compare" => compare::run(),
         "atlas" => atlas::run(),
+        "atlas-index" => atlas::index_only(),
         "generate" => run_generate(),
         "receipts" => run_receipt_check(),
         "claims" => run_claim_check(),

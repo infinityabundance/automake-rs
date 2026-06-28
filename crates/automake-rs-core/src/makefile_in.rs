@@ -56,6 +56,11 @@ impl MakefileInGenerator {
         // 3. Standard variables
         self.generate_standard_variables(&mut output);
 
+        // 3b. pkg-config / AC_SUBST flag variables referenced as $(FOO_CFLAGS)/$(FOO_LIBS) in the
+        // Makefile.am must be declared `FOO_CFLAGS = @FOO_CFLAGS@` so configure substitutes the real
+        // pkg-config flags; without this the per-target $(FOO_CFLAGS) is empty -> headers not found.
+        self.generate_pkg_subst_variables(&mut output);
+
         // 4. Automake support variables
         self.generate_support_variables(&mut output);
 
@@ -176,6 +181,59 @@ impl MakefileInGenerator {
         out.push_str("abs_top_srcdir = @abs_top_srcdir@\n");
         out.push_str("abs_top_builddir = @abs_top_builddir@\n");
         out.push_str("@SET_MAKE@\n\n");
+    }
+
+    /// Declare `FOO_CFLAGS = @FOO_CFLAGS@` (and _LIBS/_DEPS) for every `$(FOO_CFLAGS)`-style flag
+    /// variable referenced in the Makefile.am — these come from PKG_CHECK_MODULES/AC_SUBST in
+    /// configure.ac. Standard build vars (CFLAGS, AM_CFLAGS, LIBS, ...) are emitted elsewhere.
+    fn generate_pkg_subst_variables(&self, out: &mut String) {
+        use std::collections::BTreeSet;
+        let standard: &[&str] = &[
+            "CFLAGS", "CXXFLAGS", "CPPFLAGS", "LDFLAGS", "LIBS", "AM_CFLAGS", "AM_CXXFLAGS",
+            "AM_CPPFLAGS", "AM_LDFLAGS", "AM_LIBS", "LIBTOOLFLAGS", "AM_LIBTOOLFLAGS",
+        ];
+        let mut found: BTreeSet<String> = BTreeSet::new();
+        let mut scan = |s: &str| {
+            let b = s.as_bytes();
+            let mut i = 0;
+            while i + 2 < b.len() {
+                if b[i] == b'$' && b[i + 1] == b'(' {
+                    let start = i + 2;
+                    let mut j = start;
+                    while j < b.len() && b[j] != b')' {
+                        j += 1;
+                    }
+                    if j < b.len() {
+                        let name = &s[start..j];
+                        if (name.ends_with("_CFLAGS")
+                            || name.ends_with("_LIBS")
+                            || name.ends_with("_DEPS")
+                            || name.ends_with("_REQUIRES"))
+                            && name.chars().all(|c| c.is_ascii_alphanumeric() || c == '_')
+                            && !standard.contains(&name)
+                        {
+                            found.insert(name.to_string());
+                        }
+                    }
+                    i = j + 1;
+                } else {
+                    i += 1;
+                }
+            }
+        };
+        for stmt in &self.makefile_am.statements {
+            if let AmStatement::VariableAssignment { values, .. } = stmt {
+                for v in values {
+                    scan(v);
+                }
+            }
+        }
+        for name in &found {
+            out.push_str(&format!("{name} = @{name}@\n"));
+        }
+        if !found.is_empty() {
+            out.push('\n');
+        }
     }
 
     fn generate_standard_variables(&self, out: &mut String) {
