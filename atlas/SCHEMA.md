@@ -86,6 +86,31 @@ re-running anything on a VM.
 - **not_standalone** — the GNU oracle *also* fails (e.g. external macro archive not in the repo); not our bug.
 - **failed** — ours fails before make.
 
+## directory_context (deep subdir/multi-directory context)
+
+The multi-directory build structure that drives — and breaks — the make layer. Captured by walking the
+cloned tree + parsing configure.ac and every Makefile.am, so a make failure is debuggable from the
+recipe without re-cloning.
+
+```jsonc
+"directory_context": {
+  "config_files": [ {"path":"src/lib/Makefile","depth":2,"top_builddir":"../..","has_template":true} ],
+  "config_headers": ["config.h"],                 // AC_CONFIG_HEADERS targets
+  "subdirs": ["src","man","lib","hesinfo"],        // the SUBDIRS recursion tree
+  "build_dirs": [ {"dir":"src/lib","targets":["libhesiod.la","hestest"],"subdirs":[],
+                   "sources_include_config_h":true,"am_cppflags":""} ],
+  "max_depth": 2,
+  "config_h_consumers_below_root": ["src/lib"]     // dirs that #include config.h but sit BELOW where it's
+                                                   // generated -> their -I$(top_builddir) MUST be correct
+}
+```
+
+- `config_files[].top_builddir` is the **correct** relative `..`-path for that file's depth — a subdir
+  Makefile needs `..` (not `.`), or `-I$(top_builddir)` in DEFAULT_INCLUDES misses a top-level `config.h`
+  ("config.h: No such file" — the make-layer root for SUBDIRS projects, fixed in autoconf-rs 0.1.19).
+- `config_h_consumers_below_root` names exactly the directories where the relative-path logic is
+  load-bearing — the cross-directory context that pinpoints a SUBDIRS make failure.
+
 ## INDEX.json (aggregate)
 
 `recipes/INDEX.json` (schema `automake-rs.build-atlas/index/v2`) rolls the recipes up:
