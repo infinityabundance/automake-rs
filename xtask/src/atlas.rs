@@ -44,6 +44,47 @@ struct Recipe {
     environment: Environment,
     #[serde(skip_serializing_if = "Vec::is_empty")]
     suggested_deps: Vec<SuggestedDep>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    directory_context: Option<DirectoryContext>,
+}
+
+/// Deep subdir/directory context — the multi-directory build structure that drives (and breaks) the make
+/// layer. Most non-trivial autotools projects recurse through SUBDIRS, and the per-subdir relative paths
+/// (top_builddir/top_srcdir), config.h reachability, and per-directory build targets are exactly what a
+/// recipe needs to debug a make failure without re-cloning. Captured by walking the cloned tree +
+/// parsing configure.ac (AC_CONFIG_FILES/HEADERS) and each Makefile.am.
+#[derive(Serialize, Default)]
+struct DirectoryContext {
+    /// AC_CONFIG_FILES targets, each with its computed relative top path (the SUBDIRS root cause: a
+    /// subdir Makefile needs top_builddir=`..`, not `.`, or `-I$(top_builddir)` misses a top config.h).
+    config_files: Vec<ConfigFileCtx>,
+    /// AC_CONFIG_HEADERS targets (config.h locations) — the headers every subdir compile must reach.
+    config_headers: Vec<String>,
+    /// SUBDIRS recursion declared across Makefile.am files (the build tree the top Makefile drives).
+    subdirs: Vec<String>,
+    /// Per-directory build context: targets + whether its sources need a (possibly top-level) config.h.
+    build_dirs: Vec<BuildDirCtx>,
+    /// Max subdir depth of any config file — how many `..` levels the relative-path logic must handle.
+    max_depth: usize,
+    /// Directories whose sources `#include` config.h but that sit below the dir config.h is generated in
+    /// — the repos where the relative `-I$(top_builddir)` path MUST be correct (the SUBDIRS make root).
+    config_h_consumers_below_root: Vec<String>,
+}
+#[derive(Serialize)]
+struct ConfigFileCtx {
+    path: String,
+    depth: usize,
+    top_builddir: String, // the relative `..`-path a correct config.status must substitute for this file
+    has_template: bool,   // a matching .in exists
+}
+#[derive(Serialize)]
+struct BuildDirCtx {
+    dir: String,
+    /// Build-target declarations parsed from this dir's Makefile.am (bin_PROGRAMS, lib_LTLIBRARIES, …).
+    targets: Vec<String>,
+    subdirs: Vec<String>,        // this dir's own SUBDIRS
+    sources_include_config_h: bool, // any source here #includes config.h (so needs it on the path)
+    am_cppflags: String,         // AM_CPPFLAGS / INCLUDES line (the include-path the dir sets)
 }
 #[derive(Serialize)]
 struct Source {
@@ -478,6 +519,7 @@ pub fn run() -> ExitCode {
                         receipt,
                         environment,
                         suggested_deps,
+                        directory_context: analyze_directory_context(&d, &ac_text),
                     },
                 );
                 println!("[{:>3}] {:<40} {}", n, repo, status);
@@ -514,6 +556,7 @@ pub fn run() -> ExitCode {
                 },
                 environment: fingerprint_environment(),
                 suggested_deps: vec![],
+                directory_context: None,
             },
         );
         println!("[{:>3}] {:<40} {}", n, repo, status);
@@ -634,6 +677,160 @@ fn first_err(log: &str) -> String {
         }
     }
     String::new()
+}
+
+/// Deep subdir/directory context: walks the cloned tree + parses configure.ac and each Makefile.am to
+/// capture the multi-directory build structure — the AC_CONFIG_FILES targets with their relative
+/// top_builddir paths, config.h locations, the SUBDIRS tree, per-dir build targets, and which dirs
+/// consume a config.h that lives above them. This is the context that drives make-layer success.
+fn analyze_directory_context(d: &Path, ac_text: &str) -> Option<DirectoryContext> {
+    // collapse line-continuations + strip dnl comments so multi-line AC_CONFIG_FILES parse cleanly
+    let flat = ac_text.replace("\\\n", " ");
+    let extract_args = |mac_name: &str| -> Vec<String> {
+        let mut out = Vec::new();
+        let mut hay = flat.as_str();
+        while let Some(p) = hay.find(mac_name) {
+            let after = &hay[p + mac_name.len()..];
+            let after = after.trim_start();
+            if let Some(rest) = after.strip_prefix('(') {
+                // take up to the matching close paren (shallow), strip [] quotes
+                if let Some(end) = rest.find(')') {
+                    let inner = rest[..end].replace(['[', ']'], " ");
+                    // first arg only (before a comma) for FILES/HEADERS lists of files
+                    let first = inner.split(',').next().unwrap_or("");
+                    for tok in first.split_whitespace() {
+                        out.push(tok.to_string());
+                    }
+                }
+            }
+            hay = &hay[p + mac_name.len()..];
+        }
+        out
+    };
+    let rel_top = |path: &str| -> (usize, String) {
+        let dir = path.rsplit_once('/').map(|(a, _)| a).unwrap_or("");
+        if dir.is_empty() || dir == "." {
+            (0, ".".to_string())
+        } else {
+            let depth = dir.split('/').filter(|s| !s.is_empty() && *s != ".").count();
+            (depth, vec![".."; depth].join("/"))
+        }
+    };
+
+    let cfiles_raw = {
+        let mut v = extract_args("AC_CONFIG_FILES");
+        v.extend(extract_args("AC_OUTPUT")); // legacy AC_OUTPUT(files...) form
+        v.retain(|f| !f.is_empty() && !f.contains('$') && (f.ends_with("Makefile") || f.ends_with(".in") || f.contains('.')));
+        v.sort();
+        v.dedup();
+        v
+    };
+    let config_headers: Vec<String> = {
+        let mut v = extract_args("AC_CONFIG_HEADERS");
+        v.extend(extract_args("AM_CONFIG_HEADER"));
+        v.retain(|f| !f.is_empty() && !f.contains('$'));
+        v.sort();
+        v.dedup();
+        v
+    };
+    let header_dirs: Vec<String> = config_headers.iter()
+        .map(|h| h.rsplit_once('/').map(|(a, _)| a.to_string()).unwrap_or_default())
+        .collect();
+
+    let mut config_files = Vec::new();
+    let mut max_depth = 0usize;
+    for f in &cfiles_raw {
+        let (depth, top) = rel_top(f);
+        max_depth = max_depth.max(depth);
+        config_files.push(ConfigFileCtx {
+            path: f.clone(),
+            depth,
+            top_builddir: top,
+            has_template: d.join(format!("{}.in", f)).exists() || d.join(f).with_extension("in").exists(),
+        });
+    }
+
+    // walk for Makefile.am (build dirs), depth <= 4
+    let mut build_dirs = Vec::new();
+    let mut consumers_below = Vec::new();
+    collect_makefile_ams(d, d, 0, &mut build_dirs, &header_dirs, &mut consumers_below);
+    build_dirs.sort_by(|a, b| a.dir.cmp(&b.dir));
+    build_dirs.truncate(40);
+
+    let subdirs: Vec<String> = build_dirs.iter().flat_map(|b| b.subdirs.clone()).collect();
+
+    if config_files.is_empty() && config_headers.is_empty() && build_dirs.is_empty() {
+        return None;
+    }
+    Some(DirectoryContext {
+        config_files,
+        config_headers,
+        subdirs,
+        build_dirs,
+        max_depth,
+        config_h_consumers_below_root: consumers_below,
+    })
+}
+
+/// Walk for Makefile.am files; parse SUBDIRS, build targets, AM_CPPFLAGS, and whether sources here
+/// #include config.h (and sit below the dir config.h is generated in — the SUBDIRS -I root cause).
+fn collect_makefile_ams(root: &Path, dir: &Path, depth: usize, out: &mut Vec<BuildDirCtx>, header_dirs: &[String], consumers: &mut Vec<String>) {
+    if depth > 4 || out.len() >= 40 {
+        return;
+    }
+    let rel = dir.strip_prefix(root).ok().map(|p| p.to_string_lossy().to_string()).unwrap_or_default();
+    let am = dir.join("Makefile.am");
+    if let Ok(txt) = std::fs::read_to_string(&am) {
+        let flat = txt.replace("\\\n", " ");
+        let mut targets = Vec::new();
+        let mut subdirs = Vec::new();
+        let mut am_cppflags = String::new();
+        for line in flat.lines() {
+            let l = line.trim();
+            if let Some(v) = l.strip_prefix("SUBDIRS") {
+                subdirs.extend(v.trim_start_matches([' ', '=', '+']).split_whitespace().map(|s| s.to_string()));
+            } else if l.starts_with("AM_CPPFLAGS") || l.starts_with("INCLUDES") {
+                am_cppflags = l.splitn(2, '=').nth(1).unwrap_or("").trim().chars().take(120).collect();
+            } else if let Some(eq) = l.find('=') {
+                let lhs = l[..eq].trim();
+                if lhs.ends_with("_PROGRAMS") || lhs.ends_with("_LTLIBRARIES") || lhs.ends_with("_LIBRARIES") {
+                    for t in l[eq + 1..].split_whitespace() { if !t.is_empty() { targets.push(t.to_string()); } }
+                }
+            }
+        }
+        // does any source in this dir #include config.h?
+        let mut includes_config_h = false;
+        for e in std::fs::read_dir(dir).into_iter().flatten().flatten() {
+            let p = e.path();
+            let name = p.file_name().map(|n| n.to_string_lossy().to_string()).unwrap_or_default();
+            if name.ends_with(".c") || name.ends_with(".h") || name.ends_with(".cc") || name.ends_with(".cpp") || name.ends_with(".cxx") {
+                if let Ok(s) = std::fs::read_to_string(&p) {
+                    if s.contains("config.h") { includes_config_h = true; break; }
+                }
+            }
+        }
+        if includes_config_h && !header_dirs.iter().any(|hd| hd == &rel || (hd.is_empty() && rel.is_empty())) && !rel.is_empty() {
+            consumers.push(rel.clone());
+        }
+        if !targets.is_empty() || !subdirs.is_empty() || includes_config_h {
+            out.push(BuildDirCtx {
+                dir: if rel.is_empty() { ".".to_string() } else { rel.clone() },
+                targets: { let mut t = targets; t.truncate(12); t },
+                subdirs: subdirs.clone(),
+                sources_include_config_h: includes_config_h,
+                am_cppflags,
+            });
+        }
+    }
+    // recurse into subdirs
+    for e in std::fs::read_dir(dir).into_iter().flatten().flatten() {
+        let p = e.path();
+        if p.is_dir() {
+            let n = p.file_name().map(|n| n.to_string_lossy().to_string()).unwrap_or_default();
+            if n == ".git" || n == "autom4te.cache" || n.starts_with('.') { continue; }
+            collect_makefile_ams(root, &p, depth + 1, out, header_dirs, consumers);
+        }
+    }
 }
 
 /// Forensic scan of the generated `configure` plus the configure run-log. Surfaces the exact
