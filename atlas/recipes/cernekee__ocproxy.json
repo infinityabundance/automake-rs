@@ -26,11 +26,6 @@
     {
       "step": "configure",
       "tool": "./configure",
-      "status": "ok"
-    },
-    {
-      "step": "make",
-      "tool": "make",
       "status": "fail"
     }
   ],
@@ -40,31 +35,49 @@
   },
   "dependencies": {
     "pkg_config": [],
-    "system_libs": [
-      "-pthread",
-      "-levent"
-    ],
+    "system_libs": [],
     "headers_needed": [],
     "missing": []
   },
   "quirks": [
-    "autoconf-archive-macros",
-    "LIBS=-pthread -levent"
+    "autoconf-archive-macros"
   ],
   "outputs": [],
-  "status": "MAKE_FAIL",
+  "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "",
+  "diagnostic": "./configure: line 1437: syntax error near unexpected token `WFLAGS,'",
   "deep_expansion": {
-    "configure_lines": 2544,
-    "leaked_macros": [],
+    "configure_lines": 2562,
+    "leaked_macros": [
+      {
+        "name": "AS_COMPILER_FLAGS",
+        "line": 1437,
+        "context": "AS_COMPILER_FLAGS(WFLAGS,"
+      }
+    ],
     "heredoc_openers": 19,
     "heredoc_terminators": 19,
     "heredoc_imbalance": 0,
-    "syntax_errors": [],
+    "syntax_errors": [
+      {
+        "line": 1437,
+        "token": "WFLAGS,",
+        "source": "AS_COMPILER_FLAGS(WFLAGS,",
+        "block": [
+          "1433: ",
+          "1434: ",
+          "1435: EXTRA_PC_LIBS=\"\"",
+          "1436: ",
+          "1437: AS_COMPILER_FLAGS(WFLAGS,",
+          "1438:         \"-Wall",
+          "1439:          -Wextra",
+          "1440:          -Wno-missing-field-initializers"
+        ]
+      }
+    ],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2068: do eval test \\${$as_var+y} \\"
+      "line 2086: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
@@ -77,12 +90,10 @@
       "PACKAGE_STRING",
       "PACKAGE_BUGREPORT"
     ],
-    "failed_during_check": "checking for the pthreads flag... -pthread",
+    "failed_during_check": "",
     "failure_tail": [
-      "checking for the pthreads flag... -pthread",
-      "configure: creating Makefile",
-      "configure: creating config.h",
-      "configure: creating ./config.status"
+      "./configure: line 1437: syntax error near unexpected token `WFLAGS,'",
+      "./configure: line 1437: `AS_COMPILER_FLAGS(WFLAGS,'"
     ],
     "conftest_corruption": [],
     "conftest_directives_intact": 2,
@@ -99,18 +110,22 @@
     "real_make": "ok",
     "real_configure_lines": 7601,
     "real_first_error": "",
-    "classification": "OURS_BUG_MAKE"
+    "classification": "OURS_BUG_CONFIGURE"
   },
   "divergence": {
-    "stage": "make",
-    "ours_error": "",
-    "ours_error_context": [],
-    "ours_configure_lines": 2544,
+    "stage": "configure",
+    "ours_error": "line 1437: AS_COMPILER_FLAGS(WFLAGS, (near `WFLAGS,`)",
+    "ours_error_context": [
+      "AS_COMPILER_FLAGS(WFLAGS,"
+    ],
+    "ours_configure_lines": 2562,
     "real_configure_lines": 7601,
-    "macros_ours_left_undefined": []
+    "macros_ours_left_undefined": [
+      "AS_COMPILER_FLAGS"
+    ]
   },
   "receipt": {
-    "court_status": "partial",
+    "court_status": "failed",
     "probe_trace": [],
     "quirks_matched": [
       "has-acinclude",
@@ -118,7 +133,7 @@
       "uses-ax-archive",
       "uses-pthread-check"
     ],
-    "receipt_hash": "50943c81e776f99633ce47bc1c02476e04eeac1c88eab40282963440dadccda2",
+    "receipt_hash": "24e39ed3178d433d21c1340a6407fda16d8349c27724819539e8175382940e80",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {

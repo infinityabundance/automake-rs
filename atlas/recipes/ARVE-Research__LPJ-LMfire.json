@@ -26,11 +26,6 @@
     {
       "step": "configure",
       "tool": "./configure",
-      "status": "ok"
-    },
-    {
-      "step": "make",
-      "tool": "make",
       "status": "fail"
     }
   ],
@@ -50,29 +45,59 @@
     "subdirs"
   ],
   "outputs": [],
-  "status": "MAKE_FAIL",
+  "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1427: -show: command not found",
+  "diagnostic": "./configure: line 1377: syntax error near unexpected token `NETCDF_CC,'",
   "deep_expansion": {
     "configure_lines": 1518,
-    "leaked_macros": [],
+    "leaked_macros": [
+      {
+        "name": "PKG_CHECK_VAR",
+        "line": 1377,
+        "context": "PKG_CHECK_VAR(NETCDF_CC,      netcdf-fortran, ccompiler)"
+      },
+      {
+        "name": "PKG_CHECK_VAR",
+        "line": 1378,
+        "context": "PKG_CHECK_VAR(NETCDF_FC,      netcdf-fortran, fcompiler)"
+      },
+      {
+        "name": "PKG_CHECK_VAR",
+        "line": 1379,
+        "context": "PKG_CHECK_VAR(NETCDF_FCFLAGS, netcdf-fortran, includedir)"
+      }
+    ],
     "heredoc_openers": 4,
     "heredoc_terminators": 4,
     "heredoc_imbalance": 0,
-    "syntax_errors": [],
+    "syntax_errors": [
+      {
+        "line": 1377,
+        "token": "NETCDF_CC,",
+        "source": "PKG_CHECK_VAR(NETCDF_CC,      netcdf-fortran, ccompiler)",
+        "block": [
+          "1373:   ",
+          "1374: fi",
+          "1375: ",
+          "1376: ",
+          "1377: PKG_CHECK_VAR(NETCDF_CC,      netcdf-fortran, ccompiler)",
+          "1378: PKG_CHECK_VAR(NETCDF_FC,      netcdf-fortran, fcompiler)",
+          "1379: PKG_CHECK_VAR(NETCDF_FCFLAGS, netcdf-fortran, includedir)",
+          "1380: "
+        ]
+      }
+    ],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL"
     ],
-    "failed_during_check": "checking for Fortran 77 compiler... gfortran",
+    "failed_during_check": "checking for netcdf-fortran... yes",
     "failure_tail": [
-      "checking for Fortran 77 compiler... gfortran",
-      "./configure: line 1427: -show: command not found",
-      "summary of build options",
-      "C compiler:",
-      "Fortran compiler:"
+      "checking for netcdf-fortran... yes",
+      "./configure: line 1377: syntax error near unexpected token `NETCDF_CC,'",
+      "./configure: line 1377: `PKG_CHECK_VAR(NETCDF_CC,      netcdf-fortran, ccompiler"
     ],
     "conftest_corruption": [],
     "conftest_directives_intact": 0,
@@ -85,10 +110,22 @@
     "real_make": "fail",
     "real_configure_lines": 23106,
     "real_first_error": "",
-    "classification": "BOTH_MAKE_FAIL"
+    "classification": "OURS_BUG_CONFIGURE"
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "line 1377: PKG_CHECK_VAR(NETCDF_CC,      netcdf-fortran, ccompiler) (near `NETCDF_CC,`)",
+    "ours_error_context": [
+      "PKG_CHECK_VAR(NETCDF_CC,      netcdf-fortran, ccompiler)"
+    ],
+    "ours_configure_lines": 1518,
+    "real_configure_lines": 23106,
+    "macros_ours_left_undefined": [
+      "PKG_CHECK_VAR"
+    ]
   },
   "receipt": {
-    "court_status": "partial",
+    "court_status": "failed",
     "probe_trace": [],
     "quirks_matched": [
       "uses-libtool",
@@ -96,7 +133,7 @@
       "has-m4-macro-dir",
       "vendored-aclocal"
     ],
-    "receipt_hash": "a1f4e5766c35392dc1a93d7294702343cbef0d84a9f13446984a26ca5354d637",
+    "receipt_hash": "24e39ed3178d433d21c1340a6407fda16d8349c27724819539e8175382940e80",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {

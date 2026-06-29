@@ -26,11 +26,6 @@
     {
       "step": "configure",
       "tool": "./configure",
-      "status": "ok"
-    },
-    {
-      "step": "make",
-      "tool": "make",
       "status": "fail"
     }
   ],
@@ -49,16 +44,38 @@
     "subdirs"
   ],
   "outputs": [],
-  "status": "MAKE_FAIL",
+  "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "",
+  "diagnostic": "./configure: line 1360: syntax error near unexpected token `2.0.0'",
   "deep_expansion": {
     "configure_lines": 2584,
-    "leaked_macros": [],
+    "leaked_macros": [
+      {
+        "name": "AC_CHECK_PTH",
+        "line": 1360,
+        "context": "AC_CHECK_PTH(2.0.0)"
+      }
+    ],
     "heredoc_openers": 22,
     "heredoc_terminators": 22,
     "heredoc_imbalance": 0,
-    "syntax_errors": [],
+    "syntax_errors": [
+      {
+        "line": 1360,
+        "token": "2.0.0",
+        "source": "AC_CHECK_PTH(2.0.0)",
+        "block": [
+          "1356: done",
+          "1357: _acrs_write_libtool",
+          "1358: ",
+          "1359: # Checks for libraries.",
+          "1360: AC_CHECK_PTH(2.0.0)",
+          "1361: printf %s \"checking for SHA1 in -lssl... \"",
+          "1362: _acl_save_LIBS=$LIBS",
+          "1363: LIBS=\"-lssl  $LIBS\""
+        ]
+      }
+    ],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
       "line 2108: do eval test \\${$as_var+y} \\"
@@ -71,13 +88,11 @@
       "PACKAGE_STRING",
       "PACKAGE_BUGREPORT"
     ],
-    "failed_during_check": "checking for strnstr... no",
+    "failed_during_check": "",
     "failure_tail": [
-      "checking for strnstr... no",
-      "configure: creating Makefile",
-      "configure: creating commons/Makefile",
-      "configure: creating include/Makefile",
-      "configure: creating lib/Makefile"
+      "configure: WARNING: cannot find sources (mdsyncd) in .",
+      "./configure: line 1360: syntax error near unexpected token `2.0.0'",
+      "./configure: line 1360: `AC_CHECK_PTH(2.0.0)'"
     ],
     "conftest_corruption": [],
     "conftest_directives_intact": 6,
@@ -100,13 +115,13 @@
     "classification": "OURS_BETTER"
   },
   "receipt": {
-    "court_status": "partial",
+    "court_status": "failed",
     "probe_trace": [],
     "quirks_matched": [
       "uses-pkg-config",
       "vendored-aclocal"
     ],
-    "receipt_hash": "bdbfb6907bfdbc8bdb7cf566a26793b38411d77e6f0819ae26c725daf919e509",
+    "receipt_hash": "0c30dce6270fb3560c454d8c8d1e4e34e811f65407638476dab76fe1fd927894",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {

@@ -26,11 +26,11 @@
     {
       "step": "configure",
       "tool": "./configure",
-      "status": "ok"
+      "status": "fail"
     },
     {
-      "step": "make",
-      "tool": "make",
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
       "status": "fail"
     }
   ],
@@ -48,19 +48,35 @@
     "subdirs"
   ],
   "outputs": [],
-  "status": "MAKE_FAIL",
+  "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1590: AC_CHECK_VA_COPY: command not found",
+  "diagnostic": "./configure: line 1534: syntax error near unexpected token `newline'",
   "deep_expansion": {
-    "configure_lines": 2654,
+    "configure_lines": 2658,
     "leaked_macros": [],
     "heredoc_openers": 24,
     "heredoc_terminators": 24,
     "heredoc_imbalance": 0,
-    "syntax_errors": [],
+    "syntax_errors": [
+      {
+        "line": 1534,
+        "token": "newline",
+        "source": "ACX_PTHREAD(",
+        "block": [
+          "1530: fi",
+          "1531: ",
+          "1532: # Figure out how to build C programs using POSIX threads, and",
+          "1533: # use the variables given by acx_pthread.m4 in acinclude.m4",
+          "1534: ACX_PTHREAD(",
+          "1535:  LIBS=\"$PTHREAD_LIBS $LIBS\"",
+          "1536:  CFLAGS=\"$CFLAGS $PTHREAD_CFLAGS\"",
+          "1537:  CC=\"$PTHREAD_CC\""
+        ]
+      }
+    ],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2177: do eval test \\${$as_var+y} \\"
+      "line 2181: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
@@ -70,13 +86,11 @@
       "PACKAGE_STRING",
       "PACKAGE_BUGREPORT"
     ],
-    "failed_during_check": "checking for strstr... yes",
+    "failed_during_check": "checking for size_t... yes",
     "failure_tail": [
-      "checking for strstr... yes",
-      "./configure: line 1590: AC_CHECK_VA_COPY: command not found",
-      "configure: creating Makefile",
-      "configure: creating include/Makefile",
-      "configure: creating doc/Makefile"
+      "checking for size_t... yes",
+      "./configure: line 1534: syntax error near unexpected token `newline'",
+      "./configure: line 1534: `ACX_PTHREAD('"
     ],
     "conftest_corruption": [],
     "conftest_directives_intact": 13,
@@ -96,25 +110,34 @@
     "real_make": "ok",
     "real_configure_lines": 8672,
     "real_first_error": "",
-    "classification": "OURS_BUG_MAKE"
+    "classification": "OURS_BUG_CONFIGURE"
   },
   "divergence": {
-    "stage": "make",
-    "ours_error": "",
-    "ours_error_context": [],
-    "ours_configure_lines": 2654,
+    "stage": "configure",
+    "ours_error": "line 1534: ACX_PTHREAD( (near `newline`)",
+    "ours_error_context": [
+      "ACX_PTHREAD("
+    ],
+    "ours_configure_lines": 2658,
     "real_configure_lines": 8672,
     "macros_ours_left_undefined": []
   },
   "receipt": {
-    "court_status": "partial",
+    "court_status": "failed",
     "probe_trace": [],
     "quirks_matched": [
       "uses-maintainer-mode",
       "has-acinclude",
       "vendored-aclocal"
     ],
-    "receipt_hash": "50943c81e776f99633ce47bc1c02476e04eeac1c88eab40282963440dadccda2",
+    "quirks_applied": [
+      {
+        "id": "uses-maintainer-mode",
+        "action": "--disable-maintainer-mode",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "24e39ed3178d433d21c1340a6407fda16d8349c27724819539e8175382940e80",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {

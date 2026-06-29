@@ -26,17 +26,15 @@
     {
       "step": "configure",
       "tool": "./configure",
-      "status": "ok"
+      "status": "fail"
     },
     {
-      "step": "make",
-      "tool": "make",
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
       "status": "fail"
     }
   ],
-  "probe_results": {
-    "HAVE_V4L2": 1
-  },
+  "probe_results": {},
   "feature_flags": {
     "configure_args": []
   },
@@ -53,16 +51,38 @@
     "subdirs"
   ],
   "outputs": [],
-  "status": "MAKE_FAIL",
+  "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "",
+  "diagnostic": "./configure: line 1382: syntax error near unexpected token `avcap-config.h,'",
   "deep_expansion": {
     "configure_lines": 2793,
-    "leaked_macros": [],
+    "leaked_macros": [
+      {
+        "name": "AX_PREFIX_CONFIG_H",
+        "line": 1382,
+        "context": "AX_PREFIX_CONFIG_H(avcap-config.h, AVCAP)"
+      }
+    ],
     "heredoc_openers": 33,
     "heredoc_terminators": 33,
     "heredoc_imbalance": 0,
-    "syntax_errors": [],
+    "syntax_errors": [
+      {
+        "line": 1382,
+        "token": "avcap-config.h,",
+        "source": "AX_PREFIX_CONFIG_H(avcap-config.h, AVCAP)",
+        "block": [
+          "1378: ac_aux_dir=aux_config",
+          "1379: ",
+          "1380: ",
+          "1381: ",
+          "1382: AX_PREFIX_CONFIG_H(avcap-config.h, AVCAP)",
+          "1383: ",
+          "1384: # Checks for programs.",
+          "1385: # Check for C compiler"
+        ]
+      }
+    ],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
       "line 2315: do eval test \\${$as_var+y} \\"
@@ -75,11 +95,10 @@
       "PACKAGE_STRING",
       "PACKAGE_BUGREPORT"
     ],
-    "failed_during_check": "checking for strerror... yes",
+    "failed_during_check": "",
     "failure_tail": [
-      "checking for strerror... yes",
-      "AV/C-support:\t   no",
-      "configure: creating Makefile"
+      "./configure: line 1382: syntax error near unexpected token `avcap-config.h,'",
+      "./configure: line 1382: `AX_PREFIX_CONFIG_H(avcap-config.h, AVCAP)'"
     ],
     "conftest_corruption": [],
     "conftest_directives_intact": 27,
@@ -102,15 +121,8 @@
     "classification": "OURS_BETTER"
   },
   "receipt": {
-    "court_status": "partial",
-    "probe_trace": [
-      {
-        "name": "HAVE_V4L2",
-        "kind": "func",
-        "result": "yes",
-        "reason": "ok"
-      }
-    ],
+    "court_status": "failed",
+    "probe_trace": [],
     "quirks_matched": [
       "uses-libtool-old",
       "uses-pkg-config",
@@ -119,7 +131,14 @@
       "vendored-aclocal",
       "uses-ax-archive"
     ],
-    "receipt_hash": "5f68997c06199ebb09030f25fd9453a576e3fee57e794f529d560690fea4687e",
+    "quirks_applied": [
+      {
+        "id": "uses-maintainer-mode",
+        "action": "--disable-maintainer-mode",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "0c30dce6270fb3560c454d8c8d1e4e34e811f65407638476dab76fe1fd927894",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {

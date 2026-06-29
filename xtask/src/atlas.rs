@@ -1089,10 +1089,25 @@ fn diag_line(cf: &str, mk: &str) -> String {
                 || ll.contains("command not found")
                 || ll.contains(": error:")
                 || ll.contains("no such file")
+                // make-layer error formats (were missed -> 302/366 partial repos had no diagnostic):
+                || ll.contains("undefined reference")
+                || ll.contains("no rule to make target")
+                || ll.contains("missing separator")
+                || ll.contains("recipe for target")
+                || ll.contains("] error ")            // `make[1]: *** [foo] Error 1`
+                || ll.contains("*** ")                // make fatal
+                || ll.contains("not found")           // `<tool>: not found`
+                || ll.contains("permission denied")
             {
                 return l.trim().chars().take(140).collect();
             }
         }
+    }
+    // Fallback: if make produced output but matched no known pattern, return its last non-empty line —
+    // better than an empty diagnostic (which dumped 302 partial repos into "no diagnostic captured").
+    for l in mk.lines().rev() {
+        let t = l.trim();
+        if !t.is_empty() { return t.chars().take(140).collect(); }
     }
     String::new()
 }

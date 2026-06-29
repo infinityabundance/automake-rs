@@ -26,11 +26,6 @@
     {
       "step": "configure",
       "tool": "./configure",
-      "status": "ok"
-    },
-    {
-      "step": "make",
-      "tool": "make",
       "status": "fail"
     }
   ],
@@ -50,16 +45,38 @@
     "subdirs"
   ],
   "outputs": [],
-  "status": "MAKE_FAIL",
+  "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "",
+  "diagnostic": "./configure: line 1969: syntax error near unexpected token `[ACX_PTHREAD],[AX_PTHREAD]'",
   "deep_expansion": {
     "configure_lines": 2852,
-    "leaked_macros": [],
+    "leaked_macros": [
+      {
+        "name": "AX_PTHREAD",
+        "line": 1969,
+        "context": "AX_PTHREAD([ACX_PTHREAD],[AX_PTHREAD])"
+      }
+    ],
     "heredoc_openers": 5,
     "heredoc_terminators": 5,
     "heredoc_imbalance": 0,
-    "syntax_errors": [],
+    "syntax_errors": [
+      {
+        "line": 1969,
+        "token": "[ACX_PTHREAD],[AX_PTHREA",
+        "source": "AX_PTHREAD([ACX_PTHREAD],[AX_PTHREAD])",
+        "block": [
+          "1965: printf '%s\\n' \"s|@PTHREAD_CFLAGS@|$PTHREAD_CFLAGS|g\" >> conf_subst.sed 2>/de",
+          "1966: printf '%s\\n' \"s|@PTHREAD_LIBS@|$PTHREAD_LIBS|g\" >> conf_subst.sed 2>/dev/nu",
+          "1967: if test \"x$ax_pthread_ok\" = xyes; then",
+          "1968:   :",
+          "1969:   AX_PTHREAD([ACX_PTHREAD],[AX_PTHREAD])",
+          "1970: else",
+          "1971:   :",
+          "1972:   AX_PTHREAD"
+        ]
+      }
+    ],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\"
     ],
@@ -69,9 +86,11 @@
       "PTHREAD_CFLAGS",
       "PTHREAD_LIBS"
     ],
-    "failed_during_check": "checking for unistd.h... yes",
+    "failed_during_check": "checking for the pthreads flag... -pthread",
     "failure_tail": [
-      "checking for unistd.h... yes"
+      "checking for the pthreads flag... -pthread",
+      "./configure: line 1969: syntax error near unexpected token `[ACX_PTHREAD],[AX_PT",
+      "./configure: line 1969: `  AX_PTHREAD([ACX_PTHREAD],[AX_PTHREAD])'"
     ],
     "conftest_corruption": [],
     "conftest_directives_intact": 1,
@@ -86,18 +105,22 @@
     "real_make": "ok",
     "real_configure_lines": 15938,
     "real_first_error": "",
-    "classification": "OURS_BUG_MAKE"
+    "classification": "OURS_BUG_CONFIGURE"
   },
   "divergence": {
-    "stage": "make",
-    "ours_error": "",
-    "ours_error_context": [],
+    "stage": "configure",
+    "ours_error": "line 1969: AX_PTHREAD([ACX_PTHREAD],[AX_PTHREAD]) (near `[ACX_PTHREAD],[AX_PTHREA`)",
+    "ours_error_context": [
+      "AX_PTHREAD([ACX_PTHREAD],[AX_PTHREAD])"
+    ],
     "ours_configure_lines": 2852,
     "real_configure_lines": 15938,
-    "macros_ours_left_undefined": []
+    "macros_ours_left_undefined": [
+      "AX_PTHREAD"
+    ]
   },
   "receipt": {
-    "court_status": "partial",
+    "court_status": "failed",
     "probe_trace": [],
     "quirks_matched": [
       "uses-libtool-old",
@@ -106,7 +129,7 @@
       "uses-ax-archive",
       "uses-pthread-check"
     ],
-    "receipt_hash": "50943c81e776f99633ce47bc1c02476e04eeac1c88eab40282963440dadccda2",
+    "receipt_hash": "24e39ed3178d433d21c1340a6407fda16d8349c27724819539e8175382940e80",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {

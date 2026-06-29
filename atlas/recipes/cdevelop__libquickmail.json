@@ -26,11 +26,6 @@
     {
       "step": "configure",
       "tool": "./configure",
-      "status": "ok"
-    },
-    {
-      "step": "make",
-      "tool": "make",
       "status": "fail"
     }
   ],
@@ -49,25 +44,48 @@
     "pkg-config"
   ],
   "outputs": [],
-  "status": "MAKE_FAIL",
+  "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "",
+  "diagnostic": "./configure: line 1382: syntax error near unexpected token `curl'",
   "deep_expansion": {
     "configure_lines": 1478,
-    "leaked_macros": [],
+    "leaked_macros": [
+      {
+        "name": "AC_HAVE_LIBRARY",
+        "line": 1382,
+        "context": "AC_HAVE_LIBRARY(curl)"
+      }
+    ],
     "heredoc_openers": 9,
     "heredoc_terminators": 9,
     "heredoc_imbalance": 0,
-    "syntax_errors": [],
+    "syntax_errors": [
+      {
+        "line": 1382,
+        "token": "curl",
+        "source": "AC_HAVE_LIBRARY(curl)",
+        "block": [
+          "1378:   fi",
+          "1379: done",
+          "1380: ",
+          "1381: # Checks for libraries.",
+          "1382: AC_HAVE_LIBRARY(curl)",
+          "1383: #printf %s \"checking for libcurl >= 7.20.0... \"",
+          "1384: if pkg-config --exists \"libcurl >= 7.20.0\" 2>/dev/null; then",
+          "1385:   printf '%s\\n' \"yes\""
+        ]
+      }
+    ],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL"
     ],
-    "failed_during_check": "checking for strdup... yes",
+    "failed_during_check": "",
     "failure_tail": [
-      "checking for strdup... yes"
+      "./configure: line 1382: syntax error near unexpected token `curl'",
+      "./configure: line 1382: `AC_HAVE_LIBRARY(curl)'"
     ],
     "conftest_corruption": [],
     "conftest_directives_intact": 9,
@@ -86,18 +104,22 @@
     "real_make": "ok",
     "real_configure_lines": 16444,
     "real_first_error": "",
-    "classification": "OURS_BUG_MAKE"
+    "classification": "OURS_BUG_CONFIGURE"
   },
   "divergence": {
-    "stage": "make",
-    "ours_error": "",
-    "ours_error_context": [],
+    "stage": "configure",
+    "ours_error": "line 1382: AC_HAVE_LIBRARY(curl) (near `curl`)",
+    "ours_error_context": [
+      "AC_HAVE_LIBRARY(curl)"
+    ],
     "ours_configure_lines": 1478,
     "real_configure_lines": 16444,
-    "macros_ours_left_undefined": []
+    "macros_ours_left_undefined": [
+      "AC_HAVE_LIBRARY"
+    ]
   },
   "receipt": {
-    "court_status": "partial",
+    "court_status": "failed",
     "probe_trace": [],
     "quirks_matched": [
       "uses-libtool",
@@ -106,7 +128,7 @@
       "has-m4-macro-dir",
       "vendored-aclocal"
     ],
-    "receipt_hash": "50943c81e776f99633ce47bc1c02476e04eeac1c88eab40282963440dadccda2",
+    "receipt_hash": "24e39ed3178d433d21c1340a6407fda16d8349c27724819539e8175382940e80",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {

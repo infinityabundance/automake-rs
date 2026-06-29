@@ -26,11 +26,11 @@
     {
       "step": "configure",
       "tool": "./configure",
-      "status": "ok"
+      "status": "fail"
     },
     {
-      "step": "make",
-      "tool": "make",
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
       "status": "fail"
     }
   ],
@@ -40,27 +40,51 @@
   },
   "dependencies": {
     "pkg_config": [],
-    "system_libs": [
-      "-lpthread"
-    ],
+    "system_libs": [],
     "headers_needed": [],
     "missing": []
   },
   "quirks": [
-    "subdirs",
-    "LIBS=-lpthread"
+    "subdirs"
   ],
   "outputs": [],
-  "status": "MAKE_FAIL",
+  "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "",
+  "diagnostic": "./configure: line 1488: syntax error near unexpected token `socket'",
   "deep_expansion": {
     "configure_lines": 2534,
-    "leaked_macros": [],
+    "leaked_macros": [
+      {
+        "name": "AC_HAVE_LIBRARY",
+        "line": 1488,
+        "context": "AC_HAVE_LIBRARY(socket)"
+      },
+      {
+        "name": "AC_HAVE_LIBRARY",
+        "line": 1489,
+        "context": "AC_HAVE_LIBRARY(nsl)"
+      }
+    ],
     "heredoc_openers": 20,
     "heredoc_terminators": 20,
     "heredoc_imbalance": 0,
-    "syntax_errors": [],
+    "syntax_errors": [
+      {
+        "line": 1488,
+        "token": "socket",
+        "source": "AC_HAVE_LIBRARY(socket)",
+        "block": [
+          "1484:   printf '%s\\n' \"yes\"",
+          "1485: else",
+          "1486:   printf '%s\\n' \"no\"",
+          "1487: fi; done",
+          "1488: AC_HAVE_LIBRARY(socket)",
+          "1489: AC_HAVE_LIBRARY(nsl)",
+          "1490: echo \"libhttpd dependencies check complete\"",
+          "1491: "
+        ]
+      }
+    ],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
       "line 2057: do eval test \\${$as_var+y} \\"
@@ -87,22 +111,20 @@
       "DEFS",
       "LIBOBJS",
       "INSTALL",
+      "WIFIDOG_VERSION",
+      "BUILDROOT",
+      "WIFIDOG_MICRO_VERSION",
       "WIFIDOG_MAJOR_VERSION",
       "WIFIDOG_MINOR_VERSION",
-      "WIFIDOG_MICRO_VERSION",
-      "enable_dot",
-      "enable_html_docs",
-      "BUILDROOT",
       "enable_latex_docs",
-      "WIFIDOG_VERSION"
+      "enable_dot",
+      "enable_html_docs"
     ],
     "failed_during_check": "checking for unistd.h... yes",
     "failure_tail": [
       "checking for unistd.h... yes",
-      "libhttpd dependencies check complete",
-      "configure: creating Makefile",
-      "configure: creating wifidog.spec",
-      "configure: creating wifidog-msg.html"
+      "./configure: line 1488: syntax error near unexpected token `socket'",
+      "./configure: line 1488: `AC_HAVE_LIBRARY(socket)'"
     ],
     "conftest_corruption": [],
     "conftest_directives_intact": 2,
@@ -120,24 +142,35 @@
     "real_make": "ok",
     "real_configure_lines": 20183,
     "real_first_error": "",
-    "classification": "OURS_BUG_MAKE"
+    "classification": "OURS_BUG_CONFIGURE"
   },
   "divergence": {
-    "stage": "make",
-    "ours_error": "",
-    "ours_error_context": [],
+    "stage": "configure",
+    "ours_error": "line 1488: AC_HAVE_LIBRARY(socket) (near `socket`)",
+    "ours_error_context": [
+      "AC_HAVE_LIBRARY(socket)"
+    ],
     "ours_configure_lines": 2534,
     "real_configure_lines": 20183,
-    "macros_ours_left_undefined": []
+    "macros_ours_left_undefined": [
+      "AC_HAVE_LIBRARY"
+    ]
   },
   "receipt": {
-    "court_status": "partial",
+    "court_status": "failed",
     "probe_trace": [],
     "quirks_matched": [
       "uses-maintainer-mode",
       "vendored-aclocal"
     ],
-    "receipt_hash": "50943c81e776f99633ce47bc1c02476e04eeac1c88eab40282963440dadccda2",
+    "quirks_applied": [
+      {
+        "id": "uses-maintainer-mode",
+        "action": "--disable-maintainer-mode",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "24e39ed3178d433d21c1340a6407fda16d8349c27724819539e8175382940e80",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {

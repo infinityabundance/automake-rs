@@ -26,11 +26,6 @@
     {
       "step": "configure",
       "tool": "./configure",
-      "status": "ok"
-    },
-    {
-      "step": "make",
-      "tool": "make",
       "status": "fail"
     }
   ],
@@ -49,25 +44,49 @@
     "subdirs"
   ],
   "outputs": [],
-  "status": "MAKE_FAIL",
+  "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "",
+  "diagnostic": "./configure: line 1438: syntax error near unexpected token `,have_check=\"yes\",'",
   "deep_expansion": {
-    "configure_lines": 1582,
-    "leaked_macros": [],
+    "configure_lines": 1584,
+    "leaked_macros": [
+      {
+        "name": "AM_PATH_CHECK",
+        "line": 1438,
+        "context": "AM_PATH_CHECK(,have_check=\"yes\","
+      }
+    ],
     "heredoc_openers": 17,
     "heredoc_terminators": 17,
     "heredoc_imbalance": 0,
-    "syntax_errors": [],
+    "syntax_errors": [
+      {
+        "line": 1438,
+        "token": ",have_check=\"yes\",",
+        "source": "AM_PATH_CHECK(,have_check=\"yes\",",
+        "block": [
+          "1434: exit 1",
+          "1435: ",
+          "1436: fi",
+          "1437: ",
+          "1438: AM_PATH_CHECK(,have_check=\"yes\",",
+          "1439: \tprintf '%s\\n' \"configure: WARNING: Check not found; cannot run unit test!\" ",
+          "1440: \thave_check=\"no\")",
+          "1441: "
+        ]
+      }
+    ],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL"
     ],
-    "failed_during_check": "checking for getdelim... yes",
+    "failed_during_check": "checking for library containing iconv_open... none required",
     "failure_tail": [
-      "checking for getdelim... yes"
+      "checking for library containing iconv_open... none required",
+      "./configure: line 1438: syntax error near unexpected token `,have_check=\"yes\",'",
+      "./configure: line 1438: `AM_PATH_CHECK(,have_check=\"yes\",'"
     ],
     "conftest_corruption": [],
     "conftest_directives_intact": 19,
@@ -90,7 +109,7 @@
     "classification": "OURS_BETTER"
   },
   "receipt": {
-    "court_status": "partial",
+    "court_status": "failed",
     "probe_trace": [],
     "quirks_matched": [
       "uses-libtool",
@@ -98,7 +117,7 @@
       "has-m4-macro-dir",
       "vendored-aclocal"
     ],
-    "receipt_hash": "bdbfb6907bfdbc8bdb7cf566a26793b38411d77e6f0819ae26c725daf919e509",
+    "receipt_hash": "0c30dce6270fb3560c454d8c8d1e4e34e811f65407638476dab76fe1fd927894",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {

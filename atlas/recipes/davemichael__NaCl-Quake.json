@@ -26,11 +26,6 @@
     {
       "step": "configure",
       "tool": "./configure",
-      "status": "ok"
-    },
-    {
-      "step": "make",
-      "tool": "make",
       "status": "fail"
     }
   ],
@@ -46,19 +41,41 @@
   },
   "quirks": [],
   "outputs": [],
-  "status": "MAKE_FAIL",
+  "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "",
+  "diagnostic": "./configure: line 1427: syntax error near unexpected token `$SDL_VERSION,'",
   "deep_expansion": {
-    "configure_lines": 2486,
-    "leaked_macros": [],
+    "configure_lines": 2490,
+    "leaked_macros": [
+      {
+        "name": "AM_PATH_SDL",
+        "line": 1427,
+        "context": "AM_PATH_SDL($SDL_VERSION,"
+      }
+    ],
     "heredoc_openers": 16,
     "heredoc_terminators": 16,
     "heredoc_imbalance": 0,
-    "syntax_errors": [],
+    "syntax_errors": [
+      {
+        "line": 1427,
+        "token": "$SDL_VERSION,",
+        "source": "AM_PATH_SDL($SDL_VERSION,",
+        "block": [
+          "1423: ",
+          "1424: ",
+          "1425: ",
+          "1426: SDL_VERSION=1.0.1",
+          "1427: AM_PATH_SDL($SDL_VERSION,",
+          "1428:             :,",
+          "1429:             printf '%s\\n' \"configure: error: *** SDL version $SDL_VERSION no",
+          "1430: exit 1"
+        ]
+      }
+    ],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2010: do eval test \\${$as_var+y} \\"
+      "line 2014: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
@@ -82,19 +99,19 @@
       "DEFS",
       "LIBOBJS",
       "INSTALL",
-      "host_vendor",
       "MATHLIB",
-      "target_alias",
+      "host_vendor",
       "host_os",
-      "INETLIB",
+      "host_alias",
       "ICONOBJ",
-      "host_cpu",
-      "host_alias"
+      "target_alias",
+      "INETLIB",
+      "host_cpu"
     ],
     "failed_during_check": "",
     "failure_tail": [
-      "configure: creating Makefile",
-      "configure: creating ./config.status"
+      "./configure: line 1427: syntax error near unexpected token `$SDL_VERSION,'",
+      "./configure: line 1427: `AM_PATH_SDL($SDL_VERSION,'"
     ],
     "conftest_corruption": [],
     "conftest_directives_intact": 0,
@@ -110,13 +127,13 @@
     "classification": "OURS_BETTER"
   },
   "receipt": {
-    "court_status": "partial",
+    "court_status": "failed",
     "probe_trace": [],
     "quirks_matched": [
       "has-acinclude",
       "vendored-aclocal"
     ],
-    "receipt_hash": "bdbfb6907bfdbc8bdb7cf566a26793b38411d77e6f0819ae26c725daf919e509",
+    "receipt_hash": "0c30dce6270fb3560c454d8c8d1e4e34e811f65407638476dab76fe1fd927894",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {

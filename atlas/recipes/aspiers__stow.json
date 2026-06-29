@@ -26,11 +26,6 @@
     {
       "step": "configure",
       "tool": "./configure",
-      "status": "ok"
-    },
-    {
-      "step": "make",
-      "tool": "make",
       "status": "fail"
     }
   ],
@@ -46,19 +41,41 @@
   },
   "quirks": [],
   "outputs": [],
-  "status": "MAKE_FAIL",
+  "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "",
+  "diagnostic": "./configure: line 1389: syntax error near unexpected token `['",
   "deep_expansion": {
-    "configure_lines": 2428,
-    "leaked_macros": [],
+    "configure_lines": 2464,
+    "leaked_macros": [
+      {
+        "name": "AC_CONFIG_COMMANDS_POST",
+        "line": 1389,
+        "context": "AC_CONFIG_COMMANDS_POST(["
+      }
+    ],
     "heredoc_openers": 16,
     "heredoc_terminators": 16,
     "heredoc_imbalance": 0,
-    "syntax_errors": [],
+    "syntax_errors": [
+      {
+        "line": 1389,
+        "token": "[",
+        "source": "AC_CONFIG_COMMANDS_POST([",
+        "block": [
+          "1385:               print'`",
+          "1386: ",
+          "1387: # Check --with-pmdir option",
+          "1388: ",
+          "1389: AC_CONFIG_COMMANDS_POST([",
+          "1390:   eval pmdir=\"$PMDIR\"",
+          "1391:   cat <<EOF",
+          "1392: "
+        ]
+      }
+    ],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 1952: do eval test \\${$as_var+y} \\"
+      "line 1988: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
@@ -71,8 +88,8 @@
     "failed_during_check": "checking Test::Output... no",
     "failure_tail": [
       "checking Test::Output... no",
-      "configure: creating Makefile",
-      "configure: creating ./config.status"
+      "./configure: line 1389: syntax error near unexpected token `['",
+      "./configure: line 1389: `AC_CONFIG_COMMANDS_POST(['"
     ],
     "conftest_corruption": [],
     "conftest_directives_intact": 0,
@@ -85,25 +102,29 @@
     "real_make": "ok",
     "real_configure_lines": 3808,
     "real_first_error": "",
-    "classification": "OURS_BUG_MAKE"
+    "classification": "OURS_BUG_CONFIGURE"
   },
   "divergence": {
-    "stage": "make",
-    "ours_error": "",
-    "ours_error_context": [],
-    "ours_configure_lines": 2428,
+    "stage": "configure",
+    "ours_error": "line 1389: AC_CONFIG_COMMANDS_POST([ (near `[`)",
+    "ours_error_context": [
+      "AC_CONFIG_COMMANDS_POST(["
+    ],
+    "ours_configure_lines": 2464,
     "real_configure_lines": 3808,
-    "macros_ours_left_undefined": []
+    "macros_ours_left_undefined": [
+      "AC_CONFIG_COMMANDS_POST"
+    ]
   },
   "receipt": {
-    "court_status": "partial",
+    "court_status": "failed",
     "probe_trace": [],
     "quirks_matched": [
       "vendored-aclocal",
       "emits-config-commands-post",
       "perl-in-configure"
     ],
-    "receipt_hash": "50943c81e776f99633ce47bc1c02476e04eeac1c88eab40282963440dadccda2",
+    "receipt_hash": "24e39ed3178d433d21c1340a6407fda16d8349c27724819539e8175382940e80",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {

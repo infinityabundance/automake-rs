@@ -26,11 +26,6 @@
     {
       "step": "configure",
       "tool": "./configure",
-      "status": "ok"
-    },
-    {
-      "step": "make",
-      "tool": "make",
       "status": "fail"
     }
   ],
@@ -39,43 +34,52 @@
     "configure_args": []
   },
   "dependencies": {
-    "pkg_config": [
-      "checking for gmodule-2.0 >= 2.0... yes",
-      "checking for libusb-1.0 >= 1.0.5... yes",
-      "checking for libzip >= 0.8... yes"
-    ],
-    "system_libs": [
-      "-Wl,--export-dynamic",
-      "-lgmodule-2.0",
-      "-pthread",
-      "-lglib-2.0",
-      "-lglib-2.0",
-      "-lusb-1.0",
-      "-lzip"
-    ],
+    "pkg_config": [],
+    "system_libs": [],
     "headers_needed": [],
     "missing": []
   },
   "quirks": [
     "libtool",
     "pkg-config",
-    "subdirs",
-    "LIBS=-Wl,--export-dynamic -lgmodule-2.0 -pthread -lglib-2.0 -lglib-2.0 -lusb-1.0 -lzip"
+    "subdirs"
   ],
   "outputs": [],
-  "status": "MAKE_FAIL",
+  "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "",
+  "diagnostic": "./configure: line 1377: syntax error near unexpected token `2.0.0,'",
   "deep_expansion": {
-    "configure_lines": 2606,
-    "leaked_macros": [],
+    "configure_lines": 2607,
+    "leaked_macros": [
+      {
+        "name": "AM_PATH_GLIB_2_0",
+        "line": 1377,
+        "context": "AM_PATH_GLIB_2_0(2.0.0,"
+      }
+    ],
     "heredoc_openers": 26,
     "heredoc_terminators": 26,
     "heredoc_imbalance": 0,
-    "syntax_errors": [],
+    "syntax_errors": [
+      {
+        "line": 1377,
+        "token": "2.0.0,",
+        "source": "AM_PATH_GLIB_2_0(2.0.0,",
+        "block": [
+          "1373: LN_S='ln -s'",
+          "1374: _acrs_write_libtool",
+          "1375: ",
+          "1376: # Checks for libraries.",
+          "1377: AM_PATH_GLIB_2_0(2.0.0,",
+          "1378: \tCFLAGS=\"$CFLAGS $GLIB_CFLAGS\"; LIBS=\"$LIBS $GLIB_LIBS\")",
+          "1379: ",
+          "1380: printf %s \"checking for gmodule-2.0 >= 2.0... \""
+        ]
+      }
+    ],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2129: do eval test \\${$as_var+y} \\"
+      "line 2130: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
@@ -85,13 +89,10 @@
       "PACKAGE_STRING",
       "PACKAGE_BUGREPORT"
     ],
-    "failed_during_check": "checking for strtoull... yes",
+    "failed_during_check": "",
     "failure_tail": [
-      "checking for strtoull... yes",
-      "configure: creating Makefile",
-      "configure: creating doc/Makefile",
-      "configure: creating include/Makefile",
-      "configure: creating backend/Makefile"
+      "./configure: line 1377: syntax error near unexpected token `2.0.0,'",
+      "./configure: line 1377: `AM_PATH_GLIB_2_0(2.0.0,'"
     ],
     "conftest_corruption": [],
     "conftest_directives_intact": 19,
@@ -114,14 +115,14 @@
     "classification": "OURS_BETTER"
   },
   "receipt": {
-    "court_status": "partial",
+    "court_status": "failed",
     "probe_trace": [],
     "quirks_matched": [
       "uses-libtool",
       "uses-pkg-config",
       "vendored-aclocal"
     ],
-    "receipt_hash": "bdbfb6907bfdbc8bdb7cf566a26793b38411d77e6f0819ae26c725daf919e509",
+    "receipt_hash": "0c30dce6270fb3560c454d8c8d1e4e34e811f65407638476dab76fe1fd927894",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {

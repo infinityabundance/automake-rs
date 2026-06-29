@@ -26,11 +26,6 @@
     {
       "step": "configure",
       "tool": "./configure",
-      "status": "ok"
-    },
-    {
-      "step": "make",
-      "tool": "make",
       "status": "fail"
     }
   ],
@@ -50,16 +45,38 @@
     "subdirs"
   ],
   "outputs": [],
-  "status": "MAKE_FAIL",
+  "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "",
+  "diagnostic": "./configure: line 1474: syntax error near unexpected token `gst-launch'",
   "deep_expansion": {
     "configure_lines": 2534,
-    "leaked_macros": [],
+    "leaked_macros": [
+      {
+        "name": "AC_WARN",
+        "line": 1474,
+        "context": "AC_WARN(gst-launch not found, cannot run all tests)"
+      }
+    ],
     "heredoc_openers": 18,
     "heredoc_terminators": 18,
     "heredoc_imbalance": 0,
-    "syntax_errors": [],
+    "syntax_errors": [
+      {
+        "line": 1474,
+        "token": "gst-launch",
+        "source": "AC_WARN(gst-launch not found, cannot run all tests)",
+        "block": [
+          "1470: # Check for programs in PATH",
+          "1471: for ac_prog in gst-launch-$GST_API_VERSION gst-launch; do if command -v \"$ac",
+          "1472: if test \"x$GSTLAUNCH\" = \"x:\"; then",
+          "1473: :",
+          "1474: AC_WARN(gst-launch not found, cannot run all tests)",
+          "1475: else",
+          "1476: :",
+          "1477: "
+        ]
+      }
+    ],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
       "line 2058: do eval test \\${$as_var+y} \\"
@@ -76,9 +93,8 @@
     "failure_tail": [
       "checking for gstreamer-1.0... no",
       "configure: Using  as the plugin install location",
-      "configure: creating Makefile",
-      "configure: creating src/Makefile",
-      "configure: creating doc/Makefile"
+      "./configure: line 1474: syntax error near unexpected token `gst-launch'",
+      "./configure: line 1474: `AC_WARN(gst-launch not found, cannot run all tests)'"
     ],
     "conftest_corruption": [],
     "conftest_directives_intact": 2,
@@ -97,7 +113,7 @@
     "classification": "OURS_BETTER"
   },
   "receipt": {
-    "court_status": "partial",
+    "court_status": "failed",
     "probe_trace": [],
     "quirks_matched": [
       "uses-libtool-old",
@@ -105,7 +121,7 @@
       "has-m4-macro-dir",
       "vendored-aclocal"
     ],
-    "receipt_hash": "bdbfb6907bfdbc8bdb7cf566a26793b38411d77e6f0819ae26c725daf919e509",
+    "receipt_hash": "0c30dce6270fb3560c454d8c8d1e4e34e811f65407638476dab76fe1fd927894",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {

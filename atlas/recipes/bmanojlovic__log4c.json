@@ -26,11 +26,6 @@
     {
       "step": "configure",
       "tool": "./configure",
-      "status": "ok"
-    },
-    {
-      "step": "make",
-      "tool": "make",
       "status": "fail"
     }
   ],
@@ -49,16 +44,38 @@
     "subdirs"
   ],
   "outputs": [],
-  "status": "MAKE_FAIL",
+  "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "",
+  "diagnostic": "./configure: line 1710: syntax error near unexpected token `1.95.1'",
   "deep_expansion": {
     "configure_lines": 2771,
-    "leaked_macros": [],
+    "leaked_macros": [
+      {
+        "name": "AM_PATH_EXPAT",
+        "line": 1710,
+        "context": "AM_PATH_EXPAT(1.95.1)"
+      }
+    ],
     "heredoc_openers": 27,
     "heredoc_terminators": 27,
     "heredoc_imbalance": 0,
-    "syntax_errors": [],
+    "syntax_errors": [
+      {
+        "line": 1710,
+        "token": "1.95.1",
+        "source": "AM_PATH_EXPAT(1.95.1)",
+        "block": [
+          "1706: # Check --with-expat option",
+          "1707: ",
+          "1708: if test x$with_expat = xyes ; then",
+          "1709:  use_expat=yes",
+          "1710:  AM_PATH_EXPAT(1.95.1)",
+          "1711: fi",
+          "1712: ",
+          "1713: # "
+        ]
+      }
+    ],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
       "line 2295: do eval test \\${$as_var+y} \\"
@@ -85,23 +102,21 @@
       "DEFS",
       "LIBOBJS",
       "INSTALL",
-      "host_vendor",
-      "LOG4C_MAJOR_VERSION",
-      "host_alias",
       "LOG4C_MINOR_VERSION",
-      "LT_VERSION",
       "LOG4C_MICRO_VERSION",
-      "HAVE_DOT",
+      "host_alias",
+      "host_vendor",
+      "LT_VERSION",
+      "HAVE_LATEX",
+      "LOG4C_MAJOR_VERSION",
       "host_cpu",
-      "HAVE_LATEX"
+      "host_os"
     ],
     "failed_during_check": "checking for sbrk... yes",
     "failure_tail": [
       "checking for sbrk... yes",
-      "configure: creating Makefile",
-      "configure: creating log4c-config",
-      "configure: creating log4crc.sample",
-      "configure: creating log4c.spec"
+      "./configure: line 1710: syntax error near unexpected token `1.95.1'",
+      "./configure: line 1710: ` AM_PATH_EXPAT(1.95.1)'"
     ],
     "conftest_corruption": [],
     "conftest_directives_intact": 19,
@@ -124,13 +139,13 @@
     "classification": "OURS_BETTER"
   },
   "receipt": {
-    "court_status": "partial",
+    "court_status": "failed",
     "probe_trace": [],
     "quirks_matched": [
       "uses-libtool-old",
       "vendored-aclocal"
     ],
-    "receipt_hash": "bdbfb6907bfdbc8bdb7cf566a26793b38411d77e6f0819ae26c725daf919e509",
+    "receipt_hash": "0c30dce6270fb3560c454d8c8d1e4e34e811f65407638476dab76fe1fd927894",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {

@@ -26,46 +26,63 @@
     {
       "step": "configure",
       "tool": "./configure",
-      "status": "ok"
-    },
-    {
-      "step": "make",
-      "tool": "make",
       "status": "fail"
     }
   ],
-  "probe_results": {
-    "HAVE_BITTYPES": 1
-  },
+  "probe_results": {},
   "feature_flags": {
     "configure_args": []
   },
   "dependencies": {
     "pkg_config": [],
-    "system_libs": [
-      "-lncurses"
-    ],
+    "system_libs": [],
     "headers_needed": [],
     "missing": []
   },
   "quirks": [
-    "subdirs",
-    "LIBS=-lncurses"
+    "subdirs"
   ],
   "outputs": [],
-  "status": "MAKE_FAIL",
+  "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "",
+  "diagnostic": "./configure: line 1720: syntax error near unexpected token `1.2.0,,'",
   "deep_expansion": {
-    "configure_lines": 2779,
-    "leaked_macros": [],
+    "configure_lines": 2780,
+    "leaked_macros": [
+      {
+        "name": "AM_PATH_GTK",
+        "line": 1720,
+        "context": "AM_PATH_GTK(1.2.0,,"
+      },
+      {
+        "name": "AC_MSG_ERROR",
+        "line": 1721,
+        "context": "AC_MSG_ERROR(Cannot find GTK: Is gtk-config in path?))"
+      }
+    ],
     "heredoc_openers": 43,
     "heredoc_terminators": 43,
     "heredoc_imbalance": 0,
-    "syntax_errors": [],
+    "syntax_errors": [
+      {
+        "line": 1720,
+        "token": "1.2.0,,",
+        "source": "AM_PATH_GTK(1.2.0,,",
+        "block": [
+          "1716: ",
+          "1717: ",
+          "1718: ",
+          "1719: ",
+          "1720: AM_PATH_GTK(1.2.0,,",
+          "1721:             AC_MSG_ERROR(Cannot find GTK: Is gtk-config in path?))",
+          "1722: ",
+          "1723: # Checks for directories, needed needed for hfterm's help and example fixtex"
+        ]
+      }
+    ],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2303: do eval test \\${$as_var+y} \\"
+      "line 2304: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
@@ -78,10 +95,8 @@
     "failed_during_check": "checking for strtoul... yes",
     "failure_tail": [
       "checking for strtoul... yes",
-      "configure: creating Makefile",
-      "configure: creating dcf77/Makefile",
-      "configure: creating doc/Makefile",
-      "configure: creating doc/hf-examplefiles/Makefile"
+      "./configure: line 1720: syntax error near unexpected token `1.2.0,,'",
+      "./configure: line 1720: `AM_PATH_GTK(1.2.0,,'"
     ],
     "conftest_corruption": [],
     "conftest_directives_intact": 41,
@@ -104,19 +119,12 @@
     "classification": "OURS_BETTER"
   },
   "receipt": {
-    "court_status": "partial",
-    "probe_trace": [
-      {
-        "name": "HAVE_BITTYPES",
-        "kind": "func",
-        "result": "yes",
-        "reason": "ok"
-      }
-    ],
+    "court_status": "failed",
+    "probe_trace": [],
     "quirks_matched": [
       "vendored-aclocal"
     ],
-    "receipt_hash": "a0387aa0fce54d2f4298a0b2b9c46ac809d7a6198f0ec263af8b858b2149c247",
+    "receipt_hash": "0c30dce6270fb3560c454d8c8d1e4e34e811f65407638476dab76fe1fd927894",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
