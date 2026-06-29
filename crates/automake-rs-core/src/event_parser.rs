@@ -806,7 +806,12 @@ fn collect_line_continued(tokens: &[Token], pos: &mut usize) -> String {
             SyntaxKind::Backslash => {
                 *pos += 1;
                 if *pos < tokens.len() && tokens[*pos].kind == SyntaxKind::Newline {
-                    // genuine line-continuation: consume the newline + leading whitespace
+                    // genuine line-continuation: make replaces `\<newline>` with a SPACE, so insert one
+                    // (else `-Wall\<nl>-g` joins to `-Wall-g` -> "unrecognized option '-Wall-g'"). Avoid
+                    // doubling if a space is already present.
+                    if !s.is_empty() && !s.ends_with(' ') {
+                        s.push(' ');
+                    }
                     *pos += 1;
                     while *pos < tokens.len() && tokens[*pos].kind == SyntaxKind::Whitespace {
                         *pos += 1;
