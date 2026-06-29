@@ -1253,12 +1253,25 @@ fn bucket_error(e: &str) -> String {
     let txt = e.find(": ").map(|p| &e[p + 2..]).unwrap_or(e);
     let offending = txt.split(" (near").next().unwrap_or(txt).trim();
     let mac: String = offending.chars().take_while(|c| c.is_ascii_alphanumeric() || *c == '_').collect();
+    // A leaked macro appears as `IDENT(args` (no space before the paren — shell functions are called
+    // without parens, so `ident(` at an error site is an unexpanded m4 macro). Accept any identifier,
+    // not just UPPER-case ones, so m4_require/_LT_*/ac_* internals are classified instead of dumped into
+    // syntax:other. Require a macro-ish shape (has an underscore or an uppercase letter) to avoid
+    // catching a stray C token.
     if !mac.is_empty()
-        && mac.starts_with(|c: char| c.is_ascii_uppercase() || c == '_')
-        && mac.chars().any(|c| c.is_ascii_uppercase())
+        && mac.starts_with(|c: char| c.is_ascii_alphabetic() || c == '_')
+        && (mac.contains('_') || mac.chars().any(|c| c.is_ascii_uppercase()))
         && offending[mac.len()..].starts_with('(')
     {
         return format!("macro:{}", mac);
+    }
+    // A conditional keyword followed by prose (`fi because it's not...`) is leaked AC_MSG/comment text
+    // that escaped a macro body — distinct from a truly unbalanced `fi` standing alone.
+    let after_kw = |kw: &str| offending.starts_with(kw)
+        && offending[kw.len()..].starts_with(|c: char| c == ' ' || c == '\t')
+        && offending[kw.len()..].trim().chars().next().map(|c| c.is_ascii_alphabetic()).unwrap_or(false);
+    if after_kw("fi") || after_kw("else") || after_kw("then") {
+        return "syntax:leaked-text-after-conditional".to_string();
     }
     let near = txt.find("near `").map(|i| &txt[i + 6..]).and_then(|s| s.split('`').next()).unwrap_or("").trim();
     match near {

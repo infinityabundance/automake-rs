@@ -17,10 +17,11 @@ ours configure-clear: **330** · GNU configure-clear: **529** · fixable our-bug
 
 ## Top fixable roots (real succeeds, ours fails)
 
-- syntax:other — 30 repos
 - syntax:unbalanced-conditional — 25 repos
+- syntax:leaked-text-after-conditional — 15 repos
 - syntax:token:( — 15 repos
 - syntax:unbalanced-loop — 13 repos
+- syntax:other — 12 repos
 - macro:AC_SUBST — 10 repos
 - macro:AC_DEFINE — 9 repos
 - macro:AC_MSG_ERROR — 9 repos
@@ -31,7 +32,6 @@ ours configure-clear: **330** · GNU configure-clear: **529** · fixable our-bug
 - macro:AS_ECHO — 5 repos
 - macro:m4_defn — 5 repos
 - syntax:token:) — 5 repos
-- macro:AC_BEFORE — 4 repos
 
 ## Most-needed packages (missing-dep inference)
 
