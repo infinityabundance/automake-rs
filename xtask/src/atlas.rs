@@ -1320,6 +1320,33 @@ fn write_recipe(out_dir: &Path, slug: &str, rec: Recipe) {
 /// is a macro call (UPPER/_ identifier immediately followed by `(`), the root is that leaked macro
 /// (`macro:NAME`, aggregating with macros_ours_left_undefined); otherwise bucket by the near-token
 /// (fi/else -> unbalanced conditional; a punctuation token -> that syntax token).
+/// Classify a `make` failure diagnostic into an actionable error class — the make-layer "next front"
+/// after configure-clear. Groups the diverse per-repo messages into the handful of underlying causes.
+fn classify_make_error(d: &str) -> String {
+    let dl = d.to_lowercase();
+    if d.is_empty() {
+        "(no diagnostic captured)".to_string()
+    } else if dl.contains("no rule to make target") {
+        "no-rule-to-make-target".to_string()
+    } else if dl.contains("undefined reference") {
+        "undefined-reference (link)".to_string()
+    } else if dl.contains("missing separator") {
+        "makefile-missing-separator".to_string()
+    } else if (dl.contains("no such file") || dl.contains("not found")) && dl.contains(".h") {
+        "missing-header-at-compile".to_string()
+    } else if dl.contains("command not found") {
+        "command-not-found".to_string()
+    } else if dl.contains("syntax error") {
+        "makefile/shell-syntax-error".to_string()
+    } else if dl.contains(": error:") || dl.contains("error:") {
+        "compiler-error".to_string()
+    } else if dl.contains("permission denied") {
+        "permission-denied".to_string()
+    } else {
+        "other".to_string()
+    }
+}
+
 fn bucket_error(e: &str) -> String {
     let txt = e.find(": ").map(|p| &e[p + 2..]).unwrap_or(e);
     let offending = txt.split(" (near").next().unwrap_or(txt).trim();
@@ -1381,6 +1408,7 @@ fn write_index(out_dir: &Path) {
     let mut dep_missing: BTreeMap<String, usize> = BTreeMap::new();
     let mut heavy: Vec<(usize, String, String)> = Vec::new();
     let mut p2f_diag: BTreeMap<String, usize> = BTreeMap::new();
+    let mut make_fail_class: BTreeMap<String, usize> = BTreeMap::new();
     let mut partial_total = 0usize;
     let mut p2f_make = 0usize;
     // working/non-working roster for RECIPES.md: (court_status, status, repo, diagnostic)
@@ -1472,6 +1500,8 @@ fn write_index(out_dir: &Path) {
                 let court = v.get("receipt").and_then(|r| r["court_status"].as_str()).unwrap_or("");
                 if court == "partial" {
                     partial_total += 1;
+                    // classify the make failure (the next-front root): all partial repos, by error class.
+                    *make_fail_class.entry(classify_make_error(v["diagnostic"].as_str().unwrap_or(""))).or_default() += 1;
                     if v.get("oracle").and_then(|o| o["classification"].as_str()) == Some("OURS_BUG_MAKE") {
                         p2f_make += 1;
                         if let Some(d) = v["diagnostic"].as_str() { if !d.is_empty() {
@@ -1549,6 +1579,7 @@ fn write_index(out_dir: &Path) {
                 "ours_bug_make": p2f_make,
                 "top_blockers": rank(&p2f_diag),
             },
+            "make_failure_roots": rank(&make_fail_class),
         },
         "recipes": lines,
     });
@@ -1578,6 +1609,10 @@ fn write_index(out_dir: &Path) {
     }
     md.push_str("\n## Most-needed packages (missing-dep inference)\n\n");
     for r in rank(&sugg_pkgs).iter().take(15) {
+        md.push_str(&format!("- {} — {} repos\n", r["name"].as_str().unwrap_or(""), r["repos"]));
+    }
+    md.push_str(&format!("\n## Make-layer roots (the next front: {} partial repos clear configure but fail make)\n\n", partial_total));
+    for r in rank(&make_fail_class).iter().take(12) {
         md.push_str(&format!("- {} — {} repos\n", r["name"].as_str().unwrap_or(""), r["repos"]));
     }
     let _ = std::fs::write(out_dir.join("COURTS.md"), md);

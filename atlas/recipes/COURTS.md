@@ -35,3 +35,10 @@ ours configure-clear: **368** · GNU configure-clear: **522** · fixable our-bug
 
 ## Most-needed packages (missing-dep inference)
 
+
+## Make-layer roots (the next front: 366 partial repos clear configure but fail make)
+
+- (no diagnostic captured) — 302 repos
+- command-not-found — 61 repos
+- compiler-error — 2 repos
+- other — 1 repos

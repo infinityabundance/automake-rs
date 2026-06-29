@@ -88,17 +88,43 @@ re-running anything on a VM.
 
 ## INDEX.json (aggregate)
 
-`recipes/INDEX.json` rolls the recipes up: `by_status`, `courts` (court_status counts),
-`expansion_bugs` (top leaked macros / syntax tokens / residual placeholders, repos with conftest
-corruption), `oracle_compass` (`ours_configure_clear` vs `real_configure_clear`, `headroom_our_bugs`,
-classification counts, `fixable_backlog_roots`, `died_during_check`), and `suggested_packages`.
-`COURTS.md` is the human-readable gap-analysis (court table + headroom + top fixable roots + needed packages).
+`recipes/INDEX.json` (schema `automake-rs.build-atlas/index/v2`) rolls the recipes up:
+
+- `by_status`, `courts` — status / court_status counts
+- `expansion_bugs` — top leaked macros / syntax tokens / residual placeholders, repos with conftest corruption
+- `oracle_compass` — `ours_configure_clear` vs `real_configure_clear`, `headroom_our_bugs`, classification
+  counts, `fixable_backlog_roots` (leaked macro / syntax token, via `bucket_error`), `died_during_check`
+- `suggested_packages` — missing-dep → package inference
+- `analytics` — self-documenting corpus intelligence:
+  - `quirk_hotspots` (quirks_matched tallied → the auto-apply backlog)
+  - `most_needed_headers` / `most_missing_deps`
+  - `heavy_hitters` (configure size; surfaces runaway-expansion bugs)
+  - `partial_to_full` (`partial_total`, `ours_bug_make`, `top_blockers`) — the closest wins
+  - `make_failure_roots` — the make-layer "next front": partial-repo make errors by class
+    (`no-rule-to-make-target`, `undefined-reference`, `missing-header-at-compile`, `command-not-found`,
+    `makefile/shell-syntax-error`, `compiler-error`, …)
+
+Generated docs (regenerated on every index): `COURTS.md` (court table + headroom + top fixable roots +
+needed packages + make-layer roots), `ANALYTICS.md` (the analytics block), `RECIPES.md` (working /
+non-working roster).
 
 GNU-free: only `autoreconf-rs` / `acrs-*` are invoked for the build; `toolchain.gnu_free:true` asserts
 no GNU autotools binary ran. The `oracle` block runs the real GNU toolchain **only for comparison**, on
-a separate git-reset tree — it never counts toward the GNU-free build.
+a separate git-reset tree — it never counts toward the GNU-free build. (The autoconf-rs toolchain's
+leaked-macro *neutralizer* is on by default; opt out with `AUTOCONF_RS_NO_NEUTRALIZE=1`.)
 
-Regenerate: `cargo xtask atlas <corpus-list> [out-dir]` (set `ATLAS_ORACLE=1` for the oracle/court
-fields, `ATLAS_SCAN_ONLY=1` for a fast generate-only expansion sweep). Query: `cargo xtask atlas-query
-<term>` finds every recipe touching a dep/header/probe/package/quirk/macro. Re-index without rebuilding:
-`cargo xtask atlas-index <out-dir>`.
+## Replay receipt (`automake-rs.replay-receipt/v1`)
+
+`cargo xtask atlas-replay <recipe>` emits a separate receipt verifying a reproduction:
+`replay_status` (`reproduced` | `reproduced_no_outputs` | `diverged` | `build_failed` | `clone_failed`),
+`pinned_sha`/`sha_replayed`, `configure_args`, per-step `steps`, and `output_verification`
+(per-path match / hash-mismatch / missing vs the recipe's `outputs`).
+
+## Commands
+
+- `cargo xtask atlas <corpus-list> [out-dir]` — scan. `ATLAS_ORACLE=1` adds oracle/court fields;
+  `ATLAS_SCAN_ONLY=1` is a fast generate-only expansion sweep.
+- `cargo xtask atlas-index <out-dir>` — rebuild INDEX + COURTS.md + ANALYTICS.md + RECIPES.md (no builds).
+- `cargo xtask atlas-query <term>` — find every recipe touching a dep/header/probe/package/quirk/macro.
+- `cargo xtask atlas-replay <recipe | owner/name | slug> [--keep]` — reproduce + verify a recipe.
+- `cargo xtask atlas-diff <baseline-dir> <experiment-dir>` — A/B the court verdicts (flips/regressions/net).
