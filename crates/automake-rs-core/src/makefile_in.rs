@@ -44,6 +44,8 @@ impl MakefileInGenerator {
     }
 
     /// Generate the complete Makefile.in.
+    // (dedup helper defined at module scope below)
+
     pub fn generate(&self) -> String {
         let mut output = String::new();
 
@@ -129,6 +131,12 @@ impl MakefileInGenerator {
 
         // 13. Passthrough rules
         self.generate_passthrough_rules(&mut output);
+
+        // 14. Dedup duplicate recursion-target rules. Several emission branches can each emit a standard
+        // recursion target (install-data-am/uninstall-am/...), producing `make: warning: overriding
+        // recipe for target` (the "overriding recipe" make-root). make uses the LAST definition, so
+        // dropping the EARLIER duplicate blocks is behavior-preserving and removes the warning.
+        dedup_recursion_rules(&mut output);
 
         output
     }
@@ -2826,6 +2834,60 @@ impl MakefileInGenerator {
             _ => format!("$({}dir)", prefix),
         }
     }
+}
+
+/// Remove EARLIER duplicate recipe-bearing rule blocks for standard automake `*-am` recursion/install
+/// targets, keeping the last (which is what make uses anyway). Eliminates the `overriding recipe for
+/// target` warning class without changing build behavior. A rule block = the `target:` line at column 0
+/// plus its following TAB-indented recipe lines (and blank lines between them).
+fn dedup_recursion_rules(output: &mut String) {
+    let lines: Vec<&str> = output.lines().collect();
+    // index every target-rule block start: line `name:` at col 0 (not assignment, not comment/recipe)
+    let is_rule_start = |l: &str| -> Option<String> {
+        if l.starts_with('\t') || l.starts_with(' ') || l.starts_with('#') || l.is_empty() { return None; }
+        let c = l.find(':')?;
+        let name = l[..c].trim();
+        // only the automake-internal `*-am` / install/uninstall recursion family (safe to keep-last)
+        if name.is_empty() || name.contains('=') || name.contains('$') || name.contains(' ') { return None; }
+        if name.ends_with("-am") || name.starts_with("install") || name.starts_with("uninstall") || name == "installdirs" {
+            Some(name.to_string())
+        } else { None }
+    };
+    // block end = next col-0 non-blank line (or EOF). record (name, start, end, has_recipe)
+    let mut blocks: Vec<(String, usize, usize, bool)> = Vec::new();
+    let mut i = 0;
+    while i < lines.len() {
+        if let Some(name) = is_rule_start(lines[i]) {
+            let mut j = i + 1;
+            let mut has_recipe = false;
+            while j < lines.len() {
+                let l = lines[j];
+                if l.starts_with('\t') { has_recipe = true; j += 1; }
+                else if l.trim().is_empty() { j += 1; }
+                else { break; }
+            }
+            blocks.push((name, i, j, has_recipe));
+            i = j;
+        } else { i += 1; }
+    }
+    // for each name with >1 recipe-bearing block, mark all but the LAST recipe block for removal
+    use std::collections::HashMap;
+    let mut last_recipe: HashMap<&str, usize> = HashMap::new();
+    for (idx, b) in blocks.iter().enumerate() { if b.3 { last_recipe.insert(b.0.as_str(), idx); } }
+    let mut drop_lines = vec![false; lines.len()];
+    let mut dropped_any = false;
+    for (idx, b) in blocks.iter().enumerate() {
+        if b.3 && last_recipe.get(b.0.as_str()) != Some(&idx) {
+            for k in b.1..b.2 { drop_lines[k] = true; }
+            dropped_any = true;
+        }
+    }
+    if !dropped_any { return; }
+    let mut out = String::with_capacity(output.len());
+    for (k, l) in lines.iter().enumerate() {
+        if !drop_lines[k] { out.push_str(l); out.push('\n'); }
+    }
+    *output = out;
 }
 
 #[cfg(test)]

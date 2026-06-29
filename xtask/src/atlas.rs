@@ -2598,6 +2598,9 @@ fn diag_line(cf: &str, mk: &str) -> String {
         for l in log.lines() {
             let ll = l.to_lowercase();
             if ll.contains("confdefs.h: no such file") { continue; }
+            // Skip WARNINGS (make's "overriding recipe", compiler -W…) — they are not the failure, and
+            // capturing them masked the real error (e.g. "No rule to make target") + polluted make roots.
+            if ll.contains("warning:") { continue; }
             if ll.contains("configure: error")
                 || ll.contains("syntax error")
                 || ll.contains("command not found")
