@@ -1,6 +1,6 @@
 # Atlas Analytics — corpus intelligence
 
-Total recipes: **986** · court mix: 406 failed, 250 not_standalone, 327 partial, 3 quirk_dependent
+Total recipes: **986** · court mix: 406 failed, 247 not_standalone, 331 partial, 2 quirk_dependent
 
 ## Quirk hotspots (automation candidates)
 
@@ -31,9 +31,9 @@ Quirks matched across recipes — the most frequent are the highest-leverage to 
 | checking for python | 14 |
 | checking for strstr | 13 |
 | checking for strtol | 13 |
-| checking whether pthreads work with -mt | 12 |
 | checking for C++ compiler | 10 |
 | checking pkg-config is at least version 0.9.0 | 10 |
+| checking for the pthreads flag | 9 |
 | checking for unistd.h | 9 |
 | checking endianness | 8 |
 | checking for malloc | 8 |
@@ -54,18 +54,18 @@ Quirks matched across recipes — the most frequent are the highest-leverage to 
 | 3888897 | hroptatyr/yuck | failed |
 | 3888866 | hroptatyr/clob | failed |
 | 3850569 | hroptatyr/echse | failed |
-| 47807 | hpc/Parallel-coreutils | partial |
-| 39480 | Distrotech/diffutils | partial |
-| 37674 | BOINC/boinc | not_standalone |
-| 36368 | cooljeanius/magicseteditor | not_standalone |
+| 38589 | crystax/android-vendor-gnu-tar | partial |
+| 37422 | BOINC/boinc | not_standalone |
 | 35290 | Distrotech/squid | failed |
-| 35210 | CoachRun/boinc | not_standalone |
+| 34958 | CoachRun/boinc | not_standalone |
 | 34089 | Distrotech/radius | partial |
-| 33975 | Distrotech/sharutils | partial |
+| 33403 | digitalocean/hivex | partial |
+| 31230 | Distrotech/libtool | partial |
+| 29114 | cooljeanius/gcab | failed |
 
 ## Partial -> full shortlist
 
-**327** recipes cleared configure but failed make; **152** of those are `OURS_BUG_MAKE` (GNU makes it, we don't) — the closest wins. Top blockers:
+**331** recipes cleared configure but failed make; **153** of those are `OURS_BUG_MAKE` (GNU makes it, we don't) — the closest wins. Top blockers:
 
 | blocker | repos |
 | --- | --- |

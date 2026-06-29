@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.13",
+    "autoconf_rs": "autoconf-rs 0.1.14",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,11 +26,11 @@
     {
       "step": "configure",
       "tool": "./configure",
-      "status": "fail"
+      "status": "ok"
     },
     {
-      "step": "auto-quirk",
-      "tool": "quirk-engine",
+      "step": "make",
+      "tool": "make",
       "status": "fail"
     }
   ],
@@ -42,47 +42,37 @@
     "pkg_config": [
       "checking for libmtbl >= 1.7.0... no"
     ],
-    "system_libs": [],
+    "system_libs": [
+      "-pthread"
+    ],
     "headers_needed": [],
     "missing": []
   },
   "quirks": [
     "autoconf-archive-macros",
-    "pkg-config"
+    "pkg-config",
+    "LIBS=-pthread"
   ],
   "outputs": [],
-  "status": "CONFIGURE_RUN_FAIL",
+  "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1608: pthread-config: command not found",
+  "diagnostic": "",
   "deep_expansion": {
-    "configure_lines": 2845,
+    "configure_lines": 2571,
     "leaked_macros": [],
-    "heredoc_openers": 24,
-    "heredoc_terminators": 24,
+    "heredoc_openers": 19,
+    "heredoc_terminators": 19,
     "heredoc_imbalance": 0,
-    "syntax_errors": [
-      {
-        "line": 1690,
-        "token": "fi",
-        "source": "fi",
-        "block": [
-          "1686:         done",
-          "1687:         printf '%s\\n' \"$attr_name\"",
-          "1688:         if test \"$attr_name\" != PTHREAD_CREATE_JOINABLE; then",
-          "1689:             # Define unquoted: PTHREAD_CREATE_JOINABLE",
-          "1690:         fi",
-          "1691: ",
-          "1692:         printf %s \"checking if more special flags are required for pthreads.",
-          "1693:         flag=no"
-        ]
-      }
-    ],
+    "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2356: do eval test \\${$as_var+y} \\"
+      "line 2082: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
+      "PTHREAD_CC",
+      "PTHREAD_CFLAGS",
+      "PTHREAD_LIBS",
       "PACKAGE_NAME",
       "PACKAGE_TARNAME",
       "PACKAGE_VERSION",
@@ -103,33 +93,27 @@
       "DEFS",
       "LIBOBJS",
       "INSTALL",
-      "host_os",
-      "PTHREAD_LIBS",
-      "host_alias",
       "host_cpu",
-      "PTHREAD_CC",
-      "PTHREAD_CFLAGS",
-      "host_vendor",
-      "my_CFLAGS"
+      "my_CFLAGS",
+      "host_alias",
+      "host_os",
+      "host_vendor"
     ],
-    "failed_during_check": "checking whether pthreads work with -mt... no",
+    "failed_during_check": "checking for the pthreads flag... -pthread",
     "failure_tail": [
-      "checking whether pthreads work with -mt... no",
-      "./configure: line 1608: pthread-config: command not found",
-      "./configure: line 1609: pthread-config: command not found",
-      "./configure: line 1609: pthread-config: command not found",
-      "no"
+      "checking for the pthreads flag... -pthread",
+      "configure: creating Makefile",
+      "configure: creating tests/tests.sh",
+      "configure: creating tests/tests.sh",
+      "configure: creating config.h"
     ],
     "conftest_corruption": [],
-    "conftest_directives_intact": 8,
+    "conftest_directives_intact": 3,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
       "#include <sys/types.h>\\nint main() { return sizeof(off_t) >= 8 ? 0 : 1; }",
       "#include <$ac_hdr>",
-      "#include <$ac_hdr>",
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar pthread_join();\\nint main() { return pthread_join(); }",
-      "int foo(void);\\nint main() { foo() ; return 0; }",
-      "#include <pthread.h>\\nstatic void routine(void *a) { a = 0; }\\nstatic void *start_routine(void *a) { return a; }\\nint main() { pthread_t th; pthread_attr_t attr;\\npthread_create(&th, 0, start_routine, 0);\\npthread_join(th, 0);\\npthread_attr_init(&attr);\\npthread_cleanup_push(routine, 0);\\npthread_cleanup_pop(0) /* ; */ ; return 0; }"
+      "#include <$ac_hdr>"
     ]
   },
   "oracle": {
@@ -138,10 +122,10 @@
     "real_make": "skipped",
     "real_configure_lines": 7340,
     "real_first_error": "configure: error: Package requirements (libdnstable) were not met:",
-    "classification": "BOTH_CONFIGURE_FAIL"
+    "classification": "OURS_BETTER"
   },
   "receipt": {
-    "court_status": "not_standalone",
+    "court_status": "partial",
     "probe_trace": [],
     "quirks_matched": [
       "uses-pkg-config",
@@ -151,14 +135,7 @@
       "uses-ax-archive",
       "uses-pthread-check"
     ],
-    "quirks_applied": [
-      {
-        "id": "uses-subdir-objects",
-        "action": "--disable-dependency-tracking",
-        "verified": false
-      }
-    ],
-    "receipt_hash": "8bbf2a40459c00e0ac6d2d10a28a20b01491f4406335061ccdfc784789be554c",
+    "receipt_hash": "492386303fdd83cef4b6801ad6296d97e30d85323659e84dacf7883d6be5eebc",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {

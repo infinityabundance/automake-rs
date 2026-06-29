@@ -7,17 +7,17 @@ Total recipes: **986**
 | status | count | meaning |
 |---|---|---|
 | failed | 406 | ours fails before make |
-| not_standalone | 250 | oracle (GNU) also fails — not our bug |
-| partial | 327 | configure cleared, make failed |
-| quirk_dependent | 3 | FUNC_OK but needed a quirk rule |
+| not_standalone | 247 | oracle (GNU) also fails — not our bug |
+| partial | 331 | configure cleared, make failed |
+| quirk_dependent | 2 | FUNC_OK but needed a quirk rule |
 
 ## Oracle headroom
 
-ours configure-clear: **330** · GNU configure-clear: **529** · fixable our-bug headroom: **199**
+ours configure-clear: **333** · GNU configure-clear: **529** · fixable our-bug headroom: **196**
 
 ## Top fixable roots (real succeeds, ours fails)
 
-- syntax:unbalanced-conditional — 25 repos
+- syntax:unbalanced-conditional — 23 repos
 - syntax:leaked-text-after-conditional — 15 repos
 - syntax:token:( — 15 repos
 - syntax:unbalanced-loop — 13 repos

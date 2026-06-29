@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.13",
+    "autoconf_rs": "autoconf-rs 0.1.14",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,6 +26,11 @@
     {
       "step": "configure",
       "tool": "./configure",
+      "status": "ok"
+    },
+    {
+      "step": "make",
+      "tool": "make",
       "status": "fail"
     }
   ],
@@ -46,62 +51,49 @@
     "subdirs"
   ],
   "outputs": [],
-  "status": "CONFIGURE_RUN_FAIL",
+  "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1485: pthread-config: command not found",
+  "diagnostic": "",
   "deep_expansion": {
-    "configure_lines": 2711,
+    "configure_lines": 2532,
     "leaked_macros": [],
-    "heredoc_openers": 23,
-    "heredoc_terminators": 23,
+    "heredoc_openers": 22,
+    "heredoc_terminators": 22,
     "heredoc_imbalance": 0,
-    "syntax_errors": [
-      {
-        "line": 1536,
-        "token": "done",
-        "source": "done",
-        "block": [
-          "1532: \tprintf %s \"checking for joinable pthread attribute... \"",
-          "1533: \tattr_name=unknown",
-          "1534: \tfor attr in PTHREAD_CREATE_JOINABLE PTHREAD_CREATE_UNDETACHED; do",
-          "1535: \t    # Try link (obsolete)",
-          "1536: \tdone",
-          "1537:         printf '%s\\n' \"$attr_name\"",
-          "1538:         if test \"$attr_name\" != PTHREAD_CREATE_JOINABLE; then",
-          "1539:             # Define unquoted: PTHREAD_CREATE_JOINABLE"
-        ]
-      }
-    ],
+    "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2235: do eval test \\${$as_var+y} \\"
+      "line 2056: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
+      "PTHREAD_CC",
+      "PTHREAD_CFLAGS",
+      "PTHREAD_LIBS",
       "PACKAGE_NAME",
       "PACKAGE_TARNAME",
       "PACKAGE_VERSION",
       "PACKAGE_STRING",
       "PACKAGE_BUGREPORT"
     ],
-    "failed_during_check": "checking whether pthreads work with -mt... no",
+    "failed_during_check": "checking for stat... yes",
     "failure_tail": [
-      "checking whether pthreads work with -mt... no",
-      "./configure: line 1485: pthread-config: command not found",
-      "./configure: line 1486: pthread-config: command not found",
-      "./configure: line 1486: pthread-config: command not found",
-      "no"
+      "checking for stat... yes",
+      "configure: creating Makefile",
+      "configure: creating src/Makefile",
+      "configure: creating libusbtuner-config.h",
+      "configure: creating ./config.status"
     ],
     "conftest_corruption": [],
-    "conftest_directives_intact": 13,
+    "conftest_directives_intact": 11,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar pthread_join();\\nint main() { return pthread_join(); }",
       "#include <$ac_hdr>",
       "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { off_t x; return 0; }",
       "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { size_t x; return 0; }",
       "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { ssize_t x; return 0; }",
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar realloc();\\nint main() { return realloc(); }"
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar realloc();\\nint main() { return realloc(); }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func();\\nint main() { return $ac_func(); }"
     ]
   },
   "oracle": {
@@ -110,10 +102,10 @@
     "real_make": "skipped",
     "real_configure_lines": 16912,
     "real_first_error": "configure: error: Package requirements (libdlsym) were not met:",
-    "classification": "BOTH_CONFIGURE_FAIL"
+    "classification": "OURS_BETTER"
   },
   "receipt": {
-    "court_status": "not_standalone",
+    "court_status": "partial",
     "probe_trace": [],
     "quirks_matched": [
       "uses-libtool",
@@ -124,7 +116,7 @@
       "uses-ax-archive",
       "uses-pthread-check"
     ],
-    "receipt_hash": "8bbf2a40459c00e0ac6d2d10a28a20b01491f4406335061ccdfc784789be554c",
+    "receipt_hash": "492386303fdd83cef4b6801ad6296d97e30d85323659e84dacf7883d6be5eebc",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {

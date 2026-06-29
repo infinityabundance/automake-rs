@@ -1,18 +1,17 @@
 # Atlas Recipes — working / non-working roster
 
-Total **986** recipes. **Working (built end-to-end): 3** · non-working: 327 partial · 250 not-standalone · 406 failed.
+Total **986** recipes. **Working (built end-to-end): 2** · non-working: 331 partial · 247 not-standalone · 406 failed.
 
 "Working" means the full pipeline (autoreconf → configure → make) succeeded under the GNU-free toolchain. `quirk_dependent` needed an auto-applied quirk; `sealed` needed none.
 
-## ✅ Working (3)
+## ✅ Working (2)
 
 | repo | court |
 | --- | --- |
-| chimari/MaCoPiX | quirk_dependent |
 | cosmos72/twin | quirk_dependent |
 | flyinghead/ircd-hybrid | quirk_dependent |
 
-## 🟡 Non-working — partial (configure cleared, make failed) (327)
+## 🟡 Non-working — partial (configure cleared, make failed) (331)
 
 | repo | stage | first error |
 | --- | --- | --- |
@@ -120,6 +119,7 @@ Total **986** recipes. **Working (built end-to-end): 3** · non-working: 327 par
 | chenbd/libwfd | MAKE_FAIL |  |
 | chenbd/miracle | MAKE_FAIL |  |
 | cheshire-mouse/hexchat-indicator | MAKE_FAIL |  |
+| chimari/MaCoPiX | MAKE_FAIL |  |
 | Chipmaster/kirk | MAKE_FAIL |  |
 | chokkan/liblbfgs | MAKE_FAIL |  |
 | chrisidefix/nurbs | MAKE_FAIL | ./configure: line 1353: PLIB_INSIDE_MINDSEYE: command not found |
@@ -129,6 +129,7 @@ Total **986** recipes. **Working (built end-to-end): 3** · non-working: 327 par
 | circulosmeos/gztool | MAKE_FAIL |  |
 | cisco/open-nFAPI | MAKE_FAIL |  |
 | claesenm/approxsvm | MAKE_FAIL |  |
+| claesenm/EnsembleSVM | MAKE_FAIL |  |
 | clone/xml2 | MAKE_FAIL |  |
 | CLowcay/wayland-terminal | MAKE_FAIL |  |
 | cmbi/dssp | MAKE_FAIL |  |
@@ -141,13 +142,13 @@ Total **986** recipes. **Working (built end-to-end): 3** · non-working: 327 par
 | containers/oci-umount | MAKE_FAIL |  |
 | CookieAvenger/Tiny-Manga-Downloader | MAKE_FAIL |  |
 | cooljeanius/gawk | MAKE_FAIL |  |
-| cooljeanius/gcab | MAKE_FAIL |  |
+| cooljeanius/magicseteditor | MAKE_FAIL |  |
 | cosimoc/gnome-example-search-provider | MAKE_FAIL | ./configure: line 1392: GLIB_GSETTINGS: command not found |
 | cpichard/fission | MAKE_FAIL |  |
 | cpptest/cpptest | MAKE_FAIL |  |
 | cpputest/cpputest_simulated_gmock | MAKE_FAIL |  |
 | crackpkcs12/crackpkcs12 | MAKE_FAIL |  |
-| crystax/android-vendor-gnu-tar | MAKE_FAIL |  |
+| crystax/android-vendor-gnu-tar | MAKE_FAIL | /tmp/atlasx_crystax__android-vendor-gnu-tar/s/build-aux/missing: line 81: automake-1.15: c |
 | csete/gpredict | MAKE_FAIL |  |
 | csmith-project/creduce | MAKE_FAIL |  |
 | CumulusNetworks/ptm | MAKE_FAIL |  |
@@ -182,7 +183,7 @@ Total **986** recipes. **Working (built end-to-end): 3** · non-working: 327 par
 | dhvani-tts/dhvani-tts | MAKE_FAIL |  |
 | digitalocean/hivex | MAKE_FAIL | /tmp/atlasx_digitalocean__hivex/s/build-aux/missing: line 81: automake-1.15: command not f |
 | digitalocean/libguestfs | MAKE_FAIL |  |
-| Distrotech/diffutils | MAKE_FAIL | /tmp/atlasx_Distrotech__diffutils/s/build-aux/missing: line 81: automake-1.14: command not |
+| Distrotech/diffutils | MAKE_FAIL |  |
 | Distrotech/esound | MAKE_FAIL |  |
 | Distrotech/ethtool | MAKE_FAIL |  |
 | Distrotech/findutils | MAKE_FAIL |  |
@@ -202,7 +203,7 @@ Total **986** recipes. **Working (built end-to-end): 3** · non-working: 327 par
 | Distrotech/popt | MAKE_FAIL | /tmp/atlasx_Distrotech__popt/s/missing: line 52: automake-1.9: command not found |
 | Distrotech/psmisc | MAKE_FAIL |  |
 | Distrotech/radius | MAKE_FAIL | rscm_hash.c:131:15: error: too few arguments to function 'scm_i_make_string' |
-| Distrotech/sharutils | MAKE_FAIL | /tmp/atlasx_Distrotech__sharutils/s/missing: line 81: automake-1.13: command not found |
+| Distrotech/sharutils | MAKE_FAIL |  |
 | Distrotech/tar | MAKE_FAIL |  |
 | divVerent/s2tc | MAKE_FAIL |  |
 | djandruczyk/eXtace | MAKE_FAIL | checking for esd_monitor_stream in -lesd... ./configure: line 1456: esd-config: command no |
@@ -212,6 +213,7 @@ Total **986** recipes. **Working (built end-to-end): 3** · non-working: 327 par
 | dora38/sshpass | MAKE_FAIL |  |
 | dorchard/flrc-lib | MAKE_FAIL |  |
 | dpc/xmppconsole | MAKE_FAIL |  |
+| dreamlegacy/libusbtuner | MAKE_FAIL |  |
 | Drive-Trust-Alliance/sedutil | MAKE_FAIL |  |
 | drmingdrmer/lrc-erasure-code | MAKE_FAIL |  |
 | dsigma/dfu-util | MAKE_FAIL |  |
@@ -252,6 +254,7 @@ Total **986** recipes. **Working (built end-to-end): 3** · non-working: 327 par
 | ewxrjk/sftpserver | MAKE_FAIL | ./configure: line 1361: AC_SET_MAKE: command not found |
 | exo/tvm-rcx | MAKE_FAIL |  |
 | fan31415/bbq_new | MAKE_FAIL |  |
+| farsightsec/dnstable-convert | MAKE_FAIL |  |
 | fasrc/slurm_showq | MAKE_FAIL |  |
 | fblomqvi/librs | MAKE_FAIL |  |
 | fbx/foils_hid | MAKE_FAIL |  |
@@ -330,7 +333,7 @@ Total **986** recipes. **Working (built end-to-end): 3** · non-working: 327 par
 | Hi-Angel/faux | MAKE_FAIL |  |
 | hillstoneUnited/hillstoneUnited | MAKE_FAIL | ./configure: line 1372: AX_BOOST_REGEX: command not found |
 | holylobster/nuntius-linux | MAKE_FAIL | ./configure: line 1386: GLIB_GSETTINGS: command not found |
-| hpc/Parallel-coreutils | MAKE_FAIL | /tmp/atlasx_hpc__Parallel-coreutils/s/build-aux/missing: line 52: automake-1.11a: command  |
+| hpc/Parallel-coreutils | MAKE_FAIL |  |
 | hpc/xpmem | MAKE_FAIL |  |
 | hunspell/mythes | MAKE_FAIL |  |
 | huttmf/complexlib | MAKE_FAIL |  |
@@ -362,7 +365,7 @@ Total **986** recipes. **Working (built end-to-end): 3** · non-working: 327 par
 | afrab/WSim | CONFIGURE_RUN_FAIL | ./configure: line 2198: syntax error near unexpected token `)' |
 | agn453/ZXCC | CONFIGURE_RUN_FAIL | ./configure: line 1422: syntax error near unexpected token `because' |
 | ahjragaas/inetutils | CONFIGURE_RUN_FAIL | ./configure: line 1424: syntax error near unexpected token `ftpd' |
-| ahlstromcj/midicvt | CONFIGURE_RUN_FAIL | ./configure: line 1984: syntax error near unexpected token `newline' |
+| ahlstromcj/midicvt | CONFIGURE_RUN_FAIL | ./configure: line 1765: syntax error near unexpected token `esac' |
 | ahmedammar/platform_external_gst_gstreamer | CONFIGURE_RUN_FAIL | ./configure: line 1339: AG_GST_INIT: command not found |
 | ahorn/cpp-channel | CONFIGURE_RUN_FAIL | ./configure: line 1355: ./gtest/configure: No such file or directory |
 | ahupowerdns/setgrouper | CONFIGURE_RUN_FAIL | configure: error: no C++ compiler found |
@@ -416,7 +419,7 @@ Total **986** recipes. **Working (built end-to-end): 3** · non-working: 327 par
 | bbc/vc2hqdecode | CONFIGURE_RUN_FAIL |  |
 | bcoin-org/libtorsion | CONFIGURE_RUN_FAIL | configure: error: language C required |
 | bdwgc/bdwgc | CONFIGURE_RUN_FAIL | ./configure: line 1574: syntax error near unexpected token `(' |
-| benmwebb/dopewars | CONFIGURE_GEN_FAIL |  |
+| benmwebb/dopewars | CONFIGURE_RUN_FAIL |  |
 | benvanik/gflags | CONFIGURE_RUN_FAIL | ./configure: line 1715: pthread-config: command not found |
 | benwbooth/tvision | CONFIGURE_RUN_FAIL | ./configure: line 1412: AC_STDC_HEADERS: command not found |
 | BGI-shenzhen/LDBlockShow | CONFIGURE_RUN_FAIL | configure: error: You need zlib >= 1.2.3 to build |
@@ -477,8 +480,7 @@ Total **986** recipes. **Working (built end-to-end): 3** · non-working: 327 par
 | cisco/opus | CONFIGURE_RUN_FAIL | ./configure: line 1397: AC_MINGW32: command not found |
 | cjcole/libgolle | CONFIGURE_RUN_FAIL | ./configure: line 1519: DX_PDF_FEATURE: command not found |
 | CkNoSFeRaTU/pidgin | CONFIGURE_RUN_FAIL | ./configure: line 1521: LT_LIB_M: command not found |
-| claesenm/EnsembleSVM | CONFIGURE_RUN_FAIL | ./configure: line 1749: syntax error near unexpected token `fi' |
-| clsync/clsync | CONFIGURE_RUN_FAIL | whether _AC_LANG compiler accepts -fstack-check... ./configure: line 2122: ax_cv_check__AC |
+| clsync/clsync | CONFIGURE_RUN_FAIL | whether _AC_LANG compiler accepts -fstack-check... ./configure: line 1640: ax_cv_check__AC |
 | cluslab/metastack | CONFIGURE_RUN_FAIL | ./configure: line 585: syntax error near unexpected token `(' |
 | ClusterLabs/cluster-glue | CONFIGURE_RUN_FAIL | ./configure: line 1932: syntax error near unexpected token `"%d.%d"' |
 | ClusterLabs/libqb | CONFIGURE_RUN_FAIL | ./configure: 4: Syntax error: "\|" unexpected |
@@ -500,6 +502,7 @@ Total **986** recipes. **Working (built end-to-end): 3** · non-working: 327 par
 | ColumPaget/gngeo-cjp | CONFIGURE_RUN_FAIL | ./configure: line 1425: syntax error near unexpected token `$SDL_VERSION,,printf' |
 | commandus/proto-sql | CONFIGURE_RUN_FAIL | configure: error: Could not find libprotobuf3. Try $ ./configure LDFLAGS='-Lyour-protobuf3 |
 | cooljeanius/docbook-utils-0.6.14 | CONFIGURE_RUN_FAIL | ./configure: line 2108: syntax error near unexpected token `(' |
+| cooljeanius/gcab | CONFIGURE_RUN_FAIL | ./configure: line 21622: intltool-update: command not found |
 | cooljeanius/gcml2-0.7.1 | CONFIGURE_RUN_FAIL | checking for IMLIB - version >= 1.8.2... ./configure: line 1641: --cflags: command not fou |
 | cooljeanius/libUnixToOSX | CONFIGURE_RUN_FAIL | Try 0 --help for more information.: syntax error in expression (error token is "Try 0 --he |
 | cooljeanius/mdnsd | CONFIGURE_RUN_FAIL | ./configure: line 1372: syntax error near unexpected token `AM_SET_LEADING_DOT' |
@@ -705,7 +708,7 @@ Total **986** recipes. **Working (built end-to-end): 3** · non-working: 327 par
 | gpudirect/libibverbs | CONFIGURE_RUN_FAIL | ./configure: line 1436: syntax error near unexpected token `;' |
 | graemes/poolparty-x16r | CONFIGURE_RUN_FAIL | ./configure: line 1413: ac_cv_have_decl_be32dec,: command not found |
 | graydon/monotone | CONFIGURE_RUN_FAIL | ./configure: line 1361: syntax error near unexpected token `is' |
-| graygnuorg/pound | CONFIGURE_RUN_FAIL | ./configure: line 1475: AC_TYPE_UNSIGNED_LONG_LONG_INT: command not found |
+| graygnuorg/pound | CONFIGURE_RUN_FAIL | ./configure: line 1505: AC_TYPE_UNSIGNED_LONG_LONG_INT: command not found |
 | GREO/gnuradio-git | CONFIGURE_RUN_FAIL | ./configure: line 1407: GR_VERSION: command not found |
 | GridOPTICS/FNCS | CONFIGURE_RUN_FAIL | ./configure: line 1471: syntax error near unexpected token `else' |
 | groonga/groonga | CONFIGURE_RUN_FAIL | ./configure: line 2665: ./version.sh: No such file or directory |
@@ -748,18 +751,18 @@ Total **986** recipes. **Working (built end-to-end): 3** · non-working: 327 par
 | hroptatyr/yuck | CONFIGURE_RUN_FAIL | ./configure: line 1384: syntax error near unexpected token `(' |
 | HSU-ANT/gstpeaq | CONFIGURE_RUN_FAIL | ./configure: line 1474: syntax error near unexpected token `gst-launch' |
 | huleyv/iperf2 | CONFIGURE_RUN_FAIL | ./configure: line 1384: syntax error near unexpected token `stdint.h' |
-| hunter-packages/libmicrohttpd | CONFIGURE_GEN_FAIL |  |
+| hunter-packages/libmicrohttpd | CONFIGURE_RUN_FAIL |  |
 | IBMSpectrumComputing/lsf-drmaa | CONFIGURE_RUN_FAIL | ./configure: line 1342: FedStage: command not found |
 | iczelia/xpar | CONFIGURE_RUN_FAIL | configure: error: --with-windows-target must be vista or win95 (got: ) |
 | idiap/juicer | CONFIGURE_RUN_FAIL | configure: error: Required library TRACTER not found |
 | iem-projects/ncview | CONFIGURE_RUN_FAIL | ./configure: line 1341: AC_PATH_NETCDF: command not found |
 | igmhub/likely | CONFIGURE_RUN_FAIL | ./configure: line 1351: AX_EXT: command not found |
 
-## ⚪ Non-working — not standalone (GNU autotools also fails; not our bug) (250)
+## ⚪ Non-working — not standalone (GNU autotools also fails; not our bug) (247)
 
 | repo | stage |
 | --- | --- |
-| 315234/lyx-retina | CONFIGURE_RUN_FAIL |
+| 315234/lyx-retina | CONFIGURE_GEN_FAIL |
 | acaudwell/Logstalgia | CONFIGURE_RUN_FAIL |
 | acerion/cwdaemon | CONFIGURE_RUN_FAIL |
 | acoin-project/acoin | CONFIGURE_RUN_FAIL |
@@ -851,7 +854,6 @@ Total **986** recipes. **Working (built end-to-end): 3** · non-working: 327 par
 | compiz-reloaded/emerald | CONFIGURE_RUN_FAIL |
 | COMSYS/tor4iot-tor | CONFIGURE_RUN_FAIL |
 | ConsoleKit2/ConsoleKit2 | CONFIGURE_GEN_FAIL |
-| cooljeanius/magicseteditor | CONFIGURE_RUN_FAIL |
 | coolwanglu/scanmem_ | CONFIGURE_RUN_FAIL |
 | CoryXie/GRUB2 | CONFIGURE_RUN_FAIL |
 | cosmicrays/DRAGON | CONFIGURE_RUN_FAIL |
@@ -887,7 +889,6 @@ Total **986** recipes. **Working (built end-to-end): 3** · non-working: 327 par
 | DocQMiner/tesseract-4.0.0-beta.1 | CONFIGURE_RUN_FAIL |
 | doug65536/dgos | CONFIGURE_RUN_FAIL |
 | Dr-Shadow/netsoul-purple | CONFIGURE_RUN_FAIL |
-| dreamlegacy/libusbtuner | CONFIGURE_RUN_FAIL |
 | DreamSourceLab/DSLogic-fw | CONFIGURE_RUN_FAIL |
 | drewc/guix | CONFIGURE_RUN_FAIL |
 | droogie/bluez-fuzzer | CONFIGURE_RUN_FAIL |
@@ -906,7 +907,7 @@ Total **986** recipes. **Working (built end-to-end): 3** · non-working: 327 par
 | endlessm/xapian-bridge | CONFIGURE_RUN_FAIL |
 | epeec/TAGASPI | CONFIGURE_RUN_FAIL |
 | epruesse/SINA | CONFIGURE_RUN_FAIL |
-| equalitie/gnunet | CONFIGURE_RUN_FAIL |
+| equalitie/gnunet | CONFIGURE_GEN_FAIL |
 | ESiWACE/esdm-netcdf-4.6.2-old | CONFIGURE_RUN_FAIL |
 | esrille/escudo | CONFIGURE_RUN_FAIL |
 | essej/freqtweak | CONFIGURE_RUN_FAIL |
@@ -919,7 +920,6 @@ Total **986** recipes. **Working (built end-to-end): 3** · non-working: 327 par
 | fangq/medit | CONFIGURE_RUN_FAIL |
 | farsightsec/axa | CONFIGURE_RUN_FAIL |
 | farsightsec/dnstable | CONFIGURE_RUN_FAIL |
-| farsightsec/dnstable-convert | CONFIGURE_RUN_FAIL |
 | farsightsec/sie-nmsg | CONFIGURE_RUN_FAIL |
 | fedoracoin-dev/fedoracoin | CONFIGURE_RUN_FAIL |
 | filiphanes/fts-elastic | CONFIGURE_RUN_FAIL |
@@ -961,7 +961,7 @@ Total **986** recipes. **Working (built end-to-end): 3** · non-working: 327 par
 | GNOME/gnumeric | CONFIGURE_RUN_FAIL |
 | GNOME/metacity | CONFIGURE_RUN_FAIL |
 | GNUFreetalk/freetalk | CONFIGURE_RUN_FAIL |
-| GNUnet-Mirror/GNUnet | CONFIGURE_GEN_FAIL |
+| GNUnet-Mirror/GNUnet | CONFIGURE_RUN_FAIL |
 | goatattack/goatattack | CONFIGURE_RUN_FAIL |
 | gobolinux/GoboHide | CONFIGURE_RUN_FAIL |
 | golosio/NeuronGPU | CONFIGURE_RUN_FAIL |
