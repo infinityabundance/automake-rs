@@ -1,0 +1,169 @@
+{
+  "schema": "automake-rs.build-atlas/v2",
+  "repo": "cciechad/brlcad",
+  "source": {
+    "url": "https://github.com/cciechad/brlcad",
+    "git_sha": "38f0109542cb5de07439ad2b87647e209560f95a",
+    "snapshot_utc": "2026-06-27"
+  },
+  "toolchain": {
+    "autoconf_rs": "autoconf-rs 0.1.13",
+    "automake_rs": "automake (GNU automake) UNKNOWN",
+    "m4_rs_core": "0.1.4",
+    "gnu_free": true
+  },
+  "target": {
+    "cc": "cc",
+    "cflags": "-g -O2",
+    "host": "x86_64-pc-linux-gnu"
+  },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "fail"
+    },
+    {
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {},
+  "feature_flags": {
+    "configure_args": []
+  },
+  "dependencies": {
+    "pkg_config": [],
+    "system_libs": [],
+    "headers_needed": [],
+    "missing": []
+  },
+  "quirks": [
+    "libtool",
+    "subdirs"
+  ],
+  "outputs": [],
+  "status": "CONFIGURE_RUN_FAIL",
+  "verified": false,
+  "diagnostic": "./configure: line 1435: syntax error near unexpected token `fi'",
+  "deep_expansion": {
+    "configure_lines": 9474,
+    "leaked_macros": [],
+    "heredoc_openers": 143,
+    "heredoc_terminators": 143,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1435,
+        "token": "fi",
+        "source": "fi",
+        "block": [
+          "1431:   fi",
+          "1432: done, so",
+          "1433: \t# set it to something benign instead like whitespace",
+          "1434: \tCXXFLAGS=\" \"",
+          "1435: fi",
+          "1436: ",
+          "1437: # override the default (empty) yflags (yacc) if user has not modified them",
+          "1438: if test \"x$YFLAGS\" = \"x\" ; then"
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2292: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL",
+      "srcdir",
+      "prefix",
+      "exec_prefix",
+      "CC",
+      "CFLAGS",
+      "CPPFLAGS",
+      "LDFLAGS",
+      "LIBS",
+      "CXX",
+      "CXXFLAGS",
+      "CPP",
+      "DEFS",
+      "LIBOBJS",
+      "INSTALL",
+      "LIBTHREAD",
+      "PYTHON_VERSION",
+      "BLT_VERSION",
+      "pythondir",
+      "SAMPLE_APPLICATIONS_DIR",
+      "ITCL_LIB_FILE",
+      "BC_ARGS",
+      "LIBREGEX",
+      "LIBTCL"
+    ],
+    "failed_during_check": "",
+    "failure_tail": [
+      "*** Configuring BRL-CAD Release MAJOR_VERSION.MINOR_VERSION.PATCH_VERSION, Build",
+      "********************************************************************************",
+      "./configure: line 1435: syntax error near unexpected token `fi'",
+      "./configure: line 1435: `fi'"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 56,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "#if defined(sgi) && defined(_COMPILER_VERSION) && !defined(__GNUC__)\\nIf we get here, we are using the MIPSPro compiler (and the link should fail)\\n#endif\\nint main() { return 0; }\\n",
+      "#if defined(sun) && defined(__SUNPRO_C) && !defined(__GNUC__)\\nIf we get here, we are using the SUNWspro compiler (and the link should fail\\n#endif\\nint main() { return 0; }\\n",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar alloca();\\nint main() { return alloca(); }",
+      "char sproc();\\nint main() { return sproc(); }",
+      "char thr_create();\\nint main() { return thr_create(); }",
+      "char pthread_create();\\nint main() { return pthread_create(); }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "fail",
+    "real_configure": "skipped",
+    "real_make": "skipped",
+    "real_configure_lines": 0,
+    "real_first_error": "configure.ac:1995: error: automatic de-ANSI-fication support has been removed",
+    "classification": "OURS_BETTER"
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool",
+      "uses-libtool-old",
+      "uses-maintainer-mode",
+      "has-m4-macro-dir",
+      "vendored-aclocal"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-maintainer-mode",
+        "action": "--disable-maintainer-mode",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "54f24adc0e9437eb6feb656d0d2784f64adf7bfd67fa6be75bcdfaf717f80de5",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
+}

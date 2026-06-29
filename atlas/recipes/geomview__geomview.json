@@ -1,0 +1,153 @@
+{
+  "schema": "automake-rs.build-atlas/v2",
+  "repo": "geomview/geomview",
+  "source": {
+    "url": "https://github.com/geomview/geomview",
+    "git_sha": "1d6759ec9771fbc6bdc71ec79b7a5a28711cd9fd",
+    "snapshot_utc": "2026-06-27"
+  },
+  "toolchain": {
+    "autoconf_rs": "autoconf-rs 0.1.13",
+    "automake_rs": "automake (GNU automake) UNKNOWN",
+    "m4_rs_core": "0.1.4",
+    "gnu_free": true
+  },
+  "target": {
+    "cc": "cc",
+    "cflags": "-g -O2",
+    "host": "x86_64-pc-linux-gnu"
+  },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "fail"
+    },
+    {
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {},
+  "feature_flags": {
+    "configure_args": []
+  },
+  "dependencies": {
+    "pkg_config": [],
+    "system_libs": [],
+    "headers_needed": [],
+    "missing": []
+  },
+  "quirks": [
+    "libtool",
+    "subdirs"
+  ],
+  "outputs": [],
+  "status": "CONFIGURE_RUN_FAIL",
+  "verified": false,
+  "diagnostic": "./configure: line 1502: syntax error near unexpected token `else'",
+  "deep_expansion": {
+    "configure_lines": 4731,
+    "leaked_macros": [],
+    "heredoc_openers": 83,
+    "heredoc_terminators": 83,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1502,
+        "token": "else",
+        "source": "else",
+        "block": [
+          "1498: # Check for programs in PATH",
+          "1499: for ac_prog in pamtotiff; do if command -v \"$ac_prog\" >/dev/null 2>&1; then ",
+          "1500: if test \"${PAMTOTIFF}\" = \"pamtotiff\"; then",
+          "1501:   # Define unquoted: HAVE_PAMTOTIFF",
+          "1502: else",
+          "1503:   printf '%s\\n' \"configure: `pamtotiff' executable not found; textures in Re",
+          "1504: will not have an alpha-channel. Consider installing a newer NetPBM package.\"",
+          "1505: fi"
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 4254: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT"
+    ],
+    "failed_during_check": "checking for ISO C99 features with cc... variadic macros and variable length arr",
+    "failure_tail": [
+      "checking for ISO C99 features with cc... variadic macros and variable length arr",
+      "./configure: line 1502: syntax error near unexpected token `else'",
+      "./configure: line 1502: `else'"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 123,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "extern void exit(int status);\\n#define FOO(a, ...)  (a, __VA_ARGS__)\\nextern int foo(int a, int b, int c);\\nint main() { int bar[foo FOO(3, 4, 5)];\\nexit(bar[0]); ; return 0; }",
+      "char cos();\\nint main() { return cos(); }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar alloca();\\nint main() { return alloca(); }",
+      "#include <$ac_hdr>",
+      "#include <sys/wait.h>",
+      "#include <$ac_hdr>"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "fail",
+    "real_configure_lines": 26994,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE"
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "line 1502: else (near `else`)",
+    "ours_error_context": [
+      "else"
+    ],
+    "ours_configure_lines": 4731,
+    "real_configure_lines": 26994,
+    "macros_ours_left_undefined": []
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool-old",
+      "uses-maintainer-mode",
+      "has-m4-macro-dir",
+      "vendored-aclocal"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-maintainer-mode",
+        "action": "--disable-maintainer-mode",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "9447b588adeb7e3cf6a61ad71d167cbb97eb800ecdfbc906cacd6b4aa4e65035",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
+}

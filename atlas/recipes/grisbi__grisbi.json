@@ -1,0 +1,192 @@
+{
+  "schema": "automake-rs.build-atlas/v2",
+  "repo": "grisbi/grisbi",
+  "source": {
+    "url": "https://github.com/grisbi/grisbi",
+    "git_sha": "9636f3693fe9637565f56d124d28ad79175748bb",
+    "snapshot_utc": "2026-06-27"
+  },
+  "toolchain": {
+    "autoconf_rs": "autoconf-rs 0.1.13",
+    "automake_rs": "automake (GNU automake) UNKNOWN",
+    "m4_rs_core": "0.1.4",
+    "gnu_free": true
+  },
+  "target": {
+    "cc": "cc",
+    "cflags": "-g -O2",
+    "host": "x86_64-pc-linux-gnu"
+  },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "ok"
+    },
+    {
+      "step": "make",
+      "tool": "make",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {
+    "HAVE_GOFFICE": 1,
+    "HAVE_OFX": 1,
+    "HAVE_SSL": 1,
+    "HAVE_XML2": 1
+  },
+  "feature_flags": {
+    "configure_args": []
+  },
+  "dependencies": {
+    "pkg_config": [
+      "checking for gtk+-3.0 >= 3.24... yes",
+      "checking for glib-2.0 >= 2.72... yes",
+      "checking for libgsf-1 >= 1.14... yes",
+      "checking for libxml-2.0 >= 2.0... yes",
+      "checking for libcrypto >= 1.0.0... yes",
+      "checking for libofx >= 0.9... no",
+      "checking for libgoffice-0.10 >= 0.10.0... no"
+    ],
+    "system_libs": [],
+    "headers_needed": [],
+    "missing": []
+  },
+  "quirks": [
+    "libtool",
+    "pkg-config",
+    "gettext",
+    "subdirs"
+  ],
+  "outputs": [],
+  "status": "MAKE_FAIL",
+  "verified": false,
+  "diagnostic": "./configure: line 1436: LT_LIB_M: command not found",
+  "deep_expansion": {
+    "configure_lines": 3099,
+    "leaked_macros": [],
+    "heredoc_openers": 20,
+    "heredoc_terminators": 20,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2574: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL",
+      "srcdir",
+      "prefix",
+      "exec_prefix",
+      "CC",
+      "CFLAGS",
+      "CPPFLAGS",
+      "LDFLAGS",
+      "LIBS",
+      "CXX",
+      "CXXFLAGS",
+      "CPP",
+      "DEFS",
+      "LIBOBJS",
+      "INSTALL",
+      "NSIS_SRCDIR",
+      "NSIS_DATE",
+      "GRISBI_MINOR_VERSION",
+      "NSIS_INSTDIR",
+      "NSIS_BITS",
+      "GRISBI_LIBS",
+      "GSB_NOOPTIM",
+      "GETTEXT_PACKAGE",
+      "AR_FLAGS"
+    ],
+    "failed_during_check": "checking for MSYS2 platform... checking for Mac OS X platform... ",
+    "failure_tail": [
+      "checking for MSYS2 platform... checking for Mac OS X platform...",
+      "configure: creating Makefile",
+      "configure: creating help/Makefile",
+      "configure: creating help/C/Makefile",
+      "configure: creating help/de/Makefile"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 5,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func();\\nint main() { return $ac_func(); }",
+      "char gzwrite();\\nint main() { return gzwrite(); }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func();\\nint main() { return $ac_func(); }",
+      "#include <CUnit/Basic.h>"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "ok",
+    "real_configure_lines": 20722,
+    "real_first_error": "",
+    "classification": "OURS_BUG_MAKE"
+  },
+  "divergence": {
+    "stage": "make",
+    "ours_error": "",
+    "ours_error_context": [],
+    "ours_configure_lines": 3099,
+    "real_configure_lines": 20722,
+    "macros_ours_left_undefined": []
+  },
+  "receipt": {
+    "court_status": "partial",
+    "probe_trace": [
+      {
+        "name": "HAVE_GOFFICE",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_OFX",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SSL",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_XML2",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      }
+    ],
+    "quirks_matched": [
+      "uses-libtool",
+      "uses-pkg-config",
+      "uses-gettext",
+      "vendored-aclocal"
+    ],
+    "receipt_hash": "c6e278fcb817fb6e0f735b96858e2db0ccd1d12b36b6e5e0a5e8619bd35f7445",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
+}

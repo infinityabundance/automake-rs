@@ -1,0 +1,158 @@
+{
+  "schema": "automake-rs.build-atlas/v2",
+  "repo": "cea-hpc/robinhood",
+  "source": {
+    "url": "https://github.com/cea-hpc/robinhood",
+    "git_sha": "806084c9d6230d2d5a4657037f60b24de348d248",
+    "snapshot_utc": "2026-06-27"
+  },
+  "toolchain": {
+    "autoconf_rs": "autoconf-rs 0.1.13",
+    "automake_rs": "automake (GNU automake) UNKNOWN",
+    "m4_rs_core": "0.1.4",
+    "gnu_free": true
+  },
+  "target": {
+    "cc": "cc",
+    "cflags": "-g -O2",
+    "host": "x86_64-pc-linux-gnu"
+  },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "fail"
+    },
+    {
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {},
+  "feature_flags": {
+    "configure_args": []
+  },
+  "dependencies": {
+    "pkg_config": [
+      "checking for glib-2.0 >= 2.16... yes"
+    ],
+    "system_libs": [],
+    "headers_needed": [],
+    "missing": []
+  },
+  "quirks": [
+    "autoconf-archive-macros",
+    "libtool",
+    "pkg-config",
+    "subdirs"
+  ],
+  "outputs": [],
+  "status": "CONFIGURE_RUN_FAIL",
+  "verified": false,
+  "diagnostic": "./configure: line 3012: syntax error near unexpected token `)'",
+  "deep_expansion": {
+    "configure_lines": 4090,
+    "leaked_macros": [],
+    "heredoc_openers": 62,
+    "heredoc_terminators": 62,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 3012,
+        "token": ")",
+        "source": ") \\",
+        "block": [
+          "3008: ifeq ($(VALGRIND_ENABLED),yes)",
+          "3009: \t-$(foreach tool,$(valgrind_tools), \\",
+          "3010: \t\t$(if $(VALGRIND_HAVE_TOOL_$(tool))$(VALGRIND_HAVE_TOOL_exp_$(tool)), \\",
+          "3011: \t\t\t$(MAKE) $(AM_MAKEFLAGS) -k check-valgrind-tool VALGRIND_TOOL=$(tool); \\",
+          "3012: \t\t) \\",
+          "3013: \t)",
+          "3014: else",
+          "3015: \t@echo \"Need to reconfigure with --enable-valgrind\""
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 1979: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT"
+    ],
+    "failed_during_check": "checking whether to enable Valgrind on the unit tests... yes",
+    "failure_tail": [
+      "checking whether to enable Valgrind on the unit tests... yes",
+      "./configure: line 3012: syntax error near unexpected token `)'",
+      "./configure: line 3012: `\t\t) \\'"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 57,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "inline int foo() { return 0; }\\nint main() { return foo(); }",
+      "#include <sys/types.h>\\nint main() { return sizeof(off_t) >= 8 ? 0 : 1; }",
+      "#include <sys/types.h>\\n#include <stdint.h>\\n#include <stddef.h>\\nint main() { static int 1 - 2 * !((long int) (sizeof (nlink_t)) <= 0)test_ar",
+      "#include <sys/types.h>\\n#include <stdint.h>\\n#include <stddef.h>\\nint main() { static int 1 - 2 * !((long int) (sizeof (off_t)) <= 0)test_arra",
+      "#include <sys/types.h>\\n#include <stdint.h>\\n#include <stddef.h>\\nint main() { static int 1 - 2 * !((long int) (sizeof (ino_t)) <= 0)test_arra",
+      "#include <sys/types.h>\\n#include <stdint.h>\\n#include <stddef.h>\\nint main() { static int 1 - 2 * !((long int) (sizeof (dev_t)) <= 0)test_arra"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "ok",
+    "real_configure_lines": 22380,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE"
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "line 3012: ) \\ (near `)`)",
+    "ours_error_context": [
+      ") \\"
+    ],
+    "ours_configure_lines": 4090,
+    "real_configure_lines": 22380,
+    "macros_ours_left_undefined": []
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool-old",
+      "uses-pkg-config",
+      "uses-subdir-objects",
+      "vendored-aclocal",
+      "uses-ax-archive"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-subdir-objects",
+        "action": "--disable-dependency-tracking",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "9447b588adeb7e3cf6a61ad71d167cbb97eb800ecdfbc906cacd6b4aa4e65035",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
+}

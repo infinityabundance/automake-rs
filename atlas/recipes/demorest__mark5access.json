@@ -1,0 +1,136 @@
+{
+  "schema": "automake-rs.build-atlas/v2",
+  "repo": "demorest/mark5access",
+  "source": {
+    "url": "https://github.com/demorest/mark5access",
+    "git_sha": "a45a851b8bf4067cb75e9c071468e5790cc4ca97",
+    "snapshot_utc": "2026-06-27"
+  },
+  "toolchain": {
+    "autoconf_rs": "autoconf-rs 0.1.13",
+    "automake_rs": "automake (GNU automake) UNKNOWN",
+    "m4_rs_core": "0.1.4",
+    "gnu_free": true
+  },
+  "target": {
+    "cc": "cc",
+    "cflags": "-g -O2",
+    "host": "x86_64-pc-linux-gnu"
+  },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {},
+  "feature_flags": {
+    "configure_args": []
+  },
+  "dependencies": {
+    "pkg_config": [],
+    "system_libs": [],
+    "headers_needed": [],
+    "missing": []
+  },
+  "quirks": [
+    "pkg-config",
+    "subdirs"
+  ],
+  "outputs": [],
+  "status": "CONFIGURE_RUN_FAIL",
+  "verified": false,
+  "diagnostic": "./configure: line 2162: syntax error near unexpected token `('",
+  "deep_expansion": {
+    "configure_lines": 2520,
+    "leaked_macros": [],
+    "heredoc_openers": 19,
+    "heredoc_terminators": 19,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 2162,
+        "token": "(",
+        "source": "if (eval \"test \\$(( 1 + 1 )) = 2\") 2>/dev/null",
+        "block": [
+          "2158: # ------------------",
+          "2159: # Perform arithmetic evaluation on the ARGs, and store the result in the",
+          "2160: # global $as_val. Take advantage of shells that can avoid forks. The argumen",
+          "2161: # must be portable across $(()) and expr.",
+          "2162: if (eval \"test \\$(( 1 + 1 )) = 2\") 2>/dev/null",
+          "2163: then :",
+          "2164:   eval 'as_fn_arith ()",
+          "2165:   {"
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2043: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT"
+    ],
+    "failed_during_check": "checking whether to build Python bindings... ",
+    "failure_tail": [
+      "checking whether to build Python bindings...",
+      "./configure: line 2162: syntax error near unexpected token `('",
+      "./configure: line 2162: `if (eval \"test \\$(( 1 + 1 )) = 2\") 2>/dev/null'"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 1,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "int main() { int x = 1; return *(char*)&x; }",
+      "#include <sys/types.h>\\nint main() { return sizeof(off_t) >= 8 ? 0 : 1; }",
+      "char erf();\\nint main() { return erf(); }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "ok",
+    "real_configure_lines": 16630,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE"
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "line 2162: if (eval \"test \\$(( 1 + 1 )) = 2\") 2>/dev/null (near `(`)",
+    "ours_error_context": [
+      "if (eval \"test \\$(( 1 + 1 )) = 2\") 2>/dev/null"
+    ],
+    "ours_configure_lines": 2520,
+    "real_configure_lines": 16630,
+    "macros_ours_left_undefined": []
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-pkg-config",
+      "vendored-aclocal"
+    ],
+    "receipt_hash": "9447b588adeb7e3cf6a61ad71d167cbb97eb800ecdfbc906cacd6b4aa4e65035",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
+}

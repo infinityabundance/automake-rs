@@ -1,0 +1,162 @@
+{
+  "schema": "automake-rs.build-atlas/v2",
+  "repo": "Certseeds/graphicsmagick",
+  "source": {
+    "url": "https://github.com/Certseeds/graphicsmagick",
+    "git_sha": "6fe18cdb2a133e9f841322ed68c55fb7253c7cc5",
+    "snapshot_utc": "2026-06-27"
+  },
+  "toolchain": {
+    "autoconf_rs": "autoconf-rs 0.1.13",
+    "automake_rs": "automake (GNU automake) UNKNOWN",
+    "m4_rs_core": "0.1.4",
+    "gnu_free": true
+  },
+  "target": {
+    "cc": "cc",
+    "cflags": "-g -O2",
+    "host": "x86_64-pc-linux-gnu"
+  },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "fail"
+    },
+    {
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {},
+  "feature_flags": {
+    "configure_args": []
+  },
+  "dependencies": {
+    "pkg_config": [],
+    "system_libs": [],
+    "headers_needed": [],
+    "missing": []
+  },
+  "quirks": [
+    "autoconf-archive-macros",
+    "libtool",
+    "pkg-config"
+  ],
+  "outputs": [],
+  "status": "CONFIGURE_RUN_FAIL",
+  "verified": false,
+  "diagnostic": "./configure: line 1603: syntax error near unexpected token `_LT_DECL_SED'",
+  "deep_expansion": {
+    "configure_lines": 6457,
+    "leaked_macros": [
+      {
+        "name": "m4_require",
+        "line": 1603,
+        "context": "m4_require(_LT_DECL_SED)m4_require(_LT_DECL_EGREP)m4_require(_LT_PROG_EC"
+      }
+    ],
+    "heredoc_openers": 128,
+    "heredoc_terminators": 128,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1603,
+        "token": "_LT_DECL_SED",
+        "source": "m4_require(_LT_DECL_SED)m4_require(_LT_DECL_EGREP)m4_require(_LT_PROG_EC",
+        "block": [
+          "1599:   done",
+          "1600: fi",
+          "1601: # Check for C preprocessor",
+          "1602: CPP=${CPP-cc -E}",
+          "1603: m4_require(_LT_DECL_SED)m4_require(_LT_DECL_EGREP)m4_require(_LT_PROG_ECHO_B",
+          "1604: # Check --with-gnu-ld option",
+          "1605: ",
+          "1606: ac_prog=ld"
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 1362: eval isset=\\${$var+set}"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PKG_CONFIG"
+    ],
+    "failed_during_check": "",
+    "failure_tail": [
+      "configuring GraphicsMagick 1.4.020241216",
+      "./configure: line 1603: syntax error near unexpected token `_LT_DECL_SED'",
+      "./configure: line 1603: `m4_require(_LT_DECL_SED)m4_require(_LT_DECL_EGREP)m4_re"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 110,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar pthread_join();\\nint main() { return pthread_join(); }",
+      "\\nint main (void)\\n{\\n#ifndef _OPENMP\\n(void) _OPENMP;\\n#endif\\n;\\nreturn 0;\\n}",
+      "#include <sys/types.h>\\nint main() { return sizeof(off_t) >= 8 ? 0 : 1; }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar fseeko();\\nint main() { return fseeko(); }",
+      "#include <$ac_hdr>",
+      "#include <$ac_hdr>"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "ok",
+    "real_configure_lines": 37560,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE"
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "line 1603: m4_require(_LT_DECL_SED)m4_require(_LT_DECL_EGREP)m4_require(_LT_PROG_EC (near `_LT_DECL_SED`)",
+    "ours_error_context": [
+      "m4_require(_LT_DECL_SED)m4_require(_LT_DECL_EGREP)m4_require(_LT_PROG_EC"
+    ],
+    "ours_configure_lines": 6457,
+    "real_configure_lines": 37560,
+    "macros_ours_left_undefined": [
+      "m4_require"
+    ]
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool",
+      "uses-pkg-config",
+      "uses-maintainer-mode",
+      "has-m4-macro-dir",
+      "has-acinclude",
+      "vendored-aclocal",
+      "uses-ax-archive",
+      "perl-in-configure"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-maintainer-mode",
+        "action": "--disable-maintainer-mode",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "9447b588adeb7e3cf6a61ad71d167cbb97eb800ecdfbc906cacd6b4aa4e65035",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
+}

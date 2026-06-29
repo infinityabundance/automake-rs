@@ -1,0 +1,147 @@
+{
+  "schema": "automake-rs.build-atlas/v2",
+  "repo": "bsc-pm/tasycl",
+  "source": {
+    "url": "https://github.com/bsc-pm/tasycl",
+    "git_sha": "78f98dcf60a66e0eaa3b4ebcf55be076bec64825",
+    "snapshot_utc": "2026-06-27"
+  },
+  "toolchain": {
+    "autoconf_rs": "autoconf-rs 0.1.13",
+    "automake_rs": "automake (GNU automake) UNKNOWN",
+    "m4_rs_core": "0.1.4",
+    "gnu_free": true
+  },
+  "target": {
+    "cc": "cc",
+    "cflags": "-g -O2",
+    "host": "x86_64-pc-linux-gnu"
+  },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "fail"
+    },
+    {
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {},
+  "feature_flags": {
+    "configure_args": []
+  },
+  "dependencies": {
+    "pkg_config": [],
+    "system_libs": [],
+    "headers_needed": [],
+    "missing": []
+  },
+  "quirks": [
+    "autoconf-archive-macros",
+    "libtool"
+  ],
+  "outputs": [],
+  "status": "CONFIGURE_RUN_FAIL",
+  "verified": false,
+  "diagnostic": "./configure: line 1473: ax_cv_check__AC_LANG_ABBREVflags__-fsycl=no: command not found",
+  "deep_expansion": {
+    "configure_lines": 2949,
+    "leaked_macros": [],
+    "heredoc_openers": 22,
+    "heredoc_terminators": 22,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1515,
+        "token": "m4_decr",
+        "source": "save_CPPFLAGS_m4_incr(m4_decr(1))=\"$CPPFLAGS\"   CPPFLAGS=\"\"$CPPFLAGS $sy",
+        "block": [
+          "1511: ",
+          "1512:         ",
+          "1513: ",
+          "1514:       ",
+          "1515:   save_CPPFLAGS_m4_incr(m4_decr(1))=\"$CPPFLAGS\"   CPPFLAGS=\"\"$CPPFLAGS $sycl",
+          "1516:       ",
+          "1517: ",
+          "1518:         "
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2460: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "CXX",
+      "CXXFLAGS",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT"
+    ],
+    "failed_during_check": "checking for unistd.h... no",
+    "failure_tail": [
+      "checking for unistd.h... no",
+      "./configure: line 1473: ax_cv_check__AC_LANG_ABBREVflags__-fsycl=no: command not",
+      "./configure: line 1515: syntax error near unexpected token `m4_decr'",
+      "./configure: line 1515: `  save_CPPFLAGS_m4_incr(m4_decr(1))=\"$CPPFLAGS\"   CPPFL"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 8,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "#include <$ac_hdr>",
+      "\\nint main() {  ; return 0; }",
+      "#include <$ac_hdr>",
+      "\\n@%:@include <boost/version.hpp>\\n\\nint main() {\\n#if BOOST_VERSION >= $WANT_BOOST_VERSION\\n// Everything is okay\\n#else\\n#  error Boost version is too old\\n#endif\\n; return 0; }",
+      "\\n@%:@include <boost/version.hpp>\\n\\nint main() {\\n#if BOOST_VERSION >= $WANT_BOOST_VERSION\\n// Everything is okay\\n#else\\n#  error Boost version is too old\\n#endif\\n; return 0; }",
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { size_t x; return 0; }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "fail",
+    "real_make": "skipped",
+    "real_configure_lines": 21326,
+    "real_first_error": "configure: error:",
+    "classification": "BOTH_CONFIGURE_FAIL"
+  },
+  "receipt": {
+    "court_status": "not_standalone",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool",
+      "uses-subdir-objects",
+      "has-m4-macro-dir",
+      "vendored-aclocal",
+      "uses-ax-archive"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-subdir-objects",
+        "action": "--disable-dependency-tracking",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "8bbf2a40459c00e0ac6d2d10a28a20b01491f4406335061ccdfc784789be554c",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
+}

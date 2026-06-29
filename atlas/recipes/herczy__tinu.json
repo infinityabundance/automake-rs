@@ -1,0 +1,155 @@
+{
+  "schema": "automake-rs.build-atlas/v2",
+  "repo": "herczy/tinu",
+  "source": {
+    "url": "https://github.com/herczy/tinu",
+    "git_sha": "1eace7c15763d5dcef5adc177b6502752f4bc3e9",
+    "snapshot_utc": "2026-06-27"
+  },
+  "toolchain": {
+    "autoconf_rs": "autoconf-rs 0.1.13",
+    "automake_rs": "automake (GNU automake) UNKNOWN",
+    "m4_rs_core": "0.1.4",
+    "gnu_free": true
+  },
+  "target": {
+    "cc": "cc",
+    "cflags": "-g -O2",
+    "host": "x86_64-pc-linux-gnu"
+  },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {},
+  "feature_flags": {
+    "configure_args": []
+  },
+  "dependencies": {
+    "pkg_config": [
+      "checking for glib-2.0 >= 2.20... yes"
+    ],
+    "system_libs": [],
+    "headers_needed": [],
+    "missing": []
+  },
+  "quirks": [
+    "libtool",
+    "pkg-config",
+    "subdirs"
+  ],
+  "outputs": [],
+  "status": "CONFIGURE_RUN_FAIL",
+  "verified": false,
+  "diagnostic": "./configure: line 1530: syntax error near unexpected token `fi'",
+  "deep_expansion": {
+    "configure_lines": 2589,
+    "leaked_macros": [],
+    "heredoc_openers": 19,
+    "heredoc_terminators": 19,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1530,
+        "token": "fi",
+        "source": "fi",
+        "block": [
+          "1526: ",
+          "1527: if test -d .git; then",
+          "1528:   # Define unquoted: GIT_BRANCH",
+          "1529:   # Define unquoted: GIT_COMMIT",
+          "1530: fi",
+          "1531: BUILD=`date +%c`",
+          "1532: printf '%s\\n' \"configure: build time is $BUILD\"",
+          "1533: # Define unquoted: BUILDTIME"
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2109: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL",
+      "srcdir",
+      "prefix",
+      "exec_prefix",
+      "CC",
+      "CFLAGS",
+      "CPPFLAGS",
+      "LDFLAGS",
+      "LIBS",
+      "CXX",
+      "CXXFLAGS",
+      "CPP",
+      "DEFS",
+      "LIBOBJS",
+      "INSTALL"
+    ],
+    "failed_during_check": "checking elfdebug should be enabled... ",
+    "failure_tail": [
+      "checking elfdebug should be enabled...",
+      "./configure: line 1530: syntax error near unexpected token `fi'",
+      "./configure: line 1530: `fi'"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 0,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "char dlopen();\\nint main() { return dlopen(); }",
+      "char elf_begin();\\nint main() { return elf_begin(); }",
+      "char dwarf_linesrc();\\nint main() { return dwarf_linesrc(); }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "fail",
+    "real_configure_lines": 22499,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE"
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "line 1530: fi (near `fi`)",
+    "ours_error_context": [
+      "fi"
+    ],
+    "ours_configure_lines": 2589,
+    "real_configure_lines": 22499,
+    "macros_ours_left_undefined": []
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool-old",
+      "uses-pkg-config",
+      "vendored-aclocal"
+    ],
+    "receipt_hash": "9447b588adeb7e3cf6a61ad71d167cbb97eb800ecdfbc906cacd6b4aa4e65035",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
+}

@@ -1,0 +1,177 @@
+{
+  "schema": "automake-rs.build-atlas/v2",
+  "repo": "bitcoin-core/minisketch",
+  "source": {
+    "url": "https://github.com/bitcoin-core/minisketch",
+    "git_sha": "d1bd01e189e745cd1828707e0a7004b6a6909650",
+    "snapshot_utc": "2026-06-27"
+  },
+  "toolchain": {
+    "autoconf_rs": "autoconf-rs 0.1.13",
+    "automake_rs": "automake (GNU automake) UNKNOWN",
+    "m4_rs_core": "0.1.4",
+    "gnu_free": true
+  },
+  "target": {
+    "cc": "cc",
+    "cflags": "-g -O2",
+    "host": "x86_64-pc-linux-gnu"
+  },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "fail"
+    },
+    {
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {},
+  "feature_flags": {
+    "configure_args": []
+  },
+  "dependencies": {
+    "pkg_config": [],
+    "system_libs": [],
+    "headers_needed": [],
+    "missing": []
+  },
+  "quirks": [
+    "autoconf-archive-macros",
+    "libtool"
+  ],
+  "outputs": [],
+  "status": "CONFIGURE_RUN_FAIL",
+  "verified": false,
+  "diagnostic": "checking which field sizes to build... ./configure: line 1398: syntax error near unexpected token `in'",
+  "deep_expansion": {
+    "configure_lines": 3055,
+    "leaked_macros": [],
+    "heredoc_openers": 24,
+    "heredoc_terminators": 24,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1398,
+        "token": "in",
+        "source": "*,\" in",
+        "block": [
+          "1394:         ;;",
+          "1395:     esac",
+          "1396: ",
+          "1397:     case \",$enable_fields,\" in",
+          "1398:     *,\" in",
+          "1399:     *,*)",
+          "1400:         have_enabled_fields=yes",
+          "1401:         ;;"
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 1703: if test \"${$CXXFLAG_WERRORax_cv_check__AC_LANG_ABBREVflags__",
+      "line 1733: if test x\"${$CXXFLAG_WERRORax_cv_check__AC_LANG_ABBREVflags_",
+      "line 1876: if test \"${$CXXFLAG_WERRORax_cv_check__AC_LANG_ABBREVflags__",
+      "line 1896: if test x\"${$CXXFLAG_WERRORax_cv_check__AC_LANG_ABBREVflags_",
+      "line 2564: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "CXX",
+      "CXXFLAGS",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL",
+      "srcdir",
+      "prefix",
+      "exec_prefix",
+      "CC",
+      "CFLAGS",
+      "CPPFLAGS",
+      "LDFLAGS",
+      "LIBS",
+      "CPP",
+      "DEFS",
+      "LIBOBJS",
+      "INSTALL",
+      "RELEASE_DEFINES",
+      "LIBTOOL_APP_LDFLAGS",
+      "NOWARN_CXXFLAGS",
+      "CLMUL_CXXFLAGS",
+      "WARN_CXXFLAGS",
+      "VERIFY_DEFINES"
+    ],
+    "failed_during_check": "checking which field sizes to build... ./configure: line 1398: syntax error near",
+    "failure_tail": [
+      "checking which field sizes to build... ./configure: line 1398: syntax error near",
+      "./configure: line 1398: `    *,\" in'"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 2,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "\\nint main() {  ; return 0; }",
+      "\\n#include <stdint.h>\\n#include <x86intrin.h>\\n\\nint main() {\\n__m128i a = _mm_cvtsi64_si128((uint64_t)7);\\n__m128i b = _mm_clmulepi64_si128(a, a, 37);\\n__m128i c = _mm_srli_epi64(b, 41);\\n__m128i d = _mm_xor_si128(b, c);\\nuint64_t e = _mm_cvtsi128_si64(d);\\nreturn e == 0;\\n; return 0; }",
+      "\\nint main() {\\nunsigned a = __builtin_clz(1);\\nunsigned long b = __builtin_clzl(1);\\nunsigned long long c = __builtin_clzll(1);\\n; return 0; }",
+      "\\nint main() {  ; return 0; }",
+      "\\nint main() {  ; return 0; }",
+      "\\nint main() {  ; return 0; }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "ok",
+    "real_configure_lines": 20881,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE"
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "line 1398: *,\" in (near `in`)",
+    "ours_error_context": [
+      "*,\" in"
+    ],
+    "ours_configure_lines": 3055,
+    "real_configure_lines": 20881,
+    "macros_ours_left_undefined": []
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool",
+      "uses-subdir-objects",
+      "vendored-aclocal",
+      "uses-ax-archive"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-subdir-objects",
+        "action": "--disable-dependency-tracking",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "9447b588adeb7e3cf6a61ad71d167cbb97eb800ecdfbc906cacd6b4aa4e65035",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
+}

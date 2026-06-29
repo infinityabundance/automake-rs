@@ -1,0 +1,137 @@
+{
+  "schema": "automake-rs.build-atlas/v2",
+  "repo": "gpg/libassuan",
+  "source": {
+    "url": "https://github.com/gpg/libassuan",
+    "git_sha": "92587b7bf5ffbdd34e2139f3563211cd2d04f652",
+    "snapshot_utc": "2026-06-27"
+  },
+  "toolchain": {
+    "autoconf_rs": "autoconf-rs 0.1.13",
+    "automake_rs": "automake (GNU automake) UNKNOWN",
+    "m4_rs_core": "0.1.4",
+    "gnu_free": true
+  },
+  "target": {
+    "cc": "cc",
+    "cflags": "-g -O2",
+    "host": "x86_64-pc-linux-gnu"
+  },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "fail"
+    },
+    {
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {},
+  "feature_flags": {
+    "configure_args": []
+  },
+  "dependencies": {
+    "pkg_config": [
+      "checking for GPG Error - version >= 1.17... no"
+    ],
+    "system_libs": [],
+    "headers_needed": [],
+    "missing": []
+  },
+  "quirks": [
+    "autoconf-archive-macros",
+    "libtool",
+    "subdirs"
+  ],
+  "outputs": [],
+  "status": "CONFIGURE_RUN_FAIL",
+  "verified": false,
+  "diagnostic": "./configure: line 2001: [printf: command not found",
+  "deep_expansion": {
+    "configure_lines": 2263,
+    "leaked_macros": [],
+    "heredoc_openers": 30,
+    "heredoc_terminators": 30,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL"
+    ],
+    "failed_during_check": "checking for GPG Error - version >= 1.17... no",
+    "failure_tail": [
+      "checking for GPG Error - version >= 1.17... no",
+      "./configure: line 2001: [printf: command not found",
+      "./configure: line 2002: exit: 1]: numeric argument required"
+    ],
+    "conftest_corruption": [
+      "line 2197: # <sys/types.h> (include eaten)",
+      "line 2198: # <unistd.h> (include eaten)",
+      "line 2199: # <sys/socket.h> (include eaten)"
+    ],
+    "conftest_directives_intact": 27,
+    "conftest_directives_mangled": 3,
+    "conftest_programs": [
+      "\\nint main (void) { return 0; }\\n",
+      "\\n#if __GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 6 )\\n#kickerror\\n#endif\\nint main() {  ; return 0; }",
+      "\\nint main() {  ; return 0; }",
+      "\\nint main() {  ; return 0; }",
+      "\\nint main() {  ; return 0; }",
+      "#include <$ac_hdr>"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "fail",
+    "real_configure_lines": 19031,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE"
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "",
+    "ours_error_context": [],
+    "ours_configure_lines": 2263,
+    "real_configure_lines": 19031,
+    "macros_ours_left_undefined": []
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool",
+      "uses-maintainer-mode",
+      "has-m4-macro-dir",
+      "vendored-aclocal",
+      "uses-ax-archive"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-maintainer-mode",
+        "action": "--disable-maintainer-mode",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "9447b588adeb7e3cf6a61ad71d167cbb97eb800ecdfbc906cacd6b4aa4e65035",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
+}

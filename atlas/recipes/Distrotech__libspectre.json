@@ -1,0 +1,162 @@
+{
+  "schema": "automake-rs.build-atlas/v2",
+  "repo": "Distrotech/libspectre",
+  "source": {
+    "url": "https://github.com/Distrotech/libspectre",
+    "git_sha": "8be857d3341c813143c43a1362f57608c3de1ebf",
+    "snapshot_utc": "2026-06-27"
+  },
+  "toolchain": {
+    "autoconf_rs": "autoconf-rs 0.1.13",
+    "automake_rs": "automake (GNU automake) UNKNOWN",
+    "m4_rs_core": "0.1.4",
+    "gnu_free": true
+  },
+  "target": {
+    "cc": "cc",
+    "cflags": "-g -O2",
+    "host": "x86_64-pc-linux-gnu"
+  },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "fail"
+    },
+    {
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {},
+  "feature_flags": {
+    "configure_args": []
+  },
+  "dependencies": {
+    "pkg_config": [
+      "checking for libgs >= 8.62... no",
+      "configure: error: You need libgs >= 8.62 in order to compile libspectre"
+    ],
+    "system_libs": [],
+    "headers_needed": [],
+    "missing": []
+  },
+  "quirks": [
+    "libtool",
+    "pkg-config",
+    "subdirs"
+  ],
+  "outputs": [],
+  "status": "CONFIGURE_RUN_FAIL",
+  "verified": false,
+  "diagnostic": "./configure: line 1400: AC_STDC_HEADERS: command not found",
+  "deep_expansion": {
+    "configure_lines": 2783,
+    "leaked_macros": [],
+    "heredoc_openers": 25,
+    "heredoc_terminators": 25,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2307: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL",
+      "srcdir",
+      "prefix",
+      "exec_prefix",
+      "CC",
+      "CFLAGS",
+      "CPPFLAGS",
+      "LDFLAGS",
+      "LIBS",
+      "CXX",
+      "CXXFLAGS",
+      "CPP",
+      "DEFS",
+      "LIBOBJS",
+      "INSTALL",
+      "SPECTRE_MICRO_VERSION",
+      "LT_AGE",
+      "SPECTRE_MINOR_VERSION",
+      "SPECTRE_CFLAGS",
+      "SPECTRE_MAJOR_VERSION",
+      "LT_CURRENT_MINUS_AGE",
+      "VERSION_INFO",
+      "SPECTRE_VERSION",
+      "LT_REVISION"
+    ],
+    "failed_during_check": "checking for libgs >= 8.62... no",
+    "failure_tail": [
+      "checking for libgs >= 8.62... no",
+      "configure: error: You need libgs >= 8.62 in order to compile libspectre"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 11,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "int main() { int x = 1; return *(char*)&x; }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar vasprintf();\\nint main() { return vasprintf(); }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar _vscprintf();\\nint main() { return _vscprintf(); }",
+      "char gsapi_new_instance();\\nint main() { return gsapi_new_instance(); }",
+      "\\n#include <ghostscript/iapi.h>\\n\\nint main() {\\ngsapi_revision_t gsrev;\\n\\nif (gsapi_revision (&gsrev, sizeof (gsrev)) != 0)\\nreturn 1;\\nif (gsrev.revision < `echo \"$LIBGS_REQUIRED\" | sed -e 's/\\.//'`)\\nreturn 1;\\n; return 0; }",
+      ""
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "fail",
+    "real_configure_lines": 16984,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE"
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "",
+    "ours_error_context": [],
+    "ours_configure_lines": 2783,
+    "real_configure_lines": 16984,
+    "macros_ours_left_undefined": []
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool-old",
+      "uses-pkg-config",
+      "uses-maintainer-mode",
+      "vendored-aclocal"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-maintainer-mode",
+        "action": "--disable-maintainer-mode",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "9447b588adeb7e3cf6a61ad71d167cbb97eb800ecdfbc906cacd6b4aa4e65035",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
+}

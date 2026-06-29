@@ -1,0 +1,160 @@
+{
+  "schema": "automake-rs.build-atlas/v2",
+  "repo": "experiencecoin/experiencecoin_legacy",
+  "source": {
+    "url": "https://github.com/experiencecoin/experiencecoin_legacy",
+    "git_sha": "7c44ea66341b4d4be42b2e43c5e6b4120f4aa761",
+    "snapshot_utc": "2026-06-27"
+  },
+  "toolchain": {
+    "autoconf_rs": "autoconf-rs 0.1.13",
+    "automake_rs": "automake (GNU automake) UNKNOWN",
+    "m4_rs_core": "0.1.4",
+    "gnu_free": true
+  },
+  "target": {
+    "cc": "cc",
+    "cflags": "-g -O2",
+    "host": "x86_64-pc-linux-gnu"
+  },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "fail"
+    },
+    {
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {},
+  "feature_flags": {
+    "configure_args": []
+  },
+  "dependencies": {
+    "pkg_config": [
+      "checking pkg-config is at least version 0.9.0... yes"
+    ],
+    "system_libs": [],
+    "headers_needed": [],
+    "missing": []
+  },
+  "quirks": [
+    "autoconf-archive-macros",
+    "pkg-config",
+    "subdirs"
+  ],
+  "outputs": [],
+  "status": "CONFIGURE_RUN_FAIL",
+  "verified": false,
+  "diagnostic": "./configure: line 1436: fidnl: command not found",
+  "deep_expansion": {
+    "configure_lines": 7321,
+    "leaked_macros": [],
+    "heredoc_openers": 103,
+    "heredoc_terminators": 103,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1473,
+        "token": "else",
+        "source": "else",
+        "block": [
+          "1469: # it's called might be skipped (such as if it is within an \"if\", you",
+          "1470: # have to call if pkg-config --exists \"\" 2>/dev/null; then",
+          "1471:   :",
+          "1472:   ",
+          "1473: else",
+          "1474:   :",
+          "1475:   ",
+          "1476: fi"
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 1712: if test x\"${}\" = x\"\"\"\"; then",
+      "line 6007: if test \"${$base_frameworksax_cv_check_ldflags__+set}\" = set",
+      "line 6845: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PKG_CONFIG",
+      "pkgconfigdir",
+      "noarch_pkgconfigdir",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT"
+    ],
+    "failed_during_check": "checking pkg-config is at least version 0.9.0... yes",
+    "failure_tail": [
+      "checking pkg-config is at least version 0.9.0... yes",
+      "./configure: line 1436: fidnl: command not found",
+      "./configure: line 1441: ACTION-IF-FOUND: command not found",
+      "no",
+      "./configure: line 1465: ,: command not found"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 27,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "char main();\\nint main() { return main(); }",
+      "char main();\\nint main() { return main(); }",
+      "char main();\\nint main() { return main(); }",
+      "char main();\\nint main() { return main(); }",
+      "char main();\\nint main() { return main(); }",
+      "char main();\\nint main() { return main(); }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "fail",
+    "real_make": "skipped",
+    "real_configure_lines": 18391,
+    "real_first_error": "configure: error: Could not link against boost_filesystem !",
+    "classification": "BOTH_CONFIGURE_FAIL"
+  },
+  "receipt": {
+    "court_status": "not_standalone",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-pkg-config",
+      "uses-subdir-objects",
+      "uses-maintainer-mode",
+      "vendored-aclocal",
+      "uses-ax-archive",
+      "uses-pthread-check"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-subdir-objects",
+        "action": "--disable-dependency-tracking",
+        "verified": false
+      },
+      {
+        "id": "uses-maintainer-mode",
+        "action": "--disable-maintainer-mode",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "8bbf2a40459c00e0ac6d2d10a28a20b01491f4406335061ccdfc784789be554c",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
+}

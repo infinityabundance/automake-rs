@@ -1,0 +1,189 @@
+{
+  "schema": "automake-rs.build-atlas/v2",
+  "repo": "fork4jl/mpfr",
+  "source": {
+    "url": "https://github.com/fork4jl/mpfr",
+    "git_sha": "947699782c3cb07a3c10f5942adf35af24065917",
+    "snapshot_utc": "2026-06-27"
+  },
+  "toolchain": {
+    "autoconf_rs": "autoconf-rs 0.1.13",
+    "automake_rs": "automake (GNU automake) UNKNOWN",
+    "m4_rs_core": "0.1.4",
+    "gnu_free": true
+  },
+  "target": {
+    "cc": "cc",
+    "cflags": "-g -O2",
+    "host": "x86_64-pc-linux-gnu"
+  },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "fail"
+    },
+    {
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {},
+  "feature_flags": {
+    "configure_args": []
+  },
+  "dependencies": {
+    "pkg_config": [],
+    "system_libs": [],
+    "headers_needed": [],
+    "missing": []
+  },
+  "quirks": [
+    "autoconf-archive-macros",
+    "libtool",
+    "subdirs"
+  ],
+  "outputs": [],
+  "status": "CONFIGURE_RUN_FAIL",
+  "verified": false,
+  "diagnostic": "./configure: line 1374: is: command not found",
+  "deep_expansion": {
+    "configure_lines": 5567,
+    "leaked_macros": [],
+    "heredoc_openers": 63,
+    "heredoc_terminators": 65,
+    "heredoc_imbalance": 2,
+    "syntax_errors": [
+      {
+        "line": 1936,
+        "token": ")",
+        "source": "29, committed on 2021-02-19) and",
+        "block": [
+          "1932:         ax_pthread_ok=no",
+          "1933:         ",
+          "1934: fi",
+          "1935: # Restore language",
+          "1936:  29, committed on 2021-02-19) and",
+          "1937: ",
+          "1938: ",
+          "1939: "
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 5090: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL",
+      "srcdir",
+      "prefix",
+      "exec_prefix",
+      "CC",
+      "CFLAGS",
+      "CPPFLAGS",
+      "LDFLAGS",
+      "LIBS",
+      "CXX",
+      "CXXFLAGS",
+      "CPP",
+      "DEFS",
+      "LIBOBJS",
+      "INSTALL",
+      "PTHREAD_LIBS",
+      "PTHREAD_CC",
+      "PTHREAD_CFLAGS",
+      "MPFR_LDFLAGS",
+      "LIBMPFR_LDFLAGS",
+      "DATAFILES",
+      "PTHREAD_CXX",
+      "host_os",
+      "host_vendor"
+    ],
+    "failed_during_check": "checking whether pthreads work with -mt... no",
+    "failure_tail": [
+      "checking whether pthreads work with -mt... no",
+      "./configure: line 1609: pthread-config: command not found",
+      "./configure: line 1610: pthread-config: command not found",
+      "./configure: line 1610: pthread-config: command not found",
+      "no"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 50,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "\\nchar pthread_join();\\nint main() { pthread_join(); return 0; }",
+      "#include <pthread.h>\\n#                       if $ax_pthread_check_cond\\n#                        error \"$ax_pthread_check_macro must be defined\"\\n#                       endif\\nstatic void *some_global = NULL;\\nstatic void routine(void *a)\\n{\\n/* To avoid any unused-parameter or\\nunused-but-set-parameter warning.  */\\nsome_global = a;\\n}\\nstatic void *start_routine(void *a) { return a; }",
+      "int main(void){return 0;}",
+      "int main(void){return 0;}",
+      "#include <pthread.h>\\nint main() { int attr = $ax_pthread_attr; return attr /* ; */ ; return 0; }",
+      "#include <pthread.h>\\nint main() { int i = PTHREAD_PRIO_INHERIT;\\nreturn i; ; return 0; }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "ok",
+    "real_configure_lines": 21672,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE"
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "line 1936: 29, committed on 2021-02-19) and (near `)`)",
+    "ours_error_context": [
+      "29, committed on 2021-02-19) and"
+    ],
+    "ours_configure_lines": 5567,
+    "real_configure_lines": 21672,
+    "macros_ours_left_undefined": []
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool",
+      "uses-subdir-objects",
+      "uses-maintainer-mode",
+      "has-m4-macro-dir",
+      "has-acinclude",
+      "vendored-aclocal",
+      "uses-ax-archive",
+      "uses-pthread-check"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-subdir-objects",
+        "action": "--disable-dependency-tracking",
+        "verified": false
+      },
+      {
+        "id": "uses-maintainer-mode",
+        "action": "--disable-maintainer-mode",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "9447b588adeb7e3cf6a61ad71d167cbb97eb800ecdfbc906cacd6b4aa4e65035",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
+}

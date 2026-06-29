@@ -1,0 +1,150 @@
+{
+  "schema": "automake-rs.build-atlas/v2",
+  "repo": "gvz/avrdude",
+  "source": {
+    "url": "https://github.com/gvz/avrdude",
+    "git_sha": "fd59f5d81c91f51d80474061ca35963f618dc430",
+    "snapshot_utc": "2026-06-27"
+  },
+  "toolchain": {
+    "autoconf_rs": "autoconf-rs 0.1.13",
+    "automake_rs": "automake (GNU automake) UNKNOWN",
+    "m4_rs_core": "0.1.4",
+    "gnu_free": true
+  },
+  "target": {
+    "cc": "cc",
+    "cflags": "-g -O2",
+    "host": "x86_64-pc-linux-gnu"
+  },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {},
+  "feature_flags": {
+    "configure_args": []
+  },
+  "dependencies": {
+    "pkg_config": [],
+    "system_libs": [],
+    "headers_needed": [],
+    "missing": []
+  },
+  "quirks": [
+    "libtool",
+    "subdirs"
+  ],
+  "outputs": [],
+  "status": "CONFIGURE_RUN_FAIL",
+  "verified": false,
+  "diagnostic": "./configure: line 1437: syntax error near unexpected token `AR,'",
+  "deep_expansion": {
+    "configure_lines": 3331,
+    "leaked_macros": [
+      {
+        "name": "AC_CHECK_TARGET_TOOL",
+        "line": 1440,
+        "context": "AC_CHECK_TARGET_TOOL(AR, ar, :)"
+      }
+    ],
+    "heredoc_openers": 47,
+    "heredoc_terminators": 47,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1437,
+        "token": "AR,",
+        "source": "AN_MAKEVAR(AR, AC_PROG_AR)",
+        "block": [
+          "1433:     LEX=$ac_prog",
+          "1434:     break",
+          "1435:   fi",
+          "1436: done",
+          "1437: AN_MAKEVAR(AR, AC_PROG_AR)",
+          "1438: AN_PROGRAM(ar, AC_PROG_AR)",
+          "1439: ",
+          "1440: AC_CHECK_TARGET_TOOL(AR, ar, :)"
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2779: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "HAVE_PARPORT_BEGIN",
+      "HAVE_PARPORT_END",
+      "HAVE_LINUXGPIO_BEGIN",
+      "HAVE_LINUXGPIO_END",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT"
+    ],
+    "failed_during_check": "",
+    "failure_tail": [
+      "./configure: line 1437: syntax error near unexpected token `AR,'",
+      "./configure: line 1437: `AN_MAKEVAR(AR, AC_PROG_AR)'"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 21,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "char tputs();\\nint main() { return tputs(); }",
+      "char tputs();\\nint main() { return tputs(); }",
+      "char readline();\\nint main() { return readline(); }",
+      "char elf_getshdrstrndx();\\nint main() { return elf_getshdrstrndx(); }",
+      "#include <$ac_hdr>",
+      "char gethostent ();\\nint main() { return gethostent (); }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "ok",
+    "real_configure_lines": 18095,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE"
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "line 1437: AN_MAKEVAR(AR, AC_PROG_AR) (near `AR,`)",
+    "ours_error_context": [
+      "AN_MAKEVAR(AR, AC_PROG_AR)"
+    ],
+    "ours_configure_lines": 3331,
+    "real_configure_lines": 18095,
+    "macros_ours_left_undefined": [
+      "AC_CHECK_TARGET_TOOL"
+    ]
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool",
+      "vendored-aclocal"
+    ],
+    "receipt_hash": "9447b588adeb7e3cf6a61ad71d167cbb97eb800ecdfbc906cacd6b4aa4e65035",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
+}

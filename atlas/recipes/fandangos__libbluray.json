@@ -1,0 +1,170 @@
+{
+  "schema": "automake-rs.build-atlas/v2",
+  "repo": "fandangos/libbluray",
+  "source": {
+    "url": "https://github.com/fandangos/libbluray",
+    "git_sha": "47726b99922899bb9c4ea688356199f2068d156a",
+    "snapshot_utc": "2026-06-27"
+  },
+  "toolchain": {
+    "autoconf_rs": "autoconf-rs 0.1.13",
+    "automake_rs": "automake (GNU automake) UNKNOWN",
+    "m4_rs_core": "0.1.4",
+    "gnu_free": true
+  },
+  "target": {
+    "cc": "cc",
+    "cflags": "-g -O2",
+    "host": "x86_64-pc-linux-gnu"
+  },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "fail"
+    },
+    {
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {},
+  "feature_flags": {
+    "configure_args": []
+  },
+  "dependencies": {
+    "pkg_config": [
+      "checking for libxml-2.0 >= 2.6... yes"
+    ],
+    "system_libs": [],
+    "headers_needed": [],
+    "missing": []
+  },
+  "quirks": [
+    "libtool",
+    "pkg-config"
+  ],
+  "outputs": [],
+  "status": "CONFIGURE_RUN_FAIL",
+  "verified": false,
+  "diagnostic": "./configure: line 1515: AC_STRUCT_DIRENT_D_TYPE: command not found",
+  "deep_expansion": {
+    "configure_lines": 3631,
+    "leaked_macros": [],
+    "heredoc_openers": 35,
+    "heredoc_terminators": 35,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1750,
+        "token": "-Wredundant-decls",
+        "source": "-Wredundant-decls -Wcast-qual -Wwrite-strings -Wtype-limits -Wundef",
+        "block": [
+          "1746: ",
+          "1747: fi",
+          "1748: ",
+          "1749:   for flag in -Wall -Wdisabled-optimization -Wpointer-arith ",
+          "1750: -Wredundant-decls -Wcast-qual -Wwrite-strings -Wtype-limits -Wundef ",
+          "1751: -Wmissing-prototypes -Wshadow; do",
+          "1752:     ",
+          "1753:   if test \"${printf '%s\\n' \"cc_cv_cflags_$flag\" | sed 's/^a-zA-Z0-9_/_/g'+se"
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 3125: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL",
+      "srcdir",
+      "prefix",
+      "exec_prefix",
+      "CC",
+      "CFLAGS",
+      "CPPFLAGS",
+      "LDFLAGS",
+      "LIBS",
+      "CXX",
+      "CXXFLAGS",
+      "CPP",
+      "DEFS",
+      "LIBOBJS",
+      "INSTALL",
+      "DX_DOCDIR",
+      "DX_CONFIG",
+      "BDJAVA_CFLAGS",
+      "PACKAGES",
+      "BLURAY_VERSION_MAJOR",
+      "BDJ_BOOTCLASSPATH",
+      "EXTRA_LIBS",
+      "DX_PROJECT",
+      "BLURAY_VERSION_MICRO"
+    ],
+    "failed_during_check": "checking for fontconfig... yes",
+    "failure_tail": [
+      "checking for fontconfig... yes",
+      "./configure: line 1750: syntax error near unexpected token `-Wredundant-decls'",
+      "./configure: line 1750: `-Wredundant-decls -Wcast-qual -Wwrite-strings -Wtype-li"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 15,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { sig_atomic_t x; return 0; }",
+      "#include <$ac_hdr>",
+      "#include <$ac_hdr>",
+      "#include <$ac_hdr>",
+      "#include <sys/types.h>\\nint main() { return sizeof(off_t) >= 8 ? 0 : 1; }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar snprintf();\\nint main() { return snprintf(); }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "fail",
+    "real_make": "skipped",
+    "real_configure_lines": 19668,
+    "real_first_error": "configure: error: BD-J requires ANT, but ant was not found. Install ant or disable jar file building (--disable-bdjava-j",
+    "classification": "BOTH_CONFIGURE_FAIL"
+  },
+  "receipt": {
+    "court_status": "not_standalone",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool-old",
+      "uses-pkg-config",
+      "uses-subdir-objects",
+      "has-m4-macro-dir",
+      "vendored-aclocal"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-subdir-objects",
+        "action": "--disable-dependency-tracking",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "8bbf2a40459c00e0ac6d2d10a28a20b01491f4406335061ccdfc784789be554c",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
+}

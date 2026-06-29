@@ -1,0 +1,156 @@
+{
+  "schema": "automake-rs.build-atlas/v2",
+  "repo": "ekmett/jitplusplus",
+  "source": {
+    "url": "https://github.com/ekmett/jitplusplus",
+    "git_sha": "22a039d7f3c092500484a3c265f53408419c28a5",
+    "snapshot_utc": "2026-06-27"
+  },
+  "toolchain": {
+    "autoconf_rs": "autoconf-rs 0.1.13",
+    "automake_rs": "automake (GNU automake) UNKNOWN",
+    "m4_rs_core": "0.1.4",
+    "gnu_free": true
+  },
+  "target": {
+    "cc": "cc",
+    "cflags": "-g -O2",
+    "host": "x86_64-pc-linux-gnu"
+  },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "fail"
+    },
+    {
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {},
+  "feature_flags": {
+    "configure_args": []
+  },
+  "dependencies": {
+    "pkg_config": [],
+    "system_libs": [],
+    "headers_needed": [],
+    "missing": []
+  },
+  "quirks": [
+    "autoconf-archive-macros",
+    "libtool"
+  ],
+  "outputs": [],
+  "status": "CONFIGURE_RUN_FAIL",
+  "verified": false,
+  "diagnostic": "./configure: line 1878: pthread-config: command not found",
+  "deep_expansion": {
+    "configure_lines": 3528,
+    "leaked_macros": [],
+    "heredoc_openers": 33,
+    "heredoc_terminators": 33,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1929,
+        "token": "done",
+        "source": "done",
+        "block": [
+          "1925: \tprintf %s \"checking for joinable pthread attribute... \"",
+          "1926: \tattr_name=unknown",
+          "1927: \tfor attr in PTHREAD_CREATE_JOINABLE PTHREAD_CREATE_UNDETACHED; do",
+          "1928: \t    # Try link (obsolete)",
+          "1929: \tdone",
+          "1930:         printf '%s\\n' \"$attr_name\"",
+          "1931:         if test \"$attr_name\" != PTHREAD_CREATE_JOINABLE; then",
+          "1932:             # Define unquoted: PTHREAD_CREATE_JOINABLE"
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 3052: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT"
+    ],
+    "failed_during_check": "checking whether pthreads work with -mt... no",
+    "failure_tail": [
+      "checking whether pthreads work with -mt... no",
+      "./configure: line 1878: pthread-config: command not found",
+      "./configure: line 1879: pthread-config: command not found",
+      "./configure: line 1879: pthread-config: command not found",
+      "no"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 13,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "\\n@%:@include <boost/version.hpp>\\n\\nint main() {\\n#if BOOST_VERSION >= $WANT_BOOST_VERSION\\n// Everything is okay\\n#else\\n#  error Boost version is too old\\n#endif\\n; return 0; }",
+      "\\n@%:@include <boost/version.hpp>\\n\\nint main() {\\n#if BOOST_VERSION >= $WANT_BOOST_VERSION\\n// Everything is okay\\n#else\\n#  error Boost version is too old\\n#endif\\n; return 0; }",
+      "@%:@include <boost/test/unit_test.hpp>\\nint main() { using boost::unit_test::test_suite;\\ntest_suite* test= BOOST_TEST_SUITE( \"Unit test example 1\" ); return 0; ; ret",
+      "char exit();\\nint main() { return exit(); }",
+      "#include <$ac_hdr>",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar pthread_join();\\nint main() { return pthread_join(); }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "fail",
+    "real_configure_lines": 20802,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE"
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "line 1929: done (near `done`)",
+    "ours_error_context": [
+      "done"
+    ],
+    "ours_configure_lines": 3528,
+    "real_configure_lines": 20802,
+    "macros_ours_left_undefined": []
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool-old",
+      "uses-subdir-objects",
+      "has-m4-macro-dir",
+      "vendored-aclocal",
+      "uses-ax-archive"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-subdir-objects",
+        "action": "--disable-dependency-tracking",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "9447b588adeb7e3cf6a61ad71d167cbb97eb800ecdfbc906cacd6b4aa4e65035",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
+}

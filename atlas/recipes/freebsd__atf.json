@@ -1,0 +1,163 @@
+{
+  "schema": "automake-rs.build-atlas/v2",
+  "repo": "freebsd/atf",
+  "source": {
+    "url": "https://github.com/freebsd/atf",
+    "git_sha": "be98a04b015ecb35fa63134d315e638604d0942d",
+    "snapshot_utc": "2026-06-27"
+  },
+  "toolchain": {
+    "autoconf_rs": "autoconf-rs 0.1.13",
+    "automake_rs": "automake (GNU automake) UNKNOWN",
+    "m4_rs_core": "0.1.4",
+    "gnu_free": true
+  },
+  "target": {
+    "cc": "cc",
+    "cflags": "-g -O2",
+    "host": "x86_64-pc-linux-gnu"
+  },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "fail"
+    },
+    {
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {},
+  "feature_flags": {
+    "configure_args": []
+  },
+  "dependencies": {
+    "pkg_config": [],
+    "system_libs": [],
+    "headers_needed": [],
+    "missing": []
+  },
+  "quirks": [
+    "autoconf-archive-macros",
+    "libtool"
+  ],
+  "outputs": [],
+  "status": "CONFIGURE_RUN_FAIL",
+  "verified": false,
+  "diagnostic": "./configure: line 1389: syntax error near unexpected token `C++'",
+  "deep_expansion": {
+    "configure_lines": 2759,
+    "leaked_macros": [
+      {
+        "name": "AC_LANG_COMPILER",
+        "line": 1389,
+        "context": "AC_LANG_COMPILER(C++)"
+      }
+    ],
+    "heredoc_openers": 22,
+    "heredoc_terminators": 22,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1389,
+        "token": "C++",
+        "source": "AC_LANG_COMPILER(C++)",
+        "block": [
+          "1385:     CXX=$ac_prog",
+          "1386:     break",
+          "1387:   fi",
+          "1388: done",
+          "1389: AC_LANG_COMPILER(C++)",
+          "1390: # Check for C preprocessor",
+          "1391: CPP=${CPP-cc -E}",
+          "1392: printf %s \"checking for C++20 support... \""
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2282: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "CXX",
+      "CXXFLAGS",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT"
+    ],
+    "failed_during_check": "",
+    "failure_tail": [
+      "./configure: line 1389: syntax error near unexpected token `C++'",
+      "./configure: line 1389: `AC_LANG_COMPILER(C++)'"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 11,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "#include <cstdarg>\\n#include <cstdio>\\nint main() { va_list ap;\\nchar* buf = NULL;\\nconst char* fmt = NULL;\\nstd::vsnprintf(buf, 0, fmt, ap);\\nreturn 0; ; return 0; }",
+      "#include <stdlib.h>\\n#include <string.h>\\n#include <unistd.h>\\nint main() {\\nint argc = 4;\\nchar* argv@<:@5@:>@ = {\\nstrdup(\"conftest\"),\\nstrdup(\"-+\"),\\nstrdup(\"-a\"),\\nstrdup(\"bar\"),\\nNULL\\n};",
+      "#include <stdlib.h>\\n#include <unistd.h>\\nint main() {\\noptreset = 1;\\nreturn EXIT_SUCCESS;\\n; return 0; }",
+      "#include <libgen.h>\\nint main() {\\nconst char* s = \"/foo/bar/\";\\n(void)::basename(s);\\n; return 0; }",
+      "#include <libgen.h>\\nint main() {\\nconst char* s = \"/foo/bar/\";\\n(void)::dirname(s);\\n; return 0; }",
+      "#include <stdlib.h>\\n#include <unistd.h>\\nint main() {\\nchar *cwd = getcwd(NULL, 0);\\nreturn (cwd != NULL) ? EXIT_SUCCESS : EXIT_FAILURE;\\n; return 0; }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "fail",
+    "real_configure_lines": 22850,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE"
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "line 1389: AC_LANG_COMPILER(C++) (near `C++`)",
+    "ours_error_context": [
+      "AC_LANG_COMPILER(C++)"
+    ],
+    "ours_configure_lines": 2759,
+    "real_configure_lines": 22850,
+    "macros_ours_left_undefined": [
+      "AC_LANG_COMPILER"
+    ]
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool",
+      "uses-subdir-objects",
+      "has-m4-macro-dir",
+      "vendored-aclocal",
+      "uses-ax-archive"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-subdir-objects",
+        "action": "--disable-dependency-tracking",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "9447b588adeb7e3cf6a61ad71d167cbb97eb800ecdfbc906cacd6b4aa4e65035",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
+}

@@ -1,0 +1,148 @@
+{
+  "schema": "automake-rs.build-atlas/v2",
+  "repo": "giltirn/HPCortex",
+  "source": {
+    "url": "https://github.com/giltirn/HPCortex",
+    "git_sha": "b73feb9e32f36ce515028f03a026d1ddcee84f66",
+    "snapshot_utc": "2026-06-27"
+  },
+  "toolchain": {
+    "autoconf_rs": "autoconf-rs 0.1.13",
+    "automake_rs": "automake (GNU automake) UNKNOWN",
+    "m4_rs_core": "0.1.4",
+    "gnu_free": true
+  },
+  "target": {
+    "cc": "cc",
+    "cflags": "-g -O2",
+    "host": "x86_64-pc-linux-gnu"
+  },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "fail"
+    },
+    {
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {},
+  "feature_flags": {
+    "configure_args": []
+  },
+  "dependencies": {
+    "pkg_config": [],
+    "system_libs": [],
+    "headers_needed": [],
+    "missing": []
+  },
+  "quirks": [
+    "libtool",
+    "subdirs"
+  ],
+  "outputs": [],
+  "status": "CONFIGURE_RUN_FAIL",
+  "verified": false,
+  "diagnostic": "checking for c++17 compatibility... configure: error: Could",
+  "deep_expansion": {
+    "configure_lines": 2682,
+    "leaked_macros": [],
+    "heredoc_openers": 22,
+    "heredoc_terminators": 22,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2206: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL",
+      "srcdir",
+      "prefix",
+      "exec_prefix",
+      "CC",
+      "CFLAGS",
+      "CPPFLAGS",
+      "LDFLAGS",
+      "LIBS",
+      "CXX",
+      "CXXFLAGS",
+      "CPP",
+      "DEFS",
+      "LIBOBJS",
+      "INSTALL",
+      "HPCORTEX_CXXFLAGS",
+      "HPCORTEX_CXXLD",
+      "HPCORTEX_CXX",
+      "HPCORTEX_LIBS",
+      "HPCORTEX_LDFLAGS"
+    ],
+    "failed_during_check": "checking for c++17 compatibility... configure: error: Could",
+    "failure_tail": [
+      "checking for c++17 compatibility... configure: error: Could",
+      "not",
+      "compile",
+      "with",
+      "CXXFLAGS"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 5,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "\\nint main() {  ; return 0; }",
+      "#include <mpi.h>",
+      "#include <omp.h>\\nint main() { #pragma omp parallel for\\nfor (int i = 0; i < 10; ++i) {}\\n; return 0; }",
+      "\\n#include<cublas_v2.h>\\nint main() { cublasHandle_t handle; cublasCreate(&handle);\\n; return 0; }\\n",
+      "\\n#include <rocblas/rocblas.h>\\nint main() { rocblas_handle handle;  rocblas_create_handle(&handle);\\n; return 0; }\\n",
+      "\\n#undef VERSION \\\\n#include<oneapi/mkl.hpp>\\nint main() {\\n; return 0; }\\n"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "fail",
+    "real_make": "skipped",
+    "real_configure_lines": 7158,
+    "real_first_error": "configure: error: in `/tmp/atlasx_giltirn__HPCortex/s':",
+    "classification": "BOTH_CONFIGURE_FAIL"
+  },
+  "receipt": {
+    "court_status": "not_standalone",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool",
+      "uses-subdir-objects",
+      "vendored-aclocal"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-subdir-objects",
+        "action": "--disable-dependency-tracking",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "8bbf2a40459c00e0ac6d2d10a28a20b01491f4406335061ccdfc784789be554c",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
+}

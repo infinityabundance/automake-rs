@@ -1,0 +1,182 @@
+{
+  "schema": "automake-rs.build-atlas/v2",
+  "repo": "bbc/vc2hqdecode",
+  "source": {
+    "url": "https://github.com/bbc/vc2hqdecode",
+    "git_sha": "091661e2cf93a545161397df5e26de5e80304253",
+    "snapshot_utc": "2026-06-27"
+  },
+  "toolchain": {
+    "autoconf_rs": "autoconf-rs 0.1.13",
+    "automake_rs": "automake (GNU automake) UNKNOWN",
+    "m4_rs_core": "0.1.4",
+    "gnu_free": true
+  },
+  "target": {
+    "cc": "cc",
+    "cflags": "-g -O2",
+    "host": "x86_64-pc-linux-gnu"
+  },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "fail"
+    },
+    {
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {},
+  "feature_flags": {
+    "configure_args": []
+  },
+  "dependencies": {
+    "pkg_config": [],
+    "system_libs": [],
+    "headers_needed": [],
+    "missing": []
+  },
+  "quirks": [
+    "autoconf-archive-macros",
+    "libtool",
+    "subdirs"
+  ],
+  "outputs": [],
+  "status": "CONFIGURE_RUN_FAIL",
+  "verified": false,
+  "diagnostic": "./configure: line 1985: pthread-config: command not found",
+  "deep_expansion": {
+    "configure_lines": 3769,
+    "leaked_macros": [],
+    "heredoc_openers": 40,
+    "heredoc_terminators": 40,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 2036,
+        "token": "done",
+        "source": "done",
+        "block": [
+          "2032: \tprintf %s \"checking for joinable pthread attribute... \"",
+          "2033: \tattr_name=unknown",
+          "2034: \tfor attr in PTHREAD_CREATE_JOINABLE PTHREAD_CREATE_UNDETACHED; do",
+          "2035: \t    # Try link (obsolete)",
+          "2036: \tdone",
+          "2037:         printf '%s\\n' \"$attr_name\"",
+          "2038:         if test \"$attr_name\" != PTHREAD_CREATE_JOINABLE; then",
+          "2039:             # Define unquoted: PTHREAD_CREATE_JOINABLE"
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 3293: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "CXX",
+      "CXXFLAGS",
+      "PKG_CONFIG",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL",
+      "srcdir",
+      "prefix",
+      "exec_prefix",
+      "CC",
+      "CFLAGS",
+      "CPPFLAGS",
+      "LDFLAGS",
+      "LIBS",
+      "CPP",
+      "DEFS",
+      "LIBOBJS",
+      "INSTALL",
+      "BOOST_SYSTEM_LIB",
+      "ACLOCAL_AMFLAGS",
+      "VC2HQDECODE_LDFLAGS",
+      "vc2hqdecodebindir",
+      "BOOST_PROGRAM_OPTIONS_LIB",
+      "AVX_FLAGS",
+      "host_vendor",
+      "VC2HQDECODE_PKG_DEPS"
+    ],
+    "failed_during_check": "checking whether pthreads work with -mt... no",
+    "failure_tail": [
+      "checking whether pthreads work with -mt... no",
+      "./configure: line 1985: pthread-config: command not found",
+      "./configure: line 1986: pthread-config: command not found",
+      "./configure: line 1986: pthread-config: command not found",
+      "no"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 38,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "#include <$ac_hdr>",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar pthread_join();\\nint main() { return pthread_join(); }",
+      "char shm_open ();\\nint main() { return shm_open (); }",
+      "char clock_gettime();\\nint main() { return clock_gettime(); }",
+      "char numa_available();\\nint main() { return numa_available(); }",
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { size_t x; return 0; }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "ok",
+    "real_configure_lines": 24538,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE"
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "line 2036: done (near `done`)",
+    "ours_error_context": [
+      "done"
+    ],
+    "ours_configure_lines": 3769,
+    "real_configure_lines": 24538,
+    "macros_ours_left_undefined": []
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool",
+      "uses-subdir-objects",
+      "has-m4-macro-dir",
+      "vendored-aclocal",
+      "uses-ax-archive",
+      "uses-pthread-check"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-subdir-objects",
+        "action": "--disable-dependency-tracking",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "9447b588adeb7e3cf6a61ad71d167cbb97eb800ecdfbc906cacd6b4aa4e65035",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
+}

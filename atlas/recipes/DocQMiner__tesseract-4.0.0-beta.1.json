@@ -1,0 +1,176 @@
+{
+  "schema": "automake-rs.build-atlas/v2",
+  "repo": "DocQMiner/tesseract-4.0.0-beta.1",
+  "source": {
+    "url": "https://github.com/DocQMiner/tesseract-4.0.0-beta.1",
+    "git_sha": "c12284c24165b9d4408fc17b297c9cd113ddc923",
+    "snapshot_utc": "2026-06-27"
+  },
+  "toolchain": {
+    "autoconf_rs": "autoconf-rs 0.1.13",
+    "automake_rs": "automake (GNU automake) UNKNOWN",
+    "m4_rs_core": "0.1.4",
+    "gnu_free": true
+  },
+  "target": {
+    "cc": "cc",
+    "cflags": "-g -O2",
+    "host": "x86_64-pc-linux-gnu"
+  },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "fail"
+    },
+    {
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {},
+  "feature_flags": {
+    "configure_args": []
+  },
+  "dependencies": {
+    "pkg_config": [],
+    "system_libs": [],
+    "headers_needed": [],
+    "missing": []
+  },
+  "quirks": [
+    "autoconf-archive-macros",
+    "libtool",
+    "pkg-config",
+    "subdirs"
+  ],
+  "outputs": [],
+  "status": "CONFIGURE_RUN_FAIL",
+  "verified": false,
+  "diagnostic": "./configure: line 1348: AC_LANG_COMPILER_REQUIRE: command not found",
+  "deep_expansion": {
+    "configure_lines": 3269,
+    "leaked_macros": [],
+    "heredoc_openers": 37,
+    "heredoc_terminators": 37,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1364,
+        "token": "$0",
+        "source": "abs_top_srcdir=`AS_DIRNAME($0)`",
+        "block": [
+          "1360: # documentation.",
+          "1361: PACKAGE_YEAR=2016",
+          "1362: PACKAGE_DATE=\"11/11\"",
+          "1363: ",
+          "1364: abs_top_srcdir=`AS_DIRNAME($0)`",
+          "1365: gitrev=\"`git --git-dir=${abs_top_srcdir}/.git --work-tree=${abs_top_srcdir} ",
+          "1366: if test -n \"${gitrev}\" ; then",
+          "1367: \t# Revision: \"${gitrev}\""
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2754: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL",
+      "srcdir",
+      "prefix",
+      "exec_prefix",
+      "CC",
+      "CFLAGS",
+      "CPPFLAGS",
+      "LDFLAGS",
+      "LIBS",
+      "CXX",
+      "CXXFLAGS",
+      "CPP",
+      "DEFS",
+      "LIBOBJS",
+      "INSTALL",
+      "host_cpu",
+      "GENERIC_API_VERSION",
+      "host_os",
+      "AM_LDFLAGS",
+      "GENERIC_MAJOR_VERSION",
+      "OPENCL_LDFLAGS",
+      "host_vendor",
+      "GENERIC_VERSION",
+      "GENERIC_RELEASE"
+    ],
+    "failed_during_check": "checking whether compiler supports C++11... no",
+    "failure_tail": [
+      "checking whether compiler supports C++11... no",
+      "configure: error: Your compiler does not have the necessary c++11 support! Canno"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 25,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "#include <$ac_hdr>",
+      "#include <$ac_hdr>",
+      "\\nint main() {  ; return 0; }",
+      "char clGetPlatformIDs();\\nint main() { return clGetPlatformIDs(); }",
+      "int main() { int x = 1; return *(char*)&x; }",
+      "\\nint main() {\\n#ifndef __clang__\\nnot clang\\n#endif\\n; return 0; }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "fail",
+    "real_make": "skipped",
+    "real_configure_lines": 22289,
+    "real_first_error": "configure: error: Leptonica 1.74 or higher is required. Try to install libleptonica-dev package.",
+    "classification": "BOTH_CONFIGURE_FAIL"
+  },
+  "receipt": {
+    "court_status": "not_standalone",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool",
+      "uses-libtool-old",
+      "uses-pkg-config",
+      "uses-subdir-objects",
+      "uses-maintainer-mode",
+      "vendored-aclocal",
+      "uses-ax-archive"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-subdir-objects",
+        "action": "--disable-dependency-tracking",
+        "verified": false
+      },
+      {
+        "id": "uses-maintainer-mode",
+        "action": "--disable-maintainer-mode",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "8bbf2a40459c00e0ac6d2d10a28a20b01491f4406335061ccdfc784789be554c",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
+}

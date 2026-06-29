@@ -1,0 +1,192 @@
+{
+  "schema": "automake-rs.build-atlas/v2",
+  "repo": "endlessm/flatpak-builder",
+  "source": {
+    "url": "https://github.com/endlessm/flatpak-builder",
+    "git_sha": "0e88f5430ca761ceb6d699c70bd9e57ced3b4b64",
+    "snapshot_utc": "2026-06-27"
+  },
+  "toolchain": {
+    "autoconf_rs": "autoconf-rs 0.1.13",
+    "automake_rs": "automake (GNU automake) UNKNOWN",
+    "m4_rs_core": "0.1.4",
+    "gnu_free": true
+  },
+  "target": {
+    "cc": "cc",
+    "cflags": "-g -O2",
+    "host": "x86_64-pc-linux-gnu"
+  },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "fail"
+    },
+    {
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {},
+  "feature_flags": {
+    "configure_args": []
+  },
+  "dependencies": {
+    "pkg_config": [],
+    "system_libs": [],
+    "headers_needed": [],
+    "missing": []
+  },
+  "quirks": [
+    "autoconf-archive-macros",
+    "libtool",
+    "pkg-config",
+    "gettext",
+    "subdirs"
+  ],
+  "outputs": [],
+  "status": "CONFIGURE_RUN_FAIL",
+  "verified": false,
+  "diagnostic": "./configure: line 1364: LIBGLNX_CONFIGURE: command not found",
+  "deep_expansion": {
+    "configure_lines": 2839,
+    "leaked_macros": [
+      {
+        "name": "AX_COMPARE_VERSION",
+        "line": 1391,
+        "context": "AX_COMPARE_VERSION($FLATPAK_REQS,gt,$FLATPAK_VERSION,"
+      },
+      {
+        "name": "AC_MSG_ERROR",
+        "line": 1392,
+        "context": "AC_MSG_ERROR([You need at least version $FLATPAK_REQS of flatpak, your v"
+      }
+    ],
+    "heredoc_openers": 27,
+    "heredoc_terminators": 27,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1391,
+        "token": "$FLATPAK_REQS,gt,$FLATPA",
+        "source": "AX_COMPARE_VERSION($FLATPAK_REQS,gt,$FLATPAK_VERSION,",
+        "block": [
+          "1387:    printf '%s\\n' \"configure: error: You need flatpak installed\" >&2",
+          "1388: exit 1",
+          "1389: else",
+          "1390:    FLATPAK_VERSION=`$FLATPAK --version | sed 's,.*\\ \\(0-9*\\.0-9*\\.0-9*\\)$,\\1",
+          "1391:    AX_COMPARE_VERSION($FLATPAK_REQS,gt,$FLATPAK_VERSION,",
+          "1392:                       AC_MSG_ERROR([You need at least version $FLATPAK_REQS ",
+          "1393: fi",
+          "1394: "
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2358: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PKG_CONFIG",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL",
+      "srcdir",
+      "prefix",
+      "exec_prefix",
+      "CC",
+      "CFLAGS",
+      "CPPFLAGS",
+      "LDFLAGS",
+      "LIBS",
+      "CXX",
+      "CXXFLAGS",
+      "CPP",
+      "DEFS",
+      "LIBOBJS",
+      "INSTALL",
+      "host_os",
+      "FLATPAK_BUILDER_VERSION",
+      "host_vendor",
+      "LDFLAGS_NOUNDEFINED",
+      "WARN_CFLAGS",
+      "host_alias",
+      "installed_test_metadir",
+      "installed_testdir"
+    ],
+    "failed_during_check": "checking for large file support with -D_FILE_OFFSET_BITS=64... no, enabling _LAR",
+    "failure_tail": [
+      "checking for large file support with -D_FILE_OFFSET_BITS=64... no, enabling _LAR",
+      "./configure: line 1364: LIBGLNX_CONFIGURE: command not found",
+      "./configure: line 1391: syntax error near unexpected token `$FLATPAK_REQS,gt,$FL",
+      "./configure: line 1391: `   AX_COMPARE_VERSION($FLATPAK_REQS,gt,$FLATPAK_VERSION"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 8,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "#include <sys/types.h>\\nint main() { return sizeof(off_t) >= 8 ? 0 : 1; }",
+      "int main(void) { return 0; }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func();\\nint main() { return $ac_func(); }",
+      "#include <sys/xattr.h>",
+      "#include <sys/capability.h>",
+      "char elf_begin();\\nint main() { return elf_begin(); }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "fail",
+    "real_configure": "skipped",
+    "real_make": "skipped",
+    "real_configure_lines": 0,
+    "real_first_error": "automake: error: cannot open < libglnx/Makefile-libglnx.am.inc: No such file or directory",
+    "classification": "OURS_BETTER"
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool",
+      "uses-pkg-config",
+      "uses-gettext",
+      "uses-subdir-objects",
+      "uses-maintainer-mode",
+      "has-m4-macro-dir",
+      "has-acinclude",
+      "vendored-aclocal",
+      "uses-ax-archive"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-subdir-objects",
+        "action": "--disable-dependency-tracking",
+        "verified": false
+      },
+      {
+        "id": "uses-maintainer-mode",
+        "action": "--disable-maintainer-mode",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "54f24adc0e9437eb6feb656d0d2784f64adf7bfd67fa6be75bcdfaf717f80de5",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
+}

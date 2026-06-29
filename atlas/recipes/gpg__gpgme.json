@@ -1,0 +1,161 @@
+{
+  "schema": "automake-rs.build-atlas/v2",
+  "repo": "gpg/gpgme",
+  "source": {
+    "url": "https://github.com/gpg/gpgme",
+    "git_sha": "d4c6f065cbd5d38ca5f3e7815f36cb04896f4ca5",
+    "snapshot_utc": "2026-06-27"
+  },
+  "toolchain": {
+    "autoconf_rs": "autoconf-rs 0.1.13",
+    "automake_rs": "automake (GNU automake) UNKNOWN",
+    "m4_rs_core": "0.1.4",
+    "gnu_free": true
+  },
+  "target": {
+    "cc": "cc",
+    "cflags": "-g -O2",
+    "host": "x86_64-pc-linux-gnu"
+  },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "fail"
+    },
+    {
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {},
+  "feature_flags": {
+    "configure_args": []
+  },
+  "dependencies": {
+    "pkg_config": [],
+    "system_libs": [],
+    "headers_needed": [],
+    "missing": []
+  },
+  "quirks": [
+    "libtool",
+    "subdirs"
+  ],
+  "outputs": [],
+  "status": "CONFIGURE_RUN_FAIL",
+  "verified": false,
+  "diagnostic": "./configure: line 1848: syntax error near unexpected token `fi'",
+  "deep_expansion": {
+    "configure_lines": 2833,
+    "leaked_macros": [
+      {
+        "name": "AM_SUBST_NOTMAKE",
+        "line": 2050,
+        "context": "AM_SUBST_NOTMAKE(INSERT__TYPEDEFS_FOR_GPGME_H)"
+      },
+      {
+        "name": "AM_SUBST_NOTMAKE",
+        "line": 2052,
+        "context": "AM_SUBST_NOTMAKE(API__OFF_T)"
+      },
+      {
+        "name": "AM_SUBST_NOTMAKE",
+        "line": 2054,
+        "context": "AM_SUBST_NOTMAKE(API__SSIZE_T)"
+      },
+      {
+        "name": "AC_CHECK_DECLS_ONCE",
+        "line": 2175,
+        "context": "AC_CHECK_DECLS_ONCE([ttyname_r])"
+      }
+    ],
+    "heredoc_openers": 29,
+    "heredoc_terminators": 29,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1848,
+        "token": "fi",
+        "source": "fi",
+        "block": [
+          "1844: # Check --enable-fixed-path option",
+          "1845: ",
+          "1846: if test x$fixed_search_path != x ; then",
+          "1847:   # Define unquoted: FIXED_SEARCH_PATH",
+          "1848: fi",
+          "1849: ",
+          "1850: # Note: You need to declare all possible languages also in",
+          "1851: #       lang/Makefile.am's DIST_SUBDIRS."
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL"
+    ],
+    "failed_during_check": "checking for cc for build... cc",
+    "failure_tail": [
+      "checking for cc for build... cc",
+      "./configure: line 1848: syntax error near unexpected token `fi'",
+      "./configure: line 1848: `fi'"
+    ],
+    "conftest_corruption": [
+      "line 2206: # <unistd.h>]] (include eaten)"
+    ],
+    "conftest_directives_intact": 37,
+    "conftest_directives_mangled": 1,
+    "conftest_programs": [
+      "\\nint main (void) { return 0; }\\n",
+      "\\n#include <glib.h>\\n#include <stdio.h>\\n#include <stdlib.h>\\n\\nint\\nmain ()\\n{\\nint major, minor, micro;\\nchar *tmp_version;\\n\\nsystem (\"touch conf.glibtest\");",
+      "#include <glib.h>\\n#include <stdio.h>\\n\\nint main() {  return ((glib_major_version) || (glib_minor_version) || (glib_",
+      "#include <$ac_hdr>",
+      "inline int foo() { return 0; }\\nint main() { return foo(); }",
+      "#include <sys/types.h>\\n#include <stdint.h>\\n#include <stddef.h>\\nint main() { static int test_array[1 - 2 * !((long int) (sizeof (unsigned in"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "fail",
+    "real_make": "skipped",
+    "real_configure_lines": 20245,
+    "real_first_error": "configure: error:",
+    "classification": "BOTH_CONFIGURE_FAIL"
+  },
+  "receipt": {
+    "court_status": "not_standalone",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool",
+      "uses-maintainer-mode",
+      "has-m4-macro-dir",
+      "has-acinclude",
+      "vendored-aclocal"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-maintainer-mode",
+        "action": "--disable-maintainer-mode",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "8bbf2a40459c00e0ac6d2d10a28a20b01491f4406335061ccdfc784789be554c",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
+}

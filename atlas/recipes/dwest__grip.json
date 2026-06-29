@@ -1,0 +1,154 @@
+{
+  "schema": "automake-rs.build-atlas/v2",
+  "repo": "dwest/grip",
+  "source": {
+    "url": "https://github.com/dwest/grip",
+    "git_sha": "382def59b903fcd3a12b7e3b1bc012bf8812b960",
+    "snapshot_utc": "2026-06-27"
+  },
+  "toolchain": {
+    "autoconf_rs": "autoconf-rs 0.1.13",
+    "automake_rs": "automake (GNU automake) UNKNOWN",
+    "m4_rs_core": "0.1.4",
+    "gnu_free": true
+  },
+  "target": {
+    "cc": "cc",
+    "cflags": "-g -O2",
+    "host": "x86_64-pc-linux-gnu"
+  },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "ok"
+    },
+    {
+      "step": "make",
+      "tool": "make",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {
+    "HAVE_ID3V2": 1
+  },
+  "feature_flags": {
+    "configure_args": []
+  },
+  "dependencies": {
+    "pkg_config": [
+      "checking for libgnomeui-2.0 >= 2.2.0... no"
+    ],
+    "system_libs": [
+      "-lcurl"
+    ],
+    "headers_needed": [],
+    "missing": []
+  },
+  "quirks": [
+    "pkg-config",
+    "subdirs",
+    "LIBS=-lcurl"
+  ],
+  "outputs": [],
+  "status": "MAKE_FAIL",
+  "verified": false,
+  "diagnostic": "./configure: line 1488: AM_GLIB_GNU_GETTEXT: command not found",
+  "deep_expansion": {
+    "configure_lines": 2645,
+    "leaked_macros": [],
+    "heredoc_openers": 25,
+    "heredoc_terminators": 25,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2169: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL",
+      "srcdir",
+      "prefix",
+      "exec_prefix",
+      "CC",
+      "CFLAGS",
+      "CPPFLAGS",
+      "LDFLAGS",
+      "LIBS",
+      "CXX",
+      "CXXFLAGS",
+      "CPP",
+      "DEFS",
+      "LIBOBJS",
+      "INSTALL",
+      "ID3_LIBS",
+      "GETTEXT_LOCATION",
+      "CDPAR_LIBS",
+      "GETTEXT_PACKAGE"
+    ],
+    "failed_during_check": "checking for curl_global_init in -lcurl... yes",
+    "failure_tail": [
+      "checking for curl_global_init in -lcurl... yes",
+      "./configure: line 1488: AM_GLIB_GNU_GETTEXT: command not found",
+      "./configure: line 1579: test: =: unary operator expected",
+      "disabling gettext locations",
+      "configure: creating Makefile"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 6,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "#include <$ac_hdr>",
+      "#include <$ac_hdr>",
+      "#include <$ac_hdr>",
+      "#include <curl/curl.h>",
+      "char curl_global_init();\\nint main() { return curl_global_init(); }",
+      "#include <$ac_hdr>"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "fail",
+    "real_make": "skipped",
+    "real_configure_lines": 21035,
+    "real_first_error": "configure: error: Package requirements (libgnomeui-2.0 >= 2.2.0) were not met:",
+    "classification": "OURS_BETTER"
+  },
+  "receipt": {
+    "court_status": "partial",
+    "probe_trace": [
+      {
+        "name": "HAVE_ID3V2",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      }
+    ],
+    "quirks_matched": [
+      "uses-pkg-config",
+      "uses-maintainer-mode",
+      "vendored-aclocal"
+    ],
+    "receipt_hash": "3c7486b8330b71c4d2538b265bdfbe37d0693974dc6537641a2f4173454179d6",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
+}

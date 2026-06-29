@@ -1,0 +1,189 @@
+{
+  "schema": "automake-rs.build-atlas/v2",
+  "repo": "GNOME/metacity",
+  "source": {
+    "url": "https://github.com/GNOME/metacity",
+    "git_sha": "1e2c1a48b57b21a12f89189eb652ca5cf61d250b",
+    "snapshot_utc": "2026-06-27"
+  },
+  "toolchain": {
+    "autoconf_rs": "autoconf-rs 0.1.13",
+    "automake_rs": "automake (GNU automake) UNKNOWN",
+    "m4_rs_core": "0.1.4",
+    "gnu_free": true
+  },
+  "target": {
+    "cc": "cc",
+    "cflags": "-g -O2",
+    "host": "x86_64-pc-linux-gnu"
+  },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "fail"
+    },
+    {
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {},
+  "feature_flags": {
+    "configure_args": []
+  },
+  "dependencies": {
+    "pkg_config": [],
+    "system_libs": [],
+    "headers_needed": [],
+    "missing": []
+  },
+  "quirks": [
+    "autoconf-archive-macros",
+    "libtool",
+    "pkg-config",
+    "gettext",
+    "subdirs"
+  ],
+  "outputs": [],
+  "status": "CONFIGURE_RUN_FAIL",
+  "verified": false,
+  "diagnostic": "./configure: line 1349: syntax error near unexpected token `git-directory'",
+  "deep_expansion": {
+    "configure_lines": 3100,
+    "leaked_macros": [
+      {
+        "name": "AX_IS_RELEASE",
+        "line": 1349,
+        "context": "AX_IS_RELEASE(git-directory)"
+      },
+      {
+        "name": "AX_CHECK_ENABLE_DEBUG",
+        "line": 1352,
+        "context": "AX_CHECK_ENABLE_DEBUG(yes)"
+      },
+      {
+        "name": "AX_COMPILER_FLAGS",
+        "line": 1355,
+        "context": "AX_COMPILER_FLAGS(WARN_CFLAGS, WARN_LDFLAGS)"
+      }
+    ],
+    "heredoc_openers": 35,
+    "heredoc_terminators": 35,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1349,
+        "token": "git-directory",
+        "source": "AX_IS_RELEASE(git-directory)",
+        "block": [
+          "1345: ac_macro_dir=m4",
+          "1346: ac_aux_dir=build-aux",
+          "1347: ",
+          "1348: ",
+          "1349: AX_IS_RELEASE(git-directory)",
+          "1350: ",
+          "1351: ",
+          "1352: AX_CHECK_ENABLE_DEBUG(yes)"
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2600: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL",
+      "srcdir",
+      "prefix",
+      "exec_prefix",
+      "CC",
+      "CFLAGS",
+      "CPPFLAGS",
+      "LDFLAGS",
+      "LIBS",
+      "CXX",
+      "CXXFLAGS",
+      "CPP",
+      "DEFS",
+      "LIBOBJS",
+      "INSTALL",
+      "SYSTEMD_USER_UNIT_DIR",
+      "LT_VERSION_INFO",
+      "ACLOCAL_AMFLAGS",
+      "GNOME_KEYBINDINGS_KEYSDIR",
+      "GETTEXT_PACKAGE"
+    ],
+    "failed_during_check": "",
+    "failure_tail": [
+      "./configure: line 1349: syntax error near unexpected token `git-directory'",
+      "./configure: line 1349: `AX_IS_RELEASE(git-directory)'"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 26,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "#include <sys/types.h>\\n#include <stdint.h>\\n#include <stddef.h>\\nint main() { static int 1 - 2 * !((long int) (sizeof (char)) <= 0)test_array",
+      "#include <sys/types.h>\\n#include <stdint.h>\\n#include <stddef.h>\\nint main() { static int 1 - 2 * !((long int) (sizeof (short)) <= 0)test_arra",
+      "#include <sys/types.h>\\n#include <stdint.h>\\n#include <stddef.h>\\nint main() { static int 1 - 2 * !((long int) (sizeof (long)) <= 0)test_array",
+      "#include <sys/types.h>\\n#include <stdint.h>\\n#include <stddef.h>\\nint main() { static int 1 - 2 * !((long int) (sizeof (int)) <= 0)test_array;",
+      "#include <sys/types.h>\\n#include <stdint.h>\\n#include <stddef.h>\\nint main() { static int 1 - 2 * !((long int) (sizeof (void *)) <= 0)test_arr",
+      "#include <sys/types.h>\\n#include <stdint.h>\\n#include <stddef.h>\\nint main() { static int 1 - 2 * !((long int) (sizeof (long long)) <= 0)test_"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "fail",
+    "real_make": "skipped",
+    "real_configure_lines": 24148,
+    "real_first_error": "configure: error: Package requirements (gtk+-3.0 >= 3.24.37 gio-2.0 >= 2.67.3 pango >= 1.2.0 gsettings-desktop-schemas >",
+    "classification": "BOTH_CONFIGURE_FAIL"
+  },
+  "receipt": {
+    "court_status": "not_standalone",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool",
+      "uses-pkg-config",
+      "uses-gettext",
+      "uses-subdir-objects",
+      "uses-maintainer-mode",
+      "vendored-aclocal",
+      "uses-ax-archive"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-subdir-objects",
+        "action": "--disable-dependency-tracking",
+        "verified": false
+      },
+      {
+        "id": "uses-maintainer-mode",
+        "action": "--disable-maintainer-mode",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "8bbf2a40459c00e0ac6d2d10a28a20b01491f4406335061ccdfc784789be554c",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
+}

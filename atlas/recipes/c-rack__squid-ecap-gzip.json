@@ -1,0 +1,170 @@
+{
+  "schema": "automake-rs.build-atlas/v2",
+  "repo": "c-rack/squid-ecap-gzip",
+  "source": {
+    "url": "https://github.com/c-rack/squid-ecap-gzip",
+    "git_sha": "2e51a85b5f42f2f0c51773e1a506e7302d260a36",
+    "snapshot_utc": "2026-06-27"
+  },
+  "toolchain": {
+    "autoconf_rs": "autoconf-rs 0.1.13",
+    "automake_rs": "automake (GNU automake) UNKNOWN",
+    "m4_rs_core": "0.1.4",
+    "gnu_free": true
+  },
+  "target": {
+    "cc": "cc",
+    "cflags": "-g -O2",
+    "host": "x86_64-pc-linux-gnu"
+  },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "fail"
+    },
+    {
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {},
+  "feature_flags": {
+    "configure_args": []
+  },
+  "dependencies": {
+    "pkg_config": [],
+    "system_libs": [],
+    "headers_needed": [],
+    "missing": []
+  },
+  "quirks": [
+    "autoconf-archive-macros",
+    "libtool",
+    "subdirs"
+  ],
+  "outputs": [],
+  "status": "CONFIGURE_RUN_FAIL",
+  "verified": false,
+  "diagnostic": "./configure: line 1351: syntax error near unexpected token `CXX'",
+  "deep_expansion": {
+    "configure_lines": 2691,
+    "leaked_macros": [
+      {
+        "name": "AC_LIBTOOL_TAGS",
+        "line": 1351,
+        "context": "AC_LIBTOOL_TAGS(CXX)"
+      }
+    ],
+    "heredoc_openers": 21,
+    "heredoc_terminators": 22,
+    "heredoc_imbalance": 1,
+    "syntax_errors": [
+      {
+        "line": 1351,
+        "token": "CXX",
+        "source": "AC_LIBTOOL_TAGS(CXX)",
+        "block": [
+          "1347: ",
+          "1348: ",
+          "1349: ",
+          "1350: ",
+          "1351: AC_LIBTOOL_TAGS(CXX)",
+          "1352: _acrs_write_libtool",
+          "1353: ",
+          "1354: "
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2215: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL",
+      "srcdir",
+      "prefix",
+      "exec_prefix",
+      "CC",
+      "CFLAGS",
+      "CPPFLAGS",
+      "LDFLAGS",
+      "LIBS",
+      "CXX",
+      "CXXFLAGS",
+      "CPP",
+      "DEFS",
+      "LIBOBJS",
+      "INSTALL",
+      "host_vendor",
+      "host_cpu",
+      "host_alias",
+      "host_os",
+      "std_include",
+      "AR_R"
+    ],
+    "failed_during_check": "",
+    "failure_tail": [
+      "./configure: line 1351: syntax error near unexpected token `CXX'",
+      "./configure: line 1351: `AC_LIBTOOL_TAGS(CXX)'"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 3,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "#include <iostream.h>",
+      "char main();\\nint main() { return main(); }",
+      "#include <$ac_hdr>",
+      "#include <stdbool.h>",
+      "int main() { const int x = 1; return x-1; }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "fail",
+    "real_configure": "skipped",
+    "real_make": "skipped",
+    "real_configure_lines": 0,
+    "real_first_error": "./Makefile.am: error: required file './AUTHORS' not found",
+    "classification": "OURS_BETTER"
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool-old",
+      "uses-maintainer-mode",
+      "has-acinclude",
+      "vendored-aclocal",
+      "uses-ax-archive"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-maintainer-mode",
+        "action": "--disable-maintainer-mode",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "54f24adc0e9437eb6feb656d0d2784f64adf7bfd67fa6be75bcdfaf717f80de5",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
+}

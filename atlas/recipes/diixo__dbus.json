@@ -1,0 +1,202 @@
+{
+  "schema": "automake-rs.build-atlas/v2",
+  "repo": "diixo/dbus",
+  "source": {
+    "url": "https://github.com/diixo/dbus",
+    "git_sha": "9bd54e1ac96e9ba918e3251b61662e23a7b04d6c",
+    "snapshot_utc": "2026-06-27"
+  },
+  "toolchain": {
+    "autoconf_rs": "autoconf-rs 0.1.13",
+    "automake_rs": "automake (GNU automake) UNKNOWN",
+    "m4_rs_core": "0.1.4",
+    "gnu_free": true
+  },
+  "target": {
+    "cc": "cc",
+    "cflags": "-g -O2",
+    "host": "x86_64-pc-linux-gnu"
+  },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "fail"
+    },
+    {
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {},
+  "feature_flags": {
+    "configure_args": []
+  },
+  "dependencies": {
+    "pkg_config": [],
+    "system_libs": [],
+    "headers_needed": [],
+    "missing": []
+  },
+  "quirks": [
+    "autoconf-archive-macros",
+    "libtool",
+    "pkg-config",
+    "subdirs"
+  ],
+  "outputs": [],
+  "status": "CONFIGURE_RUN_FAIL",
+  "verified": false,
+  "diagnostic": "./configure: line 1450: syntax error near unexpected token `$enable_developer'",
+  "deep_expansion": {
+    "configure_lines": 4646,
+    "leaked_macros": [
+      {
+        "name": "AX_CHECK_ENABLE_DEBUG",
+        "line": 1450,
+        "context": "AX_CHECK_ENABLE_DEBUG($enable_developer)"
+      },
+      {
+        "name": "AX_CHECK_GNU_MAKE",
+        "line": 1929,
+        "context": "AX_CHECK_GNU_MAKE(,AC_MSG_ERROR([not using GNU make that is needed for c"
+      },
+      {
+        "name": "AC_CHECK_FUNCS_ONCE",
+        "line": 2522,
+        "context": "AC_CHECK_FUNCS_ONCE(prctl raise)"
+      },
+      {
+        "name": "AX_COMPILER_FLAGS",
+        "line": 3766,
+        "context": "AX_COMPILER_FLAGS(, , $disable_developer)"
+      },
+      {
+        "name": "AX_COMPILER_FLAGS_CFLAGS",
+        "line": 3768,
+        "context": "AX_COMPILER_FLAGS_CFLAGS(EXTRA_CFLAGS,"
+      },
+      {
+        "name": "AX_COMPILER_FLAGS_CXXFLAGS",
+        "line": 3775,
+        "context": "AX_COMPILER_FLAGS_CXXFLAGS(EXTRA_CXXFLAGS,"
+      },
+      {
+        "name": "AX_COMPILER_FLAGS_LDFLAGS",
+        "line": 3781,
+        "context": "AX_COMPILER_FLAGS_LDFLAGS(EXTRA_LDFLAGS,"
+      }
+    ],
+    "heredoc_openers": 74,
+    "heredoc_terminators": 74,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1450,
+        "token": "$enable_developer",
+        "source": "AX_CHECK_ENABLE_DEBUG($enable_developer)",
+        "block": [
+          "1446: ",
+          "1447: # The debugging check must run before the compiler tests. Other command-line",
+          "1448: # options also use it to set their defaults. We disable debugging by default",
+          "1449: # except for developer builds.",
+          "1450: AX_CHECK_ENABLE_DEBUG($enable_developer)",
+          "1451: ",
+          "1452: # Check for C compiler",
+          "1453: ac_ct_CC=${CC-cc}"
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PKG_CONFIG"
+    ],
+    "failed_during_check": "",
+    "failure_tail": [
+      "./configure: line 1450: syntax error near unexpected token `$enable_developer'",
+      "./configure: line 1450: `AX_CHECK_ENABLE_DEBUG($enable_developer)'"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 98,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "#include <sys/types.h>\\nint main() { return sizeof(off_t) >= 8 ? 0 : 1; }",
+      "inline int foo() { return 0; }\\nint main() { return foo(); }",
+      "\\nint main() {  ; return 0; }",
+      "extern __attribute__((__visibility__(\"hidden\"))) int hiddenvar;\\nextern __attribute__((__visibility__(\"default\"))) int exportedvar;\\nextern __attribute__((__visibility__(\"hidden\"))) int hiddenfunc (void);\\nextern __attribute__((__visibility__(\"default\"))) int exportedfunc (void);\\nvoid dummyfunc (void) {}\\n\\nint main() {  ; return 0; }",
+      "#include <sys/types.h>\\n#include <stdint.h>\\n#include <stddef.h>\\nint main() { static int 1 - 2 * !((long int) (sizeof (char)) <= 0)test_array",
+      "#include <sys/types.h>\\n#include <stdint.h>\\n#include <stddef.h>\\nint main() { static int 1 - 2 * !((long int) (sizeof (short)) <= 0)test_arra"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "ok",
+    "real_configure_lines": 33422,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE"
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "line 1450: AX_CHECK_ENABLE_DEBUG($enable_developer) (near `$enable_developer`)",
+    "ours_error_context": [
+      "AX_CHECK_ENABLE_DEBUG($enable_developer)"
+    ],
+    "ours_configure_lines": 4646,
+    "real_configure_lines": 33422,
+    "macros_ours_left_undefined": [
+      "AC_CHECK_FUNCS_ONCE",
+      "AX_CHECK_ENABLE_DEBUG",
+      "AX_CHECK_GNU_MAKE",
+      "AX_COMPILER_FLAGS",
+      "AX_COMPILER_FLAGS_CFLAGS",
+      "AX_COMPILER_FLAGS_CXXFLAGS",
+      "AX_COMPILER_FLAGS_LDFLAGS"
+    ]
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool",
+      "uses-pkg-config",
+      "uses-python",
+      "uses-subdir-objects",
+      "uses-maintainer-mode",
+      "has-m4-macro-dir",
+      "vendored-aclocal",
+      "uses-ax-archive"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-subdir-objects",
+        "action": "--disable-dependency-tracking",
+        "verified": false
+      },
+      {
+        "id": "uses-maintainer-mode",
+        "action": "--disable-maintainer-mode",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "9447b588adeb7e3cf6a61ad71d167cbb97eb800ecdfbc906cacd6b4aa4e65035",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
+}

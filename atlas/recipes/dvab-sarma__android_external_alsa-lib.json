@@ -1,0 +1,177 @@
+{
+  "schema": "automake-rs.build-atlas/v2",
+  "repo": "dvab-sarma/android_external_alsa-lib",
+  "source": {
+    "url": "https://github.com/dvab-sarma/android_external_alsa-lib",
+    "git_sha": "72b7c25859b55b6623d24f7628fb866421340fef",
+    "snapshot_utc": "2026-06-27"
+  },
+  "toolchain": {
+    "autoconf_rs": "autoconf-rs 0.1.13",
+    "automake_rs": "automake (GNU automake) UNKNOWN",
+    "m4_rs_core": "0.1.4",
+    "gnu_free": true
+  },
+  "target": {
+    "cc": "cc",
+    "cflags": "-g -O2",
+    "host": "x86_64-pc-linux-gnu"
+  },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "fail"
+    },
+    {
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {},
+  "feature_flags": {
+    "configure_args": []
+  },
+  "dependencies": {
+    "pkg_config": [],
+    "system_libs": [],
+    "headers_needed": [],
+    "missing": []
+  },
+  "quirks": [
+    "autoconf-archive-macros",
+    "subdirs"
+  ],
+  "outputs": [],
+  "status": "CONFIGURE_RUN_FAIL",
+  "verified": false,
+  "diagnostic": "./configure: line 2448: syntax error near unexpected token `[_$as_cr_alnum]*_cv_[_$as_cr_alnum]*\\\\'",
+  "deep_expansion": {
+    "configure_lines": 3437,
+    "leaked_macros": [],
+    "heredoc_openers": 32,
+    "heredoc_terminators": 32,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 2448,
+        "token": "[_$as_cr_alnum]*_cv_[_$a",
+        "source": "s/^\\\\([_$as_cr_alnum]*_cv_[_$as_cr_alnum]*\\\\)=\\\\(.*\\\\)/\\\\1='\\\\2'/p\"",
+        "block": [
+          "2444:       # 'set' does not quote correctly, so add quotes: double-quote",
+          "2445:       # substitution turns \\\\\\\\ into \\\\, and sed turns \\\\ into \\.",
+          "2446:       sed -n \\",
+          "2447: \t\"s/'/'\\\\\\\\''/g;",
+          "2448: \t  s/^\\\\([_$as_cr_alnum]*_cv_[_$as_cr_alnum]*\\\\)=\\\\(.*\\\\)/\\\\1='\\\\2'/p\"",
+          "2449:       ;; #(",
+          "2450:     *)",
+          "2451:       # 'set' quotes correctly as required by POSIX, so do not add quotes."
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2913: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL",
+      "srcdir",
+      "prefix",
+      "exec_prefix",
+      "CC",
+      "CFLAGS",
+      "CPPFLAGS",
+      "LDFLAGS",
+      "LIBS",
+      "CXX",
+      "CXXFLAGS",
+      "CPP",
+      "DEFS",
+      "LIBOBJS",
+      "INSTALL",
+      "SYMBOL_PREFIX",
+      "host_alias",
+      "PYTHON_INCLUDES",
+      "host_os",
+      "ALSA_PLUGIN_DIR",
+      "LIBTOOL_VERSION_INFO",
+      "LDFLAGS_NOUNDEFINED",
+      "ALSA_DEPLIBS",
+      "host_cpu"
+    ],
+    "failed_during_check": "",
+    "failure_tail": [
+      "./configure: line 2448: syntax error near unexpected token `[_$as_cr_alnum]*_cv_",
+      "./configure: line 2448: `\t  s/^\\\\([_$as_cr_alnum]*_cv_[_$as_cr_alnum]*\\\\)=\\\\(.*\\"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 35,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "int main() { return 1; }",
+      "int main() { const int x = 1; return x-1; }",
+      "inline int foo() { return 0; }\\nint main() { return foo(); }",
+      "#include <time.h>",
+      "\\nvoid _test_attribute_symver(void);\\n__attribute__((__symver__(\"sym@VER_1.2.3\"))) void _test_attribute_symver(voi\\n\\nint main() {\\n_test_attribute_symver()\\n\\n; return 0; }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func();\\nint main() { return $ac_func(); }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "ok",
+    "real_configure_lines": 18031,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE"
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "line 2448: s/^\\\\([_$as_cr_alnum]*_cv_[_$as_cr_alnum]*\\\\)=\\\\(.*\\\\)/\\\\1='\\\\2'/p\" (near `[_$as_cr_alnum]*_cv_[_$a`)",
+    "ours_error_context": [
+      "s/^\\\\([_$as_cr_alnum]*_cv_[_$as_cr_alnum]*\\\\)=\\\\(.*\\\\)/\\\\1='\\\\2'/p\""
+    ],
+    "ours_configure_lines": 3437,
+    "real_configure_lines": 18031,
+    "macros_ours_left_undefined": []
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-maintainer-mode",
+      "has-m4-macro-dir",
+      "has-acinclude",
+      "vendored-aclocal",
+      "uses-ax-archive"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-maintainer-mode",
+        "action": "--disable-maintainer-mode",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "9447b588adeb7e3cf6a61ad71d167cbb97eb800ecdfbc906cacd6b4aa4e65035",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
+}

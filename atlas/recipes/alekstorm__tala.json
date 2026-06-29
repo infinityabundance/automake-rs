@@ -1,0 +1,125 @@
+{
+  "schema": "automake-rs.build-atlas/v2",
+  "repo": "alekstorm/tala",
+  "source": {
+    "url": "https://github.com/alekstorm/tala",
+    "git_sha": "f4f6969b61e49589cde0f14a103768a40742459b",
+    "snapshot_utc": "2026-06-27"
+  },
+  "toolchain": {
+    "autoconf_rs": "autoconf-rs 0.1.13",
+    "automake_rs": "automake (GNU automake) UNKNOWN",
+    "m4_rs_core": "0.1.4",
+    "gnu_free": true
+  },
+  "target": {
+    "cc": "cc",
+    "cflags": "-g -O2",
+    "host": "x86_64-pc-linux-gnu"
+  },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "ok"
+    },
+    {
+      "step": "make",
+      "tool": "make",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {},
+  "feature_flags": {
+    "configure_args": []
+  },
+  "dependencies": {
+    "pkg_config": [],
+    "system_libs": [
+      "-lglpk"
+    ],
+    "headers_needed": [],
+    "missing": []
+  },
+  "quirks": [
+    "libtool",
+    "pkg-config",
+    "subdirs",
+    "LIBS=-lglpk"
+  ],
+  "outputs": [],
+  "status": "MAKE_FAIL",
+  "verified": false,
+  "diagnostic": "",
+  "deep_expansion": {
+    "configure_lines": 2884,
+    "leaked_macros": [],
+    "heredoc_openers": 45,
+    "heredoc_terminators": 45,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2408: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT"
+    ],
+    "failed_during_check": "checking for utime... yes",
+    "failure_tail": [
+      "checking for utime... yes",
+      "configure: creating Makefile",
+      "configure: creating src/Makefile",
+      "configure: creating src/artsynth/Makefile",
+      "configure: creating src/ola/Makefile"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 44,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "#include <${GLPK_INCLUDE}/glpk.h>",
+      "char glp_create_prob();\\nint main() { return glp_create_prob(); }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar glp_print_ranges();\\nint main() { return glp_print_ranges(); }",
+      "#include <$ac_hdr>",
+      "#include <sys/wait.h>",
+      "#include <$ac_hdr>"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "fail",
+    "real_make": "skipped",
+    "real_configure_lines": 22548,
+    "real_first_error": "configure: error: Could not find glpk.h in /usr/local/include:",
+    "classification": "OURS_BETTER"
+  },
+  "receipt": {
+    "court_status": "partial",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool-old",
+      "uses-pkg-config",
+      "vendored-aclocal"
+    ],
+    "receipt_hash": "761a6340d4f740e7600966017a0060bea5387578b7597a55d463a6c332adbe85",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
+}

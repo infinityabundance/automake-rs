@@ -1,0 +1,142 @@
+{
+  "schema": "automake-rs.build-atlas/v2",
+  "repo": "cdevelop/libquickmail",
+  "source": {
+    "url": "https://github.com/cdevelop/libquickmail",
+    "git_sha": "1597df5e6757a7fc00ef83a54d6039feaa44109b",
+    "snapshot_utc": "2026-06-27"
+  },
+  "toolchain": {
+    "autoconf_rs": "autoconf-rs 0.1.13",
+    "automake_rs": "automake (GNU automake) UNKNOWN",
+    "m4_rs_core": "0.1.4",
+    "gnu_free": true
+  },
+  "target": {
+    "cc": "cc",
+    "cflags": "-g -O2",
+    "host": "x86_64-pc-linux-gnu"
+  },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {},
+  "feature_flags": {
+    "configure_args": []
+  },
+  "dependencies": {
+    "pkg_config": [],
+    "system_libs": [],
+    "headers_needed": [],
+    "missing": []
+  },
+  "quirks": [
+    "libtool",
+    "pkg-config"
+  ],
+  "outputs": [],
+  "status": "CONFIGURE_RUN_FAIL",
+  "verified": false,
+  "diagnostic": "./configure: line 1382: syntax error near unexpected token `curl'",
+  "deep_expansion": {
+    "configure_lines": 1478,
+    "leaked_macros": [
+      {
+        "name": "AC_HAVE_LIBRARY",
+        "line": 1382,
+        "context": "AC_HAVE_LIBRARY(curl)"
+      }
+    ],
+    "heredoc_openers": 9,
+    "heredoc_terminators": 9,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1382,
+        "token": "curl",
+        "source": "AC_HAVE_LIBRARY(curl)",
+        "block": [
+          "1378:   fi",
+          "1379: done",
+          "1380: ",
+          "1381: # Checks for libraries.",
+          "1382: AC_HAVE_LIBRARY(curl)",
+          "1383: #printf %s \"checking for libcurl >= 7.20.0... \"",
+          "1384: if pkg-config --exists \"libcurl >= 7.20.0\" 2>/dev/null; then",
+          "1385:   printf '%s\\n' \"yes\""
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL"
+    ],
+    "failed_during_check": "",
+    "failure_tail": [
+      "./configure: line 1382: syntax error near unexpected token `curl'",
+      "./configure: line 1382: `AC_HAVE_LIBRARY(curl)'"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 9,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "#include <$ac_hdr>",
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { size_t x; return 0; }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar malloc();\\nint main() { return malloc(); }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar realloc();\\nint main() { return realloc(); }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func();\\nint main() { return $ac_func(); }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "ok",
+    "real_configure_lines": 16444,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE"
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "line 1382: AC_HAVE_LIBRARY(curl) (near `curl`)",
+    "ours_error_context": [
+      "AC_HAVE_LIBRARY(curl)"
+    ],
+    "ours_configure_lines": 1478,
+    "real_configure_lines": 16444,
+    "macros_ours_left_undefined": [
+      "AC_HAVE_LIBRARY"
+    ]
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool",
+      "uses-libtool-old",
+      "uses-pkg-config",
+      "has-m4-macro-dir",
+      "vendored-aclocal"
+    ],
+    "receipt_hash": "9447b588adeb7e3cf6a61ad71d167cbb97eb800ecdfbc906cacd6b4aa4e65035",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
+}

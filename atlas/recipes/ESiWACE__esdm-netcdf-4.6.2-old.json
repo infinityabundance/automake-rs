@@ -1,0 +1,154 @@
+{
+  "schema": "automake-rs.build-atlas/v2",
+  "repo": "ESiWACE/esdm-netcdf-4.6.2-old",
+  "source": {
+    "url": "https://github.com/ESiWACE/esdm-netcdf-4.6.2-old",
+    "git_sha": "02662d7864176df6b610b0eed23d6ac5419ee53d",
+    "snapshot_utc": "2026-06-27"
+  },
+  "toolchain": {
+    "autoconf_rs": "autoconf-rs 0.1.13",
+    "automake_rs": "automake (GNU automake) UNKNOWN",
+    "m4_rs_core": "0.1.4",
+    "gnu_free": true
+  },
+  "target": {
+    "cc": "cc",
+    "cflags": "-g -O2",
+    "host": "x86_64-pc-linux-gnu"
+  },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "fail"
+    },
+    {
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {},
+  "feature_flags": {
+    "configure_args": []
+  },
+  "dependencies": {
+    "pkg_config": [],
+    "system_libs": [],
+    "headers_needed": [],
+    "missing": []
+  },
+  "quirks": [
+    "autoconf-archive-macros",
+    "libtool",
+    "subdirs"
+  ],
+  "outputs": [],
+  "status": "CONFIGURE_RUN_FAIL",
+  "verified": false,
+  "diagnostic": "./configure: line 1452: syntax error near unexpected token `sgcheck,'",
+  "deep_expansion": {
+    "configure_lines": 3957,
+    "leaked_macros": [
+      {
+        "name": "AX_VALGRIND_DFLT",
+        "line": 1452,
+        "context": "AX_VALGRIND_DFLT(sgcheck, off)"
+      }
+    ],
+    "heredoc_openers": 78,
+    "heredoc_terminators": 78,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1452,
+        "token": "sgcheck,",
+        "source": "AX_VALGRIND_DFLT(sgcheck, off)",
+        "block": [
+          "1448: printf '%s\\n' \"$NCIO_MINBLOCKSIZE\"",
+          "1449: # Define unquoted: NCIO_MINBLOCKSIZE",
+          "1450: ",
+          "1451: # Find valgrind, if available, and add targets for it.",
+          "1452: AX_VALGRIND_DFLT(sgcheck, off)",
+          "1453: AX_VALGRIND_CHECK",
+          "1454: ",
+          "1455: "
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "TOPSRCDIR",
+      "TOPBUILDDIR"
+    ],
+    "failed_during_check": "checking whether a NCIO_MINBLOCKSIZE was specified... ",
+    "failure_tail": [
+      "checking whether a NCIO_MINBLOCKSIZE was specified...",
+      "./configure: line 1452: syntax error near unexpected token `sgcheck,'",
+      "./configure: line 1452: `AX_VALGRIND_DFLT(sgcheck, off)'"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 115,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "char curl_easy_setopt();\\nint main() { return curl_easy_setopt(); }",
+      "char curl_easy_setopt ();\\nint main() { return curl_easy_setopt (); }",
+      "char get_$UDF0_DISPATCH();\\nint main() { return get_$UDF0_DISPATCH(); }",
+      "char get_$UDF1_DISPATCH();\\nint main() { return get_$UDF1_DISPATCH(); }",
+      "int main() { const int x = 1; return x-1; }",
+      "#include \"curl/curl.h\"\\nint main() { int x = CURLOPT_USERNAME; ; return 0; }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "fail",
+    "real_make": "skipped",
+    "real_configure_lines": 23496,
+    "real_first_error": "configure: error: Can't find or link to the hdf5 library. Use --disable-netcdf-4, or see config.log for errors.",
+    "classification": "BOTH_CONFIGURE_FAIL"
+  },
+  "receipt": {
+    "court_status": "not_standalone",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool",
+      "uses-subdir-objects",
+      "uses-maintainer-mode",
+      "has-m4-macro-dir",
+      "has-acinclude",
+      "vendored-aclocal",
+      "uses-ax-archive"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-subdir-objects",
+        "action": "--disable-dependency-tracking",
+        "verified": false
+      },
+      {
+        "id": "uses-maintainer-mode",
+        "action": "--disable-maintainer-mode",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "8bbf2a40459c00e0ac6d2d10a28a20b01491f4406335061ccdfc784789be554c",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
+}

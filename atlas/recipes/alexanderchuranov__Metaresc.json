@@ -1,0 +1,130 @@
+{
+  "schema": "automake-rs.build-atlas/v2",
+  "repo": "alexanderchuranov/Metaresc",
+  "source": {
+    "url": "https://github.com/alexanderchuranov/Metaresc",
+    "git_sha": "c99cbd0158ab9cff945fbae92b8106f0656d958b",
+    "snapshot_utc": "2026-06-27"
+  },
+  "toolchain": {
+    "autoconf_rs": "autoconf-rs 0.1.13",
+    "automake_rs": "automake (GNU automake) UNKNOWN",
+    "m4_rs_core": "0.1.4",
+    "gnu_free": true
+  },
+  "target": {
+    "cc": "cc",
+    "cflags": "-g -O2",
+    "host": "x86_64-pc-linux-gnu"
+  },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "ok"
+    },
+    {
+      "step": "make",
+      "tool": "make",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {},
+  "feature_flags": {
+    "configure_args": []
+  },
+  "dependencies": {
+    "pkg_config": [
+      "checking for check >= 0.9.5... no",
+      "checking for libxml-2.0 >= 2.0... yes",
+      "checking for yaml-0.1 >= 0.2.0... yes"
+    ],
+    "system_libs": [
+      "-lxml2",
+      "-lyaml"
+    ],
+    "headers_needed": [],
+    "missing": []
+  },
+  "quirks": [
+    "libtool",
+    "pkg-config",
+    "subdirs",
+    "LIBS=-lxml2 -lyaml"
+  ],
+  "outputs": [],
+  "status": "MAKE_FAIL",
+  "verified": false,
+  "diagnostic": "",
+  "deep_expansion": {
+    "configure_lines": 2926,
+    "leaked_macros": [],
+    "heredoc_openers": 34,
+    "heredoc_terminators": 34,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2450: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT"
+    ],
+    "failed_during_check": "checking if __int128 is supported... yes",
+    "failure_tail": [
+      "checking if __int128 is supported... yes",
+      "configure: creating Makefile",
+      "configure: creating src/Makefile",
+      "configure: creating tests/Makefile",
+      "configure: creating examples/Makefile"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 20,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "\\nint main() {  ; return 0; }",
+      "\\nint main() {  ; return 0; }",
+      "char dladdr ();\\nint main() { return dladdr (); }",
+      "char backtrace();\\nint main() { return backtrace(); }",
+      "#include <$ac_hdr>",
+      "#include <execinfo.h>"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "fail",
+    "real_configure_lines": 22148,
+    "real_first_error": "",
+    "classification": "BOTH_MAKE_FAIL"
+  },
+  "receipt": {
+    "court_status": "partial",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool",
+      "uses-pkg-config",
+      "vendored-aclocal"
+    ],
+    "receipt_hash": "0c59fbbfaf8b7c99e898d3ac5dc9e07938dcc22d145593dd75859973c43246e8",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
+}

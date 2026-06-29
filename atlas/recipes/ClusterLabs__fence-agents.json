@@ -1,0 +1,181 @@
+{
+  "schema": "automake-rs.build-atlas/v2",
+  "repo": "ClusterLabs/fence-agents",
+  "source": {
+    "url": "https://github.com/ClusterLabs/fence-agents",
+    "git_sha": "080474034850df23538f97e74e8114283670cb72",
+    "snapshot_utc": "2026-06-27"
+  },
+  "toolchain": {
+    "autoconf_rs": "autoconf-rs 0.1.13",
+    "automake_rs": "automake (GNU automake) UNKNOWN",
+    "m4_rs_core": "0.1.4",
+    "gnu_free": true
+  },
+  "target": {
+    "cc": "cc",
+    "cflags": "-g -O2",
+    "host": "x86_64-pc-linux-gnu"
+  },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "fail"
+    },
+    {
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {},
+  "feature_flags": {
+    "configure_args": []
+  },
+  "dependencies": {
+    "pkg_config": [
+      "./configure: line 1497: syntax error near unexpected token `$'can\\'t detect this"
+    ],
+    "system_libs": [],
+    "headers_needed": [],
+    "missing": []
+  },
+  "quirks": [
+    "autoconf-archive-macros",
+    "libtool",
+    "pkg-config",
+    "subdirs"
+  ],
+  "outputs": [],
+  "status": "CONFIGURE_RUN_FAIL",
+  "verified": false,
+  "diagnostic": "./configure: line 1497: syntax error near unexpected token `$'can\\'t detect this because it tests with a false prototype\\n# Requires Autocon",
+  "deep_expansion": {
+    "configure_lines": 4248,
+    "leaked_macros": [
+      {
+        "name": "AM_EXTRA_RECURSIVE_TARGETS",
+        "line": 2997,
+        "context": "AM_EXTRA_RECURSIVE_TARGETS(delay-check xml-check xml-upload test-fencing"
+      }
+    ],
+    "heredoc_openers": 43,
+    "heredoc_terminators": 43,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1497,
+        "token": "$'can\\'t detect this bec",
+        "source": "printf '%s\\n' \"configure: error: you don't seem to have GNU make; it is ",
+        "block": [
+          "1493: # Checks for programs.",
+          "1494: ",
+          "1495: # check stolen from gnulib/m4/gnu-make.m4",
+          "1496: if ! ${MAKE-make} --version /cannot/make/this >/dev/null 2>&1; then",
+          "1497: \tprintf '%s\\n' \"configure: error: you don't seem to have GNU make; it is req",
+          "1498: exit 1",
+          "1499: fi",
+          "1500: "
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 3772: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PKG_CONFIG",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL",
+      "srcdir",
+      "prefix",
+      "exec_prefix",
+      "CC",
+      "CFLAGS",
+      "CPPFLAGS",
+      "LDFLAGS",
+      "LIBS",
+      "CXX",
+      "CXXFLAGS",
+      "CPP",
+      "DEFS",
+      "LIBOBJS",
+      "INSTALL",
+      "SG_PERSIST_PATH",
+      "CLUSTERVARRUN",
+      "AM_CFLAGS",
+      "VGS_PATH",
+      "SBDPID_PATH",
+      "POWERMAN_PATH",
+      "dl_LIBS",
+      "VIRT_COMMON_LIBS"
+    ],
+    "failed_during_check": "",
+    "failure_tail": [
+      "./configure: line 1497: syntax error near unexpected token `$'can\\'t detect this",
+      "./configure: line 1497: `\tprintf '%s\\n' \"configure: error: you don't seem to hav"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 31,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "char  ();\\nint main() { return  (); }",
+      "\\nint main() {   ; return 0; }",
+      "#include <$ac_hdr>",
+      "#include <sys/wait.h>",
+      "#include <time.h>",
+      "#include <$ac_hdr>"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "fail",
+    "real_make": "skipped",
+    "real_configure_lines": 26770,
+    "real_first_error": "configure: error: failed to find required module pycurl",
+    "classification": "BOTH_CONFIGURE_FAIL"
+  },
+  "receipt": {
+    "court_status": "not_standalone",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool",
+      "uses-libtool-old",
+      "uses-pkg-config",
+      "uses-python",
+      "uses-subdir-objects",
+      "has-m4-macro-dir",
+      "vendored-aclocal",
+      "uses-ax-archive",
+      "uses-pthread-check"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-subdir-objects",
+        "action": "--disable-dependency-tracking",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "8bbf2a40459c00e0ac6d2d10a28a20b01491f4406335061ccdfc784789be554c",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
+}

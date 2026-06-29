@@ -1,0 +1,162 @@
+{
+  "schema": "automake-rs.build-atlas/v2",
+  "repo": "bvanheu/libsigrok-ad",
+  "source": {
+    "url": "https://github.com/bvanheu/libsigrok-ad",
+    "git_sha": "3e1cda55b7c1e2c60aa22dc5308dae2cedb42b3a",
+    "snapshot_utc": "2026-06-27"
+  },
+  "toolchain": {
+    "autoconf_rs": "autoconf-rs 0.1.13",
+    "automake_rs": "automake (GNU automake) UNKNOWN",
+    "m4_rs_core": "0.1.4",
+    "gnu_free": true
+  },
+  "target": {
+    "cc": "cc",
+    "cflags": "-g -O2",
+    "host": "x86_64-pc-linux-gnu"
+  },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "fail"
+    },
+    {
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {},
+  "feature_flags": {
+    "configure_args": []
+  },
+  "dependencies": {
+    "pkg_config": [],
+    "system_libs": [],
+    "headers_needed": [],
+    "missing": []
+  },
+  "quirks": [
+    "libtool",
+    "pkg-config",
+    "subdirs"
+  ],
+  "outputs": [],
+  "status": "CONFIGURE_RUN_FAIL",
+  "verified": false,
+  "diagnostic": "./configure: line 1338: syntax error near unexpected token `)'",
+  "deep_expansion": {
+    "configure_lines": 3252,
+    "leaked_macros": [
+      {
+        "name": "AM_PATH_GLIB_2_0",
+        "line": 1562,
+        "context": "AM_PATH_GLIB_2_0(2.32.0,"
+      }
+    ],
+    "heredoc_openers": 30,
+    "heredoc_terminators": 30,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1338,
+        "token": ")",
+        "source": "format changed there).",
+        "block": [
+          "1334:     ac_configure_args_raw=`      printf '%s\\n' \"$ac_configure_args_raw\" | se",
+          "1335: esac",
+          "1336: ",
+          "1337: ",
+          "1338:  format changed there).",
+          "1339: # Requires Autoconf >= 2.63",
+          "1340: ",
+          "1341: # libsigrok package version number (NOT the same as shared lib version!)."
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2716: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PKG_CONFIG",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT"
+    ],
+    "failed_during_check": "",
+    "failure_tail": [
+      "./configure: line 1338: syntax error near unexpected token `)'",
+      "./configure: line 1338: ` format changed there).'"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 21,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "char pow ();\\nint main() { return pow (); }",
+      "#include <$ac_hdr>",
+      "int main() { int x = 1; return *(char*)&x; }",
+      "inline int foo() { return 0; }\\nint main() { return foo(); }",
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { int8_t x; return 0; }",
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { int16_t x; return 0; }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "ok",
+    "real_configure_lines": 19554,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE"
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "line 1338: format changed there). (near `)`)",
+    "ours_error_context": [
+      "format changed there)."
+    ],
+    "ours_configure_lines": 3252,
+    "real_configure_lines": 19554,
+    "macros_ours_left_undefined": [
+      "AM_PATH_GLIB_2_0"
+    ]
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool",
+      "uses-pkg-config",
+      "uses-subdir-objects",
+      "vendored-aclocal"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-subdir-objects",
+        "action": "--disable-dependency-tracking",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "9447b588adeb7e3cf6a61ad71d167cbb97eb800ecdfbc906cacd6b4aa4e65035",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
+}

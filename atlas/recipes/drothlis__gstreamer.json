@@ -1,0 +1,202 @@
+{
+  "schema": "automake-rs.build-atlas/v2",
+  "repo": "drothlis/gstreamer",
+  "source": {
+    "url": "https://github.com/drothlis/gstreamer",
+    "git_sha": "38df76af49f81857c8f0bed3f426093469f5ae01",
+    "snapshot_utc": "2026-06-27"
+  },
+  "toolchain": {
+    "autoconf_rs": "autoconf-rs 0.1.13",
+    "automake_rs": "automake (GNU automake) UNKNOWN",
+    "m4_rs_core": "0.1.4",
+    "gnu_free": true
+  },
+  "target": {
+    "cc": "cc",
+    "cflags": "-g -O2",
+    "host": "x86_64-pc-linux-gnu"
+  },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "fail"
+    },
+    {
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {},
+  "feature_flags": {
+    "configure_args": []
+  },
+  "dependencies": {
+    "pkg_config": [],
+    "system_libs": [],
+    "headers_needed": [],
+    "missing": []
+  },
+  "quirks": [
+    "pkg-config",
+    "gettext",
+    "subdirs"
+  ],
+  "outputs": [],
+  "status": "CONFIGURE_RUN_FAIL",
+  "verified": false,
+  "diagnostic": "./configure: line 1339: AG_GST_INIT: command not found",
+  "deep_expansion": {
+    "configure_lines": 3521,
+    "leaked_macros": [
+      {
+        "name": "AS_NANO",
+        "line": 1345,
+        "context": "AS_NANO(GST_GIT=\"no\", GST_GIT=\"yes\")"
+      },
+      {
+        "name": "AS_LIBTOOL",
+        "line": 1401,
+        "context": "AS_LIBTOOL(GST, 31, 0, 31)"
+      },
+      {
+        "name": "AS_PATH_PYTHON",
+        "line": 1591,
+        "context": "AS_PATH_PYTHON(2.1)"
+      },
+      {
+        "name": "AS_AC_EXPAND",
+        "line": 2211,
+        "context": "AS_AC_EXPAND(LIBDIR, $libdir)"
+      },
+      {
+        "name": "AS_AC_EXPAND",
+        "line": 2213,
+        "context": "AS_AC_EXPAND(DATADIR, $datadir)"
+      },
+      {
+        "name": "AS_AC_EXPAND",
+        "line": 2280,
+        "context": "AS_AC_EXPAND(GST_PLUGIN_SCANNER_INSTALLED,${libexecdir}/gstreamer-$GST_M"
+      }
+    ],
+    "heredoc_openers": 54,
+    "heredoc_terminators": 54,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1345,
+        "token": "GST_GIT=\"no\",",
+        "source": "AS_NANO(GST_GIT=\"no\", GST_GIT=\"yes\")",
+        "block": [
+          "1341: ",
+          "1342: ",
+          "1343: AS_VERSION",
+          "1344: ",
+          "1345: AS_NANO(GST_GIT=\"no\", GST_GIT=\"yes\")",
+          "1346: ",
+          "1347: # AC_CONFIG_SRCDIR: record the source tree and sanity-check the unique file ",
+          "1348: test \"x$srcdir\" = x && srcdir=."
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 3001: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL",
+      "srcdir",
+      "prefix",
+      "exec_prefix",
+      "CC",
+      "CFLAGS",
+      "CPPFLAGS",
+      "LDFLAGS",
+      "LIBS",
+      "CXX",
+      "CXXFLAGS",
+      "CPP",
+      "DEFS",
+      "LIBOBJS",
+      "INSTALL",
+      "DEPRECATED_CFLAGS",
+      "GST_PRINTF_EXTENSION_SEGMENT_FORMAT_DEFINE",
+      "GST_USING_PRINTF_EXTENSION_DEFINE",
+      "GST_OPTION_CXXFLAGS",
+      "CHECK_VERSION",
+      "HOST_CPU",
+      "LIBM",
+      "WIN32_LIBS",
+      "GLIB_PREFIX"
+    ],
+    "failed_during_check": "",
+    "failure_tail": [
+      "./configure: line 1339: AG_GST_INIT: command not found",
+      "./configure: line 1343: AS_VERSION: command not found",
+      "./configure: line 1345: syntax error near unexpected token `GST_GIT=\"no\",'",
+      "./configure: line 1345: `AS_NANO(GST_GIT=\"no\", GST_GIT=\"yes\")'"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 63,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "#include <sys/types.h>\\nint main() { return sizeof(off_t) >= 8 ? 0 : 1; }",
+      "#include <$ac_hdr>",
+      "#include <$ac_hdr>",
+      "#include <$ac_hdr>",
+      "#include <$ac_hdr>",
+      "#include <$ac_hdr>"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "fail",
+    "real_configure": "skipped",
+    "real_make": "skipped",
+    "real_configure_lines": 0,
+    "real_first_error": "aclocal: error: couldn't open directory 'common/m4': No such file or directory",
+    "classification": "OURS_BETTER"
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-pkg-config",
+      "uses-gettext",
+      "uses-maintainer-mode",
+      "has-m4-macro-dir",
+      "vendored-aclocal",
+      "perl-in-configure"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-maintainer-mode",
+        "action": "--disable-maintainer-mode",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "54f24adc0e9437eb6feb656d0d2784f64adf7bfd67fa6be75bcdfaf717f80de5",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
+}

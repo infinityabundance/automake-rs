@@ -1,0 +1,177 @@
+{
+  "schema": "automake-rs.build-atlas/v2",
+  "repo": "BitzenyCoreDevelopers/cpuminer",
+  "source": {
+    "url": "https://github.com/BitzenyCoreDevelopers/cpuminer",
+    "git_sha": "c44417e168d3b5537d00b33aaab857424d9ffefe",
+    "snapshot_utc": "2026-06-27"
+  },
+  "toolchain": {
+    "autoconf_rs": "autoconf-rs 0.1.13",
+    "automake_rs": "automake (GNU automake) UNKNOWN",
+    "m4_rs_core": "0.1.4",
+    "gnu_free": true
+  },
+  "target": {
+    "cc": "cc",
+    "cflags": "-g -O2",
+    "host": "x86_64-pc-linux-gnu"
+  },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "fail"
+    },
+    {
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {},
+  "feature_flags": {
+    "configure_args": []
+  },
+  "dependencies": {
+    "pkg_config": [],
+    "system_libs": [],
+    "headers_needed": [],
+    "missing": []
+  },
+  "quirks": [
+    "subdirs"
+  ],
+  "outputs": [],
+  "status": "CONFIGURE_RUN_FAIL",
+  "verified": false,
+  "diagnostic": "./configure: line 1404: ac_cv_have_decl_be32dec,: command not found",
+  "deep_expansion": {
+    "configure_lines": 2668,
+    "leaked_macros": [
+      {
+        "name": "AC_MSG_ERROR",
+        "line": 1622,
+        "context": "AC_MSG_ERROR([Missing required libcurl >= 7.15.2]))"
+      }
+    ],
+    "heredoc_openers": 29,
+    "heredoc_terminators": 29,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1621,
+        "token": ",",
+        "source": "LIBCURL_CHECK_CONFIG(, 7.15.2, ,",
+        "block": [
+          "1617: else",
+          "1618: \tJANSSON_LIBS=-ljansson",
+          "1619: fi",
+          "1620: ",
+          "1621: LIBCURL_CHECK_CONFIG(, 7.15.2, ,",
+          "1622:   AC_MSG_ERROR([Missing required libcurl >= 7.15.2]))",
+          "1623: ",
+          "1624: "
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2192: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL",
+      "srcdir",
+      "prefix",
+      "exec_prefix",
+      "CC",
+      "CFLAGS",
+      "CPPFLAGS",
+      "LDFLAGS",
+      "LIBS",
+      "CXX",
+      "CXXFLAGS",
+      "CPP",
+      "DEFS",
+      "LIBOBJS",
+      "INSTALL",
+      "PTHREAD_FLAGS",
+      "WS2_LIBS",
+      "JANSSON_LIBS",
+      "PTHREAD_LIBS"
+    ],
+    "failed_during_check": "checking for pthread_create in -lpthreadGC... no",
+    "failure_tail": [
+      "checking for pthread_create in -lpthreadGC... no",
+      "./configure: line 1621: syntax error near unexpected token `,'",
+      "./configure: line 1621: `LIBCURL_CHECK_CONFIG(, 7.15.2, ,'"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 11,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "#include <$ac_hdr>",
+      "#include <$ac_hdr>",
+      "AC_INCLUDES_DEFAULT\\n#ifdef HAVE_SYS_ENDIAN_H\\n#include <sys/endian.h>\\n#endif\\n\\nint main (void)\\n{\\n#ifndef be32dec, le32dec, be32enc, le32enc\\n(void) be32dec, le32dec, be32enc, le32enc;\\n#endif\\n;\\nreturn 0;",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar alloca();\\nint main() { return alloca(); }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func();\\nint main() { return $ac_func(); }",
+      "\\nint main() { asm (\"vmovdqa %ymm0, %ymm1\"); ; return 0; }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "ok",
+    "real_configure_lines": 8009,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE"
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "line 1621: LIBCURL_CHECK_CONFIG(, 7.15.2, , (near `,`)",
+    "ours_error_context": [
+      "LIBCURL_CHECK_CONFIG(, 7.15.2, ,"
+    ],
+    "ours_configure_lines": 2668,
+    "real_configure_lines": 8009,
+    "macros_ours_left_undefined": [
+      "AC_MSG_ERROR"
+    ]
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-maintainer-mode",
+      "vendored-aclocal"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-maintainer-mode",
+        "action": "--disable-maintainer-mode",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "9447b588adeb7e3cf6a61ad71d167cbb97eb800ecdfbc906cacd6b4aa4e65035",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
+}

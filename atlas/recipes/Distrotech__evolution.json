@@ -1,0 +1,157 @@
+{
+  "schema": "automake-rs.build-atlas/v2",
+  "repo": "Distrotech/evolution",
+  "source": {
+    "url": "https://github.com/Distrotech/evolution",
+    "git_sha": "639553c0b4e7f440a284dd48f76b94de87b356fe",
+    "snapshot_utc": "2026-06-27"
+  },
+  "toolchain": {
+    "autoconf_rs": "autoconf-rs 0.1.13",
+    "automake_rs": "automake (GNU automake) UNKNOWN",
+    "m4_rs_core": "0.1.4",
+    "gnu_free": true
+  },
+  "target": {
+    "cc": "cc",
+    "cflags": "-g -O2",
+    "host": "x86_64-pc-linux-gnu"
+  },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "fail"
+    },
+    {
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {},
+  "feature_flags": {
+    "configure_args": []
+  },
+  "dependencies": {
+    "pkg_config": [
+      "checking for pkg-config... /usr/bin/pkg-config",
+      "checking pkg-config is at least version 0.16... yes",
+      "checking for intltool >= 0.40.0...  found"
+    ],
+    "system_libs": [],
+    "headers_needed": [],
+    "missing": []
+  },
+  "quirks": [
+    "autoconf-archive-macros",
+    "libtool",
+    "pkg-config",
+    "subdirs"
+  ],
+  "outputs": [],
+  "status": "CONFIGURE_RUN_FAIL",
+  "verified": false,
+  "diagnostic": "./configure: line 5753: intltool-update: command not found",
+  "deep_expansion": {
+    "configure_lines": 22502,
+    "leaked_macros": [],
+    "heredoc_openers": 131,
+    "heredoc_terminators": 129,
+    "heredoc_imbalance": -2,
+    "syntax_errors": [],
+    "cache_var_anomalies": [
+      "line 121: do eval test x\\${$as_var+set} = xset \\",
+      "line 2039: if eval \\${$3+:} false; then :",
+      "line 2107: if eval \\${$3+:} false; then :",
+      "line 20171: do eval test x\\${$as_var+set} = xset \\"
+    ],
+    "residual_placeholders": [
+      "comment",
+      "type",
+      "EnumName",
+      "valuenick",
+      "valuenum",
+      "PROGRAM",
+      "OUTPUT",
+      "TOOL_OUTPUT",
+      "srcdir",
+      "datadir",
+      "docdir",
+      "infodir",
+      "localedir",
+      "mandir",
+      "configure_input",
+      "top_builddir",
+      "top_build_prefix",
+      "abs_srcdir",
+      "top_srcdir",
+      "abs_top_srcdir",
+      "builddir",
+      "abs_builddir",
+      "abs_top_builddir",
+      "INSTALL",
+      "MKDIR_P"
+    ],
+    "failed_during_check": "checking for intltool >= 0.40.0...  found",
+    "failure_tail": [
+      "checking for intltool >= 0.40.0...  found",
+      "configure: error: Your intltool is too old.  You need intltool 0.40.0 or later."
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 216,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "/* end confdefs.h.  */\\n/* Define $2 to an innocuous variant, in case <limits.h> declares $2.\\nFor example, HP-UX 11i <limits.h> declares gettimeofday.  */\\n#define $2 innocuous_$2\\n\\n/* System header to define __stub macros and hopefully few prototypes,\\nwhich can conflict with char $2 (); below.\\nPrefer <limits.h> to <assert.h> if __STDC__ is defined, since\\n<limits.h> exists even on freestanding compilers.  */\\n\\n#ifdef __STDC__\\n# include <limits.h>",
+      "/* end confdefs.h.  */\\n$4\\n#include <$2>",
+      "/* end confdefs.h.  */\\n\\nint\\nmain ()\\n{\\n\\n;\\nreturn 0;\\n}",
+      "/* end confdefs.h.  */\\n#include <stdio.h>\\nint\\nmain ()\\n{\\nFILE *f = fopen (\"conftest.out\", \"w\");\\nreturn ferror (f) || fclose (f) != 0;\\n\\n;\\nreturn 0;\\n}",
+      "/* end confdefs.h.  */\\n\\nint\\nmain ()\\n{\\n\\n;\\nreturn 0;\\n}",
+      "/* end confdefs.h.  */\\n\\nint\\nmain ()\\n{\\n#ifndef __GNUC__\\nchoke me\\n#endif\\n\\n;\\nreturn 0;\\n}"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "fail",
+    "real_configure": "skipped",
+    "real_make": "skipped",
+    "real_configure_lines": 0,
+    "real_first_error": "Can't exec \"intltoolize\": No such file or directory at /usr/share/autoconf/Autom4te/FileUtils.pm line 293.",
+    "classification": "OURS_BETTER"
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool",
+      "uses-pkg-config",
+      "uses-intltool",
+      "uses-maintainer-mode",
+      "has-m4-macro-dir",
+      "vendored-aclocal",
+      "uses-ax-archive",
+      "perl-in-configure"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-maintainer-mode",
+        "action": "--disable-maintainer-mode",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "54f24adc0e9437eb6feb656d0d2784f64adf7bfd67fa6be75bcdfaf717f80de5",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
+}

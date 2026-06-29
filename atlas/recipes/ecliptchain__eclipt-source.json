@@ -1,0 +1,152 @@
+{
+  "schema": "automake-rs.build-atlas/v2",
+  "repo": "ecliptchain/eclipt-source",
+  "source": {
+    "url": "https://github.com/ecliptchain/eclipt-source",
+    "git_sha": "6167dd52893003bf3084b4de6e7a0bab860caea0",
+    "snapshot_utc": "2026-06-27"
+  },
+  "toolchain": {
+    "autoconf_rs": "autoconf-rs 0.1.13",
+    "automake_rs": "automake (GNU automake) UNKNOWN",
+    "m4_rs_core": "0.1.4",
+    "gnu_free": true
+  },
+  "target": {
+    "cc": "cc",
+    "cflags": "-g -O2",
+    "host": "x86_64-pc-linux-gnu"
+  },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "fail"
+    },
+    {
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {},
+  "feature_flags": {
+    "configure_args": []
+  },
+  "dependencies": {
+    "pkg_config": [],
+    "system_libs": [],
+    "headers_needed": [],
+    "missing": []
+  },
+  "quirks": [
+    "autoconf-archive-macros",
+    "libtool",
+    "pkg-config",
+    "subdirs"
+  ],
+  "outputs": [],
+  "status": "CONFIGURE_RUN_FAIL",
+  "verified": false,
+  "diagnostic": "configure: error: cannot figure out how to use std::atomic",
+  "deep_expansion": {
+    "configure_lines": 10640,
+    "leaked_macros": [],
+    "heredoc_openers": 200,
+    "heredoc_terminators": 203,
+    "heredoc_imbalance": 3,
+    "syntax_errors": [],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 1774: if test \"${$CXXFLAG_WERRORax_cv_check__AC_LANG_ABBREVflags__",
+      "line 1794: if test x\"${$CXXFLAG_WERRORax_cv_check__AC_LANG_ABBREVflags_",
+      "line 1810: if test \"${$CXXFLAG_WERRORax_cv_check__AC_LANG_ABBREVflags__",
+      "line 1830: if test x\"${$CXXFLAG_WERRORax_cv_check__AC_LANG_ABBREVflags_",
+      "line 1842: if test \"${$CXXFLAG_WERRORax_cv_check__AC_LANG_ABBREVflags__",
+      "line 1862: if test x\"${$CXXFLAG_WERRORax_cv_check__AC_LANG_ABBREVflags_",
+      "line 1880: if test \"${$CXXFLAG_WERRORax_cv_check__AC_LANG_ABBREVcppflag",
+      "line 1890: if test x\"${$CXXFLAG_WERRORax_cv_check__AC_LANG_ABBREVcppfla",
+      "line 1905: if test \"${$CXXFLAG_WERRORax_cv_check__AC_LANG_ABBREVcppflag",
+      "line 1915: if test x\"${$CXXFLAG_WERRORax_cv_check__AC_LANG_ABBREVcppfla",
+      "line 1930: if test \"${$CXXFLAG_WERRORax_cv_check__AC_LANG_ABBREVcppflag",
+      "line 1940: if test x\"${$CXXFLAG_WERRORax_cv_check__AC_LANG_ABBREVcppfla",
+      "line 1955: if test \"${$CXXFLAG_WERRORax_cv_check__AC_LANG_ABBREVflags__",
+      "line 1975: if test x\"${$CXXFLAG_WERRORax_cv_check__AC_LANG_ABBREVflags_",
+      "line 1998: if test \"${$CXXFLAG_WERRORax_cv_check__AC_LANG_ABBREVflags__",
+      "line 2018: if test x\"${$CXXFLAG_WERRORax_cv_check__AC_LANG_ABBREVflags_",
+      "line 2033: if test \"${$CXXFLAG_WERRORax_cv_check__AC_LANG_ABBREVflags__",
+      "line 2053: if test x\"${$CXXFLAG_WERRORax_cv_check__AC_LANG_ABBREVflags_",
+      "line 2068: if test \"${$CXXFLAG_WERRORax_cv_check__AC_LANG_ABBREVflags__"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PKG_CONFIG",
+      "CXX",
+      "CXXFLAGS"
+    ],
+    "failed_during_check": "checking whether std::atomic needs -latomic... no",
+    "failure_tail": [
+      "checking whether std::atomic needs -latomic... no",
+      "configure: error: cannot figure out how to use std::atomic"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 153,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "\\n#include <atomic>\\n#include <cstdint>\\n#include <chrono>\\n\\nint main() {\\nstd::atomic<int64_t> a{};\\n\\nint64_t v = 5;\\nint64_t r = a.fetch_add(v);\\nreturn static_cast<int>(r);\\n}",
+      "\\n#include <atomic>\\n#include <cstdint>\\n#include <chrono>\\n\\nint main() {\\nstd::atomic<int64_t> a{};\\n\\nint64_t v = 5;\\nint64_t r = a.fetch_add(v);\\nreturn static_cast<int>(r);\\n}",
+      "\\nint main() {  ; return 0; }",
+      "\\nint main() {  ; return 0; }",
+      "\\nint main() {  ; return 0; }",
+      "\\nint main() {  ; return 0; }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "fail",
+    "real_make": "skipped",
+    "real_configure_lines": 40618,
+    "real_first_error": "configure: error: Found Berkeley DB other than 6.2, required for portable BDB wallets (--with-incompatible-bdb to ignore",
+    "classification": "BOTH_CONFIGURE_FAIL"
+  },
+  "receipt": {
+    "court_status": "not_standalone",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool",
+      "uses-pkg-config",
+      "uses-subdir-objects",
+      "uses-maintainer-mode",
+      "vendored-aclocal",
+      "uses-ax-archive",
+      "uses-pthread-check"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-subdir-objects",
+        "action": "--disable-dependency-tracking",
+        "verified": false
+      },
+      {
+        "id": "uses-maintainer-mode",
+        "action": "--disable-maintainer-mode",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "8bbf2a40459c00e0ac6d2d10a28a20b01491f4406335061ccdfc784789be554c",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
+}

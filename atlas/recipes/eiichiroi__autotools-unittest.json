@@ -1,0 +1,154 @@
+{
+  "schema": "automake-rs.build-atlas/v2",
+  "repo": "eiichiroi/autotools-unittest",
+  "source": {
+    "url": "https://github.com/eiichiroi/autotools-unittest",
+    "git_sha": "0ca4d407df37f39a042fde13fa047ace32e00205",
+    "snapshot_utc": "2026-06-27"
+  },
+  "toolchain": {
+    "autoconf_rs": "autoconf-rs 0.1.13",
+    "automake_rs": "automake (GNU automake) UNKNOWN",
+    "m4_rs_core": "0.1.4",
+    "gnu_free": true
+  },
+  "target": {
+    "cc": "cc",
+    "cflags": "-g -O2",
+    "host": "x86_64-pc-linux-gnu"
+  },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "fail"
+    },
+    {
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {},
+  "feature_flags": {
+    "configure_args": []
+  },
+  "dependencies": {
+    "pkg_config": [],
+    "system_libs": [],
+    "headers_needed": [],
+    "missing": []
+  },
+  "quirks": [
+    "autoconf-archive-macros",
+    "libtool"
+  ],
+  "outputs": [],
+  "status": "CONFIGURE_RUN_FAIL",
+  "verified": false,
+  "diagnostic": "./configure: line 1501: pthread-config: command not found",
+  "deep_expansion": {
+    "configure_lines": 3515,
+    "leaked_macros": [],
+    "heredoc_openers": 18,
+    "heredoc_terminators": 18,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1552,
+        "token": "done",
+        "source": "done",
+        "block": [
+          "1548: \tprintf %s \"checking for joinable pthread attribute... \"",
+          "1549: \tattr_name=unknown",
+          "1550: \tfor attr in PTHREAD_CREATE_JOINABLE PTHREAD_CREATE_UNDETACHED; do",
+          "1551: \t    # Try link (obsolete)",
+          "1552: \tdone",
+          "1553:         printf '%s\\n' \"$attr_name\"",
+          "1554:         if test \"$attr_name\" != PTHREAD_CREATE_JOINABLE; then",
+          "1555:             # Define unquoted: PTHREAD_CREATE_JOINABLE"
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 3006: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "CXX",
+      "CXXFLAGS",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT"
+    ],
+    "failed_during_check": "checking whether pthreads work with -mt... no",
+    "failure_tail": [
+      "checking whether pthreads work with -mt... no",
+      "./configure: line 1501: pthread-config: command not found",
+      "./configure: line 1502: pthread-config: command not found",
+      "./configure: line 1502: pthread-config: command not found",
+      "no"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 4,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar pthread_join();\\nint main() { return pthread_join(); }",
+      "\\nint main() {\\n#ifndef __clang__\\nnot clang\\n#endif\\n; return 0; }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "ok",
+    "real_configure_lines": 23274,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE"
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "line 1552: done (near `done`)",
+    "ours_error_context": [
+      "done"
+    ],
+    "ours_configure_lines": 3515,
+    "real_configure_lines": 23274,
+    "macros_ours_left_undefined": []
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool",
+      "uses-subdir-objects",
+      "has-m4-macro-dir",
+      "vendored-aclocal",
+      "uses-ax-archive"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-subdir-objects",
+        "action": "--disable-dependency-tracking",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "9447b588adeb7e3cf6a61ad71d167cbb97eb800ecdfbc906cacd6b4aa4e65035",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
+}

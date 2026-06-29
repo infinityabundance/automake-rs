@@ -1,0 +1,162 @@
+{
+  "schema": "automake-rs.build-atlas/v2",
+  "repo": "FredericJacobs/obfsproxy-c",
+  "source": {
+    "url": "https://github.com/FredericJacobs/obfsproxy-c",
+    "git_sha": "9e8ac474f45c2f1604fd490405f86d1fd7907c16",
+    "snapshot_utc": "2026-06-27"
+  },
+  "toolchain": {
+    "autoconf_rs": "autoconf-rs 0.1.13",
+    "automake_rs": "automake (GNU automake) UNKNOWN",
+    "m4_rs_core": "0.1.4",
+    "gnu_free": true
+  },
+  "target": {
+    "cc": "cc",
+    "cflags": "-g -O2",
+    "host": "x86_64-pc-linux-gnu"
+  },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {},
+  "feature_flags": {
+    "configure_args": []
+  },
+  "dependencies": {
+    "pkg_config": [
+      "checking for libevent >= 2.0... yes",
+      "checking for libcrypto >= 0.9.7... yes"
+    ],
+    "system_libs": [],
+    "headers_needed": [],
+    "missing": []
+  },
+  "quirks": [
+    "autoconf-archive-macros",
+    "pkg-config"
+  ],
+  "outputs": [],
+  "status": "CONFIGURE_RUN_FAIL",
+  "verified": false,
+  "diagnostic": "./configure: line 1502: syntax error near unexpected token `--'",
+  "deep_expansion": {
+    "configure_lines": 2662,
+    "leaked_macros": [],
+    "heredoc_openers": 26,
+    "heredoc_terminators": 26,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1502,
+        "token": "--",
+        "source": "fi -- see m4/winsock.m4 for gory details.",
+        "block": [
+          "1498:   printf '%s\\n' \"no\"",
+          "1499:   LIBS=$_acs_save_LIBS",
+          "1500:   :",
+          "1501:   ",
+          "1502: fi -- see m4/winsock.m4 for gory details.",
+          "1503: save_LIBS=\"$LIBS\"",
+          "1504: LIBS=\"$libevent_LIBS $libcrypto_LIBS\"",
+          "1505: printf %s \"for library containing ntohl... \""
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2186: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PKG_CONFIG",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL",
+      "srcdir",
+      "prefix",
+      "exec_prefix",
+      "CC",
+      "CFLAGS",
+      "CPPFLAGS",
+      "LDFLAGS",
+      "LIBS",
+      "CXX",
+      "CXXFLAGS",
+      "CPP",
+      "DEFS",
+      "LIBOBJS",
+      "INSTALL",
+      "ws32_LIBS"
+    ],
+    "failed_during_check": "checking for SHA256_Init... yes",
+    "failure_tail": [
+      "checking for SHA256_Init... yes",
+      "./configure: line 1502: syntax error near unexpected token `--'",
+      "./configure: line 1502: `fi -- see m4/winsock.m4 for gory details.'"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 15,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "#include <$ac_hdr>",
+      "#include <$ac_hdr>",
+      "#include <$ac_hdr>",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar SHA256_Init();\\nint main() { return SHA256_Init(); }",
+      "char  ();\\nint main() { return  (); }",
+      "\\n#ifdef _WIN32\\n#include <winsock2.h>\\n#else\\n#include <arpa/inet.h>\\n#endif\\n\\nint main() {\\nreturn (int)ntohl(42); ; return 0; }\\n"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "fail",
+    "real_configure_lines": 7273,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE"
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "line 1502: fi -- see m4/winsock.m4 for gory details. (near `--`)",
+    "ours_error_context": [
+      "fi -- see m4/winsock.m4 for gory details."
+    ],
+    "ours_configure_lines": 2662,
+    "real_configure_lines": 7273,
+    "macros_ours_left_undefined": []
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-pkg-config",
+      "uses-python",
+      "has-m4-macro-dir",
+      "vendored-aclocal",
+      "uses-ax-archive"
+    ],
+    "receipt_hash": "9447b588adeb7e3cf6a61ad71d167cbb97eb800ecdfbc906cacd6b4aa4e65035",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
+}

@@ -1,0 +1,168 @@
+{
+  "schema": "automake-rs.build-atlas/v2",
+  "repo": "boysetsfrog/vimpc",
+  "source": {
+    "url": "https://github.com/boysetsfrog/vimpc",
+    "git_sha": "95ad78d112316a1c290a480481fd1f8abf50b59b",
+    "snapshot_utc": "2026-06-27"
+  },
+  "toolchain": {
+    "autoconf_rs": "autoconf-rs 0.1.13",
+    "automake_rs": "automake (GNU automake) UNKNOWN",
+    "m4_rs_core": "0.1.4",
+    "gnu_free": true
+  },
+  "target": {
+    "cc": "cc",
+    "cflags": "-g -O2",
+    "host": "x86_64-pc-linux-gnu"
+  },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {},
+  "feature_flags": {
+    "configure_args": []
+  },
+  "dependencies": {
+    "pkg_config": [],
+    "system_libs": [],
+    "headers_needed": [],
+    "missing": []
+  },
+  "quirks": [
+    "autoconf-archive-macros",
+    "pkg-config"
+  ],
+  "outputs": [],
+  "status": "CONFIGURE_RUN_FAIL",
+  "verified": false,
+  "diagnostic": "./configure: line 1498: pthread-config: command not found",
+  "deep_expansion": {
+    "configure_lines": 3762,
+    "leaked_macros": [],
+    "heredoc_openers": 49,
+    "heredoc_terminators": 49,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1580,
+        "token": "fi",
+        "source": "fi",
+        "block": [
+          "1576:         done",
+          "1577:         printf '%s\\n' \"$attr_name\"",
+          "1578:         if test \"$attr_name\" != PTHREAD_CREATE_JOINABLE; then",
+          "1579:             # Define unquoted: PTHREAD_CREATE_JOINABLE",
+          "1580:         fi",
+          "1581: ",
+          "1582:         printf %s \"checking if more special flags are required for pthreads.",
+          "1583:         flag=no"
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 3286: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "CXX",
+      "CXXFLAGS",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL",
+      "srcdir",
+      "prefix",
+      "exec_prefix",
+      "CC",
+      "CFLAGS",
+      "CPPFLAGS",
+      "LDFLAGS",
+      "LIBS",
+      "CPP",
+      "DEFS",
+      "LIBOBJS",
+      "INSTALL",
+      "cppunit_LIBS",
+      "build_cpu",
+      "BOOST_SYSTEM_LIB",
+      "HAVE_CXX11",
+      "BOOST_THREAD_LIB",
+      "BOOST_CHRONO_LIB",
+      "pcre_CFLAGS",
+      "curl_CFLAGS",
+      "taglib_LIBS"
+    ],
+    "failed_during_check": "checking whether pthreads work with -mt... no",
+    "failure_tail": [
+      "checking whether pthreads work with -mt... no",
+      "./configure: line 1498: pthread-config: command not found",
+      "./configure: line 1499: pthread-config: command not found",
+      "./configure: line 1499: pthread-config: command not found",
+      "no"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 25,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "#include <$ac_hdr>",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar pthread_join();\\nint main() { return pthread_join(); }",
+      "#include <pthread.h>\\nstatic void routine(void *a) { a = 0; }\\nstatic void *start_routine(void *a) { return a; }\\nint main() { pthread_t th; pthread_attr_t attr;\\npthread_create(&th, 0, start_routine, 0);\\npthread_join(th, 0);\\npthread_attr_init(&attr);\\npthread_cleanup_push(routine, 0);\\npthread_cleanup_pop(0) /* ; */ ; return 0; }",
+      "#include <pthread.h>\\nint main() { int attr = $attr; return attr /* ; */ ; return 0; }",
+      "\\n#include <pthread.h>\\nint main() { int i = PTHREAD_PRIO_INHERIT; ; return 0; }",
+      "#include <functional>\\n#include <atomic>\\n#include <thread>\\nint main() { std::thread thread; std::function<void()> function; std::atomic"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "ok",
+    "real_configure_lines": 9544,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE"
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "line 1580: fi (near `fi`)",
+    "ours_error_context": [
+      "fi"
+    ],
+    "ours_configure_lines": 3762,
+    "real_configure_lines": 9544,
+    "macros_ours_left_undefined": []
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-pkg-config",
+      "has-m4-macro-dir",
+      "vendored-aclocal",
+      "uses-ax-archive",
+      "uses-pthread-check"
+    ],
+    "receipt_hash": "9447b588adeb7e3cf6a61ad71d167cbb97eb800ecdfbc906cacd6b4aa4e65035",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
+}

@@ -1,0 +1,128 @@
+{
+  "schema": "automake-rs.build-atlas/v2",
+  "repo": "adsr/flow-tools",
+  "source": {
+    "url": "https://github.com/adsr/flow-tools",
+    "git_sha": "c3925bd1d0b5b073a51b93ad50d7055084429e5f",
+    "snapshot_utc": "2026-06-27"
+  },
+  "toolchain": {
+    "autoconf_rs": "autoconf-rs 0.1.13",
+    "automake_rs": "automake (GNU automake) UNKNOWN",
+    "m4_rs_core": "0.1.4",
+    "gnu_free": true
+  },
+  "target": {
+    "cc": "cc",
+    "cflags": "-g -O2",
+    "host": "x86_64-pc-linux-gnu"
+  },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "ok"
+    },
+    {
+      "step": "make",
+      "tool": "make",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {},
+  "feature_flags": {
+    "configure_args": []
+  },
+  "dependencies": {
+    "pkg_config": [],
+    "system_libs": [
+      "-lnsl",
+      "-lwrap",
+      "-lz"
+    ],
+    "headers_needed": [],
+    "missing": []
+  },
+  "quirks": [
+    "autoconf-archive-macros",
+    "libtool",
+    "subdirs",
+    "LIBS=-lnsl -lwrap -lz"
+  ],
+  "outputs": [],
+  "status": "MAKE_FAIL",
+  "verified": false,
+  "diagnostic": "",
+  "deep_expansion": {
+    "configure_lines": 2890,
+    "leaked_macros": [],
+    "heredoc_openers": 38,
+    "heredoc_terminators": 38,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2413: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT"
+    ],
+    "failed_during_check": "checking for 64-bit off_t... yes",
+    "failure_tail": [
+      "checking for 64-bit off_t... yes",
+      "configure: creating lib/Makefile",
+      "configure: creating src/Makefile",
+      "configure: creating bin/Makefile",
+      "configure: creating Makefile"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 22,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "char my_init();\\nint main() { return my_init(); }",
+      "char EVP_EncryptUpdate();\\nint main() { return EVP_EncryptUpdate(); }",
+      "char main();\\nint main() { return main(); }",
+      "char zlibVersion();\\nint main() { return zlibVersion(); }",
+      "char allow_severity();\\nint main() { return allow_severity(); }",
+      "#include <$ac_hdr>"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "fail",
+    "real_configure_lines": 18704,
+    "real_first_error": "",
+    "classification": "BOTH_MAKE_FAIL"
+  },
+  "receipt": {
+    "court_status": "partial",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool-old",
+      "has-m4-macro-dir",
+      "vendored-aclocal",
+      "uses-ax-archive"
+    ],
+    "receipt_hash": "0c59fbbfaf8b7c99e898d3ac5dc9e07938dcc22d145593dd75859973c43246e8",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
+}

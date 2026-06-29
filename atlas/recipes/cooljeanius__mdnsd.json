@@ -1,0 +1,160 @@
+{
+  "schema": "automake-rs.build-atlas/v2",
+  "repo": "cooljeanius/mdnsd",
+  "source": {
+    "url": "https://github.com/cooljeanius/mdnsd",
+    "git_sha": "800590ec6b84e73d7a255e59f7f723779b70d08e",
+    "snapshot_utc": "2026-06-27"
+  },
+  "toolchain": {
+    "autoconf_rs": "autoconf-rs 0.1.13",
+    "automake_rs": "automake (GNU automake) UNKNOWN",
+    "m4_rs_core": "0.1.4",
+    "gnu_free": true
+  },
+  "target": {
+    "cc": "cc",
+    "cflags": "-g -O2",
+    "host": "x86_64-pc-linux-gnu"
+  },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "fail"
+    },
+    {
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {},
+  "feature_flags": {
+    "configure_args": []
+  },
+  "dependencies": {
+    "pkg_config": [],
+    "system_libs": [],
+    "headers_needed": [],
+    "missing": []
+  },
+  "quirks": [
+    "libtool",
+    "subdirs"
+  ],
+  "outputs": [],
+  "status": "CONFIGURE_RUN_FAIL",
+  "verified": false,
+  "diagnostic": "./configure: line 1372: syntax error near unexpected token `AM_SET_LEADING_DOT'",
+  "deep_expansion": {
+    "configure_lines": 1701,
+    "leaked_macros": [
+      {
+        "name": "AC_PATH_PROGS_FEATURE_CHECK",
+        "line": 1403,
+        "context": "AC_PATH_PROGS_FEATURE_CHECK(CLANG_ANALYZER,"
+      },
+      {
+        "name": "AC_MSG_WARN",
+        "line": 1408,
+        "context": "AC_MSG_WARN([we will not be able to do static analysis with clang]),"
+      }
+    ],
+    "heredoc_openers": 28,
+    "heredoc_terminators": 28,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1372,
+        "token": "AM_SET_LEADING_DOT",
+        "source": "fi AM_SET_LEADING_DOT",
+        "block": [
+          "1368:   printf '%s\\n' \"no\"",
+          "1369:   LIBS=$_acs_save_LIBS",
+          "1370:   :",
+          "1371:   ",
+          "1372: fi AM_SET_LEADING_DOT",
+          "1373: ",
+          "1374: ",
+          "1375: # Check for large file support"
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL"
+    ],
+    "failed_during_check": "",
+    "failure_tail": [
+      "./configure: line 1372: syntax error near unexpected token `AM_SET_LEADING_DOT'",
+      "./configure: line 1372: `fi AM_SET_LEADING_DOT'"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 26,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "char strerror ();\\nint main() { return strerror (); }",
+      "#include <sys/types.h>\\nint main() { return sizeof(off_t) >= 8 ? 0 : 1; }",
+      "#include <$ac_hdr>",
+      "#include <$ac_hdr>",
+      "#include <$ac_hdr>",
+      "#include <$ac_hdr>"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "ok",
+    "real_configure_lines": 21940,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE"
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "line 1372: fi AM_SET_LEADING_DOT (near `AM_SET_LEADING_DOT`)",
+    "ours_error_context": [
+      "fi AM_SET_LEADING_DOT"
+    ],
+    "ours_configure_lines": 1701,
+    "real_configure_lines": 21940,
+    "macros_ours_left_undefined": [
+      "AC_MSG_WARN",
+      "AC_PATH_PROGS_FEATURE_CHECK"
+    ]
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool",
+      "uses-maintainer-mode",
+      "has-m4-macro-dir",
+      "vendored-aclocal"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-maintainer-mode",
+        "action": "--disable-maintainer-mode",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "9447b588adeb7e3cf6a61ad71d167cbb97eb800ecdfbc906cacd6b4aa4e65035",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
+}

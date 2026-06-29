@@ -1,0 +1,129 @@
+{
+  "schema": "automake-rs.build-atlas/v2",
+  "repo": "4ZM/mfterm",
+  "source": {
+    "url": "https://github.com/4ZM/mfterm",
+    "git_sha": "e13d373cc23c4e0b89f112b5e4e6d21f737d937e",
+    "snapshot_utc": "2026-06-27"
+  },
+  "toolchain": {
+    "autoconf_rs": "autoconf-rs 0.1.13",
+    "automake_rs": "automake (GNU automake) UNKNOWN",
+    "m4_rs_core": "0.1.4",
+    "gnu_free": true
+  },
+  "target": {
+    "cc": "cc",
+    "cflags": "-g -O2",
+    "host": "x86_64-pc-linux-gnu"
+  },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "ok"
+    },
+    {
+      "step": "make",
+      "tool": "make",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {
+    "HAVE_RL_COMPLETION_SUPPRESS_APPEND": 1
+  },
+  "feature_flags": {
+    "configure_args": []
+  },
+  "dependencies": {
+    "pkg_config": [],
+    "system_libs": [
+      "-lnfc"
+    ],
+    "headers_needed": [],
+    "missing": []
+  },
+  "quirks": [
+    "subdirs",
+    "LIBS=-lnfc"
+  ],
+  "outputs": [],
+  "status": "MAKE_FAIL",
+  "verified": false,
+  "diagnostic": "",
+  "deep_expansion": {
+    "configure_lines": 2575,
+    "leaked_macros": [],
+    "heredoc_openers": 26,
+    "heredoc_terminators": 26,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2099: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT"
+    ],
+    "failed_during_check": "checking for strtoul... yes",
+    "failure_tail": [
+      "checking for strtoul... yes",
+      "configure: creating Makefile",
+      "configure: creating config.h",
+      "configure: creating ./config.status"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 12,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "char nfc_open();\\nint main() { return nfc_open(); }",
+      "char rl_completion_matches();\\nint main() { return rl_completion_matches(); }",
+      "char DES_set_key_unchecked();\\nint main() { return DES_set_key_unchecked(); }",
+      "#include <$ac_hdr>",
+      "#include <stdbool.h>",
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { size_t x; return 0; }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "fail",
+    "real_configure": "skipped",
+    "real_make": "skipped",
+    "real_configure_lines": 0,
+    "real_first_error": "Makefile.am: error: required file './ChangeLog' not found",
+    "classification": "OURS_BETTER"
+  },
+  "receipt": {
+    "court_status": "partial",
+    "probe_trace": [
+      {
+        "name": "HAVE_RL_COMPLETION_SUPPRESS_APPEND",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      }
+    ],
+    "quirks_matched": [
+      "vendored-aclocal"
+    ],
+    "receipt_hash": "4d3c9686d996f4357ff4e7a019c73793af8caa91acc11d591351b6bdc55b7340",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
+}

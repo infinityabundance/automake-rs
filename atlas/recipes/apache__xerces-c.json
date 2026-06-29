@@ -1,0 +1,194 @@
+{
+  "schema": "automake-rs.build-atlas/v2",
+  "repo": "apache/xerces-c",
+  "source": {
+    "url": "https://github.com/apache/xerces-c",
+    "git_sha": "53c0401812bfe5523594c1180f5ac7c758a2eaf7",
+    "snapshot_utc": "2026-06-27"
+  },
+  "toolchain": {
+    "autoconf_rs": "autoconf-rs 0.1.13",
+    "automake_rs": "automake (GNU automake) UNKNOWN",
+    "m4_rs_core": "0.1.4",
+    "gnu_free": true
+  },
+  "target": {
+    "cc": "cc",
+    "cflags": "-g -O2",
+    "host": "x86_64-pc-linux-gnu"
+  },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "fail"
+    },
+    {
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {},
+  "feature_flags": {
+    "configure_args": []
+  },
+  "dependencies": {
+    "pkg_config": [],
+    "system_libs": [],
+    "headers_needed": [],
+    "missing": []
+  },
+  "quirks": [
+    "autoconf-archive-macros",
+    "libtool",
+    "subdirs"
+  ],
+  "outputs": [],
+  "status": "CONFIGURE_RUN_FAIL",
+  "verified": false,
+  "diagnostic": "./configure: line 1495: syntax error near unexpected token `AC_PROG_F77'",
+  "deep_expansion": {
+    "configure_lines": 4471,
+    "leaked_macros": [
+      {
+        "name": "m4_undefine",
+        "line": 1495,
+        "context": "m4_undefine(AC_PROG_F77)"
+      }
+    ],
+    "heredoc_openers": 53,
+    "heredoc_terminators": 53,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1495,
+        "token": "AC_PROG_F77",
+        "source": "m4_undefine(AC_PROG_F77)",
+        "block": [
+          "1491: #it would be nice to also check for PERL...",
+          "1492: #AC_PROG_PERL",
+          "1493: ",
+          "1494: #skip detection of Fortran",
+          "1495: m4_undefine(AC_PROG_F77)",
+          "1496: ",
+          "1497: ",
+          "1498: # Check for ln -s"
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 3986: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "CXX",
+      "CXXFLAGS",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL",
+      "srcdir",
+      "prefix",
+      "exec_prefix",
+      "CC",
+      "CFLAGS",
+      "CPPFLAGS",
+      "LDFLAGS",
+      "LIBS",
+      "CPP",
+      "DEFS",
+      "LIBOBJS",
+      "INSTALL",
+      "XERCES_VERSION_REVISION",
+      "XERCES_VERSION_MINOR",
+      "CURL_LIBS",
+      "INTERFACE_VERSION_D",
+      "ICU_BIN",
+      "host_cpu",
+      "XERCES_VERSION_MAJOR",
+      "pkgconfigdir",
+      "host_os"
+    ],
+    "failed_during_check": "checking whether to use rpath... ",
+    "failure_tail": [
+      "checking whether to use rpath...",
+      "./configure: line 1495: syntax error near unexpected token `AC_PROG_F77'",
+      "./configure: line 1495: `m4_undefine(AC_PROG_F77)'"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 48,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "#include <time.h>",
+      "#include <$ac_hdr>",
+      "#include <stdbool.h>",
+      "#include <sys/types.h>\\n#include <stdint.h>\\n#include <stddef.h>\\nint main() { static int 1 - 2 * !((long int) (sizeof (wchar_t)) <= 0)test_ar",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar pthread_join();\\nint main() { return pthread_join(); }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar error_at_line();\\nint main() { return error_at_line(); }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "ok",
+    "real_configure_lines": 28284,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE"
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "line 1495: m4_undefine(AC_PROG_F77) (near `AC_PROG_F77`)",
+    "ours_error_context": [
+      "m4_undefine(AC_PROG_F77)"
+    ],
+    "ours_configure_lines": 4471,
+    "real_configure_lines": 28284,
+    "macros_ours_left_undefined": [
+      "m4_undefine"
+    ]
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool-old",
+      "uses-subdir-objects",
+      "uses-maintainer-mode",
+      "has-m4-macro-dir",
+      "vendored-aclocal",
+      "uses-ax-archive",
+      "perl-in-configure"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-subdir-objects",
+        "action": "--disable-dependency-tracking",
+        "verified": false
+      },
+      {
+        "id": "uses-maintainer-mode",
+        "action": "--disable-maintainer-mode",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "9447b588adeb7e3cf6a61ad71d167cbb97eb800ecdfbc906cacd6b4aa4e65035",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
+}

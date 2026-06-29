@@ -1,0 +1,169 @@
+{
+  "schema": "automake-rs.build-atlas/v2",
+  "repo": "cryptode/cryptode",
+  "source": {
+    "url": "https://github.com/cryptode/cryptode",
+    "git_sha": "19dbe2a9476e49b457c803c37d1034d6523c2a17",
+    "snapshot_utc": "2026-06-27"
+  },
+  "toolchain": {
+    "autoconf_rs": "autoconf-rs 0.1.13",
+    "automake_rs": "automake (GNU automake) UNKNOWN",
+    "m4_rs_core": "0.1.4",
+    "gnu_free": true
+  },
+  "target": {
+    "cc": "cc",
+    "cflags": "-g -O2",
+    "host": "x86_64-pc-linux-gnu"
+  },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "fail"
+    },
+    {
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {},
+  "feature_flags": {
+    "configure_args": []
+  },
+  "dependencies": {
+    "pkg_config": [],
+    "system_libs": [],
+    "headers_needed": [],
+    "missing": []
+  },
+  "quirks": [
+    "autoconf-archive-macros",
+    "libtool",
+    "subdirs"
+  ],
+  "outputs": [],
+  "status": "CONFIGURE_RUN_FAIL",
+  "verified": false,
+  "diagnostic": "./configure: line 1456: syntax error near unexpected token `pthread.h'",
+  "deep_expansion": {
+    "configure_lines": 2834,
+    "leaked_macros": [],
+    "heredoc_openers": 23,
+    "heredoc_terminators": 23,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1456,
+        "token": "pthread.h",
+        "source": "pthread.h",
+        "block": [
+          "1452: fi",
+          "1453: ",
+          "1454: # list all used system headers for checking",
+          "1455: for ac_hdr in ",
+          "1456:     pthread.h",
+          "1457:     string.h",
+          "1458:     stdio.h",
+          "1459:     string.h"
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2358: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL",
+      "srcdir",
+      "prefix",
+      "exec_prefix",
+      "CC",
+      "CFLAGS",
+      "CPPFLAGS",
+      "LDFLAGS",
+      "LIBS",
+      "CXX",
+      "CXXFLAGS",
+      "CPP",
+      "DEFS",
+      "LIBOBJS",
+      "INSTALL",
+      "NEREON_LIBS",
+      "CRYPTODE_USER_ID",
+      "OPENSSL_LIBS",
+      "OPENSSL_LDFLAGS",
+      "host_vendor",
+      "OPENSSL_INCLUDES",
+      "JSONC_LDFLAGS",
+      "NEREON_LDFLAGS",
+      "NEREON_LIBDIR"
+    ],
+    "failed_during_check": "checking for library containing pthread_create... none required",
+    "failure_tail": [
+      "checking for library containing pthread_create... none required",
+      "./configure: line 1456: syntax error near unexpected token `pthread.h'",
+      "./configure: line 1456: `    pthread.h'"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 6,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "char socket ();\\nint main() { return socket (); }",
+      "char pthread_create ();\\nint main() { return pthread_create (); }",
+      "#include <$ac_hdr>",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func();\\nint main() { return $ac_func(); }",
+      "#include <json.h>\\nint main() { json_object_new_object() ; return 0; }",
+      "#include <openssl/crypto.h>\\nint main() { SSL_new(NULL) ; return 0; }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "fail",
+    "real_make": "skipped",
+    "real_configure_lines": 16151,
+    "real_first_error": "configure: error:",
+    "classification": "BOTH_CONFIGURE_FAIL"
+  },
+  "receipt": {
+    "court_status": "not_standalone",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool-old",
+      "uses-subdir-objects",
+      "has-m4-macro-dir",
+      "vendored-aclocal",
+      "uses-ax-archive"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-subdir-objects",
+        "action": "--disable-dependency-tracking",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "8bbf2a40459c00e0ac6d2d10a28a20b01491f4406335061ccdfc784789be554c",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
+}

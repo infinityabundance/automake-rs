@@ -1,0 +1,173 @@
+{
+  "schema": "automake-rs.build-atlas/v2",
+  "repo": "GPGTools/pinentry",
+  "source": {
+    "url": "https://github.com/GPGTools/pinentry",
+    "git_sha": "4b2578d818051dabb3e442e74d6265872b1c1c7a",
+    "snapshot_utc": "2026-06-27"
+  },
+  "toolchain": {
+    "autoconf_rs": "autoconf-rs 0.1.13",
+    "automake_rs": "automake (GNU automake) UNKNOWN",
+    "m4_rs_core": "0.1.4",
+    "gnu_free": true
+  },
+  "target": {
+    "cc": "cc",
+    "cflags": "-g -O2",
+    "host": "x86_64-pc-linux-gnu"
+  },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "fail"
+    },
+    {
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {},
+  "feature_flags": {
+    "configure_args": []
+  },
+  "dependencies": {
+    "pkg_config": [
+      "checking for GPG Error - version >= 1.16... no",
+      "checking for LIBASSUAN - version >= 2.1.0... ./configure: line 1815: --version: "
+    ],
+    "system_libs": [],
+    "headers_needed": [],
+    "missing": []
+  },
+  "quirks": [
+    "pkg-config",
+    "subdirs"
+  ],
+  "outputs": [],
+  "status": "CONFIGURE_RUN_FAIL",
+  "verified": false,
+  "diagnostic": "./configure: line 1656: GNUPG_CHECK_MLOCK: command not found",
+  "deep_expansion": {
+    "configure_lines": 4114,
+    "leaked_macros": [],
+    "heredoc_openers": 29,
+    "heredoc_terminators": 29,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1907,
+        "token": "fi",
+        "source": "fi",
+        "block": [
+          "1903:   ",
+          "1904: ",
+          "1905: if test \"$have_libassuan\" = \"yes\"; then",
+          "1906:   # Define unquoted: GNUPG_LIBASSUAN_VERSION",
+          "1907: fi",
+          "1908: ",
+          "1909: COMMON_CFLAGS=\"$LIBASSUAN_CFLAGS $COMMON_CFLAGS\"",
+          "1910: COMMON_LIBS=\"$LIBASSUAN_LIBS $COMMON_LIBS\""
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 3609: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PKG_CONFIG",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL",
+      "srcdir",
+      "prefix",
+      "exec_prefix",
+      "CC",
+      "CFLAGS",
+      "CPPFLAGS",
+      "LDFLAGS",
+      "LIBS",
+      "CXX",
+      "CXXFLAGS",
+      "CPP",
+      "DEFS",
+      "LIBOBJS",
+      "INSTALL",
+      "PINENTRY_QT4_LIBS",
+      "PINENTRY_QT4_CFLAGS",
+      "FLTKCFLAGS",
+      "COMMON_CFLAGS",
+      "PINENTRY_QT5_LDFLAGS",
+      "GPG_ERROR_CFLAGS",
+      "PINENTRY_QT5_CFLAGS",
+      "GLIB_LIBS"
+    ],
+    "failed_during_check": "checking for LIBASSUAN - version >= 2.1.0... ./configure: line 1815: --version: ",
+    "failure_tail": [
+      "checking for LIBASSUAN - version >= 2.1.0... ./configure: line 1815: --version: ",
+      "./configure: line 1826: test: : integer expression expected",
+      "./configure: line 1829: test: : integer expression expected",
+      "no",
+      "./configure: line 1907: syntax error near unexpected token `fi'"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 13,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "\\n#if __GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 6 )\\n#kickerror\\n#endif\\nint main() {  ; return 0; }",
+      "\\nint main() {  ; return 0; }",
+      "\\nint main() {  ; return 0; }",
+      "\\nint main() {  ; return 0; }",
+      "\\nint main() {  ; return 0; }",
+      "#include <$ac_hdr>"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "fail",
+    "real_make": "skipped",
+    "real_configure_lines": 16750,
+    "real_first_error": "configure: error:",
+    "classification": "BOTH_CONFIGURE_FAIL"
+  },
+  "receipt": {
+    "court_status": "not_standalone",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-pkg-config",
+      "uses-maintainer-mode",
+      "has-m4-macro-dir",
+      "has-acinclude",
+      "vendored-aclocal"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-maintainer-mode",
+        "action": "--disable-maintainer-mode",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "8bbf2a40459c00e0ac6d2d10a28a20b01491f4406335061ccdfc784789be554c",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
+}

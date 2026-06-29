@@ -1,0 +1,169 @@
+{
+  "schema": "automake-rs.build-atlas/v2",
+  "repo": "flatpak/ppa-xdg-desktop-portal",
+  "source": {
+    "url": "https://github.com/flatpak/ppa-xdg-desktop-portal",
+    "git_sha": "55db6f4241060996c87e24d6345f950ea4a8c113",
+    "snapshot_utc": "2026-06-27"
+  },
+  "toolchain": {
+    "autoconf_rs": "autoconf-rs 0.1.13",
+    "automake_rs": "automake (GNU automake) UNKNOWN",
+    "m4_rs_core": "0.1.4",
+    "gnu_free": true
+  },
+  "target": {
+    "cc": "cc",
+    "cflags": "-g -O2",
+    "host": "x86_64-pc-linux-gnu"
+  },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "fail"
+    },
+    {
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {},
+  "feature_flags": {
+    "configure_args": []
+  },
+  "dependencies": {
+    "pkg_config": [
+      "checking for pkg-config... /usr/bin/pkg-config",
+      "checking pkg-config is at least version 0.24... yes",
+      "and LIBPORTAL_LIBS to avoid the need to call pkg-config.",
+      "See the pkg-config man page for more details."
+    ],
+    "system_libs": [],
+    "headers_needed": [],
+    "missing": []
+  },
+  "quirks": [
+    "libtool",
+    "pkg-config",
+    "gettext",
+    "subdirs"
+  ],
+  "outputs": [],
+  "status": "CONFIGURE_RUN_FAIL",
+  "verified": false,
+  "diagnostic": "configure: error: Package requirements (libportal) were not met:",
+  "deep_expansion": {
+    "configure_lines": 19135,
+    "leaked_macros": [],
+    "heredoc_openers": 95,
+    "heredoc_terminators": 94,
+    "heredoc_imbalance": -1,
+    "syntax_errors": [],
+    "cache_var_anomalies": [
+      "line 119: do eval test x\\${$as_var+set} = xset \\",
+      "line 1787: if eval \\${$3+:} false; then :",
+      "line 1790: if eval \\${$3+:} false; then :",
+      "line 1853: if eval \\${$3+:} false; then :",
+      "line 1917: if eval \\${$3+:} false; then :",
+      "line 1993: if eval \\${$3+:} false; then :",
+      "line 14408: if eval \\${$gt_func_gnugettext_libc+:} false; then :",
+      "line 15157: if eval \\${$gt_func_gnugettext_libintl+:} false; then :",
+      "line 16990: do eval test x\\${$as_var+set} = xset \\"
+    ],
+    "residual_placeholders": [
+      "PROGRAM",
+      "OUTPUT",
+      "TOOL_OUTPUT",
+      "srcdir",
+      "datadir",
+      "docdir",
+      "infodir",
+      "localedir",
+      "mandir",
+      "configure_input",
+      "top_builddir",
+      "top_build_prefix",
+      "abs_srcdir",
+      "top_srcdir",
+      "abs_top_srcdir",
+      "builddir",
+      "abs_builddir",
+      "abs_top_builddir",
+      "INSTALL",
+      "MKDIR_P",
+      "POFILES",
+      "UPDATEPOFILES",
+      "DUMMYPOFILES",
+      "GMOFILES",
+      "CATALOGS",
+      "POMAKEFILEDEPS"
+    ],
+    "failed_during_check": "checking for LIBPORTAL... no",
+    "failure_tail": [
+      "checking for LIBPORTAL... no",
+      "configure: error: Package requirements (libportal) were not met:",
+      "Package 'libportal', required by 'virtual:world', not found"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 146,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "/* end confdefs.h.  */\\n$4\\n#include <$2>",
+      "/* end confdefs.h.  */\\n#include <$2>",
+      "/* end confdefs.h.  */\\n$4\\n#include <$2>",
+      "/* end confdefs.h.  */\\n/* Define $2 to an innocuous variant, in case <limits.h> declares $2.\\nFor example, HP-UX 11i <limits.h> declares gettimeofday.  */\\n#define $2 innocuous_$2\\n\\n/* System header to define __stub macros and hopefully few prototypes,\\nwhich can conflict with char $2 (); below.\\nPrefer <limits.h> to <assert.h> if __STDC__ is defined, since\\n<limits.h> exists even on freestanding compilers.  */\\n\\n#ifdef __STDC__\\n# include <limits.h>",
+      "/* end confdefs.h.  */\\n\\nint\\nmain ()\\n{\\n\\n;\\nreturn 0;\\n}",
+      "/* end confdefs.h.  */\\n#include <stdio.h>\\nint\\nmain ()\\n{\\nFILE *f = fopen (\"conftest.out\", \"w\");\\nreturn ferror (f) || fclose (f) != 0;\\n\\n;\\nreturn 0;\\n}"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "fail",
+    "real_make": "skipped",
+    "real_configure_lines": 20341,
+    "real_first_error": "configure: error: Package requirements (libportal) were not met:",
+    "classification": "BOTH_CONFIGURE_FAIL"
+  },
+  "receipt": {
+    "court_status": "not_standalone",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool",
+      "uses-pkg-config",
+      "uses-gettext",
+      "uses-subdir-objects",
+      "uses-maintainer-mode",
+      "has-m4-macro-dir",
+      "vendored-aclocal"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-subdir-objects",
+        "action": "--disable-dependency-tracking",
+        "verified": false
+      },
+      {
+        "id": "uses-maintainer-mode",
+        "action": "--disable-maintainer-mode",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "8bbf2a40459c00e0ac6d2d10a28a20b01491f4406335061ccdfc784789be554c",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
+}

@@ -1,0 +1,216 @@
+{
+  "schema": "automake-rs.build-atlas/v2",
+  "repo": "chaos/powerman",
+  "source": {
+    "url": "https://github.com/chaos/powerman",
+    "git_sha": "113fda7319611cb0526f4914db8f5ac9bd1a0ad1",
+    "snapshot_utc": "2026-06-27"
+  },
+  "toolchain": {
+    "autoconf_rs": "autoconf-rs 0.1.13",
+    "automake_rs": "automake (GNU automake) UNKNOWN",
+    "m4_rs_core": "0.1.4",
+    "gnu_free": true
+  },
+  "target": {
+    "cc": "cc",
+    "cflags": "-g -O2",
+    "host": "x86_64-pc-linux-gnu"
+  },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "fail"
+    },
+    {
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {},
+  "feature_flags": {
+    "configure_args": []
+  },
+  "dependencies": {
+    "pkg_config": [],
+    "system_libs": [],
+    "headers_needed": [],
+    "missing": []
+  },
+  "quirks": [
+    "autoconf-archive-macros",
+    "libtool",
+    "subdirs"
+  ],
+  "outputs": [],
+  "status": "CONFIGURE_RUN_FAIL",
+  "verified": false,
+  "diagnostic": "./configure: line 585: syntax error near unexpected token `('",
+  "deep_expansion": {
+    "configure_lines": 3470,
+    "leaked_macros": [
+      {
+        "name": "AH_CHECK_LIB",
+        "line": 1799,
+        "context": "AH_CHECK_LIB(curl)"
+      },
+      {
+        "name": "AH_CHECK_LIB",
+        "line": 1884,
+        "context": "AH_CHECK_LIB(curl)"
+      },
+      {
+        "name": "AH_CHECK_LIB",
+        "line": 1946,
+        "context": "AH_CHECK_LIB(jansson)"
+      },
+      {
+        "name": "AH_CHECK_LIB",
+        "line": 2045,
+        "context": "AH_CHECK_LIB(netsnmp)"
+      },
+      {
+        "name": "AH_CHECK_LIB",
+        "line": 2130,
+        "context": "AH_CHECK_LIB(genders)"
+      },
+      {
+        "name": "AH_CHECK_LIB",
+        "line": 2289,
+        "context": "AH_CHECK_LIB(wrap)"
+      }
+    ],
+    "heredoc_openers": 43,
+    "heredoc_terminators": 43,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 585,
+        "token": "(",
+        "source": "PACKAGE_VERSION='m4_esyscmd(git describe --always | awk '/.*/ {sub(/^v/,",
+        "block": [
+          "581: ",
+          "582: # Identity of this package.",
+          "583: PACKAGE_NAME='powerman'",
+          "584: PACKAGE_TARNAME='powerman'",
+          "585: PACKAGE_VERSION='m4_esyscmd(git describe --always | awk '/.*/ {sub(/^v/, \"\")",
+          "586: PACKAGE_STRING='powerman m4_esyscmd(git describe --always | awk '/.*/ {sub(/",
+          "587: PACKAGE_BUGREPORT=''",
+          "588: PACKAGE_URL=''"
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2993: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL",
+      "srcdir",
+      "prefix",
+      "exec_prefix",
+      "CC",
+      "CFLAGS",
+      "CPPFLAGS",
+      "LDFLAGS",
+      "LIBS",
+      "CXX",
+      "CXXFLAGS",
+      "CPP",
+      "DEFS",
+      "LIBOBJS",
+      "INSTALL",
+      "X_LIBDIR",
+      "X_LOCALSTATEDIR",
+      "X_RUNSTATEDIR",
+      "X_SHAREDSTATEDIR",
+      "X_SYSCONFDIR",
+      "X_OLDINCLUDEDIR",
+      "target_alias",
+      "X_MANDIR",
+      "RUN_AS_GROUP"
+    ],
+    "failed_during_check": "",
+    "failure_tail": [
+      "./configure: line 585: syntax error near unexpected token `('",
+      "./configure: line 585: `PACKAGE_VERSION='m4_esyscmd(git describe --always | awk "
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 15,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "\\nint main() {\\n#if !($vencpp)\\nthisisanerror;\\n#endif\\n; return 0; }",
+      "#include <$ac_hdr>",
+      "int main() { int x = 1; return *(char*)&x; }",
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { uid_t x; return 0; }",
+      "int main() { const int x = 1; return x-1; }",
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { $ac_type x; return 0; }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "ok",
+    "real_configure_lines": 18364,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE"
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "line 585: PACKAGE_VERSION='m4_esyscmd(git describe --always | awk '/.*/ {sub(/^v/, (near `(`)",
+    "ours_error_context": [
+      "PACKAGE_VERSION='m4_esyscmd(git describe --always | awk '/.*/ {sub(/^v/,"
+    ],
+    "ours_configure_lines": 3470,
+    "real_configure_lines": 18364,
+    "macros_ours_left_undefined": [
+      "AH_CHECK_LIB"
+    ]
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool",
+      "uses-subdir-objects",
+      "uses-maintainer-mode",
+      "vendored-aclocal",
+      "uses-ax-archive"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-subdir-objects",
+        "action": "--disable-dependency-tracking",
+        "verified": false
+      },
+      {
+        "id": "uses-maintainer-mode",
+        "action": "--disable-maintainer-mode",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "9447b588adeb7e3cf6a61ad71d167cbb97eb800ecdfbc906cacd6b4aa4e65035",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
+}

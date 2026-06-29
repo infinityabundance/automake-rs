@@ -1,0 +1,166 @@
+{
+  "schema": "automake-rs.build-atlas/v2",
+  "repo": "calaos/calaos_base",
+  "source": {
+    "url": "https://github.com/calaos/calaos_base",
+    "git_sha": "1048d26325c7a63e732a6c3ee1a96f626200bae7",
+    "snapshot_utc": "2026-06-27"
+  },
+  "toolchain": {
+    "autoconf_rs": "autoconf-rs 0.1.13",
+    "automake_rs": "automake (GNU automake) UNKNOWN",
+    "m4_rs_core": "0.1.4",
+    "gnu_free": true
+  },
+  "target": {
+    "cc": "cc",
+    "cflags": "-g -O2",
+    "host": "x86_64-pc-linux-gnu"
+  },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "fail"
+    },
+    {
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {},
+  "feature_flags": {
+    "configure_args": []
+  },
+  "dependencies": {
+    "pkg_config": [
+      "checking for libuv >= 1.19.0 sigc++-2.0 >= 2.4.1 jansson >= 2.5 libcurl >= 7.20.",
+      "checking for libuv >= 1.19.0 libcurl openssl >= 1.1.0... yes"
+    ],
+    "system_libs": [],
+    "headers_needed": [],
+    "missing": []
+  },
+  "quirks": [
+    "autoconf-archive-macros",
+    "libtool",
+    "pkg-config",
+    "gettext",
+    "subdirs"
+  ],
+  "outputs": [],
+  "status": "CONFIGURE_RUN_FAIL",
+  "verified": false,
+  "diagnostic": "./configure: line 1587: syntax error near unexpected token `CALAOS_COMMON,'",
+  "deep_expansion": {
+    "configure_lines": 3278,
+    "leaked_macros": [],
+    "heredoc_openers": 30,
+    "heredoc_terminators": 30,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1587,
+        "token": "CALAOS_COMMON,",
+        "source": "_CFLAGSm4_translit(CALAOS_COMMON, -a-z, _A-Z)=\"${_CFLAGSm4_translit(CALA",
+        "block": [
+          "1583: ",
+          "1584: # Restore language",
+          "1585: CFLAGS=\"${CFLAGS_save}\"",
+          "1586: if test \"x${have_flag}\" = \"xyes\" ; then",
+          "1587:    _CFLAGSm4_translit(CALAOS_COMMON, -a-z, _A-Z)=\"${_CFLAGSm4_translit(CALAO",
+          "1588: fi",
+          "1589: ",
+          "1590: if test \"${have_flag}\" != \"yes\"; then"
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2751: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "CXX",
+      "CXXFLAGS",
+      "PKG_CONFIG",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT"
+    ],
+    "failed_during_check": "checking whether the compiler supports -Wall -Wextra -Wno-unused-parameter -Wsha",
+    "failure_tail": [
+      "checking whether the compiler supports -Wall -Wextra -Wno-unused-parameter -Wsha",
+      "./configure: line 1587: syntax error near unexpected token `CALAOS_COMMON,'",
+      "./configure: line 1587: `   _CFLAGSm4_translit(CALAOS_COMMON, -a-z, _A-Z)=\"${_CF"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 9,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "#include <sys/types.h>\\nint main() { return sizeof(off_t) >= 8 ? 0 : 1; }",
+      "int main() { int x = 1; return *(char*)&x; }",
+      "inline int foo() { return 0; }\\nint main() { return foo(); }",
+      "\\nint main() {  ; return 0; }",
+      "#include <assert.h>",
+      "#include <$ac_hdr>"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "fail",
+    "real_configure_lines": 26644,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE"
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "line 1587: _CFLAGSm4_translit(CALAOS_COMMON, -a-z, _A-Z)=\"${_CFLAGSm4_translit(CALA (near `CALAOS_COMMON,`)",
+    "ours_error_context": [
+      "_CFLAGSm4_translit(CALAOS_COMMON, -a-z, _A-Z)=\"${_CFLAGSm4_translit(CALA"
+    ],
+    "ours_configure_lines": 3278,
+    "real_configure_lines": 26644,
+    "macros_ours_left_undefined": []
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool",
+      "uses-pkg-config",
+      "uses-gettext",
+      "uses-python",
+      "uses-subdir-objects",
+      "has-m4-macro-dir",
+      "vendored-aclocal",
+      "uses-ax-archive"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-subdir-objects",
+        "action": "--disable-dependency-tracking",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "9447b588adeb7e3cf6a61ad71d167cbb97eb800ecdfbc906cacd6b4aa4e65035",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
+}

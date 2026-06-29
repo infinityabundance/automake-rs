@@ -1,0 +1,178 @@
+{
+  "schema": "automake-rs.build-atlas/v2",
+  "repo": "Distrotech/libcddb",
+  "source": {
+    "url": "https://github.com/Distrotech/libcddb",
+    "git_sha": "a9feca4c8c468b45c0e2b097f58e7be6f8e705b9",
+    "snapshot_utc": "2026-06-27"
+  },
+  "toolchain": {
+    "autoconf_rs": "autoconf-rs 0.1.13",
+    "automake_rs": "automake (GNU automake) UNKNOWN",
+    "m4_rs_core": "0.1.4",
+    "gnu_free": true
+  },
+  "target": {
+    "cc": "cc",
+    "cflags": "-g -O2",
+    "host": "x86_64-pc-linux-gnu"
+  },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "fail"
+    },
+    {
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {},
+  "feature_flags": {
+    "configure_args": []
+  },
+  "dependencies": {
+    "pkg_config": [],
+    "system_libs": [],
+    "headers_needed": [],
+    "missing": []
+  },
+  "quirks": [
+    "libtool",
+    "pkg-config",
+    "gettext",
+    "subdirs"
+  ],
+  "outputs": [],
+  "status": "CONFIGURE_RUN_FAIL",
+  "verified": false,
+  "diagnostic": "./configure: line 1374: syntax error near unexpected token `fi'",
+  "deep_expansion": {
+    "configure_lines": 2798,
+    "leaked_macros": [],
+    "heredoc_openers": 31,
+    "heredoc_terminators": 31,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1374,
+        "token": "fi",
+        "source": "fi",
+        "block": [
+          "1370: fi",
+          "1371: ",
+          "1372: if test x$default_loglevel != x; then",
+          "1373:     # Define unquoted: LOGLEVEL",
+          "1374: fi",
+          "1375: ",
+          "1376: # Check --with-cdio option",
+          "1377: "
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2322: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL",
+      "srcdir",
+      "prefix",
+      "exec_prefix",
+      "CC",
+      "CFLAGS",
+      "CPPFLAGS",
+      "LDFLAGS",
+      "LIBS",
+      "CXX",
+      "CXXFLAGS",
+      "CPP",
+      "DEFS",
+      "LIBOBJS",
+      "INSTALL",
+      "with_iconv",
+      "host_alias",
+      "host_os",
+      "LIBCDDB_VERSION_NUM",
+      "LIBCDIO_LIBS",
+      "host_vendor",
+      "LIBCDIO_CFLAGS",
+      "host_cpu"
+    ],
+    "failed_during_check": "",
+    "failure_tail": [
+      "./configure: line 1374: syntax error near unexpected token `fi'",
+      "./configure: line 1374: `fi'"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 20,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "char connect();\\nint main() { return connect(); }",
+      "char connect();\\nint main() { return connect(); }",
+      "#include <time.h>",
+      "#include <$ac_hdr>",
+      "#include <$ac_hdr>",
+      "int main() { const int x = 1; return x-1; }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "ok",
+    "real_configure_lines": 18316,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE"
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "line 1374: fi (near `fi`)",
+    "ours_error_context": [
+      "fi"
+    ],
+    "ours_configure_lines": 2798,
+    "real_configure_lines": 18316,
+    "macros_ours_left_undefined": []
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool-old",
+      "uses-pkg-config",
+      "uses-gettext",
+      "uses-maintainer-mode",
+      "vendored-aclocal"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-maintainer-mode",
+        "action": "--disable-maintainer-mode",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "9447b588adeb7e3cf6a61ad71d167cbb97eb800ecdfbc906cacd6b4aa4e65035",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
+}

@@ -1,0 +1,130 @@
+{
+  "schema": "automake-rs.build-atlas/v2",
+  "repo": "gregkh/bti",
+  "source": {
+    "url": "https://github.com/gregkh/bti",
+    "git_sha": "c28e783e91a4cb9f0b2546a90ca5c9691560513f",
+    "snapshot_utc": "2026-06-27"
+  },
+  "toolchain": {
+    "autoconf_rs": "autoconf-rs 0.1.13",
+    "automake_rs": "automake (GNU automake) UNKNOWN",
+    "m4_rs_core": "0.1.4",
+    "gnu_free": true
+  },
+  "target": {
+    "cc": "cc",
+    "cflags": "-g -O2",
+    "host": "x86_64-pc-linux-gnu"
+  },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {},
+  "feature_flags": {
+    "configure_args": []
+  },
+  "dependencies": {
+    "pkg_config": [],
+    "system_libs": [],
+    "headers_needed": [],
+    "missing": []
+  },
+  "quirks": [
+    "pkg-config"
+  ],
+  "outputs": [],
+  "status": "CONFIGURE_RUN_FAIL",
+  "verified": false,
+  "diagnostic": "./configure: line 1480: syntax error near unexpected token `bashcompdir,'",
+  "deep_expansion": {
+    "configure_lines": 2539,
+    "leaked_macros": [
+      {
+        "name": "PKG_CHECK_VAR",
+        "line": 1480,
+        "context": "PKG_CHECK_VAR(bashcompdir, bash-completion, completionsdir, ,"
+      }
+    ],
+    "heredoc_openers": 17,
+    "heredoc_terminators": 17,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1480,
+        "token": "bashcompdir,",
+        "source": "PKG_CHECK_VAR(bashcompdir, bash-completion, completionsdir, ,",
+        "block": [
+          "1476:   :",
+          "1477:   ",
+          "1478: fi",
+          "1479: ",
+          "1480: PKG_CHECK_VAR(bashcompdir, bash-completion, completionsdir, ,",
+          "1481:     bashcompdir=\"${sysconfdir}/bash_completion.d\")",
+          "1482: ",
+          "1483: "
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2045: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PKG_CONFIG",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT"
+    ],
+    "failed_during_check": "checking for library containing dlopen... none required",
+    "failure_tail": [
+      "checking for library containing dlopen... none required",
+      "./configure: line 1480: syntax error near unexpected token `bashcompdir,'",
+      "./configure: line 1480: `PKG_CHECK_VAR(bashcompdir, bash-completion, completions"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 0,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "char dlopen ();\\nint main() { return dlopen (); }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "fail",
+    "real_make": "skipped",
+    "real_configure_lines": 6307,
+    "real_first_error": "configure: error: Package requirements (oauth) were not met:",
+    "classification": "BOTH_CONFIGURE_FAIL"
+  },
+  "receipt": {
+    "court_status": "not_standalone",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-pkg-config",
+      "vendored-aclocal"
+    ],
+    "receipt_hash": "8bbf2a40459c00e0ac6d2d10a28a20b01491f4406335061ccdfc784789be554c",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
+}

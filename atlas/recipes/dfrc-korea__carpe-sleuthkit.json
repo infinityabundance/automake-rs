@@ -1,0 +1,180 @@
+{
+  "schema": "automake-rs.build-atlas/v2",
+  "repo": "dfrc-korea/carpe-sleuthkit",
+  "source": {
+    "url": "https://github.com/dfrc-korea/carpe-sleuthkit",
+    "git_sha": "5d047f9daf94feb501bb8c5b5facc8d97d1c1b71",
+    "snapshot_utc": "2026-06-27"
+  },
+  "toolchain": {
+    "autoconf_rs": "autoconf-rs 0.1.13",
+    "automake_rs": "automake (GNU automake) UNKNOWN",
+    "m4_rs_core": "0.1.4",
+    "gnu_free": true
+  },
+  "target": {
+    "cc": "cc",
+    "cflags": "-g -O2",
+    "host": "x86_64-pc-linux-gnu"
+  },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "fail"
+    },
+    {
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {},
+  "feature_flags": {
+    "configure_args": []
+  },
+  "dependencies": {
+    "pkg_config": [],
+    "system_libs": [],
+    "headers_needed": [],
+    "missing": []
+  },
+  "quirks": [
+    "autoconf-archive-macros",
+    "subdirs"
+  ],
+  "outputs": [],
+  "status": "CONFIGURE_RUN_FAIL",
+  "verified": false,
+  "diagnostic": "./configure: line 1339: m4:: command not found",
+  "deep_expansion": {
+    "configure_lines": 3825,
+    "leaked_macros": [],
+    "heredoc_openers": 67,
+    "heredoc_terminators": 67,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 2767,
+        "token": "(",
+        "source": "hostname = `(hostname || uname -n) 2>/dev/null | sed 1q`",
+        "block": [
+          "2763: ## --------- ##",
+          "2764: ## Platform. ##",
+          "2765: ## --------- ##",
+          "2766: ",
+          "2767: hostname = `(hostname || uname -n) 2>/dev/null | sed 1q`",
+          "2768: uname -m = `(uname -m) 2>/dev/null || echo unknown`",
+          "2769: uname -r = `(uname -r) 2>/dev/null || echo unknown`",
+          "2770: uname -s = `(uname -s) 2>/dev/null || echo unknown`"
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 3336: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL",
+      "srcdir",
+      "prefix",
+      "exec_prefix",
+      "CC",
+      "CFLAGS",
+      "CPPFLAGS",
+      "LDFLAGS",
+      "LIBS",
+      "CXX",
+      "CXXFLAGS",
+      "CPP",
+      "DEFS",
+      "LIBOBJS",
+      "INSTALL",
+      "host_os",
+      "LIBTSK_LDFLAGS",
+      "JNI_CPPFLAGS",
+      "host_vendor",
+      "PTHREAD_CFLAGS",
+      "AM_CXXFLAGS",
+      "PTHREAD_LIBS",
+      "host_cpu",
+      "AM_CFLAGS"
+    ],
+    "failed_during_check": "",
+    "failure_tail": [
+      "./configure: command substitution: line 1345: unexpected EOF while looking for m",
+      "./configure: line 1345: m4:: command not found",
+      "./configure: line 2767: syntax error near unexpected token `('",
+      "./configure: line 2767: `hostname = `(hostname || uname -n) 2>/dev/null | sed 1q"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 71,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "#include <[sys/mkdev.h]>",
+      "#include <[sys/wait.h]>",
+      "#include <$ac_hdr>",
+      "#include <$ac_hdr>",
+      "#include <[stdbool.h]>",
+      "int main() { const int x = 1; return x-1; }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "ok",
+    "real_configure_lines": 24612,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE"
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "line 2767: hostname = `(hostname || uname -n) 2>/dev/null | sed 1q` (near `(`)",
+    "ours_error_context": [
+      "hostname = `(hostname || uname -n) 2>/dev/null | sed 1q`"
+    ],
+    "ours_configure_lines": 3825,
+    "real_configure_lines": 24612,
+    "macros_ours_left_undefined": []
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-maintainer-mode",
+      "has-m4-macro-dir",
+      "vendored-aclocal",
+      "uses-ax-archive",
+      "uses-pthread-check",
+      "perl-in-configure"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-maintainer-mode",
+        "action": "--disable-maintainer-mode",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "9447b588adeb7e3cf6a61ad71d167cbb97eb800ecdfbc906cacd6b4aa4e65035",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
+}

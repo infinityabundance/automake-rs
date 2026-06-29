@@ -1,0 +1,171 @@
+{
+  "schema": "automake-rs.build-atlas/v2",
+  "repo": "erikarn/libevent-adrian",
+  "source": {
+    "url": "https://github.com/erikarn/libevent-adrian",
+    "git_sha": "6d72bdca01d3eb7a740e0a50a7e2e9fc1a9d0ae4",
+    "snapshot_utc": "2026-06-27"
+  },
+  "toolchain": {
+    "autoconf_rs": "autoconf-rs 0.1.13",
+    "automake_rs": "automake (GNU automake) UNKNOWN",
+    "m4_rs_core": "0.1.4",
+    "gnu_free": true
+  },
+  "target": {
+    "cc": "cc",
+    "cflags": "-g -O2",
+    "host": "x86_64-pc-linux-gnu"
+  },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {},
+  "feature_flags": {
+    "configure_args": []
+  },
+  "dependencies": {
+    "pkg_config": [],
+    "system_libs": [],
+    "headers_needed": [],
+    "missing": []
+  },
+  "quirks": [
+    "libtool"
+  ],
+  "outputs": [],
+  "status": "CONFIGURE_RUN_FAIL",
+  "verified": false,
+  "diagnostic": "./configure: line 2200: syntax error near unexpected token `ssize_t,'",
+  "deep_expansion": {
+    "configure_lines": 3842,
+    "leaked_macros": [
+      {
+        "name": "AC_CHECK_TYPE",
+        "line": 2200,
+        "context": "AC_CHECK_TYPE(ssize_t, int)"
+      }
+    ],
+    "heredoc_openers": 62,
+    "heredoc_terminators": 62,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 2200,
+        "token": "ssize_t,",
+        "source": "AC_CHECK_TYPE(ssize_t, int)",
+        "block": [
+          "2196:   printf '%s\\n' \"yes\"",
+          "2197: else",
+          "2198:   printf '%s\\n' \"no\"",
+          "2199: fi",
+          "2200: AC_CHECK_TYPE(ssize_t, int)",
+          "2201: ",
+          "2202: for ac_type in uint64_t, uint32_t, uint16_t, uint8_t, uintptr_t; do printf %",
+          "2203: cat confdefs.h 2>/dev/null - <<_ACEOF >conftest.$ac_ext"
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 3366: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL",
+      "srcdir",
+      "prefix",
+      "exec_prefix",
+      "CC",
+      "CFLAGS",
+      "CPPFLAGS",
+      "LDFLAGS",
+      "LIBS",
+      "CXX",
+      "CXXFLAGS",
+      "CPP",
+      "DEFS",
+      "LIBOBJS",
+      "INSTALL",
+      "build_os",
+      "EV_LIB_GDI",
+      "build_cpu",
+      "EV_LIB_WS32",
+      "PTHREAD_LIBS",
+      "build_alias",
+      "PTHREAD_CFLAGS",
+      "ZLIB_LIBS",
+      "PTHREAD_CC"
+    ],
+    "failed_during_check": "checking for size_t... no",
+    "failure_tail": [
+      "checking for size_t... no",
+      "./configure: line 2200: syntax error near unexpected token `ssize_t,'",
+      "./configure: line 2200: `AC_CHECK_TYPE(ssize_t, int)'"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 78,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "\\nint main() {\\n#if !defined(__GNUC__) || (__GNUC__ < 2) || (__GNUC__ == 2 && __GNUC_MINOR__\\n#error\\n#endif ; return 0; }",
+      "char inet_ntoa ();\\nint main() { return inet_ntoa (); }",
+      "char socket ();\\nint main() { return socket (); }",
+      "char inet_aton ();\\nint main() { return inet_aton (); }",
+      "char clock_gettime ();\\nint main() { return clock_gettime (); }",
+      "char sendfile ();\\nint main() { return sendfile (); }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "fail",
+    "real_configure_lines": 19864,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE"
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "line 2200: AC_CHECK_TYPE(ssize_t, int) (near `ssize_t,`)",
+    "ours_error_context": [
+      "AC_CHECK_TYPE(ssize_t, int)"
+    ],
+    "ours_configure_lines": 3842,
+    "real_configure_lines": 19864,
+    "macros_ours_left_undefined": [
+      "AC_CHECK_TYPE"
+    ]
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool-old",
+      "has-m4-macro-dir",
+      "vendored-aclocal"
+    ],
+    "receipt_hash": "9447b588adeb7e3cf6a61ad71d167cbb97eb800ecdfbc906cacd6b4aa4e65035",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
+}
