@@ -89,6 +89,10 @@ struct Recipe {
     risk_factors: Vec<String>,
     #[serde(skip_serializing_if = "Vec::is_empty")]
     repair_hints: Vec<RepairHint>,
+    /// Optional pointer to a sidecar `deep-inspection.json` for very large traces — keeps the main
+    /// recipe lightweight (per the evolvability note). None inline today; the hook is here.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    deep_inspection_ref: Option<String>,
 }
 
 /// v3: Makefile pathology — classify WHY a generated Makefile fails to parse (the make layer's #1 root
@@ -942,6 +946,7 @@ pub fn run() -> ExitCode {
                         semantic_context,
                         risk_factors,
                         repair_hints,
+                        deep_inspection_ref: None,
                     },
                 );
                 println!("[{:>3}] {:<40} {}", n, repo, status);
@@ -1001,6 +1006,7 @@ pub fn run() -> ExitCode {
                 semantic_context: None,
                 risk_factors: vec![],
                 repair_hints: vec![],
+                deep_inspection_ref: None,
             },
         );
         println!("[{:>3}] {:<40} {}", n, repo, status);
@@ -2962,8 +2968,16 @@ fn write_index(out_dir: &Path) {
         h.into_iter().take(15).map(|(l, r, c)| serde_json::json!({"repo": r, "configure_lines": l, "court": c})).collect()
     };
     let index = serde_json::json!({
-        "schema": "automake-rs.build-atlas/index/v2",
+        "schema": "automake-rs.build-atlas/index/v3",
         "total": total,
+        "corpus_metadata": {
+            "recipe_schema": "automake-rs.build-atlas/v3",
+            "courts": courts.clone(),
+            "configure_clear": ours_clear,
+            "gnu_configure_clear": real_clear,
+            "fixable_headroom": real_clear.saturating_sub(ours_clear),
+            "func_ok": by_status.get("FUNC_OK").copied().unwrap_or(0),
+        },
         "by_status": by_status,
         "expansion_bugs": {
             "repos_with_leaked_macros": with_leaks,
