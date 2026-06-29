@@ -1585,6 +1585,15 @@ fn write_index(out_dir: &Path) {
     });
     let _ = std::fs::write(out_dir.join("INDEX.json"), serde_json::to_string_pretty(&index).unwrap_or_default() + "\n");
 
+    // Human-readable docs live at the atlas DOC dir (alongside README.md/SCHEMA.md), not inside the
+    // recipe-data dir — so when out_dir is `<atlas>/recipes`, write the .md to `<atlas>/`. (Avoids the
+    // stale-duplicate trap where atlas/COURTS.md and atlas/recipes/COURTS.md drift apart.)
+    let doc_dir = if out_dir.file_name().and_then(|s| s.to_str()) == Some("recipes") {
+        out_dir.parent().unwrap_or(out_dir)
+    } else {
+        out_dir
+    };
+
     // COURTS.md — human-readable gap-analysis summary of the build-court verdicts.
     let mut md = String::new();
     md.push_str("# Build Courts — automake-rs Atlas gap analysis\n\n");
@@ -1615,7 +1624,7 @@ fn write_index(out_dir: &Path) {
     for r in rank(&make_fail_class).iter().take(12) {
         md.push_str(&format!("- {} — {} repos\n", r["name"].as_str().unwrap_or(""), r["repos"]));
     }
-    let _ = std::fs::write(out_dir.join("COURTS.md"), md);
+    let _ = std::fs::write(doc_dir.join("COURTS.md"), md);
 
     // ANALYTICS.md — self-documenting corpus intelligence: quirk hotspots (automation candidates),
     // failure modes, dependency patterns, heavy hitters, and the partial->full shortlist.
@@ -1656,7 +1665,7 @@ fn write_index(out_dir: &Path) {
     for r in rank(&p2f_diag).iter().take(12) {
         a.push_str(&format!("| {} | {} |\n", r["name"].as_str().unwrap_or(""), r["repos"]));
     }
-    let _ = std::fs::write(out_dir.join("ANALYTICS.md"), a);
+    let _ = std::fs::write(doc_dir.join("ANALYTICS.md"), a);
 
     // RECIPES.md — the working / non-working roster. "Working" = built end-to-end (FUNC_OK, i.e. court
     // sealed or quirk_dependent). Non-working is split: partial (configure cleared, make failed),
@@ -1697,7 +1706,7 @@ fn write_index(out_dir: &Path) {
         }
         r.push('\n');
     }
-    let _ = std::fs::write(out_dir.join("RECIPES.md"), r);
+    let _ = std::fs::write(doc_dir.join("RECIPES.md"), r);
 }
 
 /// `xtask atlas-index <out-dir>` — rebuild INDEX.json from existing recipes (no builds). Used after

@@ -1,37 +1,44 @@
 # Build Courts — automake-rs Atlas gap analysis
 
-Total recipes: **434**
+Total recipes: **986**
 
 ## Court status
 
 | status | count | meaning |
 |---|---|---|
-| failed | 196 | ours fails before make |
-| not_standalone | 102 | oracle (GNU) also fails — not our bug |
-| partial | 133 | configure cleared, make failed |
-| quirk_dependent | 3 | FUNC_OK but needed a quirk rule |
+| failed | 368 | ours fails before make |
+| not_standalone | 250 | oracle (GNU) also fails — not our bug |
+| partial | 366 | configure cleared, make failed |
+| quirk_dependent | 2 | FUNC_OK but needed a quirk rule |
 
 ## Oracle headroom
 
-ours configure-clear: **136** · GNU configure-clear: **242** · fixable our-bug headroom: **106**
+ours configure-clear: **368** · GNU configure-clear: **522** · fixable our-bug headroom: **154**
 
 ## Top fixable roots (real succeeds, ours fails)
 
-- syntax:backtick-in-source — 34 repos
-- macro:AC_CHECK_DECL — 10 repos
-- macro:AC_CHECK_HEADERS_ONCE — 8 repos
-- syntax:unbalanced-conditional — 7 repos
-- macro:AC_DEFINE — 6 repos
-- macro:AC_MSG_ERROR — 6 repos
-- macro:AC_LANG_CONFTEST — 5 repos
-- macro:AC_SUBST — 5 repos
-- macro:AC_CONFIG_COMMANDS_PRE — 4 repos
-- macro:AC_ERROR — 4 repos
-- macro:AC_MSG_NOTICE — 4 repos
-- macro:AC_RUN_LOG — 4 repos
-- macro:AS_ECHO — 4 repos
-- macro:AC_BEFORE — 3 repos
-- macro:AC_CONFIG_COMMANDS — 3 repos
+- syntax:unbalanced-conditional — 33 repos
+- syntax:token:( — 23 repos
+- syntax:other — 18 repos
+- syntax:unbalanced-loop — 17 repos
+- syntax:leaked-text-after-conditional — 16 repos
+- syntax:token:) — 7 repos
+- syntax:token:; — 5 repos
+- macro:AM_CONDITIONAL — 3 repos
+- macro:AM_INIT_AUTOMAKE — 3 repos
+- macro:AN_MAKEVAR — 3 repos
+- macro:DX_HTML_FEATURE — 3 repos
+- macro:GUILE_PROGS — 2 repos
+- syntax:token:-- — 2 repos
+- syntax:token:} — 2 repos
+- macro:AC_LANG_COMPILER — 1 repos
 
 ## Most-needed packages (missing-dep inference)
 
+
+## Make-layer roots (the next front: 366 partial repos clear configure but fail make)
+
+- (no diagnostic captured) — 302 repos
+- command-not-found — 61 repos
+- compiler-error — 2 repos
+- other — 1 repos
