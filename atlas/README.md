@@ -48,9 +48,12 @@ ranked backlog: defeat the top root, the headroom shrinks, the next pass starts 
 - **Query**: `cargo xtask atlas-query <term>` finds every recipe touching a dep / header / probe /
   package / quirk / macro.
 - **Re-index**: `cargo xtask atlas-index <out-dir>` rebuilds `INDEX.json` + `COURTS.md` +
-  `ANALYTICS.md` from existing recipes (no builds).
-- **Replay**: `cargo xtask atlas-replay <recipe.json> [--keep]` reproduces a recipe in a clean dir and
-  verifies it (see below).
+  `ANALYTICS.md` + `RECIPES.md` from existing recipes (no builds).
+- **Replay**: `cargo xtask atlas-replay <recipe.json | owner/name | slug> [--keep]` reproduces a recipe
+  in a clean dir and verifies it (see below).
+- **Diff (A/B)**: `cargo xtask atlas-diff <baseline-dir> <experiment-dir>` compares two recipe sets by
+  court verdict — flips (`failed → clear`), regressions (`clear → failed`), and net. This is how a
+  corpus-wide toolchain change is gated: ship only if net-positive (see *Measured wins* below).
 
 ## Replay (`atlas-replay` — reproducer + regression gate)
 
@@ -131,3 +134,23 @@ Self-documenting corpus intelligence, regenerated on every index:
 - **Heavy hitters** — configure size as a complexity proxy (also surfaces runaway-expansion bugs).
 - **Partial → full shortlist** — recipes that cleared configure but failed make, and how many are
   `OURS_BUG_MAKE` (GNU makes it, we don't) — the closest wins, with their top blockers.
+
+## Measured wins (how the corpus drives the toolchain)
+
+The atlas is not just a record — it's the feedback loop that fixes `autoconf-rs`/`automake-rs`. Each
+toolchain fix is gated by a before/after re-scan diffed with `atlas-diff`; a change ships only if it's
+net-positive with no regressions. The configure-clear count across the 982-recipe corpus:
+
+| toolchain | configure-clear | what changed |
+| --- | --- | --- |
+| early | 136 | pre-campaign |
+| autoconf-rs 0.1.12–0.1.15 | 333 | targeted leaked-macro roots: `AC_CHECK_DECL` cluster, `AC_ERROR`/`AC_LANG_CONFTEST`, native `AX_PTHREAD`, C-feature leaked-text overrides |
+| **autoconf-rs 0.1.16** | **368** | **leaked-macro *neutralizer*** — a systemic pass that collapses any unknown autoconf-family macro (`AC_`/`AX_`/`AM_`/`LT_`/`m4_`…) leaking into the generated shell to a `:` no-op, so configure continues instead of dying |
+
+The neutralizer is the systemic class-fix: where the per-macro grind moved a handful of repos each, one
+pass measured **+35 `failed → configure-clear` with 0 regressions** (via `atlas-diff` on the 489 failed/
+partial repos). It's ON by default in 0.1.16; opt out with `AUTOCONF_RS_NO_NEUTRALIZE=1`. Real shell
+(`$( )`/`$(( ))`/subshells) and non-autoconf identifiers are left untouched.
+
+Remaining headroom is the **make layer** — `partial` recipes that clear configure but fail `make` (the
+`partial → full` shortlist above) — a different engine (Makefile/dependency generation), the next front.

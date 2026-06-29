@@ -1,6 +1,6 @@
 # Atlas Recipes — working / non-working roster
 
-Total **982** recipes. **Working (built end-to-end): 2** · non-working: 366 partial · 250 not-standalone · 364 failed.
+Total **986** recipes. **Working (built end-to-end): 2** · non-working: 366 partial · 250 not-standalone · 368 failed.
 
 "Working" means the full pipeline (autoreconf → configure → make) succeeded under the GNU-free toolchain. `quirk_dependent` needed an auto-applied quirk; `sealed` needed none.
 
@@ -382,7 +382,7 @@ Total **982** recipes. **Working (built end-to-end): 2** · non-working: 366 par
 | idosch/ethtool | MAKE_FAIL |  |
 | ifwe/ucarp | MAKE_FAIL |  |
 
-## ❌ Non-working — failed (ours fails before make) (364)
+## ❌ Non-working — failed (ours fails before make) (368)
 
 | repo | stage | first error |
 | --- | --- | --- |
@@ -563,6 +563,8 @@ Total **982** recipes. **Working (built end-to-end): 2** · non-working: 366 par
 | detomon/BlipKit | CONFIGURE_RUN_FAIL | checking whether C compiler supports ... configure: error: C compiler seem not to support |
 | detomon/json5 | CONFIGURE_RUN_FAIL | ./configure: line 1538: syntax error near unexpected token `unicode-table' |
 | devicescape/aws_dynamo | CONFIGURE_RUN_FAIL | configure: error: no openssl; please install openssl or equivalent |
+| devzero2000/POPT | CONFIGURE_RUN_FAIL | ./configure: line 1457: syntax error near unexpected token `-Wall,' |
+| dex4er/fakechroot | CONFIGURE_RUN_FAIL | configure: error: invalid libpath specified |
 | dex4er/nss-docker | CONFIGURE_RUN_FAIL | checking Docker socket path... ./configure: line 1780: syntax error near unexpected token  |
 | dfrc-korea/carpe-sleuthkit | CLONE_FAIL |  |
 | digitalocean/ovs | CLONE_FAIL |  |
@@ -579,6 +581,7 @@ Total **982** recipes. **Working (built end-to-end): 2** · non-working: 366 par
 | Distrotech/pulseaudio | CONFIGURE_RUN_FAIL | configure: error: git-version-gen failed |
 | Distrotech/squid | CONFIGURE_RUN_FAIL | ./configure: line 1409: again,: command not found |
 | Distrotech/Thunar | CONFIGURE_RUN_FAIL | ./configure: line 6057: intltool-update: command not found |
+| djn3m0/debit | CONFIGURE_RUN_FAIL | ./configure: line 1378: AX_CHECK_ALIGNED_ACCESS_REQUIRED: command not found |
 | dleonard0/pktstat | CONFIGURE_RUN_FAIL | checking for library containing socket... ./configure: line 1394: syntax error near unexpe |
 | dmalhotra/pvfmm | CONFIGURE_RUN_FAIL | ./configure: line 1506: syntax error near unexpected token `and' |
 | dreal-deps/gsl | CONFIGURE_RUN_FAIL | ./configure: line 1464: LT_LIB_M: command not found |
@@ -749,6 +752,7 @@ Total **982** recipes. **Working (built end-to-end): 2** · non-working: 366 par
 | IBMSpectrumComputing/lsf-drmaa | CONFIGURE_RUN_FAIL | ./configure: line 1342: FedStage: command not found |
 | iczelia/xpar | CONFIGURE_RUN_FAIL | configure: error: --with-windows-target must be vista or win95 (got: ) |
 | idiap/juicer | CONFIGURE_RUN_FAIL | configure: error: Required library TRACTER not found |
+| iem-projects/ncview | CONFIGURE_RUN_FAIL | ./configure: line 1341: AC_PATH_NETCDF: command not found |
 | igmhub/likely | CONFIGURE_RUN_FAIL | ./configure: line 1351: AX_EXT: command not found |
 
 ## ⚪ Non-working — not standalone (GNU autotools also fails; not our bug) (250)

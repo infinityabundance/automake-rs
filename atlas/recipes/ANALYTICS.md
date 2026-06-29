@@ -1,6 +1,6 @@
 # Atlas Analytics — corpus intelligence
 
-Total recipes: **982** · court mix: 364 failed, 250 not_standalone, 366 partial, 2 quirk_dependent
+Total recipes: **986** · court mix: 368 failed, 250 not_standalone, 366 partial, 2 quirk_dependent
 
 ## Quirk hotspots (automation candidates)
 
@@ -8,19 +8,19 @@ Quirks matched across recipes — the most frequent are the highest-leverage to 
 
 | quirk | repos |
 | --- | --- |
-| vendored-aclocal | 978 |
-| has-m4-macro-dir | 450 |
-| uses-libtool | 387 |
-| uses-pkg-config | 354 |
-| uses-ax-archive | 328 |
+| vendored-aclocal | 982 |
+| has-m4-macro-dir | 452 |
+| uses-libtool | 388 |
+| uses-pkg-config | 356 |
+| uses-ax-archive | 330 |
 | uses-subdir-objects | 319 |
-| uses-maintainer-mode | 271 |
-| uses-libtool-old | 240 |
-| has-acinclude | 106 |
-| uses-gettext | 93 |
+| uses-maintainer-mode | 273 |
+| uses-libtool-old | 241 |
+| has-acinclude | 107 |
+| uses-gettext | 94 |
 | uses-pthread-check | 75 |
 | uses-python | 71 |
-| perl-in-configure | 69 |
+| perl-in-configure | 70 |
 | uses-intltool | 29 |
 | emits-config-commands-post | 4 |
 

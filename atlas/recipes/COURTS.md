@@ -1,19 +1,19 @@
 # Build Courts — automake-rs Atlas gap analysis
 
-Total recipes: **982**
+Total recipes: **986**
 
 ## Court status
 
 | status | count | meaning |
 |---|---|---|
-| failed | 364 | ours fails before make |
+| failed | 368 | ours fails before make |
 | not_standalone | 250 | oracle (GNU) also fails — not our bug |
 | partial | 366 | configure cleared, make failed |
 | quirk_dependent | 2 | FUNC_OK but needed a quirk rule |
 
 ## Oracle headroom
 
-ours configure-clear: **368** · GNU configure-clear: **520** · fixable our-bug headroom: **152**
+ours configure-clear: **368** · GNU configure-clear: **522** · fixable our-bug headroom: **154**
 
 ## Top fixable roots (real succeeds, ours fails)
 
