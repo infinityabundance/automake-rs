@@ -1,25 +1,25 @@
 # Build Courts — automake-rs Atlas gap analysis
 
-Total recipes: **970**
+Total recipes: **973**
 
 ## Court status
 
 | status | count | meaning |
 |---|---|---|
-| failed | 406 | ours fails before make |
+| failed | 405 | ours fails before make |
 | not_standalone | 250 | oracle (GNU) also fails — not our bug |
-| partial | 312 | configure cleared, make failed |
-| quirk_dependent | 2 | FUNC_OK but needed a quirk rule |
+| partial | 282 | configure cleared, make failed |
+| quirk_dependent | 36 | FUNC_OK but needed a quirk rule |
 
 ## Oracle headroom
 
-ours configure-clear: **314** · GNU configure-clear: **493** · fixable our-bug headroom: **179**
+ours configure-clear: **318** · GNU configure-clear: **496** · fixable our-bug headroom: **178**
 
 ## Top fixable roots (real succeeds, ours fails)
 
 - syntax:unbalanced-conditional — 33 repos
 - syntax:token:( — 23 repos
-- syntax:other — 18 repos
+- syntax:other — 17 repos
 - syntax:unbalanced-loop — 17 repos
 - syntax:leaked-text-after-conditional — 16 repos
 - syntax:token:) — 7 repos
@@ -36,10 +36,10 @@ ours configure-clear: **314** · GNU configure-clear: **493** · fixable our-bug
 ## Most-needed packages (missing-dep inference)
 
 
-## Make-layer roots (the next front: 312 partial repos clear configure but fail make)
+## Make-layer roots (the next front: 282 partial repos clear configure but fail make)
 
-- makefile-missing-separator — 221 repos
-- (no diagnostic captured) — 36 repos
-- other — 33 repos
-- command-not-found — 21 repos
+- makefile-missing-separator — 196 repos
+- (no diagnostic captured) — 34 repos
+- other — 31 repos
+- command-not-found — 20 repos
 - compiler-error — 1 repos

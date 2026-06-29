@@ -1,17 +1,51 @@
 # Atlas Recipes — working / non-working roster
 
-Total **970** recipes. **Working (built end-to-end): 2** · non-working: 312 partial · 250 not-standalone · 406 failed.
+Total **973** recipes. **Working (built end-to-end): 36** · non-working: 282 partial · 250 not-standalone · 405 failed.
 
 "Working" means the full pipeline (autoreconf → configure → make) succeeded under the GNU-free toolchain. `quirk_dependent` needed an auto-applied quirk; `sealed` needed none.
 
-## ✅ Working (2)
+## ✅ Working (36)
 
 | repo | court |
 | --- | --- |
+| aadel112/libBlondie | quirk_dependent |
+| abrt/faf | quirk_dependent |
+| aconchillo/guile-json | quirk_dependent |
+| ahkok/bootchart | quirk_dependent |
+| aizvorski/h264bitstream | quirk_dependent |
+| allinurl/gwsocket | quirk_dependent |
+| arcalex/racktk | quirk_dependent |
+| archiecobbs/logwarn | quirk_dependent |
+| ArcticaProject/lightdm-remote-session-arctica | quirk_dependent |
+| arjunchitturi/htmlstreamparser | quirk_dependent |
+| aspiers/stow | quirk_dependent |
+| autch/demucc | quirk_dependent |
+| ayumin/open-cobol | quirk_dependent |
+| barak/djview4 | quirk_dependent |
+| bingmann/flex-bison-cpp-example | quirk_dependent |
+| blueness/fts-standalone | quirk_dependent |
+| boundarydevices/devregs | quirk_dependent |
+| bromanbro/taggins | quirk_dependent |
+| bryteise/ister | quirk_dependent |
+| bytedeco/helloworld | quirk_dependent |
+| charlescui/CBenchmark | quirk_dependent |
+| Chipmaster/kirk | quirk_dependent |
+| circulosmeos/gztool | quirk_dependent |
+| clone/xml2 | quirk_dependent |
+| commiyou/iniparser | quirk_dependent |
+| compiz-reloaded/compiz-bcop | quirk_dependent |
+| CookieAvenger/Tiny-Manga-Downloader | quirk_dependent |
+| cooljeanius/gawk | quirk_dependent |
 | cosmos72/twin | quirk_dependent |
+| EasyRPG/Tools | quirk_dependent |
+| elmar/ldap-git-backup | quirk_dependent |
+| endlessm/eos-browser-tools | quirk_dependent |
+| endlessm/gnome-user-docs | quirk_dependent |
+| enki/libev | quirk_dependent |
+| evergreen-library-system/Evergreen | quirk_dependent |
 | flyinghead/ircd-hybrid | quirk_dependent |
 
-## 🟡 Non-working — partial (configure cleared, make failed) (312)
+## 🟡 Non-working — partial (configure cleared, make failed) (282)
 
 | repo | stage | first error |
 | --- | --- | --- |
@@ -20,29 +54,23 @@ Total **970** recipes. **Working (built end-to-end): 2** · non-working: 312 par
 | 4ZM/mfterm | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
 | 5GenCrypto/mife | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
 | 5nord/bison-example | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| aadel112/libBlondie | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
 | aalex/oscsend | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
 | abhaykadam/vm | MAKE_FAIL | Makefile:15: *** missing separator.  Stop. |
 | abihf/kamus | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
 | abrt/abrt | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| abrt/faf | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
 | abrt/libreport | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
 | achernya/hesiod | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
 | acidburn0zzz/spice-xpi | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| aconchillo/guile-json | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
 | adjacentlink/emane-jammer-simple | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
 | adsr/flow-tools | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
 | adulau/dcfldd | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
 | afedchin/xbmc-addon-iptvsimple | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
 | agronick/Relay | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| ahkok/bootchart | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| aizvorski/h264bitstream | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
 | alekstorm/tala | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
 | alexanderchuranov/Metaresc | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
 | alexlarsson/Glick2 | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
 | alito/smallpotato | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
 | alliedtelesis/apteryx-rest | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| allinurl/gwsocket | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
 | alobbs/macchanger | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
 | Alpacius/a6 | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
 | AltSysrq/libbsd-minimal | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
@@ -56,22 +84,15 @@ Total **970** recipes. **Working (built end-to-end): 2** · non-working: 312 par
 | AnthonyBradford/optionmatrix | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
 | antonblanchard/kexec-lite | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
 | antonblanchard/qtrace-tools | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| arcalex/racktk | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| archiecobbs/logwarn | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
 | archiecobbs/mtree-port | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| ArcticaProject/lightdm-remote-session-arctica | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| arjunchitturi/htmlstreamparser | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
 | asciinema/libtsm | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
 | ashwinraghav/Cqual | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
 | ASPLes/libaxl | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
 | audionuma/libtruepeak | MAKE_FAIL | make: *** No targets specified and no makefile found.  Stop. |
-| autch/demucc | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
 | avahi/nss-mdns | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
 | avr-aics-riken/JHPCN-DF | MAKE_FAIL | make: *** No targets specified and no makefile found.  Stop. |
 | avr-aics-riken/Polylib4 | MAKE_FAIL | make: *** No targets specified and no makefile found.  Stop. |
-| ayumin/open-cobol | MAKE_FAIL | make: *** No targets specified and no makefile found.  Stop. |
 | Bader-Research/snap-graph | MAKE_FAIL | make: *** No targets specified and no makefile found.  Stop. |
-| barak/djview4 | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
 | barak/vobcopy | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
 | BatchDrake/lfsrintruder | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
 | baxter104/fatx | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
@@ -82,21 +103,15 @@ Total **970** recipes. **Working (built end-to-end): 2** · non-working: 312 par
 | besm6/m20 | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
 | bestouff/genext2fs | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
 | bigmc/bigmc | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| bingmann/flex-bison-cpp-example | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
 | BioND/myrng | MAKE_FAIL | make: *** No targets specified and no makefile found.  Stop. |
 | BirolLab/biobloom | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
 | bjango/istatserverlinux | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
 | blakecaldwell/fluidmem | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| blueness/fts-standalone | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| boundarydevices/devregs | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
 | bpeel/prevodb | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
 | briansorahan/libchuck | MAKE_FAIL | make: *** No targets specified and no makefile found.  Stop. |
 | BroadbandForum/obuspa | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| bromanbro/taggins | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| bryteise/ister | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
 | bsc-performance-tools/paraver-kernel | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
 | BUILDS-/Derpnet | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| bytedeco/helloworld | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
 | Cacti/spine | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
 | CAIDA/libparsebgp | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
 | carlos-lopez-garces/mapnik | MAKE_FAIL | make: *** No targets specified and no makefile found.  Stop. |
@@ -111,26 +126,19 @@ Total **970** recipes. **Working (built end-to-end): 2** · non-working: 312 par
 | chenbd/libwfd | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
 | chenbd/miracle | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
 | cheshire-mouse/hexchat-indicator | MAKE_FAIL | make: *** No targets specified and no makefile found.  Stop. |
-| Chipmaster/kirk | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
 | chokkan/liblbfgs | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
 | ChrisLidbury/CLSmith | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
 | Chronic-Dev/libirecovery | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| circulosmeos/gztool | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
 | cisco/open-nFAPI | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
 | claesenm/approxsvm | MAKE_FAIL | make: *** No targets specified and no makefile found.  Stop. |
 | claesenm/EnsembleSVM | MAKE_FAIL | make: *** No targets specified and no makefile found.  Stop. |
-| clone/xml2 | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
 | CLowcay/wayland-terminal | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
 | cmbi/dssp | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
 | cmbi/hssp | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
 | cmcqueen/aes-min | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
 | cmusatyalab/vmnetx | MAKE_FAIL | make: *** No targets.  Stop. |
 | codebutler/firesheep | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| commiyou/iniparser | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| compiz-reloaded/compiz-bcop | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
 | containers/oci-umount | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| CookieAvenger/Tiny-Manga-Downloader | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| cooljeanius/gawk | MAKE_FAIL | make: *** No targets specified and no makefile found.  Stop. |
 | cooljeanius/gcab | MAKE_FAIL | make: *** No targets specified and no makefile found.  Stop. |
 | cosimoc/gnome-example-search-provider | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
 | cpichard/fission | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
@@ -213,12 +221,10 @@ Total **970** recipes. **Working (built end-to-end): 2** · non-working: 312 par
 | eantcal/miptknzr | MAKE_FAIL |  |
 | EarthScope/evalresp | MAKE_FAIL |  |
 | eastzone/snmp | MAKE_FAIL |  |
-| EasyRPG/Tools | MAKE_FAIL |  |
 | ederlf/horse | MAKE_FAIL |  |
 | electronoora/komposter | MAKE_FAIL | ./configure: line 1397: AC_CHECK_C99: command not found |
 | elima/FileTea | MAKE_FAIL |  |
 | Elive/engage | MAKE_FAIL | ./configure: line 1417: AM_PROG_CC_STDC: command not found |
-| elmar/ldap-git-backup | MAKE_FAIL |  |
 | elmo2k3/had | MAKE_FAIL | ./configure: line 1574: AM_GLIB_GNU_GETTEXT: command not found |
 | elmo2k3/libhagraph | MAKE_FAIL |  |
 | emanueleaina/desktop-notifications-browser-extension | MAKE_FAIL | ./configure: line 1405: GLIB_GSETTINGS: command not found |
@@ -228,10 +234,8 @@ Total **970** recipes. **Working (built end-to-end): 2** · non-working: 312 par
 | emscripten-ports/libpng | MAKE_FAIL | ./configure: line 1383: LT_PATH_LD: command not found |
 | Emulators-Salvacam/openjazz | MAKE_FAIL |  |
 | endaaman/tym | MAKE_FAIL |  |
-| endlessm/eos-browser-tools | MAKE_FAIL | ./configure: line 1363: GLIB_GSETTINGS: command not found |
 | energicryptocurrency/gen2-energihash | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
 | enki/gvpe | MAKE_FAIL | make: *** No targets specified and no makefile found.  Stop. |
-| enki/libev | MAKE_FAIL | Makefile:15: *** missing separator.  Stop. |
 | ericherman/libfastset | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
 | eriknyquist/librxvm | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
 | esrille/esidl | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
@@ -328,7 +332,7 @@ Total **970** recipes. **Working (built end-to-end): 2** · non-working: 312 par
 | idosch/ethtool | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
 | ifwe/ucarp | MAKE_FAIL |  |
 
-## ❌ Non-working — failed (ours fails before make) (406)
+## ❌ Non-working — failed (ours fails before make) (405)
 
 | repo | stage | first error |
 | --- | --- | --- |
@@ -380,7 +384,6 @@ Total **970** recipes. **Working (built end-to-end): 2** · non-working: 312 par
 | arthurdejong/nss-pam-ldapd | CONFIGURE_RUN_FAIL | ./configure: line 1870: ac_cv_have_decl_setusershell,: command not found |
 | ARVE-Research/LPJ-LMfire | CONFIGURE_RUN_FAIL | ./configure: line 1377: syntax error near unexpected token `NETCDF_CC,' |
 | asnelt/rrep | CONFIGURE_RUN_FAIL | configure: error: Invalid value for --with-included-regex: |
-| aspiers/stow | CONFIGURE_RUN_FAIL | ./configure: line 1389: syntax error near unexpected token `[' |
 | assaferan/omf5 | CONFIGURE_RUN_FAIL | ./configure: line 1377: is: command not found |
 | astromatic/psfex | CONFIGURE_RUN_FAIL | checking if compilation flags are set automatically... checking whether the classic INTEL  |
 | astromatic/sextractor | CONFIGURE_RUN_FAIL | checking if compilation flags are set automatically... checking whether the classic INTEL  |

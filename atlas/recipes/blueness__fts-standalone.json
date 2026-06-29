@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.16",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -31,7 +31,7 @@
     {
       "step": "make",
       "tool": "make",
-      "status": "fail"
+      "status": "ok"
     }
   ],
   "probe_results": {},
@@ -47,12 +47,53 @@
   "quirks": [
     "libtool"
   ],
-  "outputs": [],
-  "status": "MAKE_FAIL",
-  "verified": false,
-  "diagnostic": "Makefile:16: *** missing separator.  Stop.",
+  "outputs": [
+    {
+      "path": "depcomp",
+      "sha256": "16d184959f7532ce",
+      "kind": "executable"
+    },
+    {
+      "path": "missing",
+      "sha256": "4a4f76d45d999ca6",
+      "kind": "executable"
+    },
+    {
+      "path": "compile",
+      "sha256": "9277c97b212b37d2",
+      "kind": "executable"
+    },
+    {
+      "path": "libtool",
+      "sha256": "1c6c3d50a729eb8e",
+      "kind": "executable"
+    },
+    {
+      "path": ".libs/libfts.a",
+      "sha256": "9f985d5c4957b9d1",
+      "kind": "library"
+    },
+    {
+      "path": ".libs/libfts.so",
+      "sha256": "e732b34d4d800b4a",
+      "kind": "library"
+    },
+    {
+      "path": "configure",
+      "sha256": "3c2830c4e0b8762b",
+      "kind": "executable"
+    },
+    {
+      "path": "install-sh",
+      "sha256": "852947c4fef9cdc1",
+      "kind": "executable"
+    }
+  ],
+  "status": "FUNC_OK",
+  "verified": true,
+  "diagnostic": "",
   "deep_expansion": {
-    "configure_lines": 2472,
+    "configure_lines": 2505,
     "leaked_macros": [],
     "heredoc_openers": 22,
     "heredoc_terminators": 22,
@@ -60,7 +101,7 @@
     "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 1996: do eval test \\${$as_var+y} \\"
+      "line 2029: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
@@ -83,7 +124,16 @@
       "CPP",
       "DEFS",
       "LIBOBJS",
-      "INSTALL"
+      "INSTALL",
+      "top_srcdir",
+      "top_builddir",
+      "builddir",
+      "abs_srcdir",
+      "abs_builddir",
+      "abs_top_srcdir",
+      "abs_top_builddir",
+      "AR",
+      "ARFLAGS"
     ],
     "failed_during_check": "checking for strrchr... yes",
     "failure_tail": [
@@ -109,24 +159,16 @@
     "real_make": "ok",
     "real_configure_lines": 16033,
     "real_first_error": "",
-    "classification": "OURS_BUG_MAKE"
-  },
-  "divergence": {
-    "stage": "make",
-    "ours_error": "",
-    "ours_error_context": [],
-    "ours_configure_lines": 2472,
-    "real_configure_lines": 16033,
-    "macros_ours_left_undefined": []
+    "classification": "BOTH_OK"
   },
   "receipt": {
-    "court_status": "partial",
+    "court_status": "quirk_dependent",
     "probe_trace": [],
     "quirks_matched": [
       "uses-libtool",
       "vendored-aclocal"
     ],
-    "receipt_hash": "50943c81e776f99633ce47bc1c02476e04eeac1c88eab40282963440dadccda2",
+    "receipt_hash": "a0d70c2eb5ac77b4ef037a34830e702d1b2f4e233870cb5503098cdbd2dd3432",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
