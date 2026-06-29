@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.13",
+    "autoconf_rs": "autoconf-rs 0.1.14",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -39,7 +39,9 @@
     "configure_args": []
   },
   "dependencies": {
-    "pkg_config": [],
+    "pkg_config": [
+      "checking for [libevent >= 2]... no"
+    ],
     "system_libs": [],
     "headers_needed": [],
     "missing": []
@@ -52,38 +54,25 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1534: pthread-config: command not found",
+  "diagnostic": "./configure: line 1526: ac_cv_have_decl_fread_unlocked,: command not found",
   "deep_expansion": {
-    "configure_lines": 3083,
+    "configure_lines": 2831,
     "leaked_macros": [],
-    "heredoc_openers": 26,
-    "heredoc_terminators": 26,
+    "heredoc_openers": 22,
+    "heredoc_terminators": 22,
     "heredoc_imbalance": 0,
-    "syntax_errors": [
-      {
-        "line": 1616,
-        "token": "fi",
-        "source": "fi",
-        "block": [
-          "1612:         done",
-          "1613:         printf '%s\\n' \"$attr_name\"",
-          "1614:         if test \"$attr_name\" != PTHREAD_CREATE_JOINABLE; then",
-          "1615:             # Define unquoted: PTHREAD_CREATE_JOINABLE",
-          "1616:         fi",
-          "1617: ",
-          "1618:         printf %s \"checking if more special flags are required for pthreads.",
-          "1619:         flag=no"
-        ]
-      }
-    ],
+    "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2593: do eval test \\${$as_var+y} \\"
+      "line 2341: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
       "PKG_CONFIG",
       "pkgconfigdir",
+      "PTHREAD_CC",
+      "PTHREAD_CFLAGS",
+      "PTHREAD_LIBS",
       "PACKAGE_NAME",
       "PACKAGE_TARNAME",
       "PACKAGE_VERSION",
@@ -104,32 +93,29 @@
       "DEFS",
       "LIBOBJS",
       "INSTALL",
-      "PTHREAD_CFLAGS",
-      "PTHREAD_CC",
-      "host_os",
-      "PTHREAD_LIBS",
-      "CODE_COVERAGE_CFLAGS",
-      "my_CFLAGS",
-      "DOXYGEN_INPUT"
+      "DOXYGEN_INPUT",
+      "noarch_pkgconfigdir",
+      "CODE_COVERAGE_LDFLAGS",
+      "host_vendor"
     ],
-    "failed_during_check": "checking whether pthreads work with -mt... no",
+    "failed_during_check": "checking for [libevent >= 2]... no",
     "failure_tail": [
-      "checking whether pthreads work with -mt... no",
-      "./configure: line 1534: pthread-config: command not found",
-      "./configure: line 1535: pthread-config: command not found",
-      "./configure: line 1535: pthread-config: command not found",
-      "no"
+      "checking for [libevent >= 2]... no",
+      "./configure: line 1765: [libevent]_CFLAGS=: command not found",
+      "./configure: line 1766: [libevent]_LIBS=: command not found",
+      "./configure: line 1767: export: `[libevent]_CFLAGS': not a valid identifier",
+      "./configure: line 1767: export: `[libevent]_LIBS': not a valid identifier"
     ],
     "conftest_corruption": [],
-    "conftest_directives_intact": 8,
+    "conftest_directives_intact": 3,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
       "#include <sys/types.h>\\nint main() { return sizeof(off_t) >= 8 ? 0 : 1; }",
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar pthread_join();\\nint main() { return pthread_join(); }",
-      "#include <pthread.h>\\nstatic void routine(void *a) { a = 0; }\\nstatic void *start_routine(void *a) { return a; }\\nint main() { pthread_t th; pthread_attr_t attr;\\npthread_create(&th, 0, start_routine, 0);\\npthread_join(th, 0);\\npthread_attr_init(&attr);\\npthread_cleanup_push(routine, 0);\\npthread_cleanup_pop(0) /* ; */ ; return 0; }",
-      "#include <pthread.h>\\nint main() { int attr = $attr; return attr /* ; */ ; return 0; }",
-      "\\n#include <pthread.h>\\nint main() { int i = PTHREAD_PRIO_INHERIT; ; return 0; }",
-      "char clock_gettime ();\\nint main() { return clock_gettime (); }"
+      "char clock_gettime ();\\nint main() { return clock_gettime (); }",
+      "char socket ();\\nint main() { return socket (); }",
+      "\\nint main (void)\\n{\\n#ifndef fread_unlocked, fwrite_unlocked, fflush_unlocked\\n(void) fread_unlocked, fwrite_unlocked, fflush_unlocked;\\n#endif\\n;\\nreturn 0;\\n}",
+      "\\nint main() {  ; return 0; }",
+      "\\nint main() {  ; return 0; }"
     ]
   },
   "oracle": {
@@ -142,11 +128,9 @@
   },
   "divergence": {
     "stage": "configure",
-    "ours_error": "line 1616: fi (near `fi`)",
-    "ours_error_context": [
-      "fi"
-    ],
-    "ours_configure_lines": 3083,
+    "ours_error": "",
+    "ours_error_context": [],
+    "ours_configure_lines": 2831,
     "real_configure_lines": 16784,
     "macros_ours_left_undefined": []
   },
@@ -169,7 +153,7 @@
         "verified": false
       }
     ],
-    "receipt_hash": "9447b588adeb7e3cf6a61ad71d167cbb97eb800ecdfbc906cacd6b4aa4e65035",
+    "receipt_hash": "f351ac75cb70f7958035d9557ee9397898288f1b2bf53676db0da1706e65c72d",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {

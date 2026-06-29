@@ -1,6 +1,6 @@
 # Atlas Recipes — working / non-working roster
 
-Total **986** recipes. **Working (built end-to-end): 3** · non-working: 324 partial · 250 not-standalone · 409 failed.
+Total **986** recipes. **Working (built end-to-end): 3** · non-working: 327 partial · 250 not-standalone · 406 failed.
 
 "Working" means the full pipeline (autoreconf → configure → make) succeeded under the GNU-free toolchain. `quirk_dependent` needed an auto-applied quirk; `sealed` needed none.
 
@@ -12,7 +12,7 @@ Total **986** recipes. **Working (built end-to-end): 3** · non-working: 324 par
 | cosmos72/twin | quirk_dependent |
 | flyinghead/ircd-hybrid | quirk_dependent |
 
-## 🟡 Non-working — partial (configure cleared, make failed) (324)
+## 🟡 Non-working — partial (configure cleared, make failed) (327)
 
 | repo | stage | first error |
 | --- | --- | --- |
@@ -86,6 +86,7 @@ Total **986** recipes. **Working (built end-to-end): 3** · non-working: 324 par
 | bergundy/IOQueue | MAKE_FAIL |  |
 | besm6/m20 | MAKE_FAIL |  |
 | bestouff/genext2fs | MAKE_FAIL |  |
+| bigmc/bigmc | MAKE_FAIL |  |
 | bingmann/flex-bison-cpp-example | MAKE_FAIL |  |
 | BioND/myrng | MAKE_FAIL |  |
 | BirolLab/biobloom | MAKE_FAIL |  |
@@ -174,6 +175,7 @@ Total **986** recipes. **Working (built end-to-end): 3** · non-working: 324 par
 | deepin-community/libtextwrap | MAKE_FAIL |  |
 | deepin-community/motif | MAKE_FAIL | ./configure: line 1407: LT_LIB_XTHREADS: command not found |
 | dell/libsmbios | MAKE_FAIL |  |
+| demorest/psrfits_utils | MAKE_FAIL |  |
 | derino/schencon | MAKE_FAIL |  |
 | devernay/glm | MAKE_FAIL | ./configure: line 1406: AX_CHECK_GLUT: command not found |
 | df7cb/sdate | MAKE_FAIL |  |
@@ -204,6 +206,7 @@ Total **986** recipes. **Working (built end-to-end): 3** · non-working: 324 par
 | Distrotech/tar | MAKE_FAIL |  |
 | divVerent/s2tc | MAKE_FAIL |  |
 | djandruczyk/eXtace | MAKE_FAIL | checking for esd_monitor_stream in -lesd... ./configure: line 1456: esd-config: command no |
+| dmatveev/libinotify-kqueue | MAKE_FAIL |  |
 | dmtx/dmtx-utils | MAKE_FAIL |  |
 | dmtx/dmtx-wrappers | MAKE_FAIL |  |
 | dora38/sshpass | MAKE_FAIL |  |
@@ -341,7 +344,7 @@ Total **986** recipes. **Working (built end-to-end): 3** · non-working: 324 par
 | idosch/ethtool | MAKE_FAIL |  |
 | ifwe/ucarp | MAKE_FAIL |  |
 
-## ❌ Non-working — failed (ours fails before make) (409)
+## ❌ Non-working — failed (ours fails before make) (406)
 
 | repo | stage | first error |
 | --- | --- | --- |
@@ -400,7 +403,7 @@ Total **986** recipes. **Working (built end-to-end): 3** · non-working: 324 par
 | aurelihein/exosip | CONFIGURE_RUN_FAIL | ./configure: line 1374: syntax error near unexpected token `scripts' |
 | autotools-mirror/autoconf | CONFIGURE_RUN_FAIL | whether directories can have trailing spaces... for GNU M4 that supports accurate traces.. |
 | avr-aics-riken/234Compositor | CONFIGURE_RUN_FAIL | ./configure: line 2252: syntax error near unexpected token `(' |
-| avrdudes/avarice | CONFIGURE_RUN_FAIL | ./configure: line 1652: syntax error near unexpected token `fi' |
+| avrdudes/avarice | CONFIGURE_RUN_FAIL | ./configure: line 1402: ACTION-IF-,: command not found |
 | awaw/dnsproxy | CONFIGURE_RUN_FAIL | checking for libevent... configure: error: |
 | awgn/brute | CONFIGURE_RUN_FAIL | configure: error: x86_64-unknown-linux-gnu not supported |
 | b4n/ctpl | CONFIGURE_RUN_FAIL | ./configure: line 1402: syntax error near unexpected token `1.9' |
@@ -410,7 +413,7 @@ Total **986** recipes. **Working (built end-to-end): 3** · non-working: 324 par
 | barak/djvulibre | CONFIGURE_RUN_FAIL | ./configure: line 1535: AC_OPTIMIZE: command not found |
 | barak/oaklisp | CONFIGURE_RUN_FAIL | _AC_LANG_PREFIXFLAGS for maximum warnings... ./configure: line 1544: syntax error near une |
 | baszoetekouw/pinfo | CONFIGURE_RUN_FAIL | ./configure: line 1429: syntax error near unexpected token `else' |
-| bbc/vc2hqdecode | CONFIGURE_RUN_FAIL | ./configure: line 1985: pthread-config: command not found |
+| bbc/vc2hqdecode | CONFIGURE_RUN_FAIL |  |
 | bcoin-org/libtorsion | CONFIGURE_RUN_FAIL | configure: error: language C required |
 | bdwgc/bdwgc | CONFIGURE_RUN_FAIL | ./configure: line 1574: syntax error near unexpected token `(' |
 | benmwebb/dopewars | CONFIGURE_GEN_FAIL |  |
@@ -418,7 +421,6 @@ Total **986** recipes. **Working (built end-to-end): 3** · non-working: 324 par
 | benwbooth/tvision | CONFIGURE_RUN_FAIL | ./configure: line 1412: AC_STDC_HEADERS: command not found |
 | BGI-shenzhen/LDBlockShow | CONFIGURE_RUN_FAIL | configure: error: You need zlib >= 1.2.3 to build |
 | BGI-shenzhen/PopLDdecay | CONFIGURE_RUN_FAIL | configure: error: You need zlib >= 1.2.3 to build |
-| bigmc/bigmc | CONFIGURE_RUN_FAIL | ./configure: line 1650: syntax error near unexpected token `fi' |
 | bindle/rackgnome | CONFIGURE_RUN_FAIL | ./configure: line 1478: syntax error near unexpected token `0,' |
 | binhqnguyen/ovs-srv6 | CONFIGURE_RUN_FAIL | configure: error: Cannot find openssl (use --disable-ssl to configure without SSL support) |
 | BirolLab/ChopStitch | CONFIGURE_RUN_FAIL | configure: error: CHOPSTITCH must be compiled with a C++ compiler that supports OpenMP thr |
@@ -437,7 +439,7 @@ Total **986** recipes. **Working (built end-to-end): 3** · non-working: 324 par
 | boundary/libdnet | CONFIGURE_RUN_FAIL | ./configure: line 1434: syntax error near unexpected token `after' |
 | boundary/wireshark | CONFIGURE_RUN_FAIL | ./configure: line 2736: syntax error near unexpected token `(' |
 | boxbackup/boxi | CONFIGURE_RUN_FAIL | ./configure: line 1389: AM_PROG_CC_STDC: command not found |
-| boysetsfrog/vimpc | CONFIGURE_RUN_FAIL | ./configure: line 1498: pthread-config: command not found |
+| boysetsfrog/vimpc | CONFIGURE_RUN_FAIL | ./configure: line 3511: syntax error: unexpected end of file |
 | BrianGladman/mpfr | CONFIGURE_RUN_FAIL | ./configure: line 1374: is: command not found |
 | brianmcgillion/udev | CONFIGURE_RUN_FAIL | ./configure: line 1378: syntax error near unexpected token `1.10' |
 | broadinstitute/VariantBam | CONFIGURE_RUN_FAIL | ./configure: line 1407: action: command not found |
@@ -450,7 +452,7 @@ Total **986** recipes. **Working (built end-to-end): 3** · non-working: 324 par
 | c-rack/squid-ecap-gzip | CONFIGURE_RUN_FAIL | ./configure: line 1351: syntax error near unexpected token `CXX' |
 | calaos/calaos_base | CONFIGURE_RUN_FAIL | ./configure: line 1587: syntax error near unexpected token `CALAOS_COMMON,' |
 | cannabisday/ovs-tsn | CONFIGURE_RUN_FAIL | configure: error: Cannot find openssl (use --disable-ssl to configure without SSL support) |
-| canonical/dqlite | CONFIGURE_RUN_FAIL | for joinable pthread attribute... whether more special flags are required for pthreads...  |
+| canonical/dqlite | CONFIGURE_RUN_FAIL | ./configure: line 1397: syntax error near unexpected token `else' |
 | cciechad/brlcad | CONFIGURE_RUN_FAIL | ./configure: line 1435: syntax error near unexpected token `fi' |
 | cculianu/secp256k1 | CONFIGURE_RUN_FAIL | configure: error: invalid assembly optimization selection |
 | cdevelop/libquickmail | CONFIGURE_RUN_FAIL | ./configure: line 1382: syntax error near unexpected token `curl' |
@@ -480,7 +482,7 @@ Total **986** recipes. **Working (built end-to-end): 3** · non-working: 324 par
 | cluslab/metastack | CONFIGURE_RUN_FAIL | ./configure: line 585: syntax error near unexpected token `(' |
 | ClusterLabs/cluster-glue | CONFIGURE_RUN_FAIL | ./configure: line 1932: syntax error near unexpected token `"%d.%d"' |
 | ClusterLabs/libqb | CONFIGURE_RUN_FAIL | ./configure: 4: Syntax error: "\|" unexpected |
-| cmand/yarrp | CONFIGURE_RUN_FAIL | ./configure: line 1646: pthread-config: command not found |
+| cmand/yarrp | CONFIGURE_RUN_FAIL | configure: error: either specify a valid zlib installation with --with-zlib=DIR or disable |
 | cmauri/eviacam | CONFIGURE_RUN_FAIL | ./configure: line 1572: syntax error near unexpected token `func' |
 | cminyard/gensio | CONFIGURE_RUN_FAIL | checking for Linux epoll(7) interface with signals extension... ./configure: line 1855: sy |
 | cnDelbert/libtiff | CONFIGURE_RUN_FAIL | configure: error: Unsupported size_t size ; please add support |
@@ -504,8 +506,8 @@ Total **986** recipes. **Working (built end-to-end): 3** · non-working: 324 par
 | cooljeanius/pkg-config | CONFIGURE_RUN_FAIL | ./configure: line 1338: and: command not found |
 | coova/coova-chilli | CONFIGURE_RUN_FAIL | ./configure: line 1432: AC_LBL_TPACKET_STATS: command not found |
 | corazawaf/libcoraza | CONFIGURE_RUN_FAIL | configure: error: Go |
-| couchbaselabs/breakpad | CONFIGURE_RUN_FAIL | ./configure: line 1557: pthread-config: command not found |
-| cowsql/cowsql | CONFIGURE_RUN_FAIL | ./configure: line 1576: pthread-config: command not found |
+| couchbaselabs/breakpad | CONFIGURE_RUN_FAIL | ./configure: line 1468: ACTION-IF-,: command not found |
+| cowsql/cowsql | CONFIGURE_RUN_FAIL | ./configure: line 1384: syntax error near unexpected token `else' |
 | cowsql/raft | CONFIGURE_RUN_FAIL |  |
 | cpputest/cpputest | CONFIGURE_GEN_FAIL |  |
 | cprados/towitoko-linux | CONFIGURE_RUN_FAIL | ./configure: line 1394: syntax error near unexpected token `fi' |
@@ -536,7 +538,6 @@ Total **986** recipes. **Working (built end-to-end): 3** · non-working: 324 par
 | dbadapt/mutrace | CONFIGURE_RUN_FAIL | ./configure: line 1468: syntax error near unexpected token `else' |
 | delphix/nfs-utils | CONFIGURE_RUN_FAIL | ./configure: line 1506: syntax error near unexpected token `else' |
 | demorest/mark5access | CONFIGURE_RUN_FAIL | ./configure: line 2162: syntax error near unexpected token `(' |
-| demorest/psrfits_utils | CONFIGURE_RUN_FAIL | ./configure: line 1473: pthread-config: command not found |
 | descent/d2x | CONFIGURE_RUN_FAIL | ./configure: line 1446: AC_STDC_HEADERS: command not found |
 | deskull-m/bakabakaband | CONFIGURE_RUN_FAIL | ./configure: line 1356: syntax error near unexpected token `game_libpath,' |
 | desrt/systemd-shim | CONFIGURE_RUN_FAIL | ./configure: line 1356: syntax error near unexpected token `does' |
@@ -564,7 +565,6 @@ Total **986** recipes. **Working (built end-to-end): 3** · non-working: 324 par
 | djn3m0/debit | CONFIGURE_RUN_FAIL | ./configure: line 1378: AX_CHECK_ALIGNED_ACCESS_REQUIRED: command not found |
 | dleonard0/pktstat | CONFIGURE_RUN_FAIL | checking for library containing socket... ./configure: line 1394: syntax error near unexpe |
 | dmalhotra/pvfmm | CONFIGURE_RUN_FAIL | ./configure: line 1506: syntax error near unexpected token `and' |
-| dmatveev/libinotify-kqueue | CONFIGURE_RUN_FAIL | ./configure: line 1509: pthread-config: command not found |
 | drakkar-lig/ipv6-care | CONFIGURE_RUN_FAIL | ./configure: line 1372: syntax error near unexpected token `LT_INIT__DISABLE-STATIC,' |
 | dreal-deps/gsl | CONFIGURE_RUN_FAIL | ./configure: line 1488: LT_LIB_M: command not found |
 | dreal-deps/libunwind | CONFIGURE_RUN_FAIL | ./configure: line 1426: CHECK_ATOMIC_OPS: command not found |
@@ -660,7 +660,7 @@ Total **986** recipes. **Working (built end-to-end): 3** · non-working: 324 par
 | FreeRADIUS/freeradius-client | CONFIGURE_RUN_FAIL | checking gethostbyaddr_r() syntax... ./configure: line 1434: syntax error near unexpected  |
 | frida/xz | CONFIGURE_RUN_FAIL | configure: error: --enable-assembler accepts only no', x86_64'. |
 | fripon/freeture | CONFIGURE_RUN_FAIL | ./configure: line 1376: syntax error near unexpected token `)' |
-| frobnitzem/libdag | CONFIGURE_RUN_FAIL | for joinable pthread attribute... whether more special flags are required for pthreads...  |
+| frobnitzem/libdag | CONFIGURE_RUN_FAIL | ./configure: line 1969: syntax error near unexpected token `[ACX_PTHREAD],[AX_PTHREAD]' |
 | frugalware/pacman-g2 | CONFIGURE_RUN_FAIL | configure: error: Your architecture is not supported |
 | fuxedo/fuxedo | CONFIGURE_RUN_FAIL |  |
 | GabrielDosReis/open-axiom | CONFIGURE_RUN_FAIL | configure: error: OpenAxiom requires a Lisp system.  Either separately build one (GCL-2.6. |
@@ -671,7 +671,7 @@ Total **986** recipes. **Working (built end-to-end): 3** · non-working: 324 par
 | gbonacini/trollfs | CONFIGURE_RUN_FAIL | configure: error: could not find lib FUSE |
 | gcp/opusfile | CONFIGURE_RUN_FAIL |  |
 | gderosa/dansguardian | CONFIGURE_RUN_FAIL |  |
-| gdnsd/gdnsd | CONFIGURE_RUN_FAIL | ./configure: line 1611: pthread-config: command not found |
+| gdnsd/gdnsd | CONFIGURE_RUN_FAIL | ./configure: line 1542: syntax error near unexpected token `else' |
 | GeGuNa/trafficserver | CONFIGURE_RUN_FAIL |  |
 | GenABEL-Project/ProbABEL | CONFIGURE_RUN_FAIL | ./configure: line 1411: syntax error near unexpected token `will' |
 | genesi/gnome-terminal | CONFIGURE_RUN_FAIL | ./configure: line 1392: GNOME_COMMON_INIT: command not found |
@@ -725,7 +725,7 @@ Total **986** recipes. **Working (built end-to-end): 3** · non-working: 324 par
 | haussli/rancid | CONFIGURE_RUN_FAIL | ./configure: line 1427: AC_INCLUDES_DEFAULT: command not found |
 | hb/claws_mail_opensync_plugin | CONFIGURE_RUN_FAIL |  |
 | hb9xar/siproxd | CONFIGURE_RUN_FAIL | ./configure: line 1409: syntax error near unexpected token `libltdl' |
-| hdoddikindi/fstrm | CONFIGURE_RUN_FAIL | ./configure: line 1534: pthread-config: command not found |
+| hdoddikindi/fstrm | CONFIGURE_RUN_FAIL | ./configure: line 1526: ac_cv_have_decl_fread_unlocked,: command not found |
 | hercules-390/hyperion | CONFIGURE_RUN_FAIL |  |
 | herczy/tinu | CONFIGURE_RUN_FAIL | ./configure: line 1530: syntax error near unexpected token `fi' |
 | hermansr/psid64 | CONFIGURE_RUN_FAIL | ./configure: line 1465: AX_FUNC_MKDIR: command not found |

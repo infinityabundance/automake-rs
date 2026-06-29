@@ -1,6 +1,6 @@
 # Atlas Analytics — corpus intelligence
 
-Total recipes: **986** · court mix: 409 failed, 250 not_standalone, 324 partial, 3 quirk_dependent
+Total recipes: **986** · court mix: 406 failed, 250 not_standalone, 327 partial, 3 quirk_dependent
 
 ## Quirk hotspots (automation candidates)
 
@@ -28,10 +28,10 @@ Quirks matched across recipes — the most frequent are the highest-leverage to 
 
 | check | repos |
 | --- | --- |
-| checking whether pthreads work with -mt | 23 |
 | checking for python | 14 |
 | checking for strstr | 13 |
 | checking for strtol | 13 |
+| checking whether pthreads work with -mt | 12 |
 | checking for C++ compiler | 10 |
 | checking pkg-config is at least version 0.9.0 | 10 |
 | checking for unistd.h | 9 |
@@ -65,7 +65,7 @@ Quirks matched across recipes — the most frequent are the highest-leverage to 
 
 ## Partial -> full shortlist
 
-**324** recipes cleared configure but failed make; **149** of those are `OURS_BUG_MAKE` (GNU makes it, we don't) — the closest wins. Top blockers:
+**327** recipes cleared configure but failed make; **152** of those are `OURS_BUG_MAKE` (GNU makes it, we don't) — the closest wins. Top blockers:
 
 | blocker | repos |
 | --- | --- |

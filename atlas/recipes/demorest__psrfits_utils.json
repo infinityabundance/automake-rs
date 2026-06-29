@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.13",
+    "autoconf_rs": "autoconf-rs 0.1.14",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,6 +26,11 @@
     {
       "step": "configure",
       "tool": "./configure",
+      "status": "ok"
+    },
+    {
+      "step": "make",
+      "tool": "make",
       "status": "fail"
     }
   ],
@@ -35,47 +40,38 @@
   },
   "dependencies": {
     "pkg_config": [],
-    "system_libs": [],
+    "system_libs": [
+      "-lcfitsio",
+      "-lm"
+    ],
     "headers_needed": [],
     "missing": []
   },
   "quirks": [
     "autoconf-archive-macros",
-    "libtool"
+    "libtool",
+    "LIBS=-lcfitsio -lm"
   ],
   "outputs": [],
-  "status": "CONFIGURE_RUN_FAIL",
+  "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1473: pthread-config: command not found",
+  "diagnostic": "",
   "deep_expansion": {
-    "configure_lines": 2649,
+    "configure_lines": 2474,
     "leaked_macros": [],
-    "heredoc_openers": 19,
-    "heredoc_terminators": 19,
+    "heredoc_openers": 18,
+    "heredoc_terminators": 18,
     "heredoc_imbalance": 0,
-    "syntax_errors": [
-      {
-        "line": 1524,
-        "token": "done",
-        "source": "done",
-        "block": [
-          "1520: \tprintf %s \"checking for joinable pthread attribute... \"",
-          "1521: \tattr_name=unknown",
-          "1522: \tfor attr in PTHREAD_CREATE_JOINABLE PTHREAD_CREATE_UNDETACHED; do",
-          "1523: \t    # Try link (obsolete)",
-          "1524: \tdone",
-          "1525:         printf '%s\\n' \"$attr_name\"",
-          "1526:         if test \"$attr_name\" != PTHREAD_CREATE_JOINABLE; then",
-          "1527:             # Define unquoted: PTHREAD_CREATE_JOINABLE"
-        ]
-      }
-    ],
+    "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2173: do eval test \\${$as_var+y} \\"
+      "line 1998: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
+      "PTHREAD_CC",
+      "PTHREAD_CFLAGS",
+      "PTHREAD_LIBS",
       "PACKAGE_NAME",
       "PACKAGE_TARNAME",
       "PACKAGE_VERSION",
@@ -96,27 +92,21 @@
       "DEFS",
       "LIBOBJS",
       "INSTALL",
-      "host_alias",
-      "PTHREAD_CC",
-      "host_os",
-      "PTHREAD_LIBS",
-      "PTHREAD_CFLAGS",
       "host_vendor",
-      "host_cpu"
+      "host_alias",
+      "host_cpu",
+      "host_os"
     ],
-    "failed_during_check": "checking whether pthreads work with -mt... no",
+    "failed_during_check": "checking for ffgky in -lcfitsio... yes",
     "failure_tail": [
-      "checking whether pthreads work with -mt... no",
-      "./configure: line 1473: pthread-config: command not found",
-      "./configure: line 1474: pthread-config: command not found",
-      "./configure: line 1474: pthread-config: command not found",
-      "no"
+      "checking for ffgky in -lcfitsio... yes",
+      "configure: creating Makefile",
+      "configure: creating ./config.status"
     ],
     "conftest_corruption": [],
-    "conftest_directives_intact": 2,
+    "conftest_directives_intact": 0,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar pthread_join();\\nint main() { return pthread_join(); }",
       "char sin();\\nint main() { return sin(); }",
       "char ffgky();\\nint main() { return ffgky(); }"
     ]
@@ -127,20 +117,18 @@
     "real_make": "ok",
     "real_configure_lines": 16278,
     "real_first_error": "",
-    "classification": "OURS_BUG_CONFIGURE"
+    "classification": "OURS_BUG_MAKE"
   },
   "divergence": {
-    "stage": "configure",
-    "ours_error": "line 1524: done (near `done`)",
-    "ours_error_context": [
-      "done"
-    ],
-    "ours_configure_lines": 2649,
+    "stage": "make",
+    "ours_error": "",
+    "ours_error_context": [],
+    "ours_configure_lines": 2474,
     "real_configure_lines": 16278,
     "macros_ours_left_undefined": []
   },
   "receipt": {
-    "court_status": "failed",
+    "court_status": "partial",
     "probe_trace": [],
     "quirks_matched": [
       "uses-libtool-old",
@@ -148,7 +136,7 @@
       "uses-ax-archive",
       "uses-pthread-check"
     ],
-    "receipt_hash": "9447b588adeb7e3cf6a61ad71d167cbb97eb800ecdfbc906cacd6b4aa4e65035",
+    "receipt_hash": "c619dc62146d859ed28bac26d7280d61cfc674fb717e466cf24e89384d83f8ff",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {

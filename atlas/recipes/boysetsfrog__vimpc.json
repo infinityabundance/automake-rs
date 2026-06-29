@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.13",
+    "autoconf_rs": "autoconf-rs 0.1.14",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -46,36 +46,35 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1498: pthread-config: command not found",
+  "diagnostic": "./configure: line 3511: syntax error: unexpected end of file",
   "deep_expansion": {
-    "configure_lines": 3762,
+    "configure_lines": 3510,
     "leaked_macros": [],
-    "heredoc_openers": 49,
-    "heredoc_terminators": 49,
+    "heredoc_openers": 45,
+    "heredoc_terminators": 45,
     "heredoc_imbalance": 0,
     "syntax_errors": [
       {
-        "line": 1580,
-        "token": "fi",
-        "source": "fi",
+        "line": 3511,
+        "token": "",
+        "source": "",
         "block": [
-          "1576:         done",
-          "1577:         printf '%s\\n' \"$attr_name\"",
-          "1578:         if test \"$attr_name\" != PTHREAD_CREATE_JOINABLE; then",
-          "1579:             # Define unquoted: PTHREAD_CREATE_JOINABLE",
-          "1580:         fi",
-          "1581: ",
-          "1582:         printf %s \"checking if more special flags are required for pthreads.",
-          "1583:         flag=no"
+          "3507: printf '%s\\n' \"$as_me: WARNING: unrecognized options: $ac_unrecognized_opts\"",
+          "3508: fi",
+          "3509: ",
+          "3510: "
         ]
       }
     ],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 3286: do eval test \\${$as_var+y} \\"
+      "line 3034: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
+      "PTHREAD_CC",
+      "PTHREAD_CFLAGS",
+      "PTHREAD_LIBS",
       "CXX",
       "CXXFLAGS",
       "PACKAGE_NAME",
@@ -96,34 +95,28 @@
       "DEFS",
       "LIBOBJS",
       "INSTALL",
-      "cppunit_LIBS",
-      "build_cpu",
-      "BOOST_SYSTEM_LIB",
-      "HAVE_CXX11",
-      "BOOST_THREAD_LIB",
-      "BOOST_CHRONO_LIB",
-      "pcre_CFLAGS",
+      "host_os",
+      "build_alias",
+      "curl_LIBS",
       "curl_CFLAGS",
-      "taglib_LIBS"
+      "build_os",
+      "build_cpu"
     ],
-    "failed_during_check": "checking whether pthreads work with -mt... no",
+    "failed_during_check": "checking whether to enable boost automatically... yes",
     "failure_tail": [
-      "checking whether pthreads work with -mt... no",
-      "./configure: line 1498: pthread-config: command not found",
-      "./configure: line 1499: pthread-config: command not found",
-      "./configure: line 1499: pthread-config: command not found",
-      "no"
+      "checking whether to enable boost automatically... yes",
+      "./configure: line 3511: syntax error: unexpected end of file"
     ],
     "conftest_corruption": [],
-    "conftest_directives_intact": 25,
+    "conftest_directives_intact": 20,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
       "#include <$ac_hdr>",
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar pthread_join();\\nint main() { return pthread_join(); }",
-      "#include <pthread.h>\\nstatic void routine(void *a) { a = 0; }\\nstatic void *start_routine(void *a) { return a; }\\nint main() { pthread_t th; pthread_attr_t attr;\\npthread_create(&th, 0, start_routine, 0);\\npthread_join(th, 0);\\npthread_attr_init(&attr);\\npthread_cleanup_push(routine, 0);\\npthread_cleanup_pop(0) /* ; */ ; return 0; }",
-      "#include <pthread.h>\\nint main() { int attr = $attr; return attr /* ; */ ; return 0; }",
-      "\\n#include <pthread.h>\\nint main() { int i = PTHREAD_PRIO_INHERIT; ; return 0; }",
-      "#include <functional>\\n#include <atomic>\\n#include <thread>\\nint main() { std::thread thread; std::function<void()> function; std::atomic"
+      "#include <functional>\\n#include <atomic>\\n#include <thread>\\nint main() { std::thread thread; std::function<void()> function; std::atomic",
+      "\\n@%:@include <boost/version.hpp>\\n\\nint main() {\\n#if BOOST_VERSION >= $WANT_BOOST_VERSION\\n// Everything is okay\\n#else\\n#  error Boost version is too old\\n#endif\\n; return 0; }",
+      "\\n@%:@include <boost/version.hpp>\\n\\nint main() {\\n#if BOOST_VERSION >= $WANT_BOOST_VERSION\\n// Everything is okay\\n#else\\n#  error Boost version is too old\\n#endif\\n; return 0; }",
+      "@%:@include <boost/chrono.hpp>\\nint main() { boost::chrono::system_clock::time_point* time = new boost::chro",
+      "char exit();\\nint main() { return exit(); }"
     ]
   },
   "oracle": {
@@ -136,11 +129,11 @@
   },
   "divergence": {
     "stage": "configure",
-    "ours_error": "line 1580: fi (near `fi`)",
+    "ours_error": "line 3511:  (near ``)",
     "ours_error_context": [
-      "fi"
+      ""
     ],
-    "ours_configure_lines": 3762,
+    "ours_configure_lines": 3510,
     "real_configure_lines": 9544,
     "macros_ours_left_undefined": []
   },
@@ -154,7 +147,7 @@
       "uses-ax-archive",
       "uses-pthread-check"
     ],
-    "receipt_hash": "9447b588adeb7e3cf6a61ad71d167cbb97eb800ecdfbc906cacd6b4aa4e65035",
+    "receipt_hash": "f351ac75cb70f7958035d9557ee9397898288f1b2bf53676db0da1706e65c72d",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {

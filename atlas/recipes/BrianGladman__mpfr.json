@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.13",
+    "autoconf_rs": "autoconf-rs 0.1.14",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -54,34 +54,37 @@
   "verified": false,
   "diagnostic": "./configure: line 1374: is: command not found",
   "deep_expansion": {
-    "configure_lines": 5567,
+    "configure_lines": 3439,
     "leaked_macros": [],
-    "heredoc_openers": 63,
-    "heredoc_terminators": 65,
+    "heredoc_openers": 39,
+    "heredoc_terminators": 41,
     "heredoc_imbalance": 2,
     "syntax_errors": [
       {
-        "line": 1936,
+        "line": 1404,
         "token": ")",
         "source": "29, committed on 2021-02-19) and",
         "block": [
-          "1932:         ax_pthread_ok=no",
-          "1933:         ",
-          "1934: fi",
-          "1935: # Restore language",
-          "1936:  29, committed on 2021-02-19) and",
-          "1937: ",
-          "1938: ",
-          "1939: "
+          "1400: else",
+          "1401:   :",
+          "1402:   ",
+          "1403: fi",
+          "1404:  29, committed on 2021-02-19) and",
+          "1405: printf %s \"checking for the pthreads flag... \"",
+          "1406: ax_pthread_ok=no",
+          "1407: PTHREAD_CC=\"${CC:-cc}\""
         ]
       }
     ],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 5090: do eval test \\${$as_var+y} \\"
+      "line 2962: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
+      "PTHREAD_CC",
+      "PTHREAD_CFLAGS",
+      "PTHREAD_LIBS",
       "PACKAGE_NAME",
       "PACKAGE_TARNAME",
       "PACKAGE_VERSION",
@@ -102,34 +105,29 @@
       "DEFS",
       "LIBOBJS",
       "INSTALL",
-      "host_os",
-      "target_alias",
-      "PTHREAD_CC",
-      "host_cpu",
-      "host_vendor",
       "LIBMPFR_LDFLAGS",
-      "mini_gmp_path",
+      "host_os",
       "PTHREAD_CXX",
-      "PTHREAD_CFLAGS"
+      "host_vendor",
+      "host_alias",
+      "TUNE_LIBS"
     ],
-    "failed_during_check": "checking whether pthreads work with -mt... no",
+    "failed_during_check": "checking for the pthreads flag... -pthread",
     "failure_tail": [
-      "checking whether pthreads work with -mt... no",
-      "./configure: line 1609: pthread-config: command not found",
-      "./configure: line 1610: pthread-config: command not found",
-      "./configure: line 1610: pthread-config: command not found",
-      "no"
+      "checking for the pthreads flag... -pthread",
+      "./configure: line 1404: syntax error near unexpected token `)'",
+      "./configure: line 1404: ` 29, committed on 2021-02-19) and'"
     ],
     "conftest_corruption": [],
-    "conftest_directives_intact": 50,
+    "conftest_directives_intact": 38,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
-      "\\nchar pthread_join();\\nint main() { pthread_join(); return 0; }",
-      "#include <pthread.h>\\n#                       if $ax_pthread_check_cond\\n#                        error \"$ax_pthread_check_macro must be defined\"\\n#                       endif\\nstatic void *some_global = NULL;\\nstatic void routine(void *a)\\n{\\n/* To avoid any unused-parameter or\\nunused-but-set-parameter warning.  */\\nsome_global = a;\\n}\\nstatic void *start_routine(void *a) { return a; }",
-      "int main(void){return 0;}",
-      "int main(void){return 0;}",
-      "#include <pthread.h>\\nint main() { int attr = $ax_pthread_attr; return attr /* ; */ ; return 0; }",
-      "#include <pthread.h>\\nint main() { int i = PTHREAD_PRIO_INHERIT;\\nreturn i; ; return 0; }"
+      "\\n#if !defined(__INTEL_COMPILER) || defined(_WIN32)\\n# error \"Not a non-MS-Windows ICC\"\\nerror\\n#endif\\n\\nint main() {  ; return 0; }",
+      "\\n#if defined (__cplusplus)\\n# error \"C++\"\\nerror\\n#endif\\n\\nint main() {  ; return 0; }",
+      "int main() { const int x = 1; return x-1; }",
+      "int main() { volatile int x = 0; return x; }",
+      "int main() { int x = 1; return *(char*)&x; }",
+      "char clock_gettime ();\\nint main() { return clock_gettime (); }"
     ]
   },
   "oracle": {
@@ -142,11 +140,11 @@
   },
   "divergence": {
     "stage": "configure",
-    "ours_error": "line 1936: 29, committed on 2021-02-19) and (near `)`)",
+    "ours_error": "line 1404: 29, committed on 2021-02-19) and (near `)`)",
     "ours_error_context": [
       "29, committed on 2021-02-19) and"
     ],
-    "ours_configure_lines": 5567,
+    "ours_configure_lines": 3439,
     "real_configure_lines": 21837,
     "macros_ours_left_undefined": []
   },
@@ -175,7 +173,7 @@
         "verified": false
       }
     ],
-    "receipt_hash": "9447b588adeb7e3cf6a61ad71d167cbb97eb800ecdfbc906cacd6b4aa4e65035",
+    "receipt_hash": "f351ac75cb70f7958035d9557ee9397898288f1b2bf53676db0da1706e65c72d",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {

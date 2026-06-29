@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.13",
+    "autoconf_rs": "autoconf-rs 0.1.14",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,15 +26,22 @@
     {
       "step": "configure",
       "tool": "./configure",
-      "status": "fail"
+      "status": "ok"
     },
     {
-      "step": "auto-quirk",
-      "tool": "quirk-engine",
+      "step": "make",
+      "tool": "make",
       "status": "fail"
     }
   ],
-  "probe_results": {},
+  "probe_results": {
+    "HAVE_ATFUNCS": 1,
+    "HAVE_NOTE_EXTEND_ON_SUBFILE_RENAME": 1,
+    "HAVE_O_EVTONLY": 1,
+    "HAVE_PTHREAD": 1,
+    "HAVE_SYS_QUEUE_H": 1,
+    "HAVE_SYS_TREE_H": 1
+  },
   "feature_flags": {
     "configure_args": []
   },
@@ -49,38 +56,25 @@
     "libtool"
   ],
   "outputs": [],
-  "status": "CONFIGURE_RUN_FAIL",
+  "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1509: pthread-config: command not found",
+  "diagnostic": "",
   "deep_expansion": {
-    "configure_lines": 3078,
+    "configure_lines": 2804,
     "leaked_macros": [],
-    "heredoc_openers": 35,
-    "heredoc_terminators": 35,
+    "heredoc_openers": 30,
+    "heredoc_terminators": 30,
     "heredoc_imbalance": 0,
-    "syntax_errors": [
-      {
-        "line": 1591,
-        "token": "fi",
-        "source": "fi",
-        "block": [
-          "1587:         done",
-          "1588:         printf '%s\\n' \"$attr_name\"",
-          "1589:         if test \"$attr_name\" != PTHREAD_CREATE_JOINABLE; then",
-          "1590:             # Define unquoted: PTHREAD_CREATE_JOINABLE",
-          "1591:         fi",
-          "1592: ",
-          "1593:         printf %s \"checking if more special flags are required for pthreads.",
-          "1594:         flag=no"
-        ]
-      }
-    ],
+    "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2602: do eval test \\${$as_var+y} \\"
+      "line 2328: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
+      "PTHREAD_CC",
+      "PTHREAD_CFLAGS",
+      "PTHREAD_LIBS",
       "PACKAGE_NAME",
       "PACKAGE_TARNAME",
       "PACKAGE_VERSION",
@@ -101,32 +95,28 @@
       "DEFS",
       "LIBOBJS",
       "INSTALL",
-      "PTHREAD_LIBS",
-      "PTHREAD_CFLAGS",
-      "host_os",
-      "PTHREAD_CC",
       "host_alias",
+      "host_os",
       "host_vendor",
       "host_cpu"
     ],
-    "failed_during_check": "checking whether pthreads work with -mt... no",
+    "failed_during_check": "checking for struct dirent.d_type... no",
     "failure_tail": [
-      "checking whether pthreads work with -mt... no",
-      "./configure: line 1509: pthread-config: command not found",
-      "./configure: line 1510: pthread-config: command not found",
-      "./configure: line 1510: pthread-config: command not found",
-      "no"
+      "checking for struct dirent.d_type... no",
+      "configure: creating Makefile",
+      "configure: creating config.h",
+      "configure: creating ./config.status"
     ],
     "conftest_corruption": [],
-    "conftest_directives_intact": 8,
+    "conftest_directives_intact": 3,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar pthread_join();\\nint main() { return pthread_join(); }",
-      "int foo(void);\\nint main() { foo() ; return 0; }",
-      "#include <pthread.h>\\nstatic void routine(void *a) { a = 0; }\\nstatic void *start_routine(void *a) { return a; }\\nint main() { pthread_t th; pthread_attr_t attr;\\npthread_create(&th, 0, start_routine, 0);\\npthread_join(th, 0);\\npthread_attr_init(&attr);\\npthread_cleanup_push(routine, 0);\\npthread_cleanup_pop(0) /* ; */ ; return 0; }",
-      "#include <pthread.h>\\nint main() { int attr = $attr; return attr /* ; */ ; return 0; }",
-      "#include <pthread.h>\\nint main() { int i = PTHREAD_PRIO_INHERIT; ; return 0; }",
-      "#include <$ac_hdr>"
+      "#include <$ac_hdr>",
+      "\\n\\n@%:@include <sys/queue.h>\\n\\nint main() {\\n@%:@ifndef SLIST_FOREACH_SAFE\\n@%:@error\\n@%:@endif\\nreturn 0;\\n; return 0; }\\n",
+      "\\n\\n@%:@include <sys/queue.h>\\n\\nint main() {\\n@%:@ifndef SLIST_REMOVE_AFTER\\n@%:@error\\n@%:@endif\\nreturn 0;\\n; return 0; }\\n",
+      "\\n\\n@%:@include <sys/tree.h>\\n\\nint main() {\\n@%:@ifndef RB_FOREACH_SAFE\\n@%:@error\\n@%:@endif\\nreturn 0;\\n; return 0; }\\n",
+      "\\n\\n@%:@include <pthread.h>\\n\\nint main() {\\npthread_barrier_t barrier;\\npthread_barrier_init(&barrier, NULL, 1);\\npthread_barrier_wait(&barrier);\\npthread_barrier_destroy(&barrier);\\nreturn 0;\\n; return 0; }\\n",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func();\\nint main() { return $ac_func(); }"
     ]
   },
   "oracle": {
@@ -135,21 +125,56 @@
     "real_make": "ok",
     "real_configure_lines": 20554,
     "real_first_error": "",
-    "classification": "OURS_BUG_CONFIGURE"
+    "classification": "OURS_BUG_MAKE"
   },
   "divergence": {
-    "stage": "configure",
-    "ours_error": "line 1591: fi (near `fi`)",
-    "ours_error_context": [
-      "fi"
-    ],
-    "ours_configure_lines": 3078,
+    "stage": "make",
+    "ours_error": "",
+    "ours_error_context": [],
+    "ours_configure_lines": 2804,
     "real_configure_lines": 20554,
     "macros_ours_left_undefined": []
   },
   "receipt": {
-    "court_status": "failed",
-    "probe_trace": [],
+    "court_status": "partial",
+    "probe_trace": [
+      {
+        "name": "HAVE_ATFUNCS",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_NOTE_EXTEND_ON_SUBFILE_RENAME",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_O_EVTONLY",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_PTHREAD",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SYS_QUEUE_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SYS_TREE_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      }
+    ],
     "quirks_matched": [
       "uses-libtool-old",
       "uses-subdir-objects",
@@ -158,14 +183,7 @@
       "uses-ax-archive",
       "uses-pthread-check"
     ],
-    "quirks_applied": [
-      {
-        "id": "uses-subdir-objects",
-        "action": "--disable-dependency-tracking",
-        "verified": false
-      }
-    ],
-    "receipt_hash": "9447b588adeb7e3cf6a61ad71d167cbb97eb800ecdfbc906cacd6b4aa4e65035",
+    "receipt_hash": "abd40991a23c140cd1709077d188b34114969707a9880e66e98a3e41094b5275",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {

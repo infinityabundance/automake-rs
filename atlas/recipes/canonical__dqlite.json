@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.13",
+    "autoconf_rs": "autoconf-rs 0.1.14",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -52,27 +52,27 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "for joinable pthread attribute... whether more special flags are required for pthreads... for PTHREAD_PRIO_INHERIT... ./configure: line 1930",
+  "diagnostic": "./configure: line 1397: syntax error near unexpected token `else'",
   "deep_expansion": {
-    "configure_lines": 2564,
+    "configure_lines": 2031,
     "leaked_macros": [],
-    "heredoc_openers": 19,
-    "heredoc_terminators": 19,
+    "heredoc_openers": 13,
+    "heredoc_terminators": 13,
     "heredoc_imbalance": 0,
     "syntax_errors": [
       {
-        "line": 1930,
+        "line": 1397,
         "token": "else",
         "source": "else",
         "block": [
-          "1926: ",
-          "1927: # TODO: eventually enable this",
-          "1928: # # Requires Autoconf >= 2.64  :",
-          "1929:   ",
-          "1930: else",
-          "1931:   :",
-          "1932:   ",
-          "1933: fi"
+          "1393: ",
+          "1394: # TODO: eventually enable this",
+          "1395: # # Requires Autoconf >= 2.64  :",
+          "1396:   ",
+          "1397: else",
+          "1398:   :",
+          "1399:   ",
+          "1400: fi"
         ]
       }
     ],
@@ -80,24 +80,27 @@
       "line 58: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
-      "LIBTOOL"
+      "LIBTOOL",
+      "PTHREAD_CC",
+      "PTHREAD_CFLAGS",
+      "PTHREAD_LIBS"
     ],
-    "failed_during_check": "checking whether pthreads work without any flags... yes",
+    "failed_during_check": "checking for the pthreads flag... -pthread",
     "failure_tail": [
-      "checking whether pthreads work without any flags... yes",
-      "for joinable pthread attribute... whether more special flags are required for pt",
-      "./configure: line 1930: `else'"
+      "checking for the pthreads flag... -pthread",
+      "./configure: line 1397: syntax error near unexpected token `else'",
+      "./configure: line 1397: `else'"
     ],
     "conftest_corruption": [],
-    "conftest_directives_intact": 9,
+    "conftest_directives_intact": 6,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
-      "\\nchar pthread_join();\\nint main() { pthread_join(); return 0; }",
-      "#include <pthread.h>\\n#                       if $ax_pthread_check_cond\\n#                        error \"$ax_pthread_check_macro must be defined\"\\n#                       endif\\nstatic void *some_global = NULL;\\nstatic void routine(void *a)\\n{\\n/* To avoid any unused-parameter or\\nunused-but-set-parameter warning.  */\\nsome_global = a;\\n}\\nstatic void *start_routine(void *a) { return a; }",
-      "int main(void){return 0;}",
-      "int main(void){return 0;}",
-      "#include <pthread.h>\\nint main() { int attr = $ax_pthread_attr; return attr /* ; */ ; return 0; }",
-      "#include <pthread.h>\\nint main() { int i = PTHREAD_PRIO_INHERIT;\\nreturn i; ; return 0; }"
+      "\\nint main() {  ; return 0; }",
+      "\\nint main() {  ; return 0; }",
+      "#include <$ac_hdr>",
+      "\\nint main() {  ; return 0; }",
+      "\\nint main() {  ; return 0; }",
+      "#include <$ac_hdr>"
     ]
   },
   "oracle": {
@@ -110,11 +113,11 @@
   },
   "divergence": {
     "stage": "configure",
-    "ours_error": "line 1930: else (near `else`)",
+    "ours_error": "line 1397: else (near `else`)",
     "ours_error_context": [
       "else"
     ],
-    "ours_configure_lines": 2564,
+    "ours_configure_lines": 2031,
     "real_configure_lines": 17727,
     "macros_ours_left_undefined": []
   },
@@ -137,7 +140,7 @@
         "verified": false
       }
     ],
-    "receipt_hash": "9447b588adeb7e3cf6a61ad71d167cbb97eb800ecdfbc906cacd6b4aa4e65035",
+    "receipt_hash": "f351ac75cb70f7958035d9557ee9397898288f1b2bf53676db0da1706e65c72d",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
