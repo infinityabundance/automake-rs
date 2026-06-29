@@ -8,8 +8,8 @@ Total recipes: **973**
 |---|---|---|
 | failed | 405 | ours fails before make |
 | not_standalone | 250 | oracle (GNU) also fails — not our bug |
-| partial | 282 | configure cleared, make failed |
-| quirk_dependent | 36 | FUNC_OK but needed a quirk rule |
+| partial | 281 | configure cleared, make failed |
+| quirk_dependent | 37 | FUNC_OK but needed a quirk rule |
 
 ## Oracle headroom
 
@@ -36,9 +36,9 @@ ours configure-clear: **318** · GNU configure-clear: **496** · fixable our-bug
 ## Most-needed packages (missing-dep inference)
 
 
-## Make-layer roots (the next front: 282 partial repos clear configure but fail make)
+## Make-layer roots (the next front: 281 partial repos clear configure but fail make)
 
-- makefile-missing-separator — 196 repos
+- makefile-missing-separator — 195 repos
 - (no diagnostic captured) — 34 repos
 - other — 31 repos
 - command-not-found — 20 repos

@@ -1,6 +1,6 @@
 # Atlas Analytics — corpus intelligence
 
-Total recipes: **973** · court mix: 405 failed, 250 not_standalone, 282 partial, 36 quirk_dependent
+Total recipes: **973** · court mix: 405 failed, 250 not_standalone, 281 partial, 37 quirk_dependent
 
 ## Quirk hotspots (automation candidates)
 
@@ -65,7 +65,7 @@ Quirks matched across recipes — the most frequent are the highest-leverage to 
 
 ## Partial -> full shortlist
 
-**282** recipes cleared configure but failed make; **108** of those are `OURS_BUG_MAKE` (GNU makes it, we don't) — the closest wins. Top blockers:
+**281** recipes cleared configure but failed make; **108** of those are `OURS_BUG_MAKE` (GNU makes it, we don't) — the closest wins. Top blockers:
 
 | blocker | repos |
 | --- | --- |

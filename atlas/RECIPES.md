@@ -1,16 +1,17 @@
 # Atlas Recipes — working / non-working roster
 
-Total **973** recipes. **Working (built end-to-end): 36** · non-working: 282 partial · 250 not-standalone · 405 failed.
+Total **973** recipes. **Working (built end-to-end): 37** · non-working: 281 partial · 250 not-standalone · 405 failed.
 
 "Working" means the full pipeline (autoreconf → configure → make) succeeded under the GNU-free toolchain. `quirk_dependent` needed an auto-applied quirk; `sealed` needed none.
 
-## ✅ Working (36)
+## ✅ Working (37)
 
 | repo | court |
 | --- | --- |
 | aadel112/libBlondie | quirk_dependent |
 | abrt/faf | quirk_dependent |
 | aconchillo/guile-json | quirk_dependent |
+| afedchin/xbmc-addon-iptvsimple | quirk_dependent |
 | ahkok/bootchart | quirk_dependent |
 | aizvorski/h264bitstream | quirk_dependent |
 | allinurl/gwsocket | quirk_dependent |
@@ -45,7 +46,7 @@ Total **973** recipes. **Working (built end-to-end): 36** · non-working: 282 pa
 | evergreen-library-system/Evergreen | quirk_dependent |
 | flyinghead/ircd-hybrid | quirk_dependent |
 
-## 🟡 Non-working — partial (configure cleared, make failed) (282)
+## 🟡 Non-working — partial (configure cleared, make failed) (281)
 
 | repo | stage | first error |
 | --- | --- | --- |
@@ -64,7 +65,6 @@ Total **973** recipes. **Working (built end-to-end): 36** · non-working: 282 pa
 | adjacentlink/emane-jammer-simple | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
 | adsr/flow-tools | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
 | adulau/dcfldd | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| afedchin/xbmc-addon-iptvsimple | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
 | agronick/Relay | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
 | alekstorm/tala | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
 | alexanderchuranov/Metaresc | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
