@@ -149,6 +149,37 @@ optional (populated only when relevant) so recipes stay backward-compatible.
   env_vars_influential, posix_flavor (gnu|bsd), shell, oracle_tool_versions (autoconf/automake/m4/perl),
   env_var_whitelist.
 
+## v3.1 deterministic-envelope fields + toolchain interceptor
+
+- **`dialect_reconciliation`** — `enforce_standards_tier` (c89_gnu/c99/c11/gnu++), `strip_modern_poison_flags`
+  (`-Werror=implicit-function-declaration`…), `inject_legacy_shims`, `compiler_aliasing` (gcc-14+ →
+  `-std=gnu89 -fpermissive`). The containment policy for modern-compiler drift on vintage code.
+- **`m4_side_effect_isolation`** — `unquoted_subst_in_conditional`, `shadowed_builtins`,
+  `permitted_mutations` (AC_ARG_ENABLE/WITH) vs `suspect_global_mutations`.
+- **`parallel_build_safety`** — `vpath_out_of_tree_safe`, `generators` (yacc/lex/protoc/gperf),
+  `unordered_generated_sources` (gen-source not in BUILT_SOURCES → `make -j` race), `built_sources_declared`.
+- **`host_environment_veil`** — `header_injection_candidates` (drifted headers needing mock/fallback),
+  `symbol_aliasing_candidates` (obsolete symbols: sys_errlist→strerror, bzero/index…).
+- **`semantic_context`** — included headers, `undefined_symbols` (from link errors), provided symbols,
+  `llvm_native_preview` (null until native codegen).
+- **`make_graph`** (enriched) — + `top_targets`, `make_diagnostics` (command/error_type/message:
+  command-not-found | compiler-error | linker-error | missing-header | make-syntax).
+- **`verification`** (enriched) — + `output_match`, `test_suite_pass_rate`.
+- **`quirk_history`** — + `effectiveness` (high/medium/low/unknown).
+- **`risk_factors`** — top-level brittle-aspect list (subdir-config-h-include-path, unresolved-macros,
+  ancient-libtool, modern-compiler-strictness, deep-macro-expansion, parallel-build-race, vpath-unsafe).
+
+### Toolchain interceptor shim (`ATLAS_SHIM=1`)
+
+A PATH-proxy that makes vintage code build under GCC14+/Clang18+ **without mutating any Makefile**
+(forensic byte-parity preserved). Before the `make` step, a temp dir of compiler shims (cc/gcc/clang/
+c++/g++/clang++) is prepended to `PATH`; each shim strips modern poison `-Werror` flags and appends
+legacy-leniency (`-Wno-error=implicit-function-declaration`/`int-conversion`/`incompatible-pointer-types`
++ `-fcommon`; `-fpermissive` for C++), then `exec`s the real `/usr/bin` compiler. Env-gated for A/B
+measurement via `atlas-diff`. **Proven**: legacy C that errors `implicit declaration of 'puts'` +
+multiple-definition compiles cleanly under the shim. The `dialect_reconciliation` block is the per-recipe
+policy that drives it.
+
 ## INDEX.json (aggregate)
 
 `recipes/INDEX.json` (schema `automake-rs.build-atlas/index/v2`) rolls the recipes up:

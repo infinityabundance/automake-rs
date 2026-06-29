@@ -75,6 +75,18 @@ struct Recipe {
     feature_probe_gap: Option<FeatureProbeGap>,
     #[serde(skip_serializing_if = "Option::is_none")]
     source_to_generated_map: Option<ProvenanceMap>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    dialect_reconciliation: Option<DialectReconciliation>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    m4_side_effect_isolation: Option<M4SideEffectIsolation>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    parallel_build_safety: Option<ParallelBuildSafety>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    host_environment_veil: Option<HostEnvironmentVeil>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    semantic_context: Option<SemanticContext>,
+    #[serde(skip_serializing_if = "Vec::is_empty")]
+    risk_factors: Vec<String>,
     #[serde(skip_serializing_if = "Vec::is_empty")]
     repair_hints: Vec<RepairHint>,
 }
@@ -215,6 +227,8 @@ struct MakeGraph {
     key_variables: BTreeMap<String, String>, // CC/CFLAGS/CPPFLAGS/LDFLAGS/LIBS/AR as the Makefile sets them
     generated_files: Vec<String>,            // Makefile/config.status/config.h/libtool present after configure
     recursion_depth: usize,                  // SUBDIRS nesting
+    top_targets: Vec<String>,                // all/install/check/clean/dist present
+    make_diagnostics: Vec<MakeDiagnostic>,   // classified make-command failures from the run log
 }
 
 /// v3: compiler/toolchain interaction — what the native compiler sees (bridge to codegen) + dialect risk.
@@ -231,8 +245,9 @@ struct ToolchainInteraction {
 #[derive(Serialize)]
 struct QuirkHistoryEntry {
     quirk_id: String,
-    applied_at: String, // configure | make | autoreconf
-    effect: String,     // success | partial | neutral
+    applied_at: String,     // configure | make | autoreconf | detected
+    effect: String,         // success | partial | neutral
+    effectiveness: String,  // high | medium | low | unknown
 }
 
 /// v3: verification + differential data — closes the loop vs the GNU oracle (and a future native codegen).
@@ -243,6 +258,9 @@ struct Verification {
     vs_gnu: String, // identical-status | ours-better | ours-worse | both-fail | not-compared
     #[serde(skip_serializing_if = "Vec::is_empty")]
     drift_noise: Vec<String>, // acceptable-noise classes when ours≠oracle (timestamps/comment-order)
+    output_match: String,     // bit-exact | semantic | status-only | diff | not-compared (from oracle+outputs)
+    #[serde(skip_serializing_if = "Option::is_none")]
+    test_suite_pass_rate: Option<f32>, // null until a `make check` pass runs
 }
 
 /// v3: VPATH / out-of-tree + artifact side-effect analysis — the portability/parallel-build hazards.
@@ -281,6 +299,70 @@ struct MacroOrigin {
     macro_name: String,
     file: String,
     line: usize,
+}
+
+/// v3.1: dialect reconciliation — the deterministic execution envelope that catches modern-compiler
+/// drift before the first TU. Legacy code (no explicit std) dies on GCC14+/Clang18+ default-strict
+/// (implicit-function-declaration is now an ERROR). This block records the containment policy.
+#[derive(Serialize, Default)]
+struct DialectReconciliation {
+    /// inferred required tier: c89_gnu | c99 | c11 | gnu++ | unknown (from configure macros + suffixes)
+    enforce_standards_tier: String,
+    /// modern -Werror flags that break vintage code and should be stripped at exec time.
+    strip_modern_poison_flags: Vec<String>,
+    inject_legacy_shims: bool, // -std=gnu89 -fpermissive needed (no std set + pre-C99 idioms)
+    compiler_aliasing: BTreeMap<String, String>, // gcc-14 -> "-std=gnu89 -fpermissive", ...
+}
+
+/// v3.1: m4 side-effect isolation — legacy macros abuse the global m4 namespace; a broken macro in an
+/// unvisited conditional can corrupt the whole flat Makefile.in stream. Records the hazards detected.
+#[derive(Serialize, Default)]
+struct M4SideEffectIsolation {
+    /// unquoted AC_SUBST inside a conditional branch (implicit var decl that can break parsing).
+    unquoted_subst_in_conditional: usize,
+    /// local macro defs that shadow a standard/builtin macro (override historical tool-detection).
+    shadowed_builtins: Vec<String>,
+    /// AC_ARG_ENABLE/AC_ARG_WITH mutations (permitted) vs other global mutations (suspect).
+    permitted_mutations: usize,
+    suspect_global_mutations: usize,
+}
+
+/// v3.1: parallel-build safety — VPATH isolation + generated-source ordering (the make -j hazards).
+#[derive(Serialize, Default)]
+struct ParallelBuildSafety {
+    vpath_out_of_tree_safe: bool, // no abs-path leakage / hardcoded srcdir paths detected
+    generators: Vec<String>,      // yacc | lex | protoc | gperf present
+    /// generated sources NOT declared in BUILT_SOURCES -> parallel race risk (inject dep edge).
+    unordered_generated_sources: Vec<String>,
+    built_sources_declared: bool,
+}
+
+/// v3.1: host environment veil — virtualize ancient system-header/symbol introspection so 20-year-old
+/// platform checks don't leak broken/missing host definitions into the compile.
+#[derive(Serialize, Default)]
+struct HostEnvironmentVeil {
+    /// headers the project checks/includes that have drifted or commonly need a fallback/mock.
+    header_injection_candidates: Vec<String>,
+    /// obsolete symbols the code uses that need aliasing (sys_errlist->strerror, etc.).
+    symbol_aliasing_candidates: Vec<String>,
+}
+
+/// v3.1: compiler/semantic context — symbol surface + (future) native-codegen preview.
+#[derive(Serialize, Default)]
+struct SemanticContext {
+    included_headers_sample: Vec<String>,
+    undefined_symbols: Vec<String>, // from link errors in the make log
+    provided_symbols_sample: Vec<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    llvm_native_preview: Option<bool>, // null until a native-codegen pass runs
+}
+
+/// v3.1: a single make-command diagnostic (command + exit + classified error).
+#[derive(Serialize)]
+struct MakeDiagnostic {
+    command: String,
+    error_type: String, // command-not-found | compiler-error | linker-error | missing-header | make-syntax
+    message: String,
 }
 
 /// Deep subdir/directory context — the multi-directory build structure that drives (and breaks) the make
@@ -511,6 +593,45 @@ fn tool(env_var: &str, default: &str) -> String {
 ///   * redirect to a file, NOT a pipe — `.output()` would block reading the stdout pipe until EOF,
 ///     which orphaned grandchildren (that survive the kill) hold open forever. `.status()` only
 ///     waits for the direct child (timeout), so leaked children can never wedge us.
+/// Toolchain interceptor shim (ATLAS_SHIM=1). Creates a temp dir of compiler shims (cc/gcc/clang/c++/
+/// g++/clang++) that strip modern poison `-Werror` flags and append legacy-leniency flags, then exec the
+/// REAL compiler in /usr/bin. Prepended to PATH for the make step only — zero Makefile mutation, so
+/// generated files stay byte-exact with the GNU oracle. Returns the shim dir to prepend to PATH.
+fn setup_compiler_shim() -> Option<PathBuf> {
+    use std::io::Write;
+    use std::os::unix::fs::PermissionsExt;
+    let dir = std::env::temp_dir().join(format!("atlas_shim_{}", std::process::id()));
+    std::fs::create_dir_all(&dir).ok()?;
+    // C shims: downgrade the modern-default errors that kill legacy C; -fcommon for tentative-def code.
+    let c_lenient = "-Wno-error=implicit-function-declaration -Wno-error=int-conversion -Wno-error=incompatible-pointer-types -Wno-error=implicit-int -Wno-implicit-function-declaration -fcommon";
+    let cxx_lenient = "-Wno-error -fpermissive";
+    let mk = |name: &str, real: &str, extra: &str| -> Option<()> {
+        let p = dir.join(name);
+        let mut f = std::fs::File::create(&p).ok()?;
+        // strip standalone -Werror and -Werror=<modern poison>; pass everything else; append leniency.
+        let script = format!(
+            "#!/bin/sh\nNEW=\"\"\nfor a in \"$@\"; do\n  case \"$a\" in\n    -Werror|-Werror=implicit-function-declaration|-Werror=int-conversion|-Werror=incompatible-pointer-types|-Werror=implicit-int) ;;\n    *) NEW=\"$NEW $a\" ;;\n  esac\ndone\nexec {real} $NEW {extra}\n",
+            real = real, extra = extra
+        );
+        f.write_all(script.as_bytes()).ok()?;
+        let mut perm = f.metadata().ok()?.permissions();
+        perm.set_mode(0o755);
+        f.set_permissions(perm).ok()?;
+        Some(())
+    };
+    // resolve real compilers (skip our shim dir): prefer /usr/bin then /bin
+    let real = |name: &str| -> String {
+        for base in ["/usr/bin", "/bin", "/usr/local/bin"] {
+            let c = std::path::Path::new(base).join(name);
+            if c.is_file() { return c.to_string_lossy().to_string(); }
+        }
+        name.to_string()
+    };
+    for n in ["cc", "gcc", "clang"] { mk(n, &real(n), c_lenient); }
+    for n in ["c++", "g++", "clang++"] { mk(n, &real(n), cxx_lenient); }
+    Some(dir)
+}
+
 fn run_timed(dir: &Path, secs: u32, program: &str, args: &[&str]) -> (bool, String) {
     use std::fs::File;
     let log = dir.join(".atlas_runlog");
@@ -660,7 +781,16 @@ pub fn run() -> ExitCode {
                         });
                         if cfok {
                             status = "MAKE_FAIL".to_string();
+                            // Toolchain interceptor shim (ATLAS_SHIM=1): prepend a PATH dir of compiler
+                            // shims that strip modern poison -Werror flags + add legacy-leniency
+                            // (-Wno-error=implicit-function-declaration/int-conversion + -fcommon, and
+                            // -fpermissive for C++). Lets vintage code build under GCC14+/Clang18+ default
+                            // strictness WITHOUT mutating any Makefile (forensic byte-parity preserved).
+                            let _shim = if std::env::var("ATLAS_SHIM").is_ok() { setup_compiler_shim() } else { None };
+                            let saved_path = std::env::var("PATH").unwrap_or_default();
+                            if let Some(sd) = &_shim { std::env::set_var("PATH", format!("{}:{}", sd.display(), saved_path)); }
                             let (mkok, mkl) = run_timed(&d, 300, "make", &["-j2"]);
+                            if _shim.is_some() { std::env::set_var("PATH", &saved_path); }
                             mk_log = mkl;
                             pipeline.push(Step {
                                 step: "make".into(),
@@ -737,13 +867,20 @@ pub fn run() -> ExitCode {
                 let language_surface = analyze_language_surface(&d, &ac_text);
                 let libtool_context = analyze_libtool(&d, &ac_text);
                 let gettext_intl_context = analyze_gettext(&d, &ac_text);
-                let make_graph = analyze_make_graph(&d, &directory_context);
+                let make_graph = analyze_make_graph(&d, &directory_context, &mk_log);
                 let toolchain_interaction = analyze_toolchain_interaction(&d, &ac_text, &environment, &language_surface);
                 let quirk_hist = quirk_history(&receipt.quirks_matched, &receipt.quirks_applied, &status);
                 let verification = analyze_verification(&status, &oracle);
                 let vpath_analysis = analyze_vpath(&d);
                 let feature_probe_gap = analyze_feature_probe_gap(&d, &ac_text);
                 let source_to_generated_map = analyze_provenance(&d, &ac_text, &deep_expansion, &macro_inventory);
+                // v3.1 deterministic-envelope blocks
+                let dialect_reconciliation = analyze_dialect_reconciliation(&ac_text, &language_surface);
+                let m4_side_effect_isolation = analyze_m4_isolation(&ac_text, &macro_inventory);
+                let parallel_build_safety = analyze_parallel_build_safety(&vpath_analysis);
+                let semantic_context = analyze_semantic_context(&mk_log, &feature_probe_gap);
+                let host_environment_veil = analyze_host_veil(&feature_probe_gap, semantic_context.as_ref().map(|s| s.undefined_symbols.as_slice()).unwrap_or(&[]));
+                let risk_factors = compute_risk_factors(&directory_context, &macro_inventory, &libtool_context, &gettext_intl_context, &dialect_reconciliation, &source_to_generated_map, &parallel_build_safety);
                 let repair_hints = compute_repair_hints(&makefile_forensics, &directory_context, &macro_inventory, &tool_requirements);
                 write_recipe(
                     &out_dir,
@@ -798,6 +935,12 @@ pub fn run() -> ExitCode {
                         vpath_analysis,
                         feature_probe_gap,
                         source_to_generated_map,
+                        dialect_reconciliation,
+                        m4_side_effect_isolation,
+                        parallel_build_safety,
+                        host_environment_veil,
+                        semantic_context,
+                        risk_factors,
                         repair_hints,
                     },
                 );
@@ -851,6 +994,12 @@ pub fn run() -> ExitCode {
                 vpath_analysis: None,
                 feature_probe_gap: None,
                 source_to_generated_map: None,
+                dialect_reconciliation: None,
+                m4_side_effect_isolation: None,
+                parallel_build_safety: None,
+                host_environment_veil: None,
+                semantic_context: None,
+                risk_factors: vec![],
                 repair_hints: vec![],
             },
         );
@@ -1505,7 +1654,7 @@ fn compute_repair_hints(mf: &Option<MakefileForensics>, dc: &Option<DirectoryCon
 }
 
 /// v3: make graph snapshot from the top generated Makefile + tree.
-fn analyze_make_graph(d: &Path, dc: &Option<DirectoryContext>) -> Option<MakeGraph> {
+fn analyze_make_graph(d: &Path, dc: &Option<DirectoryContext>, mk_log: &str) -> Option<MakeGraph> {
     let mk = std::fs::read_to_string(d.join("Makefile")).ok()?;
     let mut targets = Vec::new();
     let mut key = BTreeMap::new();
@@ -1532,7 +1681,23 @@ fn analyze_make_graph(d: &Path, dc: &Option<DirectoryContext>) -> Option<MakeGra
         if d.join(f).exists() { generated.push(f.to_string()); }
     }
     let depth = dc.as_ref().map(|x| x.max_depth).unwrap_or(0);
-    Some(MakeGraph { targets, key_variables: key, generated_files: generated, recursion_depth: depth })
+    let top_targets: Vec<String> = ["all", "install", "check", "clean", "dist", "all-am", "all-recursive"]
+        .iter().filter(|t| targets.iter().any(|x| x == *t)).map(|s| s.to_string()).collect();
+    // classify make-command failures from the run log
+    let mut make_diagnostics = Vec::new();
+    for l in mk_log.lines() {
+        let ll = l.to_lowercase();
+        let etype = if ll.contains("command not found") || (ll.contains("not found") && ll.contains("make")) { "command-not-found" }
+            else if ll.contains("undefined reference") || ll.contains("cannot find -l") || ll.contains("ld:") { "linker-error" }
+            else if ll.contains("no such file") && ll.contains(".h") { "missing-header" }
+            else if ll.contains("missing separator") || ll.contains("*** ") { "make-syntax" }
+            else if ll.contains(": error:") || ll.contains("fatal error:") { "compiler-error" }
+            else { continue };
+        if make_diagnostics.len() < 10 {
+            make_diagnostics.push(MakeDiagnostic { command: String::new(), error_type: etype.into(), message: l.trim().chars().take(120).collect() });
+        }
+    }
+    Some(MakeGraph { targets, key_variables: key, generated_files: generated, recursion_depth: depth, top_targets, make_diagnostics })
 }
 
 /// v3: compiler/toolchain interaction + C-dialect risk.
@@ -1566,12 +1731,13 @@ fn analyze_toolchain_interaction(d: &Path, ac_text: &str, env: &Environment, ls:
 fn quirk_history(quirks_matched: &[String], quirks_applied: &[QuirkApplied], status: &str) -> Vec<QuirkHistoryEntry> {
     let mut out = Vec::new();
     for q in quirks_applied {
-        let effect = if status == "FUNC_OK" || status == "MAKE_FAIL" { "success" } else { "neutral" };
-        out.push(QuirkHistoryEntry { quirk_id: q.id.clone(), applied_at: "configure".into(), effect: effect.into() });
+        let (effect, eff) = if q.verified && (status == "FUNC_OK" || status == "MAKE_FAIL") { ("success", "high") }
+            else if q.verified { ("partial", "medium") } else { ("neutral", "low") };
+        out.push(QuirkHistoryEntry { quirk_id: q.id.clone(), applied_at: "configure".into(), effect: effect.into(), effectiveness: eff.into() });
     }
     for m in quirks_matched {
         if !out.iter().any(|e| &e.quirk_id == m) {
-            out.push(QuirkHistoryEntry { quirk_id: m.clone(), applied_at: "detected".into(), effect: "neutral".into() });
+            out.push(QuirkHistoryEntry { quirk_id: m.clone(), applied_at: "detected".into(), effect: "neutral".into(), effectiveness: "unknown".into() });
         }
     }
     out.truncate(20);
@@ -1593,7 +1759,122 @@ fn analyze_verification(status: &str, oracle: &Option<Oracle>) -> Verification {
         }
         None => "not-compared",
     };
-    Verification { replay_success: None, vs_gnu: vs.to_string(), drift_noise: Vec::new() }
+    let output_match = match (status, vs) {
+        ("FUNC_OK", "identical-status") => "status-match",
+        ("FUNC_OK", _) => "ours-built",
+        (_, "both-fail") => "both-fail",
+        _ => "not-compared",
+    };
+    Verification { replay_success: None, vs_gnu: vs.to_string(), drift_noise: Vec::new(), output_match: output_match.to_string(), test_suite_pass_rate: None }
+}
+
+/// v3.1: dialect reconciliation policy — what std tier + poison-flag strip the project needs.
+fn analyze_dialect_reconciliation(ac_text: &str, ls: &Option<LanguageSurface>) -> Option<DialectReconciliation> {
+    let sets_std = ls.as_ref().map(|l| l.sets_c_std).unwrap_or(false);
+    let needs_cxx = ls.as_ref().map(|l| l.needs_cxx).unwrap_or(false);
+    let tier = if ac_text.contains("AC_PROG_CC_C99") { "c99" }
+        else if ac_text.contains("AC_PROG_CC_C11") { "c11" }
+        else if ac_text.contains("AX_CXX_COMPILE_STDCXX") || needs_cxx { "gnu++" }
+        else if sets_std { "explicit" } else { "c89_gnu" };
+    // legacy projects with no explicit std die on modern default-strict -> strip + shim
+    let inject = !sets_std && tier == "c89_gnu";
+    let strip = if inject { vec![
+        "-Werror=implicit-function-declaration".to_string(),
+        "-Werror=int-conversion".to_string(),
+        "-Werror=incompatible-pointer-types".to_string(),
+    ] } else { Vec::new() };
+    let mut aliasing = BTreeMap::new();
+    if inject {
+        aliasing.insert("gcc-14+".to_string(), "-std=gnu89 -fpermissive".to_string());
+        aliasing.insert("clang-18+".to_string(), "-std=gnu89 -Wno-error".to_string());
+    }
+    Some(DialectReconciliation { enforce_standards_tier: tier.into(), strip_modern_poison_flags: strip, inject_legacy_shims: inject, compiler_aliasing: aliasing })
+}
+
+/// v3.1: m4 side-effect isolation hazards.
+fn analyze_m4_isolation(ac_text: &str, mi: &Option<MacroInventory>) -> Option<M4SideEffectIsolation> {
+    // unquoted AC_SUBST inside a conditional (if/case branch) — crude: AC_SUBST not wrapped in [] within a conditional line region
+    let mut unquoted_in_cond = 0usize;
+    let mut depth = 0i32;
+    for l in ac_text.lines() {
+        let t = l.trim();
+        if t.starts_with("if ") || t.starts_with("case ") || t.starts_with("AS_IF") || t.starts_with("AM_COND") { depth += 1; }
+        if t == "fi" || t == "esac" || t.starts_with("])") { depth = (depth - 1).max(0); }
+        if depth > 0 && t.contains("AC_SUBST(") && !t.contains("AC_SUBST([") { unquoted_in_cond += 1; }
+    }
+    let shadowed: Vec<String> = mi.as_ref().map(|m| m.defined_macros.iter()
+        .filter(|dm| (dm.name.starts_with("AC_") || dm.name.starts_with("AM_")) && dm.kind != "project-local")
+        .map(|dm| dm.name.clone()).take(15).collect()).unwrap_or_default();
+    let permitted = ac_text.matches("AC_ARG_ENABLE").count() + ac_text.matches("AC_ARG_WITH").count();
+    Some(M4SideEffectIsolation {
+        unquoted_subst_in_conditional: unquoted_in_cond,
+        shadowed_builtins: shadowed,
+        permitted_mutations: permitted,
+        suspect_global_mutations: 0,
+    })
+}
+
+/// v3.1: parallel-build safety from vpath_analysis + directory build dirs.
+fn analyze_parallel_build_safety(vp: &Option<VpathAnalysis>) -> Option<ParallelBuildSafety> {
+    let vp = vp.as_ref()?;
+    let gens: Vec<String> = vp.generated_source_targets.iter().take(15).cloned().collect();
+    // generated sources not in BUILT_SOURCES -> race risk
+    let unordered: Vec<String> = vp.generated_source_targets.iter()
+        .filter(|g| !vp.built_sources.iter().any(|b| g.contains(b.trim_end_matches(['.', 'c', 'h']))))
+        .take(15).cloned().collect();
+    Some(ParallelBuildSafety {
+        vpath_out_of_tree_safe: vp.abs_path_leakage == 0 && vp.hardcoded_src_paths < 3,
+        generators: gens,
+        unordered_generated_sources: if vp.built_sources.is_empty() { vp.generated_source_targets.iter().take(15).cloned().collect() } else { unordered },
+        built_sources_declared: !vp.built_sources.is_empty(),
+    })
+}
+
+/// v3.1: host environment veil — drifted/mockable headers + obsolete symbols the code uses.
+fn analyze_host_veil(fpg: &Option<FeatureProbeGap>, sc_undef: &[String]) -> Option<HostEnvironmentVeil> {
+    // headers commonly drifted / needing fallback
+    const DRIFT: &[&str] = &["sys/sysctl.h", "sys/cdefs.h", "malloc.h", "values.h", "varargs.h", "sys/errno.h", "linux/sysctl.h", "sys/timeb.h"];
+    let mut hdr = Vec::new();
+    if let Some(f) = fpg {
+        for h in f.headers_included_unchecked.iter().chain(f.headers_checked.iter()) {
+            if DRIFT.contains(&h.as_str()) && !hdr.contains(h) { hdr.push(h.clone()); }
+        }
+    }
+    // obsolete symbols commonly needing aliasing
+    const OBSOLETE: &[&str] = &["sys_errlist", "sys_nerr", "gets", "bzero", "bcopy", "index", "rindex"];
+    let mut sym: Vec<String> = sc_undef.iter().filter(|s| OBSOLETE.iter().any(|o| s.contains(o))).cloned().take(10).collect();
+    for o in OBSOLETE { if sc_undef.iter().any(|s| s.contains(o)) && !sym.iter().any(|x| x.contains(o)) { sym.push(o.to_string()); } }
+    if hdr.is_empty() && sym.is_empty() { return None; }
+    Some(HostEnvironmentVeil { header_injection_candidates: hdr, symbol_aliasing_candidates: sym })
+}
+
+/// v3.1: semantic context — included headers + undefined/provided symbols from the make log + sources.
+fn analyze_semantic_context(mk_log: &str, fpg: &Option<FeatureProbeGap>) -> Option<SemanticContext> {
+    let mut undef = Vec::new();
+    for l in mk_log.lines() {
+        if let Some(p) = l.find("undefined reference to ") {
+            let s = l[p + 23..].trim().trim_matches(['`', '\'', '"']);
+            let s: String = s.chars().take(60).collect();
+            if !s.is_empty() && undef.len() < 15 && !undef.contains(&s) { undef.push(s); }
+        }
+    }
+    let included: Vec<String> = fpg.as_ref().map(|f| f.headers_included_unchecked.iter().chain(f.headers_checked.iter()).take(20).cloned().collect()).unwrap_or_default();
+    if undef.is_empty() && included.is_empty() { return None; }
+    Some(SemanticContext { included_headers_sample: included, undefined_symbols: undef, provided_symbols_sample: Vec::new(), llvm_native_preview: None })
+}
+
+/// v3.1: top-level risk factors — the brittle aspects, aggregated for fast triage.
+fn compute_risk_factors(dc: &Option<DirectoryContext>, mi: &Option<MacroInventory>, lc: &Option<LibtoolContext>, gx: &Option<GettextIntlContext>, dr: &Option<DialectReconciliation>, prov: &Option<ProvenanceMap>, pbs: &Option<ParallelBuildSafety>) -> Vec<String> {
+    let mut r = Vec::new();
+    if dc.as_ref().map(|x| !x.config_h_consumers_below_root.is_empty()).unwrap_or(false) { r.push("subdir-config-h-include-path".into()); }
+    if mi.as_ref().map(|x| !x.unresolved_macros.is_empty()).unwrap_or(false) { r.push("unresolved-macros".into()); }
+    if lc.as_ref().map(|x| x.age == "old").unwrap_or(false) { r.push("ancient-libtool".into()); }
+    if gx.as_ref().map(|x| !x.missing_files.is_empty()).unwrap_or(false) { r.push("gettext-support-files-missing".into()); }
+    if dr.as_ref().map(|x| x.inject_legacy_shims).unwrap_or(false) { r.push("modern-compiler-strictness (no explicit C std)".into()); }
+    if prov.as_ref().map(|x| x.m4_trace_depth > 30).unwrap_or(false) { r.push("deep-macro-expansion (stack/divergence risk)".into()); }
+    if pbs.as_ref().map(|x| !x.unordered_generated_sources.is_empty()).unwrap_or(false) { r.push("parallel-build-race (gen-source not in BUILT_SOURCES)".into()); }
+    if pbs.as_ref().map(|x| !x.vpath_out_of_tree_safe).unwrap_or(false) { r.push("vpath-unsafe (abs-path/hardcoded-srcdir leakage)".into()); }
+    r
 }
 
 /// v3: VPATH / out-of-tree + artifact side-effect analysis from Makefile.am files + generated Makefile.
