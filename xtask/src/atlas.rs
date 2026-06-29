@@ -1149,6 +1149,8 @@ fn walk_makefiles(root: &Path, dir: &Path, depth: usize, out: &mut Vec<Generated
             let mut tab_anom = 0usize;
             let mut first_err: Option<MakeParseError> = None;
             let mut in_rule = false;
+            let mut prev_continues = false; // previous line ended with `\` (make line-continuation)
+            let mut in_define = false;      // inside a make `define ... endef` block (verbatim shell)
             for (i, l) in lines.iter().enumerate() {
                 // unexpanded @VAR@
                 let mut rest = *l;
@@ -1168,13 +1170,18 @@ fn walk_makefiles(root: &Path, dir: &Path, depth: usize, out: &mut Vec<Generated
                 }
                 // classify the first line make can't parse (missing separator territory)
                 let starts_tab = l.starts_with('\t');
-                if first_err.is_none() {
-                    let trimmed = l.trim_start();
+                let trimmed_now = l.trim_start();
+                if trimmed_now.starts_with("define ") || trimmed_now == "define" { in_define = true; }
+                // Only a STATEMENT-START line (not a `\`-continuation, not inside define/endef) can be a
+                // parse error. This is the fix for the am__is_gnu_make shell-block false positive: its
+                // `if test -z '$(MAKELEVEL)'` lines are continuations of `am__is_gnu_make = { \`.
+                if first_err.is_none() && !prev_continues && !in_define {
+                    let trimmed = trimmed_now;
                     let is_blank = trimmed.is_empty();
                     let is_comment = trimmed.starts_with('#');
                     let is_assign = l.find('=').map(|e| l[..e].chars().all(|c| c.is_ascii_alphanumeric() || "_+:. ".contains(c)) && !l[..e].contains('\t')).unwrap_or(false);
                     let is_rule = trimmed.contains(':') && !starts_tab && !trimmed.starts_with(':');
-                    let is_directive = ["ifeq", "ifneq", "ifdef", "ifndef", "else", "endif", "include", "-include", "define", "endef", "export", "unexport", "vpath", "override"].iter().any(|d| trimmed.starts_with(d));
+                    let is_directive = ["ifeq", "ifneq", "ifdef", "ifndef", "else", "endif", "include", "-include", "define", "endef", "export", "unexport", "vpath", "override", "if ", "fi", "case", "esac", "for ", "while ", "do", "done", "then", "elif", ":"].iter().any(|kw| trimmed.starts_with(kw));
                     // a non-tab, non-blank, non-comment, non-assignment, non-rule, non-directive line that
                     // looks like a recipe/shell or a leaked token -> the missing-separator site
                     if !starts_tab && !is_blank && !is_comment && !is_assign && !is_rule && !is_directive && !trimmed.starts_with('\\') {
@@ -1193,6 +1200,9 @@ fn walk_makefiles(root: &Path, dir: &Path, depth: usize, out: &mut Vec<Generated
                     }
                 }
                 if starts_tab && l.trim().is_empty() { tab_anom += 1; }
+                if trimmed_now == "endef" { in_define = false; }
+                // a line "continues" if it ends with an unescaped backslash
+                prev_continues = l.trim_end().ends_with('\\');
                 in_rule = l.contains(':') && !l.starts_with('\t');
             }
             out.push(GeneratedMakefile {
