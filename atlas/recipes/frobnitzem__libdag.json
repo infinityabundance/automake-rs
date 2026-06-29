@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.14",
+    "autoconf_rs": "autoconf-rs 0.1.15",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,6 +26,11 @@
     {
       "step": "configure",
       "tool": "./configure",
+      "status": "ok"
+    },
+    {
+      "step": "make",
+      "tool": "make",
       "status": "fail"
     }
   ],
@@ -45,38 +50,16 @@
     "subdirs"
   ],
   "outputs": [],
-  "status": "CONFIGURE_RUN_FAIL",
+  "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1969: syntax error near unexpected token `[ACX_PTHREAD],[AX_PTHREAD]'",
+  "diagnostic": "",
   "deep_expansion": {
     "configure_lines": 2852,
-    "leaked_macros": [
-      {
-        "name": "AX_PTHREAD",
-        "line": 1969,
-        "context": "AX_PTHREAD([ACX_PTHREAD],[AX_PTHREAD])"
-      }
-    ],
+    "leaked_macros": [],
     "heredoc_openers": 5,
     "heredoc_terminators": 5,
     "heredoc_imbalance": 0,
-    "syntax_errors": [
-      {
-        "line": 1969,
-        "token": "[ACX_PTHREAD],[AX_PTHREA",
-        "source": "AX_PTHREAD([ACX_PTHREAD],[AX_PTHREAD])",
-        "block": [
-          "1965: printf '%s\\n' \"s|@PTHREAD_CFLAGS@|$PTHREAD_CFLAGS|g\" >> conf_subst.sed 2>/de",
-          "1966: printf '%s\\n' \"s|@PTHREAD_LIBS@|$PTHREAD_LIBS|g\" >> conf_subst.sed 2>/dev/nu",
-          "1967: if test \"x$ax_pthread_ok\" = xyes; then",
-          "1968:   :",
-          "1969:   AX_PTHREAD([ACX_PTHREAD],[AX_PTHREAD])",
-          "1970: else",
-          "1971:   :",
-          "1972:   AX_PTHREAD"
-        ]
-      }
-    ],
+    "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\"
     ],
@@ -86,11 +69,9 @@
       "PTHREAD_CFLAGS",
       "PTHREAD_LIBS"
     ],
-    "failed_during_check": "checking for the pthreads flag... -pthread",
+    "failed_during_check": "checking for unistd.h... yes",
     "failure_tail": [
-      "checking for the pthreads flag... -pthread",
-      "./configure: line 1969: syntax error near unexpected token `[ACX_PTHREAD],[AX_PT",
-      "./configure: line 1969: `  AX_PTHREAD([ACX_PTHREAD],[AX_PTHREAD])'"
+      "checking for unistd.h... yes"
     ],
     "conftest_corruption": [],
     "conftest_directives_intact": 1,
@@ -105,22 +86,18 @@
     "real_make": "ok",
     "real_configure_lines": 15938,
     "real_first_error": "",
-    "classification": "OURS_BUG_CONFIGURE"
+    "classification": "OURS_BUG_MAKE"
   },
   "divergence": {
-    "stage": "configure",
-    "ours_error": "line 1969: AX_PTHREAD([ACX_PTHREAD],[AX_PTHREAD]) (near `[ACX_PTHREAD],[AX_PTHREA`)",
-    "ours_error_context": [
-      "AX_PTHREAD([ACX_PTHREAD],[AX_PTHREAD])"
-    ],
+    "stage": "make",
+    "ours_error": "",
+    "ours_error_context": [],
     "ours_configure_lines": 2852,
     "real_configure_lines": 15938,
-    "macros_ours_left_undefined": [
-      "AX_PTHREAD"
-    ]
+    "macros_ours_left_undefined": []
   },
   "receipt": {
-    "court_status": "failed",
+    "court_status": "partial",
     "probe_trace": [],
     "quirks_matched": [
       "uses-libtool-old",
@@ -129,7 +106,7 @@
       "uses-ax-archive",
       "uses-pthread-check"
     ],
-    "receipt_hash": "f351ac75cb70f7958035d9557ee9397898288f1b2bf53676db0da1706e65c72d",
+    "receipt_hash": "50943c81e776f99633ce47bc1c02476e04eeac1c88eab40282963440dadccda2",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {

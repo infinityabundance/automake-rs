@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.14",
+    "autoconf_rs": "autoconf-rs 0.1.15",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,11 +26,11 @@
     {
       "step": "configure",
       "tool": "./configure",
-      "status": "fail"
+      "status": "ok"
     },
     {
-      "step": "auto-quirk",
-      "tool": "quirk-engine",
+      "step": "make",
+      "tool": "make",
       "status": "fail"
     }
   ],
@@ -50,51 +50,19 @@
     "subdirs"
   ],
   "outputs": [],
-  "status": "CONFIGURE_RUN_FAIL",
+  "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1702: syntax error near unexpected token `[$1'",
+  "diagnostic": "./configure: line 1706: must: command not found",
   "deep_expansion": {
-    "configure_lines": 4389,
-    "leaked_macros": [
-      {
-        "name": "AC_MSG_NOTICE",
-        "line": 1702,
-        "context": "AC_MSG_NOTICE([$1 disabled by configuration (use --with-$1 to enable).])"
-      },
-      {
-        "name": "AC_MSG_NOTICE",
-        "line": 2368,
-        "context": "AC_MSG_NOTICE([$1 disabled by configuration (use --with-$1 to enable).])"
-      },
-      {
-        "name": "AC_WARN",
-        "line": 3289,
-        "context": "AC_WARN(No appropriate db2man stylesheet found; man pages will not be re"
-      }
-    ],
-    "heredoc_openers": 23,
-    "heredoc_terminators": 23,
+    "configure_lines": 4374,
+    "leaked_macros": [],
+    "heredoc_openers": 21,
+    "heredoc_terminators": 21,
     "heredoc_imbalance": 0,
-    "syntax_errors": [
-      {
-        "line": 1702,
-        "token": "[$1",
-        "source": "AC_MSG_NOTICE([$1 disabled by configuration (use --with-$1 to enable).])",
-        "block": [
-          "1698:       fi",
-          "1699:       path=$ac_cv_use_$1",
-          "1700:       $3",
-          "1701:     else",
-          "1702:       AC_MSG_NOTICE([$1 disabled by configuration (use --with-$1 to enable).",
-          "1703:       $4",
-          "1704:     fi",
-          "1705:   "
-        ]
-      }
-    ],
+    "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 3880: do eval test \\${$as_var+y} \\"
+      "line 3865: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
@@ -118,21 +86,23 @@
       "DEFS",
       "LIBOBJS",
       "INSTALL",
+      "MAKEFLAGS",
+      "MD_MINOR_VERSION",
       "PYTHON_LDFLAGS",
-      "host_vendor",
-      "LIBUSB_CFLAGS",
-      "MD_BINARY_AGE",
+      "LT_AGE",
       "OS_LINUX",
-      "AX_SWIG_PYTHON_OPT",
-      "MD_VERSION",
-      "MD_MICRO_VERSION",
-      "PYTHON_CPPFLAGS"
+      "OS_BSD",
+      "OS_CFLAGS",
+      "OS_LDFLAGS",
+      "MD_MAJOR_VERSION"
     ],
-    "failed_during_check": "checking for usb.h... no",
+    "failed_during_check": "checking for Python3 swig option... ./configure: line 3211: test: <: unary opera",
     "failure_tail": [
-      "checking for usb.h... no",
-      "./configure: line 1702: syntax error near unexpected token `[$1'",
-      "./configure: line 1702: `      AC_MSG_NOTICE([$1 disabled by configuration (use "
+      "checking for Python3 swig option... ./configure: line 3211: test: <: unary opera",
+      "yes",
+      "configure: WARNING: doxygen not found. not using doxygen.",
+      "./configure: line 3270: */manpages/docbook.xsl: No such file or directory",
+      "configure: creating Makefile"
     ],
     "conftest_corruption": [],
     "conftest_directives_intact": 4,
@@ -141,9 +111,8 @@
       "#include <$ac_hdr>",
       "\\n#include <usb.h>\\n\\nint main(void)\\n{\\nusb_dev_handle* dev;\\nusb_detach_kernel_driver_np(dev, 0);\\nreturn 0;\\n}\\n",
       "#include <stdbool.h>",
-      "inline int foo() { return 0; }\\nint main() { return foo(); }",
-      "int main() { const int x = 1; return x-1; }",
-      "int main() { int x = 1; return *(char*)&x; }"
+      "int main() { int x = 1; return *(char*)&x; }",
+      "#define STR(x) #x\\nconst char *s = STR(hello);\\nint main() { return 0; }"
     ]
   },
   "oracle": {
@@ -152,23 +121,10 @@
     "real_make": "fail",
     "real_configure_lines": 18403,
     "real_first_error": "",
-    "classification": "OURS_BUG_CONFIGURE"
-  },
-  "divergence": {
-    "stage": "configure",
-    "ours_error": "line 1702: AC_MSG_NOTICE([$1 disabled by configuration (use --with-$1 to enable).]) (near `[$1`)",
-    "ours_error_context": [
-      "AC_MSG_NOTICE([$1 disabled by configuration (use --with-$1 to enable).])"
-    ],
-    "ours_configure_lines": 4389,
-    "real_configure_lines": 18403,
-    "macros_ours_left_undefined": [
-      "AC_MSG_NOTICE",
-      "AC_WARN"
-    ]
+    "classification": "BOTH_MAKE_FAIL"
   },
   "receipt": {
-    "court_status": "failed",
+    "court_status": "partial",
     "probe_trace": [],
     "quirks_matched": [
       "uses-libtool-old",
@@ -178,14 +134,7 @@
       "vendored-aclocal",
       "uses-ax-archive"
     ],
-    "quirks_applied": [
-      {
-        "id": "uses-maintainer-mode",
-        "action": "--disable-maintainer-mode",
-        "verified": false
-      }
-    ],
-    "receipt_hash": "f351ac75cb70f7958035d9557ee9397898288f1b2bf53676db0da1706e65c72d",
+    "receipt_hash": "a1f4e5766c35392dc1a93d7294702343cbef0d84a9f13446984a26ca5354d637",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {

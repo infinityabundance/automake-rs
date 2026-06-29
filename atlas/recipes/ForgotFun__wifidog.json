@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.14",
+    "autoconf_rs": "autoconf-rs 0.1.15",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,11 +26,11 @@
     {
       "step": "configure",
       "tool": "./configure",
-      "status": "fail"
+      "status": "ok"
     },
     {
-      "step": "auto-quirk",
-      "tool": "quirk-engine",
+      "step": "make",
+      "tool": "make",
       "status": "fail"
     }
   ],
@@ -40,51 +40,27 @@
   },
   "dependencies": {
     "pkg_config": [],
-    "system_libs": [],
+    "system_libs": [
+      "-lpthread"
+    ],
     "headers_needed": [],
     "missing": []
   },
   "quirks": [
-    "subdirs"
+    "subdirs",
+    "LIBS=-lpthread"
   ],
   "outputs": [],
-  "status": "CONFIGURE_RUN_FAIL",
+  "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1488: syntax error near unexpected token `socket'",
+  "diagnostic": "",
   "deep_expansion": {
     "configure_lines": 2534,
-    "leaked_macros": [
-      {
-        "name": "AC_HAVE_LIBRARY",
-        "line": 1488,
-        "context": "AC_HAVE_LIBRARY(socket)"
-      },
-      {
-        "name": "AC_HAVE_LIBRARY",
-        "line": 1489,
-        "context": "AC_HAVE_LIBRARY(nsl)"
-      }
-    ],
+    "leaked_macros": [],
     "heredoc_openers": 20,
     "heredoc_terminators": 20,
     "heredoc_imbalance": 0,
-    "syntax_errors": [
-      {
-        "line": 1488,
-        "token": "socket",
-        "source": "AC_HAVE_LIBRARY(socket)",
-        "block": [
-          "1484:   printf '%s\\n' \"yes\"",
-          "1485: else",
-          "1486:   printf '%s\\n' \"no\"",
-          "1487: fi; done",
-          "1488: AC_HAVE_LIBRARY(socket)",
-          "1489: AC_HAVE_LIBRARY(nsl)",
-          "1490: echo \"libhttpd dependencies check complete\"",
-          "1491: "
-        ]
-      }
-    ],
+    "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
       "line 2057: do eval test \\${$as_var+y} \\"
@@ -111,20 +87,22 @@
       "DEFS",
       "LIBOBJS",
       "INSTALL",
-      "enable_html_docs",
-      "enable_latex_docs",
-      "WIFIDOG_MICRO_VERSION",
       "WIFIDOG_MAJOR_VERSION",
-      "enable_dot",
-      "WIFIDOG_VERSION",
       "WIFIDOG_MINOR_VERSION",
-      "BUILDROOT"
+      "WIFIDOG_MICRO_VERSION",
+      "enable_dot",
+      "enable_html_docs",
+      "BUILDROOT",
+      "enable_latex_docs",
+      "WIFIDOG_VERSION"
     ],
     "failed_during_check": "checking for unistd.h... yes",
     "failure_tail": [
       "checking for unistd.h... yes",
-      "./configure: line 1488: syntax error near unexpected token `socket'",
-      "./configure: line 1488: `AC_HAVE_LIBRARY(socket)'"
+      "libhttpd dependencies check complete",
+      "configure: creating Makefile",
+      "configure: creating wifidog.spec",
+      "configure: creating wifidog-msg.html"
     ],
     "conftest_corruption": [],
     "conftest_directives_intact": 2,
@@ -142,35 +120,24 @@
     "real_make": "ok",
     "real_configure_lines": 20183,
     "real_first_error": "",
-    "classification": "OURS_BUG_CONFIGURE"
+    "classification": "OURS_BUG_MAKE"
   },
   "divergence": {
-    "stage": "configure",
-    "ours_error": "line 1488: AC_HAVE_LIBRARY(socket) (near `socket`)",
-    "ours_error_context": [
-      "AC_HAVE_LIBRARY(socket)"
-    ],
+    "stage": "make",
+    "ours_error": "",
+    "ours_error_context": [],
     "ours_configure_lines": 2534,
     "real_configure_lines": 20183,
-    "macros_ours_left_undefined": [
-      "AC_HAVE_LIBRARY"
-    ]
+    "macros_ours_left_undefined": []
   },
   "receipt": {
-    "court_status": "failed",
+    "court_status": "partial",
     "probe_trace": [],
     "quirks_matched": [
       "uses-maintainer-mode",
       "vendored-aclocal"
     ],
-    "quirks_applied": [
-      {
-        "id": "uses-maintainer-mode",
-        "action": "--disable-maintainer-mode",
-        "verified": false
-      }
-    ],
-    "receipt_hash": "f351ac75cb70f7958035d9557ee9397898288f1b2bf53676db0da1706e65c72d",
+    "receipt_hash": "50943c81e776f99633ce47bc1c02476e04eeac1c88eab40282963440dadccda2",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {

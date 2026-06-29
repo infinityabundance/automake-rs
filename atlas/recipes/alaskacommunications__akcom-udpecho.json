@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.14",
+    "autoconf_rs": "autoconf-rs 0.1.15",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,11 +26,11 @@
     {
       "step": "configure",
       "tool": "./configure",
-      "status": "fail"
+      "status": "ok"
     },
     {
-      "step": "auto-quirk",
-      "tool": "quirk-engine",
+      "step": "make",
+      "tool": "make",
       "status": "fail"
     }
   ],
@@ -49,56 +49,19 @@
     "subdirs"
   ],
   "outputs": [],
-  "status": "CONFIGURE_RUN_FAIL",
+  "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1495: syntax error near unexpected token `0,'",
+  "diagnostic": "",
   "deep_expansion": {
-    "configure_lines": 3122,
-    "leaked_macros": [
-      {
-        "name": "AC_BINDLE_LIBTOOL_VERSION_INFO",
-        "line": 1495,
-        "context": "AC_BINDLE_LIBTOOL_VERSION_INFO(0, 0, 0)"
-      },
-      {
-        "name": "AC_BINDLE",
-        "line": 2058,
-        "context": "AC_BINDLE(contrib/bindletools)"
-      },
-      {
-        "name": "AC_BINDLE_GIT_PACKAGE_VERSION",
-        "line": 2061,
-        "context": "AC_BINDLE_GIT_PACKAGE_VERSION(contrib/bindletools/build-aux/git-package-"
-      },
-      {
-        "name": "AC_BINDLE_ENABLE_WARNINGS",
-        "line": 2064,
-        "context": "AC_BINDLE_ENABLE_WARNINGS(-Wno-missing-format-attribute -Wno-padded -Wno"
-      }
-    ],
-    "heredoc_openers": 64,
-    "heredoc_terminators": 64,
+    "configure_lines": 3106,
+    "leaked_macros": [],
+    "heredoc_openers": 62,
+    "heredoc_terminators": 62,
     "heredoc_imbalance": 0,
-    "syntax_errors": [
-      {
-        "line": 1495,
-        "token": "0,",
-        "source": "AC_BINDLE_LIBTOOL_VERSION_INFO(0, 0, 0)",
-        "block": [
-          "1491: #                  this implementation",
-          "1492: # Format => Current:Revision:Age",
-          "1493: # Convenience macro:",
-          "1494: #    AC_BINDLE_LIBTOOL_VERSION_INFO(current, revision, age)",
-          "1495: AC_BINDLE_LIBTOOL_VERSION_INFO(0, 0, 0)",
-          "1496: ",
-          "1497: # binary locations",
-          "1498: # Find path to program sh bash"
-        ]
-      }
-    ],
+    "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2628: do eval test \\${$as_var+y} \\"
+      "line 2612: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
@@ -108,22 +71,24 @@
       "PACKAGE_STRING",
       "PACKAGE_BUGREPORT"
     ],
-    "failed_during_check": "checking for restrict... yes",
+    "failed_during_check": "checking for unistd.h... yes",
     "failure_tail": [
-      "checking for restrict... yes",
-      "./configure: line 1495: syntax error near unexpected token `0,'",
-      "./configure: line 1495: `AC_BINDLE_LIBTOOL_VERSION_INFO(0, 0, 0)'"
+      "checking for unistd.h... yes",
+      "configure: creating Makefile",
+      "configure: creating config.h",
+      "configure: creating ./config.status",
+      "configure:"
     ],
     "conftest_corruption": [],
     "conftest_directives_intact": 77,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
       "int main() { int x = 1; return *(char*)&x; }",
-      "inline int foo() { return 0; }\\nint main() { return foo(); }",
-      "void foo(char * restrict p) { *p = 0; }\\nint main() { char c; foo(&c); return 0; }",
       "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar alloca();\\nint main() { return alloca(); }",
       "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar fork();\\nint main() { return fork(); }",
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar malloc();\\nint main() { return malloc(); }"
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar malloc();\\nint main() { return malloc(); }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar realloc();\\nint main() { return realloc(); }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar strerror_r();\\nint main() { return strerror_r(); }"
     ]
   },
   "oracle": {
@@ -135,7 +100,7 @@
     "classification": "OURS_BETTER"
   },
   "receipt": {
-    "court_status": "failed",
+    "court_status": "partial",
     "probe_trace": [],
     "quirks_matched": [
       "uses-libtool",
@@ -144,14 +109,7 @@
       "has-acinclude",
       "vendored-aclocal"
     ],
-    "quirks_applied": [
-      {
-        "id": "uses-subdir-objects",
-        "action": "--disable-dependency-tracking",
-        "verified": false
-      }
-    ],
-    "receipt_hash": "4ffebd505f61100dc07b3d08ba603303f41a24e881c58b2f8e75f641536ecb48",
+    "receipt_hash": "bdbfb6907bfdbc8bdb7cf566a26793b38411d77e6f0819ae26c725daf919e509",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {

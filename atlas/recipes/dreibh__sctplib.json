@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.14",
+    "autoconf_rs": "autoconf-rs 0.1.15",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,6 +26,11 @@
     {
       "step": "configure",
       "tool": "./configure",
+      "status": "ok"
+    },
+    {
+      "step": "make",
+      "tool": "make",
       "status": "fail"
     }
   ],
@@ -44,41 +49,19 @@
     "subdirs"
   ],
   "outputs": [],
-  "status": "CONFIGURE_RUN_FAIL",
+  "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1727: syntax error near unexpected token `2.0.0,'",
+  "diagnostic": "",
   "deep_expansion": {
-    "configure_lines": 2871,
-    "leaked_macros": [
-      {
-        "name": "AM_PATH_GLIB_2_0",
-        "line": 1727,
-        "context": "AM_PATH_GLIB_2_0(2.0.0,  glib_is_okay=yes ,  glib_is_okay=no )"
-      }
-    ],
-    "heredoc_openers": 30,
-    "heredoc_terminators": 30,
+    "configure_lines": 2856,
+    "leaked_macros": [],
+    "heredoc_openers": 28,
+    "heredoc_terminators": 28,
     "heredoc_imbalance": 0,
-    "syntax_errors": [
-      {
-        "line": 1727,
-        "token": "2.0.0,",
-        "source": "AM_PATH_GLIB_2_0(2.0.0,  glib_is_okay=yes ,  glib_is_okay=no )",
-        "block": [
-          "1723: fi",
-          "1724: ",
-          "1725: ",
-          "1726: # ###### Check for glib ####################################################",
-          "1727: AM_PATH_GLIB_2_0(2.0.0,  glib_is_okay=yes ,  glib_is_okay=no )",
-          "1728: if test \"x$glib_is_okay\" = \"xno\"; then",
-          "1729:    printf '%s\\n' \"configure: error: GLib distribution not found.\" >&2",
-          "1730: exit 1"
-        ]
-      }
-    ],
+    "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2381: do eval test \\${$as_var+y} \\"
+      "line 2366: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
@@ -91,19 +74,21 @@
     "failed_during_check": "checking for IPV6_RECVPKTINFO... yes",
     "failure_tail": [
       "checking for IPV6_RECVPKTINFO... yes",
-      "./configure: line 1727: syntax error near unexpected token `2.0.0,'",
-      "./configure: line 1727: `AM_PATH_GLIB_2_0(2.0.0,  glib_is_okay=yes ,  glib_is_ok"
+      "configure: creating Makefile",
+      "configure: creating sctplib/Makefile",
+      "configure: creating sctplib/docs/Makefile",
+      "configure: creating sctplib/docs/en/Makefile"
     ],
     "conftest_corruption": [],
     "conftest_directives_intact": 22,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
-      "int main() { const int x = 1; return x-1; }",
-      "inline int foo() { return 0; }\\nint main() { return foo(); }",
       "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { size_t x; return 0; }",
       "#include <$ac_hdr>",
       "#include <$ac_hdr>",
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar malloc();\\nint main() { return malloc(); }"
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar malloc();\\nint main() { return malloc(); }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar memcmp();\\nint main() { return memcmp(); }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar select();\\nint main() { return select(); }"
     ]
   },
   "oracle": {
@@ -112,28 +97,24 @@
     "real_make": "ok",
     "real_configure_lines": 16777,
     "real_first_error": "",
-    "classification": "OURS_BUG_CONFIGURE"
+    "classification": "OURS_BUG_MAKE"
   },
   "divergence": {
-    "stage": "configure",
-    "ours_error": "line 1727: AM_PATH_GLIB_2_0(2.0.0,  glib_is_okay=yes ,  glib_is_okay=no ) (near `2.0.0,`)",
-    "ours_error_context": [
-      "AM_PATH_GLIB_2_0(2.0.0,  glib_is_okay=yes ,  glib_is_okay=no )"
-    ],
-    "ours_configure_lines": 2871,
+    "stage": "make",
+    "ours_error": "",
+    "ours_error_context": [],
+    "ours_configure_lines": 2856,
     "real_configure_lines": 16777,
-    "macros_ours_left_undefined": [
-      "AM_PATH_GLIB_2_0"
-    ]
+    "macros_ours_left_undefined": []
   },
   "receipt": {
-    "court_status": "failed",
+    "court_status": "partial",
     "probe_trace": [],
     "quirks_matched": [
       "uses-libtool",
       "vendored-aclocal"
     ],
-    "receipt_hash": "f351ac75cb70f7958035d9557ee9397898288f1b2bf53676db0da1706e65c72d",
+    "receipt_hash": "50943c81e776f99633ce47bc1c02476e04eeac1c88eab40282963440dadccda2",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {

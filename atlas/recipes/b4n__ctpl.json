@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.14",
+    "autoconf_rs": "autoconf-rs 0.1.15",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,16 +26,28 @@
     {
       "step": "configure",
       "tool": "./configure",
+      "status": "ok"
+    },
+    {
+      "step": "make",
+      "tool": "make",
       "status": "fail"
     }
   ],
-  "probe_results": {},
+  "probe_results": {
+    "HAVE_FPCLASSIFY": 1
+  },
   "feature_flags": {
     "configure_args": []
   },
   "dependencies": {
-    "pkg_config": [],
-    "system_libs": [],
+    "pkg_config": [
+      "checking for glib-2.0 >= 2.10... yes",
+      "whether we are building for a Win32 host... checking for gio-2.0 >= 2.24 gio-uni"
+    ],
+    "system_libs": [
+      "-lm"
+    ],
     "headers_needed": [],
     "missing": []
   },
@@ -43,38 +55,23 @@
     "libtool",
     "pkg-config",
     "gettext",
-    "subdirs"
+    "subdirs",
+    "LIBS=-lm"
   ],
   "outputs": [],
-  "status": "CONFIGURE_RUN_FAIL",
+  "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1402: syntax error near unexpected token `1.9'",
+  "diagnostic": "",
   "deep_expansion": {
-    "configure_lines": 2669,
+    "configure_lines": 2662,
     "leaked_macros": [],
-    "heredoc_openers": 23,
-    "heredoc_terminators": 23,
+    "heredoc_openers": 22,
+    "heredoc_terminators": 22,
     "heredoc_imbalance": 0,
-    "syntax_errors": [
-      {
-        "line": 1402,
-        "token": "1.9",
-        "source": "GTK_DOC_CHECK(1.9)",
-        "block": [
-          "1398: ",
-          "1399: ",
-          "1400: ",
-          "1401: # check for gtk-doc",
-          "1402: GTK_DOC_CHECK(1.9)",
-          "1403: ",
-          "1404: # Checks for libraries.",
-          "1405: printf %s \"checking for glib-2.0 >= 2.10... \""
-        ]
-      }
-    ],
+    "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2193: do eval test \\${$as_var+y} \\"
+      "line 2186: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
@@ -84,10 +81,13 @@
       "PACKAGE_STRING",
       "PACKAGE_BUGREPORT"
     ],
-    "failed_during_check": "",
+    "failed_during_check": "checking whether to enable paranoiac compiler options... no",
     "failure_tail": [
-      "./configure: line 1402: syntax error near unexpected token `1.9'",
-      "./configure: line 1402: `GTK_DOC_CHECK(1.9)'"
+      "checking whether to enable paranoiac compiler options... no",
+      "configure: creating Makefile",
+      "configure: creating src/Makefile",
+      "configure: creating data/Makefile",
+      "configure: creating data/ctpl.pc"
     ],
     "conftest_corruption": [],
     "conftest_directives_intact": 10,
@@ -96,9 +96,9 @@
       "\\n#ifdef _WIN32\\nchoke me\\n#endif",
       "char acos();\\nint main() { return acos(); }",
       "#include <$ac_hdr>",
-      "int main() { const int x = 1; return x-1; }",
       "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { size_t x; return 0; }",
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func();\\nint main() { return $ac_func(); }"
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func();\\nint main() { return $ac_func(); }",
+      "#include <math.h>\\nint main (void)\\n{\\n#ifndef fpclassify\\n(void) fpclassify;\\n#endif\\n;\\nreturn 0;\\n}"
     ]
   },
   "oracle": {
@@ -110,8 +110,15 @@
     "classification": "OURS_BETTER"
   },
   "receipt": {
-    "court_status": "failed",
-    "probe_trace": [],
+    "court_status": "partial",
+    "probe_trace": [
+      {
+        "name": "HAVE_FPCLASSIFY",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      }
+    ],
     "quirks_matched": [
       "uses-libtool",
       "uses-pkg-config",
@@ -119,7 +126,7 @@
       "has-m4-macro-dir",
       "vendored-aclocal"
     ],
-    "receipt_hash": "4ffebd505f61100dc07b3d08ba603303f41a24e881c58b2f8e75f641536ecb48",
+    "receipt_hash": "601ece976abee5bf249effa97804ca2316a2236cb469f981f8b6af8e807b3876",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {

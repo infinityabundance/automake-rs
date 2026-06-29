@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.14",
+    "autoconf_rs": "autoconf-rs 0.1.15",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,10 +26,19 @@
     {
       "step": "configure",
       "tool": "./configure",
+      "status": "ok"
+    },
+    {
+      "step": "make",
+      "tool": "make",
       "status": "fail"
     }
   ],
-  "probe_results": {},
+  "probe_results": {
+    "HAVE_AIO": 1,
+    "HAVE_ICSC_EXS": 1,
+    "HAVE_SCTP_ADAPTATION_LAYER_EVENT": 1
+  },
   "feature_flags": {
     "configure_args": []
   },
@@ -43,101 +52,19 @@
     "subdirs"
   ],
   "outputs": [],
-  "status": "CONFIGURE_RUN_FAIL",
+  "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1387: syntax error near unexpected token `m'",
+  "diagnostic": "./configure: line 1461: OLD_TYPE_SOCKLEN_T: command not found",
   "deep_expansion": {
-    "configure_lines": 3484,
-    "leaked_macros": [
-      {
-        "name": "AC_HAVE_LIBRARY",
-        "line": 1387,
-        "context": "AC_HAVE_LIBRARY(m)"
-      },
-      {
-        "name": "AC_HAVE_LIBRARY",
-        "line": 1413,
-        "context": "AC_HAVE_LIBRARY(socket)"
-      },
-      {
-        "name": "AC_HAVE_LIBRARY",
-        "line": 1415,
-        "context": "AC_HAVE_LIBRARY(nsl)"
-      },
-      {
-        "name": "AC_HAVE_LIBRARY",
-        "line": 1416,
-        "context": "AC_HAVE_LIBRARY(sendfile)"
-      },
-      {
-        "name": "AC_HAVE_LIBRARY",
-        "line": 1439,
-        "context": "AC_HAVE_LIBRARY(mach)"
-      },
-      {
-        "name": "AC_CHECK_SA_LEN",
-        "line": 1498,
-        "context": "AC_CHECK_SA_LEN(ac_cv_sockaddr_has_sa_len)"
-      },
-      {
-        "name": "AC_HAVE_LIBRARY",
-        "line": 2160,
-        "context": "AC_HAVE_LIBRARY(sctp,,use_sctp=false)"
-      },
-      {
-        "name": "AC_HAVE_LIBRARY",
-        "line": 2335,
-        "context": "AC_HAVE_LIBRARY(perfstat)"
-      },
-      {
-        "name": "AC_HAVE_LIBRARY",
-        "line": 2349,
-        "context": "AC_HAVE_LIBRARY(kstat)"
-      },
-      {
-        "name": "AC_HAVE_LIBRARY",
-        "line": 2354,
-        "context": "AC_HAVE_LIBRARY(kstat)"
-      },
-      {
-        "name": "AC_HAVE_LIBRARY",
-        "line": 2386,
-        "context": "AC_HAVE_LIBRARY(perfstat)"
-      },
-      {
-        "name": "AC_HAVE_LIBRARY",
-        "line": 2393,
-        "context": "AC_HAVE_LIBRARY(kstat)"
-      },
-      {
-        "name": "AC_HAVE_LIBRARY",
-        "line": 2400,
-        "context": "AC_HAVE_LIBRARY(kstat)"
-      }
-    ],
-    "heredoc_openers": 44,
-    "heredoc_terminators": 44,
+    "configure_lines": 3470,
+    "leaked_macros": [],
+    "heredoc_openers": 42,
+    "heredoc_terminators": 42,
     "heredoc_imbalance": 0,
-    "syntax_errors": [
-      {
-        "line": 1387,
-        "token": "m",
-        "source": "AC_HAVE_LIBRARY(m)",
-        "block": [
-          "1383:   printf '%s\\n' \"no\"",
-          "1384: fi",
-          "1385: ",
-          "1386: # Checks for libraries.",
-          "1387: AC_HAVE_LIBRARY(m)",
-          "1388: ",
-          "1389: # Checks for header files.",
-          "1390: printf '%s\\n' \"yes\""
-        ]
-      }
-    ],
+    "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 3008: do eval test \\${$as_var+y} \\"
+      "line 2994: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
@@ -161,25 +88,27 @@
       "DEFS",
       "LIBOBJS",
       "INSTALL",
-      "NETCPU_SOURCE",
-      "target_alias"
+      "target_alias",
+      "NETCPU_SOURCE"
     ],
-    "failed_during_check": "checking for working const... yes",
+    "failed_during_check": "checking which CPU utilization measurement type to use... none.",
     "failure_tail": [
-      "checking for working const... yes",
-      "./configure: line 1387: syntax error near unexpected token `m'",
-      "./configure: line 1387: `AC_HAVE_LIBRARY(m)'"
+      "checking which CPU utilization measurement type to use... none.",
+      "Consider",
+      "teaching",
+      "configure",
+      "about"
     ],
     "conftest_corruption": [],
     "conftest_directives_intact": 37,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
-      "int main() { const int x = 1; return x-1; }",
       "#include <sys/wait.h>",
       "#include <$ac_hdr>",
       "#include <sys/types.h>\\nint main() { return sizeof(off_t) >= 8 ? 0 : 1; }",
-      "int main() { const int x = 1; return x-1; }",
-      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { off_t x; return 0; }"
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { off_t x; return 0; }",
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { size_t x; return 0; }",
+      "#include <time.h>"
     ]
   },
   "oracle": {
@@ -191,14 +120,33 @@
     "classification": "OURS_BETTER"
   },
   "receipt": {
-    "court_status": "failed",
-    "probe_trace": [],
+    "court_status": "partial",
+    "probe_trace": [
+      {
+        "name": "HAVE_AIO",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_ICSC_EXS",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SCTP_ADAPTATION_LAYER_EVENT",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      }
+    ],
     "quirks_matched": [
       "has-m4-macro-dir",
       "has-acinclude",
       "vendored-aclocal"
     ],
-    "receipt_hash": "4ffebd505f61100dc07b3d08ba603303f41a24e881c58b2f8e75f641536ecb48",
+    "receipt_hash": "a67ec0a6f8a6cada7357cdd6abecf0aaa8cd68ce4d8943c0fea95d5c2d963213",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {

@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.14",
+    "autoconf_rs": "autoconf-rs 0.1.15",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,58 +26,49 @@
     {
       "step": "configure",
       "tool": "./configure",
+      "status": "ok"
+    },
+    {
+      "step": "make",
+      "tool": "make",
       "status": "fail"
     }
   ],
-  "probe_results": {},
+  "probe_results": {
+    "HAVE_PUTUTXLINE": 1,
+    "HAVE_RAND_BYTES": 1,
+    "HAVE_RAND_PSEUDO_BYTES": 1
+  },
   "feature_flags": {
     "configure_args": []
   },
   "dependencies": {
     "pkg_config": [],
-    "system_libs": [],
+    "system_libs": [
+      "-lcrypto",
+      "-lpam"
+    ],
     "headers_needed": [],
     "missing": []
   },
   "quirks": [
-    "libtool"
+    "libtool",
+    "LIBS=-lcrypto -lpam"
   ],
   "outputs": [],
-  "status": "CONFIGURE_RUN_FAIL",
+  "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1646: syntax error near unexpected token `rt_debug_defines'",
+  "diagnostic": "",
   "deep_expansion": {
-    "configure_lines": 2687,
-    "leaked_macros": [
-      {
-        "name": "AM_SUBST_NOTMAKE",
-        "line": 1646,
-        "context": "AM_SUBST_NOTMAKE(rt_debug_defines)"
-      }
-    ],
-    "heredoc_openers": 34,
-    "heredoc_terminators": 34,
+    "configure_lines": 2680,
+    "leaked_macros": [],
+    "heredoc_openers": 33,
+    "heredoc_terminators": 33,
     "heredoc_imbalance": 0,
-    "syntax_errors": [
-      {
-        "line": 1646,
-        "token": "rt_debug_defines",
-        "source": "AM_SUBST_NOTMAKE(rt_debug_defines)",
-        "block": [
-          "1642: ",
-          "1643: # Check --enable-runtime-debugging option",
-          "1644: ",
-          "1645: ",
-          "1646: AM_SUBST_NOTMAKE(rt_debug_defines)",
-          "1647: ",
-          "1648: ",
-          "1649: cat >config.log <<_ACEOF"
-        ]
-      }
-    ],
+    "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2211: do eval test \\${$as_var+y} \\"
+      "line 2204: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
@@ -102,15 +93,17 @@
       "LIBOBJS",
       "INSTALL",
       "pamdir",
+      "rt_debug_defines",
       "AM_LDFLAGS",
-      "AM_CFLAGS",
-      "rt_debug_defines"
+      "AM_CFLAGS"
     ],
     "failed_during_check": "checking for abort... yes",
     "failure_tail": [
       "checking for abort... yes",
-      "./configure: line 1646: syntax error near unexpected token `rt_debug_defines'",
-      "./configure: line 1646: `AM_SUBST_NOTMAKE(rt_debug_defines)'"
+      "configure: creating Makefile",
+      "configure: creating libtac.pc",
+      "configure: creating pam_tacplus.spec",
+      "configure: creating config.h"
     ],
     "conftest_corruption": [],
     "conftest_directives_intact": 14,
@@ -130,28 +123,35 @@
     "real_make": "fail",
     "real_configure_lines": 17011,
     "real_first_error": "",
-    "classification": "OURS_BUG_CONFIGURE"
-  },
-  "divergence": {
-    "stage": "configure",
-    "ours_error": "line 1646: AM_SUBST_NOTMAKE(rt_debug_defines) (near `rt_debug_defines`)",
-    "ours_error_context": [
-      "AM_SUBST_NOTMAKE(rt_debug_defines)"
-    ],
-    "ours_configure_lines": 2687,
-    "real_configure_lines": 17011,
-    "macros_ours_left_undefined": [
-      "AM_SUBST_NOTMAKE"
-    ]
+    "classification": "BOTH_MAKE_FAIL"
   },
   "receipt": {
-    "court_status": "failed",
-    "probe_trace": [],
+    "court_status": "partial",
+    "probe_trace": [
+      {
+        "name": "HAVE_PUTUTXLINE",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_RAND_BYTES",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_RAND_PSEUDO_BYTES",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      }
+    ],
     "quirks_matched": [
       "uses-libtool",
       "vendored-aclocal"
     ],
-    "receipt_hash": "f351ac75cb70f7958035d9557ee9397898288f1b2bf53676db0da1706e65c72d",
+    "receipt_hash": "7fbfc20b45883d764fec2ea5590e3a69bfeb6962fb8bf890791fe83e69bd4e2f",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {

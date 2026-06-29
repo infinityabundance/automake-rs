@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.14",
+    "autoconf_rs": "autoconf-rs 0.1.15",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,11 +26,11 @@
     {
       "step": "configure",
       "tool": "./configure",
-      "status": "fail"
+      "status": "ok"
     },
     {
-      "step": "auto-quirk",
-      "tool": "quirk-engine",
+      "step": "make",
+      "tool": "make",
       "status": "fail"
     }
   ],
@@ -46,32 +46,16 @@
   },
   "quirks": [],
   "outputs": [],
-  "status": "CONFIGURE_RUN_FAIL",
+  "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1378: syntax error near unexpected token `Wall,'",
+  "diagnostic": "./configure: line 1396: AHX_CONFIG_UNORDERED_MAP: command not found",
   "deep_expansion": {
     "configure_lines": 2577,
     "leaked_macros": [],
     "heredoc_openers": 21,
     "heredoc_terminators": 21,
     "heredoc_imbalance": 0,
-    "syntax_errors": [
-      {
-        "line": 1378,
-        "token": "Wall,",
-        "source": "ACD_CHECK_CPP_FLAG(Wall, WARNINGCXXFLAGS=\"$WARNINGCXXFLAGS -Wall\")",
-        "block": [
-          "1374: ",
-          "1375: ",
-          "1376: ",
-          "1377:                     ",
-          "1378: ACD_CHECK_CPP_FLAG(Wall, WARNINGCXXFLAGS=\"$WARNINGCXXFLAGS -Wall\")",
-          "1379: ACD_CHECK_CPP_FLAG(Wextra, WARNINGCXXFLAGS=\"$WARNINGCXXFLAGS -Wextra\")",
-          "1380:                   ",
-          "1381:                           "
-        ]
-      }
-    ],
+    "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
       "line 2101: do eval test \\${$as_var+y} \\"
@@ -99,15 +83,17 @@
       "LIBOBJS",
       "INSTALL",
       "debug_enabled",
-      "OTHERCXXFLAGS",
-      "kevent_enabled",
       "WARNINGCXXFLAGS",
-      "cpp11_enabled"
+      "OTHERCXXFLAGS",
+      "cpp11_enabled",
+      "kevent_enabled"
     ],
-    "failed_during_check": "",
+    "failed_during_check": "checking for clock_gettime... yes",
     "failure_tail": [
-      "./configure: line 1378: syntax error near unexpected token `Wall,'",
-      "./configure: line 1378: `ACD_CHECK_CPP_FLAG(Wall, WARNINGCXXFLAGS=\"$WARNINGCXXFL"
+      "checking for clock_gettime... yes",
+      "configure: creating Makefile",
+      "configure: creating config.h",
+      "configure: creating ./config.status"
     ],
     "conftest_corruption": [],
     "conftest_directives_intact": 7,
@@ -126,34 +112,17 @@
     "real_make": "fail",
     "real_configure_lines": 7682,
     "real_first_error": "",
-    "classification": "OURS_BUG_CONFIGURE"
-  },
-  "divergence": {
-    "stage": "configure",
-    "ours_error": "line 1378: ACD_CHECK_CPP_FLAG(Wall, WARNINGCXXFLAGS=\"$WARNINGCXXFLAGS -Wall\") (near `Wall,`)",
-    "ours_error_context": [
-      "ACD_CHECK_CPP_FLAG(Wall, WARNINGCXXFLAGS=\"$WARNINGCXXFLAGS -Wall\")"
-    ],
-    "ours_configure_lines": 2577,
-    "real_configure_lines": 7682,
-    "macros_ours_left_undefined": []
+    "classification": "BOTH_MAKE_FAIL"
   },
   "receipt": {
-    "court_status": "failed",
+    "court_status": "partial",
     "probe_trace": [],
     "quirks_matched": [
       "uses-subdir-objects",
       "has-acinclude",
       "vendored-aclocal"
     ],
-    "quirks_applied": [
-      {
-        "id": "uses-subdir-objects",
-        "action": "--disable-dependency-tracking",
-        "verified": false
-      }
-    ],
-    "receipt_hash": "f351ac75cb70f7958035d9557ee9397898288f1b2bf53676db0da1706e65c72d",
+    "receipt_hash": "a1f4e5766c35392dc1a93d7294702343cbef0d84a9f13446984a26ca5354d637",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {

@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.14",
+    "autoconf_rs": "autoconf-rs 0.1.15",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,6 +26,11 @@
     {
       "step": "configure",
       "tool": "./configure",
+      "status": "ok"
+    },
+    {
+      "step": "make",
+      "tool": "make",
       "status": "fail"
     }
   ],
@@ -34,7 +39,9 @@
     "configure_args": []
   },
   "dependencies": {
-    "pkg_config": [],
+    "pkg_config": [
+      "no pd path given, trying with pkg-config data"
+    ],
     "system_libs": [],
     "headers_needed": [],
     "missing": []
@@ -45,38 +52,16 @@
     "subdirs"
   ],
   "outputs": [],
-  "status": "CONFIGURE_RUN_FAIL",
+  "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1360: syntax error near unexpected token `ARCH=$(uname -m)'",
+  "diagnostic": "",
   "deep_expansion": {
     "configure_lines": 2482,
-    "leaked_macros": [
-      {
-        "name": "AX_FAT_BINARY",
-        "line": 1346,
-        "context": "AX_FAT_BINARY()"
-      }
-    ],
+    "leaked_macros": [],
     "heredoc_openers": 16,
     "heredoc_terminators": 16,
     "heredoc_imbalance": 0,
-    "syntax_errors": [
-      {
-        "line": 1360,
-        "token": "ARCH=$(uname -m)",
-        "source": "ARCH=$(uname -m)",
-        "block": [
-          "1356: ",
-          "1357: # Check --with-extension option",
-          "1358: ",
-          "1359: ",
-          "1360: ARCH=$(uname -m)",
-          "1361: KERN=$(uname -s)",
-          "1362: ",
-          "1363: # Check for C++ compiler"
-        ]
-      }
-    ],
+    "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
       "line 2006: do eval test \\${$as_var+y} \\"
@@ -89,10 +74,13 @@
       "PACKAGE_STRING",
       "PACKAGE_BUGREPORT"
     ],
-    "failed_during_check": "",
+    "failed_during_check": "checking extension... l_ia64",
     "failure_tail": [
-      "./configure: line 1360: syntax error near unexpected token `ARCH=$(uname -m)'",
-      "./configure: line 1360: `ARCH=$(uname -m)'"
+      "checking extension... l_ia64",
+      "configure: creating Sources/Makefile",
+      "configure: creating Package/Hoa/Makefile",
+      "configure: creating Package/Hoa/helps/Makefile",
+      "configure: creating Package/Hoa/media/Makefile"
     ],
     "conftest_corruption": [],
     "conftest_directives_intact": 0,
@@ -108,7 +96,7 @@
     "classification": "OURS_BETTER"
   },
   "receipt": {
-    "court_status": "failed",
+    "court_status": "partial",
     "probe_trace": [],
     "quirks_matched": [
       "uses-libtool-old",
@@ -116,7 +104,7 @@
       "vendored-aclocal",
       "uses-ax-archive"
     ],
-    "receipt_hash": "4ffebd505f61100dc07b3d08ba603303f41a24e881c58b2f8e75f641536ecb48",
+    "receipt_hash": "bdbfb6907bfdbc8bdb7cf566a26793b38411d77e6f0819ae26c725daf919e509",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {

@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.14",
+    "autoconf_rs": "autoconf-rs 0.1.15",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -51,39 +51,33 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1465: AX_FUNC_MKDIR: command not found",
+  "diagnostic": "./configure: line 1450: AX_FUNC_MKDIR: command not found",
   "deep_expansion": {
-    "configure_lines": 2637,
-    "leaked_macros": [
-      {
-        "name": "AX_CREATE_STDINT_H",
-        "line": 1482,
-        "context": "AX_CREATE_STDINT_H(include/sidplay/sidint.h)"
-      }
-    ],
-    "heredoc_openers": 32,
-    "heredoc_terminators": 32,
+    "configure_lines": 2622,
+    "leaked_macros": [],
+    "heredoc_openers": 30,
+    "heredoc_terminators": 30,
     "heredoc_imbalance": 0,
     "syntax_errors": [
       {
-        "line": 1478,
+        "line": 1463,
         "token": "SID_HAVE_STDBOOL_H",
         "source": "MY_SUBST_DEF(SID_HAVE_STDBOOL_H)",
         "block": [
-          "1474: else",
-          "1475:   printf '%s\\n' \"no\"",
-          "1476: fi; done",
-          "1477: if test \"$ac_cv_header_stdbool_h\" = yes; then",
-          "1478:     MY_SUBST_DEF(SID_HAVE_STDBOOL_H)",
-          "1479: else",
-          "1480:     MY_SUBST_UNDEF(SID_HAVE_STDBOOL_H)",
-          "1481: fi"
+          "1459: else",
+          "1460:   printf '%s\\n' \"no\"",
+          "1461: fi; done",
+          "1462: if test \"$ac_cv_header_stdbool_h\" = yes; then",
+          "1463:     MY_SUBST_DEF(SID_HAVE_STDBOOL_H)",
+          "1464: else",
+          "1465:     MY_SUBST_UNDEF(SID_HAVE_STDBOOL_H)",
+          "1466: fi"
         ]
       }
     ],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2161: do eval test \\${$as_var+y} \\"
+      "line 2146: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
@@ -113,19 +107,19 @@
     "failed_during_check": "checking for stdbool.h... no",
     "failure_tail": [
       "checking for stdbool.h... no",
-      "./configure: line 1478: syntax error near unexpected token `SID_HAVE_STDBOOL_H'",
-      "./configure: line 1478: `    MY_SUBST_DEF(SID_HAVE_STDBOOL_H)'"
+      "./configure: line 1463: syntax error near unexpected token `SID_HAVE_STDBOOL_H'",
+      "./configure: line 1463: `    MY_SUBST_DEF(SID_HAVE_STDBOOL_H)'"
     ],
     "conftest_corruption": [],
     "conftest_directives_intact": 27,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
       "#include <$ac_hdr>",
-      "int main() { const int x = 1; return x-1; }",
-      "inline int foo() { return 0; }\\nint main() { return foo(); }",
       "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { size_t x; return 0; }",
       "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { uint16_t x; return 0; }",
-      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { uint8_t x; return 0; }"
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { uint8_t x; return 0; }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar memcmp();\\nint main() { return memcmp(); }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar lstat();\\nint main() { return lstat(); }"
     ]
   },
   "oracle": {
@@ -138,15 +132,13 @@
   },
   "divergence": {
     "stage": "configure",
-    "ours_error": "line 1478: MY_SUBST_DEF(SID_HAVE_STDBOOL_H) (near `SID_HAVE_STDBOOL_H`)",
+    "ours_error": "line 1463: MY_SUBST_DEF(SID_HAVE_STDBOOL_H) (near `SID_HAVE_STDBOOL_H`)",
     "ours_error_context": [
       "MY_SUBST_DEF(SID_HAVE_STDBOOL_H)"
     ],
-    "ours_configure_lines": 2637,
+    "ours_configure_lines": 2622,
     "real_configure_lines": 9323,
-    "macros_ours_left_undefined": [
-      "AX_CREATE_STDINT_H"
-    ]
+    "macros_ours_left_undefined": []
   },
   "receipt": {
     "court_status": "failed",
@@ -163,7 +155,7 @@
         "verified": false
       }
     ],
-    "receipt_hash": "f351ac75cb70f7958035d9557ee9397898288f1b2bf53676db0da1706e65c72d",
+    "receipt_hash": "24e39ed3178d433d21c1340a6407fda16d8349c27724819539e8175382940e80",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {

@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.14",
+    "autoconf_rs": "autoconf-rs 0.1.15",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -46,38 +46,27 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1406: syntax error near unexpected token `failed'",
+  "diagnostic": "./configure: line 1399: failed: command not found",
   "deep_expansion": {
-    "configure_lines": 4089,
-    "leaked_macros": [
-      {
-        "name": "_LT_OPTION_DEFUN_m4_bpatsubst",
-        "line": 1497,
-        "context": "_LT_OPTION_DEFUN_m4_bpatsubst(LT_INIT__DISABLE-STATIC, ^A-Z0-9_, _)"
-      },
-      {
-        "name": "_LT_OPTION_DEFUN_m4_bpatsubst",
-        "line": 1499,
-        "context": "_LT_OPTION_DEFUN_m4_bpatsubst(LT_INIT__SHARED, ^A-Z0-9_, _)"
-      }
-    ],
-    "heredoc_openers": 75,
-    "heredoc_terminators": 75,
+    "configure_lines": 4075,
+    "leaked_macros": [],
+    "heredoc_openers": 73,
+    "heredoc_terminators": 73,
     "heredoc_imbalance": 0,
     "syntax_errors": [
       {
-        "line": 1406,
-        "token": "failed",
-        "source": "fi failed to detect the working const support.",
+        "line": 1551,
+        "token": "fi",
+        "source": "fi",
         "block": [
-          "1402: if ac_fn_c_try_compile; then",
-          "1403:   printf '%s\\n' \"yes\"",
-          "1404: else",
-          "1405:   printf '%s\\n' \"no\"",
-          "1406: fi failed to detect the working const support.",
-          "1407: # In that case, the test failed because -Werror, not because no const there.",
-          "1408: # After looking again, there are possibly more tests being obscured by false",
-          "1409: printf %s \"checking for -Werror in CFLAGS (It breaks tests)... \""
+          "1547: \techo \"Modules disabled.\"",
+          "1548: else",
+          "1549: # Enable module support in source code",
+          "1550: ",
+          "1551: fi",
+          "1552: ",
+          "1553: ",
+          "1554: "
         ]
       }
     ],
@@ -88,22 +77,23 @@
       "LIBTOOL",
       "PKG_CONFIG"
     ],
-    "failed_during_check": "",
+    "failed_during_check": "checking for ltdl.h... yes",
     "failure_tail": [
-      "configure: WARNING: cannot find sources (doc) in .",
-      "./configure: line 1406: syntax error near unexpected token `failed'",
-      "./configure: line 1406: `fi failed to detect the working const support.'"
+      "checking for ltdl.h... yes",
+      "We did not find libltdl: Modules disabled.",
+      "./configure: line 1551: syntax error near unexpected token `fi'",
+      "./configure: line 1551: `fi'"
     ],
     "conftest_corruption": [],
     "conftest_directives_intact": 99,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
-      "int main() { const int x = 1; return x-1; }",
-      "int main() { const int x = 1; return x-1; }",
       "int main() { int x = 1; return *(char*)&x; }",
       "char lt_dlinit();\\nint main() { return lt_dlinit(); }",
       "#include <ltdl.h>",
-      "#include <$ac_hdr>"
+      "#include <$ac_hdr>",
+      "#include <sys/types.h>\\nint main() { return sizeof(off_t) >= 8 ? 0 : 1; }",
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { size_t x; return 0; }"
     ]
   },
   "oracle": {
@@ -116,15 +106,13 @@
   },
   "divergence": {
     "stage": "configure",
-    "ours_error": "line 1406: fi failed to detect the working const support. (near `failed`)",
+    "ours_error": "line 1551: fi (near `fi`)",
     "ours_error_context": [
-      "fi failed to detect the working const support."
+      "fi"
     ],
-    "ours_configure_lines": 4089,
+    "ours_configure_lines": 4075,
     "real_configure_lines": 22138,
-    "macros_ours_left_undefined": [
-      "_LT_OPTION_DEFUN_m4_bpatsubst"
-    ]
+    "macros_ours_left_undefined": []
   },
   "receipt": {
     "court_status": "failed",
@@ -134,7 +122,7 @@
       "has-m4-macro-dir",
       "vendored-aclocal"
     ],
-    "receipt_hash": "f351ac75cb70f7958035d9557ee9397898288f1b2bf53676db0da1706e65c72d",
+    "receipt_hash": "24e39ed3178d433d21c1340a6407fda16d8349c27724819539e8175382940e80",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {

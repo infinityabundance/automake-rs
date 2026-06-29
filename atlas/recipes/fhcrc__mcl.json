@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.14",
+    "autoconf_rs": "autoconf-rs 0.1.15",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,11 +26,11 @@
     {
       "step": "configure",
       "tool": "./configure",
-      "status": "fail"
+      "status": "ok"
     },
     {
-      "step": "auto-quirk",
-      "tool": "quirk-engine",
+      "step": "make",
+      "tool": "make",
       "status": "fail"
     }
   ],
@@ -48,35 +48,19 @@
     "subdirs"
   ],
   "outputs": [],
-  "status": "CONFIGURE_RUN_FAIL",
+  "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1541: syntax error near unexpected token `newline'",
+  "diagnostic": "./configure: line 1590: AC_CHECK_VA_COPY: command not found",
   "deep_expansion": {
-    "configure_lines": 2665,
+    "configure_lines": 2654,
     "leaked_macros": [],
-    "heredoc_openers": 25,
-    "heredoc_terminators": 25,
+    "heredoc_openers": 24,
+    "heredoc_terminators": 24,
     "heredoc_imbalance": 0,
-    "syntax_errors": [
-      {
-        "line": 1541,
-        "token": "newline",
-        "source": "ACX_PTHREAD(",
-        "block": [
-          "1537: fi",
-          "1538: ",
-          "1539: # Figure out how to build C programs using POSIX threads, and",
-          "1540: # use the variables given by acx_pthread.m4 in acinclude.m4",
-          "1541: ACX_PTHREAD(",
-          "1542:  LIBS=\"$PTHREAD_LIBS $LIBS\"",
-          "1543:  CFLAGS=\"$CFLAGS $PTHREAD_CFLAGS\"",
-          "1544:  CC=\"$PTHREAD_CC\""
-        ]
-      }
-    ],
+    "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2188: do eval test \\${$as_var+y} \\"
+      "line 2177: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
@@ -86,11 +70,13 @@
       "PACKAGE_STRING",
       "PACKAGE_BUGREPORT"
     ],
-    "failed_during_check": "checking for size_t... yes",
+    "failed_during_check": "checking for strstr... yes",
     "failure_tail": [
-      "checking for size_t... yes",
-      "./configure: line 1541: syntax error near unexpected token `newline'",
-      "./configure: line 1541: `ACX_PTHREAD('"
+      "checking for strstr... yes",
+      "./configure: line 1590: AC_CHECK_VA_COPY: command not found",
+      "configure: creating Makefile",
+      "configure: creating include/Makefile",
+      "configure: creating doc/Makefile"
     ],
     "conftest_corruption": [],
     "conftest_directives_intact": 13,
@@ -99,9 +85,9 @@
       "\\n#include <limits.h>\\n#include <stdio.h>\\n\\nunsigned test[] =\\n{  0x00000000, 0x000000ff, 0x0000ff00, 0x00ff0000, 0xff000000\\n,  0x0000000f, 0x00000f00, 0x000f0000, 0x00f00000, 0x0f000000\\n,  0x0000ffff, 0x00ffff00, 0xffff0000, 0x00ff00ff, 0xff00ff00\\n,  0x00ffffff, 0x00ffffff, 0xffffff00, 0xffff00ff, 0xffffffff\\n,  0x80000000, 0x40000000, 0xc0000000, 0x80000001, 0x40000001\\n}  ;\\n",
       "char main();\\nint main() { return main(); }",
       "#include <$ac_hdr>",
-      "int main() { const int x = 1; return x-1; }",
       "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { size_t x; return 0; }",
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar malloc();\\nint main() { return malloc(); }"
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar malloc();\\nint main() { return malloc(); }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar memcmp();\\nint main() { return memcmp(); }"
     ]
   },
   "oracle": {
@@ -110,34 +96,25 @@
     "real_make": "ok",
     "real_configure_lines": 8672,
     "real_first_error": "",
-    "classification": "OURS_BUG_CONFIGURE"
+    "classification": "OURS_BUG_MAKE"
   },
   "divergence": {
-    "stage": "configure",
-    "ours_error": "line 1541: ACX_PTHREAD( (near `newline`)",
-    "ours_error_context": [
-      "ACX_PTHREAD("
-    ],
-    "ours_configure_lines": 2665,
+    "stage": "make",
+    "ours_error": "",
+    "ours_error_context": [],
+    "ours_configure_lines": 2654,
     "real_configure_lines": 8672,
     "macros_ours_left_undefined": []
   },
   "receipt": {
-    "court_status": "failed",
+    "court_status": "partial",
     "probe_trace": [],
     "quirks_matched": [
       "uses-maintainer-mode",
       "has-acinclude",
       "vendored-aclocal"
     ],
-    "quirks_applied": [
-      {
-        "id": "uses-maintainer-mode",
-        "action": "--disable-maintainer-mode",
-        "verified": false
-      }
-    ],
-    "receipt_hash": "f351ac75cb70f7958035d9557ee9397898288f1b2bf53676db0da1706e65c72d",
+    "receipt_hash": "50943c81e776f99633ce47bc1c02476e04eeac1c88eab40282963440dadccda2",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {

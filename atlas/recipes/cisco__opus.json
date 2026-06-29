@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.14",
+    "autoconf_rs": "autoconf-rs 0.1.15",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -52,31 +52,15 @@
   "verified": false,
   "diagnostic": "./configure: line 1397: AC_MINGW32: command not found",
   "deep_expansion": {
-    "configure_lines": 3429,
+    "configure_lines": 3406,
     "leaked_macros": [],
-    "heredoc_openers": 43,
-    "heredoc_terminators": 43,
+    "heredoc_openers": 40,
+    "heredoc_terminators": 40,
     "heredoc_imbalance": 0,
-    "syntax_errors": [
-      {
-        "line": 1435,
-        "token": "because",
-        "source": "fi because it's not",
-        "block": [
-          "1431: if ac_fn_c_try_compile; then",
-          "1432:   printf '%s\\n' \"yes\"",
-          "1433: else",
-          "1434:   printf '%s\\n' \"no\"",
-          "1435: fi because it's not",
-          "1436: #strong enough a test to detect old buggy versions of GCC (e.g. 2.95.3)",
-          "1437: #Note: Both this and the test for variable-size arrays below are also",
-          "1438: #      done by , but not thoroughly enough apparently."
-        ]
-      }
-    ],
+    "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2921: do eval test \\${$as_var+y} \\"
+      "line 2898: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
@@ -86,22 +70,24 @@
       "PACKAGE_STRING",
       "PACKAGE_BUGREPORT"
     ],
-    "failed_during_check": "checking for inline... no",
+    "failed_during_check": "checking for inline... inline",
     "failure_tail": [
-      "checking for inline... no",
-      "./configure: line 1435: syntax error near unexpected token `because'",
-      "./configure: line 1435: `fi because it's not'"
+      "checking for inline... inline",
+      "./configure: line 1412: because: command not found",
+      "configure: creating Makefile",
+      "configure: creating opus.pc",
+      "configure: creating opus-uninstalled.pc"
     ],
     "conftest_corruption": [],
     "conftest_directives_intact": 20,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
-      "int main() { const int x = 1; return x-1; }",
-      "inline int foo() { return 0; }\\nint main() { return foo(); }",
-      "void foo(char * restrict p) { *p = 0; }\\nint main() { char c; foo(&c); return 0; }",
       "typedef int * int_ptr;\\nint foo (int_ptr $ac_kw ip, int * $ac_kw baz[]) {\\nreturn ip[0];\\n}\\nint main() { int s[1];\\nint * $ac_kw t = s;\\nt[0] = 0;\\nreturn foo(t, (void *)0) ; return 0; }",
       "\\nint main() { static int x; char a[++x]; a[sizeof a - 1] = 0; int N; return a",
-      "#include <$ac_hdr>"
+      "#include <$ac_hdr>",
+      "#include <alloca.h>\\nint main() { int foo=10; int *array = alloca(foo); ; return 0; }",
+      "\\nint main() { __asm__(\"qadd r3,r3,r3\") ; return 0; }",
+      "\\nint main() { __asm__(\"shadd8 r3,r3,r3\") ; return 0; }"
     ]
   },
   "oracle": {
@@ -114,11 +100,9 @@
   },
   "divergence": {
     "stage": "configure",
-    "ours_error": "line 1435: fi because it's not (near `because`)",
-    "ours_error_context": [
-      "fi because it's not"
-    ],
-    "ours_configure_lines": 3429,
+    "ours_error": "",
+    "ours_error_context": [],
+    "ours_configure_lines": 3406,
     "real_configure_lines": 17000,
     "macros_ours_left_undefined": []
   },
@@ -138,7 +122,7 @@
         "verified": false
       }
     ],
-    "receipt_hash": "f351ac75cb70f7958035d9557ee9397898288f1b2bf53676db0da1706e65c72d",
+    "receipt_hash": "24e39ed3178d433d21c1340a6407fda16d8349c27724819539e8175382940e80",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {

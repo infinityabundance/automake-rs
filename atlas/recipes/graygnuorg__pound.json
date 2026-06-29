@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.14",
+    "autoconf_rs": "autoconf-rs 0.1.15",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,11 +26,11 @@
     {
       "step": "configure",
       "tool": "./configure",
-      "status": "fail"
+      "status": "ok"
     },
     {
-      "step": "auto-quirk",
-      "tool": "quirk-engine",
+      "step": "make",
+      "tool": "make",
       "status": "fail"
     }
   ],
@@ -40,56 +40,38 @@
   },
   "dependencies": {
     "pkg_config": [],
-    "system_libs": [],
+    "system_libs": [
+      "-lssl",
+      "-lcrypto",
+      "-lresolv",
+      "-lnsl",
+      "-ldl",
+      "-lrt",
+      "-lcrypt"
+    ],
     "headers_needed": [],
     "missing": []
   },
   "quirks": [
     "autoconf-archive-macros",
     "libtool",
-    "subdirs"
+    "subdirs",
+    "LIBS=-lssl -lcrypto -lresolv -lnsl -ldl -lrt -lcrypt"
   ],
   "outputs": [],
-  "status": "CONFIGURE_RUN_FAIL",
+  "status": "MAKE_FAIL",
   "verified": false,
   "diagnostic": "./configure: line 1505: AC_TYPE_UNSIGNED_LONG_LONG_INT: command not found",
   "deep_expansion": {
-    "configure_lines": 2920,
-    "leaked_macros": [
-      {
-        "name": "AX_LUA",
-        "line": 1782,
-        "context": "AX_LUA(${version_lua:-5.3.5}, $version_lua,"
-      },
-      {
-        "name": "AC_DEFINE",
-        "line": 1784,
-        "context": "AC_DEFINE([ENABLE_LUA], [1]),"
-      }
-    ],
+    "configure_lines": 2917,
+    "leaked_macros": [],
     "heredoc_openers": 36,
     "heredoc_terminators": 36,
     "heredoc_imbalance": 0,
-    "syntax_errors": [
-      {
-        "line": 1782,
-        "token": "${version_lua:-5.3.5},",
-        "source": "AX_LUA(${version_lua:-5.3.5}, $version_lua,",
-        "block": [
-          "1778: ",
-          "1779: ",
-          "1780: ",
-          "1781: if test $status_lua != no; then",
-          "1782:   AX_LUA(${version_lua:-5.3.5}, $version_lua,",
-          "1783:    status_lua=yes",
-          "1784:     AC_DEFINE([ENABLE_LUA], [1]),",
-          "1785:    status_lua=no)"
-        ]
-      }
-    ],
+    "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2444: do eval test \\${$as_var+y} \\"
+      "line 2441: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
@@ -102,12 +84,13 @@
       "PACKAGE_STRING",
       "PACKAGE_BUGREPORT"
     ],
-    "failed_during_check": "checking for SSL_CTX_new in -lssl... yes",
+    "failed_during_check": "checking if building from git clone... yes",
     "failure_tail": [
-      "checking for SSL_CTX_new in -lssl... yes",
-      "./configure: line 1770: PND_PCRE: command not found",
-      "./configure: line 1782: syntax error near unexpected token `${version_lua:-5.3.5",
-      "./configure: line 1782: `  AX_LUA(${version_lua:-5.3.5}, $version_lua,'"
+      "checking if building from git clone... yes",
+      "configure: creating tests/Makefile",
+      "configure: creating tests/atlocal",
+      "configure: creating Makefile",
+      "configure: creating src/Makefile"
     ],
     "conftest_corruption": [],
     "conftest_directives_intact": 15,
@@ -127,23 +110,18 @@
     "real_make": "ok",
     "real_configure_lines": 18411,
     "real_first_error": "",
-    "classification": "OURS_BUG_CONFIGURE"
+    "classification": "OURS_BUG_MAKE"
   },
   "divergence": {
-    "stage": "configure",
-    "ours_error": "line 1782: AX_LUA(${version_lua:-5.3.5}, $version_lua, (near `${version_lua:-5.3.5},`)",
-    "ours_error_context": [
-      "AX_LUA(${version_lua:-5.3.5}, $version_lua,"
-    ],
-    "ours_configure_lines": 2920,
+    "stage": "make",
+    "ours_error": "",
+    "ours_error_context": [],
+    "ours_configure_lines": 2917,
     "real_configure_lines": 18411,
-    "macros_ours_left_undefined": [
-      "AC_DEFINE",
-      "AX_LUA"
-    ]
+    "macros_ours_left_undefined": []
   },
   "receipt": {
-    "court_status": "failed",
+    "court_status": "partial",
     "probe_trace": [],
     "quirks_matched": [
       "uses-libtool",
@@ -152,14 +130,7 @@
       "uses-ax-archive",
       "uses-pthread-check"
     ],
-    "quirks_applied": [
-      {
-        "id": "uses-subdir-objects",
-        "action": "--disable-dependency-tracking",
-        "verified": false
-      }
-    ],
-    "receipt_hash": "f351ac75cb70f7958035d9557ee9397898288f1b2bf53676db0da1706e65c72d",
+    "receipt_hash": "50943c81e776f99633ce47bc1c02476e04eeac1c88eab40282963440dadccda2",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
