@@ -1236,6 +1236,77 @@ pub fn replay() -> ExitCode {
     }
 }
 
+/// `xtask atlas-diff <baseline-dir> <experiment-dir>` — A/B compare two recipe sets by court verdict.
+/// Reports flips (baseline-not-clear -> experiment-clear), regressions (clear -> not-clear), and the net,
+/// over the repos present in BOTH sets. "Clear" = configure cleared (sealed | quirk_dependent | partial).
+/// This is how a corpus-wide change (e.g. the leaked-macro neutralizer) is gated: ship only if net > 0.
+pub fn diff() -> ExitCode {
+    let args: Vec<String> = std::env::args().collect();
+    let (a_dir, b_dir) = match (args.get(2), args.get(3)) {
+        (Some(a), Some(b)) => (PathBuf::from(a), PathBuf::from(b)),
+        _ => {
+            eprintln!("usage: cargo xtask atlas-diff <baseline-dir> <experiment-dir>");
+            return ExitCode::from(2);
+        }
+    };
+    let load = |d: &Path| -> BTreeMap<String, String> {
+        let mut m = BTreeMap::new();
+        for e in std::fs::read_dir(d).into_iter().flatten().flatten() {
+            let p = e.path();
+            if p.extension().and_then(|s| s.to_str()) != Some("json")
+                || p.file_name().and_then(|s| s.to_str()) == Some("INDEX.json")
+            {
+                continue;
+            }
+            if let Ok(txt) = std::fs::read_to_string(&p) {
+                if let Ok(v) = serde_json::from_str::<serde_json::Value>(&txt) {
+                    if let (Some(repo), Some(cs)) =
+                        (v["repo"].as_str(), v.get("receipt").and_then(|r| r["court_status"].as_str()))
+                    {
+                        m.insert(repo.to_string(), cs.to_string());
+                    }
+                }
+            }
+        }
+        m
+    };
+    let base = load(&a_dir);
+    let exp = load(&b_dir);
+    let is_clear = |c: &str| c == "sealed" || c == "quirk_dependent" || c == "partial";
+
+    let mut flips: Vec<(String, String, String)> = Vec::new();
+    let mut regress: Vec<(String, String, String)> = Vec::new();
+    let mut compared = 0usize;
+    for (repo, nc) in &exp {
+        if let Some(bc) = base.get(repo) {
+            compared += 1;
+            match (is_clear(bc), is_clear(nc)) {
+                (false, true) => flips.push((repo.clone(), bc.clone(), nc.clone())),
+                (true, false) => regress.push((repo.clone(), bc.clone(), nc.clone())),
+                _ => {}
+            }
+        }
+    }
+    println!("atlas-diff: {} -> {}", a_dir.display(), b_dir.display());
+    println!("compared {} repos present in both", compared);
+    println!("  FLIPS  (failed -> clear):     {}", flips.len());
+    println!("  REGRESS (clear -> failed):    {}", regress.len());
+    println!("  NET: {:+}", flips.len() as i64 - regress.len() as i64);
+    if !flips.is_empty() {
+        println!("\nflips:");
+        for (r, b, n) in flips.iter().take(40) {
+            println!("  + {}: {} -> {}", r, b, n);
+        }
+    }
+    if !regress.is_empty() {
+        println!("\nREGRESSIONS:");
+        for (r, b, n) in &regress {
+            println!("  - {}: {} -> {}", r, b, n);
+        }
+    }
+    ExitCode::SUCCESS
+}
+
 fn write_recipe(out_dir: &Path, slug: &str, rec: Recipe) {
     let path = out_dir.join(format!("{}.json", slug));
     if let Ok(s) = serde_json::to_string_pretty(&rec) {

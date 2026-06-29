@@ -54,6 +54,7 @@ fn main() -> ExitCode {
         "atlas-index" => atlas::index_only(),
         "atlas-query" => atlas::query(),
         "atlas-replay" => atlas::replay(),
+        "atlas-diff" => atlas::diff(),
         "generate" => run_generate(),
         "receipts" => run_receipt_check(),
         "claims" => run_claim_check(),
