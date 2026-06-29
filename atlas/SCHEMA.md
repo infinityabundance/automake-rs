@@ -1,4 +1,4 @@
-# automake-rs build-atlas — recipe schema v2
+# automake-rs build-atlas — recipe schema v3
 
 Every corpus point becomes a reproducible, versioned **build-court record**. One JSON file per repo
 under `recipes/<owner>__<name>.json`. v2 grows the v1 cache (probe results + deps + quirks) into a
@@ -9,7 +9,7 @@ re-running anything on a VM.
 
 ```jsonc
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "owner/name",
   "source":    { "url", "git_sha", "snapshot_utc" },      // reproducible pin
   "toolchain": { "autoconf_rs", "automake_rs", "m4_rs_core", "gnu_free": true },
@@ -110,6 +110,44 @@ recipe without re-cloning.
   ("config.h: No such file" — the make-layer root for SUBDIRS projects, fixed in autoconf-rs 0.1.19).
 - `config_h_consumers_below_root` names exactly the directories where the relative-path logic is
   load-bearing — the cross-directory context that pinpoints a SUBDIRS make failure.
+
+## v3 deep-context fields (Automake provenance + Makefile pathology + environment)
+
+v3 turns the atlas from configure-autopsy into a full diagnostic+repair system. Every field below is
+optional (populated only when relevant) so recipes stay backward-compatible.
+
+- **`makefile_forensics`** — per generated Makefile: `first_parse_error` (line/kind/text/previous_lines/
+  `probable_cause` ∈ lost-tab | unexpanded-var | unexpanded-automake-token | bare-macro |
+  shell-fragment-in-make), `unexpanded_vars` (`@LIBOBJS@`…), `unexpanded_automake_tokens`
+  (`%reldir%`/`$(am__`), `recipe_tab_anomalies`. Turns `missing separator` from a string into a bug class.
+- **`make_graph`** — `targets`, `key_variables` (CC/CFLAGS/LDFLAGS/LIBS/DEFAULT_INCLUDES as the Makefile
+  sets them), `generated_files` (Makefile/config.status/config.h/libtool), `recursion_depth`.
+- **`macro_inventory`** — `macro_dirs`, `defined_macros` (name/source/kind from m4/+acinclude.m4),
+  `called_macros`, `unresolved_macros` (called AX_/custom macros with no local def → the fix-class driver).
+- **`source_to_generated_map`** — provenance: `configure_origins` (leaked macro → configure.ac:line),
+  `m4_trace_depth` (engine stack/divergence risk), `shadowed_macros` (local overrides of standard macros).
+- **`conditional_context`** — generated-configure if/fi + case/esac counts + `balanced`, AM_CONDITIONAL names.
+- **`config_aux_inventory`** — aux_dir + present/missing of install-sh/missing/depcomp/compile/config.guess/
+  sub/ltmain.sh (makes replay prescriptive: synthesize the missing helpers).
+- **`tool_requirements`** — build-time executables `detected` + `missing` (name/phase/suggested_package);
+  the command-not-found cluster becomes auto-dep hints.
+- **`language_surface`** — `source_suffixes`, configure compiler macros, `needs_cxx`/`needs_fortran`,
+  `sets_c_std` (else GCC14+/Clang18+ default-strict risk).
+- **`toolchain_interaction`** — compiler + version, `c_std_default_risk`, sampled `-D` defines.
+- **`libtool_context`** — uses_libtool, macros, ltmain_present, libtool_m4_sources, age (old|modern).
+- **`gettext_intl_context`** — uses_gettext/intltool, po_dir_present, missing support files (config.rpath…).
+- **`vpath_analysis`** — hardcoded `./`/`$(srcdir)/` paths, abs-path leakage, BUILT_SOURCES, yacc/lex
+  generated-source targets (VPATH/distcheck + parallel-build hazards).
+- **`feature_probe_gap`** — headers AC_CHECK'd vs headers actually `#include`d-but-unchecked (musl/clean-
+  distro assumption risk), implicit `-l` libs not routed via PKG_CHECK_MODULES/AC_SEARCH_LIBS.
+- **`quirk_history`** — applied/matched quirks + effect (the learnable autotools-wisdom log).
+- **`verification`** — `vs_gnu` (identical-status | ours-better | ours-worse | both-fail), `replay_success`,
+  `drift_noise` (non-claim acceptable-noise classes).
+- **`repair_hints`** — ranked, evidence-backed fix candidates (id/phase/confidence/evidence/action/
+  expected_effect) derived from all the above — the self-training repair corpus.
+- **`environment`** (enriched) — host_triplet, kernel_version, libc {name,version}, pkg_config_path,
+  env_vars_influential, posix_flavor (gnu|bsd), shell, oracle_tool_versions (autoconf/automake/m4/perl),
+  env_var_whitelist.
 
 ## INDEX.json (aggregate)
 

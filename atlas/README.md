@@ -41,7 +41,7 @@ ranked backlog: defeat the top root, the headroom shrinks, the next pass starts 
 - **GNU-free**: only `autoreconf-rs` / `acrs-*` are invoked for the build; `toolchain.gnu_free: true`
   asserts no GNU autotools binary ran. The `oracle` block runs the real GNU toolchain **only for
   comparison**, on a separate git-reset tree — it never counts toward the build.
-- **Schema**: see [SCHEMA.md](SCHEMA.md) (`automake-rs.build-atlas/v2`).
+- **Schema**: see [SCHEMA.md](SCHEMA.md) (`automake-rs.build-atlas/v3`).
 - **Regenerate**: `cargo xtask atlas <corpus-list> [out-dir]` — Rust only, no scripts
   (`xtask/src/atlas.rs`). `ATLAS_ORACLE=1` adds the oracle/court fields; `ATLAS_SCAN_ONLY=1` does a
   fast generate-only expansion sweep (no configure-run/make).

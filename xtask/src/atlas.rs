@@ -46,6 +46,241 @@ struct Recipe {
     suggested_deps: Vec<SuggestedDep>,
     #[serde(skip_serializing_if = "Option::is_none")]
     directory_context: Option<DirectoryContext>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    makefile_forensics: Option<MakefileForensics>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    tool_requirements: Option<ToolRequirements>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    macro_inventory: Option<MacroInventory>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    conditional_context: Option<ConditionalContext>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    config_aux_inventory: Option<ConfigAuxInventory>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    language_surface: Option<LanguageSurface>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    libtool_context: Option<LibtoolContext>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    gettext_intl_context: Option<GettextIntlContext>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    make_graph: Option<MakeGraph>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    toolchain_interaction: Option<ToolchainInteraction>,
+    #[serde(skip_serializing_if = "Vec::is_empty")]
+    quirk_history: Vec<QuirkHistoryEntry>,
+    verification: Verification,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    vpath_analysis: Option<VpathAnalysis>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    feature_probe_gap: Option<FeatureProbeGap>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    source_to_generated_map: Option<ProvenanceMap>,
+    #[serde(skip_serializing_if = "Vec::is_empty")]
+    repair_hints: Vec<RepairHint>,
+}
+
+/// v3: Makefile pathology — classify WHY a generated Makefile fails to parse (the make layer's #1 root
+/// is `missing separator`, but the symptom hides the cause: lost recipe-tab, unexpanded @VAR@ / automake
+/// token, shell fragment in make context, unterminated construct). This turns an opaque string into a
+/// fixable bug class, tied back to the generated file + line + preceding context.
+#[derive(Serialize, Default)]
+struct MakefileForensics {
+    generated_makefiles: Vec<GeneratedMakefile>,
+}
+#[derive(Serialize)]
+struct GeneratedMakefile {
+    path: String,
+    has_makefile_in: bool,
+    has_makefile_am: bool,
+    lines: usize,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    first_parse_error: Option<MakeParseError>,
+    /// Leftover `@VAR@` substitution placeholders make can't resolve (e.g. `@LIBOBJS@`, `@YACC@`).
+    unexpanded_vars: Vec<String>,
+    /// Leftover automake-internal tokens that should've been expanded (`%reldir%`, `$(am__objects_1)`).
+    unexpanded_automake_tokens: Vec<String>,
+    /// Recipe lines that start with spaces where make requires a leading TAB (the lost-tab bug class).
+    recipe_tab_anomalies: usize,
+}
+#[derive(Serialize)]
+struct MakeParseError {
+    line: usize,
+    kind: String,                 // missing-separator | unterminated | other
+    text: String,
+    previous_lines: Vec<String>,
+    /// lost-tab | unexpanded-var | unexpanded-automake-token | shell-fragment-in-make | bare-macro | unknown
+    probable_cause: String,
+}
+
+/// v3: build-time executables a recipe needs (distinct from link deps) — the command-not-found cluster.
+/// Scanned from configure + generated Makefiles; missing ones become actionable package hints.
+#[derive(Serialize, Default)]
+struct ToolRequirements {
+    detected: Vec<String>,
+    missing: Vec<ToolMissing>,
+}
+#[derive(Serialize)]
+struct ToolMissing {
+    name: String,
+    phase: String,            // configure | make | check | dist
+    suggested_package: String,
+}
+
+/// v3 killer field: ranked, evidence-backed repair candidates derived from the forensic context — turns
+/// each recipe from an evidence record into a self-training repair corpus ("what class of fix flips me
+/// green?"). Emitted even before a fix is applied.
+#[derive(Serialize)]
+struct RepairHint {
+    id: String,
+    phase: String,
+    confidence: f32,
+    evidence: Vec<String>,
+    action: String,
+    expected_effect: String,
+}
+
+/// v3: m4 macro inventory — defined (m4/, aclocal.m4, acinclude.m4) vs called (configure.ac) vs
+/// unresolved. Decides the fix class: load vendored macro / ship native / neutralize / not-standalone.
+#[derive(Serialize, Default)]
+struct MacroInventory {
+    macro_dirs: Vec<String>,
+    aclocal_m4_present: bool,
+    acinclude_m4_present: bool,
+    defined_macros: Vec<DefinedMacro>,
+    called_macros: Vec<String>,
+    unresolved_macros: Vec<String>, // called AC_/AX_/AM_/LT_ macros with no local definition
+}
+#[derive(Serialize)]
+struct DefinedMacro {
+    name: String,
+    source: String,
+    kind: String, // AC | AM | AX | LT | m4 | project-local
+}
+
+/// v3: shell/automake conditional balance — the syntax-structure roots (unbalanced if/case/for, leaked
+/// text after conditional) become "this construct is unterminated" instead of opaque shell garbage.
+#[derive(Serialize, Default)]
+struct ConditionalContext {
+    configure_if: usize,
+    configure_fi: usize,
+    configure_case: usize,
+    configure_esac: usize,
+    balanced: bool,
+    automake_conditionals: Vec<String>, // AM_CONDITIONAL names
+}
+
+/// v3: config aux file inventory — install-sh/missing/depcomp/compile/config.guess/sub/ltmain.sh/ylwrap.
+/// Missing helpers are a leading make/dist failure; this makes replay prescriptive (synthesize them).
+#[derive(Serialize, Default)]
+struct ConfigAuxInventory {
+    aux_dir: String,
+    present: Vec<String>,
+    missing: Vec<String>,
+}
+
+/// v3: language surface — source suffixes + which compilers the project actually needs vs probes.
+/// Distinguishes a real automake-rs bug from "needs a C++/Fortran compiler installed".
+#[derive(Serialize, Default)]
+struct LanguageSurface {
+    source_suffixes: BTreeMap<String, usize>,
+    configure_macros: Vec<String>, // AC_PROG_CC / AC_PROG_CXX / AC_PROG_F77 / ...
+    needs_cxx: bool,
+    needs_fortran: bool,
+    sets_c_std: bool, // AC_PROG_CC_C99/C11 or -std present (else GCC14+/Clang18+ default-strict risk)
+}
+
+/// v3: libtool context — failures often masquerade as make failures; isolate the libtool surface.
+#[derive(Serialize, Default)]
+struct LibtoolContext {
+    uses_libtool: bool,
+    macros: Vec<String>,
+    ltmain_present: bool,
+    libtool_m4_sources: Vec<String>,
+    age: String, // old | modern | unknown
+}
+
+/// v3: gettext/intltool context — classify as native-supported / needs-support-files / not-standalone.
+#[derive(Serialize, Default)]
+struct GettextIntlContext {
+    uses_gettext: bool,
+    uses_intltool: bool,
+    po_dir_present: bool,
+    missing_files: Vec<String>, // config.rpath, po/Makefile.in.in, ...
+}
+
+/// v3: make graph snapshot — targets, the load-bearing variables, generated files, recursion depth.
+#[derive(Serialize, Default)]
+struct MakeGraph {
+    targets: Vec<String>,
+    key_variables: BTreeMap<String, String>, // CC/CFLAGS/CPPFLAGS/LDFLAGS/LIBS/AR as the Makefile sets them
+    generated_files: Vec<String>,            // Makefile/config.status/config.h/libtool present after configure
+    recursion_depth: usize,                  // SUBDIRS nesting
+}
+
+/// v3: compiler/toolchain interaction — what the native compiler sees (bridge to codegen) + dialect risk.
+#[derive(Serialize, Default)]
+struct ToolchainInteraction {
+    compiler: String,
+    compiler_version: String,
+    /// missing explicit C/C++ std + uses pre-C99 idioms -> GCC14+/Clang18+ default-strict failure risk.
+    c_std_default_risk: bool,
+    defines_sampled: Vec<String>, // -D macros the build passes (from Makefile CPPFLAGS/DEFS)
+}
+
+/// v3: quirk application history + effectiveness — turns ad-hoc quirks into learnable rules.
+#[derive(Serialize)]
+struct QuirkHistoryEntry {
+    quirk_id: String,
+    applied_at: String, // configure | make | autoreconf
+    effect: String,     // success | partial | neutral
+}
+
+/// v3: verification + differential data — closes the loop vs the GNU oracle (and a future native codegen).
+#[derive(Serialize, Default)]
+struct Verification {
+    #[serde(skip_serializing_if = "Option::is_none")]
+    replay_success: Option<bool>,
+    vs_gnu: String, // identical-status | ours-better | ours-worse | both-fail | not-compared
+    #[serde(skip_serializing_if = "Vec::is_empty")]
+    drift_noise: Vec<String>, // acceptable-noise classes when ours≠oracle (timestamps/comment-order)
+}
+
+/// v3: VPATH / out-of-tree + artifact side-effect analysis — the portability/parallel-build hazards.
+#[derive(Serialize, Default)]
+struct VpathAnalysis {
+    /// Hardcoded `./` or `$(srcdir)/` paths embedded in Makefile.am shell rules (break VPATH/distcheck).
+    hardcoded_src_paths: usize,
+    /// Absolute build-path leakage in generated Makefile.in (breaks portability).
+    abs_path_leakage: usize,
+    /// BUILT_SOURCES declared (generated sources that must exist before compile).
+    built_sources: Vec<String>,
+    /// yacc/lex/codegen targets that generate sources (parallel-build race risk if deps unaligned).
+    generated_source_targets: Vec<String>,
+}
+
+/// v3: dynamic feature-probe interception — host assumptions that break on cleaner/musl distros.
+#[derive(Serialize, Default)]
+struct FeatureProbeGap {
+    headers_checked: Vec<String>,            // AC_CHECK_HEADERS
+    /// headers #included across sources but never AC_CHECK'd — undocumented host assumptions.
+    headers_included_unchecked: Vec<String>,
+    /// hardcoded `-lfoo` in Makefile.am/macros not routed via PKG_CHECK_MODULES/AC_SEARCH_LIBS.
+    implicit_link_libs: Vec<String>,
+}
+
+/// v3: source→generated provenance — tie a generated-shell/Makefile failure line back to its origin.
+#[derive(Serialize, Default)]
+struct ProvenanceMap {
+    /// leaked/undefined macro -> the configure.ac/m4 file+line it was called from.
+    configure_origins: Vec<MacroOrigin>,
+    m4_trace_depth: usize, // max nested AC_DEFUN depth (engine stack/divergence risk)
+    shadowed_macros: Vec<String>, // macros defined locally that override a standard/system def
+}
+#[derive(Serialize)]
+struct MacroOrigin {
+    macro_name: String,
+    file: String,
+    line: usize,
 }
 
 /// Deep subdir/directory context — the multi-directory build structure that drives (and breaks) the make
@@ -247,6 +482,16 @@ struct Environment {
     pkg_config_version: String,
     make_version: String,
     relevant_env: Vec<String>,
+    // v3 enrichment: platform fingerprint + POSIX parity + oracle provenance + env hermeticity.
+    kernel_version: String,
+    libc_name: String,
+    libc_version: String,
+    pkg_config_path: Vec<String>,
+    env_vars_influential: BTreeMap<String, String>, // CC/CFLAGS/CPPFLAGS/LDFLAGS/LIBS/CPATH/...
+    posix_flavor: String,                            // gnu | bsd | unknown (sed/grep flavor)
+    shell: String,                                   // /bin/sh -> dash|bash (bashism risk)
+    oracle_tool_versions: BTreeMap<String, String>,  // autoconf/automake/m4/perl versions (oracle provenance)
+    env_var_whitelist: Vec<String>,                  // locked influential vars (ACLOCAL_PATH/AUTOMAKE_JOBS/...)
 }
 /// Missing-dep inference: a package that would satisfy a failed header/lib probe.
 #[derive(Serialize)]
@@ -482,11 +727,29 @@ pub fn run() -> ExitCode {
                     receipt_hash,
                     schema: "automake-rs.build-court/v1",
                 };
+                // === v3 deep context: directory / makefile / macro / tool / language / libtool / gettext ===
+                let directory_context = analyze_directory_context(&d, &ac_text);
+                let makefile_forensics = analyze_makefile_forensics(&d);
+                let tool_requirements = analyze_tool_requirements(&d, &ac_text, &diagnostic);
+                let macro_inventory = analyze_macro_inventory(&d, &ac_text);
+                let conditional_context = analyze_conditional_context(&d, &ac_text);
+                let config_aux_inventory = analyze_config_aux(&d, &ac_text);
+                let language_surface = analyze_language_surface(&d, &ac_text);
+                let libtool_context = analyze_libtool(&d, &ac_text);
+                let gettext_intl_context = analyze_gettext(&d, &ac_text);
+                let make_graph = analyze_make_graph(&d, &directory_context);
+                let toolchain_interaction = analyze_toolchain_interaction(&d, &ac_text, &environment, &language_surface);
+                let quirk_hist = quirk_history(&receipt.quirks_matched, &receipt.quirks_applied, &status);
+                let verification = analyze_verification(&status, &oracle);
+                let vpath_analysis = analyze_vpath(&d);
+                let feature_probe_gap = analyze_feature_probe_gap(&d, &ac_text);
+                let source_to_generated_map = analyze_provenance(&d, &ac_text, &deep_expansion, &macro_inventory);
+                let repair_hints = compute_repair_hints(&makefile_forensics, &directory_context, &macro_inventory, &tool_requirements);
                 write_recipe(
                     &out_dir,
                     &slug,
                     Recipe {
-                        schema: "automake-rs.build-atlas/v2",
+                        schema: "automake-rs.build-atlas/v3",
                         repo: repo.to_string(),
                         source: Source {
                             url: format!("https://github.com/{}", repo),
@@ -519,7 +782,23 @@ pub fn run() -> ExitCode {
                         receipt,
                         environment,
                         suggested_deps,
-                        directory_context: analyze_directory_context(&d, &ac_text),
+                        directory_context,
+                        makefile_forensics,
+                        tool_requirements,
+                        macro_inventory,
+                        conditional_context,
+                        config_aux_inventory,
+                        language_surface,
+                        libtool_context,
+                        gettext_intl_context,
+                        make_graph,
+                        toolchain_interaction,
+                        quirk_history: quirk_hist,
+                        verification,
+                        vpath_analysis,
+                        feature_probe_gap,
+                        source_to_generated_map,
+                        repair_hints,
                     },
                 );
                 println!("[{:>3}] {:<40} {}", n, repo, status);
@@ -532,7 +811,7 @@ pub fn run() -> ExitCode {
             &out_dir,
             &slug,
             Recipe {
-                schema: "automake-rs.build-atlas/v2",
+                schema: "automake-rs.build-atlas/v3",
                 repo: repo.to_string(),
                 source: Source { url: format!("https://github.com/{}", repo), git_sha, snapshot_utc: "2026-06-27".into() },
                 toolchain: Toolchain { autoconf_rs: ac_ver.clone(), automake_rs: am_ver.clone(), m4_rs_core: "0.1.4".into(), gnu_free: true },
@@ -557,6 +836,22 @@ pub fn run() -> ExitCode {
                 environment: fingerprint_environment(),
                 suggested_deps: vec![],
                 directory_context: None,
+                makefile_forensics: None,
+                tool_requirements: None,
+                macro_inventory: None,
+                conditional_context: None,
+                config_aux_inventory: None,
+                language_surface: None,
+                libtool_context: None,
+                gettext_intl_context: None,
+                make_graph: None,
+                toolchain_interaction: None,
+                quirk_history: vec![],
+                verification: Verification::default(),
+                vpath_analysis: None,
+                feature_probe_gap: None,
+                source_to_generated_map: None,
+                repair_hints: vec![],
             },
         );
         println!("[{:>3}] {:<40} {}", n, repo, status);
@@ -833,6 +1128,595 @@ fn collect_makefile_ams(root: &Path, dir: &Path, depth: usize, out: &mut Vec<Bui
     }
 }
 
+/// v3: walk generated Makefiles, classify the first parse error (the make-layer #1 root) + collect
+/// unexpanded vars/tokens + lost-tab anomalies.
+fn analyze_makefile_forensics(root: &Path) -> Option<MakefileForensics> {
+    let mut gens = Vec::new();
+    walk_makefiles(root, root, 0, &mut gens);
+    if gens.is_empty() { return None; }
+    gens.truncate(30);
+    Some(MakefileForensics { generated_makefiles: gens })
+}
+fn walk_makefiles(root: &Path, dir: &Path, depth: usize, out: &mut Vec<GeneratedMakefile>) {
+    if depth > 4 || out.len() >= 30 { return; }
+    let mk = dir.join("Makefile");
+    if mk.is_file() {
+        if let Ok(txt) = std::fs::read_to_string(&mk) {
+            let lines: Vec<&str> = txt.lines().collect();
+            let rel = dir.strip_prefix(root).ok().map(|p| p.join("Makefile").to_string_lossy().to_string()).unwrap_or_else(|| "Makefile".into());
+            let mut uvars: Vec<String> = Vec::new();
+            let mut utok: Vec<String> = Vec::new();
+            let mut tab_anom = 0usize;
+            let mut first_err: Option<MakeParseError> = None;
+            let mut in_rule = false;
+            for (i, l) in lines.iter().enumerate() {
+                // unexpanded @VAR@
+                let mut rest = *l;
+                while let Some(a) = rest.find('@') {
+                    let r2 = &rest[a + 1..];
+                    if let Some(b) = r2.find('@') {
+                        let name = &r2[..b];
+                        if !name.is_empty() && name.bytes().all(|c| c.is_ascii_alphanumeric() || c == b'_') {
+                            let v = format!("@{}@", name);
+                            if !uvars.contains(&v) && uvars.len() < 15 { uvars.push(v); }
+                        }
+                        rest = &r2[b + 1..];
+                    } else { break; }
+                }
+                for t in ["%reldir%", "%canon_reldir%", "$(am__", "@am__"] {
+                    if l.contains(t) && !utok.iter().any(|x| x == t) { utok.push(t.to_string()); }
+                }
+                // classify the first line make can't parse (missing separator territory)
+                let starts_tab = l.starts_with('\t');
+                if first_err.is_none() {
+                    let trimmed = l.trim_start();
+                    let is_blank = trimmed.is_empty();
+                    let is_comment = trimmed.starts_with('#');
+                    let is_assign = l.find('=').map(|e| l[..e].chars().all(|c| c.is_ascii_alphanumeric() || "_+:. ".contains(c)) && !l[..e].contains('\t')).unwrap_or(false);
+                    let is_rule = trimmed.contains(':') && !starts_tab && !trimmed.starts_with(':');
+                    let is_directive = ["ifeq", "ifneq", "ifdef", "ifndef", "else", "endif", "include", "-include", "define", "endef", "export", "unexport", "vpath", "override"].iter().any(|d| trimmed.starts_with(d));
+                    // a non-tab, non-blank, non-comment, non-assignment, non-rule, non-directive line that
+                    // looks like a recipe/shell or a leaked token -> the missing-separator site
+                    if !starts_tab && !is_blank && !is_comment && !is_assign && !is_rule && !is_directive && !trimmed.starts_with('\\') {
+                        let cause = if trimmed.starts_with('@') { "unexpanded-var" }
+                            else if trimmed.contains("%reldir%") || trimmed.contains("$(am__") { "unexpanded-automake-token" }
+                            else if in_rule && (l.starts_with(' ') || l.starts_with("  ")) { "lost-tab" }
+                            else if trimmed.starts_with(|c: char| c.is_ascii_uppercase()) && trimmed.contains('(') { "bare-macro" }
+                            else { "shell-fragment-in-make" };
+                        first_err = Some(MakeParseError {
+                            line: i + 1,
+                            kind: "missing-separator".into(),
+                            text: l.chars().take(80).collect(),
+                            previous_lines: lines[i.saturating_sub(2)..i].iter().map(|s| s.chars().take(80).collect()).collect(),
+                            probable_cause: cause.into(),
+                        });
+                    }
+                }
+                if starts_tab && l.trim().is_empty() { tab_anom += 1; }
+                in_rule = l.contains(':') && !l.starts_with('\t');
+            }
+            out.push(GeneratedMakefile {
+                path: rel,
+                has_makefile_in: dir.join("Makefile.in").exists(),
+                has_makefile_am: dir.join("Makefile.am").exists(),
+                lines: lines.len(),
+                first_parse_error: first_err,
+                unexpanded_vars: uvars,
+                unexpanded_automake_tokens: utok,
+                recipe_tab_anomalies: tab_anom,
+            });
+        }
+    }
+    for e in std::fs::read_dir(dir).into_iter().flatten().flatten() {
+        let p = e.path();
+        if p.is_dir() {
+            let n = p.file_name().map(|n| n.to_string_lossy().to_string()).unwrap_or_default();
+            if n == ".git" || n.starts_with('.') { continue; }
+            walk_makefiles(root, &p, depth + 1, out);
+        }
+    }
+}
+
+/// v3 package map for a build-time tool name.
+fn tool_pkg(name: &str) -> &'static str {
+    match name {
+        "bison" | "yacc" => "bison", "flex" | "lex" => "flex", "gperf" => "gperf",
+        "help2man" => "help2man", "makeinfo" => "texinfo", "pod2man" | "perl" => "perl",
+        "python" | "python3" => "python3", "ruby" => "ruby", "gtkdocize" => "gtk-doc-tools",
+        "glib-genmarshal" | "glib-mkenums" => "libglib2.0-dev-bin", "intltoolize" => "intltool",
+        "xgettext" | "msgfmt" => "gettext", "pkg-config" => "pkg-config", "libtoolize" => "libtool",
+        "xsltproc" => "xsltproc", "asciidoc" => "asciidoc", "rst2man" => "python3-docutils",
+        "doxygen" => "doxygen", "swig" => "swig", "nasm" => "nasm", "yasm" => "yasm",
+        _ => "",
+    }
+}
+/// v3: build-time tool requirements from configure.ac macros + generated Makefiles + the make diagnostic.
+fn analyze_tool_requirements(d: &Path, ac_text: &str, diagnostic: &str) -> Option<ToolRequirements> {
+    let mut detected: Vec<String> = Vec::new();
+    let mut add = |s: &str, v: &mut Vec<String>| { if !s.is_empty() && !v.iter().any(|x| x == s) { v.push(s.to_string()); } };
+    for (macro_, tool) in [("AC_PROG_YACC", "yacc"), ("AC_PROG_LEX", "lex"), ("AM_PATH_PYTHON", "python"),
+        ("AC_PROG_CXX", "c++"), ("AM_PROG_AR", "ar"), ("GTK_DOC_CHECK", "gtkdocize"),
+        ("IT_PROG_INTLTOOL", "intltoolize"), ("AM_GNU_GETTEXT", "xgettext"), ("AC_PROG_F77", "f77")] {
+        if ac_text.contains(macro_) { add(tool, &mut detected); }
+    }
+    for tool in ["perl", "python", "bison", "flex", "help2man", "makeinfo", "pkg-config", "swig", "doxygen", "gperf"] {
+        if ac_text.contains(&format!("AC_PATH_PROG")) && ac_text.contains(tool) { add(tool, &mut detected); }
+    }
+    // missing tools: from the make "command not found" diagnostic
+    let mut missing = Vec::new();
+    if let Some(p) = diagnostic.find(": command not found") {
+        let pre = &diagnostic[..p];
+        let name = pre.rsplit([' ', '/', ':', '`', '\'']).find(|s| !s.is_empty()).unwrap_or("");
+        let name = name.trim_start_matches('@').trim_end_matches('@');
+        if !name.is_empty() && name.chars().all(|c| c.is_ascii_alphanumeric() || c == '-' || c == '_' || c == '.') {
+            missing.push(ToolMissing { name: name.to_string(), phase: "make".into(), suggested_package: tool_pkg(name).to_string() });
+        }
+    }
+    let _ = d;
+    if detected.is_empty() && missing.is_empty() { return None; }
+    Some(ToolRequirements { detected, missing })
+}
+
+/// v3: m4 macro inventory — defined (m4/, acinclude.m4, aclocal.m4) vs called vs unresolved.
+fn analyze_macro_inventory(d: &Path, ac_text: &str) -> Option<MacroInventory> {
+    let mut defined = Vec::new();
+    let mut defined_names = std::collections::BTreeSet::new();
+    let mut macro_dirs = Vec::new();
+    // macro dirs from AC_CONFIG_MACRO_DIR + common locations
+    for cand in ["m4", "build-aux/m4", "macros", "config"] {
+        if d.join(cand).is_dir() { macro_dirs.push(cand.to_string()); }
+    }
+    let scan_defs = |path: &Path, src: &str, defined: &mut Vec<DefinedMacro>, names: &mut std::collections::BTreeSet<String>| {
+        if let Ok(txt) = std::fs::read_to_string(path) {
+            let mut hay = txt.as_str();
+            while let Some(p) = hay.find("AC_DEFUN") {
+                let after = hay[p..].find('(').map(|i| &hay[p + i + 1..]).unwrap_or("");
+                let inner = after.trim_start().trim_start_matches('[');
+                let name: String = inner.chars().take_while(|c| c.is_ascii_alphanumeric() || *c == '_').collect();
+                if !name.is_empty() && names.insert(name.clone()) && defined.len() < 60 {
+                    let kind = if name.starts_with("AX_") { "AX" } else if name.starts_with("AM_") { "AM" }
+                        else if name.starts_with("LT_") || name.contains("LIBTOOL") { "LT" }
+                        else if name.starts_with("AC_") { "AC" } else { "project-local" };
+                    defined.push(DefinedMacro { name, source: src.to_string(), kind: kind.into() });
+                }
+                hay = &hay[p + 8..];
+            }
+        }
+    };
+    for dir in &macro_dirs {
+        for e in std::fs::read_dir(d.join(dir)).into_iter().flatten().flatten() {
+            let p = e.path();
+            if p.extension().and_then(|s| s.to_str()) == Some("m4") {
+                let src = p.strip_prefix(d).ok().map(|x| x.to_string_lossy().to_string()).unwrap_or_default();
+                scan_defs(&p, &src, &mut defined, &mut defined_names);
+            }
+        }
+    }
+    let acinclude = d.join("acinclude.m4");
+    if acinclude.is_file() { scan_defs(&acinclude, "acinclude.m4", &mut defined, &mut defined_names); }
+    // called macros: AC_/AX_/AM_/LT_/IT_/GTK_ name immediately followed by ( or whitespace in configure.ac
+    let mut called = std::collections::BTreeSet::new();
+    let bytes = ac_text.as_bytes();
+    let mut i = 0;
+    while i < bytes.len() {
+        let c = bytes[i];
+        if c.is_ascii_uppercase() {
+            let start = i;
+            while i < bytes.len() && (bytes[i].is_ascii_alphanumeric() || bytes[i] == b'_') { i += 1; }
+            let name = &ac_text[start..i];
+            if (name.starts_with("AC_") || name.starts_with("AX_") || name.starts_with("AM_") || name.starts_with("LT_") || name.starts_with("IT_") || name.starts_with("GTK_") || name.starts_with("PKG_")) && name.len() > 3 {
+                called.insert(name.to_string());
+            }
+        } else { i += 1; }
+    }
+    // unresolved: AX_/custom called macros with no local def (the ones needing vendored/native impl)
+    let unresolved: Vec<String> = called.iter()
+        .filter(|m| (m.starts_with("AX_") || m.starts_with("IT_") || m.starts_with("GTK_")) && !defined_names.contains(*m))
+        .take(30).cloned().collect();
+    let called_v: Vec<String> = called.into_iter().take(60).collect();
+    if defined.is_empty() && called_v.is_empty() { return None; }
+    Some(MacroInventory {
+        macro_dirs,
+        aclocal_m4_present: d.join("aclocal.m4").is_file(),
+        acinclude_m4_present: acinclude.is_file(),
+        defined_macros: defined,
+        called_macros: called_v,
+        unresolved_macros: unresolved,
+    })
+}
+
+/// v3: shell/automake conditional balance from the generated configure + AM_CONDITIONAL names.
+fn analyze_conditional_context(d: &Path, ac_text: &str) -> Option<ConditionalContext> {
+    let cfg = std::fs::read_to_string(d.join("configure")).ok()?;
+    let (mut ifc, mut fic, mut casec, mut esacc) = (0usize, 0usize, 0usize, 0usize);
+    for l in cfg.lines() {
+        let t = l.trim();
+        if t == "fi" || t.ends_with("; fi") || t.starts_with("fi ") || t.starts_with("fi;") { fic += 1; }
+        if t.starts_with("if ") || t == "if" || t.ends_with("; then") || t.contains("; then ") { ifc += 1; }
+        if t == "esac" { esacc += 1; }
+        if t.starts_with("case ") && t.contains(" in") { casec += 1; }
+    }
+    let mut am_cond = Vec::new();
+    let mut hay = ac_text;
+    while let Some(p) = hay.find("AM_CONDITIONAL") {
+        let after = hay[p..].find('(').map(|i| &hay[p + i + 1..]).unwrap_or("");
+        let inner = after.trim_start().trim_start_matches('[');
+        let name: String = inner.chars().take_while(|c| c.is_ascii_alphanumeric() || *c == '_').collect();
+        if !name.is_empty() && !am_cond.contains(&name) && am_cond.len() < 30 { am_cond.push(name); }
+        hay = &hay[p + 14..];
+    }
+    Some(ConditionalContext {
+        configure_if: ifc, configure_fi: fic, configure_case: casec, configure_esac: esacc,
+        balanced: ifc == fic && casec == esacc,
+        automake_conditionals: am_cond,
+    })
+}
+
+/// v3: config aux file inventory (install-sh, missing, depcomp, compile, config.guess/sub, ltmain, ylwrap).
+fn analyze_config_aux(d: &Path, ac_text: &str) -> Option<ConfigAuxInventory> {
+    // aux dir from AC_CONFIG_AUX_DIR
+    let aux_dir = ac_text.find("AC_CONFIG_AUX_DIR")
+        .and_then(|p| ac_text[p..].find('(').map(|i| &ac_text[p + i + 1..]))
+        .map(|s| s.trim_start().trim_start_matches('[').chars().take_while(|c| *c != ']' && *c != ')').collect::<String>().trim().to_string())
+        .filter(|s| !s.is_empty()).unwrap_or_else(|| ".".into());
+    let need_libtool = ac_text.contains("LT_INIT") || ac_text.contains("AC_PROG_LIBTOOL");
+    let mut required = vec!["install-sh", "missing", "depcomp", "compile"];
+    if need_libtool { required.push("ltmain.sh"); }
+    if ac_text.contains("AC_CANONICAL") { required.push("config.guess"); required.push("config.sub"); }
+    let base = if aux_dir == "." { d.to_path_buf() } else { d.join(&aux_dir) };
+    let mut present = Vec::new();
+    let mut missing = Vec::new();
+    for f in &required {
+        if base.join(f).exists() || d.join(f).exists() { present.push(f.to_string()); } else { missing.push(f.to_string()); }
+    }
+    Some(ConfigAuxInventory { aux_dir, present, missing })
+}
+
+/// v3: language surface — source suffixes + needed compilers + C-std-set risk.
+fn analyze_language_surface(d: &Path, ac_text: &str) -> Option<LanguageSurface> {
+    let mut suffixes: BTreeMap<String, usize> = BTreeMap::new();
+    count_suffixes(d, d, 0, &mut suffixes);
+    let mut macros = Vec::new();
+    for m in ["AC_PROG_CC", "AC_PROG_CXX", "AC_PROG_F77", "AC_PROG_FC", "AC_PROG_OBJC", "AC_PROG_CC_C99", "AC_PROG_CC_C11"] {
+        if ac_text.contains(m) { macros.push(m.to_string()); }
+    }
+    let needs_cxx = ac_text.contains("AC_PROG_CXX") || ["cc", "cpp", "cxx", "C"].iter().any(|s| suffixes.get(*s).copied().unwrap_or(0) > 0);
+    let needs_fortran = ac_text.contains("AC_PROG_F77") || ac_text.contains("AC_PROG_FC") || ["f", "f90", "f77", "for"].iter().any(|s| suffixes.get(*s).copied().unwrap_or(0) > 0);
+    let sets_c_std = ac_text.contains("AC_PROG_CC_C99") || ac_text.contains("AC_PROG_CC_C11") || ac_text.contains("-std=") || ac_text.contains("AX_CXX_COMPILE_STDCXX");
+    Some(LanguageSurface { source_suffixes: suffixes, configure_macros: macros, needs_cxx, needs_fortran, sets_c_std })
+}
+fn count_suffixes(root: &Path, dir: &Path, depth: usize, out: &mut BTreeMap<String, usize>) {
+    if depth > 4 { return; }
+    let _ = root;
+    for e in std::fs::read_dir(dir).into_iter().flatten().flatten() {
+        let p = e.path();
+        if p.is_dir() {
+            let n = p.file_name().map(|n| n.to_string_lossy().to_string()).unwrap_or_default();
+            if n == ".git" || n.starts_with('.') { continue; }
+            count_suffixes(root, &p, depth + 1, out);
+        } else if let Some(ext) = p.extension().and_then(|s| s.to_str()) {
+            if ["c", "cc", "cpp", "cxx", "C", "h", "hpp", "f", "f90", "f77", "m", "mm", "s", "S", "go", "rs"].contains(&ext) {
+                *out.entry(ext.to_string()).or_default() += 1;
+            }
+        }
+    }
+}
+
+/// v3: libtool context.
+fn analyze_libtool(d: &Path, ac_text: &str) -> Option<LibtoolContext> {
+    let uses = ac_text.contains("LT_INIT") || ac_text.contains("AC_PROG_LIBTOOL") || ac_text.contains("AM_PROG_LIBTOOL");
+    if !uses && !d.join("ltmain.sh").exists() { return None; }
+    let mut macros = Vec::new();
+    for m in ["LT_INIT", "AC_PROG_LIBTOOL", "AM_PROG_LIBTOOL", "LT_LANG"] { if ac_text.contains(m) { macros.push(m.to_string()); } }
+    let mut srcs = Vec::new();
+    for cand in ["m4/libtool.m4", "libtool.m4", "aclocal.m4", "acinclude.m4"] {
+        if d.join(cand).is_file() && std::fs::read_to_string(d.join(cand)).map(|s| s.contains("LT_INIT") || s.contains("libtool")).unwrap_or(false) { srcs.push(cand.to_string()); }
+    }
+    let age = if ac_text.contains("AC_PROG_LIBTOOL") && !ac_text.contains("LT_INIT") { "old" } else if ac_text.contains("LT_INIT") { "modern" } else { "unknown" };
+    Some(LibtoolContext { uses_libtool: uses, macros, ltmain_present: d.join("ltmain.sh").exists() || d.join("build-aux/ltmain.sh").exists(), libtool_m4_sources: srcs, age: age.into() })
+}
+
+/// v3: gettext/intltool context.
+fn analyze_gettext(d: &Path, ac_text: &str) -> Option<GettextIntlContext> {
+    let uses_gettext = ac_text.contains("AM_GNU_GETTEXT") || ac_text.contains("AM_ICONV");
+    let uses_intltool = ac_text.contains("IT_PROG_INTLTOOL") || ac_text.contains("INTLTOOL");
+    if !uses_gettext && !uses_intltool { return None; }
+    let po = d.join("po").is_dir();
+    let mut missing = Vec::new();
+    if uses_gettext {
+        if !d.join("config.rpath").exists() { missing.push("config.rpath".to_string()); }
+        if po && !d.join("po/Makefile.in.in").exists() { missing.push("po/Makefile.in.in".to_string()); }
+    }
+    Some(GettextIntlContext { uses_gettext, uses_intltool, po_dir_present: po, missing_files: missing })
+}
+
+/// v3: derive ranked repair candidates from the forensic context — the self-training repair corpus.
+fn compute_repair_hints(mf: &Option<MakefileForensics>, dc: &Option<DirectoryContext>, mi: &Option<MacroInventory>, tr: &Option<ToolRequirements>) -> Vec<RepairHint> {
+    let mut hints = Vec::new();
+    if let Some(m) = mf {
+        for g in &m.generated_makefiles {
+            if let Some(e) = &g.first_parse_error {
+                let (action, conf) = match e.probable_cause.as_str() {
+                    "lost-tab" => ("preserve-recipe-tab-in-rule-emission", 0.9),
+                    "unexpanded-var" => ("substitute-standard-var (extend STD_VAR_SED)", 0.85),
+                    "unexpanded-automake-token" => ("expand-automake-token (%reldir%/$(am__))", 0.8),
+                    "bare-macro" => ("define-or-neutralize-leaked-macro", 0.7),
+                    _ => ("classify-shell-fragment-in-make", 0.5),
+                };
+                hints.push(RepairHint {
+                    id: format!("makefile-{}", e.probable_cause), phase: "make".into(), confidence: conf,
+                    evidence: vec![format!("{}:{} {}", g.path, e.line, e.kind), e.text.clone()],
+                    action: action.into(), expected_effect: "partial -> FUNC_OK candidate".into(),
+                });
+            }
+            if !g.unexpanded_vars.is_empty() {
+                hints.push(RepairHint {
+                    id: "unexpanded-makefile-vars".into(), phase: "make".into(), confidence: 0.8,
+                    evidence: g.unexpanded_vars.iter().take(5).cloned().collect(),
+                    action: "add these to STD_VAR_SED / AC_SUBST handling".into(), expected_effect: "removes raw @VAR@ from Makefile".into(),
+                });
+            }
+        }
+    }
+    if let Some(d) = dc {
+        if !d.config_h_consumers_below_root.is_empty() {
+            hints.push(RepairHint {
+                id: "subdir-top-builddir".into(), phase: "make".into(), confidence: 0.88,
+                evidence: d.config_h_consumers_below_root.iter().take(5).map(|s| format!("{} consumes config.h below root", s)).collect(),
+                action: "ensure ac_subst_file sets relative top_builddir per subdir (0.1.19)".into(),
+                expected_effect: "config.h found in subdir compiles".into(),
+            });
+        }
+    }
+    if let Some(m) = mi {
+        if !m.unresolved_macros.is_empty() {
+            let has_dir = !m.macro_dirs.is_empty();
+            hints.push(RepairHint {
+                id: if has_dir { "load-vendored-aclocal-dir" } else { "ship-or-neutralize-macro" }.into(),
+                phase: "autoreconf".into(), confidence: if has_dir { 0.85 } else { 0.6 },
+                evidence: m.unresolved_macros.iter().take(5).cloned().collect(),
+                action: if has_dir { format!("aclocal -I {}", m.macro_dirs.join(" -I ")) } else { "ship native impl or neutralize".into() },
+                expected_effect: "resolves unexpanded AX_/custom macros".into(),
+            });
+        }
+    }
+    if let Some(t) = tr {
+        for mtool in &t.missing {
+            hints.push(RepairHint {
+                id: "missing-build-tool".into(), phase: mtool.phase.clone(), confidence: 0.75,
+                evidence: vec![format!("{}: command not found", mtool.name)],
+                action: if mtool.suggested_package.is_empty() { format!("provide {}", mtool.name) } else { format!("install {}", mtool.suggested_package) },
+                expected_effect: "unblocks the build step needing this tool".into(),
+            });
+        }
+    }
+    hints.truncate(12);
+    hints
+}
+
+/// v3: make graph snapshot from the top generated Makefile + tree.
+fn analyze_make_graph(d: &Path, dc: &Option<DirectoryContext>) -> Option<MakeGraph> {
+    let mk = std::fs::read_to_string(d.join("Makefile")).ok()?;
+    let mut targets = Vec::new();
+    let mut key = BTreeMap::new();
+    for l in mk.lines() {
+        let t = l.trim_end();
+        // target rules: `name:` at col 0 (not a recipe, not an assignment)
+        if !l.starts_with('\t') && !l.starts_with(' ') {
+            if let Some(c) = t.find(':') {
+                let lhs = &t[..c];
+                if !lhs.is_empty() && !lhs.contains('=') && lhs.chars().all(|ch| ch.is_ascii_alphanumeric() || "_-./ $()".contains(ch)) && t.as_bytes().get(c + 1) != Some(&b'=') {
+                    for tg in lhs.split_whitespace() { if targets.len() < 40 && !targets.iter().any(|x| x == tg) { targets.push(tg.to_string()); } }
+                }
+            }
+            for kv in ["CC", "CFLAGS", "CPPFLAGS", "CXX", "CXXFLAGS", "LDFLAGS", "LIBS", "AR", "RANLIB", "DEFS", "DEFAULT_INCLUDES"] {
+                if let Some(rest) = t.strip_prefix(kv) {
+                    let rest = rest.trim_start();
+                    if let Some(v) = rest.strip_prefix('=') { key.entry(kv.to_string()).or_insert_with(|| v.trim().chars().take(160).collect()); }
+                }
+            }
+        }
+    }
+    let mut generated = Vec::new();
+    for f in ["Makefile", "config.status", "config.h", "libtool", "stamp-h1", "config.log"] {
+        if d.join(f).exists() { generated.push(f.to_string()); }
+    }
+    let depth = dc.as_ref().map(|x| x.max_depth).unwrap_or(0);
+    Some(MakeGraph { targets, key_variables: key, generated_files: generated, recursion_depth: depth })
+}
+
+/// v3: compiler/toolchain interaction + C-dialect risk.
+fn analyze_toolchain_interaction(d: &Path, ac_text: &str, env: &Environment, ls: &Option<LanguageSurface>) -> Option<ToolchainInteraction> {
+    let sets_std = ls.as_ref().map(|l| l.sets_c_std).unwrap_or(false);
+    // pre-C99 idiom risk: uses implicit-int / old func decls without an explicit std + modern compiler
+    let mut risk = !sets_std;
+    // sample -D defines from the top Makefile
+    let mut defines = Vec::new();
+    if let Ok(mk) = std::fs::read_to_string(d.join("Makefile")) {
+        for l in mk.lines() {
+            for tok in l.split_whitespace() {
+                if let Some(dval) = tok.strip_prefix("-D") {
+                    if !dval.is_empty() && defines.len() < 20 && !defines.iter().any(|x| x == dval) { defines.push(dval.to_string()); }
+                }
+            }
+        }
+    }
+    // bare compiler builtins unguarded (a dialect hazard)
+    let _ = ac_text;
+    if sets_std { risk = false; }
+    Some(ToolchainInteraction {
+        compiler: env.cc.clone(),
+        compiler_version: env.cc_version.clone(),
+        c_std_default_risk: risk,
+        defines_sampled: defines,
+    })
+}
+
+/// v3: quirk history + effectiveness — from the receipt's matched/applied quirks vs the outcome.
+fn quirk_history(quirks_matched: &[String], quirks_applied: &[QuirkApplied], status: &str) -> Vec<QuirkHistoryEntry> {
+    let mut out = Vec::new();
+    for q in quirks_applied {
+        let effect = if status == "FUNC_OK" || status == "MAKE_FAIL" { "success" } else { "neutral" };
+        out.push(QuirkHistoryEntry { quirk_id: q.id.clone(), applied_at: "configure".into(), effect: effect.into() });
+    }
+    for m in quirks_matched {
+        if !out.iter().any(|e| &e.quirk_id == m) {
+            out.push(QuirkHistoryEntry { quirk_id: m.clone(), applied_at: "detected".into(), effect: "neutral".into() });
+        }
+    }
+    out.truncate(20);
+    out
+}
+
+/// v3: verification + differential vs the GNU oracle (+ drift noise classes).
+fn analyze_verification(status: &str, oracle: &Option<Oracle>) -> Verification {
+    let vs = match oracle {
+        Some(o) => {
+            let ours_ok = status == "FUNC_OK";
+            match o.classification.as_str() {
+                "BOTH_OK" => "identical-status",
+                "OURS_BETTER" => "ours-better",
+                c if c.starts_with("OURS_BUG") => "ours-worse",
+                "NOT_STANDALONE" | "BOTH_CONFIGURE_FAIL" | "BOTH_MAKE_FAIL" => "both-fail",
+                _ => if ours_ok { "ours-ok" } else { "not-compared" },
+            }
+        }
+        None => "not-compared",
+    };
+    Verification { replay_success: None, vs_gnu: vs.to_string(), drift_noise: Vec::new() }
+}
+
+/// v3: VPATH / out-of-tree + artifact side-effect analysis from Makefile.am files + generated Makefile.
+fn analyze_vpath(d: &Path) -> Option<VpathAnalysis> {
+    let mut hardcoded = 0usize;
+    let mut built_sources = Vec::new();
+    let mut gen_targets = Vec::new();
+    let mut abs_leak = 0usize;
+    let mut scan = |path: &std::path::Path| {
+        if let Ok(txt) = std::fs::read_to_string(path) {
+            let flat = txt.replace("\\\n", " ");
+            for l in flat.lines() {
+                let t = l.trim();
+                if t.contains("./") && (t.contains("$(") || t.starts_with("\t")) { hardcoded += 1; }
+                if let Some(v) = t.strip_prefix("BUILT_SOURCES") {
+                    for s in v.trim_start_matches([' ', '=', '+']).split_whitespace() { if built_sources.len() < 20 { built_sources.push(s.to_string()); } }
+                }
+                if (t.contains(".y") || t.contains(".l") || t.contains("yacc") || t.contains("lex") || t.contains("gperf")) && t.contains(':') {
+                    let tgt = t.split(':').next().unwrap_or("").trim();
+                    if !tgt.is_empty() && gen_targets.len() < 20 && !gen_targets.iter().any(|x| x == tgt) { gen_targets.push(tgt.to_string()); }
+                }
+            }
+        }
+    };
+    // scan Makefile.am tree (depth-limited)
+    fn walk_am(root: &Path, dir: &Path, depth: usize, f: &mut dyn FnMut(&std::path::Path)) {
+        if depth > 4 { return; }
+        let am = dir.join("Makefile.am");
+        if am.is_file() { f(&am); }
+        for e in std::fs::read_dir(dir).into_iter().flatten().flatten() {
+            let p = e.path();
+            if p.is_dir() { let n = p.file_name().map(|n| n.to_string_lossy().to_string()).unwrap_or_default(); if n == ".git" || n.starts_with('.') { continue; } walk_am(root, &p, depth + 1, f); }
+        }
+    }
+    walk_am(d, d, 0, &mut scan);
+    // abs-path leakage in generated top Makefile.in
+    if let Ok(mki) = std::fs::read_to_string(d.join("Makefile.in")) {
+        for l in mki.lines() { if l.contains("/home/") || l.contains("/tmp/") || l.contains("/root/") { abs_leak += 1; } }
+    }
+    if hardcoded == 0 && built_sources.is_empty() && gen_targets.is_empty() && abs_leak == 0 { return None; }
+    Some(VpathAnalysis { hardcoded_src_paths: hardcoded, abs_path_leakage: abs_leak, built_sources, generated_source_targets: gen_targets })
+}
+
+/// v3: dynamic feature-probe gap — headers checked vs included; implicit -l libs.
+fn analyze_feature_probe_gap(d: &Path, ac_text: &str) -> Option<FeatureProbeGap> {
+    // headers checked via AC_CHECK_HEADERS / AC_CHECK_HEADER
+    let mut checked = std::collections::BTreeSet::new();
+    for mac in ["AC_CHECK_HEADERS", "AC_CHECK_HEADER"] {
+        let mut hay = ac_text;
+        while let Some(p) = hay.find(mac) {
+            if let Some(op) = hay[p..].find('(') {
+                let inner = &hay[p + op + 1..];
+                if let Some(cl) = inner.find(')') {
+                    for h in inner[..cl].replace(['[', ']', ','], " ").split_whitespace() {
+                        if h.ends_with(".h") { checked.insert(h.to_string()); }
+                    }
+                }
+            }
+            hay = &hay[p + mac.len()..];
+        }
+    }
+    // headers #included across sources (sampled), system-ish (contain / or angle includes)
+    let mut included = std::collections::BTreeSet::new();
+    fn walk_src(root: &Path, dir: &Path, depth: usize, inc: &mut std::collections::BTreeSet<String>) {
+        if depth > 3 || inc.len() > 200 { return; }
+        for e in std::fs::read_dir(dir).into_iter().flatten().flatten() {
+            let p = e.path();
+            if p.is_dir() { let n = p.file_name().map(|n| n.to_string_lossy().to_string()).unwrap_or_default(); if n == ".git" || n.starts_with('.') { continue; } walk_src(root, &p, depth + 1, inc); }
+            else if matches!(p.extension().and_then(|s| s.to_str()), Some("c") | Some("h") | Some("cc") | Some("cpp")) {
+                if let Ok(s) = std::fs::read_to_string(&p) {
+                    for l in s.lines().take(120) {
+                        let t = l.trim();
+                        if let Some(r) = t.strip_prefix("#include <") {
+                            if let Some(h) = r.split('>').next() { if h.ends_with(".h") { inc.insert(h.to_string()); } }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    walk_src(d, d, 0, &mut included);
+    // included-but-unchecked SYSTEM headers (those with a / path or known system ones)
+    let unchecked: Vec<String> = included.iter()
+        .filter(|h| !checked.contains(*h) && (h.contains('/') || ["unistd.h","fcntl.h","sys/types.h","stdint.h","inttypes.h","dlfcn.h","pthread.h"].contains(&h.as_str())))
+        .take(25).cloned().collect();
+    // implicit -l libs in Makefile.am
+    let mut implicit = std::collections::BTreeSet::new();
+    if let Ok(am) = std::fs::read_to_string(d.join("Makefile.am")) {
+        for tok in am.replace("\\\n", " ").split_whitespace() {
+            if let Some(lib) = tok.strip_prefix("-l") { if !lib.is_empty() && lib.chars().all(|c| c.is_ascii_alphanumeric() || c == '_' || c == '-') { implicit.insert(format!("-l{}", lib)); } }
+        }
+    }
+    let checked_v: Vec<String> = checked.into_iter().take(40).collect();
+    if checked_v.is_empty() && unchecked.is_empty() && implicit.is_empty() { return None; }
+    Some(FeatureProbeGap { headers_checked: checked_v, headers_included_unchecked: unchecked, implicit_link_libs: implicit.into_iter().take(20).collect() })
+}
+
+/// v3: source→generated provenance — leaked-macro origins in configure.ac/m4, m4 trace depth, shadowed defs.
+fn analyze_provenance(d: &Path, ac_text: &str, de: &Option<DeepExpansion>, mi: &Option<MacroInventory>) -> Option<ProvenanceMap> {
+    // map each leaked macro to its configure.ac call site
+    let mut origins = Vec::new();
+    if let Some(dx) = de {
+        for lm in &dx.leaked_macros {
+            // find the macro name in configure.ac -> line
+            if let Some(line) = ac_text.lines().position(|l| l.contains(&lm.name)) {
+                origins.push(MacroOrigin { macro_name: lm.name.clone(), file: "configure.ac".into(), line: line + 1 });
+            }
+            if origins.len() >= 20 { break; }
+        }
+    }
+    // m4 trace depth: max nested AC_DEFUN/define depth across m4 files (approx by brace/paren nesting of AC_DEFUN bodies)
+    let mut max_depth = 0usize;
+    let est_depth = |txt: &str| -> usize {
+        let mut d = 0i32; let mut mx = 0i32;
+        for ch in txt.chars() { if ch == '(' { d += 1; mx = mx.max(d); } else if ch == ')' { d -= 1; } }
+        mx.max(0) as usize
+    };
+    max_depth = max_depth.max(est_depth(ac_text));
+    for dir in ["m4", "build-aux/m4"] {
+        for e in std::fs::read_dir(d.join(dir)).into_iter().flatten().flatten() {
+            if e.path().extension().and_then(|s| s.to_str()) == Some("m4") {
+                if let Ok(t) = std::fs::read_to_string(e.path()) { max_depth = max_depth.max(est_depth(&t)); }
+            }
+        }
+    }
+    // shadowed: locally-defined macros whose name is a STANDARD AC_/AM_ macro (override of systemic def)
+    let shadowed: Vec<String> = mi.as_ref().map(|m| m.defined_macros.iter()
+        .filter(|dm| (dm.name.starts_with("AC_") || dm.name.starts_with("AM_")) && dm.kind != "project-local")
+        .map(|dm| dm.name.clone()).take(20).collect()).unwrap_or_default();
+    if origins.is_empty() && max_depth == 0 && shadowed.is_empty() { return None; }
+    Some(ProvenanceMap { configure_origins: origins, m4_trace_depth: max_depth, shadowed_macros: shadowed })
+}
+
 /// Forensic scan of the generated `configure` plus the configure run-log. Surfaces the exact
 /// expansion failures (leaked macros, heredoc imbalance, syntax-error source context, malformed
 /// cache vars, residual @VAR@) so each can be fixed from the recipe without re-running on the VM.
@@ -1006,11 +1890,29 @@ fn fingerprint_environment() -> Environment {
             .unwrap_or_default()
     };
     let mut relevant_env = Vec::new();
-    for k in ["CC", "CXX", "CFLAGS", "CXXFLAGS", "CPPFLAGS", "LDFLAGS", "LIBS", "PKG_CONFIG_PATH"] {
+    let mut env_vars_influential = BTreeMap::new();
+    for k in ["CC", "CXX", "CFLAGS", "CXXFLAGS", "CPPFLAGS", "LDFLAGS", "LIBS", "PKG_CONFIG_PATH", "CPATH", "LIBRARY_PATH", "ACLOCAL_PATH", "AUTOMAKE_JOBS"] {
         if let Ok(v) = std::env::var(k) {
-            if !v.is_empty() { relevant_env.push(format!("{}={}", k, v)); }
+            if !v.is_empty() { relevant_env.push(format!("{}={}", k, v)); env_vars_influential.insert(k.to_string(), v); }
         }
     }
+    // libc detection (glibc via ldd --version; else musl)
+    let ldd = run("ldd", &["--version"]);
+    let (libc_name, libc_version) = if ldd.to_lowercase().contains("musl") { ("musl".to_string(), String::new()) }
+        else if ldd.to_lowercase().contains("glibc") || ldd.to_lowercase().contains("gnu libc") {
+            ("glibc".to_string(), ldd.rsplit(' ').next().unwrap_or("").to_string())
+        } else { ("unknown".to_string(), String::new()) };
+    // POSIX flavor: GNU coreutils vs BSD (sed --version succeeds on GNU)
+    let sed_v = run("sed", &["--version"]);
+    let posix_flavor = if sed_v.to_lowercase().contains("gnu") { "gnu" } else if sed_v.is_empty() { "bsd-or-busybox" } else { "unknown" }.to_string();
+    let shell = std::fs::read_link("/bin/sh").ok().map(|p| p.to_string_lossy().to_string()).unwrap_or_else(|| "/bin/sh".into());
+    let pkg_config_path: Vec<String> = std::env::var("PKG_CONFIG_PATH").unwrap_or_default().split(':').filter(|s| !s.is_empty()).map(|s| s.to_string()).collect();
+    let mut oracle_tool_versions = BTreeMap::new();
+    for (k, prog) in [("autoconf", "autoconf"), ("automake", "automake"), ("m4", "m4"), ("perl", "perl"), ("libtool", "libtool")] {
+        let v = run(prog, &["--version"]);
+        if !v.is_empty() { oracle_tool_versions.insert(k.to_string(), v.rsplit(' ').next().unwrap_or("").to_string()); }
+    }
+    let env_var_whitelist = vec!["ACLOCAL_PATH".to_string(), "AUTOMAKE_JOBS".to_string(), "PKG_CONFIG_PATH".to_string(), "CC".to_string(), "CFLAGS".to_string()];
     Environment {
         cc: std::env::var("CC").unwrap_or_else(|_| "cc".into()),
         cc_version: run("cc", &["--version"]),
@@ -1018,6 +1920,15 @@ fn fingerprint_environment() -> Environment {
         pkg_config_version: run("pkg-config", &["--version"]),
         make_version: run("make", &["--version"]),
         relevant_env,
+        kernel_version: run("uname", &["-r"]),
+        libc_name,
+        libc_version,
+        pkg_config_path,
+        env_vars_influential,
+        posix_flavor,
+        shell,
+        oracle_tool_versions,
+        env_var_whitelist,
     }
 }
 
