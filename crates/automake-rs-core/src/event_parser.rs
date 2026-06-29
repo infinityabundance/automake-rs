@@ -804,12 +804,18 @@ fn collect_line_continued(tokens: &[Token], pos: &mut usize) -> String {
                 break;
             }
             SyntaxKind::Backslash => {
-                *pos += 1; // skip backslash
+                *pos += 1;
                 if *pos < tokens.len() && tokens[*pos].kind == SyntaxKind::Newline {
+                    // genuine line-continuation: consume the newline + leading whitespace
                     *pos += 1;
-                }
-                while *pos < tokens.len() && tokens[*pos].kind == SyntaxKind::Whitespace {
-                    *pos += 1;
+                    while *pos < tokens.len() && tokens[*pos].kind == SyntaxKind::Whitespace {
+                        *pos += 1;
+                    }
+                } else {
+                    // a LITERAL backslash in the value, e.g. `\"` in -DFOO="\"$(path)\"" — preserve it,
+                    // or automake-rs emits `""...""` and the compiler sees an unquoted path
+                    // ("expected expression before '/'"). Only `\`+newline is a make continuation.
+                    s.push('\\');
                 }
             }
             _ => {
