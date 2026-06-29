@@ -70,7 +70,7 @@
     },
     {
       "path": "configure",
-      "sha256": "af5bb65ab6648739",
+      "sha256": "5a78e4f1fda88474",
       "kind": "executable"
     },
     {
@@ -122,8 +122,8 @@
       "DEFS",
       "LIBOBJS",
       "INSTALL",
-      "host_alias",
-      "host_os"
+      "target_alias",
+      "host_alias"
     ],
     "failed_during_check": "checking for library containing compress... no",
     "failure_tail": [
@@ -147,7 +147,25 @@
     "real_make": "skipped",
     "real_configure_lines": 0,
     "real_first_error": "Makefile.am: error: required file './AUTHORS' not found",
-    "classification": "OURS_BETTER"
+    "classification": "OURS_BETTER",
+    "internal_traces": [
+      "aclocal: warning: autoconf input should be named 'configure.ac', not 'configure.in'",
+      "libtoolize: putting auxiliary files in AC_CONFIG_AUX_DIR, 'autotools'.",
+      "libtoolize: copying file 'autotools/ltmain.sh'",
+      "libtoolize: Consider adding 'AC_CONFIG_MACRO_DIRS([m4])' to configure.in,",
+      "libtoolize: and rerunning libtoolize and aclocal.",
+      "libtoolize: Consider adding '-I m4' to ACLOCAL_AMFLAGS in Makefile.am.",
+      "aclocal: warning: autoconf input should be named 'configure.ac', not 'configure.in'",
+      "automake: warning: autoconf input should be named 'configure.ac', not 'configure.in'",
+      "configure.in:21: installing 'autotools/compile'",
+      "configure.in:12: installing 'autotools/config.guess'",
+      "configure.in:12: installing 'autotools/config.sub'",
+      "configure.in:16: installing 'autotools/install-sh'",
+      "configure.in:16: installing 'autotools/missing'",
+      "Makefile.am: installing './INSTALL'",
+      "automake: warning: autoconf input should be named 'configure.ac', not 'configure.in'",
+      "src/iptvsimple/Makefile.am: installing 'autotools/depcomp'"
+    ]
   },
   "receipt": {
     "court_status": "quirk_dependent",
@@ -155,7 +173,7 @@
     "quirks_matched": [
       "vendored-aclocal"
     ],
-    "receipt_hash": "fa1011f8a06f5f7a35bca24d0f3104472bd1cbdc0c51c515d82186b59f295461",
+    "receipt_hash": "b0bc76a3fa4c448034480c87661817ee97d0c52b7ba6b0d439381360e823a7bd",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -184,6 +202,26 @@
       "PKG_CONFIG_PATH",
       "CC",
       "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
     ]
   },
   "directory_context": {
@@ -468,5 +506,49 @@
   "risk_factors": [
     "parallel-build-race (gen-source not in BUILT_SOURCES)",
     "vpath-unsafe (abs-path/hardcoded-srcdir leakage)"
-  ]
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": 0,
+      "aclocal.m4": 8915,
+      "configure": 9093,
+      "configure.in": 0
+    },
+    "m4_ancestry": {
+      "AC_CANONICAL_HOST": "system-aclocal",
+      "AC_CANONICAL_TARGET": "system-aclocal",
+      "AC_CHECK_HEADER": "system-aclocal",
+      "AC_CONFIG_AUX_DIR": "system-aclocal",
+      "AC_DEFINE": "system-aclocal",
+      "AC_EXEEXT": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_LIBTOOL_WIN32_DLL": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PREFIX_DEFAULT": "system-aclocal",
+      "AC_PROG_CPP": "system-aclocal",
+      "AC_PROG_CXX": "system-aclocal",
+      "AC_PROG_INSTALL": "system-aclocal",
+      "AC_PROG_MAKE_SET": "system-aclocal",
+      "AC_SEARCH_LIBS": "system-aclocal",
+      "AC_SUBST": "system-aclocal",
+      "AM_CONDITIONAL": "system-aclocal",
+      "AM_INIT_AUTOMAKE": "system-aclocal",
+      "AM_PROG_LIBTOOL": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "libiptvsimpleaddon_la_LIBADD",
+        "var": "ZLIB_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      }
+    ],
+    "unresolved_refs": [
+      "libiptvsimpleaddon_la_LIBADD = $(ZLIB_LIBS)"
+    ],
+    "indirection_count": 1
+  }
 }
