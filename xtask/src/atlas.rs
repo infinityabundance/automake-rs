@@ -95,6 +95,8 @@ struct Recipe {
     deep_inspection_ref: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none")]
     scenario_context: Option<ScenarioContext>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    variable_indirection: Option<VariableIndirection>,
 }
 
 /// v3: Makefile pathology — classify WHY a generated Makefile fails to parse (the make layer's #1 root
@@ -601,6 +603,28 @@ struct Environment {
     poison_vars_confirmed_unset: Vec<String>,        // the negative context: confirmed-absent poison vars
 }
 
+/// v3.3: variable-indirection context — Makefile.am primaries (PROGRAMS/LIBRARIES/SOURCES/LDADD) whose
+/// value is a `$(var)` reference rather than a literal list. Automake resolves these to generate
+/// per-target object/link rules; if the toolchain doesn't, the targets get NO rules ("No rule to make
+/// target X.o"). Capturing the indirection + its resolution makes that make-layer root attributable.
+#[derive(Serialize, Default)]
+struct VariableIndirection {
+    /// each primary that uses `$(var)` indirection, with the var, its resolved value list, and whether
+    /// it resolved within the Makefile.am.
+    indirect_primaries: Vec<IndirectPrimary>,
+    /// `$(var)` references in primaries that could NOT be resolved locally (the highest make-fail risk).
+    unresolved_refs: Vec<String>,
+    /// total `$(var)` indirections seen across all primaries (the depth of the indirection surface).
+    indirection_count: usize,
+}
+#[derive(Serialize)]
+struct IndirectPrimary {
+    primary: String,        // e.g. check_PROGRAMS, libfoo_la_SOURCES
+    var: String,            // the referenced variable (tests, common_sources, ...)
+    resolved_to: Vec<String>,
+    resolved: bool,
+}
+
 /// v3.2 per-recipe scenario context — the *stateful observer* snapshot: relative input mtimes (Automake's
 /// rebuild-rule trigger), m4 macro ancestry (which file each called macro resolves to, system vs local),
 /// and the negative env context for this run.
@@ -921,6 +945,7 @@ pub fn run() -> ExitCode {
                 let risk_factors = compute_risk_factors(&directory_context, &macro_inventory, &libtool_context, &gettext_intl_context, &dialect_reconciliation, &source_to_generated_map, &parallel_build_safety);
                 let repair_hints = compute_repair_hints(&makefile_forensics, &directory_context, &macro_inventory, &tool_requirements);
                 let scenario_context = analyze_scenario_context(&d, &macro_inventory);
+                let variable_indirection = analyze_variable_indirection(&d);
                 write_recipe(
                     &out_dir,
                     &slug,
@@ -983,6 +1008,7 @@ pub fn run() -> ExitCode {
                         repair_hints,
                         deep_inspection_ref: None,
                         scenario_context,
+                        variable_indirection,
                     },
                 );
                 println!("[{:>3}] {:<40} {}", n, repo, status);
@@ -1044,6 +1070,7 @@ pub fn run() -> ExitCode {
                 repair_hints: vec![],
                 deep_inspection_ref: None,
                 scenario_context: None,
+                variable_indirection: None,
             },
         );
         println!("[{:>3}] {:<40} {}", n, repo, status);
@@ -2336,6 +2363,65 @@ fn analyze_scenario_context(d: &Path, mi: &Option<MacroInventory>) -> Option<Sce
     }
     if temporal_map.is_empty() && m4_ancestry.is_empty() { return None; }
     Some(ScenarioContext { temporal_map, m4_ancestry, rebuild_trigger_risk })
+}
+
+/// v3.3: variable-indirection — Makefile.am primaries whose value is a `$(var)` reference, resolved
+/// against the same file's variables. The unresolved/indirect cases are the "No rule to make target"
+/// make-layer root (automake-rs 0.1.14 now resolves them; the atlas records the surface).
+fn analyze_variable_indirection(d: &Path) -> Option<VariableIndirection> {
+    let mut indirect = Vec::new();
+    let mut unresolved = Vec::new();
+    let mut count = 0usize;
+    fn walk(root: &Path, dir: &Path, depth: usize, f: &mut dyn FnMut(&str)) {
+        if depth > 4 { return; }
+        if let Ok(t) = std::fs::read_to_string(dir.join("Makefile.am")) { f(&t.replace("\\\n", " ")); }
+        for e in std::fs::read_dir(dir).into_iter().flatten().flatten() {
+            let p = e.path();
+            if p.is_dir() { let n = p.file_name().map(|n| n.to_string_lossy().to_string()).unwrap_or_default(); if n == ".git" || n.starts_with('.') { continue; } walk(root, &p, depth + 1, f); }
+        }
+    }
+    let is_primary = |lhs: &str| lhs.ends_with("_PROGRAMS") || lhs.ends_with("_LIBRARIES") || lhs.ends_with("_LTLIBRARIES")
+        || lhs.ends_with("_SOURCES") || lhs.ends_with("_LDADD") || lhs.ends_with("_LIBADD")
+        || lhs == "bin_PROGRAMS" || lhs == "check_PROGRAMS" || lhs == "noinst_PROGRAMS";
+    let extract_var = |tok: &str| -> Option<String> {
+        tok.strip_prefix("$(").and_then(|s| s.strip_suffix(')'))
+            .or_else(|| tok.strip_prefix("${").and_then(|s| s.strip_suffix('}')))
+            .map(|s| s.to_string())
+    };
+    walk(d, d, 0, &mut |amtext: &str| {
+        // build local var map
+        let mut vars: BTreeMap<String, String> = BTreeMap::new();
+        for l in amtext.lines() {
+            let t = l.trim();
+            if let Some(eq) = t.find('=') {
+                let lhs = t[..eq].trim_end_matches(['+', ':']).trim();
+                if !lhs.is_empty() && lhs.chars().all(|c| c.is_ascii_alphanumeric() || c == '_') && !is_primary(lhs) {
+                    let v = t[eq + 1..].trim().to_string();
+                    vars.entry(lhs.to_string()).and_modify(|e| { e.push(' '); e.push_str(&v); }).or_insert(v);
+                }
+            }
+        }
+        for l in amtext.lines() {
+            let t = l.trim();
+            let eq = match t.find('=') { Some(e) => e, None => continue };
+            let lhs = t[..eq].trim_end_matches(['+', ':']).trim();
+            if !is_primary(lhs) { continue; }
+            for tok in t[eq + 1..].split_whitespace() {
+                if let Some(var) = extract_var(tok) {
+                    count += 1;
+                    let resolved_val = vars.get(&var);
+                    let resolved_to: Vec<String> = resolved_val.map(|v| v.split_whitespace().map(|s| s.to_string()).collect()).unwrap_or_default();
+                    let resolved = resolved_val.is_some();
+                    if !resolved { unresolved.push(format!("{} = $({})", lhs, var)); }
+                    if indirect.len() < 40 {
+                        indirect.push(IndirectPrimary { primary: lhs.to_string(), var, resolved_to, resolved });
+                    }
+                }
+            }
+        }
+    });
+    if count == 0 { return None; }
+    Some(VariableIndirection { indirect_primaries: indirect, unresolved_refs: unresolved, indirection_count: count })
 }
 
 /// Probe-failure root-cause: turn the generated config.h HAVE_* results + the configure run-log into a

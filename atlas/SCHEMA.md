@@ -246,3 +246,25 @@ explained by a host/state mismatch.
 
 **`oracle.internal_traces`** — the GNU autoreconf/automake DECISION log (installing aux files, libtoolize/
 aclocal/automake choices, macro requires) — compares the *path taken*, not just the final artifact.
+
+## v3.3 variable_indirection (the "No rule to make target" root context)
+
+Makefile.am primaries (`*_PROGRAMS`/`*_LIBRARIES`/`*_SOURCES`/`*_LDADD`/`*_LIBADD`) whose value is a
+`$(var)` reference rather than a literal list. Automake resolves these to generate per-target object/link
+rules; if the toolchain doesn't, the targets get **no rules** → `make: No rule to make target 'X.o'`.
+
+```jsonc
+"variable_indirection": {
+  "indirect_primaries": [
+    { "primary": "check_PROGRAMS", "var": "tests", "resolved_to": ["test_rtsp","test_wpa"], "resolved": true },
+    { "primary": "test_rtsp_SOURCES", "var": "test_sources", "resolved_to": ["test/test_common.h"], "resolved": true },
+    { "primary": "libshl_la_LIBADD", "var": "AM_LIBADD", "resolved_to": [], "resolved": false }
+  ],
+  "unresolved_refs": ["libshl_la_LIBADD = $(AM_LIBADD)"],
+  "indirection_count": 6
+}
+```
+
+Each primary→var→resolved-list makes the indirection surface explicit. `resolved:false` / `unresolved_refs`
+are the highest make-fail risk. autoconf-rs/automake-rs 0.1.14 resolves `$(var)` program lists so the
+per-target rules are generated (e.g. `check_PROGRAMS += $(tests)` → builds test_rtsp/test_wpa).

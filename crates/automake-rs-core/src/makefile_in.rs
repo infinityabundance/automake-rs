@@ -2716,6 +2716,23 @@ impl MakefileInGenerator {
     fn collect_primaries(&self, kind: &str) -> Vec<(String, bool, Vec<String>)> {
         let mut result = vec![];
         self.collect_primaries_from(&self.makefile_am.statements, kind, &mut result);
+        // Resolve `$(var)`/`${var}` indirection in program/library lists, e.g.
+        //   tests = test_rtsp test_wpa
+        //   check_PROGRAMS += $(tests)
+        // Without this, the target list is the literal "$(tests)" and NO per-program _OBJECTS/link rules
+        // are generated -> `make: No rule to make target 'test_wpa.o'`. Resolve one level (the common form).
+        for (_d, _n, targets) in result.iter_mut() {
+            let mut resolved: Vec<String> = Vec::new();
+            for t in targets.iter() {
+                let var = t.strip_prefix("$(").and_then(|s| s.strip_suffix(')'))
+                    .or_else(|| t.strip_prefix("${").and_then(|s| s.strip_suffix('}')));
+                match var.and_then(|v| self.find_variable(v)) {
+                    Some(val) => resolved.extend(val.split_whitespace().map(|s| s.to_string())),
+                    None => resolved.push(t.clone()),
+                }
+            }
+            *targets = resolved;
+        }
         result
     }
 
