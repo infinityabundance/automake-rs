@@ -222,3 +222,27 @@ leaked-macro *neutralizer* is on by default; opt out with `AUTOCONF_RS_NO_NEUTRA
 - `cargo xtask atlas-query <term>` — find every recipe touching a dep/header/probe/package/quirk/macro.
 - `cargo xtask atlas-replay <recipe | owner/name | slug> [--keep]` — reproduce + verify a recipe.
 - `cargo xtask atlas-diff <baseline-dir> <experiment-dir>` — A/B the court verdicts (flips/regressions/net).
+
+## v3.2 scenario context (the stateful-observer snapshot)
+
+Captures the *scenario*, not just the static project — so a divergence from the GNU oracle can be
+explained by a host/state mismatch.
+
+**`environment`** (further enriched, host-level):
+- `shell_flavor` (dash/bash/zsh/posix) + `shell_echo_n_works` + `shell_supports_local` — shell dialect
+  fingerprint (the Oracle's generated quoting/echo logic depends on it)
+- `fs_case_sensitive`, `fs_supports_symlinks`, `fs_supports_hardlinks`, `fs_max_path` — filesystem
+  strictness (dist/install/VPATH behavior)
+- `install_sh_version`, `libtool_version`, `gettext_version` — sub-tool capabilities + plugin versions
+- `poison_vars_present` vs `poison_vars_confirmed_unset` — the *negative context* (GREP_OPTIONS/CDPATH/
+  CLICOLOR/POSIXLY_CORRECT/MAKEFLAGS/IFS confirmed absent, the famous silent Automake breakers)
+
+**`scenario_context`** (per-recipe):
+- `temporal_map` — relative mtime offsets (ms) of the rebuild-trigger inputs vs configure.ac (Automake's
+  dependency clock; drives the maintainer rebuild rules)
+- `m4_ancestry` — each called macro → its resolved source (local m4/ file, acinclude.m4, system-aclocal,
+  or unresolved) — the macro-parity ancestry
+- `rebuild_trigger_risk` — aclocal.m4/configure newer than configure.ac (would re-trigger autoreconf)
+
+**`oracle.internal_traces`** — the GNU autoreconf/automake DECISION log (installing aux files, libtoolize/
+aclocal/automake choices, macro requires) — compares the *path taken*, not just the final artifact.

@@ -93,6 +93,8 @@ struct Recipe {
     /// recipe lightweight (per the evolvability note). None inline today; the hook is here.
     #[serde(skip_serializing_if = "Option::is_none")]
     deep_inspection_ref: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    scenario_context: Option<ScenarioContext>,
 }
 
 /// v3: Makefile pathology — classify WHY a generated Makefile fails to parse (the make layer's #1 root
@@ -502,6 +504,11 @@ struct Oracle {
     /// BOTH_OK | OURS_BUG_CONFIGURE | OURS_BUG_MAKE | OURS_GEN_FAIL | NOT_STANDALONE |
     /// BOTH_CONFIGURE_FAIL | BOTH_MAKE_FAIL | OURS_BETTER | UNKNOWN
     classification: String,
+    /// v3.2: GNU automake/autoreconf internal decision trace (the 'why' — what the oracle decided and
+    /// why: installing aux files, depcomp/compile choices, macro requires). Captured from the oracle's
+    /// own autoreconf/automake output so ours can compare the PATH taken, not just the final artifact.
+    #[serde(skip_serializing_if = "Vec::is_empty")]
+    internal_traces: Vec<String>,
 }
 /// Where ours diverges from a real run that got further — only populated for OURS_BUG_* recipes.
 #[derive(Serialize, Default)]
@@ -578,6 +585,33 @@ struct Environment {
     shell: String,                                   // /bin/sh -> dash|bash (bashism risk)
     oracle_tool_versions: BTreeMap<String, String>,  // autoconf/automake/m4/perl versions (oracle provenance)
     env_var_whitelist: Vec<String>,                  // locked influential vars (ACLOCAL_PATH/AUTOMAKE_JOBS/...)
+    // v3.2 scenario context (host-level): shell dialect, filesystem strictness, sub-tool capabilities,
+    // plugin versions, and the "negative context" of poison env vars confirmed absent.
+    shell_flavor: String,                            // dash | bash | zsh | posix-strict | unknown
+    shell_echo_n_works: bool,                        // `echo -n` suppresses newline (dialect tell)
+    shell_supports_local: bool,                      // `local` keyword in functions
+    fs_case_sensitive: bool,
+    fs_supports_symlinks: bool,
+    fs_supports_hardlinks: bool,
+    fs_max_path: usize,
+    install_sh_version: String,
+    libtool_version: String,
+    gettext_version: String,
+    poison_vars_present: Vec<String>,                // GREP_OPTIONS/CDPATH/CLICOLOR... that SHOULD be unset
+    poison_vars_confirmed_unset: Vec<String>,        // the negative context: confirmed-absent poison vars
+}
+
+/// v3.2 per-recipe scenario context — the *stateful observer* snapshot: relative input mtimes (Automake's
+/// rebuild-rule trigger), m4 macro ancestry (which file each called macro resolves to, system vs local),
+/// and the negative env context for this run.
+#[derive(Serialize, Default)]
+struct ScenarioContext {
+    /// relative mtime offsets (ms) of the rebuild-trigger inputs vs configure.ac (the dependency clock).
+    temporal_map: BTreeMap<String, i64>,
+    /// called macro -> resolved source (local m4/ file, acinclude.m4, or "system-aclocal"/"unresolved").
+    m4_ancestry: BTreeMap<String, String>,
+    /// reverse rebuild risk: aclocal.m4 / configure newer than configure.ac would re-trigger autoreconf.
+    rebuild_trigger_risk: bool,
 }
 /// Missing-dep inference: a package that would satisfy a failed header/lib probe.
 #[derive(Serialize)]
@@ -886,6 +920,7 @@ pub fn run() -> ExitCode {
                 let host_environment_veil = analyze_host_veil(&feature_probe_gap, semantic_context.as_ref().map(|s| s.undefined_symbols.as_slice()).unwrap_or(&[]));
                 let risk_factors = compute_risk_factors(&directory_context, &macro_inventory, &libtool_context, &gettext_intl_context, &dialect_reconciliation, &source_to_generated_map, &parallel_build_safety);
                 let repair_hints = compute_repair_hints(&makefile_forensics, &directory_context, &macro_inventory, &tool_requirements);
+                let scenario_context = analyze_scenario_context(&d, &macro_inventory);
                 write_recipe(
                     &out_dir,
                     &slug,
@@ -947,6 +982,7 @@ pub fn run() -> ExitCode {
                         risk_factors,
                         repair_hints,
                         deep_inspection_ref: None,
+                        scenario_context,
                     },
                 );
                 println!("[{:>3}] {:<40} {}", n, repo, status);
@@ -1007,6 +1043,7 @@ pub fn run() -> ExitCode {
                 risk_factors: vec![],
                 repair_hints: vec![],
                 deep_inspection_ref: None,
+                scenario_context: None,
             },
         );
         println!("[{:>3}] {:<40} {}", n, repo, status);
@@ -1058,6 +1095,15 @@ fn run_oracle(
 
     let (ar_ok, ar_log) = run_timed(d, 150, "autoreconf", &["-fi", "."]);
     o.real_autoreconf = if ar_ok && d.join("configure").exists() { "ok".into() } else { "fail".into() };
+    // v3.2: capture the oracle's internal DECISION trace — the 'why' (installing aux files, libtoolize/
+    // aclocal/automake choices, macro requires) — so ours can compare the path taken, not just the artifact.
+    for l in ar_log.lines() {
+        let t = l.trim();
+        if (t.contains("installing") || t.contains("libtoolize:") || t.contains("aclocal:") || t.contains("automake:") || t.contains("autopoint:") || (t.contains("configure.ac:") && (t.contains("require") || t.contains("warning"))))
+            && o.internal_traces.len() < 25 {
+            o.internal_traces.push(t.chars().take(120).collect());
+        }
+    }
     if o.real_autoreconf != "ok" {
         o.real_first_error = first_err(&ar_log);
         o.real_configure = "skipped".into();
@@ -2210,6 +2256,28 @@ fn fingerprint_environment() -> Environment {
         if !v.is_empty() { oracle_tool_versions.insert(k.to_string(), v.rsplit(' ').next().unwrap_or("").to_string()); }
     }
     let env_var_whitelist = vec!["ACLOCAL_PATH".to_string(), "AUTOMAKE_JOBS".to_string(), "PKG_CONFIG_PATH".to_string(), "CC".to_string(), "CFLAGS".to_string()];
+    // v3.2 host scenario: shell dialect probes, filesystem strictness, sub-tool capabilities, plugins,
+    // and the negative env context (poison vars present vs confirmed-unset).
+    let sh_path = if shell.contains("dash") { "dash" } else if shell.contains("bash") { "bash" } else if shell.contains("zsh") { "zsh" } else { "posix" };
+    let echo_n = Command::new("/bin/sh").args(["-c", "echo -n x"]).output().ok()
+        .map(|o| String::from_utf8_lossy(&o.stdout).trim_end() == "x" && !String::from_utf8_lossy(&o.stdout).contains("-n")).unwrap_or(false);
+    let local_kw = Command::new("/bin/sh").args(["-c", "f(){ local v=1; return $v; }; f"]).output().ok().map(|o| o.status.success()).unwrap_or(false);
+    // filesystem strictness: probe in a temp dir
+    let tdir = std::env::temp_dir().join(format!("atlas_fsprobe_{}", std::process::id()));
+    let _ = std::fs::create_dir_all(&tdir);
+    let _ = std::fs::write(tdir.join("CaseTest"), "x");
+    let fs_case_sensitive = !tdir.join("casetest").exists(); // if lowercase resolves, it's case-INsensitive
+    let fs_supports_symlinks = std::os::unix::fs::symlink(tdir.join("CaseTest"), tdir.join("ln")).is_ok();
+    let fs_supports_hardlinks = std::fs::hard_link(tdir.join("CaseTest"), tdir.join("hl")).is_ok();
+    let _ = std::fs::remove_dir_all(&tdir);
+    let fs_max_path = 4096usize; // PATH_MAX on Linux
+    let install_sh_version = run("install", &["--version"]);
+    let libtool_version = run("libtool", &["--version"]);
+    let gettext_version = run("gettext", &["--version"]);
+    let poison_candidates = ["GREP_OPTIONS", "CDPATH", "CLICOLOR", "GZIP", "POSIXLY_CORRECT", "MAKEFLAGS", "IFS"];
+    let mut poison_present = Vec::new();
+    let mut poison_unset = Vec::new();
+    for v in poison_candidates { if std::env::var(v).map(|x| !x.is_empty()).unwrap_or(false) { poison_present.push(v.to_string()); } else { poison_unset.push(v.to_string()); } }
     Environment {
         cc: std::env::var("CC").unwrap_or_else(|_| "cc".into()),
         cc_version: run("cc", &["--version"]),
@@ -2226,7 +2294,48 @@ fn fingerprint_environment() -> Environment {
         shell,
         oracle_tool_versions,
         env_var_whitelist,
+        shell_flavor: sh_path.to_string(),
+        shell_echo_n_works: echo_n,
+        shell_supports_local: local_kw,
+        fs_case_sensitive,
+        fs_supports_symlinks,
+        fs_supports_hardlinks,
+        fs_max_path,
+        install_sh_version,
+        libtool_version,
+        gettext_version,
+        poison_vars_present: poison_present,
+        poison_vars_confirmed_unset: poison_unset,
     }
+}
+
+/// v3.2: per-recipe scenario context — temporal map (rebuild-trigger clock) + m4 ancestry.
+fn analyze_scenario_context(d: &Path, mi: &Option<MacroInventory>) -> Option<ScenarioContext> {
+    let mtime = |p: &Path| -> Option<i64> {
+        std::fs::metadata(p).ok().and_then(|m| m.modified().ok())
+            .and_then(|t| t.duration_since(std::time::UNIX_EPOCH).ok()).map(|d| d.as_millis() as i64)
+    };
+    let base = mtime(&d.join("configure.ac")).or_else(|| mtime(&d.join("configure.in")))?;
+    let mut temporal_map = BTreeMap::new();
+    for f in ["configure.ac", "configure.in", "Makefile.am", "aclocal.m4", "configure", "config.h.in", "Makefile.in"] {
+        if let Some(t) = mtime(&d.join(f)) { temporal_map.insert(f.to_string(), t - base); }
+    }
+    // rebuild trigger risk: aclocal.m4 or configure newer than configure.ac (would re-run autoreconf)
+    let rebuild_trigger_risk = temporal_map.get("aclocal.m4").map(|&x| x < 0).unwrap_or(false)
+        || temporal_map.get("configure").map(|&x| x < 0).unwrap_or(false);
+    // m4 ancestry: each called macro -> its resolved source (local def, else system-aclocal, else unresolved)
+    let mut m4_ancestry = BTreeMap::new();
+    if let Some(m) = mi {
+        let local: BTreeMap<&str, &str> = m.defined_macros.iter().map(|dm| (dm.name.as_str(), dm.source.as_str())).collect();
+        for c in m.called_macros.iter().take(40) {
+            let src = if let Some(s) = local.get(c.as_str()) { s.to_string() }
+                else if m.unresolved_macros.iter().any(|u| u == c) { "unresolved".to_string() }
+                else { "system-aclocal".to_string() };
+            m4_ancestry.insert(c.clone(), src);
+        }
+    }
+    if temporal_map.is_empty() && m4_ancestry.is_empty() { return None; }
+    Some(ScenarioContext { temporal_map, m4_ancestry, rebuild_trigger_risk })
 }
 
 /// Probe-failure root-cause: turn the generated config.h HAVE_* results + the configure run-log into a
