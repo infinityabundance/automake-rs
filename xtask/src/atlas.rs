@@ -492,6 +492,34 @@ struct DeepExpansion {
     /// `_ACEOF`) — the deep macro-OUTPUT context. Debugging a compile/link probe needs to see the
     /// exact C source that was compiled (intact or mangled), not infer it.
     conftest_programs: Vec<String>,
+    /// Re-scan / runaway-expansion forensics. A whole class of generation failures is the m4 engine
+    /// re-expanding a macro's own output during argument collection — each pass re-wraps the previous,
+    /// so the generated shell shows the SAME block at ever-deeper indentation until the engine hits a
+    /// guard (or, before the guards existed, OOM-killed the worker). This is the deepest, hardest-to-
+    /// read autotools bug; capturing its fingerprint here turns a silent OOM into an actionable recipe.
+    #[serde(skip_serializing_if = "Option::is_none")]
+    rescan_loop: Option<RescanLoop>,
+}
+/// Growing-indentation re-scan loop context (see DeepExpansion::rescan_loop). Populated from the
+/// autoreconf-rs stderr guard message and/or the structural fingerprint in the generated configure.
+#[derive(Serialize, Default)]
+struct RescanLoop {
+    /// Which expansion guard tripped, verbatim from autoreconf-rs stderr (empty if only the structural
+    /// fingerprint was found): "expansion limit exceeded during argument collection (runaway re-scan)",
+    /// "argument size limit exceeded", "output limit … exceeded".
+    guard: String,
+    /// The macro most likely being expanded when the runaway began — the nearest macro-shaped token
+    /// preceding the deepest-indented region (e.g. AC_LIB_WITH_FINAL_PREFIX for the gettext loop).
+    suspect_macro: String,
+    /// Deepest leading-whitespace column reached. Unbounded growth is the signature; a real configure
+    /// rarely exceeds ~40. An outlier (hundreds) confirms the loop.
+    max_indent: usize,
+    /// The trimmed line that recurs at increasing indentation — the loop's unit of re-wrapping.
+    repeating_unit: String,
+    /// How many times `repeating_unit` recurs (high count + rising indent == confirmed loop).
+    repeat_count: usize,
+    /// Generated-shell lines around the deepest indentation — the loop body in context (line: text).
+    loop_context: Vec<String>,
 }
 /// The GNU-autotools oracle outcome for the SAME repo, run right after ours on a git-reset tree.
 /// This is the compass: `classification` says whether a failure is OUR bug (real succeeds, we don't —
@@ -814,7 +842,9 @@ pub fn run() -> ExitCode {
                 let mut quirks = quirks_from_ac(&ac_text, &d);
 
                 status = "CONFIGURE_GEN_FAIL".to_string();
-                let (_b, _bl) = run_timed(&d, 150, &ars, &["-fi", "."]);
+                // Keep the autoreconf-rs stderr: it carries the m4 engine's runaway-expansion guard
+                // messages, which are the primary signal for the rescan-loop deep context below.
+                let (_b, ar_log) = run_timed(&d, 150, &ars, &["-fi", "."]);
                 pipeline.push(Step {
                     step: "autoreconf".into(),
                     tool: "autoreconf-rs".into(),
@@ -888,7 +918,16 @@ pub fn run() -> ExitCode {
                 }
                 let verified = status == "FUNC_OK";
                 let outputs = if verified { collect_outputs(&d) } else { Vec::new() };
-                let deep_expansion = analyze_expansion(&d, &cf_log);
+                let deep_expansion = analyze_expansion(&d, &cf_log, &ar_log);
+
+                // ATLAS_DEEP_VERBOSE=1: ultra-deep diagnostic sidecar. Dumps the full why/where of a
+                // non-FUNC_OK generation — the autoreconf engine log plus every deep context (leaked
+                // macros, syntax errors, rescan loop, failed-during-check) — to <out>/<slug>.deep.txt.
+                // This is the human-readable companion to the structured deep_expansion; the lessons
+                // it surfaces are what get codified back into the schema (rescan_loop, quirks, …).
+                if std::env::var("ATLAS_DEEP_VERBOSE").is_ok() && status != "FUNC_OK" {
+                    write_deep_verbose(&out_dir, &slug, repo, &status, &ar_log, &cf_log, &deep_expansion);
+                }
                 // The compass: run the GNU-autotools oracle on the same repo and classify ours vs it.
                 let (oracle, divergence) = if std::env::var("ATLAS_ORACLE").is_ok() {
                     let (o, dv) = run_oracle(&d, &status, &deep_expansion);
@@ -2090,13 +2129,99 @@ fn analyze_provenance(d: &Path, ac_text: &str, de: &Option<DeepExpansion>, mi: &
 /// Forensic scan of the generated `configure` plus the configure run-log. Surfaces the exact
 /// expansion failures (leaked macros, heredoc imbalance, syntax-error source context, malformed
 /// cache vars, residual @VAR@) so each can be fixed from the recipe without re-running on the VM.
-fn analyze_expansion(d: &Path, cf_log: &str) -> Option<DeepExpansion> {
+/// Detect a growing-indentation re-scan loop from the autoreconf stderr (the engine guard message)
+/// and/or the structural fingerprint in the generated configure: the same trimmed line recurring at
+/// ever-increasing indentation. Returns None when neither signal is present. This is the automated
+/// "the probe gets smarter" hook — every repo that trips the runaway records its own deep context.
+fn detect_rescan_loop(lines: &[&str], ar_log: &str) -> Option<RescanLoop> {
+    // Signal 1: the engine guard fired during generation.
+    let guard = ar_log
+        .lines()
+        .find(|l| {
+            l.contains("runaway re-scan")
+                || l.contains("argument size limit exceeded")
+                || l.contains("expansion limit exceeded")
+                || l.contains("output limit")
+        })
+        .map(|l| l.trim().chars().take(160).collect::<String>())
+        .unwrap_or_default();
+
+    // Signal 2: structural fingerprint. Indentation (leading spaces) per non-blank line; a re-scan
+    // loop drives this far past anything a real configure produces.
+    let indent = |s: &str| s.len() - s.trim_start().len();
+    let (mut max_indent, mut deepest_idx) = (0usize, 0usize);
+    for (i, l) in lines.iter().enumerate() {
+        if l.trim().is_empty() {
+            continue;
+        }
+        let ind = indent(l);
+        if ind > max_indent {
+            max_indent = ind;
+            deepest_idx = i;
+        }
+    }
+
+    // A real configure almost never indents past ~40 columns; treat a deep outlier OR the guard
+    // message as a confirmed loop. Without either, there's nothing to report.
+    let structural = max_indent >= 80;
+    if guard.is_empty() && !structural {
+        return None;
+    }
+
+    // The repeating unit: most frequent trimmed non-empty line within the deep region (the band of
+    // lines indented at least half the max). That band IS the re-wrapped block.
+    let mut counts: std::collections::HashMap<&str, usize> = std::collections::HashMap::new();
+    for l in lines.iter() {
+        let t = l.trim();
+        if !t.is_empty() && indent(l) >= max_indent / 2 {
+            *counts.entry(t).or_default() += 1;
+        }
+    }
+    let (repeating_unit, repeat_count) = counts
+        .into_iter()
+        .max_by_key(|&(_, c)| c)
+        .map(|(s, c)| (s.chars().take(80).collect::<String>(), c))
+        .unwrap_or_default();
+
+    // Suspect macro: nearest macro-shaped token (PREFIX_NAME) scanning upward from the deepest line.
+    const PFX: &[&str] = &["AC_", "AX_", "AM_", "LT_", "PKG_", "AS_", "_AC_", "_LT_", "gl_", "gt_"];
+    let mut suspect_macro = String::new();
+    for j in (0..=deepest_idx).rev() {
+        let t = lines[j].trim_start();
+        if let Some(p) = PFX.iter().find(|p| t.starts_with(**p)) {
+            let name: String = t.chars().take_while(|c| c.is_ascii_alphanumeric() || *c == '_').collect();
+            if name.len() > p.len() {
+                suspect_macro = name;
+                break;
+            }
+        }
+    }
+
+    // Loop body in context: a window around the deepest indentation.
+    let lo = deepest_idx.saturating_sub(6);
+    let hi = (deepest_idx + 6).min(lines.len());
+    let loop_context: Vec<String> = (lo..hi)
+        .map(|j| format!("{}: {}", j + 1, lines[j].chars().take(100).collect::<String>()))
+        .collect();
+
+    Some(RescanLoop {
+        guard,
+        suspect_macro,
+        max_indent,
+        repeating_unit,
+        repeat_count,
+        loop_context,
+    })
+}
+
+fn analyze_expansion(d: &Path, cf_log: &str, ar_log: &str) -> Option<DeepExpansion> {
     let cfg = std::fs::read_to_string(d.join("configure")).ok()?;
     let lines: Vec<&str> = cfg.lines().collect();
     let mut de = DeepExpansion {
         configure_lines: lines.len(),
         ..Default::default()
     };
+    de.rescan_loop = detect_rescan_loop(&lines, ar_log);
 
     const MACRO_PREFIXES: &[&str] =
         &["AC_", "AX_", "AM_", "LT_", "PKG_", "AS_", "AH_", "_AC_", "_AX_", "_LT_", "m4_", "AT_"];
@@ -2930,6 +3055,76 @@ fn write_recipe(out_dir: &Path, slug: &str, rec: Recipe) {
     if let Ok(s) = serde_json::to_string_pretty(&rec) {
         let _ = std::fs::write(path, s + "\n");
     }
+}
+
+/// Ultra-deep-verbose sidecar (ATLAS_DEEP_VERBOSE=1): a human-readable dump of WHY/WHERE a repo's
+/// generation failed — the autoreconf engine log plus every deep context. The point is to make the
+/// failure legible at a glance so the fix can be turned into a schema field / quirk, then this dump
+/// is no longer needed for that class. Written to <out_dir>/<slug>.deep.txt.
+fn write_deep_verbose(
+    out_dir: &Path,
+    slug: &str,
+    repo: &str,
+    status: &str,
+    ar_log: &str,
+    cf_log: &str,
+    de: &Option<DeepExpansion>,
+) {
+    let mut s = String::new();
+    s.push_str(&format!("# DEEP DIAGNOSTIC — {} ({})\nstatus: {}\n\n", repo, slug, status));
+
+    // The single most actionable signal first: a rescan loop, if any.
+    if let Some(dx) = de {
+        if let Some(rl) = &dx.rescan_loop {
+            s.push_str("## RESCAN LOOP (runaway re-expansion — the deepest class)\n");
+            s.push_str(&format!("guard:          {}\n", rl.guard));
+            s.push_str(&format!("suspect macro:  {}\n", rl.suspect_macro));
+            s.push_str(&format!("max indent:     {} cols\n", rl.max_indent));
+            s.push_str(&format!("repeating unit: {:?}  (x{})\n", rl.repeating_unit, rl.repeat_count));
+            s.push_str("loop context:\n");
+            for l in &rl.loop_context {
+                s.push_str(&format!("  {}\n", l));
+            }
+            s.push('\n');
+        }
+        if !dx.leaked_macros.is_empty() {
+            s.push_str("## LEAKED MACROS (undefined/partial — leaked into the shell)\n");
+            for m in dx.leaked_macros.iter().take(30) {
+                s.push_str(&format!("  line {}: {}  | {}\n", m.line, m.name, m.context));
+            }
+            s.push('\n');
+        }
+        if !dx.syntax_errors.is_empty() {
+            s.push_str("## SYNTAX ERRORS (configure-run)\n");
+            for e in dx.syntax_errors.iter().take(15) {
+                s.push_str(&format!("  line {}: near `{}` -> {}\n", e.line, e.token, e.source));
+            }
+            s.push('\n');
+        }
+        if !dx.failed_during_check.is_empty() {
+            s.push_str(&format!("## DIED DURING CHECK: {}\n\n", dx.failed_during_check));
+        }
+        if !dx.conftest_corruption.is_empty() {
+            s.push_str("## CONFTEST CORRUPTION (m4 ate C preprocessor directives)\n");
+            for c in dx.conftest_corruption.iter().take(15) {
+                s.push_str(&format!("  {}\n", c));
+            }
+            s.push('\n');
+        }
+    }
+
+    // Raw engine + configure logs, tail-bounded (the deep evidence).
+    let tail = |log: &str, n: usize| -> String {
+        let v: Vec<&str> = log.lines().collect();
+        v[v.len().saturating_sub(n)..].join("\n")
+    };
+    s.push_str("## AUTORECONF-RS LOG (tail)\n");
+    s.push_str(&tail(ar_log, 60));
+    s.push_str("\n\n## ./configure LOG (tail)\n");
+    s.push_str(&tail(cf_log, 60));
+    s.push('\n');
+
+    let _ = std::fs::write(out_dir.join(format!("{}.deep.txt", slug)), s);
 }
 
 /// Classify a `divergence.ours_error` into an ACTIONABLE root. The shell error format is
