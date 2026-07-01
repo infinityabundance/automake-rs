@@ -948,10 +948,32 @@ impl MakefileInGenerator {
 
     /// Link dependencies derived from an `_LDADD`/`_LIBADD` value: the `.la`/`.a` files (so the
     /// program/library is rebuilt after, and ordered after, the libraries it links).
-    fn ldadd_deps(ldadd: &str) -> String {
-        ldadd
-            .split_whitespace()
-            .filter(|t| t.ends_with(".la") || t.ends_with(".a"))
+    fn ldadd_deps(&self, ldadd: &str) -> String {
+        // Resolve one level of `$(VAR)` (e.g. a program with no own _LDADD defaults to `$(LDADD)`,
+        // and a project-wide `LDADD = $(LIBOBJS)` must surface `$(LIBOBJS)` as a build dependency so
+        // make compiles the compat objects BEFORE linking — else `ld: cannot find compat/strtonum.o`).
+        let mut resolved: Vec<String> = Vec::new();
+        for t in ldadd.split_whitespace() {
+            if let Some(var) = t.strip_prefix("$(").and_then(|s| s.strip_suffix(')')) {
+                if let Some(val) = self.find_variable(var) {
+                    resolved.extend(val.split_whitespace().map(|s| s.to_string()));
+                    continue;
+                }
+            }
+            resolved.push(t.to_string());
+        }
+        resolved
+            .iter()
+            .filter(|t| {
+                t.ends_with(".la")
+                    || t.ends_with(".a")
+                    || t.ends_with(".o")
+                    || t.ends_with(".lo")
+                    || t.as_str() == "$(LIBOBJS)"
+                    || t.as_str() == "$(LTLIBOBJS)"
+                    || t.as_str() == "$(ALLOCA)"
+            })
+            .cloned()
             .collect::<Vec<_>>()
             .join(" ")
     }
@@ -1012,7 +1034,7 @@ impl MakefileInGenerator {
                     .find_variable(&format!("{}_LDADD", c))
                     .unwrap_or_else(|| "$(LDADD)".to_string());
                 out.push_str(&format!("{}_LDADD = {}\n", c, ldadd));
-                let deps = Self::ldadd_deps(&ldadd);
+                let deps = self.ldadd_deps(&ldadd);
                 if !deps.is_empty() {
                     out.push_str(&format!("{}_DEPENDENCIES = {}\n", c, deps));
                 }

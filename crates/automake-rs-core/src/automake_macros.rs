@@ -285,6 +285,12 @@ pub fn generate_standard_variables() -> HashMap<String, String> {
     vars.insert("LDFLAGS".to_string(), "@LDFLAGS@".to_string());
     vars.insert("LIBS".to_string(), "@LIBS@".to_string());
     vars.insert("DEFS".to_string(), "@DEFS@".to_string());
+    // AC_LIBOBJ/AC_REPLACE_FUNCS populate @LIBOBJS@ with compat objects (e.g. compat/strtonum.o); a
+    // Makefile.am using `$(LIBOBJS)` (e.g. tmux's `LDADD = $(LIBOBJS)`) needs this declaration or the
+    // compat objects never link -> `undefined reference to strtonum`.
+    vars.insert("LIBOBJS".to_string(), "@LIBOBJS@".to_string());
+    vars.insert("LTLIBOBJS".to_string(), "@LTLIBOBJS@".to_string());
+    vars.insert("ALLOCA".to_string(), "@ALLOCA@".to_string());
     vars.insert("ECHO_C".to_string(), "@ECHO_C@".to_string());
     vars.insert("ECHO_N".to_string(), "@ECHO_N@".to_string());
     vars.insert("ECHO_T".to_string(), "@ECHO_T@".to_string());
