@@ -859,7 +859,32 @@ impl MakefileInGenerator {
 
     /// Whether this Makefile.am builds any libtool libraries (so the libtool toolchain is needed).
     fn has_libtool(&self) -> bool {
-        !self.collect_primaries("LTLIBRARIES").is_empty()
+        // This Makefile.am declares a libtool library...
+        if !self.collect_primaries("LTLIBRARIES").is_empty() {
+            return true;
+        }
+        // ...OR a target here LINKS against a libtool `.la` (e.g. a program in a subdir with
+        // `foo_LDADD = ../lib/libfoo.la`, no LTLIBRARIES of its own). Such a link MUST go through
+        // `$(LIBTOOL) --mode=link` so the `.la` is translated to `-L.../.libs -l...`; a raw `$(CCLD)`
+        // link passes the `.la` straight to ld -> "libfoo.la: file format not recognized" (a systemic
+        // make-stage link failure, e.g. pup-volume-monitor's client -> ../libpupvm/libpupvm.la).
+        Self::any_ldadd_links_la(&self.makefile_am.statements)
+    }
+
+    /// True if any `*_LDADD` / `*_LIBADD` / `LDADD` / `LIBADD` value references a libtool `.la`.
+    fn any_ldadd_links_la(stmts: &[AmStatement]) -> bool {
+        stmts.iter().any(|s| match s {
+            AmStatement::VariableAssignment { name, values, .. } => {
+                (name.ends_with("LDADD") || name.ends_with("LIBADD"))
+                    && values.iter().any(|v| v.trim_end_matches(['\\', ' ']).ends_with(".la"))
+            }
+            AmStatement::ConditionalBlock {
+                if_branch,
+                else_branch,
+                ..
+            } => Self::any_ldadd_links_la(if_branch) || Self::any_ldadd_links_la(else_branch),
+            _ => false,
+        })
     }
 
     /// The libtool object files (`.lo`) for a library's compiled sources.

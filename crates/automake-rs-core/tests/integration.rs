@@ -129,6 +129,56 @@ fn test_e2e_simple_program() {
     }
 }
 
+// A program that links against a libtool `.la` (in its `_LDADD`) but declares no LTLIBRARIES of
+// its own must still link through `$(LIBTOOL) --mode=link` so the `.la` is translated to
+// `-L.../.libs -l...`. A raw `$(CCLD)` link passes the `.la` straight to ld:
+// "libfoo.la: file format not recognized" (a systemic corpus link failure, e.g.
+// pup-volume-monitor's tester/daemon programs -> ../libpupvm/libpupvm.la).
+fn gen_link_line(makefile_am: &str) -> String {
+    let am = MakefileAm::parse(makefile_am).unwrap();
+    let config = AutomakeConfig::from_options("foreign");
+    let traces = AutoconfTrace {
+        config_files: vec!["Makefile".to_string()],
+        config_headers: vec![],
+        substitutions: HashMap::new(),
+        package_name: Some("t".to_string()),
+        package_version: Some("1.0".to_string()),
+        bug_report: None,
+        package_tarname: None,
+        strictness: Some("foreign".to_string()),
+        conditionals: HashMap::new(),
+        languages: vec!["CC".to_string()],
+    };
+    let output = MakefileInGenerator::new(am, config, traces).generate();
+    output
+        .lines()
+        .find(|l| l.starts_with("LINK ="))
+        .unwrap_or("<no LINK>")
+        .to_string()
+}
+
+#[test]
+fn test_program_linking_la_uses_libtool() {
+    // Links ../lib/libfoo.la with no LTLIBRARIES here -> must go through libtool link mode.
+    let am = "noinst_PROGRAMS = client\nclient_SOURCES = client.c\nclient_LDADD = $(GIO_LIBS) ../lib/libfoo.la\n";
+    let link = gen_link_line(am);
+    assert!(
+        link.starts_with("LINK = $(LIBTOOL)"),
+        "program linking a .la must use libtool link mode, got: {link}"
+    );
+}
+
+#[test]
+fn test_program_without_la_uses_plain_ccld() {
+    // No .la anywhere -> plain $(CCLD), no libtool (regression guard).
+    let am = "noinst_PROGRAMS = plain\nplain_SOURCES = plain.c\nplain_LDADD = -lm\n";
+    let link = gen_link_line(am);
+    assert!(
+        link.starts_with("LINK = $(CCLD)") && !link.contains("$(LIBTOOL)"),
+        "program with no .la must use plain CCLD, got: {link}"
+    );
+}
+
 #[test]
 fn test_e2e_scripts_and_data() {
     let _configure_ac = "AC_INIT([test], [1.0])\nAM_INIT_AUTOMAKE([foreign])\nAC_CONFIG_FILES([Makefile])\nAC_OUTPUT\n";
