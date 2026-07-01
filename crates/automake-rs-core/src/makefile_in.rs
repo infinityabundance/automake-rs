@@ -626,9 +626,17 @@ impl MakefileInGenerator {
         // `all-am` is ALWAYS emitted (the recursion engine and install-am depend on it). Its
         // recipe builds the local program/library outputs via $(MAKE) (relying on per-target or
         // builtin rules); DATA/HEADERS/SCRIPTS/MANS are install-only and need no build step.
+        // LIBRARIES before PROGRAMS: a program links the local libraries, so they must exist first
+        // (the recipe is a sequential `$(MAKE) X`, not dependency-ordered). EXCLUDE `check_` primaries —
+        // check_PROGRAMS/check_LTLIBRARIES are built by `make check`, NOT `make all` (cglm's
+        // `check_PROGRAMS = test/tests` was wrongly built during `all`, before libcglm.la existed ->
+        // "undefined reference to glmc_*").
         let mut build_targets: Vec<String> = Vec::new();
-        for kind in ["PROGRAMS", "LIBRARIES", "LTLIBRARIES"] {
-            for (_p, _nd, targets) in self.collect_primaries(kind) {
+        for kind in ["LTLIBRARIES", "LIBRARIES", "PROGRAMS"] {
+            for (prefix, _nd, targets) in self.collect_primaries(kind) {
+                if prefix == "check" {
+                    continue;
+                }
                 build_targets.extend(targets);
             }
         }
@@ -1077,8 +1085,38 @@ impl MakefileInGenerator {
         // link mode); otherwise C++ targets link with $(CXXLINK).
         for (_prefix, _nd, targets) in &programs {
             for prog in targets {
-                let link = if self.target_is_cxx(prog) && !libtool { "CXXLINK" } else { "LINK" };
                 let c = Self::canon(prog);
+                let is_cxx = self.target_is_cxx(prog);
+                let has_cflags = self.find_variable(&format!("{c}_CFLAGS")).is_some();
+                let has_cxxflags = self.find_variable(&format!("{c}_CXXFLAGS")).is_some();
+                let has_ldflags = self.find_variable(&format!("{c}_LDFLAGS")).is_some();
+                // Per-target LINK when the program carries its OWN CFLAGS/CXXFLAGS/LDFLAGS, so its
+                // private `-L`/`-l` and flags reach the link. The generic `$(LINK)` only carries
+                // `$(AM_LDFLAGS)`; a program's `foo_LDFLAGS` was dropped -> cglm's test linked without
+                // `-L./.libs -lcglm` -> "undefined reference to glmc_*".
+                let link = if has_cflags || has_cxxflags || has_ldflags {
+                    let cf = if is_cxx {
+                        if has_cxxflags { format!("$({c}_CXXFLAGS)") } else { "$(AM_CXXFLAGS)".into() }
+                    } else if has_cflags {
+                        format!("$({c}_CFLAGS)")
+                    } else {
+                        "$(AM_CFLAGS)".into()
+                    };
+                    let lf = if has_ldflags { format!("$({c}_LDFLAGS)") } else { "$(AM_LDFLAGS)".into() };
+                    let (ld, ff, tag) = if is_cxx { ("CXXLD", "CXXFLAGS", "CXX") } else { ("CCLD", "CFLAGS", "CC") };
+                    if libtool {
+                        out.push_str(&format!(
+                            "{c}_LINK = $(LIBTOOL) $(AM_V_lt) --tag={tag} $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $({ld}) {cf} $({ff}) {lf} $(LDFLAGS) -o $@\n"
+                        ));
+                    } else {
+                        out.push_str(&format!("{c}_LINK = $({ld}) {cf} $({ff}) {lf} $(LDFLAGS) -o $@\n"));
+                    }
+                    format!("{c}_LINK")
+                } else if is_cxx && !libtool {
+                    "CXXLINK".to_string()
+                } else {
+                    "LINK".to_string()
+                };
                 // The build target keeps the original name; derived vars use the canonical name.
                 out.push_str(&format!(
                     "{p}$(EXEEXT): $({c}_OBJECTS) $({c}_DEPENDENCIES) $(EXTRA_{c}_DEPENDENCIES)\n",
