@@ -111,16 +111,37 @@ impl Aclocal {
 
     /// Detect the automake-provided aclocal directory by querying the oracle.
     fn detect_automake_acdir() -> PathBuf {
+        // We want automake's OWN macro dir (defines AM_INIT_AUTOMAKE etc. in init.m4). On some systems
+        // `aclocal --print-ac-dir` reports /usr/share/aclocal (the third-party dir, no automake macros),
+        // so only trust it when it actually contains init.m4.
         if let Ok(out) = std::process::Command::new("aclocal")
             .arg("--print-ac-dir")
             .output()
         {
             let path = String::from_utf8_lossy(&out.stdout).trim().to_string();
-            if !path.is_empty() {
+            if !path.is_empty() && Path::new(&path).join("init.m4").exists() {
                 return PathBuf::from(path);
             }
         }
-        // Fallback: common location
+        // Otherwise pick the newest /usr/share/aclocal-1.* that carries automake's macros.
+        if let Ok(entries) = fs::read_dir("/usr/share") {
+            let mut cands: Vec<PathBuf> = entries
+                .flatten()
+                .map(|e| e.path())
+                .filter(|p| {
+                    p.file_name()
+                        .and_then(|n| n.to_str())
+                        .map(|n| n.starts_with("aclocal-1."))
+                        .unwrap_or(false)
+                        && p.join("init.m4").exists()
+                })
+                .collect();
+            cands.sort();
+            if let Some(p) = cands.pop() {
+                return p;
+            }
+        }
+        // Last-resort fallback.
         PathBuf::from("/usr/share/aclocal-1.18")
     }
 
@@ -237,21 +258,67 @@ impl Aclocal {
             dirs
         };
 
-        // Collect .m4 files from include dirs
-        let mut seen = HashSet::new();
+        // Build a macro-name -> defining-.m4-file index over all candidate dirs, then include ONLY the
+        // files whose macros are (transitively) required by configure.ac. GNU aclocal is trace-driven:
+        // it never dumps every .m4 in the acdir. The old "slurp every .m4" behavior pulled libtool.m4 /
+        // ltdl.m4 into non-libtool projects, and m4-rs then ran away expanding LTDL_INIT/_LTDL_CONVENIENCE
+        // (a 6-line configure.ac -> a 113 MB configure). Required-only inclusion is both faithful and the
+        // fix for that explosion.
+        // Index each macro DEFINITION to its file AND its body text. The closure below follows uses per
+        // MACRO BODY, not per whole file: grab-bag files like lt~obsolete.m4 define a commonly-needed
+        // macro (AC_PROG_EGREP) alongside dozens of obsolete libtool aliases. Pulling the file for
+        // AC_PROG_EGREP must NOT then drag in libtool.m4 just because other (unused) definitions in the
+        // same file mention LT_INIT. Following only AC_PROG_EGREP's own body keeps the closure tight.
+        let mut macro_to_file: HashMap<String, PathBuf> = HashMap::new();
+        let mut macro_body: HashMap<String, String> = HashMap::new();
+        // Earlier dirs win (user -I, then macro_dirs, then automake acdir, then system acdir).
         for dir in &all_include_dirs {
             if let Ok(entries) = fs::read_dir(dir) {
-                for entry in entries.flatten() {
-                    let path = entry.path();
-                    if path.extension().map(|e| e == "m4").unwrap_or(false) {
-                        let name = path.file_name().unwrap().to_string_lossy().to_string();
-                        if seen.insert(name) {
-                            scan.required_files.push(path);
+                let mut files: Vec<PathBuf> = entries
+                    .flatten()
+                    .map(|e| e.path())
+                    .filter(|p| p.extension().map(|e| e == "m4").unwrap_or(false))
+                    .collect();
+                files.sort(); // deterministic order within a dir
+                for path in files {
+                    let content = match fs::read(&path) {
+                        Ok(bytes) => String::from_utf8_lossy(&bytes).to_string(),
+                        Err(_) => continue,
+                    };
+                    for (name, body) in Self::extract_macro_defs(&content) {
+                        if !macro_to_file.contains_key(&name) {
+                            macro_to_file.insert(name.clone(), path.clone());
+                            macro_body.insert(name, body);
                         }
                     }
                 }
             }
         }
+
+        // Transitive closure over macro NAMES: seed from macros invoked in configure.ac, follow only the
+        // macros each required macro's own body invokes. Include the file of every required macro.
+        let mut required_paths: Vec<PathBuf> = Vec::new();
+        let mut included: HashSet<PathBuf> = HashSet::new();
+        let mut worklist: Vec<String> = Self::extract_used_macros(&content, &macro_to_file);
+        let mut resolved: HashSet<String> = HashSet::new();
+        while let Some(name) = worklist.pop() {
+            if !resolved.insert(name.clone()) {
+                continue;
+            }
+            if let Some(path) = macro_to_file.get(&name) {
+                if included.insert(path.clone()) {
+                    required_paths.push(path.clone());
+                }
+                if let Some(body) = macro_body.get(&name) {
+                    for dep in Self::extract_used_macros(body, &macro_to_file) {
+                        if !resolved.contains(&dep) {
+                            worklist.push(dep);
+                        }
+                    }
+                }
+            }
+        }
+        scan.required_files = required_paths;
 
         // Extract serial numbers for --install tracking
         for file in &scan.required_files {
@@ -264,6 +331,168 @@ impl Aclocal {
         }
 
         Ok(scan)
+    }
+
+    /// (macro_name, body_text) for each definition in an .m4 file: AC_DEFUN / AC_DEFUN_ONCE / AU_DEFUN /
+    /// AU_ALIAS / m4_define[_default] / m4_defun[_once] / define. The body is the definition's argument(s)
+    /// after the name, used to follow per-macro dependencies (so the closure stays tight — see scan()).
+    fn extract_macro_defs(content: &str) -> Vec<(String, String)> {
+        // Longer names first so AC_DEFUN_ONCE is tried before AC_DEFUN (boundary check also disambiguates).
+        const DEFINERS: &[&str] = &[
+            "AC_DEFUN_ONCE",
+            "AC_DEFUN",
+            "AU_DEFUN",
+            "AU_ALIAS",
+            "m4_define_default",
+            "m4_defun_once",
+            "m4_defun",
+            "m4_define",
+            "define",
+        ];
+        let bytes = content.as_bytes();
+        let mut defs = Vec::new();
+        for def in DEFINERS {
+            let mut from = 0;
+            while let Some(rel) = content[from..].find(def) {
+                let start = from + rel;
+                let after = start + def.len();
+                from = after;
+                // token boundary before the definer (not the tail of a longer identifier)
+                if start > 0 {
+                    let prev = bytes[start - 1];
+                    if prev.is_ascii_alphanumeric() || prev == b'_' {
+                        continue;
+                    }
+                }
+                // `(` after optional whitespace
+                let mut j = after;
+                while j < bytes.len() && (bytes[j] as char).is_whitespace() {
+                    j += 1;
+                }
+                if j >= bytes.len() || bytes[j] != b'(' {
+                    continue;
+                }
+                let Some(args) = Self::parse_call_args(content, j) else {
+                    continue;
+                };
+                if args.is_empty() {
+                    continue;
+                }
+                let name: String = args[0]
+                    .trim()
+                    .trim_start_matches('[')
+                    .chars()
+                    .take_while(|c| c.is_ascii_alphanumeric() || *c == '_')
+                    .collect();
+                // Only register macro-SHAPED names. libtool.m4 & friends use bare single letters ("A")
+                // and short lowercase words as internal define()s; if those became index keys, an
+                // unrelated body that merely contains the word "A" would drag the whole defining file
+                // (and its real macro subtree) into the closure. Real macro names are >=2 chars and carry
+                // an underscore or an uppercase letter (AC_*, AM_*, _LT_*, lt_join, m4_foreach, PKG_*...).
+                if !Self::is_macro_shaped(&name) {
+                    continue;
+                }
+                let body = if args.len() > 1 { args[1..].join(",") } else { String::new() };
+                defs.push((name, body));
+            }
+        }
+        defs
+    }
+
+    /// Parse a balanced `( ... )` call starting at byte index `open` (which must be `(`), splitting into
+    /// top-level comma-separated arguments. m4 `[ ]` quotes and nested `( )` are respected. Returns None
+    /// if the parens are unbalanced (truncated input).
+    fn parse_call_args(content: &str, open: usize) -> Option<Vec<String>> {
+        let bytes = content.as_bytes();
+        let mut i = open + 1;
+        let mut paren: i32 = 1;
+        let mut brack: i32 = 0;
+        let mut args: Vec<String> = Vec::new();
+        let mut cur = String::new();
+        while i < bytes.len() {
+            let c = bytes[i] as char;
+            match c {
+                '[' => {
+                    brack += 1;
+                    cur.push(c);
+                }
+                ']' => {
+                    brack -= 1;
+                    cur.push(c);
+                }
+                '(' if brack == 0 => {
+                    paren += 1;
+                    cur.push(c);
+                }
+                ')' if brack == 0 => {
+                    paren -= 1;
+                    if paren == 0 {
+                        args.push(cur);
+                        return Some(args);
+                    }
+                    cur.push(c);
+                }
+                ',' if brack == 0 && paren == 1 => {
+                    args.push(std::mem::take(&mut cur));
+                }
+                _ => cur.push(c),
+            }
+            i += 1;
+        }
+        None
+    }
+
+    /// Macro names USED in a text that are present in the known macro->file index. Identifiers are
+    /// `[A-Za-z_][A-Za-z0-9_]*`; only those defined by some candidate .m4 file are returned (plain shell
+    /// words and autoconf built-ins are ignored). `dnl` comments are stripped to end-of-line first, so a
+    /// macro merely mentioned in a comment does not pull its defining file into the closure.
+    fn extract_used_macros(content: &str, known: &HashMap<String, PathBuf>) -> Vec<String> {
+        let mut out = Vec::new();
+        for raw_line in content.lines() {
+            // strip from a `dnl` token (m4's to-end-of-line comment) onward
+            let line = Self::strip_dnl(raw_line);
+            let bytes = line.as_bytes();
+            let mut i = 0;
+            while i < bytes.len() {
+                let c = bytes[i];
+                if c.is_ascii_alphabetic() || c == b'_' {
+                    let start = i;
+                    while i < bytes.len() && (bytes[i].is_ascii_alphanumeric() || bytes[i] == b'_') {
+                        i += 1;
+                    }
+                    let ident = &line[start..i];
+                    if known.contains_key(ident) {
+                        out.push(ident.to_string());
+                    }
+                } else {
+                    i += 1;
+                }
+            }
+        }
+        out
+    }
+
+    /// A macro-shaped identifier: >= 2 chars and carries an underscore or an uppercase letter. Excludes
+    /// bare single letters and short all-lowercase shell words that .m4 files use as throwaway define()s.
+    fn is_macro_shaped(id: &str) -> bool {
+        id.len() >= 2 && (id.contains('_') || id.bytes().any(|b| b.is_ascii_uppercase()))
+    }
+
+    /// Truncate a line at the first `dnl` token (m4 discard-to-newline comment).
+    fn strip_dnl(line: &str) -> &str {
+        let bytes = line.as_bytes();
+        let mut from = 0;
+        while let Some(rel) = line[from..].find("dnl") {
+            let pos = from + rel;
+            let before_ok = pos == 0 || !(bytes[pos - 1].is_ascii_alphanumeric() || bytes[pos - 1] == b'_');
+            let after = pos + 3;
+            let after_ok = after >= bytes.len() || !(bytes[after].is_ascii_alphanumeric() || bytes[after] == b'_');
+            if before_ok && after_ok {
+                return &line[..pos];
+            }
+            from = pos + 3;
+        }
+        line
     }
 
     /// Install missing third-party .m4 files into the first user include directory.
@@ -648,7 +877,9 @@ mod tests {
         let ac_path = tmp.path().join("configure.ac");
         fs::write(
             &ac_path,
-            "AC_INIT([test], [1.0])\nAM_INIT_AUTOMAKE\nAC_CONFIG_MACRO_DIR([m4])\nAC_OUTPUT\n",
+            // Must actually INVOKE TEST_MACRO: aclocal (correctly) only pulls/installs .m4 files whose
+            // macros are used by configure.ac, not every file in the search path.
+            "AC_INIT([test], [1.0])\nAC_CONFIG_MACRO_DIR([m4])\nTEST_MACRO\nAC_OUTPUT\n",
         )
         .unwrap();
         let mut aclocal = Aclocal::new();
@@ -688,7 +919,7 @@ mod tests {
         let ac_path = tmp.path().join("configure.ac");
         fs::write(
             &ac_path,
-            "AC_INIT([test], [1.0])\nAM_INIT_AUTOMAKE\nAC_CONFIG_MACRO_DIR([m4])\nAC_OUTPUT\n",
+            "AC_INIT([test], [1.0])\nAC_CONFIG_MACRO_DIR([m4])\nOTHER_MACRO\nAC_OUTPUT\n",
         )
         .unwrap();
         let mut aclocal = Aclocal::new();
@@ -704,5 +935,41 @@ mod tests {
         let has_other = installed.iter().any(|s| s.contains("other-macro"));
         assert!(has_other, "Expected other-macro.m4 to be installed");
         assert!(install_dir.join("other-macro.m4").exists());
+    }
+
+    #[test]
+    fn test_extract_macro_defs_name_and_body() {
+        let m4 = "AC_DEFUN([FOO_BAR], [call BAZ_QUX and stuff])\n\
+                  m4_define([lt_join], [something])\n";
+        let defs = Aclocal::extract_macro_defs(m4);
+        assert!(defs.iter().any(|(n, b)| n == "FOO_BAR" && b.contains("BAZ_QUX")));
+        assert!(defs.iter().any(|(n, _)| n == "lt_join"));
+    }
+
+    #[test]
+    fn test_is_macro_shaped_excludes_bare_letters() {
+        // The libtool "A" bug: a bare single letter must NOT count as a macro name.
+        assert!(!Aclocal::is_macro_shaped("A"));
+        assert!(!Aclocal::is_macro_shaped("a"));
+        assert!(!Aclocal::is_macro_shaped("cc")); // short all-lowercase, no underscore
+        assert!(Aclocal::is_macro_shaped("AC_PROG_CC"));
+        assert!(Aclocal::is_macro_shaped("_LT_LANG"));
+        assert!(Aclocal::is_macro_shaped("lt_join"));
+        assert!(Aclocal::is_macro_shaped("PKG_CHECK_MODULES"));
+    }
+
+    #[test]
+    fn test_extract_used_macros_strips_dnl_and_filters() {
+        let mut known: HashMap<String, PathBuf> = HashMap::new();
+        known.insert("AC_PROG_CC".to_string(), PathBuf::from("x.m4"));
+        known.insert("LT_INIT".to_string(), PathBuf::from("libtool.m4"));
+        // LT_INIT appears only after a `dnl` comment -> must be ignored (not pulled).
+        let body = "AC_PROG_CC dnl see LT_INIT for details\n";
+        let used = Aclocal::extract_used_macros(body, &known);
+        assert!(used.contains(&"AC_PROG_CC".to_string()));
+        assert!(
+            !used.contains(&"LT_INIT".to_string()),
+            "macro mentioned only in a dnl comment must not be treated as used"
+        );
     }
 }
