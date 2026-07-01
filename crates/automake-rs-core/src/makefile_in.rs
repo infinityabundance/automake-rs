@@ -453,9 +453,8 @@ impl MakefileInGenerator {
             for (_dir, _no_dist, targets) in &self.collect_primaries(kind) {
                 for target in targets {
                     // Variables derive from the canonicalized target name (libfoo.a -> libfoo_a).
-                    let sources_var = format!("{}_SOURCES", Self::canon(target));
                     let ext = if *kind == "LTLIBRARIES" { "lo" } else { "$(OBJEXT)" };
-                    if let Some(sources) = self.find_variable(&sources_var) {
+                    if let Some(sources) = self.combined_sources(&Self::canon(target)) {
                         for src in sources.split_whitespace() {
                             // Only real compiled sources become dep files: skip `$(VAR)` refs,
                             // `@SUBST@`, headers, and anything without a known source extension
@@ -832,9 +831,31 @@ impl MakefileInGenerator {
             .collect()
     }
 
+    /// Raw sources string for a target, combining `_SOURCES` + `dist_*_SOURCES` + `nodist_*_SOURCES`.
+    /// automake treats `dist_`/`nodist_` as SOURCES variants (distributed vs not); BOTH contribute the
+    /// target's objects. Without the variants, a program whose files are all in `dist_foo_SOURCES`
+    /// (e.g. tmux) got only `foo.c` -> `foo_OBJECTS = foo.o` -> link failed with undefined refs to
+    /// every other translation unit. `canon` is the canonicalized target name.
+    fn combined_sources(&self, canon: &str) -> Option<String> {
+        let mut parts: Vec<String> = Vec::new();
+        for prefix in ["", "dist_", "nodist_"] {
+            if let Some(v) = self.find_variable(&format!("{}{}_SOURCES", prefix, canon)) {
+                let v = v.trim().to_string();
+                if !v.is_empty() {
+                    parts.push(v);
+                }
+            }
+        }
+        if parts.is_empty() {
+            None
+        } else {
+            Some(parts.join(" "))
+        }
+    }
+
     /// The sources listed for a program/library target (its `_SOURCES`, defaulting to `<name>.c`).
     fn target_sources(&self, name: &str) -> Vec<String> {
-        self.find_variable(&format!("{}_SOURCES", Self::canon(name)))
+        self.combined_sources(&Self::canon(name))
             .unwrap_or_else(|| format!("{}.c", name))
             .split_whitespace()
             .map(String::from)
@@ -1224,15 +1245,14 @@ impl MakefileInGenerator {
         for (dir_prefix, _no_dist, targets) in &programs {
             for target in targets {
                 // Per-target variables
-                let sources_var = format!("{}_SOURCES", target);
                 let ldadd_var = format!("{}_LDADD", target);
                 let ldflags_var = format!("{}_LDFLAGS", target);
                 let cppflags_var = format!("{}_CPPFLAGS", target);
                 let cflags_var = format!("{}_CFLAGS", target);
 
-                // Look up source files — default to target.c
+                // Look up source files (incl. dist_/nodist_ variants) — default to target.c
                 let sources = self
-                    .find_variable(&sources_var)
+                    .combined_sources(&Self::canon(target))
                     .unwrap_or_else(|| format!("{}.c", target));
 
                 let ldadd = self.find_variable(&ldadd_var).unwrap_or_default();
@@ -1423,9 +1443,8 @@ impl MakefileInGenerator {
             for target in targets {
                 // Convert .la to _la for variable lookup (Automake convention)
                 let var_name = target.replace(".la", "_la");
-                let sources_var = format!("{}_SOURCES", var_name);
                 let sources = self
-                    .find_variable(&sources_var)
+                    .combined_sources(&var_name)
                     .unwrap_or_else(|| format!("{}.c", var_name));
 
                 // Per-target flags: target_CFLAGS shadows AM_CFLAGS
