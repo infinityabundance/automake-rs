@@ -229,12 +229,13 @@ impl MakefileInGenerator {
                 }
             }
         };
-        for stmt in &self.makefile_am.statements {
-            if let AmStatement::VariableAssignment { values, .. } = stmt {
-                for v in values {
-                    scan(v);
-                }
-            }
+        // Recurse into conditional blocks too: a `$(GIO_CFLAGS)` reference inside `if USE_CDROM … endif`
+        // must still declare `GIO_CFLAGS = @GIO_CFLAGS@`. Without this the conditional target compiled
+        // with an EMPTY `$(GIO_CFLAGS)` -> `gio/gio.h: No such file` (e.g. pup-volume-monitor plugins).
+        let mut all_values: Vec<String> = Vec::new();
+        Self::collect_value_strings(&self.makefile_am.statements, &mut all_values);
+        for v in &all_values {
+            scan(v);
         }
         for name in &found {
             out.push_str(&format!("{name} = @{name}@\n"));
@@ -871,6 +872,30 @@ impl MakefileInGenerator {
         Self::any_ldadd_links_la(&self.makefile_am.statements)
     }
 
+    /// Collect every value/target string from a statement list, recursing into conditional blocks, so
+    /// scans (e.g. for `$(FOO_CFLAGS)` references) see assignments guarded by `if COND … endif`.
+    fn collect_value_strings(stmts: &[AmStatement], out: &mut Vec<String>) {
+        for stmt in stmts {
+            match stmt {
+                AmStatement::VariableAssignment { values, .. } => {
+                    out.extend(values.iter().cloned());
+                }
+                AmStatement::Primary { targets, .. } => {
+                    out.extend(targets.iter().cloned());
+                }
+                AmStatement::ConditionalBlock {
+                    if_branch,
+                    else_branch,
+                    ..
+                } => {
+                    Self::collect_value_strings(if_branch, out);
+                    Self::collect_value_strings(else_branch, out);
+                }
+                _ => {}
+            }
+        }
+    }
+
     /// True if any `*_LDADD` / `*_LIBADD` / `LDADD` / `LIBADD` value references a libtool `.la`.
     fn any_ldadd_links_la(stmts: &[AmStatement]) -> bool {
         stmts.iter().any(|s| match s {
@@ -1104,7 +1129,13 @@ impl MakefileInGenerator {
                         } else {
                             ("CC", "CC", "CFLAGS")
                         };
-                        if libtool {
+                        // Use libtool --mode=compile ONLY for libtool-library objects (lo=true). A
+                        // PROGRAM's per-target object (lo=false) must compile PLAIN even when the project
+                        // uses libtool elsewhere — otherwise it produced a libtool object WRAPPER (ASCII
+                        // text) instead of a real .o, and the program link died with
+                        // "client-client.o: file format not recognized". (Real automake: program/static
+                        // objects are .o via COMPILE; only libtool-lib objects are .lo via LTCOMPILE.)
+                        if lo {
                             out.push_str(&format!(
                                 "\t$(AM_V_{v})$(LIBTOOL) $(AM_V_lt) --tag={v} $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $({comp}) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $({c}_CPPFLAGS) $(CPPFLAGS) $({c}_{ff}) $({ff}) -c -o $@ $<\n\n",
                                 v = vtag, comp = comp, c = c, ff = fflag

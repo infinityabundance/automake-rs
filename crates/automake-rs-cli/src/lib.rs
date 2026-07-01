@@ -68,15 +68,22 @@ pub fn run_automake() {
         return;
     }
 
-    // Determine input files
-    let input_files = if parsed.input_files.is_empty() {
-        vec![PathBuf::from("Makefile.am")]
-    } else {
-        parsed.input_files.clone()
-    };
-
     // Find configure.ac (in current directory)
     let configure_ac = find_configure_ac();
+
+    // Determine input files. With explicit args, honor them. Otherwise (the autoreconf default),
+    // real automake generates a Makefile.in for EVERY `X/Makefile` in configure.ac's AC_CONFIG_FILES,
+    // not just the top-level one — reading each `X/Makefile.am`. Without this, subdir Makefiles were
+    // never generated, so `make` recursed into a subdir and died with "No rule to make target 'all'".
+    let input_files = if !parsed.input_files.is_empty() {
+        parsed.input_files.clone()
+    } else {
+        let mut files = makefile_ams_from_config_files(&configure_ac);
+        if files.is_empty() {
+            files.push(PathBuf::from("Makefile.am"));
+        }
+        files
+    };
 
     // Process each Makefile.am
     let mut exit_code = 0;
@@ -95,6 +102,51 @@ pub fn run_automake() {
     }
 
     std::process::exit(exit_code);
+}
+
+/// Extract the list of `Makefile.am` files to process from configure.ac's `AC_CONFIG_FILES`
+/// (a.k.a. `AC_OUTPUT([files...])` legacy form). Each output target whose basename is `Makefile`
+/// (e.g. `libpupvm/Makefile`, `Makefile`) maps to `<dir>/Makefile.am` — but only if that `.am`
+/// actually exists (non-Makefile targets like `data/pupvm.pc` are config.status' job, not automake's).
+fn makefile_ams_from_config_files(configure_ac: &std::path::Path) -> Vec<PathBuf> {
+    let content = match std::fs::read_to_string(configure_ac) {
+        Ok(c) => c,
+        Err(_) => return Vec::new(),
+    };
+    let base = configure_ac.parent().unwrap_or_else(|| std::path::Path::new("."));
+    let mut out: Vec<PathBuf> = Vec::new();
+    let mut seen: std::collections::HashSet<String> = std::collections::HashSet::new();
+    // Scan every AC_CONFIG_FILES(...) and AC_OUTPUT(...) block, taking the parenthesised argument
+    // (which may span many lines). Split on whitespace/commas; strip m4 `[ ]` quotes.
+    for macro_name in ["AC_CONFIG_FILES", "AC_OUTPUT"] {
+        let mut from = 0;
+        while let Some(rel) = content[from..].find(macro_name) {
+            let start = from + rel;
+            from = start + macro_name.len();
+            let rest = content[from..].trim_start();
+            let Some(rest) = rest.strip_prefix('(') else { continue };
+            // take up to the matching ')' (config.ac AC_CONFIG_FILES args don't nest parens)
+            let Some(end) = rest.find(')') else { continue };
+            let arg = &rest[..end];
+            for tok in arg.split(|c: char| c.is_whitespace() || c == ',') {
+                let t = tok.trim().trim_matches(|c| c == '[' || c == ']' || c == '"' || c == '\'');
+                if t.is_empty() {
+                    continue;
+                }
+                // Only `.../Makefile` (or bare `Makefile`) targets have a Makefile.am.
+                let is_makefile = t == "Makefile" || t.ends_with("/Makefile");
+                if !is_makefile {
+                    continue;
+                }
+                let am_rel = format!("{t}.am");
+                let am_path = base.join(&am_rel);
+                if am_path.exists() && seen.insert(am_rel.clone()) {
+                    out.push(PathBuf::from(am_rel));
+                }
+            }
+        }
+    }
+    out
 }
 
 /// Find configure.ac or configure.in, walking up from the current directory (a Makefile.am in a
