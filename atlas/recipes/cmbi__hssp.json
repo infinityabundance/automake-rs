@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v1",
   "repo": "cmbi/hssp",
   "source": {
     "url": "https://github.com/cmbi/hssp",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.60",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -17,29 +17,26 @@
     "cflags": "-g -O2",
     "host": "x86_64-pc-linux-gnu"
   },
-  "pass_pipeline": [
-    {
-      "step": "autoreconf",
-      "tool": "autoreconf-rs",
-      "status": "ok"
-    },
-    {
-      "step": "configure",
-      "tool": "./configure",
-      "status": "ok"
-    },
-    {
-      "step": "make",
-      "tool": "make",
-      "status": "fail"
-    }
-  ],
-  "probe_results": {},
+  "probe_results": {
+    "HAVE_BOOST": 1,
+    "HAVE_BZLIB_H": 1,
+    "HAVE_DUP2": 1,
+    "HAVE_ERROR_AT_LINE": 1,
+    "HAVE_FORK": 1,
+    "HAVE_SOCKET": 1,
+    "HAVE_STRCHR": 1,
+    "HAVE_STRERROR": 1,
+    "HAVE_SYS_IOCTL_H": 1,
+    "HAVE_TERMIOS_H": 1,
+    "HAVE_ZLIB_H": 1
+  },
   "feature_flags": {
     "configure_args": []
   },
   "dependencies": {
-    "pkg_config": [],
+    "pkg_config": [
+      "checking for boostlib >="
+    ],
     "system_libs": [],
     "headers_needed": [],
     "missing": []
@@ -50,72 +47,5 @@
   "outputs": [],
   "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "Makefile:16: *** missing separator.  Stop.",
-  "deep_expansion": {
-    "configure_lines": 4022,
-    "leaked_macros": [],
-    "heredoc_openers": 68,
-    "heredoc_terminators": 68,
-    "heredoc_imbalance": 0,
-    "syntax_errors": [],
-    "cache_var_anomalies": [
-      "line 58: do eval test \\${$as_var+y} \\",
-      "line 3546: do eval test \\${$as_var+y} \\"
-    ],
-    "residual_placeholders": [
-      "LIBTOOL",
-      "PACKAGE_NAME",
-      "PACKAGE_TARNAME",
-      "PACKAGE_VERSION",
-      "PACKAGE_STRING",
-      "PACKAGE_BUGREPORT"
-    ],
-    "failed_during_check": "checking for strerror... yes",
-    "failure_tail": [
-      "checking for strerror... yes",
-      "configure: creating Makefile",
-      "configure: creating config.h",
-      "configure: creating ./config.status"
-    ],
-    "conftest_corruption": [],
-    "conftest_directives_intact": 31,
-    "conftest_directives_mangled": 0,
-    "conftest_programs": [
-      "\\n@%:@include <boost/version.hpp>\\n\\nint main() {\\n#if BOOST_VERSION >= $WANT_BOOST_VERSION\\n// Everything is okay\\n#else\\n#  error Boost version is too old\\n#endif\\n; return 0; }",
-      "\\n@%:@include <boost/version.hpp>\\n\\nint main() {\\n#if BOOST_VERSION >= $WANT_BOOST_VERSION\\n// Everything is okay\\n#else\\n#  error Boost version is too old\\n#endif\\n; return 0; }",
-      "@%:@include <boost/date_time/gregorian/gregorian_types.hpp>\\nint main() { using namespace boost::gregorian; date d(2002,Jan,10);\\nreturn 0;\\n; return 0; }",
-      "char exit();\\nint main() { return exit(); }",
-      "char exit();\\nint main() { return exit(); }",
-      "char main();\\nint main() { return main(); }"
-    ]
-  },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "fail",
-    "real_make": "skipped",
-    "real_configure_lines": 10373,
-    "real_first_error": "configure: error: Could not link against boost_filesystem !",
-    "classification": "OURS_BETTER"
-  },
-  "receipt": {
-    "court_status": "partial",
-    "probe_trace": [],
-    "quirks_matched": [
-      "uses-subdir-objects",
-      "has-m4-macro-dir",
-      "vendored-aclocal",
-      "uses-ax-archive",
-      "perl-in-configure"
-    ],
-    "receipt_hash": "bdbfb6907bfdbc8bdb7cf566a26793b38411d77e6f0819ae26c725daf919e509",
-    "schema": "automake-rs.build-court/v1"
-  },
-  "environment": {
-    "cc": "cc",
-    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
-    "host_triplet": "x86_64-linux-gnu",
-    "pkg_config_version": "1.8.1",
-    "make_version": "GNU Make 4.3",
-    "relevant_env": []
-  }
+  "diagnostic": ""
 }

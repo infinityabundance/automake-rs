@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v1",
   "repo": "cernekee/ocproxy",
   "source": {
     "url": "https://github.com/cernekee/ocproxy",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.60",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -17,25 +17,22 @@
     "cflags": "-g -O2",
     "host": "x86_64-pc-linux-gnu"
   },
-  "pass_pipeline": [
-    {
-      "step": "autoreconf",
-      "tool": "autoreconf-rs",
-      "status": "ok"
-    },
-    {
-      "step": "configure",
-      "tool": "./configure",
-      "status": "fail"
-    }
-  ],
-  "probe_results": {},
+  "probe_results": {
+    "HAVE_EVENT2_EVENT_H": 1,
+    "HAVE_LINUX_IF_TUN_H": 1,
+    "HAVE_PTHREAD": 1,
+    "HAVE_PTHREAD_PRIO_INHERIT": 1,
+    "HAVE_SCHED_H": 1
+  },
   "feature_flags": {
     "configure_args": []
   },
   "dependencies": {
     "pkg_config": [],
-    "system_libs": [],
+    "system_libs": [
+      "-pthread",
+      "-levent"
+    ],
     "headers_needed": [],
     "missing": []
   },
@@ -43,105 +40,7 @@
     "autoconf-archive-macros"
   ],
   "outputs": [],
-  "status": "CONFIGURE_RUN_FAIL",
+  "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1437: syntax error near unexpected token `WFLAGS,'",
-  "deep_expansion": {
-    "configure_lines": 2562,
-    "leaked_macros": [
-      {
-        "name": "AS_COMPILER_FLAGS",
-        "line": 1437,
-        "context": "AS_COMPILER_FLAGS(WFLAGS,"
-      }
-    ],
-    "heredoc_openers": 19,
-    "heredoc_terminators": 19,
-    "heredoc_imbalance": 0,
-    "syntax_errors": [
-      {
-        "line": 1437,
-        "token": "WFLAGS,",
-        "source": "AS_COMPILER_FLAGS(WFLAGS,",
-        "block": [
-          "1433: ",
-          "1434: ",
-          "1435: EXTRA_PC_LIBS=\"\"",
-          "1436: ",
-          "1437: AS_COMPILER_FLAGS(WFLAGS,",
-          "1438:         \"-Wall",
-          "1439:          -Wextra",
-          "1440:          -Wno-missing-field-initializers"
-        ]
-      }
-    ],
-    "cache_var_anomalies": [
-      "line 58: do eval test \\${$as_var+y} \\",
-      "line 2086: do eval test \\${$as_var+y} \\"
-    ],
-    "residual_placeholders": [
-      "LIBTOOL",
-      "PTHREAD_CC",
-      "PTHREAD_CFLAGS",
-      "PTHREAD_LIBS",
-      "PACKAGE_NAME",
-      "PACKAGE_TARNAME",
-      "PACKAGE_VERSION",
-      "PACKAGE_STRING",
-      "PACKAGE_BUGREPORT"
-    ],
-    "failed_during_check": "",
-    "failure_tail": [
-      "./configure: line 1437: syntax error near unexpected token `WFLAGS,'",
-      "./configure: line 1437: `AS_COMPILER_FLAGS(WFLAGS,'"
-    ],
-    "conftest_corruption": [],
-    "conftest_directives_intact": 2,
-    "conftest_directives_mangled": 0,
-    "conftest_programs": [
-      "#include <$ac_hdr>",
-      "char event_add ();\\nint main() { return event_add (); }",
-      "#include <$ac_hdr>"
-    ]
-  },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "ok",
-    "real_make": "ok",
-    "real_configure_lines": 7601,
-    "real_first_error": "",
-    "classification": "OURS_BUG_CONFIGURE"
-  },
-  "divergence": {
-    "stage": "configure",
-    "ours_error": "line 1437: AS_COMPILER_FLAGS(WFLAGS, (near `WFLAGS,`)",
-    "ours_error_context": [
-      "AS_COMPILER_FLAGS(WFLAGS,"
-    ],
-    "ours_configure_lines": 2562,
-    "real_configure_lines": 7601,
-    "macros_ours_left_undefined": [
-      "AS_COMPILER_FLAGS"
-    ]
-  },
-  "receipt": {
-    "court_status": "failed",
-    "probe_trace": [],
-    "quirks_matched": [
-      "has-acinclude",
-      "vendored-aclocal",
-      "uses-ax-archive",
-      "uses-pthread-check"
-    ],
-    "receipt_hash": "24e39ed3178d433d21c1340a6407fda16d8349c27724819539e8175382940e80",
-    "schema": "automake-rs.build-court/v1"
-  },
-  "environment": {
-    "cc": "cc",
-    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
-    "host_triplet": "x86_64-linux-gnu",
-    "pkg_config_version": "1.8.1",
-    "make_version": "GNU Make 4.3",
-    "relevant_env": []
-  }
+  "diagnostic": "/home/dev/atb_mkxKmd/t/mk:collect2: error: ld returned 1 exit status"
 }

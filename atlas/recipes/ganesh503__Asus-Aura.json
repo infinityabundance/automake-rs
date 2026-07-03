@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v1",
   "repo": "ganesh503/Asus-Aura",
   "source": {
     "url": "https://github.com/ganesh503/Asus-Aura",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.60",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -17,24 +17,17 @@
     "cflags": "-g -O2",
     "host": "x86_64-pc-linux-gnu"
   },
-  "pass_pipeline": [
-    {
-      "step": "autoreconf",
-      "tool": "autoreconf-rs",
-      "status": "ok"
-    },
-    {
-      "step": "configure",
-      "tool": "./configure",
-      "status": "ok"
-    },
-    {
-      "step": "make",
-      "tool": "make",
-      "status": "fail"
-    }
-  ],
-  "probe_results": {},
+  "probe_results": {
+    "HAVE_ERRNO_H": 1,
+    "HAVE_LIBUSB_1_0_LIBUSB_H": 1,
+    "HAVE_MEMSET": 1,
+    "HAVE_STDINT_H": 1,
+    "HAVE_STDLIB_H": 1,
+    "HAVE_STRINGS_H": 1,
+    "HAVE_STRING_H": 1,
+    "HAVE_STRTOL": 1,
+    "HAVE_UNISTD_H": 1
+  },
   "feature_flags": {
     "configure_args": []
   },
@@ -46,83 +39,35 @@
     "headers_needed": [],
     "missing": []
   },
-  "quirks": [
-    "LIBS=-lusb-1.0"
+  "quirks": [],
+  "outputs": [
+    {
+      "path": "config.status",
+      "sha256": "8a29b904ef87e121",
+      "kind": "executable"
+    },
+    {
+      "path": "depcomp",
+      "sha256": "16d184959f7532ce",
+      "kind": "executable"
+    },
+    {
+      "path": "missing",
+      "sha256": "4a4f76d45d999ca6",
+      "kind": "executable"
+    },
+    {
+      "path": "rogauracore",
+      "sha256": "02c6bdac71b1853b",
+      "kind": "executable"
+    },
+    {
+      "path": "compile",
+      "sha256": "9277c97b212b37d2",
+      "kind": "executable"
+    }
   ],
-  "outputs": [],
-  "status": "MAKE_FAIL",
-  "verified": false,
-  "diagnostic": "Makefile:16: *** missing separator.  Stop.",
-  "deep_expansion": {
-    "configure_lines": 2497,
-    "leaked_macros": [],
-    "heredoc_openers": 23,
-    "heredoc_terminators": 23,
-    "heredoc_imbalance": 0,
-    "syntax_errors": [],
-    "cache_var_anomalies": [
-      "line 58: do eval test \\${$as_var+y} \\",
-      "line 2021: do eval test \\${$as_var+y} \\"
-    ],
-    "residual_placeholders": [
-      "LIBTOOL",
-      "PACKAGE_NAME",
-      "PACKAGE_TARNAME",
-      "PACKAGE_VERSION",
-      "PACKAGE_STRING",
-      "PACKAGE_BUGREPORT"
-    ],
-    "failed_during_check": "checking for strtol... yes",
-    "failure_tail": [
-      "checking for strtol... yes",
-      "configure: creating Makefile",
-      "configure: creating config.h",
-      "configure: creating ./config.status"
-    ],
-    "conftest_corruption": [],
-    "conftest_directives_intact": 10,
-    "conftest_directives_mangled": 0,
-    "conftest_programs": [
-      "char libusb_init ();\\nint main() { return libusb_init (); }",
-      "#include <$ac_hdr>",
-      "#include <$ac_hdr>",
-      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { uint16_t x; return 0; }",
-      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { uint32_t x; return 0; }",
-      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { uint8_t x; return 0; }"
-    ]
-  },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "ok",
-    "real_make": "ok",
-    "real_configure_lines": 6155,
-    "real_first_error": "",
-    "classification": "OURS_BUG_MAKE"
-  },
-  "divergence": {
-    "stage": "make",
-    "ours_error": "",
-    "ours_error_context": [],
-    "ours_configure_lines": 2497,
-    "real_configure_lines": 6155,
-    "macros_ours_left_undefined": []
-  },
-  "receipt": {
-    "court_status": "partial",
-    "probe_trace": [],
-    "quirks_matched": [
-      "uses-subdir-objects",
-      "vendored-aclocal"
-    ],
-    "receipt_hash": "50943c81e776f99633ce47bc1c02476e04eeac1c88eab40282963440dadccda2",
-    "schema": "automake-rs.build-court/v1"
-  },
-  "environment": {
-    "cc": "cc",
-    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
-    "host_triplet": "x86_64-linux-gnu",
-    "pkg_config_version": "1.8.1",
-    "make_version": "GNU Make 4.3",
-    "relevant_env": []
-  }
+  "status": "FUNC_OK",
+  "verified": true,
+  "diagnostic": ""
 }

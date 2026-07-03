@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v1",
   "repo": "ffromani/vmon",
   "source": {
     "url": "https://github.com/ffromani/vmon",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.60",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -17,24 +17,21 @@
     "cflags": "-g -O2",
     "host": "x86_64-pc-linux-gnu"
   },
-  "pass_pipeline": [
-    {
-      "step": "autoreconf",
-      "tool": "autoreconf-rs",
-      "status": "ok"
-    },
-    {
-      "step": "configure",
-      "tool": "./configure",
-      "status": "ok"
-    },
-    {
-      "step": "make",
-      "tool": "make",
-      "status": "fail"
-    }
-  ],
-  "probe_results": {},
+  "probe_results": {
+    "HAVE_FCNTL_H": 1,
+    "HAVE_GETPAGESIZE": 1,
+    "HAVE_LIMITS_H": 1,
+    "HAVE_LSTAT": 1,
+    "HAVE_MALLOC": 1,
+    "HAVE_MEMSET": 1,
+    "HAVE_MKDIR": 1,
+    "HAVE_RMDIR": 1,
+    "HAVE_STDINT_H": 1,
+    "HAVE_STDLIB_H": 1,
+    "HAVE_STRING_H": 1,
+    "HAVE_SYS_STATVFS_H": 1,
+    "HAVE_UNISTD_H": 1
+  },
   "feature_flags": {
     "configure_args": []
   },
@@ -52,80 +49,5 @@
   "outputs": [],
   "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "Makefile:16: *** missing separator.  Stop.",
-  "deep_expansion": {
-    "configure_lines": 2621,
-    "leaked_macros": [],
-    "heredoc_openers": 22,
-    "heredoc_terminators": 22,
-    "heredoc_imbalance": 0,
-    "syntax_errors": [],
-    "cache_var_anomalies": [
-      "line 58: do eval test \\${$as_var+y} \\",
-      "line 2145: do eval test \\${$as_var+y} \\"
-    ],
-    "residual_placeholders": [
-      "LIBTOOL",
-      "PACKAGE_NAME",
-      "PACKAGE_TARNAME",
-      "PACKAGE_VERSION",
-      "PACKAGE_STRING",
-      "PACKAGE_BUGREPORT"
-    ],
-    "failed_during_check": "checking for uuid... yes",
-    "failure_tail": [
-      "checking for uuid... yes",
-      "configure: creating Makefile",
-      "configure: creating vmon.spec",
-      "configure: creating contrib/Makefile",
-      "configure: creating contrib/jsmn/Makefile"
-    ],
-    "conftest_corruption": [],
-    "conftest_directives_intact": 11,
-    "conftest_directives_mangled": 0,
-    "conftest_programs": [
-      "#include <$ac_hdr>",
-      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { size_t x; return 0; }",
-      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { uint64_t x; return 0; }",
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar lstat();\\nint main() { return lstat(); }",
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar malloc();\\nint main() { return malloc(); }",
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func();\\nint main() { return $ac_func(); }"
-    ]
-  },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "ok",
-    "real_make": "ok",
-    "real_configure_lines": 17229,
-    "real_first_error": "",
-    "classification": "OURS_BUG_MAKE"
-  },
-  "divergence": {
-    "stage": "make",
-    "ours_error": "",
-    "ours_error_context": [],
-    "ours_configure_lines": 2621,
-    "real_configure_lines": 17229,
-    "macros_ours_left_undefined": []
-  },
-  "receipt": {
-    "court_status": "partial",
-    "probe_trace": [],
-    "quirks_matched": [
-      "uses-libtool",
-      "uses-pkg-config",
-      "uses-python",
-      "vendored-aclocal"
-    ],
-    "receipt_hash": "50943c81e776f99633ce47bc1c02476e04eeac1c88eab40282963440dadccda2",
-    "schema": "automake-rs.build-court/v1"
-  },
-  "environment": {
-    "cc": "cc",
-    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
-    "host_triplet": "x86_64-linux-gnu",
-    "pkg_config_version": "1.8.1",
-    "make_version": "GNU Make 4.3",
-    "relevant_env": []
-  }
+  "diagnostic": "/home/dev/atb_JeSc31/t/mk:<command-line>: error: 'vmon' undeclared (first use in this function)"
 }

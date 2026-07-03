@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v1",
   "repo": "Chronic-Dev/libirecovery",
   "source": {
     "url": "https://github.com/Chronic-Dev/libirecovery",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.60",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -17,32 +17,24 @@
     "cflags": "-g -O2",
     "host": "x86_64-pc-linux-gnu"
   },
-  "pass_pipeline": [
-    {
-      "step": "autoreconf",
-      "tool": "autoreconf-rs",
-      "status": "ok"
-    },
-    {
-      "step": "configure",
-      "tool": "./configure",
-      "status": "ok"
-    },
-    {
-      "step": "make",
-      "tool": "make",
-      "status": "fail"
-    }
-  ],
   "probe_results": {
-    "HAVE_IOKIT": 1
+    "HAVE_IOKIT": 1,
+    "HAVE_MALLOC": 1,
+    "HAVE_REALLOC": 1,
+    "HAVE_STDINT_H": 1,
+    "HAVE_STDLIB_H": 1,
+    "HAVE_STRCASECMP": 1,
+    "HAVE_STRDUP": 1,
+    "HAVE_STRERROR": 1,
+    "HAVE_STRING_H": 1,
+    "HAVE_STRNDUP": 1
   },
   "feature_flags": {
     "configure_args": []
   },
   "dependencies": {
     "pkg_config": [
-      "checking for libusb-1.0 >= 1.0.3... yes"
+      "checking for libusb-1.0 >="
     ],
     "system_libs": [],
     "headers_needed": [],
@@ -56,87 +48,5 @@
   "outputs": [],
   "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "Makefile:16: *** missing separator.  Stop.",
-  "deep_expansion": {
-    "configure_lines": 2639,
-    "leaked_macros": [],
-    "heredoc_openers": 26,
-    "heredoc_terminators": 26,
-    "heredoc_imbalance": 0,
-    "syntax_errors": [],
-    "cache_var_anomalies": [
-      "line 58: do eval test \\${$as_var+y} \\",
-      "line 2153: do eval test \\${$as_var+y} \\"
-    ],
-    "residual_placeholders": [
-      "LIBTOOL",
-      "PACKAGE_NAME",
-      "PACKAGE_TARNAME",
-      "PACKAGE_VERSION",
-      "PACKAGE_STRING",
-      "PACKAGE_BUGREPORT"
-    ],
-    "failed_during_check": "checking for supported compiler flags... ",
-    "failure_tail": [
-      "checking for supported compiler flags...",
-      "configure: WARNING: unsupported compiler flags:  -Wall -Wextra -Wmissing-declara",
-      "configure: creating Makefile",
-      "configure: creating src/Makefile",
-      "configure: creating include/Makefile"
-    ],
-    "conftest_corruption": [],
-    "conftest_directives_intact": 18,
-    "conftest_directives_mangled": 0,
-    "conftest_programs": [
-      "#include <CoreFoundation/CoreFoundation.h>",
-      "#include <$ac_hdr>",
-      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { size_t x; return 0; }",
-      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { ssize_t x; return 0; }",
-      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { uint16_t x; return 0; }",
-      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { uint32_t x; return 0; }"
-    ]
-  },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "ok",
-    "real_make": "ok",
-    "real_configure_lines": 20445,
-    "real_first_error": "",
-    "classification": "OURS_BUG_MAKE"
-  },
-  "divergence": {
-    "stage": "make",
-    "ours_error": "",
-    "ours_error_context": [],
-    "ours_configure_lines": 2639,
-    "real_configure_lines": 20445,
-    "macros_ours_left_undefined": []
-  },
-  "receipt": {
-    "court_status": "partial",
-    "probe_trace": [
-      {
-        "name": "HAVE_IOKIT",
-        "kind": "func",
-        "result": "yes",
-        "reason": "ok"
-      }
-    ],
-    "quirks_matched": [
-      "uses-libtool-old",
-      "uses-pkg-config",
-      "has-m4-macro-dir",
-      "vendored-aclocal"
-    ],
-    "receipt_hash": "8df88a40c6e691ec6a259763d5aae5ea20412351552c6971bbb5aede30d5cc46",
-    "schema": "automake-rs.build-court/v1"
-  },
-  "environment": {
-    "cc": "cc",
-    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
-    "host_triplet": "x86_64-linux-gnu",
-    "pkg_config_version": "1.8.1",
-    "make_version": "GNU Make 4.3",
-    "relevant_env": []
-  }
+  "diagnostic": "/home/dev/atb_OgaB2W/t/mk:collect2: error: ld returned 1 exit status"
 }

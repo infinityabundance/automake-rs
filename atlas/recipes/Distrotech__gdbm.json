@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v1",
   "repo": "Distrotech/gdbm",
   "source": {
     "url": "https://github.com/Distrotech/gdbm",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.60",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -17,23 +17,6 @@
     "cflags": "-g -O2",
     "host": "x86_64-pc-linux-gnu"
   },
-  "pass_pipeline": [
-    {
-      "step": "autoreconf",
-      "tool": "autoreconf-rs",
-      "status": "ok"
-    },
-    {
-      "step": "configure",
-      "tool": "./configure",
-      "status": "ok"
-    },
-    {
-      "step": "make",
-      "tool": "make",
-      "status": "fail"
-    }
-  ],
   "probe_results": {},
   "feature_flags": {
     "configure_args": []
@@ -50,138 +33,7 @@
     "subdirs"
   ],
   "outputs": [],
-  "status": "MAKE_FAIL",
+  "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "/tmp/atlasx_Distrotech__gdbm/s/build-aux/missing: line 81: automake-1.13: command not found",
-  "deep_expansion": {
-    "configure_lines": 20544,
-    "leaked_macros": [
-      {
-        "name": "AM_INIT_AUTOMAKE",
-        "line": 2951,
-        "context": "AM_INIT_AUTOMAKE(gnits 1.11 std-options silent-rules)"
-      },
-      {
-        "name": "AM_SILENT_RULES",
-        "line": 2954,
-        "context": "AM_SILENT_RULES(yes)"
-      },
-      {
-        "name": "AM_CONDITIONAL",
-        "line": 18177,
-        "context": "AM_CONDITIONAL(COMPAT_OPT, test \"$want_compat\" = yes)"
-      },
-      {
-        "name": "AM_CONDITIONAL",
-        "line": 18178,
-        "context": "AM_CONDITIONAL(ENABLE_EXPORT, test \"$want_export\" = yes)"
-      },
-      {
-        "name": "AM_MISSING_PROG",
-        "line": 18185,
-        "context": "AM_MISSING_PROG(AUTOM4TE, autom4te)"
-      }
-    ],
-    "heredoc_openers": 133,
-    "heredoc_terminators": 132,
-    "heredoc_imbalance": -1,
-    "syntax_errors": [],
-    "cache_var_anomalies": [
-      "line 68: do eval test \\${$as_var+y} \\",
-      "line 1727: if eval test \\${$3+y}",
-      "line 1759: if eval test \\${$3+y}",
-      "line 1822: if eval test \\${$3+y}",
-      "line 2111: if eval test \\${$4+y}",
-      "line 17037: if eval test \\${$gt_func_gnugettext_libc+y}",
-      "line 17535: if eval test \\${$gt_func_gnugettext_libintl+y}",
-      "line 18375: do eval test \\${$as_var+y} \\"
-    ],
-    "residual_placeholders": [
-      "PROGRAM",
-      "OUTPUT",
-      "TOOL_OUTPUT",
-      "srcdir",
-      "datadir",
-      "docdir",
-      "infodir",
-      "localedir",
-      "mandir",
-      "configure_input",
-      "top_builddir",
-      "top_build_prefix",
-      "abs_srcdir",
-      "top_srcdir",
-      "abs_top_srcdir",
-      "builddir",
-      "abs_builddir",
-      "abs_top_builddir",
-      "INSTALL",
-      "POFILES",
-      "UPDATEPOFILES",
-      "DUMMYPOFILES",
-      "GMOFILES",
-      "CATALOGS",
-      "POMAKEFILEDEPS"
-    ],
-    "failed_during_check": "checking that generated files are newer than configure... done",
-    "failure_tail": [
-      "checking that generated files are newer than configure... done",
-      "configure: creating ./config.status",
-      "config.status: creating tests/Makefile",
-      "config.status: creating tests/atlocal",
-      "config.status: creating po/Makefile.in"
-    ],
-    "conftest_corruption": [],
-    "conftest_directives_intact": 245,
-    "conftest_directives_mangled": 0,
-    "conftest_programs": [
-      "/* end confdefs.h.  */\\n$4\\n#include <$2>",
-      "/* end confdefs.h.  */\\n/* Define $2 to an innocuous variant, in case <limits.h> declares $2.\\nFor example, HP-UX 11i <limits.h> declares gettimeofday.  */\\n#define $2 innocuous_$2\\n\\n/* System header to define __stub macros and hopefully few prototypes,\\nwhich can conflict with char $2 (); below.  */\\n\\n#include <limits.h>\\n#undef $2\\n\\n/* Override any GCC internal prototype to avoid an error.",
-      "/* end confdefs.h.  */\\n$4\\nint\\nmain (void)\\n{\\nif (sizeof ($2))\\nreturn 0;\\n;\\nreturn 0;\\n}",
-      "/* end confdefs.h.  */\\n$4\\nint\\nmain (void)\\n{\\nif (sizeof (($2)))\\nreturn 0;\\n;\\nreturn 0;\\n}",
-      "/* end confdefs.h.  */\\n$4\\nint\\nmain (void)\\n{\\nstatic int test_array [1 - 2 * !(($2) >= 0)];\\ntest_array [0] = 0;\\nreturn test_array [0];\\n\\n;\\nreturn 0;\\n}",
-      "/* end confdefs.h.  */\\n$4\\nint\\nmain (void)\\n{\\nstatic int test_array [1 - 2 * !(($2) <= $ac_mid)];\\ntest_array [0] = 0;\\nreturn test_array [0];\\n\\n;\\nreturn 0;\\n}"
-    ]
-  },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "ok",
-    "real_make": "ok",
-    "real_configure_lines": 18522,
-    "real_first_error": "",
-    "classification": "OURS_BUG_MAKE"
-  },
-  "divergence": {
-    "stage": "make",
-    "ours_error": "",
-    "ours_error_context": [],
-    "ours_configure_lines": 20544,
-    "real_configure_lines": 18522,
-    "macros_ours_left_undefined": [
-      "AM_CONDITIONAL",
-      "AM_INIT_AUTOMAKE",
-      "AM_MISSING_PROG",
-      "AM_SILENT_RULES"
-    ]
-  },
-  "receipt": {
-    "court_status": "partial",
-    "probe_trace": [],
-    "quirks_matched": [
-      "uses-libtool-old",
-      "uses-gettext",
-      "has-m4-macro-dir",
-      "vendored-aclocal"
-    ],
-    "receipt_hash": "50943c81e776f99633ce47bc1c02476e04eeac1c88eab40282963440dadccda2",
-    "schema": "automake-rs.build-court/v1"
-  },
-  "environment": {
-    "cc": "cc",
-    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
-    "host_triplet": "x86_64-linux-gnu",
-    "pkg_config_version": "1.8.1",
-    "make_version": "GNU Make 4.3",
-    "relevant_env": []
-  }
+  "diagnostic": "/home/dev/atb_fJ5T3b/t/cf:checking for msgfmt... ./configure: line 1552: syntax error near unexpected token `newline'"
 }

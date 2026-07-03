@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v1",
   "repo": "daghovland/clp",
   "source": {
     "url": "https://github.com/daghovland/clp",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.60",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -17,30 +17,36 @@
     "cflags": "-g -O2",
     "host": "x86_64-pc-linux-gnu"
   },
-  "pass_pipeline": [
-    {
-      "step": "autoreconf",
-      "tool": "autoreconf-rs",
-      "status": "ok"
-    },
-    {
-      "step": "configure",
-      "tool": "./configure",
-      "status": "ok"
-    },
-    {
-      "step": "make",
-      "tool": "make",
-      "status": "fail"
-    }
-  ],
-  "probe_results": {},
+  "probe_results": {
+    "HAVE_ATEXIT": 1,
+    "HAVE_ERRNO_H": 1,
+    "HAVE_FCNTL_H": 1,
+    "HAVE_INTTYPES_H": 1,
+    "HAVE_LIBINTL_H": 1,
+    "HAVE_MALLOC": 1,
+    "HAVE_MALLOC_H": 1,
+    "HAVE_MATH_H": 1,
+    "HAVE_MEMSET": 1,
+    "HAVE_PTHREAD": 1,
+    "HAVE_PTHREAD_PRIO_INHERIT": 1,
+    "HAVE_REALLOC": 1,
+    "HAVE_STDBOOL_H": 1,
+    "HAVE_STDDEF_H": 1,
+    "HAVE_STDLIB_H": 1,
+    "HAVE_STRING_H": 1,
+    "HAVE_STRTOUL": 1,
+    "HAVE_UNISTD_H": 1
+  },
   "feature_flags": {
     "configure_args": []
   },
   "dependencies": {
     "pkg_config": [],
-    "system_libs": [],
+    "system_libs": [
+      "-lm",
+      "-ll",
+      "-lfl"
+    ],
     "headers_needed": [],
     "missing": []
   },
@@ -51,76 +57,5 @@
   "outputs": [],
   "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "Makefile:16: *** missing separator.  Stop.",
-  "deep_expansion": {
-    "configure_lines": 2707,
-    "leaked_macros": [],
-    "heredoc_openers": 34,
-    "heredoc_terminators": 34,
-    "heredoc_imbalance": 0,
-    "syntax_errors": [],
-    "cache_var_anomalies": [
-      "line 58: do eval test \\${$as_var+y} \\",
-      "line 2231: do eval test \\${$as_var+y} \\"
-    ],
-    "residual_placeholders": [
-      "LIBTOOL",
-      "PTHREAD_CC",
-      "PTHREAD_CFLAGS",
-      "PTHREAD_LIBS",
-      "PACKAGE_NAME",
-      "PACKAGE_TARNAME",
-      "PACKAGE_VERSION",
-      "PACKAGE_STRING",
-      "PACKAGE_BUGREPORT"
-    ],
-    "failed_during_check": "checking for strtoul... yes",
-    "failure_tail": [
-      "checking for strtoul... yes",
-      "configure: creating Makefile",
-      "configure: creating src/Makefile",
-      "configure: creating config.h",
-      "configure: creating ./config.status"
-    ],
-    "conftest_corruption": [],
-    "conftest_directives_intact": 26,
-    "conftest_directives_mangled": 0,
-    "conftest_programs": [
-      "char free();\\nint main() { return free(); }",
-      "char main();\\nint main() { return main(); }",
-      "char main();\\nint main() { return main(); }",
-      "char main();\\nint main() { return main(); }",
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar alloca();\\nint main() { return alloca(); }",
-      "#include <$ac_hdr>"
-    ]
-  },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "ok",
-    "real_make": "fail",
-    "real_configure_lines": 8037,
-    "real_first_error": "",
-    "classification": "BOTH_MAKE_FAIL"
-  },
-  "receipt": {
-    "court_status": "partial",
-    "probe_trace": [],
-    "quirks_matched": [
-      "uses-maintainer-mode",
-      "has-acinclude",
-      "vendored-aclocal",
-      "uses-ax-archive",
-      "uses-pthread-check"
-    ],
-    "receipt_hash": "a1f4e5766c35392dc1a93d7294702343cbef0d84a9f13446984a26ca5354d637",
-    "schema": "automake-rs.build-court/v1"
-  },
-  "environment": {
-    "cc": "cc",
-    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
-    "host_triplet": "x86_64-linux-gnu",
-    "pkg_config_version": "1.8.1",
-    "make_version": "GNU Make 4.3",
-    "relevant_env": []
-  }
+  "diagnostic": "/home/dev/atb_lRcJsl/t/mk:collect2: error: ld returned 1 exit status"
 }

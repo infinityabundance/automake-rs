@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v1",
   "repo": "cybergarage/mupnp-cc",
   "source": {
     "url": "https://github.com/cybergarage/mupnp-cc",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.60",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -17,37 +17,46 @@
     "cflags": "-g -O2",
     "host": "x86_64-pc-linux-gnu"
   },
-  "pass_pipeline": [
-    {
-      "step": "autoreconf",
-      "tool": "autoreconf-rs",
-      "status": "ok"
-    },
-    {
-      "step": "configure",
-      "tool": "./configure",
-      "status": "ok"
-    },
-    {
-      "step": "make",
-      "tool": "make",
-      "status": "fail"
-    }
-  ],
   "probe_results": {
+    "HAVE_ARPA_INET_H": 1,
     "HAVE_BOOST_SHRAEDPTR": 1,
-    "HAVE_GDK_IMLIB": 1,
-    "HAVE_GTK": 1,
+    "HAVE_FOPEN": 1,
+    "HAVE_GETIFADDRS": 1,
+    "HAVE_GMTIME_R": 1,
+    "HAVE_ICONV": 1,
+    "HAVE_ICONV_H": 1,
+    "HAVE_IFADDRS_H": 1,
+    "HAVE_INET_NTOA": 1,
+    "HAVE_LIMITS_H": 1,
+    "HAVE_LOCALTIME_R": 1,
+    "HAVE_MEMSET": 1,
+    "HAVE_NETDB_H": 1,
+    "HAVE_NETINET_IN_H": 1,
+    "HAVE_PTHREAD_H": 1,
+    "HAVE_REALPATH": 1,
+    "HAVE_SNPRINTF": 1,
+    "HAVE_SOCKET": 1,
     "HAVE_SOCKLEN_T": 1,
+    "HAVE_STDLIB_H": 1,
     "HAVE_STD_COUT": 1,
-    "HAVE_STD_SHRAEDPTR": 1
+    "HAVE_STD_SHRAEDPTR": 1,
+    "HAVE_STRCHR": 1,
+    "HAVE_STRING_H": 1,
+    "HAVE_SYS_PARAM_H": 1,
+    "HAVE_SYS_SOCKET_H": 1,
+    "HAVE_UNAME": 1,
+    "HAVE_UNISTD_H": 1,
+    "HAVE_UUID_UUID_H": 1
   },
   "feature_flags": {
     "configure_args": []
   },
   "dependencies": {
     "pkg_config": [],
-    "system_libs": [],
+    "system_libs": [
+      "-luuid",
+      "-lpthread"
+    ],
     "headers_needed": [],
     "missing": []
   },
@@ -57,128 +66,5 @@
   "outputs": [],
   "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "Makefile:16: *** missing separator.  Stop.",
-  "deep_expansion": {
-    "configure_lines": 3110,
-    "leaked_macros": [],
-    "heredoc_openers": 52,
-    "heredoc_terminators": 52,
-    "heredoc_imbalance": 0,
-    "syntax_errors": [],
-    "cache_var_anomalies": [
-      "line 58: do eval test \\${$as_var+y} \\",
-      "line 2634: do eval test \\${$as_var+y} \\"
-    ],
-    "residual_placeholders": [
-      "LIBTOOL",
-      "PACKAGE_NAME",
-      "PACKAGE_TARNAME",
-      "PACKAGE_VERSION",
-      "PACKAGE_STRING",
-      "PACKAGE_BUGREPORT",
-      "PACKAGE_URL",
-      "srcdir",
-      "prefix",
-      "exec_prefix",
-      "CC",
-      "CFLAGS",
-      "CPPFLAGS",
-      "LDFLAGS",
-      "LIBS",
-      "CXX",
-      "CXXFLAGS",
-      "CPP",
-      "DEFS",
-      "LIBOBJS",
-      "INSTALL",
-      "GDK_IMLIB_LIBS",
-      "XML_CFLAGS",
-      "GDK_IMLIB_CFLAGS",
-      "XML_LIBS",
-      "GTK_LIBS",
-      "GTK_CFLAGS"
-    ],
-    "failed_during_check": "checking for uname... yes",
-    "failure_tail": [
-      "checking for uname... yes",
-      "configure: creating Makefile",
-      "configure: creating include/Makefile",
-      "configure: creating lib/Makefile",
-      "configure: creating lib/unix/Makefile"
-    ],
-    "conftest_corruption": [],
-    "conftest_directives_intact": 39,
-    "conftest_directives_mangled": 0,
-    "conftest_programs": [
-      "#include <$ac_hdr>",
-      "#include <$ac_hdr>",
-      "char main();\\nint main() { return main(); }",
-      "#include <$ac_hdr>",
-      "char main();\\nint main() { return main(); }",
-      "char main();\\nint main() { return main(); }"
-    ]
-  },
-  "oracle": {
-    "real_autoreconf": "fail",
-    "real_configure": "skipped",
-    "real_make": "skipped",
-    "real_configure_lines": 0,
-    "real_first_error": "autoreconf: error: /usr/bin/autoheader failed with exit status: 1",
-    "classification": "OURS_BETTER"
-  },
-  "receipt": {
-    "court_status": "partial",
-    "probe_trace": [
-      {
-        "name": "HAVE_BOOST_SHRAEDPTR",
-        "kind": "func",
-        "result": "yes",
-        "reason": "ok"
-      },
-      {
-        "name": "HAVE_GDK_IMLIB",
-        "kind": "func",
-        "result": "yes",
-        "reason": "ok"
-      },
-      {
-        "name": "HAVE_GTK",
-        "kind": "func",
-        "result": "yes",
-        "reason": "ok"
-      },
-      {
-        "name": "HAVE_SOCKLEN_T",
-        "kind": "func",
-        "result": "yes",
-        "reason": "ok"
-      },
-      {
-        "name": "HAVE_STD_COUT",
-        "kind": "func",
-        "result": "yes",
-        "reason": "ok"
-      },
-      {
-        "name": "HAVE_STD_SHRAEDPTR",
-        "kind": "func",
-        "result": "yes",
-        "reason": "ok"
-      }
-    ],
-    "quirks_matched": [
-      "uses-subdir-objects",
-      "vendored-aclocal"
-    ],
-    "receipt_hash": "5aee15c856691fcb8558a50ecd240dff4ff4067c2be9a1b226d3696ac8fb6cad",
-    "schema": "automake-rs.build-court/v1"
-  },
-  "environment": {
-    "cc": "cc",
-    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
-    "host_triplet": "x86_64-linux-gnu",
-    "pkg_config_version": "1.8.1",
-    "make_version": "GNU Make 4.3",
-    "relevant_env": []
-  }
+  "diagnostic": "/home/dev/atb_fIYAVX/t/mk:../../include/mupnp/util/Vector.h:25:41: error: 'mupnp_shared_ptr' was not declared in this sc"
 }

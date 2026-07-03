@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v1",
   "repo": "barak/vobcopy",
   "source": {
     "url": "https://github.com/barak/vobcopy",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.60",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -17,24 +17,42 @@
     "cflags": "-g -O2",
     "host": "x86_64-pc-linux-gnu"
   },
-  "pass_pipeline": [
-    {
-      "step": "autoreconf",
-      "tool": "autoreconf-rs",
-      "status": "ok"
-    },
-    {
-      "step": "configure",
-      "tool": "./configure",
-      "status": "ok"
-    },
-    {
-      "step": "make",
-      "tool": "make",
-      "status": "fail"
-    }
-  ],
-  "probe_results": {},
+  "probe_results": {
+    "HAVE_ALARM": 1,
+    "HAVE_ASSERT_H": 1,
+    "HAVE_DIRENT_H": 1,
+    "HAVE_FCNTL_H": 1,
+    "HAVE_FDATASYNC": 1,
+    "HAVE_FEATURES_H": 1,
+    "HAVE_FSEEKO": 1,
+    "HAVE_GETCWD": 1,
+    "HAVE_GETMNTENT": 1,
+    "HAVE_GETOPT_H": 1,
+    "HAVE_GETOPT_LONG": 1,
+    "HAVE_LIBINTL_H": 1,
+    "HAVE_LOCALE_H": 1,
+    "HAVE_MALLOC": 1,
+    "HAVE_MEMSET": 1,
+    "HAVE_MKDIR": 1,
+    "HAVE_MNTENT_H": 1,
+    "HAVE_SETLOCALE": 1,
+    "HAVE_STDBOOL_H": 1,
+    "HAVE_STDINT_H": 1,
+    "HAVE_STDLIB_H": 1,
+    "HAVE_STRCASECMP": 1,
+    "HAVE_STRERROR": 1,
+    "HAVE_STRING_H": 1,
+    "HAVE_STRPBRK": 1,
+    "HAVE_STRSTR": 1,
+    "HAVE_SYS_IOCTL_H": 1,
+    "HAVE_SYS_MOUNT_H": 1,
+    "HAVE_SYS_PARAM_H": 1,
+    "HAVE_SYS_STATFS_H": 1,
+    "HAVE_SYS_STATVFS_H": 1,
+    "HAVE_SYS_VFS_H": 1,
+    "HAVE_TERMIOS_H": 1,
+    "HAVE_UNISTD_H": 1
+  },
   "feature_flags": {
     "configure_args": []
   },
@@ -47,84 +65,61 @@
     "missing": []
   },
   "quirks": [
-    "autoconf-archive-macros",
-    "LIBS=-ldvdread"
+    "autoconf-archive-macros"
   ],
-  "outputs": [],
-  "status": "MAKE_FAIL",
-  "verified": false,
-  "diagnostic": "Makefile:16: *** missing separator.  Stop.",
-  "deep_expansion": {
-    "configure_lines": 2562,
-    "leaked_macros": [],
-    "heredoc_openers": 27,
-    "heredoc_terminators": 27,
-    "heredoc_imbalance": 0,
-    "syntax_errors": [],
-    "cache_var_anomalies": [
-      "line 58: do eval test \\${$as_var+y} \\",
-      "line 2086: do eval test \\${$as_var+y} \\"
-    ],
-    "residual_placeholders": [
-      "LIBTOOL",
-      "PACKAGE_NAME",
-      "PACKAGE_TARNAME",
-      "PACKAGE_VERSION",
-      "PACKAGE_STRING",
-      "PACKAGE_BUGREPORT"
-    ],
-    "failed_during_check": "checking for getopt_long... yes",
-    "failure_tail": [
-      "checking for getopt_long... yes",
-      "configure: creating Makefile",
-      "configure: creating config.h",
-      "configure: creating ./config.status"
-    ],
-    "conftest_corruption": [],
-    "conftest_directives_intact": 17,
-    "conftest_directives_mangled": 0,
-    "conftest_programs": [
-      "char DVDOpen ();\\nint main() { return DVDOpen (); }",
-      "#include <$ac_hdr>",
-      "#include <stdbool.h>",
-      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { off_t x; return 0; }",
-      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { size_t x; return 0; }",
-      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { ssize_t x; return 0; }"
-    ]
-  },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "ok",
-    "real_make": "ok",
-    "real_configure_lines": 7049,
-    "real_first_error": "",
-    "classification": "OURS_BUG_MAKE"
-  },
-  "divergence": {
-    "stage": "make",
-    "ours_error": "",
-    "ours_error_context": [],
-    "ours_configure_lines": 2562,
-    "real_configure_lines": 7049,
-    "macros_ours_left_undefined": []
-  },
-  "receipt": {
-    "court_status": "partial",
-    "probe_trace": [],
-    "quirks_matched": [
-      "uses-subdir-objects",
-      "vendored-aclocal",
-      "uses-ax-archive"
-    ],
-    "receipt_hash": "50943c81e776f99633ce47bc1c02476e04eeac1c88eab40282963440dadccda2",
-    "schema": "automake-rs.build-court/v1"
-  },
-  "environment": {
-    "cc": "cc",
-    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
-    "host_triplet": "x86_64-linux-gnu",
-    "pkg_config_version": "1.8.1",
-    "make_version": "GNU Make 4.3",
-    "relevant_env": []
-  }
+  "outputs": [
+    {
+      "path": "tests/unit_image_output_flow",
+      "sha256": "10b28b99566903dc",
+      "kind": "executable"
+    },
+    {
+      "path": "tests/unit_dvd_image",
+      "sha256": "d2dc1e378075cfe0",
+      "kind": "executable"
+    },
+    {
+      "path": "tests/unit_helpers",
+      "sha256": "2ba6ec5886d7f0c5",
+      "kind": "executable"
+    },
+    {
+      "path": "tests/cli-smoke.sh",
+      "sha256": "fb189c64522bdd5b",
+      "kind": "executable"
+    },
+    {
+      "path": "config.status",
+      "sha256": "8f4cd94646200a28",
+      "kind": "executable"
+    },
+    {
+      "path": "vobcopy",
+      "sha256": "3160f2176a55e8db",
+      "kind": "executable"
+    },
+    {
+      "path": "test-driver",
+      "sha256": "426c93868f9b59b1",
+      "kind": "executable"
+    },
+    {
+      "path": "depcomp",
+      "sha256": "16d184959f7532ce",
+      "kind": "executable"
+    },
+    {
+      "path": "missing",
+      "sha256": "4a4f76d45d999ca6",
+      "kind": "executable"
+    },
+    {
+      "path": "compile",
+      "sha256": "9277c97b212b37d2",
+      "kind": "executable"
+    }
+  ],
+  "status": "FUNC_OK",
+  "verified": true,
+  "diagnostic": ""
 }

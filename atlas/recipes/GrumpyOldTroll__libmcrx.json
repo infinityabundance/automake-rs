@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v1",
   "repo": "GrumpyOldTroll/libmcrx",
   "source": {
     "url": "https://github.com/GrumpyOldTroll/libmcrx",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.60",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -17,28 +17,28 @@
     "cflags": "-g -O2",
     "host": "x86_64-pc-linux-gnu"
   },
-  "pass_pipeline": [
-    {
-      "step": "autoreconf",
-      "tool": "autoreconf-rs",
-      "status": "ok"
-    },
-    {
-      "step": "configure",
-      "tool": "./configure",
-      "status": "ok"
-    },
-    {
-      "step": "make",
-      "tool": "make",
-      "status": "fail"
-    }
-  ],
   "probe_results": {
-    "HAVE_DNSSD_H": 1,
-    "HAVE_DNSSD_LIB": 1,
-    "HAVE_EVENT_H": 1,
-    "HAVE_EVENT_LIB": 1
+    "HAVE_ARPA_INET_H": 1,
+    "HAVE_BZERO": 1,
+    "HAVE_FCNTL_H": 1,
+    "HAVE_INTTYPES_H": 1,
+    "HAVE_MEMMOVE": 1,
+    "HAVE_MEMSET": 1,
+    "HAVE_NETINET_IN_H": 1,
+    "HAVE_REALLOC": 1,
+    "HAVE_SOCKET": 1,
+    "HAVE_STDDEF_H": 1,
+    "HAVE_STDINT_H": 1,
+    "HAVE_STDLIB_H": 1,
+    "HAVE_STRERROR": 1,
+    "HAVE_STRERROR_R": 1,
+    "HAVE_STRING_H": 1,
+    "HAVE_STRTOL": 1,
+    "HAVE_SYSLOG_H": 1,
+    "HAVE_SYS_IOCTL_H": 1,
+    "HAVE_SYS_SOCKET_H": 1,
+    "HAVE_SYS_TIME_H": 1,
+    "HAVE_UNISTD_H": 1
   },
   "feature_flags": {
     "configure_args": []
@@ -55,106 +55,5 @@
   "outputs": [],
   "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "Makefile:16: *** missing separator.  Stop.",
-  "deep_expansion": {
-    "configure_lines": 2648,
-    "leaked_macros": [],
-    "heredoc_openers": 27,
-    "heredoc_terminators": 27,
-    "heredoc_imbalance": 0,
-    "syntax_errors": [],
-    "cache_var_anomalies": [
-      "line 58: do eval test \\${$as_var+y} \\",
-      "line 2155: do eval test \\${$as_var+y} \\"
-    ],
-    "residual_placeholders": [
-      "LIBTOOL",
-      "PACKAGE_NAME",
-      "PACKAGE_TARNAME",
-      "PACKAGE_VERSION",
-      "PACKAGE_STRING",
-      "PACKAGE_BUGREPORT"
-    ],
-    "failed_during_check": "checking for strtol... yes",
-    "failure_tail": [
-      "checking for strtol... yes",
-      "yes",
-      "yes",
-      "yes",
-      "yes"
-    ],
-    "conftest_corruption": [],
-    "conftest_directives_intact": 14,
-    "conftest_directives_mangled": 0,
-    "conftest_programs": [
-      "#include <sys/types.h>\\nint main() { return sizeof(off_t) >= 8 ? 0 : 1; }",
-      "#include <$ac_hdr>",
-      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { uint16_t x; return 0; }",
-      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { uint8_t x; return 0; }",
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar realloc();\\nint main() { return realloc(); }",
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar strerror_r();\\nint main() { return strerror_r(); }"
-    ]
-  },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "ok",
-    "real_make": "ok",
-    "real_configure_lines": 21995,
-    "real_first_error": "",
-    "classification": "OURS_BUG_MAKE"
-  },
-  "divergence": {
-    "stage": "make",
-    "ours_error": "",
-    "ours_error_context": [],
-    "ours_configure_lines": 2648,
-    "real_configure_lines": 21995,
-    "macros_ours_left_undefined": []
-  },
-  "receipt": {
-    "court_status": "partial",
-    "probe_trace": [
-      {
-        "name": "HAVE_DNSSD_H",
-        "kind": "header",
-        "result": "yes",
-        "reason": "ok"
-      },
-      {
-        "name": "HAVE_DNSSD_LIB",
-        "kind": "func",
-        "result": "yes",
-        "reason": "ok"
-      },
-      {
-        "name": "HAVE_EVENT_H",
-        "kind": "header",
-        "result": "yes",
-        "reason": "ok"
-      },
-      {
-        "name": "HAVE_EVENT_LIB",
-        "kind": "func",
-        "result": "yes",
-        "reason": "ok"
-      }
-    ],
-    "quirks_matched": [
-      "uses-libtool",
-      "uses-subdir-objects",
-      "uses-maintainer-mode",
-      "has-m4-macro-dir",
-      "vendored-aclocal"
-    ],
-    "receipt_hash": "804c4491194f936e26991bec7581583aa584f95df1ee74967cb7102b69c7cdfb",
-    "schema": "automake-rs.build-court/v1"
-  },
-  "environment": {
-    "cc": "cc",
-    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
-    "host_triplet": "x86_64-linux-gnu",
-    "pkg_config_version": "1.8.1",
-    "make_version": "GNU Make 4.3",
-    "relevant_env": []
-  }
+  "diagnostic": "/home/dev/atb_w0yj3E/t/mk:collect2: error: ld returned 1 exit status"
 }

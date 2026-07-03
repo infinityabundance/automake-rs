@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v1",
   "repo": "davidt/Fyre",
   "source": {
     "url": "https://github.com/davidt/Fyre",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.60",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -17,25 +17,10 @@
     "cflags": "-g -O2",
     "host": "x86_64-pc-linux-gnu"
   },
-  "pass_pipeline": [
-    {
-      "step": "autoreconf",
-      "tool": "autoreconf-rs",
-      "status": "ok"
-    },
-    {
-      "step": "configure",
-      "tool": "./configure",
-      "status": "ok"
-    },
-    {
-      "step": "make",
-      "tool": "make",
-      "status": "fail"
-    }
-  ],
   "probe_results": {
     "HAVE_EXR": 1,
+    "HAVE_FORK": 1,
+    "HAVE_GETOPT_LONG": 1,
     "HAVE_GNET": 1
   },
   "feature_flags": {
@@ -43,11 +28,15 @@
   },
   "dependencies": {
     "pkg_config": [
-      "checking for glib-2.0 >= 2.0.0, gtk+-2.0 >= 2.0.0, libglade-2.0 >= 2.0... yes"
+      "checking for glib-2.0 >="
     ],
     "system_libs": [],
-    "headers_needed": [],
-    "missing": []
+    "headers_needed": [
+      "/home/dev/atb_qw4but/t/mk:gnet.h"
+    ],
+    "missing": [
+      "/home/dev/atb_qw4but/t/mk:gnet.h"
+    ]
   },
   "quirks": [
     "pkg-config",
@@ -56,81 +45,5 @@
   "outputs": [],
   "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "Makefile:16: *** missing separator.  Stop.",
-  "deep_expansion": {
-    "configure_lines": 2623,
-    "leaked_macros": [],
-    "heredoc_openers": 19,
-    "heredoc_terminators": 19,
-    "heredoc_imbalance": 0,
-    "syntax_errors": [],
-    "cache_var_anomalies": [
-      "line 58: do eval test \\${$as_var+y} \\",
-      "line 2127: do eval test \\${$as_var+y} \\"
-    ],
-    "residual_placeholders": [
-      "LIBTOOL",
-      "PACKAGE_NAME",
-      "PACKAGE_TARNAME",
-      "PACKAGE_VERSION",
-      "PACKAGE_STRING",
-      "PACKAGE_BUGREPORT"
-    ],
-    "failed_during_check": "checking for gnet-2.0... no",
-    "failure_tail": [
-      "checking for gnet-2.0... no",
-      "configure: creating Makefile",
-      "configure: creating autopackage/default.apspec",
-      "configure: creating data/Makefile",
-      "configure: creating data/icons/Makefile"
-    ],
-    "conftest_corruption": [],
-    "conftest_directives_intact": 6,
-    "conftest_directives_mangled": 0,
-    "conftest_programs": [
-      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { size_t x; return 0; }",
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar fork();\\nint main() { return fork(); }",
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar getopt_long();\\nint main() { return getopt_long(); }"
-    ]
-  },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "ok",
-    "real_make": "fail",
-    "real_configure_lines": 7976,
-    "real_first_error": "",
-    "classification": "BOTH_MAKE_FAIL"
-  },
-  "receipt": {
-    "court_status": "partial",
-    "probe_trace": [
-      {
-        "name": "HAVE_EXR",
-        "kind": "func",
-        "result": "yes",
-        "reason": "ok"
-      },
-      {
-        "name": "HAVE_GNET",
-        "kind": "func",
-        "result": "yes",
-        "reason": "ok"
-      }
-    ],
-    "quirks_matched": [
-      "uses-pkg-config",
-      "has-acinclude",
-      "vendored-aclocal"
-    ],
-    "receipt_hash": "d4ba7b53fc13e223d00f2d2644f628e32bb01ec5c192d0943f2592d2d14d25cb",
-    "schema": "automake-rs.build-court/v1"
-  },
-  "environment": {
-    "cc": "cc",
-    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
-    "host_triplet": "x86_64-linux-gnu",
-    "pkg_config_version": "1.8.1",
-    "make_version": "GNU Make 4.3",
-    "relevant_env": []
-  }
+  "diagnostic": ""
 }

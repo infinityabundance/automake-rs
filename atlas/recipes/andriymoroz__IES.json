@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v1",
   "repo": "andriymoroz/IES",
   "source": {
     "url": "https://github.com/andriymoroz/IES",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.60",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -17,30 +17,77 @@
     "cflags": "-g -O2",
     "host": "x86_64-pc-linux-gnu"
   },
-  "pass_pipeline": [
-    {
-      "step": "autoreconf",
-      "tool": "autoreconf-rs",
-      "status": "ok"
-    },
-    {
-      "step": "configure",
-      "tool": "./configure",
-      "status": "ok"
-    },
-    {
-      "step": "make",
-      "tool": "make",
-      "status": "fail"
-    }
-  ],
-  "probe_results": {},
+  "probe_results": {
+    "HAVE_ARPA_INET_H": 1,
+    "HAVE_ATEXIT": 1,
+    "HAVE_BZERO": 1,
+    "HAVE_CLOCK_GETRES": 1,
+    "HAVE_CLOCK_GETTIME": 1,
+    "HAVE_CLOCK_NANOSLEEP": 1,
+    "HAVE_DIRENT_H": 1,
+    "HAVE_FCNTL_H": 1,
+    "HAVE_FORK": 1,
+    "HAVE_GETHOSTBYNAME": 1,
+    "HAVE_GETPAGESIZE": 1,
+    "HAVE_GETTIMEOFDAY": 1,
+    "HAVE_INET_NTOA": 1,
+    "HAVE_INTTYPES_H": 1,
+    "HAVE_LIMITS_H": 1,
+    "HAVE_MALLOC": 1,
+    "HAVE_MEMCMP": 1,
+    "HAVE_MEMMOVE": 1,
+    "HAVE_MEMSET": 1,
+    "HAVE_MMAP": 1,
+    "HAVE_MUNMAP": 1,
+    "HAVE_NETDB_H": 1,
+    "HAVE_NETINET_IN_H": 1,
+    "HAVE_REALLOC": 1,
+    "HAVE_SELECT": 1,
+    "HAVE_SETPGRP": 1,
+    "HAVE_SGTTY_H": 1,
+    "HAVE_SOCKET": 1,
+    "HAVE_STDBOOL_H": 1,
+    "HAVE_STDDEF_H": 1,
+    "HAVE_STDINT_H": 1,
+    "HAVE_STDLIB_H": 1,
+    "HAVE_STRCASECMP": 1,
+    "HAVE_STRCHR": 1,
+    "HAVE_STRDUP": 1,
+    "HAVE_STRERROR": 1,
+    "HAVE_STRERROR_R": 1,
+    "HAVE_STRFTIME": 1,
+    "HAVE_STRINGS_H": 1,
+    "HAVE_STRING_H": 1,
+    "HAVE_STRNCASECMP": 1,
+    "HAVE_STRNLEN": 1,
+    "HAVE_STRPBRK": 1,
+    "HAVE_STRRCHR": 1,
+    "HAVE_STRSPN": 1,
+    "HAVE_STRSTR": 1,
+    "HAVE_STRTOD": 1,
+    "HAVE_STRTOL": 1,
+    "HAVE_STRTOUL": 1,
+    "HAVE_STRTOULL": 1,
+    "HAVE_SYS_DIR_H": 1,
+    "HAVE_SYS_FILE_H": 1,
+    "HAVE_SYS_IOCTL_H": 1,
+    "HAVE_SYS_PARAM_H": 1,
+    "HAVE_SYS_SOCKET_H": 1,
+    "HAVE_SYS_TIME_H": 1,
+    "HAVE_TERMIOS_H": 1,
+    "HAVE_TERMIO_H": 1,
+    "HAVE_TIME_H": 1,
+    "HAVE_UNISTD_H": 1,
+    "HAVE_VPRINTF": 1
+  },
   "feature_flags": {
     "configure_args": []
   },
   "dependencies": {
     "pkg_config": [],
-    "system_libs": [],
+    "system_libs": [
+      "-lpthread"
+    ],
     "headers_needed": [],
     "missing": []
   },
@@ -51,88 +98,5 @@
   "outputs": [],
   "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "Makefile:16: *** missing separator.  Stop.",
-  "deep_expansion": {
-    "configure_lines": 2709,
-    "leaked_macros": [],
-    "heredoc_openers": 38,
-    "heredoc_terminators": 38,
-    "heredoc_imbalance": 0,
-    "syntax_errors": [],
-    "cache_var_anomalies": [
-      "line 58: do eval test \\${$as_var+y} \\",
-      "line 2233: do eval test \\${$as_var+y} \\"
-    ],
-    "residual_placeholders": [
-      "LIBTOOL",
-      "PACKAGE_NAME",
-      "PACKAGE_TARNAME",
-      "PACKAGE_VERSION",
-      "PACKAGE_STRING",
-      "PACKAGE_BUGREPORT",
-      "PACKAGE_URL",
-      "srcdir",
-      "prefix",
-      "exec_prefix",
-      "CC",
-      "CFLAGS",
-      "CPPFLAGS",
-      "LDFLAGS",
-      "LIBS",
-      "CXX",
-      "CXXFLAGS",
-      "CPP",
-      "DEFS",
-      "LIBOBJS",
-      "INSTALL",
-      "IES_VERSION"
-    ],
-    "failed_during_check": "checking for strtoull... yes",
-    "failure_tail": [
-      "checking for strtoull... yes",
-      "configure: creating Makefile",
-      "configure: creating dist/ies-api.pc",
-      "configure: creating dist/ies-api.spec",
-      "configure: creating dist/Makefile"
-    ],
-    "conftest_corruption": [],
-    "conftest_directives_intact": 38,
-    "conftest_directives_mangled": 0,
-    "conftest_programs": [
-      "char main();\\nint main() { return main(); }",
-      "#include <$ac_hdr>",
-      "#include <$ac_hdr>",
-      "#include <stdbool.h>",
-      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { off_t x; return 0; }",
-      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { pid_t x; return 0; }"
-    ]
-  },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "ok",
-    "real_make": "fail",
-    "real_configure_lines": 18508,
-    "real_first_error": "",
-    "classification": "BOTH_MAKE_FAIL"
-  },
-  "receipt": {
-    "court_status": "partial",
-    "probe_trace": [],
-    "quirks_matched": [
-      "uses-libtool",
-      "uses-libtool-old",
-      "uses-subdir-objects",
-      "vendored-aclocal"
-    ],
-    "receipt_hash": "a1f4e5766c35392dc1a93d7294702343cbef0d84a9f13446984a26ca5354d637",
-    "schema": "automake-rs.build-court/v1"
-  },
-  "environment": {
-    "cc": "cc",
-    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
-    "host_triplet": "x86_64-linux-gnu",
-    "pkg_config_version": "1.8.1",
-    "make_version": "GNU Make 4.3",
-    "relevant_env": []
-  }
+  "diagnostic": "/home/dev/atb_p0ftcU/t/mk:platforms/common/packet/generic-rawsocket/fm_generic_rawsocket.c:441:33: error: 'UIO_MAXIOV' u"
 }

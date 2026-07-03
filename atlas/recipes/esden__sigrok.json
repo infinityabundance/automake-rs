@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v1",
   "repo": "esden/sigrok",
   "source": {
     "url": "https://github.com/esden/sigrok",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.60",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -17,25 +17,37 @@
     "cflags": "-g -O2",
     "host": "x86_64-pc-linux-gnu"
   },
-  "pass_pipeline": [
-    {
-      "step": "autoreconf",
-      "tool": "autoreconf-rs",
-      "status": "ok"
-    },
-    {
-      "step": "configure",
-      "tool": "./configure",
-      "status": "fail"
-    }
-  ],
-  "probe_results": {},
+  "probe_results": {
+    "HAVE_FCNTL_H": 1,
+    "HAVE_GETTIMEOFDAY": 1,
+    "HAVE_MEMSET": 1,
+    "HAVE_STRCHR": 1,
+    "HAVE_STRERROR": 1,
+    "HAVE_STRNCASECMP": 1,
+    "HAVE_STRTOL": 1,
+    "HAVE_STRTOUL": 1,
+    "HAVE_STRTOULL": 1,
+    "HAVE_SYS_TIME_H": 1,
+    "HAVE_TERMIOS_H": 1
+  },
   "feature_flags": {
     "configure_args": []
   },
   "dependencies": {
-    "pkg_config": [],
-    "system_libs": [],
+    "pkg_config": [
+      "checking for gmodule-2.0 >=",
+      "checking for libusb-1.0 >=",
+      "checking for libzip >="
+    ],
+    "system_libs": [
+      "-Wl,--export-dynamic",
+      "-lgmodule-2.0",
+      "-pthread",
+      "-lglib-2.0",
+      "-lglib-2.0",
+      "-lusb-1.0",
+      "-lzip"
+    ],
     "headers_needed": [],
     "missing": []
   },
@@ -45,92 +57,7 @@
     "subdirs"
   ],
   "outputs": [],
-  "status": "CONFIGURE_RUN_FAIL",
+  "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1377: syntax error near unexpected token `2.0.0,'",
-  "deep_expansion": {
-    "configure_lines": 2607,
-    "leaked_macros": [
-      {
-        "name": "AM_PATH_GLIB_2_0",
-        "line": 1377,
-        "context": "AM_PATH_GLIB_2_0(2.0.0,"
-      }
-    ],
-    "heredoc_openers": 26,
-    "heredoc_terminators": 26,
-    "heredoc_imbalance": 0,
-    "syntax_errors": [
-      {
-        "line": 1377,
-        "token": "2.0.0,",
-        "source": "AM_PATH_GLIB_2_0(2.0.0,",
-        "block": [
-          "1373: LN_S='ln -s'",
-          "1374: _acrs_write_libtool",
-          "1375: ",
-          "1376: # Checks for libraries.",
-          "1377: AM_PATH_GLIB_2_0(2.0.0,",
-          "1378: \tCFLAGS=\"$CFLAGS $GLIB_CFLAGS\"; LIBS=\"$LIBS $GLIB_LIBS\")",
-          "1379: ",
-          "1380: printf %s \"checking for gmodule-2.0 >= 2.0... \""
-        ]
-      }
-    ],
-    "cache_var_anomalies": [
-      "line 58: do eval test \\${$as_var+y} \\",
-      "line 2130: do eval test \\${$as_var+y} \\"
-    ],
-    "residual_placeholders": [
-      "LIBTOOL",
-      "PACKAGE_NAME",
-      "PACKAGE_TARNAME",
-      "PACKAGE_VERSION",
-      "PACKAGE_STRING",
-      "PACKAGE_BUGREPORT"
-    ],
-    "failed_during_check": "",
-    "failure_tail": [
-      "./configure: line 1377: syntax error near unexpected token `2.0.0,'",
-      "./configure: line 1377: `AM_PATH_GLIB_2_0(2.0.0,'"
-    ],
-    "conftest_corruption": [],
-    "conftest_directives_intact": 19,
-    "conftest_directives_mangled": 0,
-    "conftest_programs": [
-      "#include <$ac_hdr>",
-      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { int8_t x; return 0; }",
-      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { int16_t x; return 0; }",
-      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { int32_t x; return 0; }",
-      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { int64_t x; return 0; }",
-      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { uint8_t x; return 0; }"
-    ]
-  },
-  "oracle": {
-    "real_autoreconf": "fail",
-    "real_configure": "skipped",
-    "real_make": "skipped",
-    "real_configure_lines": 0,
-    "real_first_error": "aclocal: warning: couldn't open directory 'm4': No such file or directory",
-    "classification": "OURS_BETTER"
-  },
-  "receipt": {
-    "court_status": "failed",
-    "probe_trace": [],
-    "quirks_matched": [
-      "uses-libtool",
-      "uses-pkg-config",
-      "vendored-aclocal"
-    ],
-    "receipt_hash": "0c30dce6270fb3560c454d8c8d1e4e34e811f65407638476dab76fe1fd927894",
-    "schema": "automake-rs.build-court/v1"
-  },
-  "environment": {
-    "cc": "cc",
-    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
-    "host_triplet": "x86_64-linux-gnu",
-    "pkg_config_version": "1.8.1",
-    "make_version": "GNU Make 4.3",
-    "relevant_env": []
-  }
+  "diagnostic": "/home/dev/atb_9OsdaM/t/mk:sigrok-cli.c:93:55: error: 'VERSION' undeclared (first use in this function)"
 }

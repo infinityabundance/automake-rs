@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v1",
   "repo": "enki/libev",
   "source": {
     "url": "https://github.com/enki/libev",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.16",
+    "autoconf_rs": "autoconf-rs 0.1.60",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -17,26 +17,23 @@
     "cflags": "-g -O2",
     "host": "x86_64-pc-linux-gnu"
   },
-  "pass_pipeline": [
-    {
-      "step": "autoreconf",
-      "tool": "autoreconf-rs",
-      "status": "ok"
-    },
-    {
-      "step": "configure",
-      "tool": "./configure",
-      "status": "ok"
-    },
-    {
-      "step": "make",
-      "tool": "make",
-      "status": "ok"
-    }
-  ],
   "probe_results": {
+    "HAVE_CLOCK_GETTIME": 1,
     "HAVE_CLOCK_SYSCALL": 1,
-    "HAVE_FLOOR": 1
+    "HAVE_EPOLL_CTL": 1,
+    "HAVE_EVENTFD": 1,
+    "HAVE_FLOOR": 1,
+    "HAVE_INOTIFY_INIT": 1,
+    "HAVE_NANOSLEEP": 1,
+    "HAVE_POLL": 1,
+    "HAVE_POLL_H": 1,
+    "HAVE_SELECT": 1,
+    "HAVE_SIGNALFD": 1,
+    "HAVE_SYS_EPOLL_H": 1,
+    "HAVE_SYS_EVENTFD_H": 1,
+    "HAVE_SYS_INOTIFY_H": 1,
+    "HAVE_SYS_SELECT_H": 1,
+    "HAVE_SYS_SIGNALFD_H": 1
   },
   "feature_flags": {
     "configure_args": []
@@ -50,10 +47,19 @@
     "missing": []
   },
   "quirks": [
-    "libtool",
-    "LIBS=-lm"
+    "libtool"
   ],
   "outputs": [
+    {
+      "path": "config.sub",
+      "sha256": "f4cf53ff68e5b9c3",
+      "kind": "executable"
+    },
+    {
+      "path": "config.status",
+      "sha256": "c3860a272d081b9b",
+      "kind": "executable"
+    },
     {
       "path": "mkinstalldirs",
       "sha256": "3caa88030df8fd0c",
@@ -70,138 +76,22 @@
       "kind": "executable"
     },
     {
+      "path": "config.guess",
+      "sha256": "47da33933b382504",
+      "kind": "executable"
+    },
+    {
       "path": "compile",
       "sha256": "9277c97b212b37d2",
       "kind": "executable"
     },
     {
       "path": "libtool",
-      "sha256": "1c6c3d50a729eb8e",
-      "kind": "executable"
-    },
-    {
-      "path": ".libs/libev.so",
-      "sha256": "670d189ec5255fc1",
-      "kind": "library"
-    },
-    {
-      "path": ".libs/libev.a",
-      "sha256": "3bb3a922fd519543",
-      "kind": "library"
-    },
-    {
-      "path": "configure",
-      "sha256": "9cbd1bf8e931a02d",
-      "kind": "executable"
-    },
-    {
-      "path": "install-sh",
-      "sha256": "852947c4fef9cdc1",
+      "sha256": "198b20e625bdd9f5",
       "kind": "executable"
     }
   ],
   "status": "FUNC_OK",
   "verified": true,
-  "diagnostic": "",
-  "deep_expansion": {
-    "configure_lines": 2529,
-    "leaked_macros": [],
-    "heredoc_openers": 21,
-    "heredoc_terminators": 21,
-    "heredoc_imbalance": 0,
-    "syntax_errors": [],
-    "cache_var_anomalies": [
-      "line 58: do eval test \\${$as_var+y} \\",
-      "line 2053: do eval test \\${$as_var+y} \\"
-    ],
-    "residual_placeholders": [
-      "LIBTOOL",
-      "PACKAGE_NAME",
-      "PACKAGE_TARNAME",
-      "PACKAGE_VERSION",
-      "PACKAGE_STRING",
-      "PACKAGE_BUGREPORT",
-      "PACKAGE_URL",
-      "srcdir",
-      "prefix",
-      "exec_prefix",
-      "CC",
-      "CFLAGS",
-      "CPPFLAGS",
-      "LDFLAGS",
-      "LIBS",
-      "CXX",
-      "CXXFLAGS",
-      "CPP",
-      "DEFS",
-      "LIBOBJS",
-      "INSTALL",
-      "top_srcdir",
-      "top_builddir",
-      "builddir",
-      "abs_srcdir",
-      "abs_builddir",
-      "abs_top_srcdir",
-      "abs_top_builddir",
-      "AR",
-      "ARFLAGS"
-    ],
-    "failed_during_check": "checking for library containing floor... -lm",
-    "failure_tail": [
-      "checking for library containing floor... -lm",
-      "configure: creating Makefile",
-      "configure: creating config.h",
-      "configure: creating ./config.status"
-    ],
-    "conftest_corruption": [],
-    "conftest_directives_intact": 7,
-    "conftest_directives_mangled": 0,
-    "conftest_programs": [
-      "#include <$ac_hdr>",
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func();\\nint main() { return $ac_func(); }",
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func();\\nint main() { return $ac_func(); }",
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func();\\nint main() { return $ac_func(); }",
-      "char floor ();\\nint main() { return floor (); }"
-    ]
-  },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "ok",
-    "real_make": "ok",
-    "real_configure_lines": 15228,
-    "real_first_error": "",
-    "classification": "BOTH_OK"
-  },
-  "receipt": {
-    "court_status": "quirk_dependent",
-    "probe_trace": [
-      {
-        "name": "HAVE_CLOCK_SYSCALL",
-        "kind": "func",
-        "result": "yes",
-        "reason": "ok"
-      },
-      {
-        "name": "HAVE_FLOOR",
-        "kind": "func",
-        "result": "yes",
-        "reason": "ok"
-      }
-    ],
-    "quirks_matched": [
-      "uses-libtool-old",
-      "uses-maintainer-mode",
-      "vendored-aclocal"
-    ],
-    "receipt_hash": "17f31fb3d56c910bcfa8e1aa985b15ff93cdcb134fe04271ad6bf473dda787ae",
-    "schema": "automake-rs.build-court/v1"
-  },
-  "environment": {
-    "cc": "cc",
-    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
-    "host_triplet": "x86_64-linux-gnu",
-    "pkg_config_version": "1.8.1",
-    "make_version": "GNU Make 4.3",
-    "relevant_env": []
-  }
+  "diagnostic": ""
 }

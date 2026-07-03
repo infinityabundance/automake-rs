@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v1",
   "repo": "chad3814/libhid",
   "source": {
     "url": "https://github.com/chad3814/libhid",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.60",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -17,24 +17,9 @@
     "cflags": "-g -O2",
     "host": "x86_64-pc-linux-gnu"
   },
-  "pass_pipeline": [
-    {
-      "step": "autoreconf",
-      "tool": "autoreconf-rs",
-      "status": "ok"
-    },
-    {
-      "step": "configure",
-      "tool": "./configure",
-      "status": "fail"
-    },
-    {
-      "step": "auto-quirk",
-      "tool": "quirk-engine",
-      "status": "fail"
-    }
-  ],
-  "probe_results": {},
+  "probe_results": {
+    "HAVE_STDBOOL_H": 1
+  },
   "feature_flags": {
     "configure_args": []
   },
@@ -50,149 +35,7 @@
     "subdirs"
   ],
   "outputs": [],
-  "status": "CONFIGURE_RUN_FAIL",
+  "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1702: syntax error near unexpected token `[$1'",
-  "deep_expansion": {
-    "configure_lines": 4374,
-    "leaked_macros": [
-      {
-        "name": "AC_MSG_NOTICE",
-        "line": 1702,
-        "context": "AC_MSG_NOTICE([$1 disabled by configuration (use --with-$1 to enable).])"
-      },
-      {
-        "name": "AC_MSG_NOTICE",
-        "line": 2368,
-        "context": "AC_MSG_NOTICE([$1 disabled by configuration (use --with-$1 to enable).])"
-      },
-      {
-        "name": "AC_WARN",
-        "line": 3274,
-        "context": "AC_WARN(No appropriate db2man stylesheet found; man pages will not be re"
-      }
-    ],
-    "heredoc_openers": 21,
-    "heredoc_terminators": 21,
-    "heredoc_imbalance": 0,
-    "syntax_errors": [
-      {
-        "line": 1702,
-        "token": "[$1",
-        "source": "AC_MSG_NOTICE([$1 disabled by configuration (use --with-$1 to enable).])",
-        "block": [
-          "1698:       fi",
-          "1699:       path=$ac_cv_use_$1",
-          "1700:       $3",
-          "1701:     else",
-          "1702:       AC_MSG_NOTICE([$1 disabled by configuration (use --with-$1 to enable).",
-          "1703:       $4",
-          "1704:     fi",
-          "1705:   "
-        ]
-      }
-    ],
-    "cache_var_anomalies": [
-      "line 58: do eval test \\${$as_var+y} \\",
-      "line 3865: do eval test \\${$as_var+y} \\"
-    ],
-    "residual_placeholders": [
-      "LIBTOOL",
-      "PACKAGE_NAME",
-      "PACKAGE_TARNAME",
-      "PACKAGE_VERSION",
-      "PACKAGE_STRING",
-      "PACKAGE_BUGREPORT",
-      "PACKAGE_URL",
-      "srcdir",
-      "prefix",
-      "exec_prefix",
-      "CC",
-      "CFLAGS",
-      "CPPFLAGS",
-      "LDFLAGS",
-      "LIBS",
-      "CXX",
-      "CXXFLAGS",
-      "CPP",
-      "DEFS",
-      "LIBOBJS",
-      "INSTALL",
-      "PYTHON_EXTRA_LDFLAGS",
-      "PYTHON_CPPFLAGS",
-      "LT_REVISION",
-      "AX_SWIG_PYTHON_OPT",
-      "host_cpu",
-      "host_alias",
-      "MD_MAJOR_VERSION",
-      "PYTHON_SITE_PKG",
-      "OS_LINUX"
-    ],
-    "failed_during_check": "checking for usb.h... no",
-    "failure_tail": [
-      "checking for usb.h... no",
-      "./configure: line 1702: syntax error near unexpected token `[$1'",
-      "./configure: line 1702: `      AC_MSG_NOTICE([$1 disabled by configuration (use "
-    ],
-    "conftest_corruption": [],
-    "conftest_directives_intact": 4,
-    "conftest_directives_mangled": 0,
-    "conftest_programs": [
-      "#include <$ac_hdr>",
-      "\\n#include <usb.h>\\n\\nint main(void)\\n{\\nusb_dev_handle* dev;\\nusb_detach_kernel_driver_np(dev, 0);\\nreturn 0;\\n}\\n",
-      "#include <stdbool.h>",
-      "int main() { int x = 1; return *(char*)&x; }",
-      "#define STR(x) #x\\nconst char *s = STR(hello);\\nint main() { return 0; }"
-    ]
-  },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "ok",
-    "real_make": "fail",
-    "real_configure_lines": 18403,
-    "real_first_error": "",
-    "classification": "OURS_BUG_CONFIGURE"
-  },
-  "divergence": {
-    "stage": "configure",
-    "ours_error": "line 1702: AC_MSG_NOTICE([$1 disabled by configuration (use --with-$1 to enable).]) (near `[$1`)",
-    "ours_error_context": [
-      "AC_MSG_NOTICE([$1 disabled by configuration (use --with-$1 to enable).])"
-    ],
-    "ours_configure_lines": 4374,
-    "real_configure_lines": 18403,
-    "macros_ours_left_undefined": [
-      "AC_MSG_NOTICE",
-      "AC_WARN"
-    ]
-  },
-  "receipt": {
-    "court_status": "failed",
-    "probe_trace": [],
-    "quirks_matched": [
-      "uses-libtool-old",
-      "uses-python",
-      "uses-maintainer-mode",
-      "has-m4-macro-dir",
-      "vendored-aclocal",
-      "uses-ax-archive"
-    ],
-    "quirks_applied": [
-      {
-        "id": "uses-maintainer-mode",
-        "action": "--disable-maintainer-mode",
-        "verified": false
-      }
-    ],
-    "receipt_hash": "24e39ed3178d433d21c1340a6407fda16d8349c27724819539e8175382940e80",
-    "schema": "automake-rs.build-court/v1"
-  },
-  "environment": {
-    "cc": "cc",
-    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
-    "host_triplet": "x86_64-linux-gnu",
-    "pkg_config_version": "1.8.1",
-    "make_version": "GNU Make 4.3",
-    "relevant_env": []
-  }
+  "diagnostic": "/home/dev/atb_TTBSqW/t/cf:./configure: line 1953: : command not found"
 }

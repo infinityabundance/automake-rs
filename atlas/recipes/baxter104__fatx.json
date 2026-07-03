@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v1",
   "repo": "baxter104/fatx",
   "source": {
     "url": "https://github.com/baxter104/fatx",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.60",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -17,26 +17,16 @@
     "cflags": "-g -O2",
     "host": "x86_64-pc-linux-gnu"
   },
-  "pass_pipeline": [
-    {
-      "step": "autoreconf",
-      "tool": "autoreconf-rs",
-      "status": "ok"
-    },
-    {
-      "step": "configure",
-      "tool": "./configure",
-      "status": "ok"
-    },
-    {
-      "step": "make",
-      "tool": "make",
-      "status": "fail"
-    }
-  ],
   "probe_results": {
+    "HAVE_FCNTL_H": 1,
     "HAVE_LIBBOOST_PROGRAM_OPTIONS": 1,
-    "HAVE_LIBPTHREAD": 1
+    "HAVE_LIBPTHREAD": 1,
+    "HAVE_MALLOC": 1,
+    "HAVE_MEMSET": 1,
+    "HAVE_MKTIME": 1,
+    "HAVE_REALLOC": 1,
+    "HAVE_STRING_H": 1,
+    "HAVE_UNISTD_H": 1
   },
   "feature_flags": {
     "configure_args": []
@@ -54,85 +44,5 @@
   "outputs": [],
   "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "Makefile:16: *** missing separator.  Stop.",
-  "deep_expansion": {
-    "configure_lines": 3065,
-    "leaked_macros": [],
-    "heredoc_openers": 32,
-    "heredoc_terminators": 32,
-    "heredoc_imbalance": 0,
-    "syntax_errors": [],
-    "cache_var_anomalies": [
-      "line 58: do eval test \\${$as_var+y} \\",
-      "line 2589: do eval test \\${$as_var+y} \\"
-    ],
-    "residual_placeholders": [
-      "LIBTOOL",
-      "PACKAGE_NAME",
-      "PACKAGE_TARNAME",
-      "PACKAGE_VERSION",
-      "PACKAGE_STRING",
-      "PACKAGE_BUGREPORT"
-    ],
-    "failed_during_check": "checking for memset... yes",
-    "failure_tail": [
-      "checking for memset... yes",
-      "configure: creating Makefile",
-      "configure: creating config.h",
-      "configure: creating ./config.status"
-    ],
-    "conftest_corruption": [],
-    "conftest_directives_intact": 25,
-    "conftest_directives_mangled": 0,
-    "conftest_programs": [
-      "char main();\\nint main() { return main(); }",
-      "char main();\\nint main() { return main(); }",
-      "#include <$ac_hdr>",
-      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { uid_t x; return 0; }",
-      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { int64_t x; return 0; }",
-      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { mode_t x; return 0; }"
-    ]
-  },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "ok",
-    "real_make": "fail",
-    "real_configure_lines": 11049,
-    "real_first_error": "",
-    "classification": "BOTH_MAKE_FAIL"
-  },
-  "receipt": {
-    "court_status": "partial",
-    "probe_trace": [
-      {
-        "name": "HAVE_LIBBOOST_PROGRAM_OPTIONS",
-        "kind": "lib",
-        "result": "yes",
-        "reason": "ok"
-      },
-      {
-        "name": "HAVE_LIBPTHREAD",
-        "kind": "lib",
-        "result": "yes",
-        "reason": "ok"
-      }
-    ],
-    "quirks_matched": [
-      "uses-pkg-config",
-      "uses-maintainer-mode",
-      "has-m4-macro-dir",
-      "vendored-aclocal",
-      "uses-ax-archive"
-    ],
-    "receipt_hash": "cbbb6e309a8f4fe811407f8e3b660c3504334687f0d3accb5418379e505ad2eb",
-    "schema": "automake-rs.build-court/v1"
-  },
-  "environment": {
-    "cc": "cc",
-    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
-    "host_triplet": "x86_64-linux-gnu",
-    "pkg_config_version": "1.8.1",
-    "make_version": "GNU Make 4.3",
-    "relevant_env": []
-  }
+  "diagnostic": "/home/dev/atb_qbBp6a/t/mk:/usr/include/fuse/fuse_common.h:33:2: error: #error Please add -D_FILE_OFFSET_BITS=64 to your "
 }

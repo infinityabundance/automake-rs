@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v1",
   "repo": "cybergarage/uecho",
   "source": {
     "url": "https://github.com/cybergarage/uecho",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.60",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -17,36 +17,27 @@
     "cflags": "-g -O2",
     "host": "x86_64-pc-linux-gnu"
   },
-  "pass_pipeline": [
-    {
-      "step": "autoreconf",
-      "tool": "autoreconf-rs",
-      "status": "ok"
-    },
-    {
-      "step": "configure",
-      "tool": "./configure",
-      "status": "ok"
-    },
-    {
-      "step": "make",
-      "tool": "make",
-      "status": "fail"
-    }
-  ],
   "probe_results": {
+    "HAVE_GETIFADDRS": 1,
+    "HAVE_IFADDRS_H": 1,
+    "HAVE_INET_NTOA": 1,
     "HAVE_IP_PKTINFO": 1,
+    "HAVE_PTHREAD_H": 1,
     "HAVE_SIOCGIFHWADDR": 1,
     "HAVE_SOCKADDR_DL": 1,
+    "HAVE_SOCKET": 1,
     "HAVE_SOCKLEN_T": 1,
-    "HAVE_SO_NOSIGPIPE": 1
+    "HAVE_SO_NOSIGPIPE": 1,
+    "HAVE_STDBOOL_H": 1
   },
   "feature_flags": {
     "configure_args": []
   },
   "dependencies": {
     "pkg_config": [],
-    "system_libs": [],
+    "system_libs": [
+      "-lpthread"
+    ],
     "headers_needed": [],
     "missing": []
   },
@@ -56,124 +47,5 @@
   "outputs": [],
   "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "Makefile:16: *** missing separator.  Stop.",
-  "deep_expansion": {
-    "configure_lines": 2796,
-    "leaked_macros": [],
-    "heredoc_openers": 32,
-    "heredoc_terminators": 32,
-    "heredoc_imbalance": 0,
-    "syntax_errors": [],
-    "cache_var_anomalies": [
-      "line 58: do eval test \\${$as_var+y} \\",
-      "line 2320: do eval test \\${$as_var+y} \\"
-    ],
-    "residual_placeholders": [
-      "LIBTOOL",
-      "PACKAGE_NAME",
-      "PACKAGE_TARNAME",
-      "PACKAGE_VERSION",
-      "PACKAGE_STRING",
-      "PACKAGE_BUGREPORT",
-      "PACKAGE_URL",
-      "srcdir",
-      "prefix",
-      "exec_prefix",
-      "CC",
-      "CFLAGS",
-      "CPPFLAGS",
-      "LDFLAGS",
-      "LIBS",
-      "CXX",
-      "CXXFLAGS",
-      "CPP",
-      "DEFS",
-      "LIBOBJS",
-      "INSTALL"
-    ],
-    "failed_during_check": "checking for SO_NOSIGPIPE... no",
-    "failure_tail": [
-      "checking for SO_NOSIGPIPE... no",
-      "configure: creating Makefile",
-      "configure: creating include/Makefile",
-      "configure: creating lib/Makefile",
-      "configure: creating lib/unix/Makefile"
-    ],
-    "conftest_corruption": [],
-    "conftest_directives_intact": 24,
-    "conftest_directives_mangled": 0,
-    "conftest_programs": [
-      "#include <$ac_hdr>",
-      "#include <$ac_hdr>",
-      "char main();\\nint main() { return main(); }",
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func();\\nint main() { return $ac_func(); }",
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func();\\nint main() { return $ac_func(); }",
-      "#include <$ac_hdr>"
-    ]
-  },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "ok",
-    "real_make": "ok",
-    "real_configure_lines": 7531,
-    "real_first_error": "",
-    "classification": "OURS_BUG_MAKE"
-  },
-  "divergence": {
-    "stage": "make",
-    "ours_error": "",
-    "ours_error_context": [],
-    "ours_configure_lines": 2796,
-    "real_configure_lines": 7531,
-    "macros_ours_left_undefined": []
-  },
-  "receipt": {
-    "court_status": "partial",
-    "probe_trace": [
-      {
-        "name": "HAVE_IP_PKTINFO",
-        "kind": "func",
-        "result": "yes",
-        "reason": "ok"
-      },
-      {
-        "name": "HAVE_SIOCGIFHWADDR",
-        "kind": "func",
-        "result": "yes",
-        "reason": "ok"
-      },
-      {
-        "name": "HAVE_SOCKADDR_DL",
-        "kind": "func",
-        "result": "yes",
-        "reason": "ok"
-      },
-      {
-        "name": "HAVE_SOCKLEN_T",
-        "kind": "func",
-        "result": "yes",
-        "reason": "ok"
-      },
-      {
-        "name": "HAVE_SO_NOSIGPIPE",
-        "kind": "func",
-        "result": "yes",
-        "reason": "ok"
-      }
-    ],
-    "quirks_matched": [
-      "uses-subdir-objects",
-      "vendored-aclocal"
-    ],
-    "receipt_hash": "8442fdc86fea0c870bf1e1fef3aadbd043cb1cffa77bdf93cf351212922ca704",
-    "schema": "automake-rs.build-court/v1"
-  },
-  "environment": {
-    "cc": "cc",
-    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
-    "host_triplet": "x86_64-linux-gnu",
-    "pkg_config_version": "1.8.1",
-    "make_version": "GNU Make 4.3",
-    "relevant_env": []
-  }
+  "diagnostic": "/home/dev/atb_0pWn8H/t/mk:collect2: error: ld returned 1 exit status"
 }

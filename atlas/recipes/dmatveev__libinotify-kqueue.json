@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v1",
   "repo": "dmatveev/libinotify-kqueue",
   "source": {
     "url": "https://github.com/dmatveev/libinotify-kqueue",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.14",
+    "autoconf_rs": "autoconf-rs 0.1.60",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -17,28 +17,13 @@
     "cflags": "-g -O2",
     "host": "x86_64-pc-linux-gnu"
   },
-  "pass_pipeline": [
-    {
-      "step": "autoreconf",
-      "tool": "autoreconf-rs",
-      "status": "ok"
-    },
-    {
-      "step": "configure",
-      "tool": "./configure",
-      "status": "ok"
-    },
-    {
-      "step": "make",
-      "tool": "make",
-      "status": "fail"
-    }
-  ],
   "probe_results": {
     "HAVE_ATFUNCS": 1,
     "HAVE_NOTE_EXTEND_ON_SUBFILE_RENAME": 1,
     "HAVE_O_EVTONLY": 1,
     "HAVE_PTHREAD": 1,
+    "HAVE_PTHREAD_BARRIER": 1,
+    "HAVE_PTHREAD_PRIO_INHERIT": 1,
     "HAVE_SYS_QUEUE_H": 1,
     "HAVE_SYS_TREE_H": 1
   },
@@ -48,8 +33,12 @@
   "dependencies": {
     "pkg_config": [],
     "system_libs": [],
-    "headers_needed": [],
-    "missing": []
+    "headers_needed": [
+      "/home/dev/atb_lwqob2/t/mk:sys/tree.h"
+    ],
+    "missing": [
+      "/home/dev/atb_lwqob2/t/mk:sys/tree.h"
+    ]
   },
   "quirks": [
     "autoconf-archive-macros",
@@ -58,140 +47,5 @@
   "outputs": [],
   "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "",
-  "deep_expansion": {
-    "configure_lines": 2804,
-    "leaked_macros": [],
-    "heredoc_openers": 30,
-    "heredoc_terminators": 30,
-    "heredoc_imbalance": 0,
-    "syntax_errors": [],
-    "cache_var_anomalies": [
-      "line 58: do eval test \\${$as_var+y} \\",
-      "line 2328: do eval test \\${$as_var+y} \\"
-    ],
-    "residual_placeholders": [
-      "LIBTOOL",
-      "PTHREAD_CC",
-      "PTHREAD_CFLAGS",
-      "PTHREAD_LIBS",
-      "PACKAGE_NAME",
-      "PACKAGE_TARNAME",
-      "PACKAGE_VERSION",
-      "PACKAGE_STRING",
-      "PACKAGE_BUGREPORT",
-      "PACKAGE_URL",
-      "srcdir",
-      "prefix",
-      "exec_prefix",
-      "CC",
-      "CFLAGS",
-      "CPPFLAGS",
-      "LDFLAGS",
-      "LIBS",
-      "CXX",
-      "CXXFLAGS",
-      "CPP",
-      "DEFS",
-      "LIBOBJS",
-      "INSTALL",
-      "host_cpu",
-      "host_os",
-      "host_alias",
-      "host_vendor"
-    ],
-    "failed_during_check": "checking for struct dirent.d_type... no",
-    "failure_tail": [
-      "checking for struct dirent.d_type... no",
-      "configure: creating Makefile",
-      "configure: creating config.h",
-      "configure: creating ./config.status"
-    ],
-    "conftest_corruption": [],
-    "conftest_directives_intact": 3,
-    "conftest_directives_mangled": 0,
-    "conftest_programs": [
-      "#include <$ac_hdr>",
-      "\\n\\n@%:@include <sys/queue.h>\\n\\nint main() {\\n@%:@ifndef SLIST_FOREACH_SAFE\\n@%:@error\\n@%:@endif\\nreturn 0;\\n; return 0; }\\n",
-      "\\n\\n@%:@include <sys/queue.h>\\n\\nint main() {\\n@%:@ifndef SLIST_REMOVE_AFTER\\n@%:@error\\n@%:@endif\\nreturn 0;\\n; return 0; }\\n",
-      "\\n\\n@%:@include <sys/tree.h>\\n\\nint main() {\\n@%:@ifndef RB_FOREACH_SAFE\\n@%:@error\\n@%:@endif\\nreturn 0;\\n; return 0; }\\n",
-      "\\n\\n@%:@include <pthread.h>\\n\\nint main() {\\npthread_barrier_t barrier;\\npthread_barrier_init(&barrier, NULL, 1);\\npthread_barrier_wait(&barrier);\\npthread_barrier_destroy(&barrier);\\nreturn 0;\\n; return 0; }\\n",
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func();\\nint main() { return $ac_func(); }"
-    ]
-  },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "ok",
-    "real_make": "ok",
-    "real_configure_lines": 20554,
-    "real_first_error": "",
-    "classification": "OURS_BUG_MAKE"
-  },
-  "divergence": {
-    "stage": "make",
-    "ours_error": "",
-    "ours_error_context": [],
-    "ours_configure_lines": 2804,
-    "real_configure_lines": 20554,
-    "macros_ours_left_undefined": []
-  },
-  "receipt": {
-    "court_status": "partial",
-    "probe_trace": [
-      {
-        "name": "HAVE_ATFUNCS",
-        "kind": "func",
-        "result": "yes",
-        "reason": "ok"
-      },
-      {
-        "name": "HAVE_NOTE_EXTEND_ON_SUBFILE_RENAME",
-        "kind": "func",
-        "result": "yes",
-        "reason": "ok"
-      },
-      {
-        "name": "HAVE_O_EVTONLY",
-        "kind": "func",
-        "result": "yes",
-        "reason": "ok"
-      },
-      {
-        "name": "HAVE_PTHREAD",
-        "kind": "func",
-        "result": "yes",
-        "reason": "ok"
-      },
-      {
-        "name": "HAVE_SYS_QUEUE_H",
-        "kind": "header",
-        "result": "yes",
-        "reason": "ok"
-      },
-      {
-        "name": "HAVE_SYS_TREE_H",
-        "kind": "header",
-        "result": "yes",
-        "reason": "ok"
-      }
-    ],
-    "quirks_matched": [
-      "uses-libtool-old",
-      "uses-subdir-objects",
-      "has-m4-macro-dir",
-      "vendored-aclocal",
-      "uses-ax-archive",
-      "uses-pthread-check"
-    ],
-    "receipt_hash": "abd40991a23c140cd1709077d188b34114969707a9880e66e98a3e41094b5275",
-    "schema": "automake-rs.build-court/v1"
-  },
-  "environment": {
-    "cc": "cc",
-    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
-    "host_triplet": "x86_64-linux-gnu",
-    "pkg_config_version": "1.8.1",
-    "make_version": "GNU Make 4.3",
-    "relevant_env": []
-  }
+  "diagnostic": ""
 }
