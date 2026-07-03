@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "clone/xml2",
   "source": {
     "url": "https://github.com/clone/xml2",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.60",
+    "autoconf_rs": "autoconf-rs 0.1.16",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -17,22 +17,24 @@
     "cflags": "-g -O2",
     "host": "x86_64-pc-linux-gnu"
   },
-  "probe_results": {
-    "HAVE_MALLOC": 1,
-    "HAVE_MEMCHR": 1,
-    "HAVE_MEMMOVE": 1,
-    "HAVE_MEMSET": 1,
-    "HAVE_REALLOC": 1,
-    "HAVE_STDLIB_H": 1,
-    "HAVE_STRCHR": 1,
-    "HAVE_STRCSPN": 1,
-    "HAVE_STRDUP": 1,
-    "HAVE_STRING_H": 1,
-    "HAVE_STRRCHR": 1,
-    "HAVE_STRSTR": 1,
-    "HAVE_UNISTD_H": 1,
-    "HAVE_VPRINTF": 1
-  },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "ok"
+    },
+    {
+      "step": "make",
+      "tool": "make",
+      "status": "ok"
+    }
+  ],
+  "probe_results": {},
   "feature_flags": {
     "configure_args": []
   },
@@ -47,18 +49,13 @@
   ],
   "outputs": [
     {
-      "path": "config.status",
-      "sha256": "bd13e61340ee8e58",
-      "kind": "executable"
-    },
-    {
       "path": "depcomp",
       "sha256": "16d184959f7532ce",
       "kind": "executable"
     },
     {
       "path": "csv2",
-      "sha256": "2ec687294f1bf73a",
+      "sha256": "cd089039a198c04b",
       "kind": "executable"
     },
     {
@@ -73,11 +70,95 @@
     },
     {
       "path": "2csv",
-      "sha256": "738ff6ee9eb57ab2",
+      "sha256": "6cfec42aa6c84754",
+      "kind": "executable"
+    },
+    {
+      "path": "xml2",
+      "sha256": "78d1884027d69d3c",
+      "kind": "executable"
+    },
+    {
+      "path": "configure",
+      "sha256": "adfad40b25d96ef9",
+      "kind": "executable"
+    },
+    {
+      "path": "2xml",
+      "sha256": "513bed1135dc398c",
+      "kind": "executable"
+    },
+    {
+      "path": "install-sh",
+      "sha256": "852947c4fef9cdc1",
       "kind": "executable"
     }
   ],
   "status": "FUNC_OK",
   "verified": true,
-  "diagnostic": ""
+  "diagnostic": "",
+  "deep_expansion": {
+    "configure_lines": 2534,
+    "leaked_macros": [],
+    "heredoc_openers": 22,
+    "heredoc_terminators": 22,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2058: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT"
+    ],
+    "failed_during_check": "checking for strstr... yes",
+    "failure_tail": [
+      "checking for strstr... yes",
+      "configure: creating Makefile",
+      "configure: creating config.h",
+      "configure: creating ./config.status"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 11,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "#include <$ac_hdr>",
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { size_t x; return 0; }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar malloc();\\nint main() { return malloc(); }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar realloc();\\nint main() { return realloc(); }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar vprintf();\\nint main() { return vprintf(); }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func();\\nint main() { return $ac_func(); }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "ok",
+    "real_configure_lines": 6692,
+    "real_first_error": "",
+    "classification": "BOTH_OK"
+  },
+  "receipt": {
+    "court_status": "quirk_dependent",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-pkg-config",
+      "vendored-aclocal"
+    ],
+    "receipt_hash": "be4a57c46f2f35bb26e0ee0b1fc441a3c53dd9ebe110d1c6e02b49aa30497506",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

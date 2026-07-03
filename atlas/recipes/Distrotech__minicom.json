@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "Distrotech/minicom",
   "source": {
     "url": "https://github.com/Distrotech/minicom",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.60",
+    "autoconf_rs": "autoconf-rs 0.1.14",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -17,13 +17,79 @@
     "cflags": "-g -O2",
     "host": "x86_64-pc-linux-gnu"
   },
-  "probe_results": {},
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "ok"
+    },
+    {
+      "step": "make",
+      "tool": "make",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {
+    "HAVE_DCGETTEXT": 1,
+    "HAVE_DIRENT_H": 1,
+    "HAVE_ERRNO_H": 1,
+    "HAVE_FCNTL_H": 1,
+    "HAVE_FEATURES_H": 1,
+    "HAVE_GETCWD": 1,
+    "HAVE_GETOPT": 1,
+    "HAVE_GETOPT_LONG": 1,
+    "HAVE_GETTEXT": 1,
+    "HAVE_GETWD": 1,
+    "HAVE_ICONV": 1,
+    "HAVE_INTTYPES_H": 1,
+    "HAVE_LOCALE_H": 1,
+    "HAVE_LONG_FILE_NAMES": 1,
+    "HAVE_MEMMOVE": 1,
+    "HAVE_MEMORY_H": 1,
+    "HAVE_PWD_H": 1,
+    "HAVE_SELECT": 1,
+    "HAVE_SETJMP_H": 1,
+    "HAVE_SGTTY_H": 1,
+    "HAVE_SIGNAL_H": 1,
+    "HAVE_SNPRINTF": 1,
+    "HAVE_STDARG_H": 1,
+    "HAVE_STDINT_H": 1,
+    "HAVE_STDLIB_H": 1,
+    "HAVE_STRERROR": 1,
+    "HAVE_STRINGS_H": 1,
+    "HAVE_STRING_H": 1,
+    "HAVE_STRSTR": 1,
+    "HAVE_SYS_FILE_H": 1,
+    "HAVE_SYS_IOCTL_H": 1,
+    "HAVE_SYS_PARAM_H": 1,
+    "HAVE_SYS_STAT_H": 1,
+    "HAVE_SYS_TIME_H": 1,
+    "HAVE_SYS_TYPES_H": 1,
+    "HAVE_SYS_WAIT_H": 1,
+    "HAVE_TERMCAP_H": 1,
+    "HAVE_TERMIOS_H": 1,
+    "HAVE_TERMIO_H": 1,
+    "HAVE_UNISTD_H": 1,
+    "HAVE_USLEEP": 1,
+    "HAVE_VPRINTF": 1,
+    "HAVE_VSNPRINTF": 1
+  },
   "feature_flags": {
     "configure_args": []
   },
   "dependencies": {
-    "pkg_config": [],
-    "system_libs": [],
+    "pkg_config": [
+      "checking for pkg-config... /usr/bin/pkg-config",
+      "checking pkg-config is at least version 0.9.0... yes"
+    ],
+    "system_libs": [
+      "-ltinfo"
+    ],
     "headers_needed": [],
     "missing": []
   },
@@ -31,10 +97,373 @@
     "libtool",
     "pkg-config",
     "gettext",
-    "subdirs"
+    "subdirs",
+    "LIBS=-ltinfo"
   ],
   "outputs": [],
-  "status": "CONFIGURE_RUN_FAIL",
+  "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "/home/dev/atb_yt89Rg/t/cf:./configure: line 1902: syntax error near unexpected token `iconv,abcdefghijklmnopqrstuvwxyz./"
+  "diagnostic": "/tmp/atlasx_Distrotech__minicom/s/missing: line 52: automake-1.11: command not found",
+  "deep_expansion": {
+    "configure_lines": 9834,
+    "leaked_macros": [
+      {
+        "name": "AM_CONFIG_HEADER",
+        "line": 2620,
+        "context": "AM_CONFIG_HEADER(config.h)"
+      },
+      {
+        "name": "AM_INIT_AUTOMAKE",
+        "line": 2623,
+        "context": "AM_INIT_AUTOMAKE(1.7)"
+      }
+    ],
+    "heredoc_openers": 78,
+    "heredoc_terminators": 77,
+    "heredoc_imbalance": -1,
+    "syntax_errors": [],
+    "cache_var_anomalies": [
+      "line 68: do eval test \\${$as_var+y} \\",
+      "line 1566: if eval test \\${$3+y}",
+      "line 1727: if eval test \\${$3+y}",
+      "line 1783: if eval test \\${$3+y}",
+      "line 6224: if eval test \\${$gt_func_gnugettext_libc+y}",
+      "line 6982: if eval test \\${$gt_func_gnugettext_libintl+y}",
+      "line 7245: if eval test \\${$as_ac_Lib+y}",
+      "line 7359: if eval test \\${$as_ac_Header+y}",
+      "line 8745: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "srcdir",
+      "datadir",
+      "docdir",
+      "infodir",
+      "localedir",
+      "mandir",
+      "configure_input",
+      "top_builddir",
+      "top_build_prefix",
+      "abs_srcdir",
+      "top_srcdir",
+      "abs_top_srcdir",
+      "builddir",
+      "abs_builddir",
+      "abs_top_builddir",
+      "INSTALL",
+      "MKDIR_P",
+      "POFILES",
+      "UPDATEPOFILES",
+      "DUMMYPOFILES",
+      "GMOFILES",
+      "CATALOGS",
+      "POMAKEFILEDEPS"
+    ],
+    "failed_during_check": "checking for default baud rate... 115200",
+    "failure_tail": [
+      "checking for default baud rate... 115200",
+      "configure: creating ./config.status",
+      "config.status: creating Makefile",
+      "config.status: creating doc/Makefile",
+      "config.status: creating extras/Makefile"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 128,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "/* end confdefs.h.  */\\n$4\\n#include <$2>",
+      "/* end confdefs.h.  */\\n$4\\nint\\nmain (void)\\n{\\nif (sizeof ($2))\\nreturn 0;\\n;\\nreturn 0;\\n}",
+      "/* end confdefs.h.  */\\n$4\\nint\\nmain (void)\\n{\\nif (sizeof (($2)))\\nreturn 0;\\n;\\nreturn 0;\\n}",
+      "/* end confdefs.h.  */\\n/* Define $2 to an innocuous variant, in case <limits.h> declares $2.\\nFor example, HP-UX 11i <limits.h> declares gettimeofday.  */\\n#define $2 innocuous_$2\\n\\n/* System header to define __stub macros and hopefully few prototypes,\\nwhich can conflict with char $2 (); below.  */\\n\\n#include <limits.h>\\n#undef $2\\n\\n/* Override any GCC internal prototype to avoid an error.",
+      "/* end confdefs.h.  */\\n\\nint\\nmain (void)\\n{\\n\\n;\\nreturn 0;\\n}",
+      "/* end confdefs.h.  */\\n#include <stdio.h>\\nint\\nmain (void)\\n{\\nFILE *f = fopen (\"conftest.out\", \"w\");\\nreturn ferror (f) || fclose (f) != 0;\\n\\n;\\nreturn 0;\\n}"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "fail",
+    "real_configure_lines": 10532,
+    "real_first_error": "",
+    "classification": "BOTH_MAKE_FAIL"
+  },
+  "receipt": {
+    "court_status": "partial",
+    "probe_trace": [
+      {
+        "name": "HAVE_DCGETTEXT",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_DIRENT_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_ERRNO_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_FCNTL_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_FEATURES_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_GETCWD",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_GETOPT",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_GETOPT_LONG",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_GETTEXT",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_GETWD",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_ICONV",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_INTTYPES_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_LOCALE_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_LONG_FILE_NAMES",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_MEMMOVE",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_MEMORY_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_PWD_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SELECT",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SETJMP_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SGTTY_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SIGNAL_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SNPRINTF",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STDARG_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STDINT_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STDLIB_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STRERROR",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STRINGS_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STRING_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STRSTR",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SYS_FILE_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SYS_IOCTL_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SYS_PARAM_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SYS_STAT_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SYS_TIME_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SYS_TYPES_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SYS_WAIT_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_TERMCAP_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_TERMIOS_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_TERMIO_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_UNISTD_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_USLEEP",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_VPRINTF",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_VSNPRINTF",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      }
+    ],
+    "quirks_matched": [
+      "uses-libtool-old",
+      "uses-pkg-config",
+      "uses-gettext",
+      "has-m4-macro-dir",
+      "vendored-aclocal"
+    ],
+    "receipt_hash": "a73f5a5b8873009a1f12155d08d8fa6c193e93b8a0fb3274c170f658a26fae26",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

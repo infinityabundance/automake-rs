@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "feeblefakie/luxio",
   "source": {
     "url": "https://github.com/feeblefakie/luxio",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.60",
+    "autoconf_rs": "autoconf-rs 0.1.15",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -17,28 +17,25 @@
     "cflags": "-g -O2",
     "host": "x86_64-pc-linux-gnu"
   },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "ok"
+    },
+    {
+      "step": "make",
+      "tool": "make",
+      "status": "fail"
+    }
+  ],
   "probe_results": {
-    "HAVE_FCNTL_H": 1,
-    "HAVE_FTRUNCATE": 1,
-    "HAVE_GETPAGESIZE": 1,
-    "HAVE_GETTIMEOFDAY": 1,
-    "HAVE_MATH_H": 1,
-    "HAVE_MEMMOVE": 1,
-    "HAVE_MEMSET": 1,
-    "HAVE_MKDIR": 1,
-    "HAVE_MMAP": 1,
-    "HAVE_MUNMAP": 1,
-    "HAVE_PREAD": 1,
-    "HAVE_PWRITE": 1,
-    "HAVE_STDBOOL_H": 1,
-    "HAVE_STDINT_H": 1,
-    "HAVE_STDLIB_H": 1,
-    "HAVE_STRCHR": 1,
-    "HAVE_STRING_H": 1,
-    "HAVE_SYS_FILE_H": 1,
-    "HAVE_SYS_TIME_H": 1,
-    "HAVE_TIME_H": 1,
-    "HAVE_UNISTD_H": 1
+    "HAVE_STD": 1
   },
   "feature_flags": {
     "configure_args": []
@@ -52,10 +49,83 @@
     "missing": []
   },
   "quirks": [
-    "libtool"
+    "libtool",
+    "LIBS=-lpthread"
   ],
   "outputs": [],
   "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "/home/dev/atb_DOtNPl/t/mk:data.h:311:26: error: call of overloaded 'div(uint32_t&, uint32_t&)' is ambiguous"
+  "diagnostic": "Makefile:16: *** missing separator.  Stop.",
+  "deep_expansion": {
+    "configure_lines": 2568,
+    "leaked_macros": [],
+    "heredoc_openers": 26,
+    "heredoc_terminators": 26,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2092: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT"
+    ],
+    "failed_during_check": "checking for pwrite... yes",
+    "failure_tail": [
+      "checking for pwrite... yes",
+      "configure: creating Makefile",
+      "configure: creating config.h",
+      "configure: creating ./config.status"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 14,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "char pthread_rwlock_init();\\nint main() { return pthread_rwlock_init(); }",
+      "#include <$ac_hdr>",
+      "#include <stdbool.h>",
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { mode_t x; return 0; }",
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { off_t x; return 0; }",
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { size_t x; return 0; }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "fail",
+    "real_configure_lines": 20793,
+    "real_first_error": "",
+    "classification": "BOTH_MAKE_FAIL"
+  },
+  "receipt": {
+    "court_status": "partial",
+    "probe_trace": [
+      {
+        "name": "HAVE_STD",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      }
+    ],
+    "quirks_matched": [
+      "uses-libtool-old",
+      "has-m4-macro-dir",
+      "vendored-aclocal"
+    ],
+    "receipt_hash": "946f3edc9d9cf2d4dc4bcca12e5a1c00134506eaea590de308b23a8818db3421",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

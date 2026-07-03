@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "antonblanchard/qtrace-tools",
   "source": {
     "url": "https://github.com/antonblanchard/qtrace-tools",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.60",
+    "autoconf_rs": "autoconf-rs 0.1.15",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -17,11 +17,25 @@
     "cflags": "-g -O2",
     "host": "x86_64-pc-linux-gnu"
   },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "ok"
+    },
+    {
+      "step": "make",
+      "tool": "make",
+      "status": "fail"
+    }
+  ],
   "probe_results": {
-    "HAVE_ARCHIVE_H": 1,
-    "HAVE_BFD_H": 1,
     "HAVE_BIG_ENDIAN": 1,
-    "HAVE_DIS_ASM_H": 1,
     "HAVE_LITTLE_ENDIAN": 1
   },
   "feature_flags": {
@@ -37,9 +51,110 @@
     "headers_needed": [],
     "missing": []
   },
-  "quirks": [],
+  "quirks": [
+    "LIBS=-larchive -lopcodes -lbfd"
+  ],
   "outputs": [],
   "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "/home/dev/atb_dlMaNd/t/mk:collect2: error: ld returned 1 exit status"
+  "diagnostic": "Makefile:16: *** missing separator.  Stop.",
+  "deep_expansion": {
+    "configure_lines": 2590,
+    "leaked_macros": [],
+    "heredoc_openers": 24,
+    "heredoc_terminators": 24,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2114: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL",
+      "srcdir",
+      "prefix",
+      "exec_prefix",
+      "CC",
+      "CFLAGS",
+      "CPPFLAGS",
+      "LDFLAGS",
+      "LIBS",
+      "CXX",
+      "CXXFLAGS",
+      "CPP",
+      "DEFS",
+      "LIBOBJS",
+      "INSTALL",
+      "host_vendor",
+      "host_os",
+      "host_alias",
+      "host_cpu",
+      "PTRACER"
+    ],
+    "failed_during_check": "checking for dis-asm.h... yes",
+    "failure_tail": [
+      "checking for dis-asm.h... yes",
+      "big-endian",
+      "configure: creating Makefile",
+      "configure: creating config.h",
+      "configure: creating ./config.status"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 4,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "char bfd_init ();\\nint main() { return bfd_init (); }",
+      "char disassembler ();\\nint main() { return disassembler (); }",
+      "char archive_read_open_filename ();\\nint main() { return archive_read_open_filename (); }",
+      "#include <$ac_hdr>",
+      "#include <$ac_hdr>",
+      "#include <dis-asm.h>\\nint main() { (void) disassembler((enum bfd_architecture) 0,\\n(bfd_boolean) 0,\\n(unsigned long) 0,\\n(bfd *)0); ; return 0; }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "fail",
+    "real_configure_lines": 6557,
+    "real_first_error": "",
+    "classification": "BOTH_MAKE_FAIL"
+  },
+  "receipt": {
+    "court_status": "partial",
+    "probe_trace": [
+      {
+        "name": "HAVE_BIG_ENDIAN",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_LITTLE_ENDIAN",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      }
+    ],
+    "quirks_matched": [
+      "uses-subdir-objects",
+      "uses-maintainer-mode",
+      "vendored-aclocal"
+    ],
+    "receipt_hash": "941064201bc72cec7c3fe00f8adfab2fb05dd540eaec4623da09d002a60429fc",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "eamonnmoloney/thrift-0.6.1",
   "source": {
     "url": "https://github.com/eamonnmoloney/thrift-0.6.1",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.60",
+    "autoconf_rs": "autoconf-rs 0.1.15",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -17,6 +17,23 @@
     "cflags": "-g -O2",
     "host": "x86_64-pc-linux-gnu"
   },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "ok"
+    },
+    {
+      "step": "make",
+      "tool": "make",
+      "status": "fail"
+    }
+  ],
   "probe_results": {
     "HAVE_ALARM": 1,
     "HAVE_ALLOCA": 1,
@@ -91,46 +108,441 @@
     "autoconf-archive-macros",
     "libtool",
     "pkg-config",
-    "subdirs"
+    "subdirs",
+    "LIBS=-lrt -lpthread"
   ],
-  "outputs": [
-    {
-      "path": "config.sub",
-      "sha256": "46e661a60987fd0e",
-      "kind": "executable"
-    },
-    {
-      "path": "config.status",
-      "sha256": "f0055658c6bf0955",
-      "kind": "executable"
-    },
-    {
-      "path": "depcomp",
-      "sha256": "e7e6b4d5287f6fca",
-      "kind": "executable"
-    },
-    {
-      "path": "missing",
-      "sha256": "4a4f76d45d999ca6",
-      "kind": "executable"
-    },
-    {
-      "path": "config.guess",
-      "sha256": "3aa4bf68c1d16472",
-      "kind": "executable"
-    },
-    {
-      "path": "compile",
-      "sha256": "8bda630f41ca734f",
-      "kind": "executable"
-    },
-    {
-      "path": "libtool",
-      "sha256": "198b20e625bdd9f5",
-      "kind": "executable"
-    }
-  ],
-  "status": "FUNC_OK",
-  "verified": true,
-  "diagnostic": ""
+  "outputs": [],
+  "status": "MAKE_FAIL",
+  "verified": false,
+  "diagnostic": "",
+  "deep_expansion": {
+    "configure_lines": 3712,
+    "leaked_macros": [],
+    "heredoc_openers": 82,
+    "heredoc_terminators": 82,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 3174: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL",
+      "srcdir",
+      "prefix",
+      "exec_prefix",
+      "CC",
+      "CFLAGS",
+      "CPPFLAGS",
+      "LDFLAGS",
+      "LIBS",
+      "CXX",
+      "CXXFLAGS",
+      "CPP",
+      "DEFS",
+      "LIBOBJS",
+      "INSTALL",
+      "RUNHASKELL",
+      "ENABLE_COVERAGE",
+      "CLASSPATH",
+      "GCOV_LDFLAGS",
+      "GCOV_CFLAGS",
+      "CABAL_CONFIGURE_FLAGS",
+      "ANT_FLAGS",
+      "CABAL",
+      "GCOV_CXXFLAGS"
+    ],
+    "failed_during_check": "checking for sched_get_priority_max... yes",
+    "failure_tail": [
+      "checking for sched_get_priority_max... yes",
+      "configure: creating Makefile",
+      "configure: creating compiler/cpp/Makefile",
+      "configure: creating compiler/cpp/version.h",
+      "configure: creating lib/Makefile"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 112,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "#include <stdbool.h>",
+      "#include <time.h>",
+      "#include <$ac_hdr>",
+      "#include <$ac_hdr>",
+      "#include <$ac_hdr>",
+      "#include <$ac_hdr>"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "fail",
+    "real_configure": "skipped",
+    "real_make": "skipped",
+    "real_configure_lines": 0,
+    "real_first_error": "Makefile.am: error: required file './AUTHORS' not found",
+    "classification": "OURS_BETTER"
+  },
+  "receipt": {
+    "court_status": "partial",
+    "probe_trace": [
+      {
+        "name": "HAVE_ALARM",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_ALLOCA",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_ALLOCA_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_ARPA_INET_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_BZERO",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_DECL_STRERROR_R",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_DLFCN_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_FCNTL_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_FORK",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_FTRUNCATE",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_GETHOSTBYNAME",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_GETTIMEOFDAY",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_INTTYPES_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_LIBPTHREAD",
+        "kind": "lib",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_LIMITS_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_MALLOC",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_MEMMOVE",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_MEMORY_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_MEMSET",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_MKDIR",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_NETDB_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_NETINET_IN_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_PTHREAD_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_PTRDIFF_T",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_REALLOC",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_REALPATH",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SCHED_GET_PRIORITY_MAX",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SCHED_GET_PRIORITY_MIN",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SELECT",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SOCKET",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SQRT",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STDBOOL_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STDDEF_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STDINT_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STDLIB_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STRCHR",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STRDUP",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STRERROR",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STRERROR_R",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STRFTIME",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STRINGS_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STRING_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STRSTR",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STRTOL",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STRTOUL",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SYS_PARAM_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SYS_SELECT_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SYS_SOCKET_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SYS_STAT_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SYS_TIME_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SYS_TYPES_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_UNISTD_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_VFORK",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_VPRINTF",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_WORKING_FORK",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_WORKING_VFORK",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      }
+    ],
+    "quirks_matched": [
+      "uses-libtool-old",
+      "uses-pkg-config",
+      "uses-python",
+      "vendored-aclocal",
+      "uses-ax-archive",
+      "perl-in-configure"
+    ],
+    "receipt_hash": "778851a3dbd2cbc8ca71ab3da3a8a7290cd79fcd08928866dd4a1c6ec83c265c",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "Distrotech/libart",
   "source": {
     "url": "https://github.com/Distrotech/libart",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.60",
+    "autoconf_rs": "autoconf-rs 0.1.15",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -17,6 +17,23 @@
     "cflags": "-g -O2",
     "host": "x86_64-pc-linux-gnu"
   },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "ok"
+    },
+    {
+      "step": "make",
+      "tool": "make",
+      "status": "fail"
+    }
+  ],
   "probe_results": {},
   "feature_flags": {
     "configure_args": []
@@ -31,5 +48,102 @@
   "outputs": [],
   "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "/home/dev/atb_CP7tR5/t/cf:./configure: line 1520: ac_cv_sizeof_[][_][_]char[_][_]=1: command not found"
+  "diagnostic": "Makefile:16: *** missing separator.  Stop.",
+  "deep_expansion": {
+    "configure_lines": 2576,
+    "leaked_macros": [],
+    "heredoc_openers": 22,
+    "heredoc_terminators": 22,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2100: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL",
+      "srcdir",
+      "prefix",
+      "exec_prefix",
+      "CC",
+      "CFLAGS",
+      "CPPFLAGS",
+      "LDFLAGS",
+      "LIBS",
+      "CXX",
+      "CXXFLAGS",
+      "CPP",
+      "DEFS",
+      "LIBOBJS",
+      "INSTALL",
+      "ART_SIZEOF_SHORT",
+      "LIBART_MINOR_VERSION",
+      "LIBART_VERSION",
+      "LIBART_MAJOR_VERSION",
+      "ART_SIZEOF_LONG",
+      "LIBART_MICRO_VERSION",
+      "LIBART_VERSION_INFO",
+      "ART_SIZEOF_CHAR",
+      "ART_SIZEOF_INT"
+    ],
+    "failed_during_check": "checking size of long... 0 (type not found)",
+    "failure_tail": [
+      "checking size of long... 0 (type not found)",
+      "configure: creating libart-features.h",
+      "configure: creating Makefile",
+      "configure: creating libart-2.0.pc",
+      "configure: creating libart-2.0-uninstalled.pc"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 14,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar [alloca]();\\nint main() { return [alloca](); }",
+      "int main() { int x = 1; return *(char*)&x; }",
+      "#include <sys/types.h>\\n#include <stdint.h>\\n#include <stddef.h>\\nint main() { static int test_array[1 - 2 * !((long int) (sizeof (char)) <= 0",
+      "#include <sys/types.h>\\n#include <stdint.h>\\n#include <stddef.h>\\nint main() { static int test_array[1 - 2 * !((long int) (sizeof (short)) <= ",
+      "#include <sys/types.h>\\n#include <stdint.h>\\n#include <stddef.h>\\nint main() { static int test_array[1 - 2 * !((long int) (sizeof (int)) <= 0)",
+      "#include <sys/types.h>\\n#include <stdint.h>\\n#include <stddef.h>\\nint main() { static int test_array[1 - 2 * !((long int) (sizeof (long)) <= 0"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "ok",
+    "real_configure_lines": 16403,
+    "real_first_error": "",
+    "classification": "OURS_BUG_MAKE"
+  },
+  "divergence": {
+    "stage": "make",
+    "ours_error": "",
+    "ours_error_context": [],
+    "ours_configure_lines": 2576,
+    "real_configure_lines": 16403,
+    "macros_ours_left_undefined": []
+  },
+  "receipt": {
+    "court_status": "partial",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-maintainer-mode",
+      "vendored-aclocal"
+    ],
+    "receipt_hash": "50943c81e776f99633ce47bc1c02476e04eeac1c88eab40282963440dadccda2",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

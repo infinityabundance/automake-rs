@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "ForgotFun/wifidog",
   "source": {
     "url": "https://github.com/ForgotFun/wifidog",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.60",
+    "autoconf_rs": "autoconf-rs 0.1.15",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -17,21 +17,30 @@
     "cflags": "-g -O2",
     "host": "x86_64-pc-linux-gnu"
   },
-  "probe_results": {
-    "HAVE_PTHREAD_H": 1,
-    "HAVE_STDARG_H": 1,
-    "HAVE_STRINGS_H": 1,
-    "HAVE_STRING_H": 1,
-    "HAVE_UNISTD_H": 1
-  },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "fail"
+    },
+    {
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {},
   "feature_flags": {
     "configure_args": []
   },
   "dependencies": {
     "pkg_config": [],
-    "system_libs": [
-      "-lpthread"
-    ],
+    "system_libs": [],
     "headers_needed": [],
     "missing": []
   },
@@ -39,7 +48,137 @@
     "subdirs"
   ],
   "outputs": [],
-  "status": "MAKE_FAIL",
+  "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "/home/dev/atb_qsqefE/t/mk:commandline.c:129:66: error: expected ')' before 'VERSION'"
+  "diagnostic": "./configure: line 1488: syntax error near unexpected token `socket'",
+  "deep_expansion": {
+    "configure_lines": 2534,
+    "leaked_macros": [
+      {
+        "name": "AC_HAVE_LIBRARY",
+        "line": 1488,
+        "context": "AC_HAVE_LIBRARY(socket)"
+      },
+      {
+        "name": "AC_HAVE_LIBRARY",
+        "line": 1489,
+        "context": "AC_HAVE_LIBRARY(nsl)"
+      }
+    ],
+    "heredoc_openers": 20,
+    "heredoc_terminators": 20,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1488,
+        "token": "socket",
+        "source": "AC_HAVE_LIBRARY(socket)",
+        "block": [
+          "1484:   printf '%s\\n' \"yes\"",
+          "1485: else",
+          "1486:   printf '%s\\n' \"no\"",
+          "1487: fi; done",
+          "1488: AC_HAVE_LIBRARY(socket)",
+          "1489: AC_HAVE_LIBRARY(nsl)",
+          "1490: echo \"libhttpd dependencies check complete\"",
+          "1491: "
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2057: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL",
+      "srcdir",
+      "prefix",
+      "exec_prefix",
+      "CC",
+      "CFLAGS",
+      "CPPFLAGS",
+      "LDFLAGS",
+      "LIBS",
+      "CXX",
+      "CXXFLAGS",
+      "CPP",
+      "DEFS",
+      "LIBOBJS",
+      "INSTALL",
+      "WIFIDOG_VERSION",
+      "BUILDROOT",
+      "WIFIDOG_MICRO_VERSION",
+      "WIFIDOG_MAJOR_VERSION",
+      "WIFIDOG_MINOR_VERSION",
+      "enable_latex_docs",
+      "enable_dot",
+      "enable_html_docs"
+    ],
+    "failed_during_check": "checking for unistd.h... yes",
+    "failure_tail": [
+      "checking for unistd.h... yes",
+      "./configure: line 1488: syntax error near unexpected token `socket'",
+      "./configure: line 1488: `AC_HAVE_LIBRARY(socket)'"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 2,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "int main() { int x = 1; return *(char*)&x; }",
+      "#include <pthread.h>",
+      "char pthread_create();\\nint main() { return pthread_create(); }",
+      "#include <$ac_hdr>"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "ok",
+    "real_configure_lines": 20183,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE"
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "line 1488: AC_HAVE_LIBRARY(socket) (near `socket`)",
+    "ours_error_context": [
+      "AC_HAVE_LIBRARY(socket)"
+    ],
+    "ours_configure_lines": 2534,
+    "real_configure_lines": 20183,
+    "macros_ours_left_undefined": [
+      "AC_HAVE_LIBRARY"
+    ]
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-maintainer-mode",
+      "vendored-aclocal"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-maintainer-mode",
+        "action": "--disable-maintainer-mode",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "24e39ed3178d433d21c1340a6407fda16d8349c27724819539e8175382940e80",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

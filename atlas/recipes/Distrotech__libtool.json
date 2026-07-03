@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "Distrotech/libtool",
   "source": {
     "url": "https://github.com/Distrotech/libtool",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.60",
+    "autoconf_rs": "autoconf-rs 0.1.15",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -17,15 +17,61 @@
     "cflags": "-g -O2",
     "host": "x86_64-pc-linux-gnu"
   },
-  "probe_results": {},
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "ok"
+    },
+    {
+      "step": "make",
+      "tool": "make",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {
+    "HAVE_ARGZ_ADD": 1,
+    "HAVE_ARGZ_APPEND": 1,
+    "HAVE_ARGZ_COUNT": 1,
+    "HAVE_ARGZ_CREATE_SEP": 1,
+    "HAVE_ARGZ_H": 1,
+    "HAVE_ARGZ_INSERT": 1,
+    "HAVE_ARGZ_NEXT": 1,
+    "HAVE_ARGZ_STRINGIFY": 1,
+    "HAVE_CLOSEDIR": 1,
+    "HAVE_DIRENT_H": 1,
+    "HAVE_DLERROR": 1,
+    "HAVE_DLFCN_H": 1,
+    "HAVE_ERROR_T": 1,
+    "HAVE_INTTYPES_H": 1,
+    "HAVE_LIBDL": 1,
+    "HAVE_LIBDLLOADER": 1,
+    "HAVE_MEMORY_H": 1,
+    "HAVE_OPENDIR": 1,
+    "HAVE_PRELOADED_SYMBOLS": 1,
+    "HAVE_READDIR": 1,
+    "HAVE_STDINT_H": 1,
+    "HAVE_STDLIB_H": 1,
+    "HAVE_STRINGS_H": 1,
+    "HAVE_STRING_H": 1,
+    "HAVE_STRLCAT": 1,
+    "HAVE_STRLCPY": 1,
+    "HAVE_SYS_STAT_H": 1,
+    "HAVE_SYS_TYPES_H": 1,
+    "HAVE_UNISTD_H": 1,
+    "HAVE_WORKING_ARGZ": 1
+  },
   "feature_flags": {
     "configure_args": []
   },
   "dependencies": {
     "pkg_config": [],
-    "system_libs": [
-      "-ldl"
-    ],
+    "system_libs": [],
     "headers_needed": [],
     "missing": []
   },
@@ -34,7 +80,306 @@
     "subdirs"
   ],
   "outputs": [],
-  "status": "CONFIGURE_RUN_FAIL",
+  "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "/home/dev/atb_TB5bNA/t/cf:./configure: line 1644: syntax error near unexpected token `_LT_SYS_DYNAMIC_LINKER'"
+  "diagnostic": "/tmp/atlasx_Distrotech__libtool/s/libltdl/config/missing: line 81: automake-1.13: command not found",
+  "deep_expansion": {
+    "configure_lines": 31230,
+    "leaked_macros": [
+      {
+        "name": "AM_INIT_AUTOMAKE",
+        "line": 3275,
+        "context": "AM_INIT_AUTOMAKE(1.11.1 gnu subdir-objects dist-xz color-tests parallel-"
+      },
+      {
+        "name": "AM_CONDITIONAL",
+        "line": 27491,
+        "context": "AM_CONDITIONAL(HAVE_CXX,test -n \"[$]_LT_TAGVAR(compiler, CXX)\")"
+      },
+      {
+        "name": "AM_CONDITIONAL",
+        "line": 27492,
+        "context": "AM_CONDITIONAL(HAVE_F77,test -n \"[$]_LT_TAGVAR(compiler, F77)\")"
+      },
+      {
+        "name": "AM_CONDITIONAL",
+        "line": 27493,
+        "context": "AM_CONDITIONAL(HAVE_FC,test -n \"[$]_LT_TAGVAR(compiler, FC)\")"
+      },
+      {
+        "name": "AM_CONDITIONAL",
+        "line": 27494,
+        "context": "AM_CONDITIONAL(HAVE_GCJ, test -n \"[$]_LT_TAGVAR(compiler, GCJ)\")"
+      },
+      {
+        "name": "AM_CONDITIONAL",
+        "line": 27495,
+        "context": "AM_CONDITIONAL(HAVE_RC, test -n \"[$]_LT_TAGVAR(compiler, RC)\")"
+      },
+      {
+        "name": "AM_MISSING_PROG",
+        "line": 27535,
+        "context": "AM_MISSING_PROG(HELP2MAN, help2man)"
+      }
+    ],
+    "heredoc_openers": 99,
+    "heredoc_terminators": 98,
+    "heredoc_imbalance": -1,
+    "syntax_errors": [],
+    "cache_var_anomalies": [
+      "line 68: do eval test \\${$as_var+y} \\",
+      "line 1687: if eval test \\${$3+y}",
+      "line 1719: if eval test \\${$3+y}",
+      "line 1783: if eval test \\${$3+y}",
+      "line 1834: if eval test \\${$3+y}",
+      "line 27729: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "PROGRAM",
+      "OUTPUT",
+      "TOOL_OUTPUT",
+      "srcdir",
+      "datadir",
+      "docdir",
+      "infodir",
+      "localedir",
+      "mandir",
+      "configure_input",
+      "top_builddir",
+      "top_build_prefix",
+      "abs_srcdir",
+      "top_srcdir",
+      "abs_top_srcdir",
+      "builddir",
+      "abs_builddir",
+      "abs_top_builddir"
+    ],
+    "failed_during_check": "checking that generated files are newer than configure... done",
+    "failure_tail": [
+      "checking that generated files are newer than configure... done",
+      "configure: creating ./config.status",
+      "config.status: creating Makefile",
+      "config.status: creating config.h",
+      "config.status: executing tests/atconfig commands"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 129,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "/* end confdefs.h.  */\\n$4\\n#include <$2>",
+      "/* end confdefs.h.  */\\n/* Define $2 to an innocuous variant, in case <limits.h> declares $2.\\nFor example, HP-UX 11i <limits.h> declares gettimeofday.  */\\n#define $2 innocuous_$2\\n\\n/* System header to define __stub macros and hopefully few prototypes,\\nwhich can conflict with char $2 (); below.  */\\n\\n#include <limits.h>\\n#undef $2\\n\\n/* Override any GCC internal prototype to avoid an error.",
+      "/* end confdefs.h.  */\\n$4\\nint\\nmain (void)\\n{\\n#ifndef $as_decl_name\\n#ifdef __cplusplus\\n(void) $as_decl_use;\\n#else\\n(void) $as_decl_name;\\n#endif\\n#endif",
+      "/* end confdefs.h.  */\\n$4\\nint\\nmain (void)\\n{\\nif (sizeof ($2))\\nreturn 0;\\n;\\nreturn 0;\\n}",
+      "/* end confdefs.h.  */\\n$4\\nint\\nmain (void)\\n{\\nif (sizeof (($2)))\\nreturn 0;\\n;\\nreturn 0;\\n}",
+      "/* end confdefs.h.  */\\n\\nint\\nmain (void)\\n{\\n\\n;\\nreturn 0;\\n}"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "fail",
+    "real_configure": "skipped",
+    "real_make": "skipped",
+    "real_configure_lines": 0,
+    "real_first_error": "automake: error: cannot open < libltdl/Makefile.inc: No such file or directory",
+    "classification": "OURS_BETTER"
+  },
+  "receipt": {
+    "court_status": "partial",
+    "probe_trace": [
+      {
+        "name": "HAVE_ARGZ_ADD",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_ARGZ_APPEND",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_ARGZ_COUNT",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_ARGZ_CREATE_SEP",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_ARGZ_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_ARGZ_INSERT",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_ARGZ_NEXT",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_ARGZ_STRINGIFY",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_CLOSEDIR",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_DIRENT_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_DLERROR",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_DLFCN_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_ERROR_T",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_INTTYPES_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_LIBDL",
+        "kind": "lib",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_LIBDLLOADER",
+        "kind": "lib",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_MEMORY_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_OPENDIR",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_PRELOADED_SYMBOLS",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_READDIR",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STDINT_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STDLIB_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STRINGS_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STRING_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STRLCAT",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STRLCPY",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SYS_STAT_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SYS_TYPES_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_UNISTD_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_WORKING_ARGZ",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      }
+    ],
+    "quirks_matched": [
+      "uses-libtool",
+      "uses-subdir-objects",
+      "vendored-aclocal"
+    ],
+    "receipt_hash": "9ec7188e42a7e857e9e56751ca30f34ed8f3bde31be43ecbacc8f332ac34aa71",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

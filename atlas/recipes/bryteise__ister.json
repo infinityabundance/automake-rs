@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "bryteise/ister",
   "source": {
     "url": "https://github.com/bryteise/ister",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.60",
+    "autoconf_rs": "autoconf-rs 0.1.16",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -17,6 +17,23 @@
     "cflags": "-g -O2",
     "host": "x86_64-pc-linux-gnu"
   },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "ok"
+    },
+    {
+      "step": "make",
+      "tool": "make",
+      "status": "ok"
+    }
+  ],
   "probe_results": {},
   "feature_flags": {
     "configure_args": []
@@ -30,67 +47,90 @@
   "quirks": [],
   "outputs": [
     {
-      "path": "live-image-post-update-version.py",
-      "sha256": "ee899a56505f6460",
-      "kind": "executable"
-    },
-    {
-      "path": "create_pxe.sh",
-      "sha256": "4db8f60b4aef1c06",
-      "kind": "executable"
-    },
-    {
-      "path": "validate_release.py",
-      "sha256": "a239d6fa4b14cf6a",
-      "kind": "executable"
-    },
-    {
-      "path": "post-chroot.sh",
-      "sha256": "0abdf2a33b7d9b38",
-      "kind": "executable"
-    },
-    {
-      "path": "update_gui_expect.sh",
-      "sha256": "6b74d813ef340a7e",
-      "kind": "executable"
-    },
-    {
-      "path": "spinup.sh",
-      "sha256": "187a9791f574244f",
-      "kind": "executable"
-    },
-    {
-      "path": "config.status",
-      "sha256": "affc01e9a9cd7b54",
-      "kind": "executable"
-    },
-    {
-      "path": "post-encryption.expect",
-      "sha256": "3480896d8b823b5a",
-      "kind": "executable"
-    },
-    {
-      "path": "installation-image-post-update-version.py",
-      "sha256": "fcfaced7ebad6db8",
-      "kind": "executable"
-    },
-    {
-      "path": "ister.py",
-      "sha256": "dcefb7b556c1a718",
-      "kind": "executable"
-    },
-    {
       "path": "depcomp",
       "sha256": "16d184959f7532ce",
       "kind": "executable"
     },
     {
-      "path": "encryption.expect",
-      "sha256": "21eb90279fdefc0c",
+      "path": "missing",
+      "sha256": "4a4f76d45d999ca6",
+      "kind": "executable"
+    },
+    {
+      "path": "compile",
+      "sha256": "9277c97b212b37d2",
+      "kind": "executable"
+    },
+    {
+      "path": "configure",
+      "sha256": "a5b51dfe00f9f05f",
+      "kind": "executable"
+    },
+    {
+      "path": "install-sh",
+      "sha256": "852947c4fef9cdc1",
       "kind": "executable"
     }
   ],
   "status": "FUNC_OK",
   "verified": true,
-  "diagnostic": ""
+  "diagnostic": "",
+  "deep_expansion": {
+    "configure_lines": 2451,
+    "leaked_macros": [],
+    "heredoc_openers": 16,
+    "heredoc_terminators": 16,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 1963: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PKG_CONFIG",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT"
+    ],
+    "failed_during_check": "checking for python... /usr/bin/python3",
+    "failure_tail": [
+      "checking for python... /usr/bin/python3",
+      "configure: creating Makefile",
+      "configure: creating ./config.status",
+      "ister"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 0,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": []
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "ok",
+    "real_configure_lines": 4294,
+    "real_first_error": "",
+    "classification": "BOTH_OK"
+  },
+  "receipt": {
+    "court_status": "quirk_dependent",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-python",
+      "vendored-aclocal"
+    ],
+    "receipt_hash": "19a9682eea5067c932cce5f552915f2517f025b44eb53a632a00f175fee35b62",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

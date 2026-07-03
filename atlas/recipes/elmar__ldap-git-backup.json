@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "elmar/ldap-git-backup",
   "source": {
     "url": "https://github.com/elmar/ldap-git-backup",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.60",
+    "autoconf_rs": "autoconf-rs 0.1.16",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -17,6 +17,23 @@
     "cflags": "-g -O2",
     "host": "x86_64-pc-linux-gnu"
   },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "ok"
+    },
+    {
+      "step": "make",
+      "tool": "make",
+      "status": "ok"
+    }
+  ],
   "probe_results": {},
   "feature_flags": {
     "configure_args": []
@@ -37,11 +54,6 @@
       "kind": "executable"
     },
     {
-      "path": "config.status",
-      "sha256": "23bf95274912a2b2",
-      "kind": "executable"
-    },
-    {
       "path": "build-all",
       "sha256": "04d452a82c84cec9",
       "kind": "executable"
@@ -50,9 +62,75 @@
       "path": "missing",
       "sha256": "4a4f76d45d999ca6",
       "kind": "executable"
+    },
+    {
+      "path": "configure",
+      "sha256": "6afa2c2dfa802d41",
+      "kind": "executable"
+    },
+    {
+      "path": "install-sh",
+      "sha256": "852947c4fef9cdc1",
+      "kind": "executable"
     }
   ],
   "status": "FUNC_OK",
   "verified": true,
-  "diagnostic": ""
+  "diagnostic": "",
+  "deep_expansion": {
+    "configure_lines": 2447,
+    "leaked_macros": [],
+    "heredoc_openers": 16,
+    "heredoc_terminators": 16,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 1971: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT"
+    ],
+    "failed_during_check": "",
+    "failure_tail": [
+      "configure: creating Makefile",
+      "configure: creating t/test-helper.pm",
+      "configure: creating ./config.status"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 0,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": []
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "ok",
+    "real_configure_lines": 3734,
+    "real_first_error": "",
+    "classification": "BOTH_OK"
+  },
+  "receipt": {
+    "court_status": "quirk_dependent",
+    "probe_trace": [],
+    "quirks_matched": [
+      "vendored-aclocal",
+      "uses-ax-archive"
+    ],
+    "receipt_hash": "447d389a4086241740f06d4fa9676fa0ff350b10e20066d9ed93cbcd8e512f17",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

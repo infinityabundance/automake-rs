@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "gitGNU/gnu_rpge",
   "source": {
     "url": "https://github.com/gitGNU/gnu_rpge",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.60",
+    "autoconf_rs": "autoconf-rs 0.1.15",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -17,6 +17,23 @@
     "cflags": "-g -O2",
     "host": "x86_64-pc-linux-gnu"
   },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "ok"
+    },
+    {
+      "step": "make",
+      "tool": "make",
+      "status": "fail"
+    }
+  ],
   "probe_results": {},
   "feature_flags": {
     "configure_args": []
@@ -34,5 +51,92 @@
   "outputs": [],
   "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": ""
+  "diagnostic": "make: *** No targets specified and no makefile found.  Stop.",
+  "deep_expansion": {
+    "configure_lines": 17396,
+    "leaked_macros": [],
+    "heredoc_openers": 140,
+    "heredoc_terminators": 139,
+    "heredoc_imbalance": -1,
+    "syntax_errors": [],
+    "cache_var_anomalies": [
+      "line 119: do eval test x\\${$as_var+set} = xset \\",
+      "line 1899: if eval \\${$3+:} false; then :",
+      "line 1902: if eval \\${$3+:} false; then :",
+      "line 1965: if eval \\${$3+:} false; then :",
+      "line 2029: if eval \\${$3+:} false; then :",
+      "line 2291: if eval \\${$3+:} false; then :",
+      "line 2334: if eval \\${$3+:} false; then :",
+      "line 2402: if eval \\${$3+:} false; then :",
+      "line 6826: if eval \\${$as_gl_Symbol+:} false; then :",
+      "line 7323: if eval \\${$as_gl_Symbol+:} false; then :",
+      "line 7606: if eval \\${$as_gl_Symbol+:} false; then :",
+      "line 15292: do eval test x\\${$as_var+set} = xset \\"
+    ],
+    "residual_placeholders": [
+      "PROGRAM",
+      "OUTPUT",
+      "TOOL_OUTPUT",
+      "srcdir",
+      "datadir",
+      "docdir",
+      "infodir",
+      "localedir",
+      "mandir",
+      "configure_input",
+      "top_builddir",
+      "top_build_prefix",
+      "abs_srcdir",
+      "top_srcdir",
+      "abs_top_srcdir",
+      "builddir",
+      "abs_builddir",
+      "abs_top_builddir",
+      "INSTALL",
+      "MKDIR_P"
+    ],
+    "failed_during_check": "checking for scm_init_guile in -lguile... no",
+    "failure_tail": [
+      "checking for scm_init_guile in -lguile... no",
+      "Required library libguile not found"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 273,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "/* end confdefs.h.  */\\n$4\\n#include <$2>",
+      "/* end confdefs.h.  */\\n#include <$2>",
+      "/* end confdefs.h.  */\\n$4\\n#include <$2>",
+      "/* end confdefs.h.  */\\n$4\\nint\\nmain ()\\n{\\nstatic int test_array [1 - 2 * !(($2) >= 0)];\\ntest_array [0] = 0;\\nreturn test_array [0];\\n\\n;\\nreturn 0;\\n}",
+      "/* end confdefs.h.  */\\n$4\\nint\\nmain ()\\n{\\nstatic int test_array [1 - 2 * !(($2) <= $ac_mid)];\\ntest_array [0] = 0;\\nreturn test_array [0];\\n\\n;\\nreturn 0;\\n}",
+      "/* end confdefs.h.  */\\n$4\\nint\\nmain ()\\n{\\nstatic int test_array [1 - 2 * !(($2) < 0)];\\ntest_array [0] = 0;\\nreturn test_array [0];\\n\\n;\\nreturn 0;\\n}"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "fail",
+    "real_configure": "skipped",
+    "real_make": "skipped",
+    "real_configure_lines": 0,
+    "real_first_error": "configure:6726: error: possibly undefined macro: gl_EXTERN_INLINE",
+    "classification": "OURS_BETTER"
+  },
+  "receipt": {
+    "court_status": "partial",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool",
+      "has-m4-macro-dir",
+      "vendored-aclocal"
+    ],
+    "receipt_hash": "bdbfb6907bfdbc8bdb7cf566a26793b38411d77e6f0819ae26c725daf919e509",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

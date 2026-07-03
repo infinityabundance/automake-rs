@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "aurelihein/exosip",
   "source": {
     "url": "https://github.com/aurelihein/exosip",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.60",
+    "autoconf_rs": "autoconf-rs 0.1.15",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -17,42 +17,24 @@
     "cflags": "-g -O2",
     "host": "x86_64-pc-linux-gnu"
   },
-  "probe_results": {
-    "HAVE_ARES_H": 1,
-    "HAVE_ARPA_INET_H": 1,
-    "HAVE_ARPA_NAMESER_COMPAT_H": 1,
-    "HAVE_ARPA_NAMESER_H": 1,
-    "HAVE_ASSERT_H": 1,
-    "HAVE_CTYPE_H": 1,
-    "HAVE_FCNTL_H": 1,
-    "HAVE_GETIFADDRS": 1,
-    "HAVE_MALLOC_H": 1,
-    "HAVE_NETDB_H": 1,
-    "HAVE_NETINET_TCP_H": 1,
-    "HAVE_OPENSSL_SSL_H": 1,
-    "HAVE_RESOLV_H": 1,
-    "HAVE_SEMAPHORE_H": 1,
-    "HAVE_SIGNAL_H": 1,
-    "HAVE_STDARG_H": 1,
-    "HAVE_STDIO_H": 1,
-    "HAVE_STDLIB_H": 1,
-    "HAVE_STRINGS_H": 1,
-    "HAVE_STRING_H": 1,
-    "HAVE_SYS_SELECT_H": 1,
-    "HAVE_SYS_SEM_H": 1,
-    "HAVE_SYS_SIGNAL_H": 1,
-    "HAVE_SYS_SOUNDCARD_H": 1,
-    "HAVE_SYS_TIME_H": 1,
-    "HAVE_SYS_TYPES_H": 1,
-    "HAVE_UNISTD_H": 1
-  },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {},
   "feature_flags": {
     "configure_args": []
   },
   "dependencies": {
-    "pkg_config": [
-      "checking for libosip2 >="
-    ],
+    "pkg_config": [],
     "system_libs": [],
     "headers_needed": [],
     "missing": []
@@ -63,7 +45,118 @@
     "subdirs"
   ],
   "outputs": [],
-  "status": "MAKE_FAIL",
+  "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "/home/dev/atb_PEf83f/t/cf:./configure: line 1467: LT_AC_PROG_SED: command not found"
+  "diagnostic": "./configure: line 1374: syntax error near unexpected token `scripts'",
+  "deep_expansion": {
+    "configure_lines": 3257,
+    "leaked_macros": [
+      {
+        "name": "AM_ACLOCAL_INCLUDE",
+        "line": 1374,
+        "context": "AM_ACLOCAL_INCLUDE(scripts)"
+      }
+    ],
+    "heredoc_openers": 57,
+    "heredoc_terminators": 57,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1374,
+        "token": "scripts",
+        "source": "AM_ACLOCAL_INCLUDE(scripts)",
+        "block": [
+          "1370: ",
+          "1371: ac_aux_dir=scripts",
+          "1372: ",
+          "1373: ",
+          "1374: AM_ACLOCAL_INCLUDE(scripts)",
+          "1375: ",
+          "1376: # Determine the host system type. Uses config.guess if available, falls back",
+          "1377: # CROSS.020: Integrated config.guess/config.sub shell-out with uname fallbac"
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2780: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL",
+      "srcdir",
+      "prefix",
+      "exec_prefix",
+      "CC",
+      "CFLAGS",
+      "CPPFLAGS",
+      "LDFLAGS",
+      "LIBS",
+      "CXX",
+      "CXXFLAGS",
+      "CPP",
+      "DEFS",
+      "LIBOBJS",
+      "INSTALL",
+      "host_cpu",
+      "LIBEXOSIP_SO_VERSION",
+      "ac_aux_dir",
+      "TOOLS_LIBS",
+      "host_alias",
+      "EXOSIP_FLAGS",
+      "host_os",
+      "host_vendor",
+      "EXOSIP_VERSION"
+    ],
+    "failed_during_check": "",
+    "failure_tail": [
+      "Configuring libeXosip2 4.0.0",
+      "Building Package on linux",
+      "./configure: line 1374: syntax error near unexpected token `scripts'",
+      "./configure: line 1374: `AM_ACLOCAL_INCLUDE(scripts)'"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 32,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "#include <$ac_hdr>",
+      "#include <$ac_hdr>",
+      "#include <$ac_hdr>",
+      "#include <$ac_hdr>",
+      "char sem_open();\\nint main() { return sem_open(); }",
+      "char sem_open();\\nint main() { return sem_open(); }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "fail",
+    "real_configure": "skipped",
+    "real_make": "skipped",
+    "real_configure_lines": 0,
+    "real_first_error": "configure.in:47: error: possibly undefined macro: AM_ACLOCAL_INCLUDE",
+    "classification": "OURS_BETTER"
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool-old",
+      "uses-pkg-config",
+      "vendored-aclocal"
+    ],
+    "receipt_hash": "0c30dce6270fb3560c454d8c8d1e4e34e811f65407638476dab76fe1fd927894",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

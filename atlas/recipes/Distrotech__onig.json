@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "Distrotech/onig",
   "source": {
     "url": "https://github.com/Distrotech/onig",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.60",
+    "autoconf_rs": "autoconf-rs 0.1.14",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -17,17 +17,26 @@
     "cflags": "-g -O2",
     "host": "x86_64-pc-linux-gnu"
   },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "ok"
+    },
+    {
+      "step": "make",
+      "tool": "make",
+      "status": "fail"
+    }
+  ],
   "probe_results": {
-    "HAVE_MEMCMP": 1,
     "HAVE_PROTOTYPES": 1,
-    "HAVE_STDARG_PROTOTYPES": 1,
-    "HAVE_STDLIB_H": 1,
-    "HAVE_STRINGS_H": 1,
-    "HAVE_STRING_H": 1,
-    "HAVE_SYS_TIMES_H": 1,
-    "HAVE_SYS_TIME_H": 1,
-    "HAVE_TIME_H": 1,
-    "HAVE_UNISTD_H": 1
+    "HAVE_STDARG_PROTOTYPES": 1
   },
   "feature_flags": {
     "configure_args": []
@@ -44,5 +53,100 @@
   "outputs": [],
   "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "/home/dev/atb_vDp7VR/t/mk:collect2: error: ld returned 1 exit status"
+  "diagnostic": "",
+  "deep_expansion": {
+    "configure_lines": 2556,
+    "leaked_macros": [],
+    "heredoc_openers": 24,
+    "heredoc_terminators": 24,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2080: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL",
+      "srcdir",
+      "prefix",
+      "exec_prefix",
+      "CC",
+      "CFLAGS",
+      "CPPFLAGS",
+      "LDFLAGS",
+      "LIBS",
+      "CXX",
+      "CXXFLAGS",
+      "CPP",
+      "DEFS",
+      "LIBOBJS",
+      "INSTALL",
+      "STATISTICS",
+      "LTVERSION",
+      "RUBYDIR"
+    ],
+    "failed_during_check": "checking for memcmp... yes",
+    "failure_tail": [
+      "checking for memcmp... yes",
+      "for prototypes... for variable length prototypes and stdarg.h... configure: crea",
+      "configure: creating onig-config",
+      "configure: creating sample/Makefile",
+      "configure: creating config.h"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 15,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "#include <$ac_hdr>",
+      "#include <sys/types.h>\\n#include <stdint.h>\\n#include <stddef.h>\\nint main() { static int 1 - 2 * !((long int) (sizeof (int)) <= 0)test_array;",
+      "#include <sys/types.h>\\n#include <stdint.h>\\n#include <stddef.h>\\nint main() { static int 1 - 2 * !((long int) (sizeof (short)) <= 0)test_arra",
+      "#include <sys/types.h>\\n#include <stdint.h>\\n#include <stddef.h>\\nint main() { static int 1 - 2 * !((long int) (sizeof (long)) <= 0)test_array",
+      "int main() { const int x = 1; return x-1; }",
+      "#include <time.h>"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "fail",
+    "real_configure": "skipped",
+    "real_make": "skipped",
+    "real_configure_lines": 0,
+    "real_first_error": "Makefile.am: error: required file './ChangeLog' not found",
+    "classification": "OURS_BETTER"
+  },
+  "receipt": {
+    "court_status": "partial",
+    "probe_trace": [
+      {
+        "name": "HAVE_PROTOTYPES",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STDARG_PROTOTYPES",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      }
+    ],
+    "quirks_matched": [
+      "vendored-aclocal"
+    ],
+    "receipt_hash": "272b4086d72b556e59aab25afd11a14ef6eba552a3e586828816d8620d17e0f9",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

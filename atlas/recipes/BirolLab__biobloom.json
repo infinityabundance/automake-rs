@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "BirolLab/biobloom",
   "source": {
     "url": "https://github.com/BirolLab/biobloom",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.60",
+    "autoconf_rs": "autoconf-rs 0.1.15",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -17,6 +17,23 @@
     "cflags": "-g -O2",
     "host": "x86_64-pc-linux-gnu"
   },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "ok"
+    },
+    {
+      "step": "make",
+      "tool": "make",
+      "status": "fail"
+    }
+  ],
   "probe_results": {},
   "feature_flags": {
     "configure_args": []
@@ -33,5 +50,69 @@
   "outputs": [],
   "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "/home/dev/atb_jPAi9q/t/mk:g++: error: oost_cppflags: linker input file not found: No such file or directory"
+  "diagnostic": "Makefile:16: *** missing separator.  Stop.",
+  "deep_expansion": {
+    "configure_lines": 2550,
+    "leaked_macros": [],
+    "heredoc_openers": 24,
+    "heredoc_terminators": 24,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2073: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT"
+    ],
+    "failed_during_check": "checking for sdsl/bit_vector_il.hpp... no",
+    "failure_tail": [
+      "checking for sdsl/bit_vector_il.hpp... no",
+      "./configure: line 1489: test: !=: unary operator expected",
+      "./configure: line 1495: test: !=: unary operator expected",
+      "configure: creating Makefile",
+      "configure: creating Common/Makefile"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 8,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "char dlopen();\\nint main() { return dlopen(); }",
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { size_t x; return 0; }",
+      "#include <$ac_hdr>",
+      "#include <$ac_hdr>",
+      "#include <$ac_hdr>",
+      "#include <$ac_hdr>"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "fail",
+    "real_make": "skipped",
+    "real_configure_lines": 7026,
+    "real_first_error": "configure: error: Requires google sparsehash",
+    "classification": "OURS_BETTER"
+  },
+  "receipt": {
+    "court_status": "partial",
+    "probe_trace": [],
+    "quirks_matched": [
+      "vendored-aclocal"
+    ],
+    "receipt_hash": "bdbfb6907bfdbc8bdb7cf566a26793b38411d77e6f0819ae26c725daf919e509",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

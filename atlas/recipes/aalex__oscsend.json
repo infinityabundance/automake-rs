@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "aalex/oscsend",
   "source": {
     "url": "https://github.com/aalex/oscsend",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.60",
+    "autoconf_rs": "autoconf-rs 0.1.15",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -17,13 +17,30 @@
     "cflags": "-g -O2",
     "host": "x86_64-pc-linux-gnu"
   },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "ok"
+    },
+    {
+      "step": "make",
+      "tool": "make",
+      "status": "fail"
+    }
+  ],
   "probe_results": {},
   "feature_flags": {
     "configure_args": []
   },
   "dependencies": {
     "pkg_config": [
-      "checking for liblo >="
+      "checking for liblo >= 0.24... yes"
     ],
     "system_libs": [],
     "headers_needed": [],
@@ -34,34 +51,98 @@
     "pkg-config",
     "subdirs"
   ],
-  "outputs": [
-    {
-      "path": "config.status",
-      "sha256": "bcdeb2ad93677fec",
-      "kind": "executable"
-    },
-    {
-      "path": "depcomp",
-      "sha256": "16d184959f7532ce",
-      "kind": "executable"
-    },
-    {
-      "path": "missing",
-      "sha256": "4a4f76d45d999ca6",
-      "kind": "executable"
-    },
-    {
-      "path": "compile",
-      "sha256": "9277c97b212b37d2",
-      "kind": "executable"
-    },
-    {
-      "path": "libtool",
-      "sha256": "198b20e625bdd9f5",
-      "kind": "executable"
-    }
-  ],
-  "status": "FUNC_OK",
-  "verified": true,
-  "diagnostic": ""
+  "outputs": [],
+  "status": "MAKE_FAIL",
+  "verified": false,
+  "diagnostic": "Makefile:16: *** missing separator.  Stop.",
+  "deep_expansion": {
+    "configure_lines": 2491,
+    "leaked_macros": [],
+    "heredoc_openers": 16,
+    "heredoc_terminators": 16,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2005: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PKG_CONFIG",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL",
+      "srcdir",
+      "prefix",
+      "exec_prefix",
+      "CC",
+      "CFLAGS",
+      "CPPFLAGS",
+      "LDFLAGS",
+      "LIBS",
+      "CXX",
+      "CXXFLAGS",
+      "CPP",
+      "DEFS",
+      "LIBOBJS",
+      "INSTALL",
+      "host_alias",
+      "MINOR_VERSION",
+      "MICRO_VERSION",
+      "host_os",
+      "LIBLO_CFLAGS",
+      "host_cpu",
+      "MAJOR_VERSION",
+      "target_alias"
+    ],
+    "failed_during_check": "checking for liblo >= 0.24... yes",
+    "failure_tail": [
+      "checking for liblo >= 0.24... yes",
+      "configure: creating Makefile",
+      "configure: creating ./config.status",
+      "Options used to compile and link:"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 0,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": []
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "ok",
+    "real_configure_lines": 16069,
+    "real_first_error": "",
+    "classification": "OURS_BUG_MAKE"
+  },
+  "divergence": {
+    "stage": "make",
+    "ours_error": "",
+    "ours_error_context": [],
+    "ours_configure_lines": 2491,
+    "real_configure_lines": 16069,
+    "macros_ours_left_undefined": []
+  },
+  "receipt": {
+    "court_status": "partial",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool-old",
+      "uses-pkg-config",
+      "vendored-aclocal"
+    ],
+    "receipt_hash": "50943c81e776f99633ce47bc1c02476e04eeac1c88eab40282963440dadccda2",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

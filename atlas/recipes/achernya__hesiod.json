@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "achernya/hesiod",
   "source": {
     "url": "https://github.com/achernya/hesiod",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.60",
+    "autoconf_rs": "autoconf-rs 0.1.15",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -17,25 +17,31 @@
     "cflags": "-g -O2",
     "host": "x86_64-pc-linux-gnu"
   },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "ok"
+    },
+    {
+      "step": "make",
+      "tool": "make",
+      "status": "fail"
+    }
+  ],
   "probe_results": {
     "HAVE_LIBIDN": 1,
     "HAVE_LIBRESOLV": 1,
-    "HAVE_MALLOC": 1,
-    "HAVE_NETDB_H": 1,
-    "HAVE_NETINET_IN_H": 1,
     "HAVE_PW_CHANGE": 1,
     "HAVE_PW_CLASS": 1,
     "HAVE_PW_COMMENT": 1,
     "HAVE_PW_EXPIRE": 1,
-    "HAVE_PW_QUOTA": 1,
-    "HAVE_REALLOC": 1,
-    "HAVE_RESOLV_H": 1,
-    "HAVE_SECURE_GETENV": 1,
-    "HAVE_STDLIB_H": 1,
-    "HAVE_STRCHR": 1,
-    "HAVE_STRDUP": 1,
-    "HAVE_STRING_H": 1,
-    "HAVE_SYS_SOCKET_H": 1
+    "HAVE_PW_QUOTA": 1
   },
   "feature_flags": {
     "configure_args": []
@@ -53,5 +59,115 @@
   "outputs": [],
   "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "/home/dev/atb_bAqC7A/t/mk:hespwnam.c:116:5: error: 'struct passwd' has no member named 'pw_quota'"
+  "diagnostic": "Makefile:16: *** missing separator.  Stop.",
+  "deep_expansion": {
+    "configure_lines": 2573,
+    "leaked_macros": [],
+    "heredoc_openers": 25,
+    "heredoc_terminators": 25,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2097: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT"
+    ],
+    "failed_during_check": "checking for secure_getenv... yes",
+    "failure_tail": [
+      "checking for secure_getenv... yes",
+      "configure: creating Makefile",
+      "configure: creating src/Makefile",
+      "configure: creating src/lib/Makefile",
+      "configure: creating src/hesinfo/Makefile"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 12,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "char stringprep_check_version ();\\nint main() { return stringprep_check_version (); }",
+      "char res_mkquery();\\nint main() { return res_mkquery(); }",
+      "#include <resolv.h>",
+      "#include <$ac_hdr>",
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { ssize_t x; return 0; }",
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { uid_t x; return 0; }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "fail",
+    "real_configure": "skipped",
+    "real_make": "skipped",
+    "real_configure_lines": 0,
+    "real_first_error": "autoreconf: error: /usr/bin/autoconf failed with exit status: 28",
+    "classification": "OURS_BETTER"
+  },
+  "receipt": {
+    "court_status": "partial",
+    "probe_trace": [
+      {
+        "name": "HAVE_LIBIDN",
+        "kind": "lib",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_LIBRESOLV",
+        "kind": "lib",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_PW_CHANGE",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_PW_CLASS",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_PW_COMMENT",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_PW_EXPIRE",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_PW_QUOTA",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      }
+    ],
+    "quirks_matched": [
+      "uses-libtool",
+      "uses-maintainer-mode",
+      "has-m4-macro-dir",
+      "vendored-aclocal"
+    ],
+    "receipt_hash": "100483ce4b84025b03e2eb38d4f870afccb678fd340b654ac4f1e1c79b813cbb",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

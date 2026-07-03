@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "claesenm/EnsembleSVM",
   "source": {
     "url": "https://github.com/claesenm/EnsembleSVM",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.60",
+    "autoconf_rs": "autoconf-rs 0.1.15",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -17,33 +17,30 @@
     "cflags": "-g -O2",
     "host": "x86_64-pc-linux-gnu"
   },
-  "probe_results": {
-    "HAVE_CXX11": 1,
-    "HAVE_FLOAT_H": 1,
-    "HAVE_LIMITS_H": 1,
-    "HAVE_LOCALE_H": 1,
-    "HAVE_MALLOC": 1,
-    "HAVE_PTHREAD": 1,
-    "HAVE_PTHREAD_PRIO_INHERIT": 1,
-    "HAVE_REALLOC": 1,
-    "HAVE_SETLOCALE": 1,
-    "HAVE_STDBOOL_H": 1,
-    "HAVE_STDLIB_H": 1,
-    "HAVE_STRDUP": 1,
-    "HAVE_STRING_H": 1,
-    "HAVE_STRRCHR": 1,
-    "HAVE_STRTOD": 1,
-    "HAVE_STRTOL": 1,
-    "HAVE_STRTOUL": 1
-  },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "ok"
+    },
+    {
+      "step": "make",
+      "tool": "make",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {},
   "feature_flags": {
     "configure_args": []
   },
   "dependencies": {
     "pkg_config": [],
-    "system_libs": [
-      "-pthread"
-    ],
+    "system_libs": [],
     "headers_needed": [],
     "missing": []
   },
@@ -55,5 +52,71 @@
   "outputs": [],
   "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": ""
+  "diagnostic": "make: *** No targets specified and no makefile found.  Stop.",
+  "deep_expansion": {
+    "configure_lines": 1628,
+    "leaked_macros": [],
+    "heredoc_openers": 10,
+    "heredoc_terminators": 10,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "CXX",
+      "CXXFLAGS",
+      "PTHREAD_CC",
+      "PTHREAD_CFLAGS",
+      "PTHREAD_LIBS"
+    ],
+    "failed_during_check": "checking for the pthreads flag... -pthread",
+    "failure_tail": [
+      "checking for the pthreads flag... -pthread",
+      "-pthread"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 10,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar malloc();\\nint main() { return malloc(); }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar realloc();\\nint main() { return realloc(); }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar strtod();\\nint main() { return strtod(); }",
+      "#include <$ac_hdr>",
+      "#include <stdbool.h>",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func();\\nint main() { return $ac_func(); }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "fail",
+    "real_configure_lines": 21885,
+    "real_first_error": "",
+    "classification": "BOTH_MAKE_FAIL"
+  },
+  "receipt": {
+    "court_status": "partial",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool",
+      "uses-libtool-old",
+      "uses-subdir-objects",
+      "has-m4-macro-dir",
+      "vendored-aclocal",
+      "uses-ax-archive",
+      "uses-pthread-check"
+    ],
+    "receipt_hash": "a1f4e5766c35392dc1a93d7294702343cbef0d84a9f13446984a26ca5354d637",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

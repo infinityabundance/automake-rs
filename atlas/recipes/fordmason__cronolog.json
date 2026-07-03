@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "fordmason/cronolog",
   "source": {
     "url": "https://github.com/fordmason/cronolog",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.60",
+    "autoconf_rs": "autoconf-rs 0.1.15",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -17,33 +17,24 @@
     "cflags": "-g -O2",
     "host": "x86_64-pc-linux-gnu"
   },
-  "probe_results": {
-    "HAVE_FCNTL_H": 1,
-    "HAVE_LANGINFO_H": 1,
-    "HAVE_LIBINTL_H": 1,
-    "HAVE_LIMITS_H": 1,
-    "HAVE_LOCALE_H": 1,
-    "HAVE_LOCALTIME_R": 1,
-    "HAVE_MALLOC": 1,
-    "HAVE_MEMSET": 1,
-    "HAVE_MKDIR": 1,
-    "HAVE_MKTIME": 1,
-    "HAVE_NL_LANGINFO": 1,
-    "HAVE_PUTENV": 1,
-    "HAVE_STAT": 1,
-    "HAVE_STDLIB_H": 1,
-    "HAVE_STRCASECMP": 1,
-    "HAVE_STRCHR": 1,
-    "HAVE_STRFTIME": 1,
-    "HAVE_STRING_H": 1,
-    "HAVE_STRNCASECMP": 1,
-    "HAVE_STRPTIME": 1,
-    "HAVE_SYS_STAT_H": 1,
-    "HAVE_SYS_TIME_H": 1,
-    "HAVE_TIME_H": 1,
-    "HAVE_UNISTD_H": 1,
-    "HAVE_VPRINTF": 1
-  },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "ok"
+    },
+    {
+      "step": "make",
+      "tool": "make",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {},
   "feature_flags": {
     "configure_args": []
   },
@@ -59,5 +50,70 @@
   "outputs": [],
   "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "/home/dev/atb_vscvpQ/t/mk:cronoutils.c:502:17: error: storage size of 'tm_initial' isn't known"
+  "diagnostic": "Makefile:16: *** missing separator.  Stop.",
+  "deep_expansion": {
+    "configure_lines": 2578,
+    "leaked_macros": [],
+    "heredoc_openers": 29,
+    "heredoc_terminators": 29,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2102: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT"
+    ],
+    "failed_during_check": "checking for strncasecmp... yes",
+    "failure_tail": [
+      "checking for strncasecmp... yes",
+      "configure: creating Makefile",
+      "configure: creating cronolog.spec",
+      "configure: creating doc/Makefile",
+      "configure: creating lib/Makefile"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 21,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "#include <sys/stat.h>",
+      "#include <time.h>",
+      "\\nint main() { struct tm.tm_zone x; return 0; }",
+      "#include <$ac_hdr>",
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { mode_t x; return 0; }",
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { pid_t x; return 0; }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "fail",
+    "real_make": "skipped",
+    "real_configure_lines": 7484,
+    "real_first_error": "configure: error: cannot find sources (bootstrap) in . or ..",
+    "classification": "OURS_BETTER"
+  },
+  "receipt": {
+    "court_status": "partial",
+    "probe_trace": [],
+    "quirks_matched": [
+      "vendored-aclocal",
+      "perl-in-configure"
+    ],
+    "receipt_hash": "bdbfb6907bfdbc8bdb7cf566a26793b38411d77e6f0819ae26c725daf919e509",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

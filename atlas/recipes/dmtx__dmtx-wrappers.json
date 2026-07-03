@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "dmtx/dmtx-wrappers",
   "source": {
     "url": "https://github.com/dmtx/dmtx-wrappers",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.60",
+    "autoconf_rs": "autoconf-rs 0.1.14",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -17,6 +17,23 @@
     "cflags": "-g -O2",
     "host": "x86_64-pc-linux-gnu"
   },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "ok"
+    },
+    {
+      "step": "make",
+      "tool": "make",
+      "status": "fail"
+    }
+  ],
   "probe_results": {},
   "feature_flags": {
     "configure_args": []
@@ -31,71 +48,81 @@
   },
   "quirks": [
     "libtool",
-    "subdirs"
+    "subdirs",
+    "LIBS=-lm"
   ],
-  "outputs": [
-    {
-      "path": "java/README",
-      "sha256": "71d66f137fad3b21",
-      "kind": "executable"
-    },
-    {
-      "path": "java/Makefile",
-      "sha256": "41ddc0cc197ab7e2",
-      "kind": "executable"
-    },
-    {
-      "path": "config.status",
-      "sha256": "782c7619aa5bcb93",
-      "kind": "executable"
-    },
-    {
-      "path": "python/README",
-      "sha256": "a423b4664db2440e",
-      "kind": "executable"
-    },
-    {
-      "path": "python/setup.py",
-      "sha256": "688c1558e3e61c1d",
-      "kind": "executable"
-    },
-    {
-      "path": "python/Makefile",
-      "sha256": "fd195a52eb52e966",
-      "kind": "executable"
-    },
-    {
-      "path": "python/test.py",
-      "sha256": "f7de06c40c617d79",
-      "kind": "executable"
-    },
-    {
-      "path": "python/pydmtx.py",
-      "sha256": "2b8830313a6e5335",
-      "kind": "executable"
-    },
-    {
-      "path": "py-compile",
-      "sha256": "10b2e5d87ff8669d",
-      "kind": "executable"
-    },
-    {
-      "path": "ruby/test.rb",
-      "sha256": "bce174ff7f1fbe2a",
-      "kind": "executable"
-    },
-    {
-      "path": "depcomp",
-      "sha256": "16d184959f7532ce",
-      "kind": "executable"
-    },
-    {
-      "path": "missing",
-      "sha256": "4a4f76d45d999ca6",
-      "kind": "executable"
-    }
-  ],
-  "status": "FUNC_OK",
-  "verified": true,
-  "diagnostic": ""
+  "outputs": [],
+  "status": "MAKE_FAIL",
+  "verified": false,
+  "diagnostic": "",
+  "deep_expansion": {
+    "configure_lines": 2539,
+    "leaked_macros": [],
+    "heredoc_openers": 17,
+    "heredoc_terminators": 17,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2063: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PKG_CONFIG",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT"
+    ],
+    "failed_during_check": "checking for library containing atan2... -lm",
+    "failure_tail": [
+      "checking for library containing atan2... -lm",
+      "configure: creating Makefile",
+      "configure: creating vala/Makefile",
+      "configure: creating config.h",
+      "configure: creating ./config.status"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 0,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "char atan2 ();\\nint main() { return atan2 (); }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "ok",
+    "real_configure_lines": 15777,
+    "real_first_error": "",
+    "classification": "OURS_BUG_MAKE"
+  },
+  "divergence": {
+    "stage": "make",
+    "ours_error": "",
+    "ours_error_context": [],
+    "ours_configure_lines": 2539,
+    "real_configure_lines": 15777,
+    "macros_ours_left_undefined": []
+  },
+  "receipt": {
+    "court_status": "partial",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool-old",
+      "uses-python",
+      "vendored-aclocal"
+    ],
+    "receipt_hash": "c619dc62146d859ed28bac26d7280d61cfc674fb717e466cf24e89384d83f8ff",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

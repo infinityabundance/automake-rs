@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "cmusatyalab/vmnetx",
   "source": {
     "url": "https://github.com/cmusatyalab/vmnetx",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.60",
+    "autoconf_rs": "autoconf-rs 0.1.15",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -17,16 +17,29 @@
     "cflags": "-g -O2",
     "host": "x86_64-pc-linux-gnu"
   },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "ok"
+    },
+    {
+      "step": "make",
+      "tool": "make",
+      "status": "fail"
+    }
+  ],
   "probe_results": {},
   "feature_flags": {
     "configure_args": []
   },
   "dependencies": {
-    "pkg_config": [
-      "checking for libcurl >=",
-      "checking for fuse >=",
-      "checking for glib-2.0 >="
-    ],
+    "pkg_config": [],
     "system_libs": [],
     "headers_needed": [],
     "missing": []
@@ -39,5 +52,90 @@
   "outputs": [],
   "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "/home/dev/atb_LXLm0C/t/mk:collect2: error: ld returned 1 exit status"
+  "diagnostic": "make: *** No targets.  Stop.",
+  "deep_expansion": {
+    "configure_lines": 2586,
+    "leaked_macros": [],
+    "heredoc_openers": 16,
+    "heredoc_terminators": 16,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2110: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PKG_CONFIG",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL",
+      "srcdir",
+      "prefix",
+      "exec_prefix",
+      "CC",
+      "CFLAGS",
+      "CPPFLAGS",
+      "LDFLAGS",
+      "LIBS",
+      "CXX",
+      "CXXFLAGS",
+      "CPP",
+      "DEFS",
+      "LIBOBJS",
+      "INSTALL",
+      "host_os",
+      "host_vendor",
+      "host_cpu",
+      "host_alias",
+      "GLIB_VER_DEFINES",
+      "UPDATE_CHECK_URL"
+    ],
+    "failed_during_check": "checking URL for update checking... checking for python... /usr/bin/python3",
+    "failure_tail": [
+      "checking URL for update checking... checking for python... /usr/bin/python3",
+      "./configure: line 1452: test: =: unary operator expected",
+      "configure: creating Makefile",
+      "sed: -e expression #25, char 66: unterminated `s' command",
+      "configure: creating config.h"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 0,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": []
+  },
+  "oracle": {
+    "real_autoreconf": "fail",
+    "real_configure": "skipped",
+    "real_make": "skipped",
+    "real_configure_lines": 0,
+    "real_first_error": "/usr/bin/m4:configure.ac:63: ERROR: cannot flush diversion to temporary file: No space left on device",
+    "classification": "OURS_BETTER"
+  },
+  "receipt": {
+    "court_status": "partial",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool-old",
+      "uses-pkg-config",
+      "uses-python",
+      "uses-subdir-objects",
+      "has-m4-macro-dir",
+      "vendored-aclocal",
+      "uses-ax-archive"
+    ],
+    "receipt_hash": "bdbfb6907bfdbc8bdb7cf566a26793b38411d77e6f0819ae26c725daf919e509",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

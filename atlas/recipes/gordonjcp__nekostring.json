@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "gordonjcp/nekostring",
   "source": {
     "url": "https://github.com/gordonjcp/nekostring",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.60",
+    "autoconf_rs": "autoconf-rs 0.1.15",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -17,32 +17,29 @@
     "cflags": "-g -O2",
     "host": "x86_64-pc-linux-gnu"
   },
-  "probe_results": {
-    "HAVE_MALLOC": 1,
-    "HAVE_MEMSET": 1,
-    "HAVE_POW": 1,
-    "HAVE_STDLIB_H": 1,
-    "HAVE_STRDUP": 1,
-    "HAVE_STRING_H": 1,
-    "HAVE_STRSTR": 1,
-    "HAVE_UNISTD_H": 1
-  },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {},
   "feature_flags": {
     "configure_args": []
   },
   "dependencies": {
-    "pkg_config": [],
-    "system_libs": [
-      "-lpthread",
-      "-lm",
-      "-llo"
+    "pkg_config": [
+      "checking for gtk+-2.0 >= 2.0.0... yes"
     ],
-    "headers_needed": [
-      "/home/dev/atb_Zc2tMP/t/mk:ladspa.h"
-    ],
-    "missing": [
-      "/home/dev/atb_Zc2tMP/t/mk:ladspa.h"
-    ]
+    "system_libs": [],
+    "headers_needed": [],
+    "missing": []
   },
   "quirks": [
     "libtool",
@@ -50,7 +47,123 @@
     "subdirs"
   ],
   "outputs": [],
-  "status": "MAKE_FAIL",
+  "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": ""
+  "diagnostic": "./configure: line 1414: syntax error near unexpected token `2.0.0,'",
+  "deep_expansion": {
+    "configure_lines": 2568,
+    "leaked_macros": [
+      {
+        "name": "AM_PATH_GTK_2_0",
+        "line": 1414,
+        "context": "AM_PATH_GTK_2_0(2.0.0, with_gtk='yes', printf '%s\\n' \"configure: WARNING"
+      }
+    ],
+    "heredoc_openers": 23,
+    "heredoc_terminators": 23,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1414,
+        "token": "2.0.0,",
+        "source": "AM_PATH_GTK_2_0(2.0.0, with_gtk='yes', printf '%s\\n' \"configure: WARNING",
+        "block": [
+          "1410: ",
+          "1411: ",
+          "1412: ",
+          "1413: with_gtk=no",
+          "1414: AM_PATH_GTK_2_0(2.0.0, with_gtk='yes', printf '%s\\n' \"configure: WARNING: GU",
+          "1415: ",
+          "1416: ",
+          "1417: # FIXME: Replace `main' with a function in `-llo':"
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2092: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL",
+      "srcdir",
+      "prefix",
+      "exec_prefix",
+      "CC",
+      "CFLAGS",
+      "CPPFLAGS",
+      "LDFLAGS",
+      "LIBS",
+      "CXX",
+      "CXXFLAGS",
+      "CPP",
+      "DEFS",
+      "LIBOBJS",
+      "INSTALL",
+      "PACKAGE_CFLAGS",
+      "PACKAGE_LIBS"
+    ],
+    "failed_during_check": "checking for gtk+-2.0 >= 2.0.0... yes",
+    "failure_tail": [
+      "checking for gtk+-2.0 >= 2.0.0... yes",
+      "./configure: line 1414: syntax error near unexpected token `2.0.0,'",
+      "./configure: line 1414: `AM_PATH_GTK_2_0(2.0.0, with_gtk='yes', printf '%s\\n' \"c"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 7,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "char main();\\nint main() { return main(); }",
+      "char main();\\nint main() { return main(); }",
+      "char main();\\nint main() { return main(); }",
+      "#include <$ac_hdr>",
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { size_t x; return 0; }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar malloc();\\nint main() { return malloc(); }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "fail",
+    "real_configure_lines": 21673,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE"
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "line 1414: AM_PATH_GTK_2_0(2.0.0, with_gtk='yes', printf '%s\\n' \"configure: WARNING (near `2.0.0,`)",
+    "ours_error_context": [
+      "AM_PATH_GTK_2_0(2.0.0, with_gtk='yes', printf '%s\\n' \"configure: WARNING"
+    ],
+    "ours_configure_lines": 2568,
+    "real_configure_lines": 21673,
+    "macros_ours_left_undefined": [
+      "AM_PATH_GTK_2_0"
+    ]
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool",
+      "uses-libtool-old",
+      "uses-pkg-config",
+      "vendored-aclocal"
+    ],
+    "receipt_hash": "24e39ed3178d433d21c1340a6407fda16d8349c27724819539e8175382940e80",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

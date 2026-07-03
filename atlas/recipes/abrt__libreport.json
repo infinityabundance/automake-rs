@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "abrt/libreport",
   "source": {
     "url": "https://github.com/abrt/libreport",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.60",
+    "autoconf_rs": "autoconf-rs 0.1.15",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -17,17 +17,32 @@
     "cflags": "-g -O2",
     "host": "x86_64-pc-linux-gnu"
   },
-  "probe_results": {
-    "HAVE_ARCHIVE_H": 1,
-    "HAVE_FORKPTY": 1,
-    "HAVE_LOCALE_H": 1
-  },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "ok"
+    },
+    {
+      "step": "make",
+      "tool": "make",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {},
   "feature_flags": {
     "configure_args": []
   },
   "dependencies": {
     "pkg_config": [
-      "checking for glib-2.0 >="
+      "checking for glib-2.0 >= 2.43.4... yes",
+      "gio-2.0 >= 2.43.4",
+      "gio-unix-2.0 >= 2.43.4"
     ],
     "system_libs": [],
     "headers_needed": [],
@@ -42,5 +57,74 @@
   "outputs": [],
   "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": ""
+  "diagnostic": "Makefile:16: *** missing separator.  Stop.",
+  "deep_expansion": {
+    "configure_lines": 3064,
+    "leaked_macros": [],
+    "heredoc_openers": 20,
+    "heredoc_terminators": 20,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2588: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PKG_CONFIG",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT"
+    ],
+    "failed_during_check": "checking whether to build Doxygen documentation... no",
+    "failure_tail": [
+      "checking whether to build Doxygen documentation... no",
+      "configure: creating tests/Makefile",
+      "configure: creating tests/atlocal",
+      "configure: creating Makefile",
+      "configure: creating apidoc/Makefile"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 3,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "#include <sys/types.h>\\nint main() { return sizeof(off_t) >= 8 ? 0 : 1; }",
+      "char forkpty ();\\nint main() { return forkpty (); }",
+      "#include <archive.h>",
+      "#include <$ac_hdr>"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "fail",
+    "real_make": "skipped",
+    "real_configure_lines": 21687,
+    "real_first_error": "./configure: line 16277: syntax error near unexpected token `0.35.0'",
+    "classification": "OURS_BETTER"
+  },
+  "receipt": {
+    "court_status": "partial",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool",
+      "uses-pkg-config",
+      "uses-intltool",
+      "uses-gettext",
+      "uses-python",
+      "has-m4-macro-dir",
+      "vendored-aclocal"
+    ],
+    "receipt_hash": "bdbfb6907bfdbc8bdb7cf566a26793b38411d77e6f0819ae26c725daf919e509",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

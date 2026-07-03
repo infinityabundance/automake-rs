@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "filosganga/libwurfl",
   "source": {
     "url": "https://github.com/filosganga/libwurfl",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.60",
+    "autoconf_rs": "autoconf-rs 0.1.15",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -17,15 +17,25 @@
     "cflags": "-g -O2",
     "host": "x86_64-pc-linux-gnu"
   },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "fail"
+    }
+  ],
   "probe_results": {},
   "feature_flags": {
     "configure_args": []
   },
   "dependencies": {
     "pkg_config": [],
-    "system_libs": [
-      "-lxml2"
-    ],
+    "system_libs": [],
     "headers_needed": [],
     "missing": []
   },
@@ -34,7 +44,88 @@
     "subdirs"
   ],
   "outputs": [],
-  "status": "MAKE_FAIL",
+  "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "/home/dev/atb_noNqwz/t/mk:collect2: error: ld returned 1 exit status"
+  "diagnostic": "./configure: line 1438: syntax error near unexpected token `,have_check=\"yes\",'",
+  "deep_expansion": {
+    "configure_lines": 1584,
+    "leaked_macros": [
+      {
+        "name": "AM_PATH_CHECK",
+        "line": 1438,
+        "context": "AM_PATH_CHECK(,have_check=\"yes\","
+      }
+    ],
+    "heredoc_openers": 17,
+    "heredoc_terminators": 17,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1438,
+        "token": ",have_check=\"yes\",",
+        "source": "AM_PATH_CHECK(,have_check=\"yes\",",
+        "block": [
+          "1434: exit 1",
+          "1435: ",
+          "1436: fi",
+          "1437: ",
+          "1438: AM_PATH_CHECK(,have_check=\"yes\",",
+          "1439: \tprintf '%s\\n' \"configure: WARNING: Check not found; cannot run unit test!\" ",
+          "1440: \thave_check=\"no\")",
+          "1441: "
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL"
+    ],
+    "failed_during_check": "checking for library containing iconv_open... none required",
+    "failure_tail": [
+      "checking for library containing iconv_open... none required",
+      "./configure: line 1438: syntax error near unexpected token `,have_check=\"yes\",'",
+      "./configure: line 1438: `AM_PATH_CHECK(,have_check=\"yes\",'"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 19,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "char xmlSAXVersion ();\\nint main() { return xmlSAXVersion (); }",
+      "char iconv_open ();\\nint main() { return iconv_open (); }",
+      "#include <$ac_hdr>",
+      "#include <stdbool.h>",
+      "#include <assert.h>",
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { size_t x; return 0; }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "fail",
+    "real_configure": "skipped",
+    "real_make": "skipped",
+    "real_configure_lines": 0,
+    "real_first_error": "configure.ac:40: error: possibly undefined macro: AM_PATH_CHECK",
+    "classification": "OURS_BETTER"
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool",
+      "uses-libtool-old",
+      "has-m4-macro-dir",
+      "vendored-aclocal"
+    ],
+    "receipt_hash": "0c30dce6270fb3560c454d8c8d1e4e34e811f65407638476dab76fe1fd927894",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

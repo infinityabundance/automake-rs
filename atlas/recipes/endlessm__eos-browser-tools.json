@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "endlessm/eos-browser-tools",
   "source": {
     "url": "https://github.com/endlessm/eos-browser-tools",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.60",
+    "autoconf_rs": "autoconf-rs 0.1.16",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -17,6 +17,23 @@
     "cflags": "-g -O2",
     "host": "x86_64-pc-linux-gnu"
   },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "ok"
+    },
+    {
+      "step": "make",
+      "tool": "make",
+      "status": "ok"
+    }
+  ],
   "probe_results": {},
   "feature_flags": {
     "configure_args": []
@@ -38,17 +55,81 @@
       "kind": "executable"
     },
     {
-      "path": "config.status",
-      "sha256": "43a8c0333dde23b7",
+      "path": "missing",
+      "sha256": "4a4f76d45d999ca6",
       "kind": "executable"
     },
     {
-      "path": "missing",
-      "sha256": "4a4f76d45d999ca6",
+      "path": "configure",
+      "sha256": "bd319c6cef551b11",
+      "kind": "executable"
+    },
+    {
+      "path": "install-sh",
+      "sha256": "852947c4fef9cdc1",
       "kind": "executable"
     }
   ],
   "status": "FUNC_OK",
   "verified": true,
-  "diagnostic": ""
+  "diagnostic": "",
+  "deep_expansion": {
+    "configure_lines": 2444,
+    "leaked_macros": [],
+    "heredoc_openers": 16,
+    "heredoc_terminators": 16,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 1964: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT"
+    ],
+    "failed_during_check": "checking for glib-2.0... yes",
+    "failure_tail": [
+      "checking for glib-2.0... yes",
+      "./configure: line 1363: GLIB_GSETTINGS: command not found",
+      "configure: creating Makefile",
+      "configure: creating data/Makefile",
+      "configure: creating chrome-helper/Makefile"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 0,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": []
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "ok",
+    "real_configure_lines": 4538,
+    "real_first_error": "",
+    "classification": "BOTH_OK"
+  },
+  "receipt": {
+    "court_status": "quirk_dependent",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-pkg-config",
+      "uses-maintainer-mode",
+      "vendored-aclocal"
+    ],
+    "receipt_hash": "30a2fbfc4c18f214bce6440631bce8a215b977859054104c3e6174692bad6b6b",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

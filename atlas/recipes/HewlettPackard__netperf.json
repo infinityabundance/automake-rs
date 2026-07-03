@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "HewlettPackard/netperf",
   "source": {
     "url": "https://github.com/HewlettPackard/netperf",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.60",
+    "autoconf_rs": "autoconf-rs 0.1.15",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -17,6 +17,18 @@
     "cflags": "-g -O2",
     "host": "x86_64-pc-linux-gnu"
   },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "fail"
+    }
+  ],
   "probe_results": {},
   "feature_flags": {
     "configure_args": []
@@ -33,5 +45,168 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "/home/dev/atb_wJ7P0g/t/cf:checking for socklen_t equivalent... ./configure: line 1491: syntax error near unexpected toke"
+  "diagnostic": "./configure: line 1380: syntax error near unexpected token `m'",
+  "deep_expansion": {
+    "configure_lines": 3470,
+    "leaked_macros": [
+      {
+        "name": "AC_HAVE_LIBRARY",
+        "line": 1380,
+        "context": "AC_HAVE_LIBRARY(m)"
+      },
+      {
+        "name": "AC_HAVE_LIBRARY",
+        "line": 1406,
+        "context": "AC_HAVE_LIBRARY(socket)"
+      },
+      {
+        "name": "AC_HAVE_LIBRARY",
+        "line": 1408,
+        "context": "AC_HAVE_LIBRARY(nsl)"
+      },
+      {
+        "name": "AC_HAVE_LIBRARY",
+        "line": 1409,
+        "context": "AC_HAVE_LIBRARY(sendfile)"
+      },
+      {
+        "name": "AC_HAVE_LIBRARY",
+        "line": 1432,
+        "context": "AC_HAVE_LIBRARY(mach)"
+      },
+      {
+        "name": "AC_CHECK_SA_LEN",
+        "line": 1484,
+        "context": "AC_CHECK_SA_LEN(ac_cv_sockaddr_has_sa_len)"
+      },
+      {
+        "name": "AC_HAVE_LIBRARY",
+        "line": 2146,
+        "context": "AC_HAVE_LIBRARY(sctp,,use_sctp=false)"
+      },
+      {
+        "name": "AC_HAVE_LIBRARY",
+        "line": 2321,
+        "context": "AC_HAVE_LIBRARY(perfstat)"
+      },
+      {
+        "name": "AC_HAVE_LIBRARY",
+        "line": 2335,
+        "context": "AC_HAVE_LIBRARY(kstat)"
+      },
+      {
+        "name": "AC_HAVE_LIBRARY",
+        "line": 2340,
+        "context": "AC_HAVE_LIBRARY(kstat)"
+      },
+      {
+        "name": "AC_HAVE_LIBRARY",
+        "line": 2372,
+        "context": "AC_HAVE_LIBRARY(perfstat)"
+      },
+      {
+        "name": "AC_HAVE_LIBRARY",
+        "line": 2379,
+        "context": "AC_HAVE_LIBRARY(kstat)"
+      },
+      {
+        "name": "AC_HAVE_LIBRARY",
+        "line": 2386,
+        "context": "AC_HAVE_LIBRARY(kstat)"
+      }
+    ],
+    "heredoc_openers": 42,
+    "heredoc_terminators": 42,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1380,
+        "token": "m",
+        "source": "AC_HAVE_LIBRARY(m)",
+        "block": [
+          "1376: printf '%s\\n' \"checking for working const... yes\"",
+          "1377: ac_cv_c_const=yes",
+          "1378: ",
+          "1379: # Checks for libraries.",
+          "1380: AC_HAVE_LIBRARY(m)",
+          "1381: ",
+          "1382: # Checks for header files.",
+          "1383: printf '%s\\n' \"yes\""
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2994: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL",
+      "srcdir",
+      "prefix",
+      "exec_prefix",
+      "CC",
+      "CFLAGS",
+      "CPPFLAGS",
+      "LDFLAGS",
+      "LIBS",
+      "CXX",
+      "CXXFLAGS",
+      "CPP",
+      "DEFS",
+      "LIBOBJS",
+      "INSTALL",
+      "NETCPU_SOURCE",
+      "target_alias"
+    ],
+    "failed_during_check": "checking for working const... yes",
+    "failure_tail": [
+      "checking for working const... yes",
+      "./configure: line 1380: syntax error near unexpected token `m'",
+      "./configure: line 1380: `AC_HAVE_LIBRARY(m)'"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 37,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "#include <sys/wait.h>",
+      "#include <$ac_hdr>",
+      "#include <sys/types.h>\\nint main() { return sizeof(off_t) >= 8 ? 0 : 1; }",
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { off_t x; return 0; }",
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { size_t x; return 0; }",
+      "#include <time.h>"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "fail",
+    "real_configure": "skipped",
+    "real_make": "skipped",
+    "real_configure_lines": 0,
+    "real_first_error": "configure.ac:67: error: possibly undefined macro: AC_CHECK_SA_LEN",
+    "classification": "OURS_BETTER"
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "has-m4-macro-dir",
+      "has-acinclude",
+      "vendored-aclocal"
+    ],
+    "receipt_hash": "0c30dce6270fb3560c454d8c8d1e4e34e811f65407638476dab76fe1fd927894",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "google/ios-webkit-debug-proxy",
   "source": {
     "url": "https://github.com/google/ios-webkit-debug-proxy",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.60",
+    "autoconf_rs": "autoconf-rs 0.1.15",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -17,64 +17,147 @@
     "cflags": "-g -O2",
     "host": "x86_64-pc-linux-gnu"
   },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "ok"
+    },
+    {
+      "step": "make",
+      "tool": "make",
+      "status": "fail"
+    }
+  ],
   "probe_results": {
-    "HAVE_ARPA_INET_H": 1,
-    "HAVE_GETLINE": 1,
-    "HAVE_INTTYPES_H": 1,
-    "HAVE_MALLOC": 1,
-    "HAVE_MEMMOVE": 1,
-    "HAVE_MEMSET": 1,
-    "HAVE_NETDB_H": 1,
-    "HAVE_NETINET_IN_H": 1,
-    "HAVE_REALLOC": 1,
-    "HAVE_REGCOMP": 1,
-    "HAVE_REGEX_H": 1,
-    "HAVE_RESOLV_H": 1,
-    "HAVE_SELECT": 1,
-    "HAVE_SOCKET": 1,
-    "HAVE_STDDEF_H": 1,
-    "HAVE_STDINT_H": 1,
-    "HAVE_STDLIB_H": 1,
-    "HAVE_STRCASECMP": 1,
-    "HAVE_STRCASESTR": 1,
-    "HAVE_STRCHR": 1,
-    "HAVE_STRDUP": 1,
-    "HAVE_STRING_H": 1,
-    "HAVE_STRNCASECMP": 1,
-    "HAVE_STRNDUP": 1,
-    "HAVE_STRRCHR": 1,
-    "HAVE_STRSTR": 1,
-    "HAVE_STRTOL": 1,
-    "HAVE_SYS_SOCKET_H": 1,
-    "HAVE_SYS_TIME_H": 1
+    "HAVE_REGEX_H": 1
   },
   "feature_flags": {
     "configure_args": []
   },
   "dependencies": {
     "pkg_config": [
-      "checking for libimobiledevice-1.0 >=",
-      "checking for libplist-2.0 >=",
-      "checking for libusbmuxd-2.0 >=",
-      "checking for openssl >="
+      "checking for libimobiledevice-1.0 >= 1.3.0... yes",
+      "checking for libplist-2.0 >= 2.2.0... yes",
+      "checking for libusbmuxd-2.0 >= 2.0.0... yes",
+      "checking for openssl >= 1.1.0... yes"
     ],
     "system_libs": [
       "-lm"
     ],
-    "headers_needed": [
-      "/home/dev/atb_VdIUES/t/mk:device_listener.h"
-    ],
-    "missing": [
-      "/home/dev/atb_VdIUES/t/mk:device_listener.h"
-    ]
+    "headers_needed": [],
+    "missing": []
   },
   "quirks": [
     "libtool",
     "pkg-config",
-    "subdirs"
+    "subdirs",
+    "LIBS=-lm"
   ],
   "outputs": [],
   "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "/home/dev/atb_VdIUES/t/mk:ios_webkit_debug_proxy_main.c:12: error: \"_GNU_SOURCE\" redefined [-Werror]"
+  "diagnostic": "Makefile:16: *** missing separator.  Stop.",
+  "deep_expansion": {
+    "configure_lines": 2740,
+    "leaked_macros": [],
+    "heredoc_openers": 32,
+    "heredoc_terminators": 32,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2264: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PKG_CONFIG",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL",
+      "srcdir",
+      "prefix",
+      "exec_prefix",
+      "CC",
+      "CFLAGS",
+      "CPPFLAGS",
+      "LDFLAGS",
+      "LIBS",
+      "CXX",
+      "CXXFLAGS",
+      "CPP",
+      "DEFS",
+      "LIBOBJS",
+      "INSTALL"
+    ],
+    "failed_during_check": "checking for getline... yes",
+    "failure_tail": [
+      "checking for getline... yes",
+      "configure: creating Makefile",
+      "configure: creating src/Makefile",
+      "configure: creating include/Makefile",
+      "configure: creating examples/Makefile"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 23,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "char plist_to_xml();\\nint main() { return plist_to_xml(); }",
+      "char log10();\\nint main() { return log10(); }",
+      "char idevice_new();\\nint main() { return idevice_new(); }",
+      "#include <resolv.h>",
+      "#include <$ac_hdr>",
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { int8_t x; return 0; }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "ok",
+    "real_configure_lines": 16453,
+    "real_first_error": "",
+    "classification": "OURS_BUG_MAKE"
+  },
+  "divergence": {
+    "stage": "make",
+    "ours_error": "",
+    "ours_error_context": [],
+    "ours_configure_lines": 2740,
+    "real_configure_lines": 16453,
+    "macros_ours_left_undefined": []
+  },
+  "receipt": {
+    "court_status": "partial",
+    "probe_trace": [
+      {
+        "name": "HAVE_REGEX_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      }
+    ],
+    "quirks_matched": [
+      "uses-libtool",
+      "uses-pkg-config",
+      "vendored-aclocal"
+    ],
+    "receipt_hash": "ec76f3c7b0384be97ad03ab76b30408f3c0c1901f68319fc5ec357962a90de1e",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

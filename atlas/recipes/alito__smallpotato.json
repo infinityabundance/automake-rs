@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "alito/smallpotato",
   "source": {
     "url": "https://github.com/alito/smallpotato",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.60",
+    "autoconf_rs": "autoconf-rs 0.1.15",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -17,37 +17,24 @@
     "cflags": "-g -O2",
     "host": "x86_64-pc-linux-gnu"
   },
-  "probe_results": {
-    "HAVE_DIRENT_H": 1,
-    "HAVE_ERROR_AT_LINE": 1,
-    "HAVE_ERROR_H": 1,
-    "HAVE_FCNTL_H": 1,
-    "HAVE_FLOAT_H": 1,
-    "HAVE_GDBM_H": 1,
-    "HAVE_GETTIMEOFDAY": 1,
-    "HAVE_LIBINTL_H": 1,
-    "HAVE_LIMITS_H": 1,
-    "HAVE_LOCALE_H": 1,
-    "HAVE_MALLOC": 1,
-    "HAVE_MEMCHR": 1,
-    "HAVE_MEMORY_H": 1,
-    "HAVE_MEMSET": 1,
-    "HAVE_REALLOC": 1,
-    "HAVE_STDLIB_H": 1,
-    "HAVE_STRCHR": 1,
-    "HAVE_STRINGS_H": 1,
-    "HAVE_STRING_H": 1,
-    "HAVE_STRRCHR": 1,
-    "HAVE_STRTOD": 1,
-    "HAVE_STRTOL": 1,
-    "HAVE_SYS_DIR_H": 1,
-    "HAVE_SYS_FILE_H": 1,
-    "HAVE_SYS_PARAM_H": 1,
-    "HAVE_SYS_STAT_H": 1,
-    "HAVE_SYS_TIME_H": 1,
-    "HAVE_UNISTD_H": 1,
-    "HAVE_UTIME_H": 1
-  },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "ok"
+    },
+    {
+      "step": "make",
+      "tool": "make",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {},
   "feature_flags": {
     "configure_args": []
   },
@@ -61,10 +48,84 @@
     "missing": []
   },
   "quirks": [
-    "subdirs"
+    "subdirs",
+    "LIBS=-lpthread -lm"
   ],
   "outputs": [],
   "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "/home/dev/atb_ply6FX/t/mk:src/unches.c:193:44: error: 'VERSION' undeclared (first use in this function)"
+  "diagnostic": "Makefile:16: *** missing separator.  Stop.",
+  "deep_expansion": {
+    "configure_lines": 2627,
+    "leaked_macros": [],
+    "heredoc_openers": 33,
+    "heredoc_terminators": 33,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2151: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT"
+    ],
+    "failed_during_check": "checking for strtol... yes",
+    "failure_tail": [
+      "checking for strtol... yes",
+      "configure: creating Makefile",
+      "configure: creating doc/Makefile",
+      "configure: creating libale/Makefile",
+      "configure: creating tools/Makefile"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 22,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "char gdbm_open();\\nint main() { return gdbm_open(); }",
+      "#include <gdbm.h>",
+      "char log();\\nint main() { return log(); }",
+      "char pthread_create();\\nint main() { return pthread_create(); }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar alloca();\\nint main() { return alloca(); }",
+      "#include <$ac_hdr>"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "ok",
+    "real_configure_lines": 7293,
+    "real_first_error": "",
+    "classification": "OURS_BUG_MAKE"
+  },
+  "divergence": {
+    "stage": "make",
+    "ours_error": "",
+    "ours_error_context": [],
+    "ours_configure_lines": 2627,
+    "real_configure_lines": 7293,
+    "macros_ours_left_undefined": []
+  },
+  "receipt": {
+    "court_status": "partial",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-subdir-objects",
+      "vendored-aclocal"
+    ],
+    "receipt_hash": "50943c81e776f99633ce47bc1c02476e04eeac1c88eab40282963440dadccda2",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

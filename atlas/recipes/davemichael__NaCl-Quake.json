@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "davemichael/NaCl-Quake",
   "source": {
     "url": "https://github.com/davemichael/NaCl-Quake",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.60",
+    "autoconf_rs": "autoconf-rs 0.1.15",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -17,21 +17,131 @@
     "cflags": "-g -O2",
     "host": "x86_64-pc-linux-gnu"
   },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "fail"
+    }
+  ],
   "probe_results": {},
   "feature_flags": {
     "configure_args": []
   },
   "dependencies": {
     "pkg_config": [],
-    "system_libs": [
-      "-lSDL"
-    ],
+    "system_libs": [],
     "headers_needed": [],
     "missing": []
   },
   "quirks": [],
   "outputs": [],
-  "status": "MAKE_FAIL",
+  "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": ""
+  "diagnostic": "./configure: line 1427: syntax error near unexpected token `$SDL_VERSION,'",
+  "deep_expansion": {
+    "configure_lines": 2490,
+    "leaked_macros": [
+      {
+        "name": "AM_PATH_SDL",
+        "line": 1427,
+        "context": "AM_PATH_SDL($SDL_VERSION,"
+      }
+    ],
+    "heredoc_openers": 16,
+    "heredoc_terminators": 16,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1427,
+        "token": "$SDL_VERSION,",
+        "source": "AM_PATH_SDL($SDL_VERSION,",
+        "block": [
+          "1423: ",
+          "1424: ",
+          "1425: ",
+          "1426: SDL_VERSION=1.0.1",
+          "1427: AM_PATH_SDL($SDL_VERSION,",
+          "1428:             :,",
+          "1429:             printf '%s\\n' \"configure: error: *** SDL version $SDL_VERSION no",
+          "1430: exit 1"
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2014: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL",
+      "srcdir",
+      "prefix",
+      "exec_prefix",
+      "CC",
+      "CFLAGS",
+      "CPPFLAGS",
+      "LDFLAGS",
+      "LIBS",
+      "CXX",
+      "CXXFLAGS",
+      "CPP",
+      "DEFS",
+      "LIBOBJS",
+      "INSTALL",
+      "MATHLIB",
+      "host_vendor",
+      "host_os",
+      "host_alias",
+      "ICONOBJ",
+      "target_alias",
+      "INETLIB",
+      "host_cpu"
+    ],
+    "failed_during_check": "",
+    "failure_tail": [
+      "./configure: line 1427: syntax error near unexpected token `$SDL_VERSION,'",
+      "./configure: line 1427: `AM_PATH_SDL($SDL_VERSION,'"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 0,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": []
+  },
+  "oracle": {
+    "real_autoreconf": "fail",
+    "real_configure": "skipped",
+    "real_make": "skipped",
+    "real_configure_lines": 0,
+    "real_first_error": "Makefile.am: error: required file './AUTHORS' not found",
+    "classification": "OURS_BETTER"
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "has-acinclude",
+      "vendored-aclocal"
+    ],
+    "receipt_hash": "0c30dce6270fb3560c454d8c8d1e4e34e811f65407638476dab76fe1fd927894",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

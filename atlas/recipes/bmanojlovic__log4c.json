@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "bmanojlovic/log4c",
   "source": {
     "url": "https://github.com/bmanojlovic/log4c",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.60",
+    "autoconf_rs": "autoconf-rs 0.1.15",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -17,6 +17,18 @@
     "cflags": "-g -O2",
     "host": "x86_64-pc-linux-gnu"
   },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "fail"
+    }
+  ],
   "probe_results": {},
   "feature_flags": {
     "configure_args": []
@@ -32,7 +44,116 @@
     "subdirs"
   ],
   "outputs": [],
-  "status": "MAKE_FAIL",
+  "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "/home/dev/atb_9JYZHz/t/mk:rc.c:349:20: error: 'VERSION' undeclared (first use in this function)"
+  "diagnostic": "./configure: line 1710: syntax error near unexpected token `1.95.1'",
+  "deep_expansion": {
+    "configure_lines": 2771,
+    "leaked_macros": [
+      {
+        "name": "AM_PATH_EXPAT",
+        "line": 1710,
+        "context": "AM_PATH_EXPAT(1.95.1)"
+      }
+    ],
+    "heredoc_openers": 27,
+    "heredoc_terminators": 27,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1710,
+        "token": "1.95.1",
+        "source": "AM_PATH_EXPAT(1.95.1)",
+        "block": [
+          "1706: # Check --with-expat option",
+          "1707: ",
+          "1708: if test x$with_expat = xyes ; then",
+          "1709:  use_expat=yes",
+          "1710:  AM_PATH_EXPAT(1.95.1)",
+          "1711: fi",
+          "1712: ",
+          "1713: # "
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2295: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL",
+      "srcdir",
+      "prefix",
+      "exec_prefix",
+      "CC",
+      "CFLAGS",
+      "CPPFLAGS",
+      "LDFLAGS",
+      "LIBS",
+      "CXX",
+      "CXXFLAGS",
+      "CPP",
+      "DEFS",
+      "LIBOBJS",
+      "INSTALL",
+      "LOG4C_MINOR_VERSION",
+      "LOG4C_MICRO_VERSION",
+      "host_alias",
+      "host_vendor",
+      "LT_VERSION",
+      "HAVE_LATEX",
+      "LOG4C_MAJOR_VERSION",
+      "host_cpu",
+      "host_os"
+    ],
+    "failed_during_check": "checking for sbrk... yes",
+    "failure_tail": [
+      "checking for sbrk... yes",
+      "./configure: line 1710: syntax error near unexpected token `1.95.1'",
+      "./configure: line 1710: ` AM_PATH_EXPAT(1.95.1)'"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 19,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "#include <pthread.h>",
+      "#include <$ac_hdr>",
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { size_t x; return 0; }",
+      "#include <time.h>",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar alloca();\\nint main() { return alloca(); }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar malloc();\\nint main() { return malloc(); }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "fail",
+    "real_configure": "skipped",
+    "real_make": "skipped",
+    "real_configure_lines": 0,
+    "real_first_error": "configure.in:206: error: possibly undefined macro: AM_PATH_EXPAT",
+    "classification": "OURS_BETTER"
+  },
+  "receipt": {
+    "court_status": "failed",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-libtool-old",
+      "vendored-aclocal"
+    ],
+    "receipt_hash": "0c30dce6270fb3560c454d8c8d1e4e34e811f65407638476dab76fe1fd927894",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }

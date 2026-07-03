@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v1",
+  "schema": "automake-rs.build-atlas/v2",
   "repo": "dsigma/dfu-util",
   "source": {
     "url": "https://github.com/dsigma/dfu-util",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.60",
+    "autoconf_rs": "autoconf-rs 0.1.14",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -17,20 +17,30 @@
     "cflags": "-g -O2",
     "host": "x86_64-pc-linux-gnu"
   },
-  "probe_results": {
-    "HAVE_ERR": 1,
-    "HAVE_FTRUNCATE": 1,
-    "HAVE_GETPAGESIZE": 1,
-    "HAVE_MEMCMP": 1,
-    "HAVE_NANOSLEEP": 1,
-    "HAVE_SYSEXITS_H": 1
-  },
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "ok"
+    },
+    {
+      "step": "make",
+      "tool": "make",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {},
   "feature_flags": {
     "configure_args": []
   },
   "dependencies": {
     "pkg_config": [
-      "checking for libusb-1.0 >="
+      "checking for libusb-1.0 >= 1.0.0... yes"
     ],
     "system_libs": [
       "-lusb-1.0"
@@ -40,10 +50,84 @@
   },
   "quirks": [
     "pkg-config",
-    "subdirs"
+    "subdirs",
+    "LIBS=-lusb-1.0"
   ],
   "outputs": [],
   "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "/home/dev/atb_F6VQAq/t/mk:suffix.c:59:42: error: 'PACKAGE' undeclared (first use in this function); did you mean 'PACKAG"
+  "diagnostic": "",
+  "deep_expansion": {
+    "configure_lines": 2528,
+    "leaked_macros": [],
+    "heredoc_openers": 23,
+    "heredoc_terminators": 23,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2052: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT"
+    ],
+    "failed_during_check": "checking for err... yes",
+    "failure_tail": [
+      "checking for err... yes",
+      "configure: creating Makefile",
+      "configure: creating src/Makefile",
+      "configure: creating doc/Makefile",
+      "configure: creating config.h"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 7,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "char libusb_init();\\nint main() { return libusb_init(); }",
+      "char usb_path2devnum();\\nint main() { return usb_path2devnum(); }",
+      "#include <$ac_hdr>",
+      "int main() { const int x = 1; return x-1; }",
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { size_t x; return 0; }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar memcmp();\\nint main() { return memcmp(); }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "ok",
+    "real_configure_lines": 6610,
+    "real_first_error": "",
+    "classification": "OURS_BUG_MAKE"
+  },
+  "divergence": {
+    "stage": "make",
+    "ours_error": "",
+    "ours_error_context": [],
+    "ours_configure_lines": 2528,
+    "real_configure_lines": 6610,
+    "macros_ours_left_undefined": []
+  },
+  "receipt": {
+    "court_status": "partial",
+    "probe_trace": [],
+    "quirks_matched": [
+      "uses-pkg-config",
+      "vendored-aclocal"
+    ],
+    "receipt_hash": "c619dc62146d859ed28bac26d7280d61cfc674fb717e466cf24e89384d83f8ff",
+    "schema": "automake-rs.build-court/v1"
+  },
+  "environment": {
+    "cc": "cc",
+    "cc_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "host_triplet": "x86_64-linux-gnu",
+    "pkg_config_version": "1.8.1",
+    "make_version": "GNU Make 4.3",
+    "relevant_env": []
+  }
 }
