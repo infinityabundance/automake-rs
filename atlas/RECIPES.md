@@ -1,338 +1,21 @@
 # Atlas Recipes — working / non-working roster
 
-Total **973** recipes. **Working (built end-to-end): 37** · non-working: 281 partial · 250 not-standalone · 405 failed.
+Total **986** recipes. **Working (built end-to-end): 2** · non-working: 0 partial · 250 not-standalone · 368 failed.
 
 "Working" means the full pipeline (autoreconf → configure → make) succeeded under the GNU-free toolchain. `quirk_dependent` needed an auto-applied quirk; `sealed` needed none.
 
-## ✅ Working (37)
+## ✅ Working (2)
 
 | repo | court |
 | --- | --- |
-| aadel112/libBlondie | quirk_dependent |
-| abrt/faf | quirk_dependent |
-| aconchillo/guile-json | quirk_dependent |
-| afedchin/xbmc-addon-iptvsimple | quirk_dependent |
-| ahkok/bootchart | quirk_dependent |
-| aizvorski/h264bitstream | quirk_dependent |
-| allinurl/gwsocket | quirk_dependent |
-| arcalex/racktk | quirk_dependent |
-| archiecobbs/logwarn | quirk_dependent |
-| ArcticaProject/lightdm-remote-session-arctica | quirk_dependent |
-| arjunchitturi/htmlstreamparser | quirk_dependent |
-| aspiers/stow | quirk_dependent |
-| autch/demucc | quirk_dependent |
-| ayumin/open-cobol | quirk_dependent |
-| barak/djview4 | quirk_dependent |
-| bingmann/flex-bison-cpp-example | quirk_dependent |
-| blueness/fts-standalone | quirk_dependent |
-| boundarydevices/devregs | quirk_dependent |
-| bromanbro/taggins | quirk_dependent |
-| bryteise/ister | quirk_dependent |
-| bytedeco/helloworld | quirk_dependent |
-| charlescui/CBenchmark | quirk_dependent |
-| Chipmaster/kirk | quirk_dependent |
-| circulosmeos/gztool | quirk_dependent |
-| clone/xml2 | quirk_dependent |
-| commiyou/iniparser | quirk_dependent |
-| compiz-reloaded/compiz-bcop | quirk_dependent |
-| CookieAvenger/Tiny-Manga-Downloader | quirk_dependent |
-| cooljeanius/gawk | quirk_dependent |
 | cosmos72/twin | quirk_dependent |
-| EasyRPG/Tools | quirk_dependent |
-| elmar/ldap-git-backup | quirk_dependent |
-| endlessm/eos-browser-tools | quirk_dependent |
-| endlessm/gnome-user-docs | quirk_dependent |
-| enki/libev | quirk_dependent |
-| evergreen-library-system/Evergreen | quirk_dependent |
 | flyinghead/ircd-hybrid | quirk_dependent |
 
-## 🟡 Non-working — partial (configure cleared, make failed) (281)
+## 🟡 Non-working — partial (configure cleared, make failed) (0)
 
-| repo | stage | first error |
-| --- | --- | --- |
-| 01micko/pup-volume-monitor | MAKE_FAIL |  |
-| 0xADE1A1DE/AssemblyLine | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| 4ZM/mfterm | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| 5GenCrypto/mife | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| 5nord/bison-example | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| aalex/oscsend | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| abhaykadam/vm | MAKE_FAIL | Makefile:15: *** missing separator.  Stop. |
-| abihf/kamus | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| abrt/abrt | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| abrt/libreport | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| achernya/hesiod | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| acidburn0zzz/spice-xpi | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| adjacentlink/emane-jammer-simple | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| adsr/flow-tools | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| adulau/dcfldd | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| agronick/Relay | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| alekstorm/tala | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| alexanderchuranov/Metaresc | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| alexlarsson/Glick2 | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| alito/smallpotato | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| alliedtelesis/apteryx-rest | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| alobbs/macchanger | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| Alpacius/a6 | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| AltSysrq/libbsd-minimal | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| amadvance/advancecomp | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| ampledata/ldsped | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| anatol/google-coredumper | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| anchor/filtergen | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| andriymoroz/IES | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| AndyA/psips | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| AndyA/rfile | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| AnthonyBradford/optionmatrix | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| antonblanchard/kexec-lite | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| antonblanchard/qtrace-tools | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| archiecobbs/mtree-port | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| asciinema/libtsm | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| ashwinraghav/Cqual | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| ASPLes/libaxl | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| audionuma/libtruepeak | MAKE_FAIL | make: *** No targets specified and no makefile found.  Stop. |
-| avahi/nss-mdns | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| avr-aics-riken/JHPCN-DF | MAKE_FAIL | make: *** No targets specified and no makefile found.  Stop. |
-| avr-aics-riken/Polylib4 | MAKE_FAIL | make: *** No targets specified and no makefile found.  Stop. |
-| Bader-Research/snap-graph | MAKE_FAIL | make: *** No targets specified and no makefile found.  Stop. |
-| barak/vobcopy | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| BatchDrake/lfsrintruder | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| baxter104/fatx | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| benegon/ntp | MAKE_FAIL | make: *** No targets specified and no makefile found.  Stop. |
-| beniz/hmdp | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| benlemasurier/stormfs | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| bergundy/IOQueue | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| besm6/m20 | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| bestouff/genext2fs | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| bigmc/bigmc | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| BioND/myrng | MAKE_FAIL | make: *** No targets specified and no makefile found.  Stop. |
-| BirolLab/biobloom | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| bjango/istatserverlinux | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| blakecaldwell/fluidmem | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| bpeel/prevodb | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| briansorahan/libchuck | MAKE_FAIL | make: *** No targets specified and no makefile found.  Stop. |
-| BroadbandForum/obuspa | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| bsc-performance-tools/paraver-kernel | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| BUILDS-/Derpnet | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| Cacti/spine | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| CAIDA/libparsebgp | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| carlos-lopez-garces/mapnik | MAKE_FAIL | make: *** No targets specified and no makefile found.  Stop. |
-| catharsis/spotifile | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| cdobrich/btnx | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| cea-hpc/bridge | MAKE_FAIL | make: *** No targets specified and no makefile found.  Stop. |
-| cea-hpc/selFIe | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| ceph/gf-complete | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| cfsghost/mdsfs | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| cgwalters/git-evtag | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| chaoskagami/corbenik | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| chenbd/libwfd | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| chenbd/miracle | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| cheshire-mouse/hexchat-indicator | MAKE_FAIL | make: *** No targets specified and no makefile found.  Stop. |
-| chokkan/liblbfgs | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| ChrisLidbury/CLSmith | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| Chronic-Dev/libirecovery | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| cisco/open-nFAPI | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| claesenm/approxsvm | MAKE_FAIL | make: *** No targets specified and no makefile found.  Stop. |
-| claesenm/EnsembleSVM | MAKE_FAIL | make: *** No targets specified and no makefile found.  Stop. |
-| CLowcay/wayland-terminal | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| cmbi/dssp | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| cmbi/hssp | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| cmcqueen/aes-min | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| cmusatyalab/vmnetx | MAKE_FAIL | make: *** No targets.  Stop. |
-| codebutler/firesheep | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| containers/oci-umount | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| cooljeanius/gcab | MAKE_FAIL | make: *** No targets specified and no makefile found.  Stop. |
-| cosimoc/gnome-example-search-provider | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| cpichard/fission | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| cpptest/cpptest | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| cpputest/cpputest_simulated_gmock | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| crackpkcs12/crackpkcs12 | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| cybergarage/mupnp-cc | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| cybergarage/uecho | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| cybergarage/uhttp-cc | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| CyberNinjas/pam_aad | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| cybernoid/archivemount | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| daghovland/clp | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| dahlem/lz-prediction | MAKE_FAIL | make: *** No targets specified and no makefile found.  Stop. |
-| damien-lemoal/zonefs-tools | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| dancor/wmctrl | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| dangerousben/jsonval | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| DanielO/codec2 | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| danielver02/NHDS | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| darshan-hpc/darshan | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| daveyc/gawk_zos | MAKE_FAIL | make: *** No targets specified and no makefile found.  Stop. |
-| davidsiaw/luacppinterface | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| davidt/Fyre | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| dbcode/protobuf-nginx | MAKE_FAIL | Makefile:15: *** missing separator.  Stop. |
-| dcjones/hat-trie | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| DE-IBH/apt-dater | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| DE-IBH/imvirt | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| deepin-community/libtextwrap | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| deepin-community/motif | MAKE_FAIL | Makefile:15: *** missing separator.  Stop. |
-| dell/libsmbios | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| demorest/psrfits_utils | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| derino/schencon | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| devernay/glm | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| df7cb/sdate | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| dhvani-tts/dhvani-tts | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| digitalocean/hivex | MAKE_FAIL | /tmp/atlasx_digitalocean__hivex/s/build-aux/missing: line 81: automake-1.15: command not f |
-| digitalocean/libguestfs | MAKE_FAIL | make: *** [GNUmakefile:108: abort-due-to-no-makefile] Error 1 |
-| Distrotech/diffutils | MAKE_FAIL | make: *** [GNUmakefile:108: abort-due-to-no-makefile] Error 1 |
-| Distrotech/esound | MAKE_FAIL | make: *** No targets specified and no makefile found.  Stop. |
-| Distrotech/ethtool | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| Distrotech/findutils | MAKE_FAIL | /tmp/atlasx_Distrotech__findutils/s/build-aux/missing: line 52: automake-1.11: command not |
-| Distrotech/flac | MAKE_FAIL | /tmp/atlasx_Distrotech__flac/s/missing: line 81: automake-1.13: command not found |
-| Distrotech/flux | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| Distrotech/gdbm | MAKE_FAIL | /tmp/atlasx_Distrotech__gdbm/s/build-aux/missing: line 81: automake-1.13: command not foun |
-| Distrotech/gnome-mines | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| Distrotech/gzip | MAKE_FAIL | /tmp/atlasx_Distrotech__gzip/s/build-aux/missing: line 81: automake-1.13: command not foun |
-| Distrotech/libaccounts-glib | MAKE_FAIL | /tmp/atlasx_Distrotech__libaccounts-glib/s/build-aux/missing: line 81: automake-1.14: comm |
-| Distrotech/libart | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| Distrotech/libgweather | MAKE_FAIL | make: *** No targets specified and no makefile found.  Stop. |
-| Distrotech/libsecret | MAKE_FAIL |  |
-| Distrotech/libtool | MAKE_FAIL | /tmp/atlasx_Distrotech__libtool/s/libltdl/config/missing: line 81: automake-1.13: command  |
-| Distrotech/madplay | MAKE_FAIL |  |
-| Distrotech/minicom | MAKE_FAIL | /tmp/atlasx_Distrotech__minicom/s/missing: line 52: automake-1.11: command not found |
-| Distrotech/onig | MAKE_FAIL |  |
-| Distrotech/popt | MAKE_FAIL | /tmp/atlasx_Distrotech__popt/s/missing: line 52: automake-1.9: command not found |
-| Distrotech/psmisc | MAKE_FAIL |  |
-| Distrotech/radius | MAKE_FAIL | rscm_hash.c:131:15: error: too few arguments to function 'scm_i_make_string' |
-| Distrotech/sharutils | MAKE_FAIL |  |
-| Distrotech/tar | MAKE_FAIL | /tmp/atlasx_Distrotech__tar/s/build-aux/missing: line 81: automake-1.13: command not found |
-| divVerent/s2tc | MAKE_FAIL |  |
-| djandruczyk/eXtace | MAKE_FAIL | checking for esd_monitor_stream in -lesd... ./configure: line 1456: esd-config: command no |
-| dmatveev/libinotify-kqueue | MAKE_FAIL |  |
-| dmtx/dmtx-utils | MAKE_FAIL |  |
-| dmtx/dmtx-wrappers | MAKE_FAIL |  |
-| dora38/sshpass | MAKE_FAIL |  |
-| dorchard/flrc-lib | MAKE_FAIL |  |
-| dpc/xmppconsole | MAKE_FAIL |  |
-| drakkar-lig/ipv6-care | MAKE_FAIL |  |
-| dreamlegacy/libusbtuner | MAKE_FAIL |  |
-| dreibh/sctplib | MAKE_FAIL |  |
-| Drive-Trust-Alliance/sedutil | MAKE_FAIL |  |
-| drmingdrmer/lrc-erasure-code | MAKE_FAIL |  |
-| drycpp/libposix | MAKE_FAIL |  |
-| dsigma/dfu-util | MAKE_FAIL |  |
-| dterweij/ndjbdns | MAKE_FAIL |  |
-| dun/conman | MAKE_FAIL | ./configure: line 1817: strlcat: command not found |
-| dupgit/fcl | MAKE_FAIL | ./configure: line 1418: AM_GLIB_GNU_GETTEXT: command not found |
-| dwest/grip | MAKE_FAIL | ./configure: line 1488: AM_GLIB_GNU_GETTEXT: command not found |
-| dyninc/OpenBFDD | MAKE_FAIL | ./configure: line 1396: AHX_CONFIG_UNORDERED_MAP: command not found |
-| eamonnmoloney/thrift-0.6.1 | MAKE_FAIL |  |
-| eantcal/miptknzr | MAKE_FAIL |  |
-| EarthScope/evalresp | MAKE_FAIL |  |
-| eastzone/snmp | MAKE_FAIL |  |
-| ederlf/horse | MAKE_FAIL |  |
-| electronoora/komposter | MAKE_FAIL | ./configure: line 1397: AC_CHECK_C99: command not found |
-| elima/FileTea | MAKE_FAIL |  |
-| Elive/engage | MAKE_FAIL | ./configure: line 1417: AM_PROG_CC_STDC: command not found |
-| elmo2k3/had | MAKE_FAIL | ./configure: line 1574: AM_GLIB_GNU_GETTEXT: command not found |
-| elmo2k3/libhagraph | MAKE_FAIL |  |
-| emanueleaina/desktop-notifications-browser-extension | MAKE_FAIL | ./configure: line 1405: GLIB_GSETTINGS: command not found |
-| embtom/kmscube | MAKE_FAIL |  |
-| EmilGedda/Leonardo | MAKE_FAIL |  |
-| emk/eshell | MAKE_FAIL |  |
-| emscripten-ports/libpng | MAKE_FAIL | ./configure: line 1383: LT_PATH_LD: command not found |
-| Emulators-Salvacam/openjazz | MAKE_FAIL |  |
-| endaaman/tym | MAKE_FAIL |  |
-| energicryptocurrency/gen2-energihash | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| enki/gvpe | MAKE_FAIL | make: *** No targets specified and no makefile found.  Stop. |
-| ericherman/libfastset | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| eriknyquist/librxvm | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| esrille/esidl | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| eurovibes/mixmaster | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| EvaisaDev/libwebsock | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| Evolix/uvrrpd | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| ewxrjk/sftpserver | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| exo/tvm-rcx | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| fan31415/bbq_new | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| farsightsec/dnstable-convert | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| fasrc/slurm_showq | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| fblomqvi/librs | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| fbx/foils_hid | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| feeblefakie/luxio | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| ffromani/vmon | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| FinchBerryOS/fbyo-utils | MAKE_FAIL | make: *** No targets specified and no makefile found.  Stop. |
-| fireae/nhocr | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| firnsy/yubipam | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| flatcar/sysroot-wrappers | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| FlexW/tiger-compiler | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| Floobits/diffshipper | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| flyfeifan/myHtop | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| fordmason/cronolog | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| frank-zago/xgalaga-sdl | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| fredowski/ssw | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| fredrikwidlund/cfarmhash | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| fredrikwidlund/libclo | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| fredrikwidlund/libdynamic | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| fredrikwidlund/libdynamic_benchmark | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| fredrikwidlund/libreactorng | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| fremantle-gtk2/osso-applet-screencalibration | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| FuangCao/cavan | MAKE_FAIL | make: *** No targets specified and no makefile found.  Stop. |
-| fumiyas/wcwidth-cjk | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| gabrielfalcao/go-horse | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| GalliumOS/lxdm | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| ganesh503/Asus-Aura | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| GArik/bash-completion | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| gcp/sjeng | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| genebean/uptimed | MAKE_FAIL | make: *** No targets specified and no makefile found.  Stop. |
-| gentoo/cpuid2cpuflags | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| gerstner-hub/xwmfs | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| ggreer/fsevents-tools | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| giannitedesco/ccid-utils | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| giellalt/keyboard-olo | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| giellalt/template-shared-und | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| gitGNU/gnu_rpge | MAKE_FAIL | make: *** No targets specified and no makefile found.  Stop. |
-| gizero/autotools-skeleton | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| glipari/rtscan | MAKE_FAIL | make: *** No targets specified and no makefile found.  Stop. |
-| glv2/bruteforce-luks | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| glv2/bruteforce-salted-openssl | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| glv2/bruteforce-wallet | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| gmarcais/NoShell | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| gmarcais/Quorum | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| gnaservicesinc/Challenge4Access | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| GNOME/alacarte | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| gobolinux/GoboNet | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| google/ios-webkit-debug-proxy | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| grant-h/usbutils-portable | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| greg-kennedy/BridgeMail | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| greyltc/android_external_sshfs | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| grgbr/haveged | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| grisbi/grisbi | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| grobian/carbon-c-relay | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| grondo/edac-utils | MAKE_FAIL | Makefile:15: *** missing separator.  Stop. |
-| GroovIM/transport | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| GrumpyOldTroll/libmcrx | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| gucong/robotxq | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| guillemj/xfstt | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| guillermocalvo/exceptions4c | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| gvallee/c_hello_world | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| h4mu/rott94 | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| habanero-rice/habanero-upc | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| hadfl/lxadm | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| haegrr/testtool | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| hafslund/cc2531-sniffer | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| hamidreza-s/NanoChat | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| hanya/aobook-haiku | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| heltilda/cicada | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| hhirsch/abook | MAKE_FAIL | make: *** No targets specified and no makefile found.  Stop. |
-| Hi-Angel/faux | MAKE_FAIL | make: *** No targets.  Stop. |
-| hillstoneUnited/hillstoneUnited | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| holylobster/nuntius-linux | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| hpc/Parallel-coreutils | MAKE_FAIL | make: *** [GNUmakefile:108: abort-due-to-no-makefile] Error 1 |
-| hpc/xpmem | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| hunspell/mythes | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| huttmf/complexlib | MAKE_FAIL | make: *** No targets specified and no makefile found.  Stop. |
-| hyperair/fptree | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| hyperic/sigar | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| hyperrealm/cbase | MAKE_FAIL | make: *** No targets specified and no makefile found.  Stop. |
-| hyrathb/mentohust | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| i4tv/gstreamill | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| iagorubio/gnome-search-tool | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| ib/xarchiver | MAKE_FAIL | Makefile:15: *** missing separator.  Stop. |
-| idosch/ethtool | MAKE_FAIL | Makefile:16: *** missing separator.  Stop. |
-| ifwe/ucarp | MAKE_FAIL |  |
+_None._
 
-## ❌ Non-working — failed (ours fails before make) (405)
+## ❌ Non-working — failed (ours fails before make) (368)
 
 | repo | stage | first error |
 | --- | --- | --- |
@@ -356,7 +39,6 @@ Total **973** recipes. **Working (built end-to-end): 37** · non-working: 281 pa
 | ahupowerdns/setgrouper | CONFIGURE_RUN_FAIL | configure: error: no C++ compiler found |
 | ajnelson/photorec-testdisk | CONFIGURE_RUN_FAIL | ./configure: line 1447: pthread-config: command not found |
 | alanjaouen/compilateur-cpp | CONFIGURE_RUN_FAIL | awk: cmd. line:1:                               ^ syntax error |
-| alaskacommunications/akcom-udpecho | CONFIGURE_RUN_FAIL | ./configure: line 1479: syntax error near unexpected token `0,' |
 | albertok/web-polygraph | CONFIGURE_RUN_FAIL | configure: error: the compiler (g++) failed to pass a simple C++ test; check config.log fo |
 | Albinlk/OpenThread | CONFIGURE_RUN_FAIL |  |
 | alexmarsev/soundtouch | CONFIGURE_RUN_FAIL | ./configure: line 1655: syntax error near unexpected token `done' |
@@ -365,7 +47,6 @@ Total **973** recipes. **Working (built end-to-end): 37** · non-working: 281 pa
 | AlmuHS/GNUMach_SMP | CONFIGURE_RUN_FAIL | ./configure: line 1349: $'\f': command not found |
 | alsa-project/alsa-firmware | CONFIGURE_RUN_FAIL | ./configure: line 1380: _AC_COMPILER_EXEEXT: command not found |
 | AmkG/hl | CONFIGURE_RUN_FAIL | checking how to get an intptr_t type with ranges... configure: error: We can't find out wh |
-| andre-martins/TurboParser | CLONE_FAIL |  |
 | andrewshadura/tnat64 | CONFIGURE_RUN_FAIL | configure: error: 'Could not find library containing connect()' |
 | AndyA/htop-osx | CONFIGURE_RUN_FAIL | ./configure: line 1630: syntax error near unexpected token `plpa-1.1' |
 | anewhuahua/bilitw | CONFIGURE_RUN_FAIL | ./configure: line 1886: ./contrib/yaml-0.1.4/configure: No such file or directory |
@@ -382,20 +63,16 @@ Total **973** recipes. **Working (built end-to-end): 37** · non-working: 281 pa
 | armadito/armadito-av | CONFIGURE_RUN_FAIL | ./configure: line 1371: syntax error near unexpected token `(' |
 | artclarke/xuggle-xuggler | CONFIGURE_RUN_FAIL | ./configure: line 1796: ON-FAIL: command not found |
 | arthurdejong/nss-pam-ldapd | CONFIGURE_RUN_FAIL | ./configure: line 1870: ac_cv_have_decl_setusershell,: command not found |
-| ARVE-Research/LPJ-LMfire | CONFIGURE_RUN_FAIL | ./configure: line 1377: syntax error near unexpected token `NETCDF_CC,' |
 | asnelt/rrep | CONFIGURE_RUN_FAIL | configure: error: Invalid value for --with-included-regex: |
 | assaferan/omf5 | CONFIGURE_RUN_FAIL | ./configure: line 1377: is: command not found |
 | astromatic/psfex | CONFIGURE_RUN_FAIL | checking if compilation flags are set automatically... checking whether the classic INTEL  |
 | astromatic/sextractor | CONFIGURE_RUN_FAIL | checking if compilation flags are set automatically... checking whether the classic INTEL  |
 | astromatic/skymaker | CONFIGURE_RUN_FAIL | checking if compilation flags are set automatically... checking whether the classic INTEL  |
-| atinm/poker-eval | CLONE_FAIL |  |
-| aurelihein/exosip | CONFIGURE_RUN_FAIL | ./configure: line 1374: syntax error near unexpected token `scripts' |
 | autotools-mirror/autoconf | CONFIGURE_RUN_FAIL | ./configure: line 2679: syntax error: unexpected end of file |
 | avr-aics-riken/234Compositor | CONFIGURE_RUN_FAIL | ./configure: line 2244: syntax error near unexpected token `(' |
 | avrdudes/avarice | CONFIGURE_RUN_FAIL | ./configure: line 1402: ACTION-IF-,: command not found |
 | awaw/dnsproxy | CONFIGURE_RUN_FAIL | checking for libevent... configure: error: |
 | awgn/brute | CONFIGURE_RUN_FAIL | configure: error: x86_64-unknown-linux-gnu not supported |
-| b4n/ctpl | CONFIGURE_RUN_FAIL | ./configure: line 1402: syntax error near unexpected token `1.9' |
 | badoo/libpssh | CONFIGURE_RUN_FAIL | checking libevent install prefix... configure: error: Can't find libevent headers under  d |
 | balde/balde | CONFIGURE_RUN_FAIL | configure: error: no -fvisibility=hidden support found in , balde requires -fvisibility=hi |
 | bambulab/gmp | CONFIGURE_RUN_FAIL | ./configure: line 1367: syntax error near unexpected token `config.m4' |
@@ -409,7 +86,6 @@ Total **973** recipes. **Working (built end-to-end): 37** · non-working: 281 pa
 | benwbooth/tvision | CONFIGURE_RUN_FAIL | ./configure: line 1412: AC_STDC_HEADERS: command not found |
 | BGI-shenzhen/LDBlockShow | CONFIGURE_RUN_FAIL | configure: error: You need zlib >= 1.2.3 to build |
 | BGI-shenzhen/PopLDdecay | CONFIGURE_RUN_FAIL | configure: error: You need zlib >= 1.2.3 to build |
-| bindle/rackgnome | CONFIGURE_RUN_FAIL | ./configure: line 1478: syntax error near unexpected token `0,' |
 | binhqnguyen/ovs-srv6 | CONFIGURE_RUN_FAIL | configure: error: Cannot find openssl (use --disable-ssl to configure without SSL support) |
 | BirolLab/ChopStitch | CONFIGURE_RUN_FAIL | configure: error: CHOPSTITCH must be compiled with a C++ compiler that supports OpenMP thr |
 | BirolLab/ntCard | CONFIGURE_RUN_FAIL | configure: error: NTCARD must be compiled with a C++ compiler that supports OpenMP threadi |
@@ -420,7 +96,6 @@ Total **973** recipes. **Working (built end-to-end): 37** · non-working: 281 pa
 | bloomen/libunittest | CONFIGURE_RUN_FAIL | ./configure: line 1515: pthread-config: command not found |
 | bloq/cpptrade | CONFIGURE_RUN_FAIL | ./configure: line 1384: syntax error near unexpected token `done' |
 | blueness/sthttpd | CONFIGURE_RUN_FAIL | ./configure: line 1363: syntax error near unexpected token `AR,' |
-| bmanojlovic/log4c | CONFIGURE_RUN_FAIL | ./configure: line 1710: syntax error near unexpected token `1.95.1' |
 | BoldingBruggeman/netcdf3 | CONFIGURE_RUN_FAIL | ./configure: line 1619: syntax error near unexpected token `fi' |
 | bonzini/smalltalk | CONFIGURE_RUN_FAIL |  |
 | borkmann/lksctp-tools | CONFIGURE_RUN_FAIL |  |
@@ -428,8 +103,6 @@ Total **973** recipes. **Working (built end-to-end): 37** · non-working: 281 pa
 | boundary/wireshark | CONFIGURE_RUN_FAIL | ./configure: line 2687: syntax error near unexpected token `(' |
 | boxbackup/boxi | CONFIGURE_RUN_FAIL | ./configure: line 1389: AM_PROG_CC_STDC: command not found |
 | boysetsfrog/vimpc | CONFIGURE_RUN_FAIL | ./configure: line 3511: syntax error: unexpected end of file |
-| braice/MuMuDVB | CLONE_FAIL |  |
-| BrandRegard/gnash | CLONE_FAIL |  |
 | BrianGladman/mpfr | CONFIGURE_RUN_FAIL | ./configure: line 1374: is: command not found |
 | brianmcgillion/udev | CONFIGURE_RUN_FAIL | configure: error: POSIX RT library not found |
 | broadinstitute/VariantBam | CONFIGURE_RUN_FAIL | ./configure: line 1407: action: command not found |
@@ -445,24 +118,18 @@ Total **973** recipes. **Working (built end-to-end): 37** · non-working: 281 pa
 | canonical/dqlite | CONFIGURE_RUN_FAIL | ./configure: line 1397: syntax error near unexpected token `else' |
 | cciechad/brlcad | CONFIGURE_RUN_FAIL | ./configure: line 1435: syntax error near unexpected token `fi' |
 | cculianu/secp256k1 | CONFIGURE_RUN_FAIL | configure: error: invalid assembly optimization selection |
-| cdevelop/libquickmail | CONFIGURE_RUN_FAIL | ./configure: line 1382: syntax error near unexpected token `curl' |
 | cea-hpc/robinhood | CONFIGURE_RUN_FAIL | ./configure: line 3004: syntax error near unexpected token `)' |
 | cederom/LibSWD | CONFIGURE_RUN_FAIL | ./configure: line 1583: syntax error near unexpected token `ON' |
-| cernekee/ocproxy | CONFIGURE_RUN_FAIL | ./configure: line 1437: syntax error near unexpected token `WFLAGS,' |
 | Certseeds/graphicsmagick | CONFIGURE_RUN_FAIL |  |
 | cforall/cforall | CONFIGURE_RUN_FAIL |  |
-| chad3814/libhid | CONFIGURE_RUN_FAIL | ./configure: line 1702: syntax error near unexpected token `[$1' |
 | chaoran/fibril | CONFIGURE_RUN_FAIL | ./configure: line 1506: pthread-config: command not found |
 | chaos/cerebro | CONFIGURE_RUN_FAIL | ./configure: line 1400: AC_LIB_LTDL: command not found |
 | chaos/pdsh | CONFIGURE_RUN_FAIL | ./configure: line 585: syntax error near unexpected token `(' |
 | chaos/powerman | CONFIGURE_RUN_FAIL | ./configure: line 585: syntax error near unexpected token `(' |
 | chaos/slurm | CONFIGURE_RUN_FAIL | ./configure: line 1348: X_AC_GPL_LICENSED: command not found |
 | chenall/grub4dos | CONFIGURE_RUN_FAIL | configure: error: unsupported CPU type |
-| cherojeong/extundelete | CONFIGURE_RUN_FAIL | ./configure: line 1374: syntax error near unexpected token `-g,' |
 | chiphackers/covered | CONFIGURE_RUN_FAIL | ./configure: line 1485: COVERED_TCLTK: command not found |
-| christoph-cullmann/xblast | CLONE_FAIL |  |
 | chuckleb/virt-what | CONFIGURE_RUN_FAIL |  |
-| CICM/HoaLibrary-PD | CONFIGURE_RUN_FAIL | ./configure: line 1360: syntax error near unexpected token `ARCH=$(uname -m)' |
 | cisco/libamvp | CONFIGURE_RUN_FAIL | ./configure: line 1453: syntax error near unexpected token `fi' |
 | cisco/opus | CONFIGURE_RUN_FAIL | ./configure: line 1397: AC_MINGW32: command not found |
 | cjcole/libgolle | CONFIGURE_RUN_FAIL | ./configure: line 1504: DX_PDF_FEATURE: command not found |
@@ -491,7 +158,6 @@ Total **973** recipes. **Working (built end-to-end): 37** · non-working: 281 pa
 | cooljeanius/docbook-utils-0.6.14 | CONFIGURE_RUN_FAIL | ./configure: line 2108: syntax error near unexpected token `(' |
 | cooljeanius/gcml2-0.7.1 | CONFIGURE_RUN_FAIL | checking for IMLIB - version >= 1.8.2... ./configure: line 1641: --cflags: command not fou |
 | cooljeanius/libUnixToOSX | CONFIGURE_RUN_FAIL | Try 0 --help for more information.: syntax error in expression (error token is "Try 0 --he |
-| cooljeanius/magicseteditor | CLONE_FAIL |  |
 | cooljeanius/mdnsd | CONFIGURE_RUN_FAIL | ./configure: line 1372: syntax error near unexpected token `AM_SET_LEADING_DOT' |
 | cooljeanius/pkg-config | CONFIGURE_RUN_FAIL | ./configure: line 1338: and: command not found |
 | coova/coova-chilli | CONFIGURE_RUN_FAIL | ./configure: line 1432: AC_LBL_TPACKET_STATS: command not found |
@@ -506,32 +172,25 @@ Total **973** recipes. **Working (built end-to-end): 37** · non-working: 281 pa
 | crdroidandroid/android_hardware_qcom_display | CONFIGURE_RUN_FAIL | ./configure: line 2102: syntax error near unexpected token `(' |
 | cryptozeny/cpuminer-opt-sugarchain | CONFIGURE_RUN_FAIL | ./configure: line 1414: ac_cv_have_decl_be32dec,: command not found |
 | crystalsnetworkdev/pq-crystals | CONFIGURE_RUN_FAIL | ./configure: line 1554: syntax error near unexpected token `ON' |
-| crystax/android-vendor-gnu-tar | CLONE_FAIL |  |
 | CS198NDSGChanBrianJoe/html5rdp | CONFIGURE_RUN_FAIL | ./configure: line 1814: syntax error near unexpected token `;' |
 | cschwan/hep-ga | CONFIGURE_RUN_FAIL |  |
-| csete/gpredict | CLONE_FAIL |  |
 | cslarsen/mickey-scheme | CONFIGURE_RUN_FAIL | configure: error: readline test failed (--without-readline to disable) |
 | cstrope/indel-seq-gen | CONFIGURE_RUN_FAIL | ./configure: line 1465: syntax error near unexpected token `unistd.h' |
-| CumulusNetworks/ptm | CLONE_FAIL |  |
 | cwi-dis/ambulant | CONFIGURE_RUN_FAIL | configure: error: Your platform is not currently supported |
 | cybergarage/usql | CONFIGURE_RUN_FAIL | configure: error: uSQL for C++ needs ANTLR3C >= 3.2 |
 | d99kris/namp-lite | CONFIGURE_RUN_FAIL | configure: error: Required library ncursesw not found. |
 | dajobe/librdf | CONFIGURE_RUN_FAIL | expr: syntax error: unexpected argument '10000' |
 | Dale-M/mcron | CONFIGURE_RUN_FAIL | ./configure: line 1399: syntax error near unexpected token `3.0' |
 | dankamongmen/babl | CONFIGURE_GEN_FAIL |  |
-| danos/pam_tacplus | CONFIGURE_RUN_FAIL | ./configure: line 1639: syntax error near unexpected token `rt_debug_defines' |
 | Dansguardian/dansguardian | CONFIGURE_RUN_FAIL |  |
 | darkbitsorg/guichan | CONFIGURE_RUN_FAIL | ./configure: line 1484: syntax error near unexpected token `}' |
 | darrenjs/log2mem | CONFIGURE_RUN_FAIL |  |
 | datacratic/gperftools | CONFIGURE_RUN_FAIL | configure: error: cannot find the nanosleep function |
-| davemichael/NaCl-Quake | CONFIGURE_RUN_FAIL | ./configure: line 1427: syntax error near unexpected token `$SDL_VERSION,' |
 | daveshields/jikes | CONFIGURE_RUN_FAIL | ./configure: line 1409: syntax error near unexpected token `macro' |
 | davexunit/guile-2d | CONFIGURE_RUN_FAIL | ./configure: line 1348: GUILE_PROGS: command not found |
-| DavidGriffith/hf | CONFIGURE_RUN_FAIL | ./configure: line 1720: syntax error near unexpected token `1.2.0,,' |
 | dbadapt/mutrace | CONFIGURE_RUN_FAIL | ./configure: line 1468: syntax error near unexpected token `else' |
 | delphix/nfs-utils | CONFIGURE_RUN_FAIL | ./configure: line 1506: syntax error near unexpected token `else' |
 | demorest/mark5access | CONFIGURE_RUN_FAIL | ./configure: line 2162: syntax error near unexpected token `(' |
-| descent/d2x | CONFIGURE_RUN_FAIL | ./configure: line 1446: AC_STDC_HEADERS: command not found |
 | deskull-m/bakabakaband | CONFIGURE_RUN_FAIL | ./configure: line 1356: syntax error near unexpected token `game_libpath,' |
 | desrt/systemd-shim | CONFIGURE_RUN_FAIL | ./configure: line 1356: syntax error near unexpected token `does' |
 | detomon/BlipKit | CONFIGURE_RUN_FAIL | checking whether C compiler supports ... configure: error: C compiler seem not to support |
@@ -594,13 +253,11 @@ Total **973** recipes. **Working (built end-to-end): 37** · non-working: 281 pa
 | endlessm/flatpak-builder | CONFIGURE_RUN_FAIL | ./configure: line 1364: LIBGLNX_CONFIGURE: command not found |
 | endocode/connman | CONFIGURE_RUN_FAIL | ./configure: line 1354: COMPILER_FLAGS: command not found |
 | Enigma-Game/Enigma | CONFIGURE_RUN_FAIL |  |
-| Enough-Software/pcap-http-analyzer | CLONE_FAIL |  |
 | envytools/valgrind | CONFIGURE_RUN_FAIL | ./configure: line 1400: syntax error near unexpected token `(' |
 | ep-infosec/33_apache_duo_unix | CONFIGURE_RUN_FAIL |  |
 | epfl-dias/shore-mt | CONFIGURE_RUN_FAIL | ./configure: line 1374: AC_REQUIRE_CPP: command not found |
 | erikarn/libevent-adrian | CONFIGURE_RUN_FAIL | checking for socklen_t... checking whether our compiler supports __func__... ./configure:  |
 | erthink/ReOpenLDAP | CONFIGURE_RUN_FAIL | checking configure arguments... ./configure: line 1516: syntax error near unexpected token |
-| esden/sigrok | CONFIGURE_RUN_FAIL | ./configure: line 1377: syntax error near unexpected token `2.0.0,' |
 | esrf-bliss/CCfits | CONFIGURE_RUN_FAIL | ./configure: line 1367: PFK_CXX_LIB_PATH: command not found |
 | essej/sooperlooper | CONFIGURE_RUN_FAIL | ./configure: line 1479: AM_OPT_FLAGS: command not found |
 | ester-project/ester | CONFIGURE_RUN_FAIL | ./configure: line 1524: --ldflags: command not found |
@@ -620,9 +277,7 @@ Total **973** recipes. **Working (built end-to-end): 37** · non-working: 281 pa
 | fengy-research/UCNTracker | CONFIGURE_RUN_FAIL | checking valac is at least version 0.7.6... ./configure: line 1545: : command not found |
 | fengye/swfdec | CONFIGURE_RUN_FAIL | configure: error: liboil-0.3 >= 0.3.1 is required to build swfdec |
 | ferrandi/PandA-bambu | CONFIGURE_RUN_FAIL | ./configure: line 1359: syntax error near unexpected token `and' |
-| fhcrc/mcl | CONFIGURE_RUN_FAIL | ./configure: line 1534: syntax error near unexpected token `newline' |
 | filebench/filebench | CONFIGURE_RUN_FAIL | checking for off64_t... checking for boolean_t... checking for u_longlong_t... checking fo |
-| filosganga/libwurfl | CONFIGURE_RUN_FAIL | ./configure: line 1438: syntax error near unexpected token `,have_check="yes",' |
 | FinchBerryOS/fbyo-coreutils | CONFIGURE_RUN_FAIL | configure: error: libsmack library was not found or not usable |
 | firecore/libudfread | CONFIGURE_RUN_FAIL |  |
 | firoorg/cpuminer | CONFIGURE_RUN_FAIL | ./configure: line 1414: ac_cv_have_decl_be32dec,: command not found |
@@ -635,7 +290,6 @@ Total **973** recipes. **Working (built end-to-end): 37** · non-working: 281 pa
 | FNCS/fncs | CONFIGURE_RUN_FAIL | ./configure: line 1432: syntax error near unexpected token `ZMQ_LIBS,' |
 | fontforge/libspiro | CONFIGURE_RUN_FAIL | configure: error: ERROR: Please install Math libraries and math.h include files for libm |
 | fontforge/libuninameslist | CONFIGURE_RUN_FAIL | ./configure: line 1523: syntax error near unexpected token `else' |
-| ForgotFun/wifidog | CONFIGURE_RUN_FAIL | ./configure: line 1488: syntax error near unexpected token `socket' |
 | fork4jl/mpfr | CONFIGURE_RUN_FAIL | ./configure: line 1374: is: command not found |
 | formorer/pkg-keepalived | CONFIGURE_RUN_FAIL | ./configure: line 1619: syntax error near unexpected token `causes' |
 | fossci/libgcrypt | CONFIGURE_RUN_FAIL | configure: error: |
@@ -648,7 +302,6 @@ Total **973** recipes. **Working (built end-to-end): 37** · non-working: 281 pa
 | FreeRADIUS/freeradius-client | CONFIGURE_RUN_FAIL | checking gethostbyaddr_r() syntax... ./configure: line 1434: syntax error near unexpected  |
 | frida/xz | CONFIGURE_RUN_FAIL | configure: error: --enable-assembler accepts only no', x86_64'. |
 | fripon/freeture | CONFIGURE_RUN_FAIL | ./configure: line 1376: syntax error near unexpected token `)' |
-| frobnitzem/libdag | CONFIGURE_RUN_FAIL | ./configure: line 1969: syntax error near unexpected token `[ACX_PTHREAD],[AX_PTHREAD]' |
 | frugalware/pacman-g2 | CONFIGURE_RUN_FAIL | configure: error: Your architecture is not supported |
 | fuxedo/fuxedo | CONFIGURE_RUN_FAIL |  |
 | GabrielDosReis/open-axiom | CONFIGURE_RUN_FAIL | configure: error: OpenAxiom requires a Lisp system.  Either separately build one (GCL-2.6. |
@@ -660,7 +313,6 @@ Total **973** recipes. **Working (built end-to-end): 37** · non-working: 281 pa
 | gcp/opusfile | CONFIGURE_RUN_FAIL |  |
 | gderosa/dansguardian | CONFIGURE_RUN_FAIL |  |
 | gdnsd/gdnsd | CONFIGURE_RUN_FAIL | ./configure: line 1542: syntax error near unexpected token `else' |
-| Geballin/PgBrowse | CLONE_FAIL |  |
 | GeGuNa/trafficserver | CONFIGURE_RUN_FAIL |  |
 | GenABEL-Project/ProbABEL | CONFIGURE_RUN_FAIL | ./configure: line 1411: syntax error near unexpected token `will' |
 | genesi/gnome-terminal | CONFIGURE_RUN_FAIL | ./configure: line 1392: GNOME_COMMON_INIT: command not found |
@@ -674,7 +326,6 @@ Total **973** recipes. **Working (built end-to-end): 37** · non-working: 281 pa
 | gigaflow-vswitch/gvs | CONFIGURE_RUN_FAIL | ./configure: line 1666: syntax error near unexpected token `fi' |
 | GiterMirror/mpg123 | CONFIGURE_RUN_FAIL | ./configure: line 1399: failed: command not found |
 | gitGNU/gnu_ld | CONFIGURE_RUN_FAIL | ./configure: line 1397: ACX_LARGEFILE: command not found |
-| gitGNU/gnu_scambio | CONFIGURE_RUN_FAIL | ./configure: line 1360: syntax error near unexpected token `2.0.0' |
 | gitpan/libnf | CONFIGURE_RUN_FAIL |  |
 | giuseppe/containers-dedup | CONFIGURE_RUN_FAIL | ./configure: line 1749: syntax error near unexpected token `(' |
 | glebius/minidlna | CONFIGURE_RUN_FAIL | ./configure: line 1495: AC_STRUCT_DIRENT_D_TYPE: command not found |
@@ -683,13 +334,10 @@ Total **973** recipes. **Working (built end-to-end): 37** · non-working: 281 pa
 | gnu-mirror-unofficial/commoncpp | CONFIGURE_RUN_FAIL |  |
 | gnu-smalltalk/smalltalk | CONFIGURE_RUN_FAIL |  |
 | GNUAspell/aspell | CONFIGURE_RUN_FAIL | checking if file locking and truncating is supported... checking if mmap and friends is su |
-| godsflaw/xor_toolkit | CLONE_FAIL |  |
 | GodshadowLQH/usbview | CONFIGURE_RUN_FAIL | ./configure: line 1371: syntax error near unexpected token `done' |
 | golems/ach | CONFIGURE_RUN_FAIL | ./configure: line 1391: ac_cv_have_decl_PRIuPTR,PRIu64,PRIx64=no: command not found |
 | golems/amino | CONFIGURE_RUN_FAIL | configure: error: BLAS is required. |
 | goodspeed34/ws63flash | CONFIGURE_RUN_FAIL | configure: error: |
-| gordonjcp/nekostring | CONFIGURE_RUN_FAIL | ./configure: line 1414: syntax error near unexpected token `2.0.0,' |
-| gpac-buildbot/avcap | CONFIGURE_RUN_FAIL | ./configure: line 1382: syntax error near unexpected token `avcap-config.h,' |
 | gpac-buildbot/libmad | CONFIGURE_RUN_FAIL | ./configure: line 2451: syntax error near unexpected token `(' |
 | gpg/libassuan | CONFIGURE_RUN_FAIL | ./configure: line 1986: [printf: command not found |
 | gpudirect/libibverbs | CONFIGURE_RUN_FAIL | ./configure: line 1436: syntax error near unexpected token `;' |
@@ -717,7 +365,6 @@ Total **973** recipes. **Working (built end-to-end): 37** · non-working: 281 pa
 | hdoddikindi/fstrm | CONFIGURE_RUN_FAIL | ./configure: line 1526: ac_cv_have_decl_fread_unlocked,: command not found |
 | herczy/tinu | CONFIGURE_RUN_FAIL | ./configure: line 1530: syntax error near unexpected token `fi' |
 | hermansr/psid64 | CONFIGURE_RUN_FAIL | ./configure: line 1450: AX_FUNC_MKDIR: command not found |
-| HewlettPackard/netperf | CONFIGURE_RUN_FAIL | ./configure: line 1380: syntax error near unexpected token `m' |
 | hexagonal-sun/bic | CONFIGURE_RUN_FAIL | ./configure: line 1414: AX_LIB_READLINE: command not found |
 | hezi/dosbox-x-gdb | CONFIGURE_RUN_FAIL | checking whether cc -E accepts ... ./configure: line 1645: will: command not found |
 | hgst/libnvme | CONFIGURE_RUN_FAIL | ./configure: line 1476: pthread-config: command not found |
@@ -734,7 +381,6 @@ Total **973** recipes. **Working (built end-to-end): 37** · non-working: 281 pa
 | hroptatyr/echse | CONFIGURE_RUN_FAIL | ./configure: line 1397: syntax error near unexpected token `(' |
 | hroptatyr/truffle | CONFIGURE_RUN_FAIL | ./configure: line 1384: syntax error near unexpected token `(' |
 | hroptatyr/yuck | CONFIGURE_RUN_FAIL | ./configure: line 1384: syntax error near unexpected token `(' |
-| HSU-ANT/gstpeaq | CONFIGURE_RUN_FAIL | ./configure: line 1474: syntax error near unexpected token `gst-launch' |
 | huleyv/iperf2 | CONFIGURE_RUN_FAIL | ./configure: line 1384: syntax error near unexpected token `stdint.h' |
 | IBMSpectrumComputing/lsf-drmaa | CONFIGURE_RUN_FAIL | ./configure: line 1342: FedStage: command not found |
 | iczelia/xpar | CONFIGURE_RUN_FAIL | configure: error: --with-windows-target must be vista or win95 (got: ) |
