@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "emscripten-ports/libpng",
   "source": {
     "url": "https://github.com/emscripten-ports/libpng",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -34,7 +34,11 @@
       "status": "fail"
     }
   ],
-  "probe_results": {},
+  "probe_results": {
+    "HAVE_FEENABLEEXCEPT": 1,
+    "HAVE_MEMSET": 1,
+    "HAVE_STRTOD": 1
+  },
   "feature_flags": {
     "configure_args": []
   },
@@ -54,72 +58,99 @@
   "outputs": [],
   "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1383: LT_PATH_LD: command not found",
+  "diagnostic": "make: *** No rule to make target 'pnglibconf.out', needed by 'pnglibconf.h'.  Stop.",
   "deep_expansion": {
-    "configure_lines": 2718,
+    "configure_lines": 2953,
     "leaked_macros": [],
-    "heredoc_openers": 24,
-    "heredoc_terminators": 24,
+    "heredoc_openers": 25,
+    "heredoc_terminators": 25,
     "heredoc_imbalance": 0,
     "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2242: do eval test \\${$as_var+y} \\"
+      "line 2476: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
+      "LD",
+      "DFNCPP",
+      "HAVE_SOLARIS_LD_TRUE",
+      "HAVE_SOLARIS_LD_FALSE",
+      "HAVE_LD_VERSION_SCRIPT_TRUE",
+      "HAVE_LD_VERSION_SCRIPT_FALSE",
+      "SYMBOL_PREFIX",
+      "PNGLIB_VERSION",
+      "PNGLIB_MAJOR",
+      "PNGLIB_MINOR",
+      "PNGLIB_RELEASE",
+      "pkgconfigdir",
+      "binconfigs",
+      "PNG_PREFIX",
+      "DO_PNG_PREFIX_TRUE",
+      "DO_PNG_PREFIX_FALSE",
+      "DO_INSTALL_LINKS_TRUE",
+      "DO_INSTALL_LINKS_FALSE",
+      "DO_INSTALL_LIBPNG_PC_TRUE",
+      "DO_INSTALL_LIBPNG_PC_FALSE",
+      "DO_INSTALL_LIBPNG_CONFIG_TRUE",
+      "DO_INSTALL_LIBPNG_CONFIG_FALSE",
+      "PNG_ARM_NEON_TRUE",
+      "PNG_ARM_NEON_FALSE",
       "PACKAGE_NAME",
       "PACKAGE_TARNAME",
       "PACKAGE_VERSION",
       "PACKAGE_STRING",
       "PACKAGE_BUGREPORT"
     ],
-    "failed_during_check": "checking if libraries can be versioned... no",
+    "failed_during_check": "checking for symbol prefix... ",
     "failure_tail": [
-      "checking if libraries can be versioned... no",
-      "configure: WARNING: *** You have not enabled versioned symbols.",
-      "configure: pkgconfig directory is",
+      "checking for symbol prefix...",
+      "configure: pkgconfig directory is ${libdir}/pkgconfig",
       "configure: Extra options for compiler:",
-      "configure: creating Makefile"
+      "configure: creating Makefile",
+      "configure: creating libpng.pc"
     ],
     "conftest_corruption": [],
     "conftest_directives_intact": 10,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
+      "\\nint main(int argc, char **argv){\\nreturn argv[argc-1][0];\\n}",
       "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { size_t x; return 0; }",
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar strtod();\\nint main() { return strtod(); }",
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func();\\nint main() { return $ac_func(); }",
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func();\\nint main() { return $ac_func(); }",
-      "char zlibVersion();\\nint main() { return zlibVersion(); }",
-      "char ${ZPREFIX}zlibVersion();\\nint main() { return ${ZPREFIX}zlibVersion(); }"
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar strtod ();\\nint main() { return strtod(); }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func ();\\nint main() { return $ac_func(); }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func ();\\nint main() { return $ac_func(); }",
+      "char zlibVersion ();\\nint main() { return zlibVersion(); }"
     ]
-  },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "ok",
-    "real_make": "ok",
-    "real_configure_lines": 16772,
-    "real_first_error": "",
-    "classification": "OURS_BUG_MAKE"
-  },
-  "divergence": {
-    "stage": "make",
-    "ours_error": "",
-    "ours_error_context": [],
-    "ours_configure_lines": 2718,
-    "real_configure_lines": 16772,
-    "macros_ours_left_undefined": []
   },
   "receipt": {
     "court_status": "partial",
-    "probe_trace": [],
+    "probe_trace": [
+      {
+        "name": "HAVE_FEENABLEEXCEPT",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_MEMSET",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STRTOD",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      }
+    ],
     "quirks_matched": [
       "uses-libtool",
       "uses-subdir-objects",
       "uses-maintainer-mode",
       "vendored-aclocal"
     ],
-    "receipt_hash": "50943c81e776f99633ce47bc1c02476e04eeac1c88eab40282963440dadccda2",
+    "receipt_hash": "d56d9729a53a6323c1746d3ef94e968e66f906fd8ffa185f3acb4ace79b0ec70",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -128,6 +159,455 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "libpng-config:libpng-config.in",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": false
+      },
+      {
+        "path": "libpng.pc:libpng.pc.in",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": false
+      }
+    ],
+    "config_headers": [
+      "config.h"
+    ],
+    "subdirs": [],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [
+          "pngtest",
+          "pngunknown",
+          "pngstest",
+          "pngvalid",
+          "pngimage",
+          "pngfix",
+          "png-fix-itxt",
+          "libpng@PNGLIB_MAJOR@@PNGLIB_MINOR@.la",
+          "libpng.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      }
+    ],
+    "max_depth": 0,
+    "config_h_consumers_below_root": []
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 974,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      }
+    ]
+  },
+  "macro_inventory": {
+    "macro_dirs": [],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [],
+    "called_macros": [
+      "AC_ARG_ENABLE",
+      "AC_ARG_VAR",
+      "AC_ARG_WITH",
+      "AC_CHECK_FUNCS",
+      "AC_CHECK_LIB",
+      "AC_COMPILE_IFELSE",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_HEADERS",
+      "AC_CONFIG_MACRO_DIR",
+      "AC_CONFIG_SRCDIR",
+      "AC_C_CONST",
+      "AC_C_RESTRICT",
+      "AC_DEFINE",
+      "AC_FUNC_STRTOD",
+      "AC_HEADER_STDC",
+      "AC_INIT",
+      "AC_LANG",
+      "AC_LANG_SOURCE",
+      "AC_MSG_CHECKING",
+      "AC_MSG_ERROR",
+      "AC_MSG_FAILURE",
+      "AC_MSG_NOTICE",
+      "AC_MSG_RESULT",
+      "AC_MSG_WARN",
+      "AC_OUTPUT",
+      "AC_PREREQ",
+      "AC_PROG_AWK",
+      "AC_PROG_CC",
+      "AC_PROG_CPP",
+      "AC_PROG_INSTALL",
+      "AC_PROG_LN_S",
+      "AC_PROG_MAKE_SET",
+      "AC_STRUCT_TM",
+      "AC_SUBST",
+      "AC_TYPE_SIZE_T",
+      "AM_CONDITIONAL",
+      "AM_INIT_AUTOMAKE",
+      "AM_MAINTAINER_MODE",
+      "AM_PREREQ",
+      "AM_PROG_AS",
+      "LT_INIT",
+      "LT_PATH_LD",
+      "LT_PREREQ"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 133,
+    "configure_fi": 129,
+    "configure_case": 66,
+    "configure_esac": 68,
+    "balanced": false,
+    "automake_conditionals": [
+      "HAVE_SOLARIS_LD",
+      "HAVE_LD_VERSION_SCRIPT",
+      "DO_PNG_PREFIX",
+      "DO_INSTALL_LINKS",
+      "DO_INSTALL_LIBPNG_PC",
+      "DO_INSTALL_LIBPNG_CONFIG",
+      "PNG_ARM_NEON"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": ".",
+    "present": [
+      "install-sh",
+      "missing",
+      "depcomp",
+      "compile"
+    ],
+    "missing": [
+      "ltmain.sh"
+    ]
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "S": 1,
+      "c": 60,
+      "h": 17
+    },
+    "configure_macros": [
+      "AC_PROG_CC"
+    ],
+    "needs_cxx": false,
+    "needs_fortran": false,
+    "sets_c_std": false
+  },
+  "libtool_context": {
+    "uses_libtool": true,
+    "macros": [
+      "LT_INIT"
+    ],
+    "ltmain_present": false,
+    "libtool_m4_sources": [],
+    "age": "modern"
+  },
+  "make_graph": {
+    "targets": [
+      "all",
+      "all-am",
+      "$(am__depfiles_remade)",
+      "am--depfiles",
+      "install-exec-am",
+      "install-data-am",
+      "uninstall-am",
+      "install-man",
+      "install-man-am",
+      "uninstall-man",
+      "uninstall-man-am",
+      "install",
+      "install-am",
+      "installcheck",
+      "install-strip",
+      "install-info",
+      "install-info-am",
+      "install-dvi",
+      "install-dvi-am",
+      "install-ps",
+      "install-ps-am",
+      "install-pdf",
+      "install-pdf-am",
+      "install-html",
+      "install-html-am",
+      "install-data-hook",
+      "install-exec-hook",
+      "installdirs",
+      "installdirs-am",
+      ".PHONY",
+      "mostlyclean-am",
+      "clean-am",
+      "distclean-am",
+      "maintainer-clean-am",
+      "clean",
+      "distdir",
+      "dist",
+      "dist-all",
+      "dist-gzip",
+      "distcleancheck"
+    ],
+    "key_variables": {
+      "AR": "ar",
+      "CC": "cc",
+      "CFLAGS": "-g -O2",
+      "CPPFLAGS": "",
+      "CXX": "c++",
+      "CXXFLAGS": "-g -O2",
+      "DEFAULT_INCLUDES": "-I. -I$(top_builddir)",
+      "DEFS": "-DHAVE_CONFIG_H",
+      "LDFLAGS": "",
+      "LIBS": "-lm -lz",
+      "RANLIB": "ranlib"
+    },
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "config.h",
+      "libtool",
+      "config.log"
+    ],
+    "recursion_depth": 0,
+    "top_targets": [
+      "all",
+      "install",
+      "clean",
+      "dist",
+      "all-am"
+    ],
+    "make_diagnostics": [
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make: *** No rule to make target 'pnglibconf.out', needed by 'pnglibconf.h'.  Stop."
+      }
+    ]
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": true,
+    "defines_sampled": [
+      "HAVE_CONFIG_H",
+      "PNGLIB_LIBNAME='PNG16_0'",
+      "PNGLIB_VERSION='1.6.18beta04'",
+      "SYMBOL_PREFIX='$(SYMBOL_PREFIX)'",
+      "PNG_NO_USE_READ_MACROS",
+      "PNG_BUILDING_SYMBOL_TABLE",
+      "PNG_PREFIX='${withval}'"
+    ]
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-libtool",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-subdir-objects",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-maintainer-mode",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "vpath_analysis": {
+    "hardcoded_src_paths": 0,
+    "abs_path_leakage": 0,
+    "built_sources": [
+      "pnglibconf.h"
+    ],
+    "generated_source_targets": [
+      "pnglibconf.h"
+    ]
+  },
+  "feature_probe_gap": {
+    "headers_checked": [],
+    "headers_included_unchecked": [
+      "asm/hwcap.h",
+      "fcntl.h",
+      "sys/ioctl.h",
+      "sys/stat.h",
+      "sys/types.h",
+      "unistd.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 4,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "c89_gnu",
+    "strip_modern_poison_flags": [
+      "-Werror=implicit-function-declaration",
+      "-Werror=int-conversion",
+      "-Werror=incompatible-pointer-types"
+    ],
+    "inject_legacy_shims": true,
+    "compiler_aliasing": {
+      "clang-18+": "-std=gnu89 -Wno-error",
+      "gcc-14+": "-std=gnu89 -fpermissive"
+    }
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 5,
+    "shadowed_builtins": [],
+    "permitted_mutations": 9,
+    "suspect_global_mutations": 0
+  },
+  "parallel_build_safety": {
+    "vpath_out_of_tree_safe": true,
+    "generators": [
+      "pnglibconf.h"
+    ],
+    "unordered_generated_sources": [],
+    "built_sources_declared": true
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "asm/hwcap.h",
+      "fcntl.h",
+      "sys/ioctl.h",
+      "sys/stat.h",
+      "sys/types.h",
+      "unistd.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "modern-compiler-strictness (no explicit C std)"
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": 0,
+      "Makefile.in": 1087,
+      "aclocal.m4": 15,
+      "config.h.in": 24,
+      "configure": 20,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_ENABLE": "system-aclocal",
+      "AC_ARG_VAR": "system-aclocal",
+      "AC_ARG_WITH": "system-aclocal",
+      "AC_CHECK_FUNCS": "system-aclocal",
+      "AC_CHECK_LIB": "system-aclocal",
+      "AC_COMPILE_IFELSE": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_HEADERS": "system-aclocal",
+      "AC_CONFIG_MACRO_DIR": "system-aclocal",
+      "AC_CONFIG_SRCDIR": "system-aclocal",
+      "AC_C_CONST": "system-aclocal",
+      "AC_C_RESTRICT": "system-aclocal",
+      "AC_DEFINE": "system-aclocal",
+      "AC_FUNC_STRTOD": "system-aclocal",
+      "AC_HEADER_STDC": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_LANG": "system-aclocal",
+      "AC_LANG_SOURCE": "system-aclocal",
+      "AC_MSG_CHECKING": "system-aclocal",
+      "AC_MSG_ERROR": "system-aclocal",
+      "AC_MSG_FAILURE": "system-aclocal",
+      "AC_MSG_NOTICE": "system-aclocal",
+      "AC_MSG_RESULT": "system-aclocal",
+      "AC_MSG_WARN": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PREREQ": "system-aclocal",
+      "AC_PROG_AWK": "system-aclocal",
+      "AC_PROG_CC": "system-aclocal",
+      "AC_PROG_CPP": "system-aclocal",
+      "AC_PROG_INSTALL": "system-aclocal",
+      "AC_PROG_LN_S": "system-aclocal",
+      "AC_PROG_MAKE_SET": "system-aclocal",
+      "AC_STRUCT_TM": "system-aclocal",
+      "AC_SUBST": "system-aclocal",
+      "AC_TYPE_SIZE_T": "system-aclocal",
+      "AM_CONDITIONAL": "system-aclocal",
+      "AM_INIT_AUTOMAKE": "system-aclocal",
+      "AM_MAINTAINER_MODE": "system-aclocal",
+      "AM_PREREQ": "system-aclocal",
+      "AM_PROG_AS": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
   }
 }

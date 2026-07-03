@@ -1,13 +1,13 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "gpg/gpgme",
   "source": {
     "url": "https://github.com/gpg/gpgme",
-    "git_sha": "d4c6f065cbd5d38ca5f3e7815f36cb04896f4ca5",
+    "git_sha": "5a36cb33a2c098036a4b9bec142932b878400417",
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.14",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -41,8 +41,12 @@
   "dependencies": {
     "pkg_config": [],
     "system_libs": [],
-    "headers_needed": [],
-    "missing": []
+    "headers_needed": [
+      "conf/config.h"
+    ],
+    "missing": [
+      "conf/config.h"
+    ]
   },
   "quirks": [
     "libtool",
@@ -51,48 +55,27 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1848: syntax error near unexpected token `fi'",
+  "diagnostic": "./configure: line 1352: mym4_package,mym4_version,https://bugs.gnupg.org: No such file or directory",
   "deep_expansion": {
-    "configure_lines": 2833,
-    "leaked_macros": [
-      {
-        "name": "AM_SUBST_NOTMAKE",
-        "line": 2050,
-        "context": "AM_SUBST_NOTMAKE(INSERT__TYPEDEFS_FOR_GPGME_H)"
-      },
-      {
-        "name": "AM_SUBST_NOTMAKE",
-        "line": 2052,
-        "context": "AM_SUBST_NOTMAKE(API__OFF_T)"
-      },
-      {
-        "name": "AM_SUBST_NOTMAKE",
-        "line": 2054,
-        "context": "AM_SUBST_NOTMAKE(API__SSIZE_T)"
-      },
-      {
-        "name": "AC_CHECK_DECLS_ONCE",
-        "line": 2175,
-        "context": "AC_CHECK_DECLS_ONCE([ttyname_r])"
-      }
-    ],
-    "heredoc_openers": 29,
-    "heredoc_terminators": 29,
+    "configure_lines": 1657,
+    "leaked_macros": [],
+    "heredoc_openers": 4,
+    "heredoc_terminators": 4,
     "heredoc_imbalance": 0,
     "syntax_errors": [
       {
-        "line": 1848,
-        "token": "fi",
-        "source": "fi",
+        "line": 1409,
+        "token": "(",
+        "source": "]),",
         "block": [
-          "1844: # Check --enable-fixed-path option",
-          "1845: ",
-          "1846: if test x$fixed_search_path != x ; then",
-          "1847:   # Define unquoted: FIXED_SEARCH_PATH",
-          "1848: fi",
-          "1849: ",
-          "1850: # Note: You need to declare all possible languages also in",
-          "1851: #       lang/Makefile.am's DIST_SUBDIRS."
+          "1405:       LDFLAGS=\"$LDFLAGS $LDADD_FOR_TESTS_KLUDGE\"",
+          "1406:       (whether --disable-new-dtags is supported by the linker)",
+          "1407:       (([",
+          "1408: int main (void) { return 0; }",
+          "1409:       ]),",
+          "1410:       (yes (use it since LD_LIBRARY_PATH is set)),",
+          "1411:       (no)",
+          "1412:        LDADD_FOR_TESTS_KLUDGE=\"\""
         ]
       }
     ],
@@ -102,36 +85,20 @@
     "residual_placeholders": [
       "LIBTOOL"
     ],
-    "failed_during_check": "checking for cc for build... cc",
+    "failed_during_check": "",
     "failure_tail": [
-      "checking for cc for build... cc",
-      "./configure: line 1848: syntax error near unexpected token `fi'",
-      "./configure: line 1848: `fi'"
+      "./configure: line 1409: syntax error near unexpected token `('",
+      "./configure: line 1409: `([",
+      "int main (void) { return 0; }",
+      "]),'"
     ],
-    "conftest_corruption": [
-      "line 2206: # <unistd.h>]] (include eaten)"
-    ],
-    "conftest_directives_intact": 37,
-    "conftest_directives_mangled": 1,
-    "conftest_programs": [
-      "\\nint main (void) { return 0; }\\n",
-      "\\n#include <glib.h>\\n#include <stdio.h>\\n#include <stdlib.h>\\n\\nint\\nmain ()\\n{\\nint major, minor, micro;\\nchar *tmp_version;\\n\\nsystem (\"touch conf.glibtest\");",
-      "#include <glib.h>\\n#include <stdio.h>\\n\\nint main() {  return ((glib_major_version) || (glib_minor_version) || (glib_",
-      "#include <$ac_hdr>",
-      "inline int foo() { return 0; }\\nint main() { return foo(); }",
-      "#include <sys/types.h>\\n#include <stdint.h>\\n#include <stddef.h>\\nint main() { static int test_array[1 - 2 * !((long int) (sizeof (unsigned in"
-    ]
-  },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "fail",
-    "real_make": "skipped",
-    "real_configure_lines": 20245,
-    "real_first_error": "configure: error:",
-    "classification": "BOTH_CONFIGURE_FAIL"
+    "conftest_corruption": [],
+    "conftest_directives_intact": 2,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": []
   },
   "receipt": {
-    "court_status": "not_standalone",
+    "court_status": "failed",
     "probe_trace": [],
     "quirks_matched": [
       "uses-libtool",
@@ -147,7 +114,7 @@
         "verified": false
       }
     ],
-    "receipt_hash": "1b59d07d0a20a927a52050673c57d051c46cf0669ffc84ae54f67e19a8cf7afb",
+    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -156,6 +123,1345 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "doc/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "lang/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "lang/cl/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "lang/cl/gpgme.asd",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "lang/js/BrowserTestExtension/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "lang/js/DemoExtension/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "lang/js/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "lang/js/src/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "src/gpgme-glib.pc",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "src/gpgme.h",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "src/gpgme.pc",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "src/versioninfo.rc",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "tests/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "tests/gpg/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tests/gpgsm/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tests/json/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tests/opassuan/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tools/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      }
+    ],
+    "config_headers": [
+      "conf/config.h"
+    ],
+    "subdirs": [
+      "src",
+      "${tests}",
+      "doc",
+      "lang",
+      "tools",
+      "$(ENABLED_LANGUAGES)",
+      "src",
+      "BrowserTestExtension",
+      "DemoExtension",
+      "${gpgtests}",
+      "${gpgsmtests}"
+    ],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [],
+        "subdirs": [
+          "src",
+          "${tests}",
+          "doc",
+          "lang",
+          "tools"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "doc",
+        "targets": [],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "lang",
+        "targets": [],
+        "subdirs": [
+          "$(ENABLED_LANGUAGES)"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "lang/js",
+        "targets": [],
+        "subdirs": [
+          "src",
+          "BrowserTestExtension",
+          "DemoExtension"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src",
+        "targets": [
+          "gpgme-tool",
+          "gpgme-json",
+          "libgpgme.la",
+          "$(ltlib_gpgme_glib)",
+          "gpgme-w32spawn"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "tests",
+        "targets": [
+          "$(TESTS)",
+          "run-keylist",
+          "run-export",
+          "run-import",
+          "run-sign",
+          "run-verify",
+          "run-encrypt",
+          "run-identify",
+          "run-decrypt",
+          "run-genkey",
+          "run-keysign",
+          "run-tofu"
+        ],
+        "subdirs": [
+          "${gpgtests}",
+          "${gpgsmtests}"
+        ],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_builddir)/src @GPG_ERROR_CFLAGS@"
+      },
+      {
+        "dir": "tests/gpg",
+        "targets": [
+          "$(c_tests)",
+          "$(tests_skipped)"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_builddir)/src @GPG_ERROR_CFLAGS@"
+      },
+      {
+        "dir": "tests/gpgsm",
+        "targets": [
+          "$(c_tests)",
+          "t-genkey",
+          "cms-keylist",
+          "cms-decrypt"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_builddir)/src @GPG_ERROR_CFLAGS@"
+      },
+      {
+        "dir": "tests/json",
+        "targets": [
+          "$(c_tests)"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_builddir)/src @GPG_ERROR_CFLAGS@"
+      },
+      {
+        "dir": "tests/opassuan",
+        "targets": [
+          "$(TESTS)",
+          "t-command"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_builddir)/src @GPG_ERROR_CFLAGS@"
+      },
+      {
+        "dir": "tools",
+        "targets": [
+          "gnupg-key-manage"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      }
+    ],
+    "max_depth": 3,
+    "config_h_consumers_below_root": [
+      "tests",
+      "tests/gpgsm",
+      "tests/json",
+      "tests/gpg",
+      "tests/opassuan",
+      "tools",
+      "src",
+      "doc"
+    ]
+  },
+  "macro_inventory": {
+    "macro_dirs": [
+      "m4"
+    ],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": true,
+    "defined_macros": [
+      {
+        "name": "LT_INIT",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LTOPTIONS_VERSION",
+        "source": "m4/libtool.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AC_PROG_LIBTOOL",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AM_PROG_LIBTOOL",
+        "source": "m4/libtool.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "LT_OUTPUT",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_SUPPORTED_TAG",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_LANG",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_CXX",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_F77",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_FC",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_GCJ",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_RC",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "_LT_WITH_SYSROOT",
+        "source": "m4/libtool.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_LT_COMPILER_OPTION",
+        "source": "m4/libtool.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AC_LIBTOOL_COMPILER_OPTION",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "_LT_LINKER_OPTION",
+        "source": "m4/libtool.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AC_LIBTOOL_LINKER_OPTION",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_CMD_MAX_LEN",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_SYS_MAX_CMD_LEN",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_SYS_DLOPEN_SELF",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_DLOPEN_SELF",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "_LT_PATH_TOOL_PREFIX",
+        "source": "m4/libtool.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AC_PATH_TOOL_PREFIX",
+        "source": "m4/libtool.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "LT_PATH_LD",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AM_PROG_LD",
+        "source": "m4/libtool.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AC_PROG_LD",
+        "source": "m4/libtool.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "LT_PATH_NM",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AM_PROG_NM",
+        "source": "m4/libtool.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AC_PROG_NM",
+        "source": "m4/libtool.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "_LT_DLL_DEF_P",
+        "source": "m4/libtool.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "LT_LIB_M",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_CHECK_LIBM",
+        "source": "m4/libtool.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "LT_PROG_GCJ",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_AC_PROG_GCJ",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_PROG_GO",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_PROG_RC",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_AC_PROG_RC",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_AC_PROG_SED",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "_AM_PATH_GPGRT_CONFIG",
+        "source": "m4/libassuan.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_AM_PATH_LIBASSUAN_COMMON",
+        "source": "m4/libassuan.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AM_CHECK_LIBASSUAN",
+        "source": "m4/libassuan.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AM_PATH_LIBASSUAN",
+        "source": "m4/libassuan.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "LTVERSION_VERSION",
+        "source": "m4/ltversion.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AM_PATH_GLIB_2_0",
+        "source": "m4/glib-2.0.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "_AM_PATH_POSSIBLE_GPG_ERROR_CONFIG",
+        "source": "m4/gpg-error.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AM_PATH_GPG_ERROR",
+        "source": "m4/gpg-error.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "jm_GLIBC21",
+        "source": "m4/glibc21.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AC_LIBTOOL_DLOPEN",
+        "source": "m4/ltoptions.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_WIN32_DLL",
+        "source": "m4/ltoptions.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_ENABLE_SHARED",
+        "source": "m4/ltoptions.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_DISABLE_SHARED",
+        "source": "m4/ltoptions.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AM_ENABLE_SHARED",
+        "source": "m4/ltoptions.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AM_DISABLE_SHARED",
+        "source": "m4/ltoptions.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AC_ENABLE_STATIC",
+        "source": "m4/ltoptions.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_DISABLE_STATIC",
+        "source": "m4/ltoptions.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AM_ENABLE_STATIC",
+        "source": "m4/ltoptions.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AM_DISABLE_STATIC",
+        "source": "m4/ltoptions.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AC_ENABLE_FAST_INSTALL",
+        "source": "m4/ltoptions.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AM_DISABLE_FAST_INSTALL",
+        "source": "m4/ltoptions.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AC_LIBTOOL_PICMODE",
+        "source": "m4/ltoptions.m4",
+        "kind": "LT"
+      }
+    ],
+    "called_macros": [
+      "AC_ARG_ENABLE",
+      "AC_ARG_VAR",
+      "AC_ARG_WITH",
+      "AC_CACHE_CHECK",
+      "AC_CANONICAL_HOST",
+      "AC_CHECK_FUNC",
+      "AC_CHECK_FUNCS",
+      "AC_CHECK_HEADER",
+      "AC_CHECK_HEADERS_ONCE",
+      "AC_CHECK_MEMBER",
+      "AC_CHECK_PROGS",
+      "AC_CHECK_SIZEOF",
+      "AC_CHECK_TYPES",
+      "AC_COMPILE_IFELSE",
+      "AC_CONFIG_AUX_DIR",
+      "AC_CONFIG_COMMANDS",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_HEADERS",
+      "AC_CONFIG_MACRO_DIR",
+      "AC_CONFIG_SRCDIR",
+      "AC_C_FLEXIBLE_ARRAY_MEMBER",
+      "AC_C_INLINE",
+      "AC_DEFINE",
+      "AC_DEFINE_UNQUOTED",
+      "AC_FUNC_FSEEKO",
+      "AC_INIT",
+      "AC_LANG_PROGRAM",
+      "AC_LANG_SOURCE",
+      "AC_LINK_IFELSE",
+      "AC_MSG_CHECKING",
+      "AC_MSG_ERROR",
+      "AC_MSG_NOTICE",
+      "AC_MSG_RESULT",
+      "AC_MSG_WARN",
+      "AC_OUTPUT",
+      "AC_PATH_PROG",
+      "AC_PREREQ",
+      "AC_PROG_CC",
+      "AC_PROG_CC_FOR_BUILD",
+      "AC_PROG_CPP",
+      "AC_REPLACE_FUNCS",
+      "AC_SUBST",
+      "AC_SYS_LARGEFILE",
+      "AC_TYPE_OFF_T",
+      "AC_TYPE_UINTPTR_T",
+      "AC_USE_SYSTEM_EXTENSIONS",
+      "AM_CONDITIONAL",
+      "AM_INIT_AUTOMAKE",
+      "AM_MAINTAINER_MODE",
+      "AM_PATH_GLIB_2_0",
+      "AM_PATH_GPG_ERROR",
+      "AM_PATH_LIBASSUAN",
+      "AM_SILENT_RULES",
+      "AM_SUBST_NOTMAKE",
+      "LT_INIT",
+      "LT_LANG",
+      "LT_PREREQ"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 62,
+    "configure_fi": 59,
+    "configure_case": 38,
+    "configure_esac": 42,
+    "balanced": false,
+    "automake_conditionals": [
+      "HAVE_YAT2M",
+      "HAVE_LD_VERSION_SCRIPT",
+      "HAVE_DOSISH_SYSTEM",
+      "HAVE_W32_SYSTEM",
+      "HAVE_W64_SYSTEM",
+      "HAVE_ANDROID_SYSTEM",
+      "HAVE_MACOS_SYSTEM",
+      "BUILD_W32_GLIB",
+      "RUN_GPGCONF_TESTS",
+      "RUN_GPG_TESTS",
+      "RUN_GPGSM_TESTS",
+      "RUN_G13_TESTS",
+      "USE_GPGRT_CONFIG",
+      "USE_DESCRIPTOR_PASSING",
+      "HAVE_UISERVER"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": "build-aux",
+    "present": [
+      "install-sh",
+      "missing",
+      "depcomp",
+      "compile",
+      "ltmain.sh",
+      "config.guess",
+      "config.sub"
+    ],
+    "missing": []
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "c": 141,
+      "h": 20
+    },
+    "configure_macros": [
+      "AC_PROG_CC"
+    ],
+    "needs_cxx": false,
+    "needs_fortran": false,
+    "sets_c_std": false
+  },
+  "libtool_context": {
+    "uses_libtool": true,
+    "macros": [
+      "LT_INIT",
+      "LT_LANG"
+    ],
+    "ltmain_present": true,
+    "libtool_m4_sources": [
+      "m4/libtool.m4",
+      "aclocal.m4"
+    ],
+    "age": "modern"
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": true,
+    "defines_sampled": []
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-maintainer-mode",
+      "applied_at": "configure",
+      "effect": "neutral",
+      "effectiveness": "low"
+    },
+    {
+      "quirk_id": "uses-libtool",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "has-m4-macro-dir",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "has-acinclude",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "vpath_analysis": {
+    "hardcoded_src_paths": 10,
+    "abs_path_leakage": 0,
+    "built_sources": [
+      "conf/config.h",
+      "gpgsm.conf",
+      "trustlist.txt",
+      "pubring-stamp",
+      "gpg-sample.stamp",
+      "gpg.conf",
+      "gpg-agent.conf",
+      "pubring-stamp",
+      "gpg-sample.stamp",
+      "gpg.conf",
+      "gpg-agent.conf",
+      "pubring-stamp",
+      "gpg-sample.stamp",
+      "defsincdate",
+      "defs.inc"
+    ],
+    "generated_source_targets": [
+      ".rc.lo"
+    ]
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "argp.h",
+      "locale.h",
+      "poll.h",
+      "stdint.h",
+      "sys/select.h",
+      "sys/stat.h",
+      "sys/time.h",
+      "sys/types.h",
+      "sys/uio.h",
+      "unistd.h"
+    ],
+    "headers_included_unchecked": [
+      "fcntl.h",
+      "pthread.h",
+      "sys/resource.h",
+      "sys/socket.h",
+      "sys/wait.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 9,
+    "shadowed_macros": [
+      "AC_PROG_LIBTOOL",
+      "AM_PROG_LIBTOOL",
+      "AC_LIBTOOL_CXX",
+      "AC_LIBTOOL_F77",
+      "AC_LIBTOOL_FC",
+      "AC_LIBTOOL_GCJ",
+      "AC_LIBTOOL_RC",
+      "AC_LIBTOOL_COMPILER_OPTION",
+      "AC_LIBTOOL_LINKER_OPTION",
+      "AC_LIBTOOL_SYS_MAX_CMD_LEN",
+      "AC_LIBTOOL_DLOPEN_SELF",
+      "AC_PATH_TOOL_PREFIX",
+      "AM_PROG_LD",
+      "AC_PROG_LD",
+      "AM_PROG_NM",
+      "AC_PROG_NM",
+      "AC_CHECK_LIBM",
+      "AM_CHECK_LIBASSUAN",
+      "AM_PATH_LIBASSUAN",
+      "AM_PATH_GLIB_2_0"
+    ]
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "c89_gnu",
+    "strip_modern_poison_flags": [
+      "-Werror=implicit-function-declaration",
+      "-Werror=int-conversion",
+      "-Werror=incompatible-pointer-types"
+    ],
+    "inject_legacy_shims": true,
+    "compiler_aliasing": {
+      "clang-18+": "-std=gnu89 -Wno-error",
+      "gcc-14+": "-std=gnu89 -fpermissive"
+    }
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 18,
+    "shadowed_builtins": [
+      "AC_PROG_LIBTOOL",
+      "AM_PROG_LIBTOOL",
+      "AC_LIBTOOL_CXX",
+      "AC_LIBTOOL_F77",
+      "AC_LIBTOOL_FC",
+      "AC_LIBTOOL_GCJ",
+      "AC_LIBTOOL_RC",
+      "AC_LIBTOOL_COMPILER_OPTION",
+      "AC_LIBTOOL_LINKER_OPTION",
+      "AC_LIBTOOL_SYS_MAX_CMD_LEN",
+      "AC_LIBTOOL_DLOPEN_SELF",
+      "AC_PATH_TOOL_PREFIX",
+      "AM_PROG_LD",
+      "AC_PROG_LD",
+      "AM_PROG_NM"
+    ],
+    "permitted_mutations": 11,
+    "suspect_global_mutations": 0
+  },
+  "parallel_build_safety": {
+    "vpath_out_of_tree_safe": false,
+    "generators": [
+      ".rc.lo"
+    ],
+    "unordered_generated_sources": [
+      ".rc.lo"
+    ],
+    "built_sources_declared": true
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "fcntl.h",
+      "pthread.h",
+      "sys/resource.h",
+      "sys/socket.h",
+      "sys/wait.h",
+      "argp.h",
+      "locale.h",
+      "poll.h",
+      "stdint.h",
+      "sys/select.h",
+      "sys/stat.h",
+      "sys/time.h",
+      "sys/types.h",
+      "sys/uio.h",
+      "unistd.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "subdir-config-h-include-path",
+    "modern-compiler-strictness (no explicit C std)",
+    "parallel-build-race (gen-source not in BUILT_SOURCES)",
+    "vpath-unsafe (abs-path/hardcoded-srcdir leakage)"
+  ],
+  "repair_hints": [
+    {
+      "id": "subdir-top-builddir",
+      "phase": "make",
+      "confidence": 0.88,
+      "evidence": [
+        "tests consumes config.h below root",
+        "tests/gpgsm consumes config.h below root",
+        "tests/json consumes config.h below root",
+        "tests/gpg consumes config.h below root",
+        "tests/opassuan consumes config.h below root"
+      ],
+      "action": "ensure ac_subst_file sets relative top_builddir per subdir (0.1.19)",
+      "expected_effect": "config.h found in subdir compiles"
+    }
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": -3,
+      "Makefile.in": 1830,
+      "aclocal.m4": 17,
+      "configure": 202,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_ENABLE": "system-aclocal",
+      "AC_ARG_VAR": "system-aclocal",
+      "AC_ARG_WITH": "system-aclocal",
+      "AC_CACHE_CHECK": "system-aclocal",
+      "AC_CANONICAL_HOST": "system-aclocal",
+      "AC_CHECK_FUNC": "system-aclocal",
+      "AC_CHECK_FUNCS": "system-aclocal",
+      "AC_CHECK_HEADER": "system-aclocal",
+      "AC_CHECK_HEADERS_ONCE": "system-aclocal",
+      "AC_CHECK_MEMBER": "system-aclocal",
+      "AC_CHECK_PROGS": "system-aclocal",
+      "AC_CHECK_SIZEOF": "system-aclocal",
+      "AC_CHECK_TYPES": "system-aclocal",
+      "AC_COMPILE_IFELSE": "system-aclocal",
+      "AC_CONFIG_AUX_DIR": "system-aclocal",
+      "AC_CONFIG_COMMANDS": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_HEADERS": "system-aclocal",
+      "AC_CONFIG_MACRO_DIR": "system-aclocal",
+      "AC_CONFIG_SRCDIR": "system-aclocal",
+      "AC_C_FLEXIBLE_ARRAY_MEMBER": "system-aclocal",
+      "AC_C_INLINE": "system-aclocal",
+      "AC_DEFINE": "system-aclocal",
+      "AC_DEFINE_UNQUOTED": "system-aclocal",
+      "AC_FUNC_FSEEKO": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_LANG_PROGRAM": "system-aclocal",
+      "AC_LANG_SOURCE": "system-aclocal",
+      "AC_LINK_IFELSE": "system-aclocal",
+      "AC_MSG_CHECKING": "system-aclocal",
+      "AC_MSG_ERROR": "system-aclocal",
+      "AC_MSG_NOTICE": "system-aclocal",
+      "AC_MSG_RESULT": "system-aclocal",
+      "AC_MSG_WARN": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PATH_PROG": "system-aclocal",
+      "AC_PREREQ": "system-aclocal",
+      "AC_PROG_CC": "system-aclocal",
+      "AC_PROG_CC_FOR_BUILD": "system-aclocal",
+      "AC_PROG_CPP": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "noinst_PROGRAMS",
+        "var": "TESTS",
+        "resolved_to": [
+          "t-version",
+          "t-data",
+          "t-engine-info"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "noinst_PROGRAMS",
+        "var": "c_tests",
+        "resolved_to": [
+          "t-import",
+          "t-keylist",
+          "t-encrypt",
+          "t-verify",
+          "t-decrypt",
+          "t-sign",
+          "t-export"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "noinst_PROGRAMS",
+        "var": "c_tests",
+        "resolved_to": [
+          "t-json"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "t_thread1_LDADD",
+        "var": "WITH_THREAD_LDADD",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "t_thread_keylist_LDADD",
+        "var": "WITH_THREAD_LDADD",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "t_thread_keylist_verify_LDADD",
+        "var": "WITH_THREAD_LDADD",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "t_cancel_LDADD",
+        "var": "WITH_THREAD_LDADD",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "noinst_PROGRAMS",
+        "var": "c_tests",
+        "resolved_to": [
+          "t-encrypt",
+          "t-encrypt-sym",
+          "t-encrypt-sign",
+          "t-sign",
+          "t-signers",
+          "t-decrypt",
+          "t-verify",
+          "t-decrypt-verify",
+          "t-sig-notation",
+          "t-export",
+          "t-import",
+          "t-edit",
+          "t-keylist",
+          "t-keylist-sig",
+          "t-keylist-secret-sig",
+          "t-wait",
+          "t-encrypt-large",
+          "t-file-name",
+          "t-gpgconf",
+          "t-encrypt-mixed",
+          "t-edit-sign",
+          "t-setownertrust",
+          "$(tests_unix)"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "noinst_PROGRAMS",
+        "var": "tests_skipped",
+        "resolved_to": [
+          "t-genkey",
+          "t-cancel"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "noinst_PROGRAMS",
+        "var": "TESTS",
+        "resolved_to": [],
+        "resolved": true
+      },
+      {
+        "primary": "lib_LTLIBRARIES",
+        "var": "ltlib_gpgme_glib",
+        "resolved_to": [
+          "libgpgme-glib.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libgpgme_la_SOURCES",
+        "var": "main_sources",
+        "resolved_to": [
+          "util.h",
+          "conversion.c",
+          "get-env.c",
+          "context.h",
+          "ops.h",
+          "parsetlv.c",
+          "parsetlv.h",
+          "mbox-util.c",
+          "mbox-util.h",
+          "data.h",
+          "data.c",
+          "data-fd.c",
+          "data-stream.c",
+          "data-mem.c",
+          "data-user.c",
+          "data-estream.c",
+          "data-compat.c",
+          "data-identify.c",
+          "signers.c",
+          "sig-notation.c",
+          "wait.c",
+          "wait-global.c",
+          "wait-private.c",
+          "wait-user.c",
+          "wait.h",
+          "op-support.c",
+          "encrypt.c",
+          "encrypt-sign.c",
+          "decrypt.c",
+          "decrypt-verify.c",
+          "verify.c",
+          "sign.c",
+          "passphrase.c",
+          "progress.c",
+          "key.c",
+          "keylist.c",
+          "keysign.c",
+          "tofupolicy.c",
+          "revsig.c",
+          "import.c",
+          "export.c",
+          "genkey.c",
+          "delete.c",
+          "edit.c",
+          "getauditlog.c",
+          "setexpire.c",
+          "setownertrust.c",
+          "genrandom.c",
+          "opassuan.c",
+          "passwd.c",
+          "spawn.c",
+          "assuan-support.c",
+          "engine.h",
+          "engine-backend.h",
+          "engine.c",
+          "engine-gpg.c",
+          "status-table.c",
+          "engine-gpgsm.c",
+          "engine-assuan.c",
+          "engine-gpgconf.c",
+          "$(uiserver_components)",
+          "engine-g13.c",
+          "vfs-mount.c",
+          "vfs-create.c",
+          "engine-spawn.c",
+          "gpgconf.c",
+          "queryswdb.c",
+          "sema.h",
+          "priv-io.h",
+          "$(system_components)",
+          "sys-util.h",
+          "dirinfo.c",
+          "debug.c",
+          "debug.h",
+          "gpgme.c",
+          "version.c",
+          "error.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libgpgme_la_SOURCES",
+        "var": "system_components_not_extra",
+        "resolved_to": [
+          "w32-io.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libgpgme_glib_la_SOURCES",
+        "var": "main_sources",
+        "resolved_to": [
+          "util.h",
+          "conversion.c",
+          "get-env.c",
+          "context.h",
+          "ops.h",
+          "parsetlv.c",
+          "parsetlv.h",
+          "mbox-util.c",
+          "mbox-util.h",
+          "data.h",
+          "data.c",
+          "data-fd.c",
+          "data-stream.c",
+          "data-mem.c",
+          "data-user.c",
+          "data-estream.c",
+          "data-compat.c",
+          "data-identify.c",
+          "signers.c",
+          "sig-notation.c",
+          "wait.c",
+          "wait-global.c",
+          "wait-private.c",
+          "wait-user.c",
+          "wait.h",
+          "op-support.c",
+          "encrypt.c",
+          "encrypt-sign.c",
+          "decrypt.c",
+          "decrypt-verify.c",
+          "verify.c",
+          "sign.c",
+          "passphrase.c",
+          "progress.c",
+          "key.c",
+          "keylist.c",
+          "keysign.c",
+          "tofupolicy.c",
+          "revsig.c",
+          "import.c",
+          "export.c",
+          "genkey.c",
+          "delete.c",
+          "edit.c",
+          "getauditlog.c",
+          "setexpire.c",
+          "setownertrust.c",
+          "genrandom.c",
+          "opassuan.c",
+          "passwd.c",
+          "spawn.c",
+          "assuan-support.c",
+          "engine.h",
+          "engine-backend.h",
+          "engine.c",
+          "engine-gpg.c",
+          "status-table.c",
+          "engine-gpgsm.c",
+          "engine-assuan.c",
+          "engine-gpgconf.c",
+          "$(uiserver_components)",
+          "engine-g13.c",
+          "vfs-mount.c",
+          "vfs-create.c",
+          "engine-spawn.c",
+          "gpgconf.c",
+          "queryswdb.c",
+          "sema.h",
+          "priv-io.h",
+          "$(system_components)",
+          "sys-util.h",
+          "dirinfo.c",
+          "debug.c",
+          "debug.h",
+          "gpgme.c",
+          "version.c",
+          "error.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "gpgme_json_LDADD",
+        "var": "GPG_ERROR_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libgpgme_la_LIBADD",
+        "var": "gpgme_res",
+        "resolved_to": [
+          "versioninfo.lo"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libgpgme_la_LIBADD",
+        "var": "gpgme_w32_extra_libs",
+        "resolved_to": [
+          "-lws2_32"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libgpgme_glib_la_LIBADD",
+        "var": "gpgme_res",
+        "resolved_to": [
+          "versioninfo.lo"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libgpgme_glib_la_LIBADD",
+        "var": "gpgme_w32_extra_libs",
+        "resolved_to": [
+          "-lws2_32"
+        ],
+        "resolved": true
+      }
+    ],
+    "unresolved_refs": [
+      "t_thread1_LDADD = $(WITH_THREAD_LDADD)",
+      "t_thread_keylist_LDADD = $(WITH_THREAD_LDADD)",
+      "t_thread_keylist_verify_LDADD = $(WITH_THREAD_LDADD)",
+      "t_cancel_LDADD = $(WITH_THREAD_LDADD)",
+      "gpgme_json_LDADD = $(GPG_ERROR_LIBS)"
+    ],
+    "indirection_count": 19
   }
 }

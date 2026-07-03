@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "davelambert/guile-pcap",
   "source": {
     "url": "https://github.com/davelambert/guile-pcap",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.14",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -50,18 +50,23 @@
   "verified": false,
   "diagnostic": "configure: error: Cannot find guile-srfi-srfi-4-v-1, required for compilation",
   "deep_expansion": {
-    "configure_lines": 2493,
+    "configure_lines": 2552,
     "leaked_macros": [],
-    "heredoc_openers": 19,
-    "heredoc_terminators": 19,
+    "heredoc_openers": 18,
+    "heredoc_terminators": 18,
     "heredoc_imbalance": 0,
     "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2013: do eval test \\${$as_var+y} \\"
+      "line 2071: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
+      "MAINTAINER_MODE_TRUE",
+      "MAINTAINER_MODE_FALSE",
+      "GUILE_DIR",
+      "GUILE_LINK",
+      "GUILE_COMPILE",
       "PACKAGE_NAME",
       "PACKAGE_TARNAME",
       "PACKAGE_VERSION",
@@ -82,9 +87,10 @@
       "DEFS",
       "LIBOBJS",
       "INSTALL",
-      "GUILE_DIR",
-      "GUILE_COMPILE",
-      "GUILE_LINK"
+      "AR",
+      "LD",
+      "top_srcdir",
+      "top_builddir"
     ],
     "failed_during_check": "checking for scm_make_u8vector in -lguile-srfi-srfi-4-v-1... no",
     "failure_tail": [
@@ -95,21 +101,12 @@
     "conftest_directives_intact": 0,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
-      "int main() { const int x = 1; return x-1; }",
-      "char pcap_open_live();\\nint main() { return pcap_open_live(); }",
-      "char scm_make_u8vector();\\nint main() { return scm_make_u8vector(); }"
+      "char pcap_open_live ();\\nint main() { return pcap_open_live(); }",
+      "char scm_make_u8vector ();\\nint main() { return scm_make_u8vector(); }"
     ]
   },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "fail",
-    "real_make": "skipped",
-    "real_configure_lines": 15380,
-    "real_first_error": "configure: error: Cannot find guile-srfi-srfi-4-v-1, required for compilation",
-    "classification": "BOTH_CONFIGURE_FAIL"
-  },
   "receipt": {
-    "court_status": "not_standalone",
+    "court_status": "failed",
     "probe_trace": [],
     "quirks_matched": [
       "uses-maintainer-mode",
@@ -122,7 +119,7 @@
         "verified": false
       }
     ],
-    "receipt_hash": "1b59d07d0a20a927a52050673c57d051c46cf0669ffc84ae54f67e19a8cf7afb",
+    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -131,6 +128,286 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      }
+    ],
+    "config_headers": [
+      "config.h"
+    ],
+    "subdirs": [],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [
+          "libguile-pcap.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      }
+    ],
+    "max_depth": 0,
+    "config_h_consumers_below_root": []
+  },
+  "macro_inventory": {
+    "macro_dirs": [],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [],
+    "called_macros": [
+      "AC_CHECK_LIB",
+      "AC_CHECK_PROG",
+      "AC_C_CONST",
+      "AC_HEADER_STDC",
+      "AC_INIT",
+      "AC_MSG_ERROR",
+      "AC_OUTPUT",
+      "AC_PREREQ",
+      "AC_PROG_CC",
+      "AC_PROG_MAKE_SET",
+      "AC_SUBST",
+      "AM_CONDITIONAL",
+      "AM_CONFIG_HEADER",
+      "AM_INIT_AUTOMAKE",
+      "AM_MAINTAINER_MODE",
+      "AM_PROG_LIBTOOL"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 104,
+    "configure_fi": 97,
+    "configure_case": 63,
+    "configure_esac": 66,
+    "balanced": false,
+    "automake_conditionals": [
+      "MAINTAINER_MODE"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": ".",
+    "present": [
+      "install-sh",
+      "missing",
+      "depcomp",
+      "compile"
+    ],
+    "missing": []
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "c": 1,
+      "h": 1
+    },
+    "configure_macros": [
+      "AC_PROG_CC"
+    ],
+    "needs_cxx": false,
+    "needs_fortran": false,
+    "sets_c_std": false
+  },
+  "libtool_context": {
+    "uses_libtool": true,
+    "macros": [
+      "AM_PROG_LIBTOOL"
+    ],
+    "ltmain_present": true,
+    "libtool_m4_sources": [],
+    "age": "unknown"
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": true,
+    "defines_sampled": []
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-maintainer-mode",
+      "applied_at": "configure",
+      "effect": "neutral",
+      "effectiveness": "low"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "vpath_analysis": {
+    "hardcoded_src_paths": 0,
+    "abs_path_leakage": 0,
+    "built_sources": [
+      "$(DOT_X_FILES)"
+    ],
+    "generated_source_targets": []
+  },
+  "feature_probe_gap": {
+    "headers_checked": [],
+    "headers_included_unchecked": [
+      "arpa/inet.h",
+      "netinet/in.h",
+      "sys/socket.h",
+      "sys/types.h",
+      "sys/un.h",
+      "unistd.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 2,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "c89_gnu",
+    "strip_modern_poison_flags": [
+      "-Werror=implicit-function-declaration",
+      "-Werror=int-conversion",
+      "-Werror=incompatible-pointer-types"
+    ],
+    "inject_legacy_shims": true,
+    "compiler_aliasing": {
+      "clang-18+": "-std=gnu89 -Wno-error",
+      "gcc-14+": "-std=gnu89 -fpermissive"
+    }
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 3,
+    "shadowed_builtins": [],
+    "permitted_mutations": 0,
+    "suspect_global_mutations": 0
+  },
+  "parallel_build_safety": {
+    "vpath_out_of_tree_safe": true,
+    "generators": [],
+    "unordered_generated_sources": [],
+    "built_sources_declared": true
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "arpa/inet.h",
+      "netinet/in.h",
+      "sys/socket.h",
+      "sys/types.h",
+      "sys/un.h",
+      "unistd.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "modern-compiler-strictness (no explicit C std)"
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": -3,
+      "Makefile.in": 1526,
+      "aclocal.m4": 6,
+      "config.h.in": 11,
+      "configure": 9,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_CHECK_LIB": "system-aclocal",
+      "AC_CHECK_PROG": "system-aclocal",
+      "AC_C_CONST": "system-aclocal",
+      "AC_HEADER_STDC": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_MSG_ERROR": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PREREQ": "system-aclocal",
+      "AC_PROG_CC": "system-aclocal",
+      "AC_PROG_MAKE_SET": "system-aclocal",
+      "AC_SUBST": "system-aclocal",
+      "AM_CONDITIONAL": "system-aclocal",
+      "AM_CONFIG_HEADER": "system-aclocal",
+      "AM_INIT_AUTOMAKE": "system-aclocal",
+      "AM_MAINTAINER_MODE": "system-aclocal",
+      "AM_PROG_LIBTOOL": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "BUILT_SOURCES",
+        "var": "DOT_X_FILES",
+        "resolved_to": [
+          "guile-pcap.x"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libguile_pcap_la_LIBADD",
+        "var": "PCAP_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "# BUILT_SOURCES",
+        "var": "DOT_DOC_FILES",
+        "resolved_to": [],
+        "resolved": false
+      }
+    ],
+    "unresolved_refs": [
+      "libguile_pcap_la_LIBADD = $(PCAP_LIBS)",
+      "# BUILT_SOURCES = $(DOT_DOC_FILES)"
+    ],
+    "indirection_count": 3
   }
 }

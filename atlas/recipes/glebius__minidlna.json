@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "glebius/minidlna",
   "source": {
     "url": "https://github.com/glebius/minidlna",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -52,20 +52,53 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1495: AC_STRUCT_DIRENT_D_TYPE: command not found",
+  "diagnostic": "./configure: line 1406: syntax error near unexpected token `('",
   "deep_expansion": {
-    "configure_lines": 3520,
+    "configure_lines": 3875,
     "leaked_macros": [],
     "heredoc_openers": 67,
     "heredoc_terminators": 67,
     "heredoc_imbalance": 0,
-    "syntax_errors": [],
+    "syntax_errors": [
+      {
+        "line": 1406,
+        "token": "(",
+        "source": "printf '%s\\n' \"#define ROOTDEV_MODELNAME \"Windows Media Connect compatib",
+        "block": [
+          "1402: # Default string definitions",
+          "1403: printf '%s\\n' \"#define OS_URL \"http://sourceforge.net/projects/minidlna/\"\" >",
+          "1404: printf '%s\\n' \"#define ROOTDEV_MANUFACTURER \"Justin Maggard\"\" >> confdefs.h ",
+          "1405: printf '%s\\n' \"#define ROOTDEV_MANUFACTURERURL \"http://www.netgear.com/\"\" >>",
+          "1406: printf '%s\\n' \"#define ROOTDEV_MODELNAME \"Windows Media Connect compatible (",
+          "1407: printf '%s\\n' \"#define ROOTDEV_MODELDESCRIPTION \"MiniDLNA on \" OS_NAME\" >> c",
+          "1408: printf '%s\\n' \"#define ROOTDEV_MODELURL OS_URL\" >> confdefs.h 2>/dev/null",
+          "1409: "
+        ]
+      }
+    ],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 3044: do eval test \\${$as_var+y} \\"
+      "line 3398: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
+      "LIBJPEG_LIBS",
+      "LIBEXIF_LIBS",
+      "LIBID3TAG_LIBS",
+      "LIBSQLITE3_LIBS",
+      "LIBAVFORMAT_LIBS",
+      "HAVE_VORBISFILE_TRUE",
+      "HAVE_VORBISFILE_FALSE",
+      "HAVE_FLAC_TRUE",
+      "HAVE_FLAC_FALSE",
+      "NEED_OGG_TRUE",
+      "NEED_OGG_FALSE",
+      "NEED_VORBIS_TRUE",
+      "NEED_VORBIS_FALSE",
+      "HAVE_AVAHI_TRUE",
+      "HAVE_AVAHI_FALSE",
+      "TIVO_SUPPORT_TRUE",
+      "TIVO_SUPPORT_FALSE",
       "PACKAGE_NAME",
       "PACKAGE_TARNAME",
       "PACKAGE_VERSION",
@@ -77,26 +110,12 @@
       "exec_prefix",
       "CC",
       "CFLAGS",
-      "CPPFLAGS",
-      "LDFLAGS",
-      "LIBS",
-      "CXX",
-      "CXXFLAGS",
-      "CPP",
-      "DEFS",
-      "LIBOBJS",
-      "INSTALL",
-      "LIBSQLITE3_LIBS",
-      "LIBAVFORMAT_LIBS",
-      "LIBID3TAG_LIBS",
-      "target_alias",
-      "LIBJPEG_LIBS",
-      "LIBEXIF_LIBS"
+      "CPPFLAGS"
     ],
-    "failed_during_check": "checking for libav/avutil.h... no",
+    "failed_during_check": "",
     "failure_tail": [
-      "checking for libav/avutil.h... no",
-      "configure: error: libavutil headers not found or not usable"
+      "./configure: line 1406: syntax error near unexpected token `('",
+      "./configure: line 1406: `printf '%s\\n' \"#define ROOTDEV_MODELNAME \"Windows Media"
     ],
     "conftest_corruption": [],
     "conftest_directives_intact": 61,
@@ -109,22 +128,6 @@
       "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { uint8_t x; return 0; }",
       "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { int32_t x; return 0; }"
     ]
-  },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "ok",
-    "real_make": "ok",
-    "real_configure_lines": 14315,
-    "real_first_error": "",
-    "classification": "OURS_BUG_CONFIGURE"
-  },
-  "divergence": {
-    "stage": "configure",
-    "ours_error": "",
-    "ours_error_context": [],
-    "ours_configure_lines": 3520,
-    "real_configure_lines": 14315,
-    "macros_ours_left_undefined": []
   },
   "receipt": {
     "court_status": "failed",
@@ -142,7 +145,7 @@
         "verified": false
       }
     ],
-    "receipt_hash": "24e39ed3178d433d21c1340a6407fda16d8349c27724819539e8175382940e80",
+    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -151,6 +154,486 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "po/Makefile.in",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": false
+      }
+    ],
+    "config_headers": [
+      "config.h"
+    ],
+    "subdirs": [
+      "po"
+    ],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [
+          "minidlnad",
+          "testupnpdescgen"
+        ],
+        "subdirs": [
+          "po"
+        ],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      }
+    ],
+    "max_depth": 1,
+    "config_h_consumers_below_root": []
+  },
+  "tool_requirements": {
+    "detected": [
+      "xgettext"
+    ],
+    "missing": []
+  },
+  "macro_inventory": {
+    "macro_dirs": [],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [],
+    "called_macros": [
+      "AC_ARG_ENABLE",
+      "AC_ARG_WITH",
+      "AC_CANONICAL_TARGET",
+      "AC_CHECK_DECLS",
+      "AC_CHECK_FUNCS",
+      "AC_CHECK_HEADER",
+      "AC_CHECK_HEADERS",
+      "AC_CHECK_LIB",
+      "AC_COMPILE_IFELSE",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_HEADERS",
+      "AC_C_BIGENDIAN",
+      "AC_C_INLINE",
+      "AC_DEFINE",
+      "AC_DEFINE_UNQUOTED",
+      "AC_FUNC_FORK",
+      "AC_FUNC_LSTAT_FOLLOWS_SLASHED_SYMLINK",
+      "AC_HEADER_STDBOOL",
+      "AC_INIT",
+      "AC_LANG_PROGRAM",
+      "AC_MSG_CHECKING",
+      "AC_MSG_ERROR",
+      "AC_MSG_RESULT",
+      "AC_OUTPUT",
+      "AC_PROG_AWK",
+      "AC_PROG_CC",
+      "AC_PROG_INSTALL",
+      "AC_PROG_LN_S",
+      "AC_PROG_MAKE_SET",
+      "AC_SEARCH_LIBS",
+      "AC_STRUCT_DIRENT_D_TYPE",
+      "AC_STRUCT_ST_BLOCKS",
+      "AC_SUBST",
+      "AC_TYPE_INT32_T",
+      "AC_TYPE_MODE_T",
+      "AC_TYPE_OFF_T",
+      "AC_TYPE_PID_T",
+      "AC_TYPE_SIZE_T",
+      "AC_TYPE_SSIZE_T",
+      "AC_TYPE_UINT32_T",
+      "AC_TYPE_UINT64_T",
+      "AC_TYPE_UINT8_T",
+      "AC_USE_SYSTEM_EXTENSIONS",
+      "AM_CONDITIONAL",
+      "AM_GNU_GETTEXT",
+      "AM_GNU_GETTEXT_REQUIRE_VERSION",
+      "AM_GNU_GETTEXT_VERSION",
+      "AM_ICONV",
+      "AM_INIT_AUTOMAKE",
+      "AM_PROG_CC_C_O",
+      "AM_SILENT_RULES",
+      "LT_INIT"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 202,
+    "configure_fi": 191,
+    "configure_case": 65,
+    "configure_esac": 68,
+    "balanced": false,
+    "automake_conditionals": [
+      "HAVE_VORBISFILE",
+      "HAVE_FLAC",
+      "NEED_OGG",
+      "NEED_VORBIS",
+      "HAVE_AVAHI",
+      "HAVE_INOTIFY",
+      "HAVE_KQUEUE",
+      "TIVO_SUPPORT"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": ".",
+    "present": [
+      "install-sh",
+      "missing",
+      "depcomp",
+      "compile"
+    ],
+    "missing": [
+      "ltmain.sh",
+      "config.guess",
+      "config.sub"
+    ]
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "c": 46,
+      "h": 47
+    },
+    "configure_macros": [
+      "AC_PROG_CC"
+    ],
+    "needs_cxx": false,
+    "needs_fortran": false,
+    "sets_c_std": false
+  },
+  "libtool_context": {
+    "uses_libtool": true,
+    "macros": [
+      "LT_INIT"
+    ],
+    "ltmain_present": false,
+    "libtool_m4_sources": [],
+    "age": "modern"
+  },
+  "gettext_intl_context": {
+    "uses_gettext": true,
+    "uses_intltool": false,
+    "po_dir_present": true,
+    "missing_files": [
+      "config.rpath",
+      "po/Makefile.in.in"
+    ]
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": true,
+    "defines_sampled": []
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-subdir-objects",
+      "applied_at": "configure",
+      "effect": "neutral",
+      "effectiveness": "low"
+    },
+    {
+      "quirk_id": "uses-libtool",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-gettext",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "FLAC/all.h",
+      "FLAC/metadata.h",
+      "arpa/inet.h",
+      "asm/unistd.h",
+      "avahi-common/thread-watch.h",
+      "avcodec.h",
+      "avformat.h",
+      "avutil.h",
+      "endian.h",
+      "fcntl.h",
+      "ffmpeg/avcodec.h",
+      "ffmpeg/avformat.h",
+      "ffmpeg/avutil.h",
+      "ffmpeg/libavcodec/avcodec.h",
+      "ffmpeg/libavformat/avformat.h",
+      "ffmpeg/libavutil/avutil.h",
+      "id3tag.h",
+      "jpeglib.h",
+      "libav/avcodec.h",
+      "libav/avformat.h",
+      "libav/avutil.h",
+      "libav/libavcodec/avcodec.h",
+      "libav/libavformat/avformat.h",
+      "libav/libavutil/avutil.h",
+      "libavcodec/avcodec.h",
+      "libavformat/avformat.h",
+      "libavutil/avutil.h",
+      "libexif/exif-loader.h",
+      "libintl.h",
+      "linux/netlink.h",
+      "locale.h",
+      "mach/mach_time.h",
+      "machine/endian.h",
+      "netdb.h",
+      "netinet/in.h",
+      "ogg/ogg.h",
+      "poll.h",
+      "sqlite3.h",
+      "stddef.h",
+      "stdlib.h"
+    ],
+    "headers_included_unchecked": [
+      "avahi-client/publish.h",
+      "avahi-common/error.h",
+      "inttypes.h",
+      "linux/config.h",
+      "linux/dcache.h",
+      "linux/fs.h",
+      "linux/types.h",
+      "net/if.h",
+      "pthread.h",
+      "stdint.h",
+      "sys/event.h",
+      "sys/resource.h",
+      "sys/select.h",
+      "sys/sendfile.h",
+      "sys/sockio.h",
+      "sys/stat.h",
+      "sys/types.h",
+      "sys/uio.h",
+      "sys/un.h",
+      "sys/wait.h"
+    ],
+    "implicit_link_libs": [
+      "-lFLAC",
+      "-lavahi-client",
+      "-lavahi-common",
+      "-logg",
+      "-lvorbis"
+    ]
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 3,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "c89_gnu",
+    "strip_modern_poison_flags": [
+      "-Werror=implicit-function-declaration",
+      "-Werror=int-conversion",
+      "-Werror=incompatible-pointer-types"
+    ],
+    "inject_legacy_shims": true,
+    "compiler_aliasing": {
+      "clang-18+": "-std=gnu89 -Wno-error",
+      "gcc-14+": "-std=gnu89 -fpermissive"
+    }
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 0,
+    "shadowed_builtins": [],
+    "permitted_mutations": 10,
+    "suspect_global_mutations": 0
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "avahi-client/publish.h",
+      "avahi-common/error.h",
+      "inttypes.h",
+      "linux/config.h",
+      "linux/dcache.h",
+      "linux/fs.h",
+      "linux/types.h",
+      "net/if.h",
+      "pthread.h",
+      "stdint.h",
+      "sys/event.h",
+      "sys/resource.h",
+      "sys/select.h",
+      "sys/sendfile.h",
+      "sys/sockio.h",
+      "sys/stat.h",
+      "sys/types.h",
+      "sys/uio.h",
+      "sys/un.h",
+      "sys/wait.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "gettext-support-files-missing",
+    "modern-compiler-strictness (no explicit C std)"
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": 0,
+      "Makefile.in": 1384,
+      "aclocal.m4": 8,
+      "config.h.in": 22,
+      "configure": 16,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_ENABLE": "system-aclocal",
+      "AC_ARG_WITH": "system-aclocal",
+      "AC_CANONICAL_TARGET": "system-aclocal",
+      "AC_CHECK_DECLS": "system-aclocal",
+      "AC_CHECK_FUNCS": "system-aclocal",
+      "AC_CHECK_HEADER": "system-aclocal",
+      "AC_CHECK_HEADERS": "system-aclocal",
+      "AC_CHECK_LIB": "system-aclocal",
+      "AC_COMPILE_IFELSE": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_HEADERS": "system-aclocal",
+      "AC_C_BIGENDIAN": "system-aclocal",
+      "AC_C_INLINE": "system-aclocal",
+      "AC_DEFINE": "system-aclocal",
+      "AC_DEFINE_UNQUOTED": "system-aclocal",
+      "AC_FUNC_FORK": "system-aclocal",
+      "AC_FUNC_LSTAT_FOLLOWS_SLASHED_SYMLINK": "system-aclocal",
+      "AC_HEADER_STDBOOL": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_LANG_PROGRAM": "system-aclocal",
+      "AC_MSG_CHECKING": "system-aclocal",
+      "AC_MSG_ERROR": "system-aclocal",
+      "AC_MSG_RESULT": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PROG_AWK": "system-aclocal",
+      "AC_PROG_CC": "system-aclocal",
+      "AC_PROG_INSTALL": "system-aclocal",
+      "AC_PROG_LN_S": "system-aclocal",
+      "AC_PROG_MAKE_SET": "system-aclocal",
+      "AC_SEARCH_LIBS": "system-aclocal",
+      "AC_STRUCT_DIRENT_D_TYPE": "system-aclocal",
+      "AC_STRUCT_ST_BLOCKS": "system-aclocal",
+      "AC_SUBST": "system-aclocal",
+      "AC_TYPE_INT32_T": "system-aclocal",
+      "AC_TYPE_MODE_T": "system-aclocal",
+      "AC_TYPE_OFF_T": "system-aclocal",
+      "AC_TYPE_PID_T": "system-aclocal",
+      "AC_TYPE_SIZE_T": "system-aclocal",
+      "AC_TYPE_SSIZE_T": "system-aclocal",
+      "AC_TYPE_UINT32_T": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "minidlnad_LDADD",
+        "var": "flacogglibs",
+        "resolved_to": [
+          "-logg"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "minidlnad_LDADD",
+        "var": "vorbislibs",
+        "resolved_to": [
+          "-lvorbis",
+          "-logg"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "minidlnad_LDADD",
+        "var": "avahilibs",
+        "resolved_to": [
+          "-lavahi-client",
+          "-lavahi-common"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "testupnpdescgen_LDADD",
+        "var": "flacogglibs",
+        "resolved_to": [
+          "-logg"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "testupnpdescgen_LDADD",
+        "var": "vorbislibs",
+        "resolved_to": [
+          "-lvorbis",
+          "-logg"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "testupnpdescgen_LDADD",
+        "var": "avahilibs",
+        "resolved_to": [
+          "-lavahi-client",
+          "-lavahi-common"
+        ],
+        "resolved": true
+      }
+    ],
+    "unresolved_refs": [],
+    "indirection_count": 6
   }
 }

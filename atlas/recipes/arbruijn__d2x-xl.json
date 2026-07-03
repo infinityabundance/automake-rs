@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "arbruijn/d2x-xl",
   "source": {
     "url": "https://github.com/arbruijn/d2x-xl",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,11 +26,11 @@
     {
       "step": "configure",
       "tool": "./configure",
-      "status": "fail"
+      "status": "ok"
     },
     {
-      "step": "auto-quirk",
-      "tool": "quirk-engine",
+      "step": "make",
+      "tool": "make",
       "status": "fail"
     }
   ],
@@ -39,92 +39,97 @@
     "configure_args": []
   },
   "dependencies": {
-    "pkg_config": [],
-    "system_libs": [],
-    "headers_needed": [],
-    "missing": []
+    "pkg_config": [
+      "checking for SDL - version >= 1.2.8... yes"
+    ],
+    "system_libs": [
+      "-lSDL_net",
+      "-lSDL_mixer",
+      "-lSDL_image",
+      "-lSDL"
+    ],
+    "headers_needed": [
+      "OVR.h"
+    ],
+    "missing": [
+      "OVR.h"
+    ]
   },
   "quirks": [
     "pkg-config",
-    "subdirs"
+    "subdirs",
+    "LIBS=-lSDL_net -lSDL_mixer -lSDL_image -lSDL"
   ],
   "outputs": [],
-  "status": "CONFIGURE_RUN_FAIL",
+  "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1454: AC_STDC_HEADERS: command not found",
+  "diagnostic": "../include/descent.h:1898:17: fatal error: OVR.h: No such file or directory",
   "deep_expansion": {
-    "configure_lines": 3122,
+    "configure_lines": 3481,
     "leaked_macros": [],
-    "heredoc_openers": 32,
-    "heredoc_terminators": 32,
+    "heredoc_openers": 30,
+    "heredoc_terminators": 30,
     "heredoc_imbalance": 0,
-    "syntax_errors": [
-      {
-        "line": 1758,
-        "token": "done",
-        "source": "fi; done",
-        "block": [
-          "1754: if ac_fn_c_try_compile; then",
-          "1755:   printf '%s\\n' \"yes\"",
-          "1756: else",
-          "1757:   printf '%s\\n' \"no\"",
-          "1758: fi; done",
-          "1759: #    printf %s \"checking for PHYSFS_init in -lphysfs... \"",
-          "1760: _acl_save_LIBS=$LIBS",
-          "1761: LIBS=\"-lphysfs  $LIBS\""
-        ]
-      }
-    ],
+    "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2637: do eval test \\${$as_var+y} \\"
+      "line 1424: # eval \"_acrs_sv=\\${}\"; printf '%s\\n' \"s|@@|${_acrs_sv}|g\" >",
+      "line 2995: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
-      "PACKAGE_NAME",
-      "PACKAGE_TARNAME",
-      "PACKAGE_VERSION",
-      "PACKAGE_STRING",
-      "PACKAGE_BUGREPORT"
+      "NASM",
+      "MINGW32_TRUE",
+      "MINGW32_FALSE",
+      "MACOSX_TRUE",
+      "MACOSX_FALSE",
+      "EDITOR_TRUE",
+      "EDITOR_FALSE",
+      "MACDATA_TRUE",
+      "MACDATA_FALSE",
+      "USE_LINUX_JOY_TRUE",
+      "USE_LINUX_JOY_FALSE",
+      "CONSOLE_TRUE",
+      "CONSOLE_FALSE",
+      "sharepath",
+      "SDL_CFLAGS",
+      "SDL_LIBS",
+      "USE_LIBPNG_TRUE",
+      "USE_LIBPNG_FALSE",
+      "OGL_LIBS",
+      "USE_OPENGL_TRUE",
+      "USE_OPENGL_FALSE",
+      "GGI_LIBS",
+      "USE_GGI_TRUE",
+      "USE_GGI_FALSE",
+      "SVGA_LIBS",
+      "USE_SVGALIB_TRUE",
+      "USE_SVGALIB_FALSE",
+      "USE_NETWORK_TRUE",
+      "USE_NETWORK_FALSE"
     ],
-    "failed_during_check": "checking for timeval... no",
+    "failed_during_check": "checking for main in -lGLU... yes",
     "failure_tail": [
-      "checking for timeval... no",
-      "./configure: line 1758: syntax error near unexpected token `done'",
-      "./configure: line 1758: `fi; done'"
+      "checking for main in -lGLU... yes",
+      "configure: creating Makefile",
+      "configure: creating 2d/Makefile",
+      "configure: creating 3d/Makefile",
+      "configure: creating ai/Makefile"
     ],
     "conftest_corruption": [],
-    "conftest_directives_intact": 7,
+    "conftest_directives_intact": 6,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
       "int main() { int x = 1; return *(char*)&x; }",
       "#include <time.h>\\nint main (void)\\n{\\n#ifndef nanosleep\\n(void) nanosleep;\\n#endif\\n;\\nreturn 0;\\n}",
       "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { $ac_type x; return 0; }",
       "#include <$ac_hdr>",
-      "char IMG_Load();\\nint main() { return IMG_Load(); }",
-      "char Mix_OpenAudio();\\nint main() { return Mix_OpenAudio(); }"
+      "char IMG_Load ();\\nint main() { return IMG_Load(); }",
+      "char Mix_OpenAudio ();\\nint main() { return Mix_OpenAudio(); }"
     ]
   },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "ok",
-    "real_make": "fail",
-    "real_configure_lines": 10467,
-    "real_first_error": "",
-    "classification": "OURS_BUG_CONFIGURE"
-  },
-  "divergence": {
-    "stage": "configure",
-    "ours_error": "line 1758: fi; done (near `done`)",
-    "ours_error_context": [
-      "fi; done"
-    ],
-    "ours_configure_lines": 3122,
-    "real_configure_lines": 10467,
-    "macros_ours_left_undefined": []
-  },
   "receipt": {
-    "court_status": "failed",
+    "court_status": "partial",
     "probe_trace": [],
     "quirks_matched": [
       "uses-pkg-config",
@@ -133,19 +138,7 @@
       "has-acinclude",
       "vendored-aclocal"
     ],
-    "quirks_applied": [
-      {
-        "id": "uses-subdir-objects",
-        "action": "--disable-dependency-tracking",
-        "verified": false
-      },
-      {
-        "id": "uses-maintainer-mode",
-        "action": "--disable-maintainer-mode",
-        "verified": false
-      }
-    ],
-    "receipt_hash": "24e39ed3178d433d21c1340a6407fda16d8349c27724819539e8175382940e80",
+    "receipt_hash": "fc222e24136e1c7565f3970366c0a81d4ec04fa5491250e780188ba2805c06fb",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -154,6 +147,1277 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "2d/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "3d/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "ai/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "audio/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "cockpit/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "console/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "effects/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "gameio/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "gamemodes/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "input/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "io/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "libmve/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "lighting/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "main/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "maths/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "menus/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "misc/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "models/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "network/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "objects/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "ogl/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "physics/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "render/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "weapons/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      }
+    ],
+    "config_headers": [
+      "conf.h"
+    ],
+    "subdirs": [
+      "${DIST_SUBDIRS}",
+      "@D2X_SUBDIRS@",
+      "@D2X_MAIN_SUBDIRS@"
+    ],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [
+          "@TARGETS@",
+          "d2x-xl"
+        ],
+        "subdirs": [
+          "${DIST_SUBDIRS}",
+          "@D2X_SUBDIRS@"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "2d",
+        "targets": [
+          "lib2d.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I $(top_srcdir)/include -I $(top_srcdir)/input/include -I $(top_srcdir)/network/linux/include -I $(top_srcdir)/audio/li"
+      },
+      {
+        "dir": "3d",
+        "targets": [
+          "lib3d.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I $(top_srcdir)/include -I $(top_srcdir)/effects -I $(top_srcdir)/input/include -I $(top_srcdir)/network/linux/include "
+      },
+      {
+        "dir": "ai",
+        "targets": [
+          "libai.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I $(top_srcdir)/include -I $(top_srcdir)/input/include -I $(top_srcdir)/effects -I $(top_srcdir)/network/linux/include "
+      },
+      {
+        "dir": "audio",
+        "targets": [
+          "libaudio.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I $(top_srcdir)/include -I $(top_srcdir)/input/include -I $(top_srcdir)/network/linux/include -I $(top_srcdir)/audio/li"
+      },
+      {
+        "dir": "cockpit",
+        "targets": [
+          "libcockpit.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I $(top_srcdir)/include -I $(top_srcdir)/input/include -I $(top_srcdir)/network/linux/include -I $(top_srcdir)/audio/li"
+      },
+      {
+        "dir": "console",
+        "targets": [
+          "libconsole.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I $(top_srcdir)/include -I $(top_srcdir)/input/include -I $(top_srcdir)/network/linux/include -I $(top_srcdir)/audio/li"
+      },
+      {
+        "dir": "effects",
+        "targets": [
+          "libeffects.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I $(top_srcdir)/include -I $(top_srcdir)/input/include -I $(top_srcdir)/network/linux/include -I $(top_srcdir)/audio/li"
+      },
+      {
+        "dir": "gameio",
+        "targets": [
+          "libgameio.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I $(top_srcdir)/include -I $(top_srcdir)/input/include -I $(top_srcdir)/network/linux/include -I $(top_srcdir)/audio/li"
+      },
+      {
+        "dir": "gamemodes",
+        "targets": [
+          "libgamemodes.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I $(top_srcdir)/include -I $(top_srcdir)/input/include -I $(top_srcdir)/network/linux/include -I $(top_srcdir)/audio/li"
+      },
+      {
+        "dir": "input",
+        "targets": [
+          "libinput.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I $(top_srcdir)/include -I $(top_srcdir)/input/include -I $(top_srcdir)/network/linux/include -I $(top_srcdir)/audio/li"
+      },
+      {
+        "dir": "io",
+        "targets": [
+          "libio.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I $(top_srcdir)/include -I $(top_srcdir)/input/include -I $(top_srcdir)/network/linux/include -I $(top_srcdir)/audio/li"
+      },
+      {
+        "dir": "libmve",
+        "targets": [
+          "mveplayer",
+          "libmve.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I $(top_srcdir)/include -I $(top_srcdir)/input/include -I $(top_srcdir)/network/linux/include -I $(top_srcdir)/audio/li"
+      },
+      {
+        "dir": "lighting",
+        "targets": [
+          "liblighting.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I $(top_srcdir)/include -I $(top_srcdir)/input/include -I $(top_srcdir)/network/linux/include -I $(top_srcdir)/audio/li"
+      },
+      {
+        "dir": "main",
+        "targets": [
+          "libmain.a"
+        ],
+        "subdirs": [
+          "@D2X_MAIN_SUBDIRS@"
+        ],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I $(top_srcdir)/include -I $(top_srcdir)/effects -I $(top_srcdir)/input/include -I $(top_srcdir)/network/linux/include "
+      },
+      {
+        "dir": "main/editor",
+        "targets": [
+          "libeditor.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)/include"
+      },
+      {
+        "dir": "maths",
+        "targets": [
+          "libmaths.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I $(top_srcdir)/include -I $(top_srcdir)/input/include -I $(top_srcdir)/network/linux/include -I $(top_srcdir)/audio/li"
+      },
+      {
+        "dir": "mem",
+        "targets": [
+          "libmem.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I $(top_srcdir)/include -I $(top_srcdir)/input/include -I $(top_srcdir)/network/linux/include -I $(top_srcdir)/audio/li"
+      },
+      {
+        "dir": "menus",
+        "targets": [
+          "libmenus.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I $(top_srcdir)/include -I $(top_srcdir)/effects -I $(top_srcdir)/input/include -I $(top_srcdir)/network/linux/include "
+      },
+      {
+        "dir": "misc",
+        "targets": [
+          "libmisc.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I $(top_srcdir)/include -I $(top_srcdir)/input/include -I $(top_srcdir)/network/linux/include -I $(top_srcdir)/audio/li"
+      },
+      {
+        "dir": "models",
+        "targets": [
+          "libmodels.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I $(top_srcdir)/include -I $(top_srcdir)/input/include -I $(top_srcdir)/network/linux/include -I $(top_srcdir)/audio/li"
+      },
+      {
+        "dir": "network",
+        "targets": [
+          "libnetwork.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I $(top_srcdir)/include -I $(top_srcdir)/input/include -I $(top_srcdir)/network/linux/include -I $(top_srcdir)/audio/li"
+      },
+      {
+        "dir": "objects",
+        "targets": [
+          "libobjects.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I $(top_srcdir)/include -I $(top_srcdir)/input/include -I $(top_srcdir)/network/linux/include -I $(top_srcdir)/audio/li"
+      },
+      {
+        "dir": "ogl",
+        "targets": [
+          "libogl.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I $(top_srcdir)/include -I $(top_srcdir)/effects -I $(top_srcdir)/input/include -I $(top_srcdir)/network/linux/include "
+      },
+      {
+        "dir": "physics",
+        "targets": [
+          "libphysics.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I $(top_srcdir)/include -I $(top_srcdir)/input/include -I $(top_srcdir)/network/linux/include -I $(top_srcdir)/audio/li"
+      },
+      {
+        "dir": "render",
+        "targets": [
+          "librender.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I $(top_srcdir)/include -I $(top_srcdir)/effects -I $(top_srcdir)/input/include -I $(top_srcdir)/network/linux/include "
+      },
+      {
+        "dir": "weapons",
+        "targets": [
+          "libweapons.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I $(top_srcdir)/include -I $(top_srcdir)/effects -I $(top_srcdir)/input/include -I $(top_srcdir)/network/linux/include "
+      }
+    ],
+    "max_depth": 1,
+    "config_h_consumers_below_root": [
+      "gameio",
+      "menus",
+      "audio",
+      "input",
+      "ogl",
+      "render",
+      "physics",
+      "main",
+      "network",
+      "objects"
+    ]
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 572,
+        "first_parse_error": {
+          "line": 226,
+          "kind": "missing-separator",
+          "text": "am_d2x-xl_OBJECTS = d2x-xl.$(OBJEXT)",
+          "previous_lines": [
+            "#am__quote =",
+            "PROGRAMS = $(bin_PROGRAMS) $(EXTRA_PROGRAMS)"
+          ],
+          "probable_cause": "shell-fragment-in-make"
+        },
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "models/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 514,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "libmve/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 551,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "maths/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 514,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "3d/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 523,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "gameio/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 527,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "gamemodes/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 510,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "misc/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 512,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "menus/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 538,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "io/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 513,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "console/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 510,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "audio/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 516,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "cockpit/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 519,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "lighting/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 518,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "weapons/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 518,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "ai/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 522,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "input/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 514,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "ogl/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 533,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "render/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 531,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "physics/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 514,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "effects/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 528,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "main/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 619,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "network/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 533,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "2d/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 523,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "objects/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 525,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      }
+    ]
+  },
+  "tool_requirements": {
+    "detected": [
+      "c++"
+    ],
+    "missing": []
+  },
+  "macro_inventory": {
+    "macro_dirs": [],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": true,
+    "defined_macros": [
+      {
+        "name": "AM_PATH_SDL",
+        "source": "acinclude.m4",
+        "kind": "AM"
+      }
+    ],
+    "called_macros": [
+      "AC_ARG_ENABLE",
+      "AC_ARG_WITH",
+      "AC_CANONICAL_BUILD",
+      "AC_CANONICAL_HOST",
+      "AC_CANONICAL_TARGET",
+      "AC_CHECK_DECLS",
+      "AC_CHECK_HEADERS",
+      "AC_CHECK_LIB",
+      "AC_CHECK_TOOL",
+      "AC_CHECK_TYPES",
+      "AC_C_BIGENDIAN",
+      "AC_DEFINE",
+      "AC_DEFINE_UNQUOTED",
+      "AC_EXEEXT",
+      "AC_INIT",
+      "AC_ISC_POSIX",
+      "AC_MSG_ERROR",
+      "AC_MSG_RESULT",
+      "AC_MSG_WARN",
+      "AC_OBJEXT",
+      "AC_OUTPUT",
+      "AC_PATH_PROGS",
+      "AC_PREREQ",
+      "AC_PROG_CC",
+      "AC_PROG_CXX",
+      "AC_PROG_INSTALL",
+      "AC_PROG_MAKE_SET",
+      "AC_STDC_HEADERS",
+      "AC_SUBST",
+      "AM_CONDITIONAL",
+      "AM_CONFIG_HEADER",
+      "AM_INIT_AUTOMAKE",
+      "AM_MAINTAINER_MODE",
+      "AM_PATH_SDL",
+      "AM_PROG_AS",
+      "PKG_CHECK_MODULES"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 220,
+    "configure_fi": 204,
+    "configure_case": 71,
+    "configure_esac": 74,
+    "balanced": false,
+    "automake_conditionals": [
+      "MINGW32",
+      "MACOSX",
+      "EDITOR",
+      "MACDATA",
+      "USE_LINUX_JOY",
+      "CONSOLE",
+      "USE_LIBPNG",
+      "USE_OPENGL",
+      "USE_GGI",
+      "USE_SVGALIB",
+      "USE_NETWORK",
+      "USE_NATIVE_IPX",
+      "USE_KALINIX",
+      "USE_ASM"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": ".",
+    "present": [
+      "install-sh",
+      "missing",
+      "depcomp",
+      "compile",
+      "config.guess",
+      "config.sub"
+    ],
+    "missing": []
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "c": 2,
+      "cpp": 366,
+      "h": 304,
+      "m": 1,
+      "mm": 2
+    },
+    "configure_macros": [
+      "AC_PROG_CC",
+      "AC_PROG_CXX"
+    ],
+    "needs_cxx": true,
+    "needs_fortran": false,
+    "sets_c_std": false
+  },
+  "make_graph": {
+    "targets": [
+      "all",
+      "all-am",
+      "install-exec-am",
+      "uninstall-am",
+      "install-am",
+      "installcheck-am",
+      "install-strip",
+      "install-info",
+      "install-info-am",
+      "install-dvi",
+      "install-dvi-am",
+      "install-ps",
+      "install-ps-am",
+      "install-pdf",
+      "install-pdf-am",
+      "install-html",
+      "install-html-am",
+      "install-data-hook",
+      "install-exec-hook",
+      "installdirs-am",
+      ".PHONY",
+      "mostlyclean-am",
+      "clean-am",
+      "distclean-am",
+      "maintainer-clean-am",
+      "distdir",
+      "dist",
+      "dist-all",
+      "dist-gzip",
+      "distcleancheck",
+      "distcheck",
+      "check-am",
+      "TAGS",
+      "tags",
+      "TAGS-am",
+      "tags-am",
+      "cscope",
+      "cscope-am",
+      "distuninstallcheck",
+      "$(srcdir)/Makefile.in"
+    ],
+    "key_variables": {
+      "AR": "ar",
+      "CC": "gcc",
+      "CFLAGS": "-I $(top_srcdir)/arch/linux/include -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT -I /usr/include/SDL -pipe -O3 -Wall -Wno-char-subscripts",
+      "CPPFLAGS": "",
+      "CXX": "g++",
+      "CXXFLAGS": "-I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT -O3 -Wall -Wno-char-subscripts",
+      "DEFAULT_INCLUDES": "-I. -I$(top_builddir)",
+      "DEFS": "-DHAVE_CONFIG_H",
+      "LDFLAGS": "",
+      "LIBS": "-lSDL_net -lSDL_mixer -lSDL_image -lSDL",
+      "RANLIB": "ranlib"
+    },
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "stamp-h1",
+      "config.log"
+    ],
+    "recursion_depth": 1,
+    "top_targets": [
+      "all",
+      "dist",
+      "all-am"
+    ],
+    "make_diagnostics": [
+      {
+        "command": "",
+        "error_type": "missing-header",
+        "message": "../include/descent.h:1898:17: fatal error: OVR.h: No such file or directory"
+      },
+      {
+        "command": "",
+        "error_type": "missing-header",
+        "message": "../include/descent.h:1898:17: fatal error: OVR.h: No such file or directory"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[2]: *** [Makefile:507: bitblt.o] Error 1"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[2]: *** Waiting for unfinished jobs...."
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[2]: *** [Makefile:507: bitmap.o] Error 1"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[1]: *** [Makefile:245: all-am] Error 2"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make: *** [Makefile:516: all-recursive] Error 1"
+      }
+    ]
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": true,
+    "defines_sampled": [
+      "_GNU_SOURCE=1",
+      "_REENTRANT",
+      "HAVE_CONFIG_H"
+    ]
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-pkg-config",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-subdir-objects",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-maintainer-mode",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "has-acinclude",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "netipx/ipx.h",
+      "physfs.h"
+    ],
+    "headers_included_unchecked": [
+      "GL/gl.h",
+      "GL/glew.h",
+      "X11/Xlib.h",
+      "X11/Xmd.h",
+      "X11/Xutil.h",
+      "arpa/inet.h",
+      "dlfcn.h",
+      "fcntl.h",
+      "ggi/input/xwin.h",
+      "inttypes.h",
+      "linux/awe_voice.h",
+      "linux/cdrom.h",
+      "linux/joystick.h",
+      "linux/soundcard.h",
+      "mach-o/dyld.h",
+      "netinet/in.h",
+      "pthread.h",
+      "stdint.h",
+      "sys/asoundlib.h",
+      "sys/ioctl.h",
+      "sys/ipc.h",
+      "sys/msg.h",
+      "sys/socket.h",
+      "sys/stat.h",
+      "sys/time.h"
+    ],
+    "implicit_link_libs": [
+      "-lGLEW",
+      "-lX11",
+      "-lcurl",
+      "-lglew32",
+      "-lm",
+      "-lole32",
+      "-lurlmon",
+      "-lwinmm",
+      "-lws2_32",
+      "-lwsock32",
+      "-lz"
+    ]
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 1,
+    "shadowed_macros": [
+      "AM_PATH_SDL"
+    ]
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "gnu++",
+    "strip_modern_poison_flags": [],
+    "inject_legacy_shims": false,
+    "compiler_aliasing": {}
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 11,
+    "shadowed_builtins": [
+      "AM_PATH_SDL"
+    ],
+    "permitted_mutations": 17,
+    "suspect_global_mutations": 0
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "GL/gl.h",
+      "GL/glew.h",
+      "X11/Xlib.h",
+      "X11/Xmd.h",
+      "X11/Xutil.h",
+      "arpa/inet.h",
+      "dlfcn.h",
+      "fcntl.h",
+      "ggi/input/xwin.h",
+      "inttypes.h",
+      "linux/awe_voice.h",
+      "linux/cdrom.h",
+      "linux/joystick.h",
+      "linux/soundcard.h",
+      "mach-o/dyld.h",
+      "netinet/in.h",
+      "pthread.h",
+      "stdint.h",
+      "sys/asoundlib.h",
+      "sys/ioctl.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "subdir-config-h-include-path"
+  ],
+  "repair_hints": [
+    {
+      "id": "makefile-shell-fragment-in-make",
+      "phase": "make",
+      "confidence": 0.5,
+      "evidence": [
+        "Makefile:226 missing-separator",
+        "am_d2x-xl_OBJECTS = d2x-xl.$(OBJEXT)"
+      ],
+      "action": "classify-shell-fragment-in-make",
+      "expected_effect": "partial -> FUNC_OK candidate"
+    },
+    {
+      "id": "subdir-top-builddir",
+      "phase": "make",
+      "confidence": 0.88,
+      "evidence": [
+        "gameio consumes config.h below root",
+        "menus consumes config.h below root",
+        "audio consumes config.h below root",
+        "input consumes config.h below root",
+        "ogl consumes config.h below root"
+      ],
+      "action": "ensure ac_subst_file sets relative top_builddir per subdir (0.1.19)",
+      "expected_effect": "config.h found in subdir compiles"
+    }
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": -3,
+      "Makefile.in": 1215,
+      "aclocal.m4": 34,
+      "configure": 41,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_ENABLE": "system-aclocal",
+      "AC_ARG_WITH": "system-aclocal",
+      "AC_CANONICAL_BUILD": "system-aclocal",
+      "AC_CANONICAL_HOST": "system-aclocal",
+      "AC_CANONICAL_TARGET": "system-aclocal",
+      "AC_CHECK_DECLS": "system-aclocal",
+      "AC_CHECK_HEADERS": "system-aclocal",
+      "AC_CHECK_LIB": "system-aclocal",
+      "AC_CHECK_TOOL": "system-aclocal",
+      "AC_CHECK_TYPES": "system-aclocal",
+      "AC_C_BIGENDIAN": "system-aclocal",
+      "AC_DEFINE": "system-aclocal",
+      "AC_DEFINE_UNQUOTED": "system-aclocal",
+      "AC_EXEEXT": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_ISC_POSIX": "system-aclocal",
+      "AC_MSG_ERROR": "system-aclocal",
+      "AC_MSG_RESULT": "system-aclocal",
+      "AC_MSG_WARN": "system-aclocal",
+      "AC_OBJEXT": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PATH_PROGS": "system-aclocal",
+      "AC_PREREQ": "system-aclocal",
+      "AC_PROG_CC": "system-aclocal",
+      "AC_PROG_CXX": "system-aclocal",
+      "AC_PROG_INSTALL": "system-aclocal",
+      "AC_PROG_MAKE_SET": "system-aclocal",
+      "AC_STDC_HEADERS": "system-aclocal",
+      "AC_SUBST": "system-aclocal",
+      "AM_CONDITIONAL": "system-aclocal",
+      "AM_CONFIG_HEADER": "system-aclocal",
+      "AM_INIT_AUTOMAKE": "system-aclocal",
+      "AM_MAINTAINER_MODE": "system-aclocal",
+      "AM_PATH_SDL": "acinclude.m4",
+      "AM_PROG_AS": "system-aclocal",
+      "PKG_CHECK_MODULES": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "d2x_LDADD",
+        "var": "LD_KLUDGE",
+        "resolved_to": [
+          "main/descent.o"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "d2x_LDADD",
+        "var": "CONSOLE_LIBS",
+        "resolved_to": [
+          "console/libconsole.a"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "d2x_sdl_LDADD",
+        "var": "d2x_LDADD",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "d2x_sdl_LDADD",
+        "var": "d2x_LDADD",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "d2x_xl_LDADD",
+        "var": "d2x_sdl_LDADD",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "d2x_xl_LDADD",
+        "var": "OGL_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libmain_a_SOURCES",
+        "var": "NETWORK_SRCS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libnetwork_a_SOURCES",
+        "var": "NETWORK_SRCS",
+        "resolved_to": [
+          "./linux/ipx_mcast4.cpp",
+          "./linux/linuxnet.cpp"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libnetwork_a_SOURCES",
+        "var": "IPX_SRCS",
+        "resolved_to": [
+          "./linux/ipx_bsd.cpp"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libnetwork_a_SOURCES",
+        "var": "KALI_SRCS",
+        "resolved_to": [
+          "./linux/ipx_kali.cpp",
+          "./linux/ukali.cpp"
+        ],
+        "resolved": true
+      }
+    ],
+    "unresolved_refs": [
+      "d2x_sdl_LDADD = $(d2x_LDADD)",
+      "d2x_sdl_LDADD = $(d2x_LDADD)",
+      "d2x_xl_LDADD = $(d2x_sdl_LDADD)",
+      "d2x_xl_LDADD = $(OGL_LIBS)",
+      "libmain_a_SOURCES = $(NETWORK_SRCS)"
+    ],
+    "indirection_count": 10
   }
 }

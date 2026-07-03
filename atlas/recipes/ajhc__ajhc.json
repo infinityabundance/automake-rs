@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "ajhc/ajhc",
   "source": {
     "url": "https://github.com/ajhc/ajhc",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.14",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -45,67 +45,40 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1407: syntax error near unexpected token `hc,ghc,'",
+  "diagnostic": "The ghc compiler was not found, please specify a location for it with the --with-hc flag",
   "deep_expansion": {
-    "configure_lines": 2529,
-    "leaked_macros": [
-      {
-        "name": "AC_PROGRAM_REQUIRE",
-        "line": 1407,
-        "context": "AC_PROGRAM_REQUIRE(hc,ghc,       --with-hc=<haskell compiler>    Specify"
-      },
-      {
-        "name": "AC_PROGRAM_REQUIRE",
-        "line": 1439,
-        "context": "AC_PROGRAM_REQUIRE(hsc2hs,hsc2hs,       --with-hsc2hs=<hsc2hs location> "
-      },
-      {
-        "name": "AC_DEFINE_DIR",
-        "line": 1458,
-        "context": "AC_DEFINE_DIR(LIBDIR,libdir)"
-      },
-      {
-        "name": "AC_DEFINE_DIR",
-        "line": 1459,
-        "context": "AC_DEFINE_DIR(DATADIR,datadir)"
-      },
-      {
-        "name": "AC_DEFINE_DIR",
-        "line": 1460,
-        "context": "AC_DEFINE_DIR(JLIBPATH,jlibpath)"
-      },
-      {
-        "name": "AC_DEFINE_DIR",
-        "line": 1461,
-        "context": "AC_DEFINE_DIR(JETCPATH,jetcpath)"
-      }
-    ],
+    "configure_lines": 2619,
+    "leaked_macros": [],
     "heredoc_openers": 17,
     "heredoc_terminators": 17,
     "heredoc_imbalance": 0,
-    "syntax_errors": [
-      {
-        "line": 1407,
-        "token": "hc,ghc,",
-        "source": "AC_PROGRAM_REQUIRE(hc,ghc,       --with-hc=<haskell compiler>    Specify",
-        "block": [
-          "1403: ",
-          "1404: # Check --with-rpmrelease option",
-          "1405: ",
-          "1406: ",
-          "1407: AC_PROGRAM_REQUIRE(hc,ghc,       --with-hc=<haskell compiler>    Specify loc",
-          "1408: if test -z \"$HC\"; then",
-          "1409:     echo \"The ghc compiler was not found, please specify a location for it w",
-          "1410:     exit 1"
-        ]
-      }
-    ],
+    "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2053: do eval test \\${$as_var+y} \\"
+      "line 1420: # eval \"_acrs_sv=\\${}\"; printf '%s\\n' \"s|@@|${_acrs_sv}|g\" >",
+      "line 2142: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
+      "JHCLIB_FILES",
+      "BYTE_ORDER",
+      "EXTRA_PACKAGES",
+      "GHCFLAGS",
+      "GHC_UNIX_OR_WIN32",
+      "GHCINC",
+      "HAS_MONOID_DOC",
+      "HC",
+      "HCFLAGS",
+      "HSC2HS",
+      "JETCPATH",
+      "JLIBPATH",
+      "MINGW",
+      "RPMRELEASE",
+      "SHORTVERSION",
+      "VERSION",
+      "VERSION_MAJOR",
+      "VERSION_MINOR",
+      "VERSION_PATCH",
       "PACKAGE_NAME",
       "PACKAGE_TARNAME",
       "PACKAGE_VERSION",
@@ -115,32 +88,12 @@
       "srcdir",
       "prefix",
       "exec_prefix",
-      "CC",
-      "CFLAGS",
-      "CPPFLAGS",
-      "LDFLAGS",
-      "LIBS",
-      "CXX",
-      "CXXFLAGS",
-      "CPP",
-      "DEFS",
-      "LIBOBJS",
-      "INSTALL",
-      "HCFLAGS",
-      "SHORTVERSION",
-      "EXTRA_PACKAGES",
-      "MINGW",
-      "GHC_UNIX_OR_WIN32",
-      "HAS_MONOID_DOC",
-      "HC",
-      "VERSION_MAJOR",
-      "JETCPATH"
+      "CC"
     ],
     "failed_during_check": "checking endianness... big-endian",
     "failure_tail": [
       "checking endianness... big-endian",
-      "./configure: line 1407: syntax error near unexpected token `hc,ghc,'",
-      "./configure: line 1407: `AC_PROGRAM_REQUIRE(hc,ghc,       --with-hc=<haskell com"
+      "The ghc compiler was not found, please specify a location for it with the --with"
     ],
     "conftest_corruption": [],
     "conftest_directives_intact": 0,
@@ -149,22 +102,14 @@
       "int main() { int x = 1; return *(char*)&x; }"
     ]
   },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "fail",
-    "real_make": "skipped",
-    "real_configure_lines": 6809,
-    "real_first_error": "./configure: line 4496: \"hc\": command not found",
-    "classification": "BOTH_CONFIGURE_FAIL"
-  },
   "receipt": {
-    "court_status": "not_standalone",
+    "court_status": "failed",
     "probe_trace": [],
     "quirks_matched": [
       "vendored-aclocal",
       "uses-ax-archive"
     ],
-    "receipt_hash": "1b59d07d0a20a927a52050673c57d051c46cf0669ffc84ae54f67e19a8cf7afb",
+    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -173,6 +118,362 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "Makefile.cabalinst",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "Setup.hs",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "ajhc.cabal",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "ajhc.spec",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "docs/building.mkd",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "src/Support/Cabal.hs",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/Version/Config.hs",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/cbits/config.h",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/data/targets.ini",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/hs_src_config.h",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      }
+    ],
+    "config_headers": [],
+    "subdirs": [],
+    "build_dirs": [],
+    "max_depth": 2,
+    "config_h_consumers_below_root": []
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "rts/test/Makefile",
+        "has_makefile_in": false,
+        "has_makefile_am": false,
+        "lines": 24,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "selftest/Makefile",
+        "has_makefile_in": false,
+        "has_makefile_am": false,
+        "lines": 36,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      }
+    ]
+  },
+  "macro_inventory": {
+    "macro_dirs": [],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [],
+    "called_macros": [
+      "AC_ARG_WITH",
+      "AC_CANONICAL_HOST",
+      "AC_CHECK_PROGS",
+      "AC_CONFIG_AUX_DIR",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_MACRO_DIR",
+      "AC_CONFIG_SRCDIR",
+      "AC_C_BIGENDIAN",
+      "AC_DEFINE_DIR",
+      "AC_DEFINE_UNQUOTED",
+      "AC_INIT",
+      "AC_OUTPUT",
+      "AC_PROGRAM_REQUIRE",
+      "AC_PROG_LN_S",
+      "AC_SUBST",
+      "AM_INIT_AUTOMAKE",
+      "AX_CREATE_STDINT_H"
+    ],
+    "unresolved_macros": [
+      "AX_CREATE_STDINT_H"
+    ]
+  },
+  "conditional_context": {
+    "configure_if": 110,
+    "configure_fi": 106,
+    "configure_case": 65,
+    "configure_esac": 68,
+    "balanced": false,
+    "automake_conditionals": []
+  },
+  "config_aux_inventory": {
+    "aux_dir": "ac-macros",
+    "present": [
+      "install-sh",
+      "missing",
+      "compile"
+    ],
+    "missing": [
+      "depcomp",
+      "config.guess",
+      "config.sub"
+    ]
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "c": 19,
+      "h": 21
+    },
+    "configure_macros": [],
+    "needs_cxx": false,
+    "needs_fortran": false,
+    "sets_c_std": false
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": true,
+    "defines_sampled": []
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-ax-archive",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "vpath_analysis": {
+    "hardcoded_src_paths": 0,
+    "abs_path_leakage": 4,
+    "built_sources": [
+      "src/RawFiles.hs",
+      "src/FrontEnd/HsParser.hs",
+      "src/FlagDump.hs",
+      "src/FlagOpts.hs",
+      "src/Name/Prim.hs",
+      "src/Info/Properties.hs"
+    ],
+    "generated_source_targets": [
+      "src/FrontEnd/HsParser.hs",
+      "show_elibs"
+    ]
+  },
+  "feature_probe_gap": {
+    "headers_checked": [],
+    "headers_included_unchecked": [
+      "gc/gc.h",
+      "inttypes.h",
+      "pthread.h",
+      "stdint.h",
+      "sys/param.h",
+      "sys/queue.h",
+      "sys/select.h",
+      "sys/times.h",
+      "sys/types.h",
+      "sys/utsname.h",
+      "unistd.h",
+      "valgrind/memcheck.h",
+      "valgrind/valgrind.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 3,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "c89_gnu",
+    "strip_modern_poison_flags": [
+      "-Werror=implicit-function-declaration",
+      "-Werror=int-conversion",
+      "-Werror=incompatible-pointer-types"
+    ],
+    "inject_legacy_shims": true,
+    "compiler_aliasing": {
+      "clang-18+": "-std=gnu89 -Wno-error",
+      "gcc-14+": "-std=gnu89 -fpermissive"
+    }
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 0,
+    "shadowed_builtins": [],
+    "permitted_mutations": 2,
+    "suspect_global_mutations": 0
+  },
+  "parallel_build_safety": {
+    "vpath_out_of_tree_safe": false,
+    "generators": [
+      "src/FrontEnd/HsParser.hs",
+      "show_elibs"
+    ],
+    "unordered_generated_sources": [
+      "show_elibs"
+    ],
+    "built_sources_declared": true
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "gc/gc.h",
+      "inttypes.h",
+      "pthread.h",
+      "stdint.h",
+      "sys/param.h",
+      "sys/queue.h",
+      "sys/select.h",
+      "sys/times.h",
+      "sys/types.h",
+      "sys/utsname.h",
+      "unistd.h",
+      "valgrind/memcheck.h",
+      "valgrind/valgrind.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "unresolved-macros",
+    "modern-compiler-strictness (no explicit C std)",
+    "parallel-build-race (gen-source not in BUILT_SOURCES)",
+    "vpath-unsafe (abs-path/hardcoded-srcdir leakage)"
+  ],
+  "repair_hints": [
+    {
+      "id": "ship-or-neutralize-macro",
+      "phase": "autoreconf",
+      "confidence": 0.6,
+      "evidence": [
+        "AX_CREATE_STDINT_H"
+      ],
+      "action": "ship native impl or neutralize",
+      "expected_effect": "resolves unexpanded AX_/custom macros"
+    }
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": 0,
+      "Makefile.in": 1048,
+      "aclocal.m4": 30,
+      "configure": 33,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_WITH": "system-aclocal",
+      "AC_CANONICAL_HOST": "system-aclocal",
+      "AC_CHECK_PROGS": "system-aclocal",
+      "AC_CONFIG_AUX_DIR": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_MACRO_DIR": "system-aclocal",
+      "AC_CONFIG_SRCDIR": "system-aclocal",
+      "AC_C_BIGENDIAN": "system-aclocal",
+      "AC_DEFINE_DIR": "system-aclocal",
+      "AC_DEFINE_UNQUOTED": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PROGRAM_REQUIRE": "system-aclocal",
+      "AC_PROG_LN_S": "system-aclocal",
+      "AC_SUBST": "system-aclocal",
+      "AM_INIT_AUTOMAKE": "system-aclocal",
+      "AX_CREATE_STDINT_H": "unresolved"
+    },
+    "rebuild_trigger_risk": false
   }
 }

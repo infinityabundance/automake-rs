@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "endlessm/eos-shard",
   "source": {
     "url": "https://github.com/endlessm/eos-shard",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -51,37 +51,54 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1356: syntax error near unexpected token `('",
+  "diagnostic": "./configure: line 1370: syntax error near unexpected token `('",
   "deep_expansion": {
-    "configure_lines": 2945,
+    "configure_lines": 3057,
     "leaked_macros": [],
     "heredoc_openers": 17,
     "heredoc_terminators": 17,
     "heredoc_imbalance": 0,
     "syntax_errors": [
       {
-        "line": 1356,
+        "line": 1370,
         "token": "(",
         "source": "SHARD_LT_CURRENT=m4_eval(100 * 1 + 2 - 0)",
         "block": [
-          "1352: ",
-          "1353: ",
-          "1354: # Shared library versioning; calculated automatically.",
-          "1355: # See http://www.gnu.org/software/libtool/manual/html_node/Updating-version-",
-          "1356: SHARD_LT_CURRENT=m4_eval(100 * 1 + 2 - 0)",
-          "1357: SHARD_LT_REVISION=0",
-          "1358: SHARD_LT_AGE=$SHARD_LT_CURRENT",
-          "1359: "
+          "1366: printf '%s\\n' \"#define SHARD_MICRO_VERSION 2\" >> confdefs.h 2>/dev/null",
+          "1367: ",
+          "1368: # Shared library versioning; calculated automatically.",
+          "1369: # See http://www.gnu.org/software/libtool/manual/html_node/Updating-version-",
+          "1370: SHARD_LT_CURRENT=m4_eval(100 * 1 + 2 - 0)",
+          "1371: SHARD_LT_REVISION=0",
+          "1372: SHARD_LT_AGE=$SHARD_LT_CURRENT",
+          "1373: eval \"_acrs_sv=\\${SHARD_LT_VERSION}\"; printf '%s\\n' \"s|@SHARD_LT_VERSION@|${"
         ]
       }
     ],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2469: do eval test \\${$as_var+y} \\"
+      "line 2580: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
+      "SHARD_API_VERSION",
+      "SHARD_API_NAME",
+      "SHARD_LT_VERSION",
       "PKG_CONFIG",
+      "SHARD_REQUIRED_MODULES_PUBLIC",
+      "LIBEOS_SHARD_CFLAGS",
+      "LIBEOS_SHARD_LIBS",
+      "GJS_WITH_COVERAGE_CFLAGS",
+      "GJS_WITH_COVERAGE_LIBS",
+      "EOS_ENABLE_COVERAGE_TRUE",
+      "EOS_ENABLE_COVERAGE_FALSE",
+      "EOS_COVERAGE_DIR",
+      "EOS_DEFAULT_COVERAGE_DIR",
+      "EOS_COVERAGE_RULES",
+      "EOS_COVERAGE_CLEAN_RULES",
+      "EOS_JS_COVERAGE_LOG_FLAGS",
+      "EOS_C_COVERAGE_CFLAGS",
+      "EOS_C_COVERAGE_LDFLAGS",
       "PACKAGE_NAME",
       "PACKAGE_TARNAME",
       "PACKAGE_VERSION",
@@ -92,29 +109,12 @@
       "prefix",
       "exec_prefix",
       "CC",
-      "CFLAGS",
-      "CPPFLAGS",
-      "LDFLAGS",
-      "LIBS",
-      "CXX",
-      "CXXFLAGS",
-      "CPP",
-      "DEFS",
-      "LIBOBJS",
-      "INSTALL",
-      "EOS_COVERAGE_CLEAN_RULES",
-      "EOS_COVERAGE_RULES",
-      "EOS_C_COVERAGE_LDFLAGS",
-      "EOS_COVERAGE_DIR",
-      "EOS_DEFAULT_COVERAGE_DIR",
-      "EOS_C_COVERAGE_CFLAGS",
-      "SHARD_API_VERSION",
-      "SHARD_REQUIRED_MODULES_PUBLIC"
+      "CFLAGS"
     ],
     "failed_during_check": "",
     "failure_tail": [
-      "./configure: line 1356: syntax error near unexpected token `('",
-      "./configure: line 1356: `SHARD_LT_CURRENT=m4_eval(100 * 1 + 2 - 0)'"
+      "./configure: line 1370: syntax error near unexpected token `('",
+      "./configure: line 1370: `SHARD_LT_CURRENT=m4_eval(100 * 1 + 2 - 0)'"
     ],
     "conftest_corruption": [],
     "conftest_directives_intact": 1,
@@ -122,24 +122,6 @@
     "conftest_programs": [
       "#include <sys/types.h>\\nint main() { return sizeof(off_t) >= 8 ? 0 : 1; }"
     ]
-  },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "ok",
-    "real_make": "fail",
-    "real_configure_lines": 16712,
-    "real_first_error": "",
-    "classification": "OURS_BUG_CONFIGURE"
-  },
-  "divergence": {
-    "stage": "configure",
-    "ours_error": "line 1356: SHARD_LT_CURRENT=m4_eval(100 * 1 + 2 - 0) (near `(`)",
-    "ours_error_context": [
-      "SHARD_LT_CURRENT=m4_eval(100 * 1 + 2 - 0)"
-    ],
-    "ours_configure_lines": 2945,
-    "real_configure_lines": 16712,
-    "macros_ours_left_undefined": []
   },
   "receipt": {
     "court_status": "failed",
@@ -158,7 +140,7 @@
         "verified": false
       }
     ],
-    "receipt_hash": "24e39ed3178d433d21c1340a6407fda16d8349c27724819539e8175382940e80",
+    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -167,6 +149,368 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      }
+    ],
+    "config_headers": [
+      "config.h"
+    ],
+    "subdirs": [],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [
+          "libeos-shard-@SHARD_API_VERSION@.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      }
+    ],
+    "max_depth": 0,
+    "config_h_consumers_below_root": []
+  },
+  "macro_inventory": {
+    "macro_dirs": [
+      "m4"
+    ],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [
+      {
+        "name": "EOS_COVERAGE_REPORT",
+        "source": "m4/eos-coverage.m4",
+        "kind": "project-local"
+      }
+    ],
+    "called_macros": [
+      "AC_CACHE_SAVE",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_HEADERS",
+      "AC_CONFIG_MACRO_DIR",
+      "AC_DEFINE",
+      "AC_INIT",
+      "AC_OUTPUT",
+      "AC_PROG_AWK",
+      "AC_PROG_MKDIR_P",
+      "AC_REQUIRE_AUX_FILE",
+      "AC_SUBST",
+      "AC_SYS_LARGEFILE",
+      "AC_USE_SYSTEM_EXTENSIONS",
+      "AM_INIT_AUTOMAKE",
+      "AM_SILENT_RULES",
+      "LT_INIT",
+      "PKG_CHECK_MODULES",
+      "PKG_PROG_PKG_CONFIG"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 123,
+    "configure_fi": 116,
+    "configure_case": 64,
+    "configure_esac": 67,
+    "balanced": false,
+    "automake_conditionals": []
+  },
+  "config_aux_inventory": {
+    "aux_dir": ".",
+    "present": [
+      "install-sh",
+      "missing",
+      "depcomp",
+      "compile"
+    ],
+    "missing": [
+      "ltmain.sh"
+    ]
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "c": 13,
+      "h": 18
+    },
+    "configure_macros": [],
+    "needs_cxx": false,
+    "needs_fortran": false,
+    "sets_c_std": false
+  },
+  "libtool_context": {
+    "uses_libtool": true,
+    "macros": [
+      "LT_INIT"
+    ],
+    "ltmain_present": false,
+    "libtool_m4_sources": [
+      "aclocal.m4"
+    ],
+    "age": "modern"
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": true,
+    "defines_sampled": []
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-subdir-objects",
+      "applied_at": "configure",
+      "effect": "neutral",
+      "effectiveness": "low"
+    },
+    {
+      "quirk_id": "uses-libtool",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-pkg-config",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "has-m4-macro-dir",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "vpath_analysis": {
+    "hardcoded_src_paths": 0,
+    "abs_path_leakage": 0,
+    "built_sources": [],
+    "generated_source_targets": [
+      "EosShard-@SHARD_API_VERSION@.gir",
+      "AM_TESTS_ENVIRONMENT =  \texport GI_TYPELIB_PATH=\"$(top_builddir)$${GI_TYPELIB_PATH"
+    ]
+  },
+  "feature_probe_gap": {
+    "headers_checked": [],
+    "headers_included_unchecked": [
+      "fcntl.h",
+      "gio/gfiledescriptorbased.h",
+      "gio/gio.h",
+      "gio/gunixinputstream.h",
+      "stdint.h",
+      "sys/stat.h",
+      "sys/types.h",
+      "unistd.h"
+    ],
+    "implicit_link_libs": [
+      "-lm"
+    ]
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 9,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "c89_gnu",
+    "strip_modern_poison_flags": [
+      "-Werror=implicit-function-declaration",
+      "-Werror=int-conversion",
+      "-Werror=incompatible-pointer-types"
+    ],
+    "inject_legacy_shims": true,
+    "compiler_aliasing": {
+      "clang-18+": "-std=gnu89 -Wno-error",
+      "gcc-14+": "-std=gnu89 -fpermissive"
+    }
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 0,
+    "shadowed_builtins": [],
+    "permitted_mutations": 0,
+    "suspect_global_mutations": 0
+  },
+  "parallel_build_safety": {
+    "vpath_out_of_tree_safe": true,
+    "generators": [
+      "EosShard-@SHARD_API_VERSION@.gir",
+      "AM_TESTS_ENVIRONMENT =  \texport GI_TYPELIB_PATH=\"$(top_builddir)$${GI_TYPELIB_PATH"
+    ],
+    "unordered_generated_sources": [
+      "EosShard-@SHARD_API_VERSION@.gir",
+      "AM_TESTS_ENVIRONMENT =  \texport GI_TYPELIB_PATH=\"$(top_builddir)$${GI_TYPELIB_PATH"
+    ],
+    "built_sources_declared": false
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "fcntl.h",
+      "gio/gfiledescriptorbased.h",
+      "gio/gio.h",
+      "gio/gunixinputstream.h",
+      "stdint.h",
+      "sys/stat.h",
+      "sys/types.h",
+      "unistd.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "modern-compiler-strictness (no explicit C std)",
+    "parallel-build-race (gen-source not in BUILT_SOURCES)"
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": 0,
+      "Makefile.in": 1300,
+      "aclocal.m4": 6,
+      "config.h.in": 15,
+      "configure": 14,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_CACHE_SAVE": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_HEADERS": "system-aclocal",
+      "AC_CONFIG_MACRO_DIR": "system-aclocal",
+      "AC_DEFINE": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PROG_AWK": "system-aclocal",
+      "AC_PROG_MKDIR_P": "system-aclocal",
+      "AC_REQUIRE_AUX_FILE": "system-aclocal",
+      "AC_SUBST": "system-aclocal",
+      "AC_SYS_LARGEFILE": "system-aclocal",
+      "AC_USE_SYSTEM_EXTENSIONS": "system-aclocal",
+      "AM_INIT_AUTOMAKE": "system-aclocal",
+      "AM_SILENT_RULES": "system-aclocal",
+      "LT_INIT": "system-aclocal",
+      "PKG_CHECK_MODULES": "system-aclocal",
+      "PKG_PROG_PKG_CONFIG": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "libeos_shard_@SHARD_API_VERSION@_la_SOURCES",
+        "var": "eos_shard_headers",
+        "resolved_to": [
+          "src/eos-shard-format-v1.h",
+          "src/eos-shard-format-v2.h",
+          "src/eos-shard-shard-file.h",
+          "src/eos-shard-shard-file-impl.h",
+          "src/eos-shard-shard-file-impl-v1.h",
+          "src/eos-shard-shard-file-impl-v2.h",
+          "src/eos-shard-record.h",
+          "src/eos-shard-blob.h",
+          "src/eos-shard-blob-stream.h",
+          "src/eos-shard-bloom-filter.h",
+          "src/eos-shard-writer-v1.h",
+          "src/eos-shard-writer-v2.h",
+          "src/eos-shard-dictionary.h",
+          "src/eos-shard-dictionary-writer.h",
+          "src/eos-shard-dictionary-format.h",
+          "src/eos-shard-enums.h",
+          "src/eos-shard-types.h",
+          "$(NULL)"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libeos_shard_@SHARD_API_VERSION@_la_SOURCES",
+        "var": "eos_shard_sources",
+        "resolved_to": [
+          "src/eos-shard-shard-file.c",
+          "src/eos-shard-shard-file-impl.c",
+          "src/eos-shard-shard-file-impl-v1.c",
+          "src/eos-shard-shard-file-impl-v2.c",
+          "src/eos-shard-record.c",
+          "src/eos-shard-blob.c",
+          "src/eos-shard-blob-stream.c",
+          "src/eos-shard-bloom-filter.c",
+          "src/eos-shard-writer-v1.c",
+          "src/eos-shard-writer-v2.c",
+          "src/eos-shard-dictionary.c",
+          "src/eos-shard-dictionary-writer.c",
+          "src/eos-shard-enums.c",
+          "$(NULL)"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libeos_shard_@SHARD_API_VERSION@_la_SOURCES",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libeos_shard_@SHARD_API_VERSION@_la_LIBADD",
+        "var": "LIBEOS_SHARD_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      }
+    ],
+    "unresolved_refs": [
+      "libeos_shard_@SHARD_API_VERSION@_la_SOURCES = $(NULL)",
+      "libeos_shard_@SHARD_API_VERSION@_la_LIBADD = $(LIBEOS_SHARD_LIBS)"
+    ],
+    "indirection_count": 4
   }
 }

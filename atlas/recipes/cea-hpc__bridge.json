@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "cea-hpc/bridge",
   "source": {
     "url": "https://github.com/cea-hpc/bridge",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -41,8 +41,12 @@
   "dependencies": {
     "pkg_config": [],
     "system_libs": [],
-    "headers_needed": [],
-    "missing": []
+    "headers_needed": [
+      "rpc/types.h"
+    ],
+    "missing": [
+      "rpc/types.h"
+    ]
   },
   "quirks": [
     "autoconf-archive-macros",
@@ -53,28 +57,57 @@
   "outputs": [],
   "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "make: *** No targets specified and no makefile found.  Stop.",
+  "diagnostic": "xmessage.c:28:10: fatal error: rpc/types.h: No such file or directory",
   "deep_expansion": {
-    "configure_lines": 2003,
+    "configure_lines": 3326,
     "leaked_macros": [],
-    "heredoc_openers": 20,
-    "heredoc_terminators": 20,
+    "heredoc_openers": 32,
+    "heredoc_terminators": 32,
     "heredoc_imbalance": 0,
     "syntax_errors": [],
     "cache_var_anomalies": [
-      "line 58: do eval test \\${$as_var+y} \\"
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2833: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
+      "BRIDGE_BINDING",
+      "BRIDGE_BATCH_SYSTEM",
+      "BRIDGE_BATCH_PLUGIN",
+      "BRIDGE_RM_SYSTEM",
+      "BRIDGE_RM_PLUGIN",
+      "LSF_CPPFLAGS",
+      "LSF_LDFLAGS",
+      "HAVE_LSF_TRUE",
+      "HAVE_LSF_FALSE",
+      "HAVE_LSF",
+      "HAVE_LSF_SLURM_TRUE",
+      "HAVE_LSF_SLURM_FALSE",
+      "HAVE_LSF_SLURM",
+      "NQSII_CPPFLAGS",
+      "NQSII_LDFLAGS",
+      "HAVE_NQSII_TRUE",
+      "HAVE_NQSII_FALSE",
+      "HAVE_NQSII",
+      "TORQUE_CPPFLAGS",
+      "TORQUE_LDFLAGS",
+      "HAVE_TORQUE_TRUE",
+      "HAVE_TORQUE_FALSE",
+      "HAVE_TORQUE",
+      "SLURM_CPPFLAGS",
+      "SLURM_LDFLAGS",
+      "HAVE_SLURM_TRUE",
+      "HAVE_SLURM_FALSE",
+      "HAVE_SLURM",
       "PKG_CONFIG"
     ],
     "failed_during_check": "checking for rpc/types.h... no",
     "failure_tail": [
       "checking for rpc/types.h... no",
-      "configure:",
-      "*** Flags that will be used to compile ***",
-      "CFLAGS              :",
-      "LDFLAGS             :"
+      "configure: creating Makefile",
+      "configure: creating lib/Makefile",
+      "configure: creating lib/confparse/Makefile",
+      "configure: creating lib/xternal/Makefile"
     ],
     "conftest_corruption": [],
     "conftest_directives_intact": 10,
@@ -82,27 +115,11 @@
     "conftest_programs": [
       "#include <$ac_hdr>",
       "#include <$ac_hdr>",
-      "char ls_connect();\\nint main() { return ls_connect(); }",
+      "char ls_connect ();\\nint main() { return ls_connect(); }",
       "#include <$ac_hdr>",
       "#include <$ac_hdr>",
-      "char ls_connect();\\nint main() { return ls_connect(); }"
+      "char ls_connect ();\\nint main() { return ls_connect(); }"
     ]
-  },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "ok",
-    "real_make": "ok",
-    "real_configure_lines": 17648,
-    "real_first_error": "",
-    "classification": "OURS_BUG_MAKE"
-  },
-  "divergence": {
-    "stage": "make",
-    "ours_error": "",
-    "ours_error_context": [],
-    "ours_configure_lines": 2003,
-    "real_configure_lines": 17648,
-    "macros_ours_left_undefined": []
   },
   "receipt": {
     "court_status": "partial",
@@ -114,7 +131,7 @@
       "vendored-aclocal",
       "uses-ax-archive"
     ],
-    "receipt_hash": "50943c81e776f99633ce47bc1c02476e04eeac1c88eab40282963440dadccda2",
+    "receipt_hash": "fc222e24136e1c7565f3970366c0a81d4ec04fa5491250e780188ba2805c06fb",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -123,6 +140,1658 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "etc/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "etc/bridge.conf:etc/bridge.conf.in",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": false
+      },
+      {
+        "path": "etc/bridge_bs.conf:etc/bridge_bs.conf.in",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": false
+      },
+      {
+        "path": "etc/bridge_rm.conf:etc/bridge_rm.conf.in",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": false
+      },
+      {
+        "path": "etc/bridged.conf:etc/bridged.conf.in",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": false
+      },
+      {
+        "path": "etc/bridgedapi.conf:etc/bridgedapi.conf.in",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": false
+      },
+      {
+        "path": "etc/init.d/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "etc/init.d/bridged:etc/init.d/bridged.in",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": false
+      },
+      {
+        "path": "etc/logrotate.d/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "etc/logrotate.d/bridged.systemd",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "etc/sysconfig/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "lib/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "lib/bridge/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "lib/bridged/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "lib/confparse/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "lib/xternal/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "plugins/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "plugins/batch/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "plugins/batch/lsf/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "plugins/batch/lsf_slurm/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "plugins/batch/slurm/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "plugins/batch/torque/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "plugins/rm/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "plugins/rm/slurm/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "scripts/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "scripts/addons/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "scripts/addons/vtune.sh:scripts/addons/vtune.sh.in",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": false
+      },
+      {
+        "path": "scripts/batch_system/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "scripts/batch_system/mdel:scripts/batch_system/mdel.in",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": false
+      },
+      {
+        "path": "scripts/batch_system/mpp:scripts/batch_system/mpp.in",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": false
+      },
+      {
+        "path": "scripts/batch_system/mstat:scripts/batch_system/mstat.in",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": false
+      },
+      {
+        "path": "scripts/batch_system/msub:scripts/batch_system/msub.in",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": false
+      },
+      {
+        "path": "scripts/common/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "scripts/common/bridge_command:scripts/common/bridge_command.in",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": false
+      },
+      {
+        "path": "scripts/resource_manager/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "scripts/resource_manager/mpinfo:scripts/resource_manager/mpinfo.in",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": false
+      },
+      {
+        "path": "scripts/resource_manager/mprun:scripts/resource_manager/mprun.in",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": false
+      },
+      {
+        "path": "scripts/resource_manager/mpstat:scripts/resource_manager/mpstat.in",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": false
+      },
+      {
+        "path": "src/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "src/bridge/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/bridged/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/bridgedc/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/helpers/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      }
+    ],
+    "config_headers": [
+      "config.h"
+    ],
+    "subdirs": [
+      "=",
+      "lib",
+      "plugins",
+      "src",
+      "scripts",
+      "etc",
+      "=",
+      "init.d",
+      "logrotate.d",
+      "sysconfig",
+      "=",
+      "confparse",
+      "xternal",
+      "bridge",
+      "bridged",
+      "batch",
+      "rm",
+      "lsf_slurm",
+      "torque",
+      "slurm",
+      "lsf",
+      "slurm",
+      "=",
+      "common",
+      "batch_system",
+      "resource_manager",
+      "addons",
+      "=",
+      "bridge",
+      "bridged",
+      "bridgedc",
+      "helpers"
+    ],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [],
+        "subdirs": [
+          "=",
+          "lib",
+          "plugins",
+          "src",
+          "scripts",
+          "etc"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": "-D_THREAD_SAFE  -I$(top_srcdir)/lib -pthread"
+      },
+      {
+        "dir": "etc",
+        "targets": [],
+        "subdirs": [
+          "=",
+          "init.d",
+          "logrotate.d",
+          "sysconfig"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "lib",
+        "targets": [],
+        "subdirs": [
+          "=",
+          "confparse",
+          "xternal",
+          "bridge",
+          "bridged"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "lib/bridge",
+        "targets": [
+          "libbridge.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "lib/bridged",
+        "targets": [
+          "libbridgedapi.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "lib/confparse",
+        "targets": [
+          "libconfig_parsing.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)"
+      },
+      {
+        "dir": "lib/xternal",
+        "targets": [
+          "libxternal.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir) $(LIBTIRPC_CFLAGS)"
+      },
+      {
+        "dir": "plugins",
+        "targets": [],
+        "subdirs": [
+          "batch",
+          "rm"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "plugins/batch",
+        "targets": [],
+        "subdirs": [
+          "lsf_slurm",
+          "torque",
+          "slurm",
+          "lsf"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "plugins/batch/lsf",
+        "targets": [
+          "libbridge_bs_lsf.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "$(LSF_CPPFLAGS) -I$(top_srcdir)/lib -g"
+      },
+      {
+        "dir": "plugins/batch/lsf_slurm",
+        "targets": [
+          "libbridge_bs_lsf_slurm.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "$(LSF_CPPFLAGS) -I$(top_srcdir)/lib -g"
+      },
+      {
+        "dir": "plugins/batch/slurm",
+        "targets": [
+          "libbridge_bs_slurm.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "$(SLURM_CPPFLAGS) -I$(top_srcdir)/lib -g"
+      },
+      {
+        "dir": "plugins/batch/torque",
+        "targets": [
+          "libbridge_bs_torque.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "$(TORQUE_CPPFLAGS) -I$(top_srcdir)/lib -g"
+      },
+      {
+        "dir": "plugins/rm",
+        "targets": [],
+        "subdirs": [
+          "slurm"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "plugins/rm/slurm",
+        "targets": [
+          "libbridge_rm_slurm.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "$(SLURM_CPPFLAGS) -I$(top_srcdir)/lib"
+      },
+      {
+        "dir": "scripts",
+        "targets": [],
+        "subdirs": [
+          "=",
+          "common",
+          "batch_system",
+          "resource_manager",
+          "addons"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src",
+        "targets": [],
+        "subdirs": [
+          "=",
+          "bridge",
+          "bridged",
+          "bridgedc",
+          "helpers"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/bridge",
+        "targets": [
+          "idlist",
+          "nodelist",
+          "bmstat",
+          "bsstat",
+          "bqstat",
+          "bnstat",
+          "rmmstat",
+          "rmpstat",
+          "rmastat"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-D_THREAD_SAFE -I$(top_srcdir)/lib -pthread"
+      },
+      {
+        "dir": "src/bridged",
+        "targets": [
+          "bridged"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-D_THREAD_SAFE  -I$(top_srcdir)/lib -pthread  \t\t\t\t-DBRIDGED_CONF=\\\"$(sysconfdir)/bridged.conf\\\""
+      },
+      {
+        "dir": "src/bridgedc",
+        "targets": [
+          "bridgedc"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-D_THREAD_SAFE  -I$(top_srcdir)/lib -pthread  \t\t\t\t-DBRIDGED_CONF=\\\"$(sysconfdir)/bridged.conf\\\""
+      },
+      {
+        "dir": "src/helpers",
+        "targets": [
+          "mpmd_wrapper"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      }
+    ],
+    "max_depth": 4,
+    "config_h_consumers_below_root": [
+      "src/bridge",
+      "plugins/batch/lsf",
+      "plugins/batch/lsf_slurm",
+      "plugins/batch/slurm",
+      "plugins/batch/torque",
+      "lib/bridge",
+      "lib/xternal"
+    ]
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 526,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 521,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/bridge/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 610,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/helpers/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 495,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/bridgedc/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 491,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/bridged/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 494,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "plugins/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 521,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "plugins/batch/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 521,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "plugins/batch/lsf/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 489,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "plugins/batch/lsf_slurm/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 494,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "plugins/batch/slurm/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 490,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "plugins/batch/torque/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 494,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "plugins/rm/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 521,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "plugins/rm/slurm/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 488,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "etc/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 528,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "etc/sysconfig/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 445,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "etc/logrotate.d/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 450,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "etc/init.d/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 447,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "scripts/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 521,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "scripts/common/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 471,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "scripts/addons/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 723,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "scripts/batch_system/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 506,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "scripts/resource_manager/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 513,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "lib/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 521,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "lib/bridge/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 524,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "lib/confparse/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 503,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "lib/xternal/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 516,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "lib/bridged/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 519,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      }
+    ]
+  },
+  "tool_requirements": {
+    "detected": [
+      "yacc",
+      "lex",
+      "ar"
+    ],
+    "missing": []
+  },
+  "macro_inventory": {
+    "macro_dirs": [
+      "m4"
+    ],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [
+      {
+        "name": "LT_INIT",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LTOPTIONS_VERSION",
+        "source": "m4/libtool.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AC_PROG_LIBTOOL",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AM_PROG_LIBTOOL",
+        "source": "m4/libtool.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "LT_OUTPUT",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_SUPPORTED_TAG",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_LANG",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_CXX",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_F77",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_FC",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_GCJ",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_RC",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "_LT_WITH_SYSROOT",
+        "source": "m4/libtool.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_LT_COMPILER_OPTION",
+        "source": "m4/libtool.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AC_LIBTOOL_COMPILER_OPTION",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "_LT_LINKER_OPTION",
+        "source": "m4/libtool.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AC_LIBTOOL_LINKER_OPTION",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_CMD_MAX_LEN",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_SYS_MAX_CMD_LEN",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_SYS_DLOPEN_SELF",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_DLOPEN_SELF",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "_LT_PATH_TOOL_PREFIX",
+        "source": "m4/libtool.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AC_PATH_TOOL_PREFIX",
+        "source": "m4/libtool.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "LT_PATH_LD",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AM_PROG_LD",
+        "source": "m4/libtool.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AC_PROG_LD",
+        "source": "m4/libtool.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "LT_PATH_NM",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AM_PROG_NM",
+        "source": "m4/libtool.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AC_PROG_NM",
+        "source": "m4/libtool.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "_LT_DLL_DEF_P",
+        "source": "m4/libtool.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "LT_LIB_M",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_CHECK_LIBM",
+        "source": "m4/libtool.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "LT_PROG_GCJ",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_AC_PROG_GCJ",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_PROG_GO",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_PROG_RC",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_AC_PROG_RC",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_AC_PROG_SED",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AX_TORQUE",
+        "source": "m4/torque.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "LTVERSION_VERSION",
+        "source": "m4/ltversion.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AC_LIBTOOL_DLOPEN",
+        "source": "m4/ltoptions.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_WIN32_DLL",
+        "source": "m4/ltoptions.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_ENABLE_SHARED",
+        "source": "m4/ltoptions.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_DISABLE_SHARED",
+        "source": "m4/ltoptions.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AM_ENABLE_SHARED",
+        "source": "m4/ltoptions.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AM_DISABLE_SHARED",
+        "source": "m4/ltoptions.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AC_ENABLE_STATIC",
+        "source": "m4/ltoptions.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_DISABLE_STATIC",
+        "source": "m4/ltoptions.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AM_ENABLE_STATIC",
+        "source": "m4/ltoptions.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AM_DISABLE_STATIC",
+        "source": "m4/ltoptions.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AC_ENABLE_FAST_INSTALL",
+        "source": "m4/ltoptions.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AM_DISABLE_FAST_INSTALL",
+        "source": "m4/ltoptions.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AC_LIBTOOL_PICMODE",
+        "source": "m4/ltoptions.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AX_SLURM",
+        "source": "m4/slurm.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AX_NQSII",
+        "source": "m4/nqsII.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "LTSUGAR_VERSION",
+        "source": "m4/ltsugar.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "or",
+        "source": "m4/lt~obsolete.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "it",
+        "source": "m4/lt~obsolete.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "LTOBSOLETE_VERSION",
+        "source": "m4/lt~obsolete.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AC_PROG_EGREP",
+        "source": "m4/lt~obsolete.m4",
+        "kind": "AC"
+      }
+    ],
+    "called_macros": [
+      "AC_ARG_ENABLE",
+      "AC_CHECK_HEADERS",
+      "AC_CONFIG_AUX_DIR",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_HEADERS",
+      "AC_CONFIG_MACRO_DIR",
+      "AC_INIT",
+      "AC_MSG_ERROR",
+      "AC_MSG_NOTICE",
+      "AC_OUTPUT",
+      "AC_PROG_CC",
+      "AC_PROG_LEX",
+      "AC_PROG_LIBTOOL",
+      "AC_PROG_YACC",
+      "AC_SUBST",
+      "AM_INIT_AUTOMAKE",
+      "AM_PROG_AR",
+      "AM_PROG_CC_C_O",
+      "AM_PROG_LEX",
+      "AM_SILENT_RULES",
+      "AX_BRIDGE",
+      "AX_LSF",
+      "AX_LSF_SLURM",
+      "AX_NQSII",
+      "AX_SLURM",
+      "AX_TORQUE",
+      "PKG_CHECK_MODULES",
+      "PKG_PROG_PKG_CONFIG"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 208,
+    "configure_fi": 205,
+    "configure_case": 64,
+    "configure_esac": 67,
+    "balanced": false,
+    "automake_conditionals": []
+  },
+  "config_aux_inventory": {
+    "aux_dir": "build-aux",
+    "present": [
+      "install-sh",
+      "missing",
+      "depcomp",
+      "compile",
+      "ltmain.sh"
+    ],
+    "missing": []
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "c": 53,
+      "h": 21
+    },
+    "configure_macros": [
+      "AC_PROG_CC"
+    ],
+    "needs_cxx": false,
+    "needs_fortran": false,
+    "sets_c_std": false
+  },
+  "libtool_context": {
+    "uses_libtool": true,
+    "macros": [
+      "AC_PROG_LIBTOOL"
+    ],
+    "ltmain_present": true,
+    "libtool_m4_sources": [
+      "m4/libtool.m4",
+      "aclocal.m4"
+    ],
+    "age": "old"
+  },
+  "make_graph": {
+    "targets": [
+      "all",
+      "all-am",
+      "install-am",
+      "installcheck-am",
+      "install-strip",
+      "install-info",
+      "install-info-am",
+      "install-dvi",
+      "install-dvi-am",
+      "install-ps",
+      "install-ps-am",
+      "install-pdf",
+      "install-pdf-am",
+      "install-html",
+      "install-html-am",
+      "install-data-hook",
+      "install-exec-hook",
+      "installdirs-am",
+      ".PHONY",
+      "mostlyclean-am",
+      "clean-am",
+      "distclean-am",
+      "maintainer-clean-am",
+      "distdir",
+      "dist",
+      "dist-all",
+      "dist-gzip",
+      "distcleancheck",
+      "distcheck",
+      "check-am",
+      "TAGS",
+      "tags",
+      "TAGS-am",
+      "tags-am",
+      "cscope",
+      "cscope-am",
+      "distuninstallcheck",
+      "$(srcdir)/Makefile.in",
+      "$(am__recursive_targets)",
+      "check"
+    ],
+    "key_variables": {
+      "AR": "ar",
+      "CC": "cc",
+      "CFLAGS": "-g -O2",
+      "CPPFLAGS": "",
+      "CXX": "c++",
+      "CXXFLAGS": "-g -O2",
+      "DEFS": "-DHAVE_CONFIG_H",
+      "LDFLAGS": "",
+      "LIBS": "",
+      "RANLIB": "ranlib"
+    },
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "config.h",
+      "libtool",
+      "config.log"
+    ],
+    "recursion_depth": 4,
+    "top_targets": [
+      "all",
+      "check",
+      "dist",
+      "all-am"
+    ],
+    "make_diagnostics": [
+      {
+        "command": "",
+        "error_type": "missing-header",
+        "message": "xmessage.c:28:10: fatal error: rpc/types.h: No such file or directory"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[3]: *** [Makefile:497: libxternal_la-xmessage.lo] Error 1"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[3]: *** Waiting for unfinished jobs...."
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[2]: *** [Makefile:243: all-am] Error 2"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[1]: *** [Makefile:444: all-recursive] Error 1"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make: *** [Makefile:449: all-recursive] Error 1"
+      }
+    ]
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": true,
+    "defines_sampled": [
+      "HAVE_CONFIG_H",
+      "_THREAD_SAFE"
+    ]
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-libtool-old",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-pkg-config",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "has-m4-macro-dir",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-ax-archive",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "vpath_analysis": {
+    "hardcoded_src_paths": 1,
+    "abs_path_leakage": 0,
+    "built_sources": [],
+    "generated_source_targets": []
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "rpc/types.h"
+    ],
+    "headers_included_unchecked": [
+      "arpa/inet.h",
+      "dlfcn.h",
+      "fcntl.h",
+      "inttypes.h",
+      "lsf/lsbatch.h",
+      "netinet/in.h",
+      "pthread.h",
+      "rpc/xdr.h",
+      "slurm/slurm.h",
+      "stdint.h",
+      "sys/poll.h",
+      "sys/socket.h",
+      "sys/time.h",
+      "sys/types.h",
+      "unistd.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 9,
+    "shadowed_macros": [
+      "AC_PROG_LIBTOOL",
+      "AM_PROG_LIBTOOL",
+      "AC_LIBTOOL_CXX",
+      "AC_LIBTOOL_F77",
+      "AC_LIBTOOL_FC",
+      "AC_LIBTOOL_GCJ",
+      "AC_LIBTOOL_RC",
+      "AC_LIBTOOL_COMPILER_OPTION",
+      "AC_LIBTOOL_LINKER_OPTION",
+      "AC_LIBTOOL_SYS_MAX_CMD_LEN",
+      "AC_LIBTOOL_DLOPEN_SELF",
+      "AC_PATH_TOOL_PREFIX",
+      "AM_PROG_LD",
+      "AC_PROG_LD",
+      "AM_PROG_NM",
+      "AC_PROG_NM",
+      "AC_CHECK_LIBM",
+      "AC_LIBTOOL_DLOPEN",
+      "AC_LIBTOOL_WIN32_DLL",
+      "AC_ENABLE_SHARED"
+    ]
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "c89_gnu",
+    "strip_modern_poison_flags": [
+      "-Werror=implicit-function-declaration",
+      "-Werror=int-conversion",
+      "-Werror=incompatible-pointer-types"
+    ],
+    "inject_legacy_shims": true,
+    "compiler_aliasing": {
+      "clang-18+": "-std=gnu89 -Wno-error",
+      "gcc-14+": "-std=gnu89 -fpermissive"
+    }
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 0,
+    "shadowed_builtins": [
+      "AC_PROG_LIBTOOL",
+      "AM_PROG_LIBTOOL",
+      "AC_LIBTOOL_CXX",
+      "AC_LIBTOOL_F77",
+      "AC_LIBTOOL_FC",
+      "AC_LIBTOOL_GCJ",
+      "AC_LIBTOOL_RC",
+      "AC_LIBTOOL_COMPILER_OPTION",
+      "AC_LIBTOOL_LINKER_OPTION",
+      "AC_LIBTOOL_SYS_MAX_CMD_LEN",
+      "AC_LIBTOOL_DLOPEN_SELF",
+      "AC_PATH_TOOL_PREFIX",
+      "AM_PROG_LD",
+      "AC_PROG_LD",
+      "AM_PROG_NM"
+    ],
+    "permitted_mutations": 1,
+    "suspect_global_mutations": 0
+  },
+  "parallel_build_safety": {
+    "vpath_out_of_tree_safe": true,
+    "generators": [],
+    "unordered_generated_sources": [],
+    "built_sources_declared": false
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "arpa/inet.h",
+      "dlfcn.h",
+      "fcntl.h",
+      "inttypes.h",
+      "lsf/lsbatch.h",
+      "netinet/in.h",
+      "pthread.h",
+      "rpc/xdr.h",
+      "slurm/slurm.h",
+      "stdint.h",
+      "sys/poll.h",
+      "sys/socket.h",
+      "sys/time.h",
+      "sys/types.h",
+      "unistd.h",
+      "rpc/types.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "subdir-config-h-include-path",
+    "ancient-libtool",
+    "modern-compiler-strictness (no explicit C std)"
+  ],
+  "repair_hints": [
+    {
+      "id": "subdir-top-builddir",
+      "phase": "make",
+      "confidence": 0.88,
+      "evidence": [
+        "src/bridge consumes config.h below root",
+        "plugins/batch/lsf consumes config.h below root",
+        "plugins/batch/lsf_slurm consumes config.h below root",
+        "plugins/batch/slurm consumes config.h below root",
+        "plugins/batch/torque consumes config.h below root"
+      ],
+      "action": "ensure ac_subst_file sets relative top_builddir per subdir (0.1.19)",
+      "expected_effect": "config.h found in subdir compiles"
+    }
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": -3,
+      "Makefile.in": 1415,
+      "aclocal.m4": 12,
+      "config.h.in": 48,
+      "configure": 47,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_ENABLE": "system-aclocal",
+      "AC_CHECK_HEADERS": "system-aclocal",
+      "AC_CONFIG_AUX_DIR": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_HEADERS": "system-aclocal",
+      "AC_CONFIG_MACRO_DIR": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_MSG_ERROR": "system-aclocal",
+      "AC_MSG_NOTICE": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PROG_CC": "system-aclocal",
+      "AC_PROG_LEX": "system-aclocal",
+      "AC_PROG_LIBTOOL": "m4/libtool.m4",
+      "AC_PROG_YACC": "system-aclocal",
+      "AC_SUBST": "system-aclocal",
+      "AM_INIT_AUTOMAKE": "system-aclocal",
+      "AM_PROG_AR": "system-aclocal",
+      "AM_PROG_CC_C_O": "system-aclocal",
+      "AM_PROG_LEX": "system-aclocal",
+      "AM_SILENT_RULES": "system-aclocal",
+      "AX_BRIDGE": "system-aclocal",
+      "AX_LSF": "system-aclocal",
+      "AX_LSF_SLURM": "system-aclocal",
+      "AX_NQSII": "m4/nqsII.m4",
+      "AX_SLURM": "m4/slurm.m4",
+      "AX_TORQUE": "m4/torque.m4",
+      "PKG_CHECK_MODULES": "system-aclocal",
+      "PKG_PROG_PKG_CONFIG": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "bridgedc_LDADD",
+        "var": "LIBBRIDGEDAPI",
+        "resolved_to": [
+          "$(top_srcdir)/lib/bridged/libbridgedapi.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "bridged_LDADD",
+        "var": "LIBBRIDGEDAPI",
+        "resolved_to": [
+          "$(top_srcdir)/lib/bridged/libbridgedapi.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libbridge_bs_lsf_la_LIBADD",
+        "var": "LSF_LDFLAGS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libbridge_bs_lsf_slurm_la_LIBADD",
+        "var": "LSF_LDFLAGS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libbridgedapi_la_LIBADD",
+        "var": "LIBTIRPC_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      }
+    ],
+    "unresolved_refs": [
+      "libbridge_bs_lsf_la_LIBADD = $(LSF_LDFLAGS)",
+      "libbridge_bs_lsf_slurm_la_LIBADD = $(LSF_LDFLAGS)",
+      "libbridgedapi_la_LIBADD = $(LIBTIRPC_LIBS)"
+    ],
+    "indirection_count": 5
   }
 }

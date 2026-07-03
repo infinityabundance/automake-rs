@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "dhvani-tts/dhvani-tts",
   "source": {
     "url": "https://github.com/dhvani-tts/dhvani-tts",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -34,7 +34,14 @@
       "status": "fail"
     }
   ],
-  "probe_results": {},
+  "probe_results": {
+    "HAVE_DIRENT_H": 1,
+    "HAVE_GSM_GSM_H": 1,
+    "HAVE_MALLOC": 1,
+    "HAVE_STRFTIME": 1,
+    "HAVE_SYS_DIR_H": 1,
+    "HAVE_TIME_H": 1
+  },
   "feature_flags": {
     "configure_args": []
   },
@@ -55,9 +62,9 @@
   "outputs": [],
   "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "Makefile:16: *** missing separator.  Stop.",
+  "diagnostic": "collect2: error: ld returned 1 exit status",
   "deep_expansion": {
-    "configure_lines": 2675,
+    "configure_lines": 2891,
     "leaked_macros": [],
     "heredoc_openers": 28,
     "heredoc_terminators": 28,
@@ -65,10 +72,24 @@
     "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2199: do eval test \\${$as_var+y} \\"
+      "line 2414: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
+      "GSTREAMER_CFLAGS",
+      "GSTREAMER_LIBS",
+      "gstreamer_support_TRUE",
+      "gstreamer_support_FALSE",
+      "alsa_support_TRUE",
+      "alsa_support_FALSE",
+      "soundtouch_support_TRUE",
+      "soundtouch_support_FALSE",
+      "vorbis_support_TRUE",
+      "vorbis_support_FALSE",
+      "DEBUGFILENAME",
+      "debug_support_TRUE",
+      "debug_support_FALSE",
+      "BASH",
       "PACKAGE_NAME",
       "PACKAGE_TARNAME",
       "PACKAGE_VERSION",
@@ -78,10 +99,10 @@
     "failed_during_check": "checking for vorbis_encode_init in -lvorbisenc... yes",
     "failure_tail": [
       "checking for vorbis_encode_init in -lvorbisenc... yes",
-      "./configure: line 1598: test: =: unary operator expected",
       "configure: removed automake's default CFLAGS settings..",
-      "./configure: line 1613: test: =: unary operator expected",
-      "configure: creating Makefile"
+      "configure: creating Makefile",
+      "configure: creating src/soundtouch4c/Makefile",
+      "configure: creating src/Makefile"
     ],
     "conftest_corruption": [],
     "conftest_directives_intact": 13,
@@ -91,27 +112,56 @@
       "#include <sys/types.h>\\nint main() { return sizeof(off_t) >= 8 ? 0 : 1; }",
       "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { size_t x; return 0; }",
       "#include <time.h>",
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar malloc();\\nint main() { return malloc(); }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar malloc ();\\nint main() { return malloc(); }",
       "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { sig_atomic_t x; return 0; }"
     ]
   },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "ok",
-    "real_make": "fail",
-    "real_configure_lines": 21067,
-    "real_first_error": "",
-    "classification": "BOTH_MAKE_FAIL"
-  },
   "receipt": {
     "court_status": "partial",
-    "probe_trace": [],
+    "probe_trace": [
+      {
+        "name": "HAVE_DIRENT_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_GSM_GSM_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_MALLOC",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STRFTIME",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SYS_DIR_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_TIME_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      }
+    ],
     "quirks_matched": [
       "uses-libtool-old",
       "uses-pkg-config",
       "vendored-aclocal"
     ],
-    "receipt_hash": "a1f4e5766c35392dc1a93d7294702343cbef0d84a9f13446984a26ca5354d637",
+    "receipt_hash": "a03c240592e33565c648682d6a03480517afe548cb7615caf3a9c44f5b1ef57f",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -120,6 +170,615 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "database/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "man/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "src/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "src/libdhvani.pc",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "src/soundtouch4c/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      }
+    ],
+    "config_headers": [],
+    "subdirs": [
+      "database",
+      "man",
+      "src/soundtouch4c",
+      "src"
+    ],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [],
+        "subdirs": [
+          "database",
+          "man",
+          "src/soundtouch4c",
+          "src"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src",
+        "targets": [
+          "dhvani",
+          "libdhvani.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/soundtouch4c",
+        "targets": [
+          "libsoundtouch4c.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "$(AM_CFLAGS) $(SOUNDTOUCH_FLAGS)"
+      }
+    ],
+    "max_depth": 2,
+    "config_h_consumers_below_root": [
+      "src"
+    ]
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 527,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "database/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 438,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 566,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/soundtouch4c/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 560,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "man/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 450,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      }
+    ]
+  },
+  "tool_requirements": {
+    "detected": [
+      "c++"
+    ],
+    "missing": []
+  },
+  "macro_inventory": {
+    "macro_dirs": [],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [],
+    "called_macros": [
+      "AC_ARG_ENABLE",
+      "AC_ARG_VAR",
+      "AC_ARG_WITH",
+      "AC_CHECK_HEADER",
+      "AC_CHECK_LIB",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_HEADER",
+      "AC_CONFIG_MACRO_DIR",
+      "AC_CONFIG_SRCDIR",
+      "AC_C_CONST",
+      "AC_C_INLINE",
+      "AC_FUNC_MALLOC",
+      "AC_FUNC_STRFTIME",
+      "AC_HEADER_DIRENT",
+      "AC_HEADER_STDC",
+      "AC_HEADER_TIME",
+      "AC_INIT",
+      "AC_LANG",
+      "AC_MSG_ERROR",
+      "AC_MSG_NOTICE",
+      "AC_OUTPUT",
+      "AC_PATH_PROGS",
+      "AC_PROG_CC",
+      "AC_PROG_CXX",
+      "AC_PROG_GCC_TRADITIONAL",
+      "AC_PROG_INSTALL",
+      "AC_PROG_LIBTOOL",
+      "AC_PROG_MAKE_SET",
+      "AC_STRUCT_TM",
+      "AC_SUBST",
+      "AC_SYS_LARGEFILE",
+      "AC_TYPE_SIGNAL",
+      "AC_TYPE_SIZE_T",
+      "AM_CONDITIONAL",
+      "AM_INIT_AUTOMAKE",
+      "AM_PROG_CC_C_O",
+      "PKG_CHECK_MODULES"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 143,
+    "configure_fi": 134,
+    "configure_case": 63,
+    "configure_esac": 66,
+    "balanced": false,
+    "automake_conditionals": [
+      "gstreamer_support",
+      "alsa_support",
+      "soundtouch_support",
+      "vorbis_support",
+      "debug_support"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": ".",
+    "present": [
+      "install-sh",
+      "missing",
+      "depcomp",
+      "compile"
+    ],
+    "missing": [
+      "ltmain.sh"
+    ]
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "c": 22,
+      "cpp": 1,
+      "h": 23
+    },
+    "configure_macros": [
+      "AC_PROG_CC",
+      "AC_PROG_CXX"
+    ],
+    "needs_cxx": true,
+    "needs_fortran": false,
+    "sets_c_std": false
+  },
+  "libtool_context": {
+    "uses_libtool": true,
+    "macros": [
+      "AC_PROG_LIBTOOL"
+    ],
+    "ltmain_present": false,
+    "libtool_m4_sources": [],
+    "age": "old"
+  },
+  "make_graph": {
+    "targets": [
+      "all",
+      "all-am",
+      "install-am",
+      "installcheck-am",
+      "install-strip",
+      "install-info",
+      "install-info-am",
+      "install-dvi",
+      "install-dvi-am",
+      "install-ps",
+      "install-ps-am",
+      "install-pdf",
+      "install-pdf-am",
+      "install-html",
+      "install-html-am",
+      "install-data-hook",
+      "install-exec-hook",
+      "installdirs-am",
+      ".PHONY",
+      "mostlyclean-am",
+      "clean-am",
+      "distclean-am",
+      "maintainer-clean-am",
+      "distdir",
+      "dist",
+      "dist-all",
+      "dist-gzip",
+      "distcleancheck",
+      "distcheck",
+      "check-am",
+      "TAGS",
+      "tags",
+      "TAGS-am",
+      "tags-am",
+      "cscope",
+      "cscope-am",
+      "distuninstallcheck",
+      "$(srcdir)/Makefile.in",
+      "$(am__recursive_targets)",
+      "check"
+    ],
+    "key_variables": {
+      "AR": "ar",
+      "CC": "cc",
+      "CFLAGS": "",
+      "CPPFLAGS": "",
+      "CXX": "g++",
+      "CXXFLAGS": "-g -O2",
+      "DEFS": "-DHAVE_CONFIG_H",
+      "LDFLAGS": "",
+      "LIBS": "-lgsm",
+      "RANLIB": "ranlib"
+    },
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "config.h",
+      "libtool",
+      "config.log"
+    ],
+    "recursion_depth": 2,
+    "top_targets": [
+      "all",
+      "check",
+      "dist",
+      "all-am"
+    ],
+    "make_diagnostics": [
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "collect2: error: ld returned 1 exit status"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[2]: *** [Makefile:550: dhvani] Error 1"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[1]: *** [Makefile:287: all-am] Error 2"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make: *** [Makefile:445: all-recursive] Error 1"
+      }
+    ]
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": true,
+    "defines_sampled": [
+      "HAVE_CONFIG_H"
+    ]
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-libtool-old",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-pkg-config",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "gsm/gsm.h",
+      "soundtouch/SoundTouch.h"
+    ],
+    "headers_included_unchecked": [
+      "alsa/asoundlib.h",
+      "asm/byteorder.h",
+      "fcntl.h",
+      "gst/gst.h",
+      "linux/soundcard.h",
+      "sys/ioctl.h",
+      "sys/poll.h",
+      "sys/signal.h",
+      "sys/time.h",
+      "sys/types.h",
+      "sys/uio.h",
+      "unistd.h",
+      "vorbis/vorbisenc.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 2,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "gnu++",
+    "strip_modern_poison_flags": [],
+    "inject_legacy_shims": false,
+    "compiler_aliasing": {}
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 0,
+    "shadowed_builtins": [],
+    "permitted_mutations": 5,
+    "suspect_global_mutations": 0
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "alsa/asoundlib.h",
+      "asm/byteorder.h",
+      "fcntl.h",
+      "gst/gst.h",
+      "linux/soundcard.h",
+      "sys/ioctl.h",
+      "sys/poll.h",
+      "sys/signal.h",
+      "sys/time.h",
+      "sys/types.h",
+      "sys/uio.h",
+      "unistd.h",
+      "vorbis/vorbisenc.h",
+      "gsm/gsm.h",
+      "soundtouch/SoundTouch.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "subdir-config-h-include-path",
+    "ancient-libtool"
+  ],
+  "repair_hints": [
+    {
+      "id": "subdir-top-builddir",
+      "phase": "make",
+      "confidence": 0.88,
+      "evidence": [
+        "src consumes config.h below root"
+      ],
+      "action": "ensure ac_subst_file sets relative top_builddir per subdir (0.1.19)",
+      "expected_effect": "config.h found in subdir compiles"
+    }
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": -1,
+      "Makefile.in": 1185,
+      "aclocal.m4": 21,
+      "config.h.in": 27,
+      "configure": 25,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_ENABLE": "system-aclocal",
+      "AC_ARG_VAR": "system-aclocal",
+      "AC_ARG_WITH": "system-aclocal",
+      "AC_CHECK_HEADER": "system-aclocal",
+      "AC_CHECK_LIB": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_HEADER": "system-aclocal",
+      "AC_CONFIG_MACRO_DIR": "system-aclocal",
+      "AC_CONFIG_SRCDIR": "system-aclocal",
+      "AC_C_CONST": "system-aclocal",
+      "AC_C_INLINE": "system-aclocal",
+      "AC_FUNC_MALLOC": "system-aclocal",
+      "AC_FUNC_STRFTIME": "system-aclocal",
+      "AC_HEADER_DIRENT": "system-aclocal",
+      "AC_HEADER_STDC": "system-aclocal",
+      "AC_HEADER_TIME": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_LANG": "system-aclocal",
+      "AC_MSG_ERROR": "system-aclocal",
+      "AC_MSG_NOTICE": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PATH_PROGS": "system-aclocal",
+      "AC_PROG_CC": "system-aclocal",
+      "AC_PROG_CXX": "system-aclocal",
+      "AC_PROG_GCC_TRADITIONAL": "system-aclocal",
+      "AC_PROG_INSTALL": "system-aclocal",
+      "AC_PROG_LIBTOOL": "system-aclocal",
+      "AC_PROG_MAKE_SET": "system-aclocal",
+      "AC_STRUCT_TM": "system-aclocal",
+      "AC_SUBST": "system-aclocal",
+      "AC_SYS_LARGEFILE": "system-aclocal",
+      "AC_TYPE_SIGNAL": "system-aclocal",
+      "AC_TYPE_SIZE_T": "system-aclocal",
+      "AM_CONDITIONAL": "system-aclocal",
+      "AM_INIT_AUTOMAKE": "system-aclocal",
+      "AM_PROG_CC_C_O": "system-aclocal",
+      "PKG_CHECK_MODULES": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "libdhvani_la_LIBADD",
+        "var": "ALSA_LIBS",
+        "resolved_to": [
+          "-lasound"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libdhvani_la_LIBADD",
+        "var": "OGGVORBIS_LIBS",
+        "resolved_to": [
+          "-lvorbisenc"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libdhvani_la_LIBADD",
+        "var": "SOUNDTOUCH_LIBS",
+        "resolved_to": [
+          "-Lsoundtouch4c",
+          "-lsoundtouch4c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libdhvani_la_LIBADD",
+        "var": "GSTREAMER_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libdhvani_la_LIBADD",
+        "var": "GSM_LIB",
+        "resolved_to": [
+          "-lgsm"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libdhvani_la_SOURCES",
+        "var": "ALSA_SOURCES",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libdhvani_la_SOURCES",
+        "var": "SOUNDTOUCH_SOURCES",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libdhvani_la_SOURCES",
+        "var": "OGGVORBIS_SOURCES",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libdhvani_la_SOURCES",
+        "var": "GSTREAMER_SOURCES",
+        "resolved_to": [],
+        "resolved": false
+      }
+    ],
+    "unresolved_refs": [
+      "libdhvani_la_LIBADD = $(GSTREAMER_LIBS)",
+      "libdhvani_la_SOURCES = $(ALSA_SOURCES)",
+      "libdhvani_la_SOURCES = $(SOUNDTOUCH_SOURCES)",
+      "libdhvani_la_SOURCES = $(OGGVORBIS_SOURCES)",
+      "libdhvani_la_SOURCES = $(GSTREAMER_SOURCES)"
+    ],
+    "indirection_count": 9
   }
 }

@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "GaloisInc/gghlite-flint",
   "source": {
     "url": "https://github.com/GaloisInc/gghlite-flint",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.14",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,11 +26,11 @@
     {
       "step": "configure",
       "tool": "./configure",
-      "status": "fail"
+      "status": "ok"
     },
     {
-      "step": "auto-quirk",
-      "tool": "quirk-engine",
+      "step": "make",
+      "tool": "make",
       "status": "fail"
     }
   ],
@@ -50,38 +50,36 @@
     "subdirs"
   ],
   "outputs": [],
-  "status": "CONFIGURE_RUN_FAIL",
+  "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1574: syntax error near unexpected token `)'",
+  "diagnostic": "make: *** No targets.  Stop.",
   "deep_expansion": {
-    "configure_lines": 2760,
+    "configure_lines": 2848,
     "leaked_macros": [],
     "heredoc_openers": 20,
     "heredoc_terminators": 20,
     "heredoc_imbalance": 0,
-    "syntax_errors": [
-      {
-        "line": 1574,
-        "token": ")",
-        "source": ") \\",
-        "block": [
-          "1570: ifeq ($(VALGRIND_ENABLED),yes)",
-          "1571: \t-$(foreach tool,$(valgrind_tools), \\",
-          "1572: \t\t$(if $(VALGRIND_HAVE_TOOL_$(tool))$(VALGRIND_HAVE_TOOL_exp_$(tool)), \\",
-          "1573: \t\t\t$(MAKE) $(AM_MAKEFLAGS) -k check-valgrind-tool VALGRIND_TOOL=$(tool); \\",
-          "1574: \t\t) \\",
-          "1575: \t)",
-          "1576: else",
-          "1577: \t@echo \"Need to reconfigure with --enable-valgrind\""
-        ]
-      }
-    ],
+    "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2284: do eval test \\${$as_var+y} \\"
+      "line 2371: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
+      "GGHLITE_VERSION_INFO",
+      "OZ_VERSION_INFO",
+      "DGS_VERSION_INFO",
+      "DGSL_VERSION_INFO",
+      "COMMON_CFLAGS",
+      "EXTRA_CFLAGS",
+      "VALGRIND_ENABLED_TRUE",
+      "VALGRIND_ENABLED_FALSE",
+      "VALGRIND_ENABLED",
+      "VALGRIND_HAVE_TOOL_memcheck",
+      "VALGRIND_HAVE_TOOL_helgrind",
+      "VALGRIND_HAVE_TOOL_drd",
+      "VALGRIND_HAVE_TOOL_exp_sgcheck",
+      "VALGRIND_CHECK_RULES",
       "PACKAGE_NAME",
       "PACKAGE_TARNAME",
       "PACKAGE_VERSION",
@@ -96,27 +94,15 @@
       "CPPFLAGS",
       "LDFLAGS",
       "LIBS",
-      "CXX",
-      "CXXFLAGS",
-      "CPP",
-      "DEFS",
-      "LIBOBJS",
-      "INSTALL",
-      "DGSL_VERSION_INFO",
-      "GGHLITE_VERSION_INFO",
-      "VALGRIND_HAVE_TOOL_vgtooln",
-      "VALGRIND_ENABLED",
-      "OZ_VERSION_INFO",
-      "AM_DEFAULT_VERBOSITY",
-      "DGS_VERSION_INFO",
-      "COMMON_CFLAGS",
-      "VALGRIND_CHECK_RULES"
+      "CXX"
     ],
-    "failed_during_check": "checking whether to enable Valgrind on the unit tests... yes",
+    "failed_during_check": "checking for library containing fmpz_init... no",
     "failure_tail": [
-      "checking whether to enable Valgrind on the unit tests... yes",
-      "./configure: line 1574: syntax error near unexpected token `)'",
-      "./configure: line 1574: `\t\t) \\'"
+      "checking for library containing fmpz_init... no",
+      "configure: creating Makefile",
+      "sed: -e expression #26, char 25: unterminated `s' command",
+      "configure: creating oz/Makefile",
+      "sed: -e expression #26, char 25: unterminated `s' command"
     ],
     "conftest_corruption": [],
     "conftest_directives_intact": 1,
@@ -128,16 +114,8 @@
       "char fmpz_init ();\\nint main() { return fmpz_init (); }"
     ]
   },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "fail",
-    "real_make": "skipped",
-    "real_configure_lines": 15827,
-    "real_first_error": "configure: error: libaesrand not found",
-    "classification": "BOTH_CONFIGURE_FAIL"
-  },
   "receipt": {
-    "court_status": "not_standalone",
+    "court_status": "partial",
     "probe_trace": [],
     "quirks_matched": [
       "uses-libtool-old",
@@ -146,14 +124,7 @@
       "vendored-aclocal",
       "uses-ax-archive"
     ],
-    "quirks_applied": [
-      {
-        "id": "uses-subdir-objects",
-        "action": "--disable-dependency-tracking",
-        "verified": false
-      }
-    ],
-    "receipt_hash": "1b59d07d0a20a927a52050673c57d051c46cf0669ffc84ae54f67e19a8cf7afb",
+    "receipt_hash": "fc222e24136e1c7565f3970366c0a81d4ec04fa5491250e780188ba2805c06fb",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -162,6 +133,528 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "applications/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "dgs/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "dgsl/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "gghlite/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "oz/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "tests/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      }
+    ],
+    "config_headers": [
+      "gghlite/config.h"
+    ],
+    "subdirs": [
+      "oz",
+      "dgs",
+      "dgsl",
+      "gghlite",
+      "applications"
+    ],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [],
+        "subdirs": [
+          "oz",
+          "dgs",
+          "dgsl",
+          "gghlite",
+          "applications"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "applications",
+        "targets": [
+          "bench_dgsl",
+          "#",
+          "bench_prime_g",
+          "#",
+          "bench_invert",
+          "#",
+          "bench_rem"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "dgs",
+        "targets": [
+          "libdgs.la",
+          "test_gauss_z"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "dgs/benchmarks",
+        "targets": [
+          "bench_gauss"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "dgsl",
+        "targets": [
+          "libdgsl.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "gghlite",
+        "targets": [
+          "libgghlite.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "oz",
+        "targets": [
+          "liboz.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "tests",
+        "targets": [
+          "$(TESTS)"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      }
+    ],
+    "max_depth": 1,
+    "config_h_consumers_below_root": []
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 0,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "tests/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 0,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "dgsl/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 0,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "dgs/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 0,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "applications/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 0,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "oz/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 0,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "gghlite/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 0,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      }
+    ]
+  },
+  "tool_requirements": {
+    "detected": [
+      "ar"
+    ],
+    "missing": []
+  },
+  "macro_inventory": {
+    "macro_dirs": [
+      "m4"
+    ],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [
+      {
+        "name": "AX_VALGRIND_CHECK",
+        "source": "m4/ax_valgrind_check.m4",
+        "kind": "AX"
+      }
+    ],
+    "called_macros": [
+      "AC_ARG_ENABLE",
+      "AC_CHECK_HEADERS",
+      "AC_CONFIG_AUX_DIR",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_HEADERS",
+      "AC_CONFIG_MACRO_DIR",
+      "AC_CONFIG_SRCDIR",
+      "AC_DEFINE",
+      "AC_INIT",
+      "AC_MSG_ERROR",
+      "AC_OUTPUT",
+      "AC_PROG_CC_C99",
+      "AC_PROG_LIBTOOL",
+      "AC_SEARCH_LIBS",
+      "AC_SUBST",
+      "AM_DEFAULT_VERBOSITY",
+      "AM_INIT_AUTOMAKE",
+      "AM_PROG_AR",
+      "AM_SILENT_RULES",
+      "AX_VALGRIND_CHECK"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 132,
+    "configure_fi": 128,
+    "configure_case": 63,
+    "configure_esac": 66,
+    "balanced": false,
+    "automake_conditionals": []
+  },
+  "config_aux_inventory": {
+    "aux_dir": ".",
+    "present": [
+      "install-sh",
+      "missing"
+    ],
+    "missing": [
+      "depcomp",
+      "compile",
+      "ltmain.sh"
+    ]
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "c": 42,
+      "h": 25
+    },
+    "configure_macros": [
+      "AC_PROG_CC",
+      "AC_PROG_CC_C99"
+    ],
+    "needs_cxx": false,
+    "needs_fortran": false,
+    "sets_c_std": true
+  },
+  "libtool_context": {
+    "uses_libtool": true,
+    "macros": [
+      "AC_PROG_LIBTOOL"
+    ],
+    "ltmain_present": false,
+    "libtool_m4_sources": [],
+    "age": "old"
+  },
+  "make_graph": {
+    "targets": [],
+    "key_variables": {},
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "libtool",
+      "config.log"
+    ],
+    "recursion_depth": 1,
+    "top_targets": [],
+    "make_diagnostics": [
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make: *** No targets.  Stop."
+      }
+    ]
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": false,
+    "defines_sampled": []
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-libtool-old",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-subdir-objects",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "has-m4-macro-dir",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-ax-archive",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "omp.h"
+    ],
+    "headers_included_unchecked": [
+      "aesrand/aesrand.h",
+      "dgs/dgs.h",
+      "dgsl/dgsl.h",
+      "dgsl/gso.h",
+      "flint/fmpq_poly.h",
+      "flint/fmpz_mat.h",
+      "flint/fmpz_mod_poly.h",
+      "flint/fmpz_poly.h",
+      "flint/fmpz_vec.h",
+      "flint/nmod_poly.h",
+      "flint/nmod_vec.h",
+      "flint/ulong_extras.h",
+      "gghlite/config.h",
+      "gghlite/gghlite-defs.h",
+      "gghlite/gghlite-internals.h",
+      "gghlite/gghlite.h",
+      "gghlite/misc.h",
+      "oz/flags.h",
+      "oz/flint-addons.h",
+      "oz/oz.h",
+      "oz/util.h",
+      "stdint.h",
+      "sys/time.h",
+      "unistd.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 5,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "c99",
+    "strip_modern_poison_flags": [],
+    "inject_legacy_shims": false,
+    "compiler_aliasing": {}
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 2,
+    "shadowed_builtins": [],
+    "permitted_mutations": 2,
+    "suspect_global_mutations": 0
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "aesrand/aesrand.h",
+      "dgs/dgs.h",
+      "dgsl/dgsl.h",
+      "dgsl/gso.h",
+      "flint/fmpq_poly.h",
+      "flint/fmpz_mat.h",
+      "flint/fmpz_mod_poly.h",
+      "flint/fmpz_poly.h",
+      "flint/fmpz_vec.h",
+      "flint/nmod_poly.h",
+      "flint/nmod_vec.h",
+      "flint/ulong_extras.h",
+      "gghlite/config.h",
+      "gghlite/gghlite-defs.h",
+      "gghlite/gghlite-internals.h",
+      "gghlite/gghlite.h",
+      "gghlite/misc.h",
+      "oz/flags.h",
+      "oz/flint-addons.h",
+      "oz/oz.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "ancient-libtool"
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": -1,
+      "Makefile.in": 1052,
+      "aclocal.m4": 8,
+      "configure": 14,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_ENABLE": "system-aclocal",
+      "AC_CHECK_HEADERS": "system-aclocal",
+      "AC_CONFIG_AUX_DIR": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_HEADERS": "system-aclocal",
+      "AC_CONFIG_MACRO_DIR": "system-aclocal",
+      "AC_CONFIG_SRCDIR": "system-aclocal",
+      "AC_DEFINE": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_MSG_ERROR": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PROG_CC_C99": "system-aclocal",
+      "AC_PROG_LIBTOOL": "system-aclocal",
+      "AC_SEARCH_LIBS": "system-aclocal",
+      "AC_SUBST": "system-aclocal",
+      "AM_DEFAULT_VERBOSITY": "system-aclocal",
+      "AM_INIT_AUTOMAKE": "system-aclocal",
+      "AM_PROG_AR": "system-aclocal",
+      "AM_SILENT_RULES": "system-aclocal",
+      "AX_VALGRIND_CHECK": "m4/ax_valgrind_check.m4"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "check_PROGRAMS",
+        "var": "TESTS",
+        "resolved_to": [
+          "test_rem_small",
+          "test_instgen",
+          "test_jigsaw"
+        ],
+        "resolved": true
+      }
+    ],
+    "unresolved_refs": [],
+    "indirection_count": 1
   }
 }

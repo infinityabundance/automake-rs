@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "cea-hpc/robinhood",
   "source": {
     "url": "https://github.com/cea-hpc/robinhood",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,11 +26,11 @@
     {
       "step": "configure",
       "tool": "./configure",
-      "status": "fail"
+      "status": "ok"
     },
     {
-      "step": "auto-quirk",
-      "tool": "quirk-engine",
+      "step": "make",
+      "tool": "make",
       "status": "fail"
     }
   ],
@@ -53,82 +53,74 @@
     "subdirs"
   ],
   "outputs": [],
-  "status": "CONFIGURE_RUN_FAIL",
+  "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 3004: syntax error near unexpected token `)'",
+  "diagnostic": "make: *** No targets specified and no makefile found.  Stop.",
   "deep_expansion": {
-    "configure_lines": 4075,
+    "configure_lines": 4488,
     "leaked_macros": [],
     "heredoc_openers": 60,
     "heredoc_terminators": 60,
     "heredoc_imbalance": 0,
-    "syntax_errors": [
-      {
-        "line": 3004,
-        "token": ")",
-        "source": ") \\",
-        "block": [
-          "3000: ifeq ($(VALGRIND_ENABLED),yes)",
-          "3001: \t-$(foreach tool,$(valgrind_tools), \\",
-          "3002: \t\t$(if $(VALGRIND_HAVE_TOOL_$(tool))$(VALGRIND_HAVE_TOOL_exp_$(tool)), \\",
-          "3003: \t\t\t$(MAKE) $(AM_MAKEFLAGS) -k check-valgrind-tool VALGRIND_TOOL=$(tool); \\",
-          "3004: \t\t) \\",
-          "3005: \t)",
-          "3006: else",
-          "3007: \t@echo \"Need to reconfigure with --enable-valgrind\""
-        ]
-      }
-    ],
+    "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 1979: do eval test \\${$as_var+y} \\"
+      "line 2042: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
+      "RELEASE",
       "PACKAGE_NAME",
       "PACKAGE_TARNAME",
       "PACKAGE_VERSION",
       "PACKAGE_STRING",
-      "PACKAGE_BUGREPORT"
+      "PACKAGE_BUGREPORT",
+      "CC_OPT",
+      "GLIB2_CFLAGS",
+      "GLIB2_LIBS",
+      "GTHREAD2_CFLAGS",
+      "GTHREAD2_LIBS",
+      "DEBUG_PARSING_TRUE",
+      "DEBUG_PARSING_FALSE",
+      "VALGRIND_ENABLED_TRUE",
+      "VALGRIND_ENABLED_FALSE",
+      "VALGRIND_ENABLED",
+      "VALGRIND_HAVE_TOOL_memcheck",
+      "VALGRIND_HAVE_TOOL_helgrind",
+      "VALGRIND_HAVE_TOOL_drd",
+      "VALGRIND_HAVE_TOOL_exp_sgcheck",
+      "VALGRIND_CHECK_RULES",
+      "COMMON_RPMS_TRUE",
+      "COMMON_RPMS_FALSE",
+      "LUSTRE_TRUE",
+      "LUSTRE_FALSE",
+      "LUSTRE",
+      "LDEFINES",
+      "FS_LDFLAGS",
+      "CHANGELOGS_TRUE"
     ],
-    "failed_during_check": "checking whether to enable Valgrind on the unit tests... yes",
+    "failed_during_check": "checking for fallocate... yes",
     "failure_tail": [
-      "checking whether to enable Valgrind on the unit tests... yes",
-      "./configure: line 3004: syntax error near unexpected token `)'",
-      "./configure: line 3004: `\t\t) \\'"
+      "checking for fallocate... yes",
+      "configure: Using config dir",
+      "configure: Summary:",
+      "configure: Lustre     support is OFF",
+      "configure: Backup     support is OFF"
     ],
     "conftest_corruption": [],
-    "conftest_directives_intact": 57,
+    "conftest_directives_intact": 64,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
       "#include <sys/types.h>\\nint main() { return sizeof(off_t) >= 8 ? 0 : 1; }",
-      "#include <sys/types.h>\\n#include <stdint.h>\\n#include <stddef.h>\\nint main() { static int 1 - 2 * !((long int) (sizeof (nlink_t)) <= 0)test_ar",
-      "#include <sys/types.h>\\n#include <stdint.h>\\n#include <stddef.h>\\nint main() { static int 1 - 2 * !((long int) (sizeof (off_t)) <= 0)test_arra",
-      "#include <sys/types.h>\\n#include <stdint.h>\\n#include <stddef.h>\\nint main() { static int 1 - 2 * !((long int) (sizeof (ino_t)) <= 0)test_arra",
-      "#include <sys/types.h>\\n#include <stdint.h>\\n#include <stddef.h>\\nint main() { static int 1 - 2 * !((long int) (sizeof (dev_t)) <= 0)test_arra",
-      "#include <sys/types.h>\\n#include <stdint.h>\\n#include <stddef.h>\\nint main() { static int 1 - 2 * !((long int) (sizeof (time_t)) <= 0)test_arr"
+      "#include <stdio.h>\\n#include <sys/types.h>\\n#include <stdint.h>\\n#include <stddef.h>\\nint main() { printf(\"%d\", (int)sizeof(nlink_t)); return 0; }",
+      "#include <stdio.h>\\n#include <sys/types.h>\\n#include <stdint.h>\\n#include <stddef.h>\\nint main() { printf(\"%d\", (int)sizeof(off_t)); return 0; }",
+      "#include <stdio.h>\\n#include <sys/types.h>\\n#include <stdint.h>\\n#include <stddef.h>\\nint main() { printf(\"%d\", (int)sizeof(ino_t)); return 0; }",
+      "#include <stdio.h>\\n#include <sys/types.h>\\n#include <stdint.h>\\n#include <stddef.h>\\nint main() { printf(\"%d\", (int)sizeof(dev_t)); return 0; }",
+      "#include <stdio.h>\\n#include <sys/types.h>\\n#include <stdint.h>\\n#include <stddef.h>\\nint main() { printf(\"%d\", (int)sizeof(time_t)); return 0; }"
     ]
   },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "ok",
-    "real_make": "ok",
-    "real_configure_lines": 22380,
-    "real_first_error": "",
-    "classification": "OURS_BUG_CONFIGURE"
-  },
-  "divergence": {
-    "stage": "configure",
-    "ours_error": "line 3004: ) \\ (near `)`)",
-    "ours_error_context": [
-      ") \\"
-    ],
-    "ours_configure_lines": 4075,
-    "real_configure_lines": 22380,
-    "macros_ours_left_undefined": []
-  },
   "receipt": {
-    "court_status": "failed",
+    "court_status": "partial",
     "probe_trace": [],
     "quirks_matched": [
       "uses-libtool-old",
@@ -137,14 +129,7 @@
       "vendored-aclocal",
       "uses-ax-archive"
     ],
-    "quirks_applied": [
-      {
-        "id": "uses-subdir-objects",
-        "action": "--disable-dependency-tracking",
-        "verified": false
-      }
-    ],
-    "receipt_hash": "24e39ed3178d433d21c1340a6407fda16d8349c27724819539e8175382940e80",
+    "receipt_hash": "fc222e24136e1c7565f3970366c0a81d4ec04fa5491250e780188ba2805c06fb",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -153,6 +138,950 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "doc/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "doc/doxygen/doxygen.cfg",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "doc/templates/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "man/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "robinhood.spec",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "scripts/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "scripts/ld.so.robinhood.conf",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "scripts/rbh_cksum.sh",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "scripts/robinhood.init",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "scripts/robinhood.init.sles",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "scripts/robinhood.service",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "scripts/robinhood@.service",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "src/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "src/cfg_parsing/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/chglog_reader/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/common/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/entry_processor/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/fs_scan/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/include/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/list_mgr/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/modules/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/policies/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/robinhood/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/tests/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/tools/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tests/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "tests/test_suite/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "web_gui/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      }
+    ],
+    "config_headers": [],
+    "subdirs": [
+      "src",
+      "scripts",
+      "tests",
+      "web_gui",
+      "man",
+      "doc",
+      "templates",
+      "include",
+      "common",
+      "list_mgr",
+      "entry_processor",
+      "fs_scan",
+      "cfg_parsing",
+      "modules",
+      "policies",
+      "chglog_reader",
+      "robinhood",
+      "tools",
+      "tests",
+      "test_suite"
+    ],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [],
+        "subdirs": [
+          "src",
+          "scripts",
+          "tests",
+          "web_gui",
+          "man",
+          "doc"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "doc",
+        "targets": [],
+        "subdirs": [
+          "templates"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src",
+        "targets": [],
+        "subdirs": [
+          "include",
+          "common",
+          "list_mgr",
+          "entry_processor",
+          "fs_scan",
+          "cfg_parsing",
+          "modules",
+          "policies",
+          "chglog_reader",
+          "robinhood",
+          "tools",
+          "tests"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/cfg_parsing",
+        "targets": [
+          "libconfigparsing.la",
+          "librbhcfg.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/chglog_reader",
+        "targets": [
+          "libchglog_rd.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/common",
+        "targets": [
+          "libcommontools.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/entry_processor",
+        "targets": [
+          "libentryproc.la",
+          "test_hash"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/fs_scan",
+        "targets": [
+          "libfsscan.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/include",
+        "targets": [],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/list_mgr",
+        "targets": [
+          "liblistmgr.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/modules",
+        "targets": [],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/policies",
+        "targets": [
+          "libpolicies.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/robinhood",
+        "targets": [
+          "librbhhelpers.la",
+          "robinhood",
+          "rbh-report",
+          "rbh-diff",
+          "rbh-recov",
+          "rbh-undelete",
+          "rbh-import",
+          "rbh-rebind",
+          "robinhood",
+          "rbh-report",
+          "rbh-diff",
+          "rbh-undelete"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/tests",
+        "targets": [
+          "test_uidgidcache",
+          "test_params",
+          "test_confparam",
+          "test_parse",
+          "$(check_PROGRAMS)"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/tools",
+        "targets": [],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "tests",
+        "targets": [],
+        "subdirs": [
+          "test_suite"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "tests/test_suite",
+        "targets": [
+          "create-random"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      }
+    ],
+    "max_depth": 2,
+    "config_h_consumers_below_root": [
+      "src/modules",
+      "src/tests",
+      "src/tools",
+      "src/list_mgr",
+      "src/fs_scan",
+      "src/policies",
+      "src/common",
+      "src/include",
+      "src/entry_processor",
+      "src/robinhood",
+      "src/cfg_parsing",
+      "src/chglog_reader"
+    ]
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "doc/doxygen/Makefile",
+        "has_makefile_in": false,
+        "has_makefile_am": false,
+        "lines": 7,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      }
+    ]
+  },
+  "tool_requirements": {
+    "detected": [
+      "yacc",
+      "ar",
+      "bison",
+      "flex",
+      "doxygen"
+    ],
+    "missing": []
+  },
+  "macro_inventory": {
+    "macro_dirs": [],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [],
+    "called_macros": [
+      "AC_ARG_ENABLE",
+      "AC_ARG_WITH",
+      "AC_CHECK_DECL",
+      "AC_CHECK_DECLS",
+      "AC_CHECK_FUNC",
+      "AC_CHECK_HEADER",
+      "AC_CHECK_HEADERS",
+      "AC_CHECK_LIB",
+      "AC_CHECK_MEMBER",
+      "AC_CHECK_SIZEOF",
+      "AC_CHECK_TYPE",
+      "AC_CONFIG_AUX_DIR",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_HEADER",
+      "AC_CONFIG_MACRO_DIR",
+      "AC_CONFIG_SRCDIR",
+      "AC_C_CONST",
+      "AC_C_INLINE",
+      "AC_DEFINE",
+      "AC_DEFINE_UNQUOTED",
+      "AC_GNU_SOURCE",
+      "AC_HEADER_STDC",
+      "AC_HELP_STRING",
+      "AC_INIT",
+      "AC_MSG_ERROR",
+      "AC_MSG_NOTICE",
+      "AC_MSG_WARN",
+      "AC_OUTPUT",
+      "AC_PATH_PROG",
+      "AC_PREFIX_DEFAULT",
+      "AC_PREREQ",
+      "AC_PROG_CC",
+      "AC_PROG_LIBTOOL",
+      "AC_PROG_YACC",
+      "AC_SUBST",
+      "AC_SYS_LARGEFILE",
+      "AC_TYPE_SIZE_T",
+      "AC_TYPE_UID_T",
+      "AM_CONDITIONAL",
+      "AM_INIT_AUTOMAKE",
+      "AM_PROG_AR",
+      "AM_PROG_CC_C_O",
+      "AM_PROG_LEX",
+      "AM_SILENT_RULES",
+      "AX_DISABLE_FLAG",
+      "AX_ENABLE_FLAG",
+      "AX_LUSTRE_SRC_VERSION",
+      "AX_LUSTRE_VERSION",
+      "AX_MYSQL_INFO",
+      "AX_VALGRIND_CHECK",
+      "PKG_CHECK_MODULES"
+    ],
+    "unresolved_macros": [
+      "AX_DISABLE_FLAG",
+      "AX_ENABLE_FLAG",
+      "AX_LUSTRE_SRC_VERSION",
+      "AX_LUSTRE_VERSION",
+      "AX_MYSQL_INFO",
+      "AX_VALGRIND_CHECK"
+    ]
+  },
+  "conditional_context": {
+    "configure_if": 285,
+    "configure_fi": 277,
+    "configure_case": 64,
+    "configure_esac": 67,
+    "balanced": false,
+    "automake_conditionals": [
+      "DEBUG_PARSING",
+      "COMMON_RPMS",
+      "LUSTRE",
+      "CHANGELOGS",
+      "USER_LOVEA",
+      "LUSTRE_HSM",
+      "SHOOK",
+      "HSM_LITE",
+      "USE_JEMALLOC",
+      "USE_MYSQL_DB",
+      "USE_SQLITE_DB",
+      "MNTENTCOMPAT"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": "autotools",
+    "present": [
+      "install-sh",
+      "missing"
+    ],
+    "missing": [
+      "depcomp",
+      "compile",
+      "ltmain.sh"
+    ]
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "c": 93,
+      "h": 50
+    },
+    "configure_macros": [
+      "AC_PROG_CC"
+    ],
+    "needs_cxx": false,
+    "needs_fortran": false,
+    "sets_c_std": true
+  },
+  "libtool_context": {
+    "uses_libtool": true,
+    "macros": [
+      "AC_PROG_LIBTOOL"
+    ],
+    "ltmain_present": false,
+    "libtool_m4_sources": [
+      "aclocal.m4"
+    ],
+    "age": "old"
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": false,
+    "defines_sampled": []
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-libtool-old",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-pkg-config",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-subdir-objects",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-ax-archive",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "vpath_analysis": {
+    "hardcoded_src_paths": 0,
+    "abs_path_leakage": 0,
+    "built_sources": [],
+    "generated_source_targets": [
+      "conf_lex.l",
+      "conf_yacc.h"
+    ]
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "(mysql/mysql.h",
+      "lustre/lustre_idl.h",
+      "lustre/lustreapi.h",
+      "mysql/mysql.h",
+      "sqlite3.h",
+      "string.h",
+      "sys/param.h",
+      "sys/xattr.h"
+    ],
+    "headers_included_unchecked": [
+      "asm/types.h",
+      "dlfcn.h",
+      "fcntl.h",
+      "inttypes.h",
+      "linux/limits.h",
+      "linux/types.h",
+      "linux/unistd.h",
+      "lustre/liblustreapi.h",
+      "pthread.h",
+      "stdint.h",
+      "sys/ioctl.h",
+      "sys/mount.h",
+      "sys/sendfile.h",
+      "sys/stat.h",
+      "sys/syscall.h",
+      "sys/time.h",
+      "sys/types.h",
+      "sys/ucred.h",
+      "sys/utsname.h",
+      "sys/vfs.h",
+      "sys/wait.h",
+      "unistd.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 3,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "explicit",
+    "strip_modern_poison_flags": [],
+    "inject_legacy_shims": false,
+    "compiler_aliasing": {}
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 13,
+    "shadowed_builtins": [],
+    "permitted_mutations": 10,
+    "suspect_global_mutations": 0
+  },
+  "parallel_build_safety": {
+    "vpath_out_of_tree_safe": true,
+    "generators": [
+      "conf_lex.l",
+      "conf_yacc.h"
+    ],
+    "unordered_generated_sources": [
+      "conf_lex.l",
+      "conf_yacc.h"
+    ],
+    "built_sources_declared": false
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "asm/types.h",
+      "dlfcn.h",
+      "fcntl.h",
+      "inttypes.h",
+      "linux/limits.h",
+      "linux/types.h",
+      "linux/unistd.h",
+      "lustre/liblustreapi.h",
+      "pthread.h",
+      "stdint.h",
+      "sys/ioctl.h",
+      "sys/mount.h",
+      "sys/sendfile.h",
+      "sys/stat.h",
+      "sys/syscall.h",
+      "sys/time.h",
+      "sys/types.h",
+      "sys/ucred.h",
+      "sys/utsname.h",
+      "sys/vfs.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "subdir-config-h-include-path",
+    "unresolved-macros",
+    "ancient-libtool",
+    "parallel-build-race (gen-source not in BUILT_SOURCES)"
+  ],
+  "repair_hints": [
+    {
+      "id": "subdir-top-builddir",
+      "phase": "make",
+      "confidence": 0.88,
+      "evidence": [
+        "src/modules consumes config.h below root",
+        "src/tests consumes config.h below root",
+        "src/tools consumes config.h below root",
+        "src/list_mgr consumes config.h below root",
+        "src/fs_scan consumes config.h below root"
+      ],
+      "action": "ensure ac_subst_file sets relative top_builddir per subdir (0.1.19)",
+      "expected_effect": "config.h found in subdir compiles"
+    },
+    {
+      "id": "ship-or-neutralize-macro",
+      "phase": "autoreconf",
+      "confidence": 0.6,
+      "evidence": [
+        "AX_DISABLE_FLAG",
+        "AX_ENABLE_FLAG",
+        "AX_LUSTRE_SRC_VERSION",
+        "AX_LUSTRE_VERSION",
+        "AX_MYSQL_INFO"
+      ],
+      "action": "ship native impl or neutralize",
+      "expected_effect": "resolves unexpanded AX_/custom macros"
+    }
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": -1,
+      "Makefile.in": 1349,
+      "aclocal.m4": 29,
+      "configure": 40,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_ENABLE": "system-aclocal",
+      "AC_ARG_WITH": "system-aclocal",
+      "AC_CHECK_DECL": "system-aclocal",
+      "AC_CHECK_DECLS": "system-aclocal",
+      "AC_CHECK_FUNC": "system-aclocal",
+      "AC_CHECK_HEADER": "system-aclocal",
+      "AC_CHECK_HEADERS": "system-aclocal",
+      "AC_CHECK_LIB": "system-aclocal",
+      "AC_CHECK_MEMBER": "system-aclocal",
+      "AC_CHECK_SIZEOF": "system-aclocal",
+      "AC_CHECK_TYPE": "system-aclocal",
+      "AC_CONFIG_AUX_DIR": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_HEADER": "system-aclocal",
+      "AC_CONFIG_MACRO_DIR": "system-aclocal",
+      "AC_CONFIG_SRCDIR": "system-aclocal",
+      "AC_C_CONST": "system-aclocal",
+      "AC_C_INLINE": "system-aclocal",
+      "AC_DEFINE": "system-aclocal",
+      "AC_DEFINE_UNQUOTED": "system-aclocal",
+      "AC_GNU_SOURCE": "system-aclocal",
+      "AC_HEADER_STDC": "system-aclocal",
+      "AC_HELP_STRING": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_MSG_ERROR": "system-aclocal",
+      "AC_MSG_NOTICE": "system-aclocal",
+      "AC_MSG_WARN": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PATH_PROG": "system-aclocal",
+      "AC_PREFIX_DEFAULT": "system-aclocal",
+      "AC_PREREQ": "system-aclocal",
+      "AC_PROG_CC": "system-aclocal",
+      "AC_PROG_LIBTOOL": "system-aclocal",
+      "AC_PROG_YACC": "system-aclocal",
+      "AC_SUBST": "system-aclocal",
+      "AC_SYS_LARGEFILE": "system-aclocal",
+      "AC_TYPE_SIZE_T": "system-aclocal",
+      "AC_TYPE_UID_T": "system-aclocal",
+      "AM_CONDITIONAL": "system-aclocal",
+      "AM_INIT_AUTOMAKE": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "noinst_PROGRAMS",
+        "var": "check_PROGRAMS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "test_forcestripe_LDADD",
+        "var": "DB_LDFLAGS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "test_forcestripe_LDADD",
+        "var": "PURPOSE_LDFLAGS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "test_forcestripe_LDADD",
+        "var": "FS_LDFLAGS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "gen_lov_objid_LDADD",
+        "var": "all_libs",
+        "resolved_to": [
+          "../cfg_parsing/librbhcfg.la",
+          "../fs_scan/libfsscan.la",
+          "../entry_processor/libentryproc.la",
+          "../policies/libpolicies.la",
+          "../chglog_reader/libchglog_rd.la",
+          "../robinhood/librbhhelpers.la",
+          "../list_mgr/liblistmgr.la",
+          "../common/libcommontools.la",
+          "../cfg_parsing/libconfigparsing.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "gen_lov_objid_LDADD",
+        "var": "DB_LDFLAGS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "gen_lov_objid_LDADD",
+        "var": "FS_LDFLAGS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "gen_lov_objid_LDADD",
+        "var": "PURPOSE_LDFLAGS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "lhsmtool_cmd_LDADD",
+        "var": "FS_LDFLAGS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "liblistmgr_la_SOURCES",
+        "var": "LUSTRE_SRC",
+        "resolved_to": [
+          "listmgr_stripe.c",
+          "listmgr_stripe.h"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "liblistmgr_la_SOURCES",
+        "var": "DB_WRAPPER_SRC",
+        "resolved_to": [
+          "mysql_wrapper.c",
+          "sqlite_wrapper.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "liblistmgr_la_SOURCES",
+        "var": "DB_PURPOSE_SRC",
+        "resolved_to": [
+          "listmgr_recov.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libcommontools_la_SOURCES",
+        "var": "FS_SRC",
+        "resolved_to": [
+          "lustre_tools.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libcommontools_la_SOURCES",
+        "var": "PURPOSE_SRC",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libcommontools_la_SOURCES",
+        "var": "COMPAT_SRC",
+        "resolved_to": [
+          "mntent_compat.c",
+          "mntent_compat.h"
+        ],
+        "resolved": true
+      }
+    ],
+    "unresolved_refs": [
+      "noinst_PROGRAMS = $(check_PROGRAMS)",
+      "test_forcestripe_LDADD = $(DB_LDFLAGS)",
+      "test_forcestripe_LDADD = $(PURPOSE_LDFLAGS)",
+      "test_forcestripe_LDADD = $(FS_LDFLAGS)",
+      "gen_lov_objid_LDADD = $(DB_LDFLAGS)",
+      "gen_lov_objid_LDADD = $(FS_LDFLAGS)",
+      "gen_lov_objid_LDADD = $(PURPOSE_LDFLAGS)",
+      "lhsmtool_cmd_LDADD = $(FS_LDFLAGS)",
+      "libcommontools_la_SOURCES = $(PURPOSE_SRC)"
+    ],
+    "indirection_count": 15
   }
 }

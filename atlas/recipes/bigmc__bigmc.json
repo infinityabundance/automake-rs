@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "bigmc/bigmc",
   "source": {
     "url": "https://github.com/bigmc/bigmc",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -35,46 +35,43 @@
     }
   ],
   "probe_results": {
-    "HAVE_LIBREADLINE": 1
+    "HAVE_ASSERT_H": 1,
+    "HAVE_LIBREADLINE": 1,
+    "HAVE_PTHREAD": 1,
+    "HAVE_PTHREAD_PRIO_INHERIT": 1,
+    "HAVE_READLINE_READLINE_H": 1
   },
   "feature_flags": {
     "configure_args": []
   },
   "dependencies": {
     "pkg_config": [],
-    "system_libs": [
-      "-ltcmalloc",
-      "-lpthread"
-    ],
+    "system_libs": [],
     "headers_needed": [],
     "missing": []
   },
   "quirks": [
     "autoconf-archive-macros",
     "libtool",
-    "subdirs",
-    "LIBS=-ltcmalloc -lpthread"
+    "subdirs"
   ],
   "outputs": [],
   "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "Makefile:16: *** missing separator.  Stop.",
+  "diagnostic": "make[1]: *** No rule to make target 'bgparser.hpp', needed by 'all'.  Stop.",
   "deep_expansion": {
-    "configure_lines": 2527,
+    "configure_lines": 2534,
     "leaked_macros": [],
-    "heredoc_openers": 20,
-    "heredoc_terminators": 20,
+    "heredoc_openers": 18,
+    "heredoc_terminators": 18,
     "heredoc_imbalance": 0,
     "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2050: do eval test \\${$as_var+y} \\"
+      "line 2056: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
-      "PTHREAD_CC",
-      "PTHREAD_CFLAGS",
-      "PTHREAD_LIBS",
       "PACKAGE_NAME",
       "PACKAGE_TARNAME",
       "PACKAGE_VERSION",
@@ -84,35 +81,49 @@
     "failed_during_check": "checking for assert.h... yes",
     "failure_tail": [
       "checking for assert.h... yes",
-      "-pthread",
       "configure: creating Makefile",
       "configure: creating src/Makefile",
-      "configure: creating tests/Makefile"
+      "configure: creating tests/Makefile",
+      "configure: creating doc/Makefile"
     ],
     "conftest_corruption": [],
     "conftest_directives_intact": 2,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
-      "char pthread_create();\\nint main() { return pthread_create(); }",
-      "char malloc();\\nint main() { return malloc(); }",
       "#include <readline/readline.h>",
       "#include <assert.h>"
     ]
-  },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "ok",
-    "real_make": "fail",
-    "real_configure_lines": 19816,
-    "real_first_error": "",
-    "classification": "BOTH_MAKE_FAIL"
   },
   "receipt": {
     "court_status": "partial",
     "probe_trace": [
       {
+        "name": "HAVE_ASSERT_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
         "name": "HAVE_LIBREADLINE",
         "kind": "lib",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_PTHREAD",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_PTHREAD_PRIO_INHERIT",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_READLINE_READLINE_H",
+        "kind": "header",
         "result": "yes",
         "reason": "ok"
       }
@@ -124,7 +135,7 @@
       "uses-ax-archive",
       "uses-pthread-check"
     ],
-    "receipt_hash": "7da463e8cde31cee905781a3fd85a05ad6eee055a7bfcfa13ae49beffcc73f77",
+    "receipt_hash": "0754c9b87c538a2de853be954720c58b72ff659e3a4d8ddfb828da6c499efa74",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -133,6 +144,498 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "doc/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "src/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "tests/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      }
+    ],
+    "config_headers": [
+      "config.h"
+    ],
+    "subdirs": [
+      "src",
+      ".",
+      "tests",
+      "doc"
+    ],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [],
+        "subdirs": [
+          "src",
+          ".",
+          "tests",
+          "doc"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src",
+        "targets": [
+          "bigmc",
+          "libbigmc.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "tests",
+        "targets": [
+          "test-bigraph",
+          "test-matcher"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      }
+    ],
+    "max_depth": 1,
+    "config_h_consumers_below_root": [
+      "src"
+    ]
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 513,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "tests/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 692,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 681,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "platform/MacOS/Makefile",
+        "has_makefile_in": false,
+        "has_makefile_am": false,
+        "lines": 9,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "doc/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 691,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      }
+    ]
+  },
+  "tool_requirements": {
+    "detected": [
+      "yacc",
+      "lex",
+      "c++"
+    ],
+    "missing": []
+  },
+  "macro_inventory": {
+    "macro_dirs": [
+      "m4"
+    ],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [
+      {
+        "name": "AX_PTHREAD",
+        "source": "m4/ax_pthread.m4",
+        "kind": "AX"
+      }
+    ],
+    "called_macros": [
+      "AC_ARG_WITH",
+      "AC_CHECK_HEADER",
+      "AC_CHECK_LIB",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_HEADERS",
+      "AC_CONFIG_MACRO_DIR",
+      "AC_DEFINE",
+      "AC_HEADER_ASSERT",
+      "AC_INIT",
+      "AC_MSG_FAILURE",
+      "AC_OUTPUT",
+      "AC_PREFIX_DEFAULT",
+      "AC_PREREQ",
+      "AC_PROG_CC",
+      "AC_PROG_CXX",
+      "AC_PROG_LEX",
+      "AC_PROG_LIBTOOL",
+      "AC_PROG_YACC",
+      "AC_SEARCH_LIBS",
+      "AC_SUBST",
+      "AM_INIT_AUTOMAKE",
+      "AM_PROG_CC_C_O",
+      "AX_PTHREAD"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 102,
+    "configure_fi": 99,
+    "configure_case": 63,
+    "configure_esac": 66,
+    "balanced": false,
+    "automake_conditionals": []
+  },
+  "config_aux_inventory": {
+    "aux_dir": ".",
+    "present": [
+      "install-sh",
+      "missing",
+      "depcomp",
+      "compile"
+    ],
+    "missing": [
+      "ltmain.sh"
+    ]
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "c": 1,
+      "cpp": 32,
+      "h": 21
+    },
+    "configure_macros": [
+      "AC_PROG_CC",
+      "AC_PROG_CXX"
+    ],
+    "needs_cxx": true,
+    "needs_fortran": false,
+    "sets_c_std": false
+  },
+  "libtool_context": {
+    "uses_libtool": true,
+    "macros": [
+      "AC_PROG_LIBTOOL"
+    ],
+    "ltmain_present": false,
+    "libtool_m4_sources": [],
+    "age": "old"
+  },
+  "make_graph": {
+    "targets": [
+      "all",
+      "all-am",
+      "install-data-am",
+      "uninstall-am",
+      "install-am",
+      "installcheck-am",
+      "install-strip",
+      "install-info",
+      "install-info-am",
+      "install-dvi",
+      "install-dvi-am",
+      "install-ps",
+      "install-ps-am",
+      "install-pdf",
+      "install-pdf-am",
+      "install-html",
+      "install-html-am",
+      "install-data-hook",
+      "install-exec-hook",
+      "installdirs-am",
+      ".PHONY",
+      "mostlyclean-am",
+      "clean-am",
+      "distclean-am",
+      "maintainer-clean-am",
+      "distdir",
+      "dist",
+      "dist-all",
+      "dist-gzip",
+      "distcleancheck",
+      "distcheck",
+      "check-am",
+      "TAGS",
+      "tags",
+      "TAGS-am",
+      "tags-am",
+      "cscope",
+      "cscope-am",
+      "distuninstallcheck",
+      "$(srcdir)/Makefile.in"
+    ],
+    "key_variables": {
+      "AR": "ar",
+      "CC": "cc",
+      "CFLAGS": "-g -O2",
+      "CPPFLAGS": "",
+      "CXX": "g++",
+      "CXXFLAGS": "-g -O2",
+      "DEFS": "-DHAVE_CONFIG_H",
+      "LDFLAGS": "",
+      "LIBS": "",
+      "RANLIB": "ranlib"
+    },
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "config.h",
+      "libtool",
+      "config.log"
+    ],
+    "recursion_depth": 1,
+    "top_targets": [
+      "all",
+      "dist",
+      "all-am"
+    ],
+    "make_diagnostics": [
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[1]: *** No rule to make target 'bgparser.hpp', needed by 'all'.  Stop."
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make: *** [Makefile:460: all-recursive] Error 1"
+      }
+    ]
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": true,
+    "defines_sampled": [
+      "HAVE_CONFIG_H"
+    ]
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-libtool-old",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "has-m4-macro-dir",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-ax-archive",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-pthread-check",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "vpath_analysis": {
+    "hardcoded_src_paths": 0,
+    "abs_path_leakage": 0,
+    "built_sources": [
+      "bgparser.hpp"
+    ],
+    "generated_source_targets": []
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "readline/readline.h"
+    ],
+    "headers_included_unchecked": [
+      "pthread.h",
+      "readline/history.h",
+      "unistd.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 5,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "gnu++",
+    "strip_modern_poison_flags": [],
+    "inject_legacy_shims": false,
+    "compiler_aliasing": {}
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 0,
+    "shadowed_builtins": [],
+    "permitted_mutations": 1,
+    "suspect_global_mutations": 0
+  },
+  "parallel_build_safety": {
+    "vpath_out_of_tree_safe": true,
+    "generators": [],
+    "unordered_generated_sources": [],
+    "built_sources_declared": true
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "pthread.h",
+      "readline/history.h",
+      "unistd.h",
+      "readline/readline.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "subdir-config-h-include-path",
+    "ancient-libtool"
+  ],
+  "repair_hints": [
+    {
+      "id": "subdir-top-builddir",
+      "phase": "make",
+      "confidence": 0.88,
+      "evidence": [
+        "src consumes config.h below root"
+      ],
+      "action": "ensure ac_subst_file sets relative top_builddir per subdir (0.1.19)",
+      "expected_effect": "config.h found in subdir compiles"
+    }
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": 0,
+      "Makefile.in": 1033,
+      "aclocal.m4": 16,
+      "config.h.in": 21,
+      "configure": 19,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_WITH": "system-aclocal",
+      "AC_CHECK_HEADER": "system-aclocal",
+      "AC_CHECK_LIB": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_HEADERS": "system-aclocal",
+      "AC_CONFIG_MACRO_DIR": "system-aclocal",
+      "AC_DEFINE": "system-aclocal",
+      "AC_HEADER_ASSERT": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_MSG_FAILURE": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PREFIX_DEFAULT": "system-aclocal",
+      "AC_PREREQ": "system-aclocal",
+      "AC_PROG_CC": "system-aclocal",
+      "AC_PROG_CXX": "system-aclocal",
+      "AC_PROG_LEX": "system-aclocal",
+      "AC_PROG_LIBTOOL": "system-aclocal",
+      "AC_PROG_YACC": "system-aclocal",
+      "AC_SEARCH_LIBS": "system-aclocal",
+      "AC_SUBST": "system-aclocal",
+      "AM_INIT_AUTOMAKE": "system-aclocal",
+      "AM_PROG_CC_C_O": "system-aclocal",
+      "AX_PTHREAD": "m4/ax_pthread.m4"
+    },
+    "rebuild_trigger_risk": false
   }
 }

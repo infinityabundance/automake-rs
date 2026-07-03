@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "demorest/mark5access",
   "source": {
     "url": "https://github.com/demorest/mark5access",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -35,58 +35,57 @@
   },
   "dependencies": {
     "pkg_config": [],
-    "system_libs": [],
+    "system_libs": [
+      "-lm"
+    ],
     "headers_needed": [],
     "missing": []
   },
   "quirks": [
     "pkg-config",
-    "subdirs"
+    "subdirs",
+    "LIBS=-lm"
   ],
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 2162: syntax error near unexpected token `('",
+  "diagnostic": "",
   "deep_expansion": {
-    "configure_lines": 2520,
+    "configure_lines": 2615,
     "leaked_macros": [],
     "heredoc_openers": 19,
     "heredoc_terminators": 19,
     "heredoc_imbalance": 0,
-    "syntax_errors": [
-      {
-        "line": 2162,
-        "token": "(",
-        "source": "if (eval \"test \\$(( 1 + 1 )) = 2\") 2>/dev/null",
-        "block": [
-          "2158: # ------------------",
-          "2159: # Perform arithmetic evaluation on the ARGs, and store the result in the",
-          "2160: # global $as_val. Take advantage of shells that can avoid forks. The argumen",
-          "2161: # must be portable across $(()) and expr.",
-          "2162: if (eval \"test \\$(( 1 + 1 )) = 2\") 2>/dev/null",
-          "2163: then :",
-          "2164:   eval 'as_fn_arith ()",
-          "2165:   {"
-        ]
-      }
-    ],
+    "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2043: do eval test \\${$as_var+y} \\"
+      "line 2137: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
+      "PACKAGE_VERSION",
+      "LIBRARY_VERSION",
+      "FFTW3_CFLAGS",
+      "FFTW3_LIBS",
+      "WITH_FFTW_TRUE",
+      "WITH_FFTW_FALSE",
+      "REQUESTED_PYTHON_CTYPES_TRUE",
+      "REQUESTED_PYTHON_CTYPES_FALSE",
+      "ENABLE_PYTHON_CTYPES_TRUE",
+      "ENABLE_PYTHON_CTYPES_FALSE",
+      "version",
       "PACKAGE_NAME",
       "PACKAGE_TARNAME",
-      "PACKAGE_VERSION",
       "PACKAGE_STRING",
       "PACKAGE_BUGREPORT"
     ],
-    "failed_during_check": "checking whether to build Python bindings... ",
+    "failed_during_check": "checking whether to build Python bindings... no",
     "failure_tail": [
-      "checking whether to build Python bindings...",
-      "./configure: line 2162: syntax error near unexpected token `('",
-      "./configure: line 2162: `if (eval \"test \\$(( 1 + 1 )) = 2\") 2>/dev/null'"
+      "checking whether to build Python bindings... no",
+      "configure: creating Makefile",
+      "configure: creating mark5access.pc",
+      "configure: creating mark5access.spec",
+      "configure: creating mark5access/Makefile"
     ],
     "conftest_corruption": [],
     "conftest_directives_intact": 1,
@@ -94,26 +93,8 @@
     "conftest_programs": [
       "int main() { int x = 1; return *(char*)&x; }",
       "#include <sys/types.h>\\nint main() { return sizeof(off_t) >= 8 ? 0 : 1; }",
-      "char erf();\\nint main() { return erf(); }"
+      "char erf ();\\nint main() { return erf(); }"
     ]
-  },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "ok",
-    "real_make": "ok",
-    "real_configure_lines": 16630,
-    "real_first_error": "",
-    "classification": "OURS_BUG_CONFIGURE"
-  },
-  "divergence": {
-    "stage": "configure",
-    "ours_error": "line 2162: if (eval \"test \\$(( 1 + 1 )) = 2\") 2>/dev/null (near `(`)",
-    "ours_error_context": [
-      "if (eval \"test \\$(( 1 + 1 )) = 2\") 2>/dev/null"
-    ],
-    "ours_configure_lines": 2520,
-    "real_configure_lines": 16630,
-    "macros_ours_left_undefined": []
   },
   "receipt": {
     "court_status": "failed",
@@ -122,7 +103,7 @@
       "uses-pkg-config",
       "vendored-aclocal"
     ],
-    "receipt_hash": "24e39ed3178d433d21c1340a6407fda16d8349c27724819539e8175382940e80",
+    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -131,6 +112,633 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "bbsum/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "doc/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "examples/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "mark5access.pc",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "mark5access.spec",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "mark5access/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "python/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      }
+    ],
+    "config_headers": [
+      "config.h"
+    ],
+    "subdirs": [
+      "mark5access",
+      "bbsum",
+      "examples",
+      "doc",
+      "$(PYTHON_OPT)"
+    ],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [],
+        "subdirs": [
+          "mark5access",
+          "bbsum",
+          "examples",
+          "doc",
+          "$(PYTHON_OPT)"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "bbsum",
+        "targets": [
+          "bbsum"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)/mark5access"
+      },
+      {
+        "dir": "examples",
+        "targets": [
+          "directory2filelist",
+          "fixmark5b",
+          "m5bstate",
+          "m5bsum",
+          "m5d",
+          "m5fold",
+          "m5timeseries",
+          "m5tsys",
+          "m5test",
+          "m5time",
+          "m5slice",
+          "m5findformats"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)/mark5access -I$(srcdir)/.."
+      },
+      {
+        "dir": "mark5access",
+        "targets": [
+          "libmark5access.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)"
+      }
+    ],
+    "max_depth": 1,
+    "config_h_consumers_below_root": [
+      "mark5access",
+      "examples"
+    ]
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 522,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "python/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 444,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "mark5access/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 503,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "examples/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 773,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "doc/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 435,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "bbsum/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 489,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      }
+    ]
+  },
+  "tool_requirements": {
+    "detected": [
+      "python"
+    ],
+    "missing": []
+  },
+  "macro_inventory": {
+    "macro_dirs": [],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [],
+    "called_macros": [
+      "AC_ARG_ENABLE",
+      "AC_CHECK_LIB",
+      "AC_CONFIG_MACRO_DIR",
+      "AC_C_BIGENDIAN",
+      "AC_INIT",
+      "AC_MSG_CHECKING",
+      "AC_MSG_ERROR",
+      "AC_MSG_RESULT",
+      "AC_MSG_WARN",
+      "AC_OUTPUT",
+      "AC_PACKAGE_VERSION",
+      "AC_PATH_PROG",
+      "AC_PROG_CC",
+      "AC_SUBST",
+      "AC_SYS_LARGEFILE",
+      "AM_CONDITIONAL",
+      "AM_CONFIG_HEADER",
+      "AM_INIT_AUTOMAKE",
+      "AM_PROG_CC_C_O",
+      "AM_PROG_LIBTOOL",
+      "AM_SANITY_CHECK",
+      "PKG_CHECK_MODULES"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 112,
+    "configure_fi": 108,
+    "configure_case": 64,
+    "configure_esac": 67,
+    "balanced": false,
+    "automake_conditionals": [
+      "WITH_FFTW",
+      "REQUESTED_PYTHON_CTYPES",
+      "ENABLE_PYTHON_CTYPES"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": ".",
+    "present": [
+      "install-sh",
+      "missing"
+    ],
+    "missing": [
+      "depcomp",
+      "compile"
+    ]
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "c": 39,
+      "h": 6
+    },
+    "configure_macros": [
+      "AC_PROG_CC"
+    ],
+    "needs_cxx": false,
+    "needs_fortran": false,
+    "sets_c_std": false
+  },
+  "libtool_context": {
+    "uses_libtool": true,
+    "macros": [
+      "AM_PROG_LIBTOOL"
+    ],
+    "ltmain_present": false,
+    "libtool_m4_sources": [],
+    "age": "unknown"
+  },
+  "make_graph": {
+    "targets": [
+      "all",
+      "all-am",
+      "install-data-am",
+      "uninstall-am",
+      "install-am",
+      "installcheck-am",
+      "install-strip",
+      "install-info",
+      "install-info-am",
+      "install-dvi",
+      "install-dvi-am",
+      "install-ps",
+      "install-ps-am",
+      "install-pdf",
+      "install-pdf-am",
+      "install-html",
+      "install-html-am",
+      "install-data-hook",
+      "install-exec-hook",
+      "installdirs-am",
+      ".PHONY",
+      "mostlyclean-am",
+      "clean-am",
+      "distclean-am",
+      "maintainer-clean-am",
+      "distdir",
+      "dist",
+      "dist-all",
+      "dist-gzip",
+      "distcleancheck",
+      "distcheck",
+      "check-am",
+      "TAGS",
+      "tags",
+      "TAGS-am",
+      "tags-am",
+      "cscope",
+      "cscope-am",
+      "distuninstallcheck",
+      "$(srcdir)/Makefile.in"
+    ],
+    "key_variables": {
+      "AR": "ar",
+      "CC": "cc",
+      "CFLAGS": "-g -O2",
+      "CPPFLAGS": "-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGE_FILES",
+      "CXX": "c++",
+      "CXXFLAGS": "-g -O2",
+      "DEFS": "-DHAVE_CONFIG_H",
+      "LDFLAGS": "",
+      "LIBS": "-lm",
+      "RANLIB": "ranlib"
+    },
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "config.h",
+      "libtool",
+      "config.log"
+    ],
+    "recursion_depth": 1,
+    "top_targets": [
+      "all",
+      "dist",
+      "all-am"
+    ],
+    "make_diagnostics": []
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": true,
+    "defines_sampled": [
+      "_FILE_OFFSET_BITS=64",
+      "_LARGEFILE_SOURCE",
+      "_LARGE_FILES",
+      "HAVE_CONFIG_H"
+    ]
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-pkg-config",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "feature_probe_gap": {
+    "headers_checked": [],
+    "headers_included_unchecked": [
+      "fcntl.h",
+      "inttypes.h",
+      "stdint.h",
+      "sys/stat.h",
+      "sys/time.h",
+      "sys/types.h",
+      "unistd.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 3,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "c89_gnu",
+    "strip_modern_poison_flags": [
+      "-Werror=implicit-function-declaration",
+      "-Werror=int-conversion",
+      "-Werror=incompatible-pointer-types"
+    ],
+    "inject_legacy_shims": true,
+    "compiler_aliasing": {
+      "clang-18+": "-std=gnu89 -Wno-error",
+      "gcc-14+": "-std=gnu89 -fpermissive"
+    }
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 1,
+    "shadowed_builtins": [],
+    "permitted_mutations": 1,
+    "suspect_global_mutations": 0
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "fcntl.h",
+      "inttypes.h",
+      "stdint.h",
+      "sys/stat.h",
+      "sys/time.h",
+      "sys/types.h",
+      "unistd.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "subdir-config-h-include-path",
+    "modern-compiler-strictness (no explicit C std)"
+  ],
+  "repair_hints": [
+    {
+      "id": "subdir-top-builddir",
+      "phase": "make",
+      "confidence": 0.88,
+      "evidence": [
+        "mark5access consumes config.h below root",
+        "examples consumes config.h below root"
+      ],
+      "action": "ensure ac_subst_file sets relative top_builddir per subdir (0.1.19)",
+      "expected_effect": "config.h found in subdir compiles"
+    }
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": 0,
+      "Makefile.in": 1205,
+      "aclocal.m4": 9,
+      "config.h.in": 14,
+      "configure": 13,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_ENABLE": "system-aclocal",
+      "AC_CHECK_LIB": "system-aclocal",
+      "AC_CONFIG_MACRO_DIR": "system-aclocal",
+      "AC_C_BIGENDIAN": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_MSG_CHECKING": "system-aclocal",
+      "AC_MSG_ERROR": "system-aclocal",
+      "AC_MSG_RESULT": "system-aclocal",
+      "AC_MSG_WARN": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PACKAGE_VERSION": "system-aclocal",
+      "AC_PATH_PROG": "system-aclocal",
+      "AC_PROG_CC": "system-aclocal",
+      "AC_SUBST": "system-aclocal",
+      "AC_SYS_LARGEFILE": "system-aclocal",
+      "AM_CONDITIONAL": "system-aclocal",
+      "AM_CONFIG_HEADER": "system-aclocal",
+      "AM_INIT_AUTOMAKE": "system-aclocal",
+      "AM_PROG_CC_C_O": "system-aclocal",
+      "AM_PROG_LIBTOOL": "system-aclocal",
+      "AM_SANITY_CHECK": "system-aclocal",
+      "PKG_CHECK_MODULES": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "libmark5access_la_SOURCES",
+        "var": "h_sources",
+        "resolved_to": [
+          "mark5_stream.h",
+          "mark5bfix.h",
+          "mark5bfile.h"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libmark5access_la_SOURCES",
+        "var": "c_sources",
+        "resolved_to": [
+          "mark5_stream.c",
+          "mark5_stream_file.c",
+          "mark5_stream_memory.c",
+          "mark5_stream_unpacker.c",
+          "mark5_format_vlba.c",
+          "mark5_format_vlba_nomod.c",
+          "mark5_format_mark4.c",
+          "mark5_format_mark5b.c",
+          "mark5_format_kvn5b.c",
+          "mark5_format_d2k.c",
+          "format_vdif.c",
+          "format_vdifb.c",
+          "blanker_none.c",
+          "blanker_mark5.c",
+          "mark5bfix.c",
+          "mark5bfile.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "m5spec_LDADD",
+        "var": "FFTW3_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "m5spec_LDADD",
+        "var": "LDADD",
+        "resolved_to": [
+          "$(top_builddir)/mark5access/libmark5access.la",
+          "-lm"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "m5fb_LDADD",
+        "var": "FFTW3_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "m5fb_LDADD",
+        "var": "LDADD",
+        "resolved_to": [
+          "$(top_builddir)/mark5access/libmark5access.la",
+          "-lm"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "m5pcal_LDADD",
+        "var": "FFTW3_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "m5pcal_LDADD",
+        "var": "LDADD",
+        "resolved_to": [
+          "$(top_builddir)/mark5access/libmark5access.la",
+          "-lm"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "zerocorr_LDADD",
+        "var": "FFTW3_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "zerocorr_LDADD",
+        "var": "LDADD",
+        "resolved_to": [
+          "$(top_builddir)/mark5access/libmark5access.la",
+          "-lm"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "bin_PROGRAMS",
+        "var": "fftw_programs",
+        "resolved_to": [
+          "m5pcal",
+          "m5spec",
+          "m5fb",
+          "zerocorr"
+        ],
+        "resolved": true
+      }
+    ],
+    "unresolved_refs": [
+      "m5spec_LDADD = $(FFTW3_LIBS)",
+      "m5fb_LDADD = $(FFTW3_LIBS)",
+      "m5pcal_LDADD = $(FFTW3_LIBS)",
+      "zerocorr_LDADD = $(FFTW3_LIBS)"
+    ],
+    "indirection_count": 11
   }
 }

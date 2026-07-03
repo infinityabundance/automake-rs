@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "ewxrjk/sftpserver",
   "source": {
     "url": "https://github.com/ewxrjk/sftpserver",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -35,84 +35,181 @@
     }
   ],
   "probe_results": {
-    "HAVE_READLINE": 1
+    "HAVE_DAEMON": 1,
+    "HAVE_DECL_BE64TOH": 1,
+    "HAVE_DECL_HTOBE64": 1,
+    "HAVE_ENDIAN_H": 1,
+    "HAVE_FUTIMENS": 1,
+    "HAVE_FUTIMES": 1,
+    "HAVE_GETADDRINFO": 1,
+    "HAVE_GETOPT_LONG": 1,
+    "HAVE_PRCTL": 1,
+    "HAVE_READLINE": 1,
+    "HAVE_SIZE_MAX": 1,
+    "HAVE_STAT_TIMESPEC_POSIX": 1,
+    "HAVE_STDINT_H": 1,
+    "HAVE_SYS_PRCTL_H": 1,
+    "HAVE_UTIMENSAT": 1,
+    "HAVE_UTIMES": 1
   },
   "feature_flags": {
     "configure_args": []
   },
   "dependencies": {
     "pkg_config": [],
-    "system_libs": [],
+    "system_libs": [
+      "-lpthread"
+    ],
     "headers_needed": [],
     "missing": []
   },
   "quirks": [
-    "libtool"
+    "libtool",
+    "LIBS=-lpthread"
   ],
   "outputs": [],
   "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "Makefile:16: *** missing separator.  Stop.",
+  "diagnostic": "utils.h:180:39: error: expected declaration specifiers before 'attribute'",
   "deep_expansion": {
-    "configure_lines": 2560,
+    "configure_lines": 3284,
     "leaked_macros": [],
-    "heredoc_openers": 23,
-    "heredoc_terminators": 23,
+    "heredoc_openers": 38,
+    "heredoc_terminators": 38,
     "heredoc_imbalance": 0,
     "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2083: do eval test \\${$as_var+y} \\"
+      "line 1451: # eval \"_acrs_sv=\\${}\"; printf '%s\\n' \"s|@@|${_acrs_sv}|g\" >",
+      "line 1571: # eval \"_acrs_sv=\\${}\"; printf '%s\\n' \"s|@@|${_acrs_sv}|g\" >",
+      "line 2806: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
+      "LIBREADLINE",
+      "PYTHON3",
+      "ETCDIR",
+      "GCOV",
       "PACKAGE_NAME",
       "PACKAGE_TARNAME",
       "PACKAGE_VERSION",
       "PACKAGE_STRING",
       "PACKAGE_BUGREPORT"
     ],
-    "failed_during_check": "checking whether to reverse SSH_FXP_SYMLINK arguments... ",
+    "failed_during_check": "checking whether to reverse SSH_FXP_SYMLINK arguments... no",
     "failure_tail": [
-      "checking whether to reverse SSH_FXP_SYMLINK arguments...",
-      "./configure: line 1500: test: =: unary operator expected",
-      "./configure: line 1507: test: =: unary operator expected",
-      "./configure: line 1520: RJK_GCOV: command not found",
-      "configure: creating Makefile"
+      "for Python 3... checking whether to reverse SSH_FXP_SYMLINK arguments... no",
+      "configure: creating Makefile",
+      "configure: creating config.h",
+      "configure: creating ./config.status"
     ],
     "conftest_corruption": [],
-    "conftest_directives_intact": 6,
+    "conftest_directives_intact": 35,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
+      "char pthread_create ();\\nint main() { return pthread_create(); }",
+      "char pthread_create ();\\nint main() { return pthread_create(); }",
+      "char pthread_create ();\\nint main() { return pthread_create(); }",
       "#include <$ac_hdr>",
-      "char socket();\\nint main() { return socket(); }",
-      "char readline();\\nint main() { return readline(); }",
-      "#include <sys/types.h>\\nint main() { return sizeof(off_t) >= 8 ? 0 : 1; }",
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func();\\nint main() { return $ac_func(); }",
-      "\\nint main (void)\\n{\\n#ifndef be64toh, htobe64\\n(void) be64toh, htobe64;\\n#endif\\n;\\nreturn 0;\\n}"
+      "char socket ();\\nint main() { return socket(); }",
+      "char readline ();\\nint main() { return readline(); }"
     ]
-  },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "ok",
-    "real_make": "ok",
-    "real_configure_lines": 8137,
-    "real_first_error": "",
-    "classification": "OURS_BUG_MAKE"
-  },
-  "divergence": {
-    "stage": "make",
-    "ours_error": "",
-    "ours_error_context": [],
-    "ours_configure_lines": 2560,
-    "real_configure_lines": 8137,
-    "macros_ours_left_undefined": []
   },
   "receipt": {
     "court_status": "partial",
     "probe_trace": [
       {
+        "name": "HAVE_DAEMON",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_DECL_BE64TOH",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_DECL_HTOBE64",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_ENDIAN_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_FUTIMENS",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_FUTIMES",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_GETADDRINFO",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_GETOPT_LONG",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_PRCTL",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
         "name": "HAVE_READLINE",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SIZE_MAX",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STAT_TIMESPEC_POSIX",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STDINT_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SYS_PRCTL_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_UTIMENSAT",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_UTIMES",
         "kind": "func",
         "result": "yes",
         "reason": "ok"
@@ -123,7 +220,7 @@
       "has-acinclude",
       "vendored-aclocal"
     ],
-    "receipt_hash": "a146aaf89a5d8f965535a71643dd4a1b868eedca355fea6fe28a65059a70580c",
+    "receipt_hash": "1be53351f44cdfeffcc136dfcd0fc9affe9190f6d21e746607af7fdd840ffabc",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -132,6 +229,543 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      }
+    ],
+    "config_headers": [
+      "config.h"
+    ],
+    "subdirs": [],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [
+          "sftpclient",
+          "pwtest",
+          "gesftpserver",
+          "libsftp.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-DETCDIR=\\\"$(ETCDIR)\\\""
+      }
+    ],
+    "max_depth": 0,
+    "config_h_consumers_below_root": []
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 623,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      }
+    ]
+  },
+  "tool_requirements": {
+    "detected": [
+      "ar"
+    ],
+    "missing": []
+  },
+  "macro_inventory": {
+    "macro_dirs": [],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": true,
+    "defined_macros": [
+      {
+        "name": "RJK_BUILDSYS_FINK",
+        "source": "acinclude.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "RJK_ISCLANG",
+        "source": "acinclude.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "RJK_BUILDSYS_MISC",
+        "source": "acinclude.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "RJK_GCC_WARNINGS",
+        "source": "acinclude.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "RJK_GTKFLAGS",
+        "source": "acinclude.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "RJK_STAT_TIMESPEC",
+        "source": "acinclude.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "RJK_STAT_TIMESPEC_POSIX",
+        "source": "acinclude.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "RJK_GCC_ATTRS",
+        "source": "acinclude.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "RJK_ICONV",
+        "source": "acinclude.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "RJK_GCOV",
+        "source": "acinclude.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "RJK_THREADS",
+        "source": "acinclude.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "RJK_SIZE_MAX",
+        "source": "acinclude.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "RJK_GETOPT",
+        "source": "acinclude.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "RJK_PYTHON3",
+        "source": "acinclude.m4",
+        "kind": "project-local"
+      }
+    ],
+    "called_macros": [
+      "AC_ARG_ENABLE",
+      "AC_ARG_WITH",
+      "AC_CHECK_DECLS",
+      "AC_CHECK_FUNCS",
+      "AC_CHECK_HEADERS",
+      "AC_CHECK_LIB",
+      "AC_CONFIG_AUX_DIR",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_SRCDIR",
+      "AC_C_BIGENDIAN",
+      "AC_C_INLINE",
+      "AC_DEFINE",
+      "AC_DEFINE_UNQUOTED",
+      "AC_DISABLE_STATIC",
+      "AC_INIT",
+      "AC_LIBTOOL_DLOPEN",
+      "AC_MSG_CHECKING",
+      "AC_MSG_RESULT",
+      "AC_OUTPUT",
+      "AC_PROG_CC",
+      "AC_PROG_LIBTOOL",
+      "AC_PROG_RANLIB",
+      "AC_REPLACE_FUNCS",
+      "AC_SET_MAKE",
+      "AC_SUBST",
+      "AC_SYS_LARGEFILE",
+      "AM_CONFIG_HEADER",
+      "AM_INIT_AUTOMAKE",
+      "AM_PROG_AR"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 162,
+    "configure_fi": 158,
+    "configure_case": 73,
+    "configure_esac": 76,
+    "balanced": false,
+    "automake_conditionals": []
+  },
+  "config_aux_inventory": {
+    "aux_dir": "config.aux",
+    "present": [
+      "install-sh",
+      "missing",
+      "depcomp",
+      "compile"
+    ],
+    "missing": [
+      "ltmain.sh"
+    ]
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "c": 34,
+      "h": 24
+    },
+    "configure_macros": [
+      "AC_PROG_CC"
+    ],
+    "needs_cxx": false,
+    "needs_fortran": false,
+    "sets_c_std": false
+  },
+  "libtool_context": {
+    "uses_libtool": true,
+    "macros": [
+      "AC_PROG_LIBTOOL"
+    ],
+    "ltmain_present": false,
+    "libtool_m4_sources": [],
+    "age": "old"
+  },
+  "make_graph": {
+    "targets": [
+      "all",
+      "all-am",
+      "$(am__depfiles_remade)",
+      "am--depfiles",
+      "install-exec-am",
+      "uninstall-am",
+      "libsftp.a",
+      "install-man",
+      "install-man-am",
+      "uninstall-man",
+      "uninstall-man-am",
+      "install",
+      "install-am",
+      "installcheck",
+      "install-strip",
+      "install-info",
+      "install-info-am",
+      "install-dvi",
+      "install-dvi-am",
+      "install-ps",
+      "install-ps-am",
+      "install-pdf",
+      "install-pdf-am",
+      "install-html",
+      "install-html-am",
+      "install-data-hook",
+      "install-exec-hook",
+      "installdirs",
+      "installdirs-am",
+      ".PHONY",
+      "mostlyclean-am",
+      "clean-am",
+      "distclean-am",
+      "maintainer-clean-am",
+      "clean",
+      "distdir",
+      "dist",
+      "dist-all",
+      "dist-gzip",
+      "distcleancheck"
+    ],
+    "key_variables": {
+      "AR": "ar",
+      "CC": "cc",
+      "CFLAGS": "-g -O2",
+      "CPPFLAGS": "",
+      "CXX": "c++",
+      "CXXFLAGS": "-g -O2",
+      "DEFAULT_INCLUDES": "-I. -I$(top_builddir)",
+      "DEFS": "-DHAVE_CONFIG_H",
+      "LDFLAGS": "",
+      "LIBS": "-lpthread",
+      "RANLIB": "ranlib"
+    },
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "config.h",
+      "config.log"
+    ],
+    "recursion_depth": 0,
+    "top_targets": [
+      "all",
+      "install",
+      "clean",
+      "dist",
+      "all-am"
+    ],
+    "make_diagnostics": [
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "utils.h:180:39: error: expected declaration specifiers before 'attribute'"
+      },
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "utils.h:205:43: error: expected '=', ',', ';', 'asm' or '__attribute__' before '{' token"
+      },
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "utils.h:219:60: error: expected '=', ',', ';', 'asm' or '__attribute__' before '{' token"
+      },
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "utils.h:231:12: error: storage class specified for parameter 'sftp_log_syslog'"
+      },
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "xfns.h:55:40: error: expected '=', ',', ';', 'asm' or '__attribute__' before 'attribute'"
+      },
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "send.h:119:12: error: storage class specified for parameter 'sftpout'"
+      },
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "globals.h:27:22: error: storage class specified for parameter 'workqueue'"
+      },
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "globals.h:30:34: error: storage class specified for parameter 'sftp_v6'"
+      },
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "globals.h:33:34: error: storage class specified for parameter 'sftp_v5'"
+      },
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "globals.h:36:34: error: storage class specified for parameter 'sftp_v4'"
+      }
+    ]
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": true,
+    "defines_sampled": [
+      "HAVE_CONFIG_H",
+      "ETCDIR=\\\"$(ETCDIR)\\\""
+    ]
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-libtool-old",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "has-acinclude",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "vpath_analysis": {
+    "hardcoded_src_paths": 2,
+    "abs_path_leakage": 0,
+    "built_sources": [],
+    "generated_source_targets": []
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "endian.h",
+      "sys/prctl.h"
+    ],
+    "headers_included_unchecked": [
+      "arpa/inet.h",
+      "fcntl.h",
+      "netinet/in.h",
+      "sys/ioctl.h",
+      "sys/socket.h",
+      "sys/stat.h",
+      "sys/statvfs.h",
+      "sys/time.h",
+      "sys/wait.h",
+      "unistd.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 2,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "c89_gnu",
+    "strip_modern_poison_flags": [
+      "-Werror=implicit-function-declaration",
+      "-Werror=int-conversion",
+      "-Werror=incompatible-pointer-types"
+    ],
+    "inject_legacy_shims": true,
+    "compiler_aliasing": {
+      "clang-18+": "-std=gnu89 -Wno-error",
+      "gcc-14+": "-std=gnu89 -fpermissive"
+    }
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 0,
+    "shadowed_builtins": [],
+    "permitted_mutations": 3,
+    "suspect_global_mutations": 0
+  },
+  "parallel_build_safety": {
+    "vpath_out_of_tree_safe": true,
+    "generators": [],
+    "unordered_generated_sources": [],
+    "built_sources_declared": false
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "arpa/inet.h",
+      "fcntl.h",
+      "netinet/in.h",
+      "sys/ioctl.h",
+      "sys/socket.h",
+      "sys/stat.h",
+      "sys/statvfs.h",
+      "sys/time.h",
+      "sys/wait.h",
+      "unistd.h",
+      "endian.h",
+      "sys/prctl.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "ancient-libtool",
+    "modern-compiler-strictness (no explicit C std)"
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": -1,
+      "Makefile.in": 1163,
+      "aclocal.m4": 6,
+      "config.h.in": 14,
+      "configure": 12,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_ENABLE": "system-aclocal",
+      "AC_ARG_WITH": "system-aclocal",
+      "AC_CHECK_DECLS": "system-aclocal",
+      "AC_CHECK_FUNCS": "system-aclocal",
+      "AC_CHECK_HEADERS": "system-aclocal",
+      "AC_CHECK_LIB": "system-aclocal",
+      "AC_CONFIG_AUX_DIR": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_SRCDIR": "system-aclocal",
+      "AC_C_BIGENDIAN": "system-aclocal",
+      "AC_C_INLINE": "system-aclocal",
+      "AC_DEFINE": "system-aclocal",
+      "AC_DEFINE_UNQUOTED": "system-aclocal",
+      "AC_DISABLE_STATIC": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_LIBTOOL_DLOPEN": "system-aclocal",
+      "AC_MSG_CHECKING": "system-aclocal",
+      "AC_MSG_RESULT": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PROG_CC": "system-aclocal",
+      "AC_PROG_LIBTOOL": "system-aclocal",
+      "AC_PROG_RANLIB": "system-aclocal",
+      "AC_REPLACE_FUNCS": "system-aclocal",
+      "AC_SET_MAKE": "system-aclocal",
+      "AC_SUBST": "system-aclocal",
+      "AC_SYS_LARGEFILE": "system-aclocal",
+      "AM_CONFIG_HEADER": "system-aclocal",
+      "AM_INIT_AUTOMAKE": "system-aclocal",
+      "AM_PROG_AR": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "sftpclient_LDADD",
+        "var": "LIBREADLINE",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libsftp_a_LIBADD",
+        "var": "LIBOBJS",
+        "resolved_to": [],
+        "resolved": false
+      }
+    ],
+    "unresolved_refs": [
+      "sftpclient_LDADD = $(LIBREADLINE)",
+      "libsftp_a_LIBADD = $(LIBOBJS)"
+    ],
+    "indirection_count": 2
   }
 }

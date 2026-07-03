@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "bsc-pm/tasycl",
   "source": {
     "url": "https://github.com/bsc-pm/tasycl",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.14",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -51,73 +51,61 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1473: ax_cv_check__AC_LANG_ABBREVflags__-fsycl=no: command not found",
+  "diagnostic": "whether C compiler accepts -fsycl... ./configure: line 1551: -I/include/sycl: No such file or directory",
   "deep_expansion": {
-    "configure_lines": 2949,
+    "configure_lines": 3135,
     "leaked_macros": [],
     "heredoc_openers": 22,
     "heredoc_terminators": 22,
     "heredoc_imbalance": 0,
-    "syntax_errors": [
-      {
-        "line": 1515,
-        "token": "m4_decr",
-        "source": "save_CPPFLAGS_m4_incr(m4_decr(1))=\"$CPPFLAGS\"   CPPFLAGS=\"\"$CPPFLAGS $sy",
-        "block": [
-          "1511: ",
-          "1512:         ",
-          "1513: ",
-          "1514:       ",
-          "1515:   save_CPPFLAGS_m4_incr(m4_decr(1))=\"$CPPFLAGS\"   CPPFLAGS=\"\"$CPPFLAGS $sycl",
-          "1516:       ",
-          "1517: ",
-          "1518:         "
-        ]
-      }
-    ],
+    "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2460: do eval test \\${$as_var+y} \\"
+      "line 1757: # eval \"_acrs_sv=\\${}\"; printf '%s\\n' \"s|@@|${_acrs_sv}|g\" >",
+      "line 2645: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
+      "tacuda_CPPFLAGS",
+      "tacuda_CXXFLAGS",
+      "CXX_VERSION",
+      "sycl",
+      "syclinc",
+      "sycltargets",
+      "syclflags",
+      "BOOST_CPPFLAGS",
+      "BOOST_LDFLAGS",
       "CXX",
       "CXXFLAGS",
+      "numcpus",
       "PACKAGE_NAME",
       "PACKAGE_TARNAME",
       "PACKAGE_VERSION",
       "PACKAGE_STRING",
       "PACKAGE_BUGREPORT"
     ],
-    "failed_during_check": "checking for unistd.h... no",
+    "failed_during_check": "checking for sycl/sycl.hpp... no",
     "failure_tail": [
-      "checking for unistd.h... no",
-      "./configure: line 1473: ax_cv_check__AC_LANG_ABBREVflags__-fsycl=no: command not",
-      "./configure: line 1515: syntax error near unexpected token `m4_decr'",
-      "./configure: line 1515: `  save_CPPFLAGS_m4_incr(m4_decr(1))=\"$CPPFLAGS\"   CPPFL"
+      "checking for sycl/sycl.hpp... no",
+      "configure: error:",
+      "------------------------------",
+      "SYCL path was not correctly specified.",
+      "Please, check that the provided directories are correct."
     ],
     "conftest_corruption": [],
-    "conftest_directives_intact": 8,
+    "conftest_directives_intact": 10,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
       "#include <$ac_hdr>",
       "\\nint main() {  ; return 0; }",
       "#include <$ac_hdr>",
-      "\\n@%:@include <boost/version.hpp>\\n\\nint main() {\\n#if BOOST_VERSION >= $WANT_BOOST_VERSION\\n// Everything is okay\\n#else\\n#  error Boost version is too old\\n#endif\\n; return 0; }",
-      "\\n@%:@include <boost/version.hpp>\\n\\nint main() {\\n#if BOOST_VERSION >= $WANT_BOOST_VERSION\\n// Everything is okay\\n#else\\n#  error Boost version is too old\\n#endif\\n; return 0; }",
+      "\\n#include <boost/version.hpp>\\n\\nint main() {\\n#if BOOST_VERSION >= $WANT_BOOST_VERSION\\n// Everything is okay\\n#else\\n#  error Boost version is too old\\n#endif\\n; return 0; }",
+      "\\n#include <boost/version.hpp>\\n\\nint main() {\\n#if BOOST_VERSION >= $WANT_BOOST_VERSION\\n// Everything is okay\\n#else\\n#  error Boost version is too old\\n#endif\\n; return 0; }",
       "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { size_t x; return 0; }"
     ]
   },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "fail",
-    "real_make": "skipped",
-    "real_configure_lines": 21326,
-    "real_first_error": "configure: error:",
-    "classification": "BOTH_CONFIGURE_FAIL"
-  },
   "receipt": {
-    "court_status": "not_standalone",
+    "court_status": "failed",
     "probe_trace": [],
     "quirks_matched": [
       "uses-libtool",
@@ -133,7 +121,7 @@
         "verified": false
       }
     ],
-    "receipt_hash": "1b59d07d0a20a927a52050673c57d051c46cf0669ffc84ae54f67e19a8cf7afb",
+    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -142,6 +130,373 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "tasycl.pc",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      }
+    ],
+    "config_headers": [
+      "config.h"
+    ],
+    "subdirs": [],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [
+          "libtasycl.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "$(syclinc)   $(syclflags)   $(BOOST_CPPFLAGS) -DBOOST_ENABLE_ASSERT_DEBUG_HANDLER   -I$(top_srcdir)/src   -I$(top_srcdir"
+      }
+    ],
+    "max_depth": 0,
+    "config_h_consumers_below_root": []
+  },
+  "tool_requirements": {
+    "detected": [
+      "c++",
+      "ar"
+    ],
+    "missing": []
+  },
+  "macro_inventory": {
+    "macro_dirs": [
+      "m4"
+    ],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [
+      {
+        "name": "AX_BOOST_BASE",
+        "source": "m4/ax_boost_base.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AX_CHECK_SYCL",
+        "source": "m4/sycl.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AX_CXX_COMPILE_STDCXX",
+        "source": "m4/ax_cxx_compile_stdcxx.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AX_CHECK_CXX_VERSION",
+        "source": "m4/flags.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AX_COMPILE_FLAGS",
+        "source": "m4/flags.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AX_CHECK_CPUS",
+        "source": "m4/ax_check_cpus.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AX_CHECK_COMPILE_FLAG",
+        "source": "m4/ax_check_compile_flag.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AX_VAR_PUSHVALUE",
+        "source": "m4/ax_var_push.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AX_CHECK_LINK_FLAG",
+        "source": "m4/ax_check_link_flag.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AX_VAR_POPVALUE",
+        "source": "m4/ax_var_pop.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AS_VAR_APPEND",
+        "source": "m4/ax_append_flag.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AX_APPEND_FLAG",
+        "source": "m4/ax_append_flag.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AX_CHECK_CUDA",
+        "source": "m4/cuda.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AX_CXX_COMPILE_STDCXX_17",
+        "source": "m4/ax_cxx_compile_stdcxx_17.m4",
+        "kind": "AX"
+      }
+    ],
+    "called_macros": [
+      "AC_ARG_WITH",
+      "AC_CHECK_HEADERS",
+      "AC_CHECK_HEADER_STDBOOL",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_HEADERS",
+      "AC_CONFIG_MACRO_DIR",
+      "AC_CONFIG_SRCDIR",
+      "AC_DEFINE",
+      "AC_INIT",
+      "AC_LANG",
+      "AC_MSG_ERROR",
+      "AC_OUTPUT",
+      "AC_PREREQ",
+      "AC_PROG_CXX",
+      "AC_TYPE_SIZE_T",
+      "AM_INIT_AUTOMAKE",
+      "AM_PROG_AR",
+      "AM_SILENT_RULES",
+      "AX_BOOST_BASE",
+      "AX_CHECK_CPUS",
+      "AX_CHECK_CXX_VERSION",
+      "AX_CHECK_SYCL",
+      "AX_COMPILE_FLAGS",
+      "AX_CXX_COMPILE_STDCXX_17",
+      "LT_INIT"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 153,
+    "configure_fi": 148,
+    "configure_case": 68,
+    "configure_esac": 71,
+    "balanced": false,
+    "automake_conditionals": []
+  },
+  "config_aux_inventory": {
+    "aux_dir": ".",
+    "present": [
+      "install-sh",
+      "missing",
+      "depcomp",
+      "compile"
+    ],
+    "missing": [
+      "ltmain.sh"
+    ]
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "cpp": 5,
+      "h": 1,
+      "hpp": 13
+    },
+    "configure_macros": [
+      "AC_PROG_CXX"
+    ],
+    "needs_cxx": true,
+    "needs_fortran": false,
+    "sets_c_std": true
+  },
+  "libtool_context": {
+    "uses_libtool": true,
+    "macros": [
+      "LT_INIT"
+    ],
+    "ltmain_present": false,
+    "libtool_m4_sources": [],
+    "age": "modern"
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": false,
+    "defines_sampled": []
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-subdir-objects",
+      "applied_at": "configure",
+      "effect": "neutral",
+      "effectiveness": "low"
+    },
+    {
+      "quirk_id": "uses-libtool",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "has-m4-macro-dir",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-ax-archive",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "unistd.h"
+    ],
+    "headers_included_unchecked": [],
+    "implicit_link_libs": [
+      "-ldl"
+    ]
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 5,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "gnu++",
+    "strip_modern_poison_flags": [],
+    "inject_legacy_shims": false,
+    "compiler_aliasing": {}
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 0,
+    "shadowed_builtins": [],
+    "permitted_mutations": 1,
+    "suspect_global_mutations": 0
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "unistd.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": 0,
+      "Makefile.in": 1392,
+      "aclocal.m4": 7,
+      "config.h.in": 23,
+      "configure": 21,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_WITH": "system-aclocal",
+      "AC_CHECK_HEADERS": "system-aclocal",
+      "AC_CHECK_HEADER_STDBOOL": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_HEADERS": "system-aclocal",
+      "AC_CONFIG_MACRO_DIR": "system-aclocal",
+      "AC_CONFIG_SRCDIR": "system-aclocal",
+      "AC_DEFINE": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_LANG": "system-aclocal",
+      "AC_MSG_ERROR": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PREREQ": "system-aclocal",
+      "AC_PROG_CXX": "system-aclocal",
+      "AC_TYPE_SIZE_T": "system-aclocal",
+      "AM_INIT_AUTOMAKE": "system-aclocal",
+      "AM_PROG_AR": "system-aclocal",
+      "AM_SILENT_RULES": "system-aclocal",
+      "AX_BOOST_BASE": "m4/ax_boost_base.m4",
+      "AX_CHECK_CPUS": "m4/ax_check_cpus.m4",
+      "AX_CHECK_CXX_VERSION": "m4/flags.m4",
+      "AX_CHECK_SYCL": "m4/sycl.m4",
+      "AX_COMPILE_FLAGS": "m4/flags.m4",
+      "AX_CXX_COMPILE_STDCXX_17": "m4/ax_cxx_compile_stdcxx_17.m4",
+      "LT_INIT": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "libtasycl_la_SOURCES",
+        "var": "common_sources",
+        "resolved_to": [
+          "src/common/Environment.cpp",
+          "src/common/TaskingModel.cpp"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libtasycl_la_SOURCES",
+        "var": "c_api_sources",
+        "resolved_to": [
+          "src/c/Initialization.cpp",
+          "src/c/Requests.cpp",
+          "src/c/Queues.cpp"
+        ],
+        "resolved": true
+      }
+    ],
+    "unresolved_refs": [],
+    "indirection_count": 2
   }
 }

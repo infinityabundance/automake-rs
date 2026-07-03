@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "devernay/glm",
   "source": {
     "url": "https://github.com/devernay/glm",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -39,7 +39,8 @@
     "HAVE_LIBJPEG": 1,
     "HAVE_LIBPNG": 1,
     "HAVE_LIBSDL_IMAGE": 1,
-    "HAVE_LIBSIMAGE": 1
+    "HAVE_LIBSIMAGE": 1,
+    "HAVE_STRDUP": 1
   },
   "feature_flags": {
     "configure_args": []
@@ -47,8 +48,12 @@
   "dependencies": {
     "pkg_config": [],
     "system_libs": [],
-    "headers_needed": [],
-    "missing": []
+    "headers_needed": [
+      "simage.h"
+    ],
+    "missing": [
+      "simage.h"
+    ]
   },
   "quirks": [
     "autoconf-archive-macros",
@@ -58,9 +63,9 @@
   "outputs": [],
   "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "Makefile:16: *** missing separator.  Stop.",
+  "diagnostic": "glmimg_sim.c:9:10: fatal error: simage.h: No such file or directory",
   "deep_expansion": {
-    "configure_lines": 2767,
+    "configure_lines": 2903,
     "leaked_macros": [],
     "heredoc_openers": 24,
     "heredoc_terminators": 24,
@@ -68,10 +73,26 @@
     "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2289: do eval test \\${$as_var+y} \\"
+      "line 2424: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
+      "GLUI_CFLAGS",
+      "GLUI_LIBS",
+      "HAVE_GLUT_TRUE",
+      "HAVE_GLUT_FALSE",
+      "HAVE_GLUI_TRUE",
+      "HAVE_GLUI_FALSE",
+      "JPEGLIBS",
+      "SDL_IMAGELIBS",
+      "DEVILLIBS",
+      "HAVE_GIF_TRUE",
+      "HAVE_GIF_FALSE",
+      "HAVE_TIFF_TRUE",
+      "HAVE_TIFF_FALSE",
+      "HAVE_SDL_IMAGE_TRUE",
+      "HAVE_SDL_IMAGE_FALSE",
+      "SUPPORT_LIBS",
       "PACKAGE_NAME",
       "PACKAGE_TARNAME",
       "PACKAGE_VERSION",
@@ -84,21 +105,7 @@
       "CC",
       "CFLAGS",
       "CPPFLAGS",
-      "LDFLAGS",
-      "LIBS",
-      "CXX",
-      "CXXFLAGS",
-      "CPP",
-      "DEFS",
-      "LIBOBJS",
-      "INSTALL",
-      "GLUI_CFLAGS",
-      "GLUI_LIBS",
-      "JPEGLIBS",
-      "SDL_IMAGELIBS",
-      "DEVILLIBS",
-      "SUPPORT_LIBS",
-      "target_alias"
+      "LDFLAGS"
     ],
     "failed_during_check": "checking for ilInit in -lIL... no",
     "failure_tail": [
@@ -112,21 +119,13 @@
     "conftest_directives_intact": 3,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func();\\nint main() { return $ac_func(); }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func ();\\nint main() { return $ac_func(); }",
       "\\n# if HAVE_WINDOWS_H && defined(_WIN32)\\n#   include <windows.h>\\n# endif\\n# include <GL/glui.h>\\nint main() { GLUI_Master.set_glutSpecialFunc( NULL );glutMainLoop() ; return",
-      "char jpeg_destroy_decompress();\\nint main() { return jpeg_destroy_decompress(); }",
-      "char png_create_read_struct();\\nint main() { return png_create_read_struct(); }",
-      "char uncompress();\\nint main() { return uncompress(); }",
-      "char IMG_Load();\\nint main() { return IMG_Load(); }"
+      "char jpeg_destroy_decompress ();\\nint main() { return jpeg_destroy_decompress(); }",
+      "char png_create_read_struct ();\\nint main() { return png_create_read_struct(); }",
+      "char uncompress ();\\nint main() { return uncompress(); }",
+      "char IMG_Load ();\\nint main() { return IMG_Load(); }"
     ]
-  },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "ok",
-    "real_make": "fail",
-    "real_configure_lines": 23038,
-    "real_first_error": "",
-    "classification": "BOTH_MAKE_FAIL"
   },
   "receipt": {
     "court_status": "partial",
@@ -160,6 +159,12 @@
         "kind": "lib",
         "result": "yes",
         "reason": "ok"
+      },
+      {
+        "name": "HAVE_STRDUP",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
       }
     ],
     "quirks_matched": [
@@ -168,7 +173,7 @@
       "vendored-aclocal",
       "uses-ax-archive"
     ],
-    "receipt_hash": "62d088b78557aeeba14134a8773fc80b8412df79f552715054061727f7dcd5ef",
+    "receipt_hash": "5e6f60c843cbc52ee03245013c2590db202dfa871be2d08cfba23dbf35c9d187",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -177,6 +182,644 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "examples/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "glm.spec",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "glm/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "m4/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      }
+    ],
+    "config_headers": [
+      "config.h"
+    ],
+    "subdirs": [
+      "glm",
+      "examples",
+      "m4"
+    ],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [],
+        "subdirs": [
+          "glm",
+          "examples",
+          "m4"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "examples",
+        "targets": [
+          "$(GLUTPROGS)",
+          "$(GLUIPROGS)"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "glm",
+        "targets": [
+          "libglm.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      }
+    ],
+    "max_depth": 1,
+    "config_h_consumers_below_root": [
+      "examples",
+      "glm"
+    ]
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 524,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "m4/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 435,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "examples/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 582,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "glm/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 539,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      }
+    ]
+  },
+  "tool_requirements": {
+    "detected": [
+      "c++"
+    ],
+    "missing": []
+  },
+  "macro_inventory": {
+    "macro_dirs": [
+      "m4"
+    ],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [
+      {
+        "name": "AX_CHECK_GLUI",
+        "source": "m4/ax_check_glui.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AX_LANG_COMPILER_MS",
+        "source": "m4/ax_lang_compiler_ms.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "SIM_AC_HAVE_SIMAGE_IFELSE",
+        "source": "m4/simage.m4",
+        "kind": "project-local"
+      }
+    ],
+    "called_macros": [
+      "AC_ARG_WITH",
+      "AC_CANONICAL_TARGET",
+      "AC_CHECK_FUNCS",
+      "AC_CHECK_LIB",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_HEADERS",
+      "AC_CONFIG_MACRO_DIR",
+      "AC_C_INLINE",
+      "AC_DEFINE",
+      "AC_DISABLE_SHARED",
+      "AC_INIT",
+      "AC_LANG_SOURCE",
+      "AC_MSG_CHECKING",
+      "AC_MSG_NOTICE",
+      "AC_MSG_RESULT",
+      "AC_MSG_WARN",
+      "AC_OUTPUT",
+      "AC_PREPROC_IFELSE",
+      "AC_PROG_CC",
+      "AC_PROG_CXX",
+      "AC_PROG_INSTALL",
+      "AC_SUBST",
+      "AM_CONDITIONAL",
+      "AM_INIT_AUTOMAKE",
+      "AM_PROG_CC_C_O",
+      "AX_CHECK_GLUI",
+      "AX_CHECK_GLUT",
+      "LT_INIT"
+    ],
+    "unresolved_macros": [
+      "AX_CHECK_GLUT"
+    ]
+  },
+  "conditional_context": {
+    "configure_if": 135,
+    "configure_fi": 130,
+    "configure_case": 66,
+    "configure_esac": 69,
+    "balanced": false,
+    "automake_conditionals": [
+      "HAVE_GLUT",
+      "HAVE_GLUI",
+      "HAVE_GIF",
+      "HAVE_TIFF",
+      "HAVE_PNG",
+      "HAVE_JPEG",
+      "HAVE_SDL_IMAGE"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": ".",
+    "present": [
+      "install-sh",
+      "missing"
+    ],
+    "missing": [
+      "depcomp",
+      "compile",
+      "ltmain.sh",
+      "config.guess",
+      "config.sub"
+    ]
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "c": 14,
+      "cpp": 1,
+      "h": 7
+    },
+    "configure_macros": [
+      "AC_PROG_CC",
+      "AC_PROG_CXX"
+    ],
+    "needs_cxx": true,
+    "needs_fortran": false,
+    "sets_c_std": false
+  },
+  "libtool_context": {
+    "uses_libtool": true,
+    "macros": [
+      "LT_INIT"
+    ],
+    "ltmain_present": false,
+    "libtool_m4_sources": [],
+    "age": "modern"
+  },
+  "make_graph": {
+    "targets": [
+      "all",
+      "all-am",
+      "install-am",
+      "installcheck-am",
+      "install-strip",
+      "install-info",
+      "install-info-am",
+      "install-dvi",
+      "install-dvi-am",
+      "install-ps",
+      "install-ps-am",
+      "install-pdf",
+      "install-pdf-am",
+      "install-html",
+      "install-html-am",
+      "install-data-hook",
+      "install-exec-hook",
+      "installdirs-am",
+      ".PHONY",
+      "mostlyclean-am",
+      "clean-am",
+      "distclean-am",
+      "maintainer-clean-am",
+      "distdir",
+      "dist",
+      "dist-all",
+      "dist-gzip",
+      "distcleancheck",
+      "distcheck",
+      "check-am",
+      "TAGS",
+      "tags",
+      "TAGS-am",
+      "tags-am",
+      "cscope",
+      "cscope-am",
+      "distuninstallcheck",
+      "$(srcdir)/Makefile.in",
+      "$(am__recursive_targets)",
+      "check"
+    ],
+    "key_variables": {
+      "AR": "ar",
+      "CC": "cc",
+      "CFLAGS": "-g -O2",
+      "CPPFLAGS": "",
+      "CXX": "g++",
+      "CXXFLAGS": "-g -O2",
+      "DEFS": "-DHAVE_CONFIG_H",
+      "LDFLAGS": "",
+      "LIBS": "",
+      "RANLIB": "ranlib"
+    },
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "config.h",
+      "libtool",
+      "config.log"
+    ],
+    "recursion_depth": 1,
+    "top_targets": [
+      "all",
+      "check",
+      "dist",
+      "all-am"
+    ],
+    "make_diagnostics": [
+      {
+        "command": "",
+        "error_type": "missing-header",
+        "message": "glmimg_sim.c:9:10: fatal error: simage.h: No such file or directory"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[2]: *** [Makefile:526: libglm_la-glmimg_sim.lo] Error 1"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[2]: *** Waiting for unfinished jobs...."
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[1]: *** [Makefile:250: all-am] Error 2"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make: *** [Makefile:447: all-recursive] Error 1"
+      }
+    ]
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": true,
+    "defines_sampled": [
+      "HAVE_CONFIG_H"
+    ]
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-libtool",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "has-m4-macro-dir",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-ax-archive",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "vpath_analysis": {
+    "hardcoded_src_paths": 4,
+    "abs_path_leakage": 0,
+    "built_sources": [],
+    "generated_source_targets": []
+  },
+  "feature_probe_gap": {
+    "headers_checked": [],
+    "headers_included_unchecked": [
+      "GL/gl.h",
+      "GL/glext.h",
+      "GL/glu.h",
+      "GL/glui.h",
+      "GL/glut.h",
+      "GLUT/glut.h",
+      "IL/il.h",
+      "OpenGL/gl.h",
+      "OpenGL/glext.h",
+      "OpenGL/glu.h",
+      "SDL/SDL_image.h",
+      "sys/timeb.h",
+      "sys/times.h",
+      "sys/types.h",
+      "unistd.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 5,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "gnu++",
+    "strip_modern_poison_flags": [],
+    "inject_legacy_shims": false,
+    "compiler_aliasing": {}
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 4,
+    "shadowed_builtins": [],
+    "permitted_mutations": 2,
+    "suspect_global_mutations": 0
+  },
+  "parallel_build_safety": {
+    "vpath_out_of_tree_safe": false,
+    "generators": [],
+    "unordered_generated_sources": [],
+    "built_sources_declared": false
+  },
+  "host_environment_veil": {
+    "header_injection_candidates": [
+      "sys/timeb.h"
+    ],
+    "symbol_aliasing_candidates": []
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "GL/gl.h",
+      "GL/glext.h",
+      "GL/glu.h",
+      "GL/glui.h",
+      "GL/glut.h",
+      "GLUT/glut.h",
+      "IL/il.h",
+      "OpenGL/gl.h",
+      "OpenGL/glext.h",
+      "OpenGL/glu.h",
+      "SDL/SDL_image.h",
+      "sys/timeb.h",
+      "sys/times.h",
+      "sys/types.h",
+      "unistd.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "subdir-config-h-include-path",
+    "unresolved-macros",
+    "vpath-unsafe (abs-path/hardcoded-srcdir leakage)"
+  ],
+  "repair_hints": [
+    {
+      "id": "subdir-top-builddir",
+      "phase": "make",
+      "confidence": 0.88,
+      "evidence": [
+        "examples consumes config.h below root",
+        "glm consumes config.h below root"
+      ],
+      "action": "ensure ac_subst_file sets relative top_builddir per subdir (0.1.19)",
+      "expected_effect": "config.h found in subdir compiles"
+    },
+    {
+      "id": "load-vendored-aclocal-dir",
+      "phase": "autoreconf",
+      "confidence": 0.85,
+      "evidence": [
+        "AX_CHECK_GLUT"
+      ],
+      "action": "aclocal -I m4",
+      "expected_effect": "resolves unexpanded AX_/custom macros"
+    }
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": 0,
+      "Makefile.in": 1173,
+      "aclocal.m4": 6,
+      "config.h.in": 12,
+      "configure": 10,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_WITH": "system-aclocal",
+      "AC_CANONICAL_TARGET": "system-aclocal",
+      "AC_CHECK_FUNCS": "system-aclocal",
+      "AC_CHECK_LIB": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_HEADERS": "system-aclocal",
+      "AC_CONFIG_MACRO_DIR": "system-aclocal",
+      "AC_C_INLINE": "system-aclocal",
+      "AC_DEFINE": "system-aclocal",
+      "AC_DISABLE_SHARED": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_LANG_SOURCE": "system-aclocal",
+      "AC_MSG_CHECKING": "system-aclocal",
+      "AC_MSG_NOTICE": "system-aclocal",
+      "AC_MSG_RESULT": "system-aclocal",
+      "AC_MSG_WARN": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PREPROC_IFELSE": "system-aclocal",
+      "AC_PROG_CC": "system-aclocal",
+      "AC_PROG_CXX": "system-aclocal",
+      "AC_PROG_INSTALL": "system-aclocal",
+      "AC_SUBST": "system-aclocal",
+      "AM_CONDITIONAL": "system-aclocal",
+      "AM_INIT_AUTOMAKE": "system-aclocal",
+      "AM_PROG_CC_C_O": "system-aclocal",
+      "AX_CHECK_GLUI": "m4/ax_check_glui.m4",
+      "AX_CHECK_GLUT": "unresolved",
+      "LT_INIT": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "noinst_PROGRAMS",
+        "var": "GLUTPROGS",
+        "resolved_to": [
+          "smooth",
+          "glutobj",
+          "game_glutobj"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "noinst_PROGRAMS",
+        "var": "GLUIPROGS",
+        "resolved_to": [
+          "gluiobj"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "smooth_LDADD",
+        "var": "GLUT_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "gluiobj_LDADD",
+        "var": "GLUI_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "glutobj_LDADD",
+        "var": "GLUT_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "game_glutobj_LDADD",
+        "var": "GLUT_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libglm_la_LIBADD",
+        "var": "GL_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libglm_la_LIBADD",
+        "var": "IPC_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libglm_la_LIBADD",
+        "var": "SUPPORT_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      }
+    ],
+    "unresolved_refs": [
+      "smooth_LDADD = $(GLUT_LIBS)",
+      "gluiobj_LDADD = $(GLUI_LIBS)",
+      "glutobj_LDADD = $(GLUT_LIBS)",
+      "game_glutobj_LDADD = $(GLUT_LIBS)",
+      "libglm_la_LIBADD = $(GL_LIBS)",
+      "libglm_la_LIBADD = $(IPC_LIBS)",
+      "libglm_la_LIBADD = $(SUPPORT_LIBS)"
+    ],
+    "indirection_count": 9
   }
 }

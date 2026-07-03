@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "Expensify/mk_livestatus",
   "source": {
     "url": "https://github.com/Expensify/mk_livestatus",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.14",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -48,20 +48,29 @@
   "verified": false,
   "diagnostic": "configure: error: unable to find the rrd_xport function",
   "deep_expansion": {
-    "configure_lines": 3279,
+    "configure_lines": 3503,
     "leaked_macros": [],
-    "heredoc_openers": 47,
-    "heredoc_terminators": 47,
+    "heredoc_openers": 45,
+    "heredoc_terminators": 45,
     "heredoc_imbalance": 0,
     "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2803: do eval test \\${$as_var+y} \\"
+      "line 1712: # eval \"_acrs_sv=\\${}\"; printf '%s\\n' \"s|@@|${_acrs_sv}|g\" >",
+      "line 3026: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
       "CXX",
       "CXXFLAGS",
+      "RRDLIB",
+      "BOOST_CPPFLAGS",
+      "BOOST_LDFLAGS",
+      "BOOST_ASIO_LIB",
+      "RE2_CPPFLAGS",
+      "RE2_LDFLAGS",
+      "RE2_LIBS",
+      "nagios_headers",
       "PACKAGE_NAME",
       "PACKAGE_TARNAME",
       "PACKAGE_VERSION",
@@ -74,34 +83,26 @@
       "configure: error: unable to find the rrd_xport function"
     ],
     "conftest_corruption": [],
-    "conftest_directives_intact": 32,
+    "conftest_directives_intact": 34,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
-      "char socket();\\nint main() { return socket(); }",
-      "char connect();\\nint main() { return connect(); }",
-      "char shutdown();\\nint main() { return shutdown(); }",
+      "char socket ();\\nint main() { return socket(); }",
+      "char connect ();\\nint main() { return connect(); }",
+      "char shutdown ();\\nint main() { return shutdown(); }",
       "char rrd_xport ();\\nint main() { return rrd_xport (); }",
       "#include <$ac_hdr>",
       "#include <sys/wait.h>"
     ]
   },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "fail",
-    "real_make": "skipped",
-    "real_configure_lines": 10731,
-    "real_first_error": "configure: error: unable to find the rrd_xport function",
-    "classification": "BOTH_CONFIGURE_FAIL"
-  },
   "receipt": {
-    "court_status": "not_standalone",
+    "court_status": "failed",
     "probe_trace": [],
     "quirks_matched": [
       "has-m4-macro-dir",
       "vendored-aclocal",
       "uses-ax-archive"
     ],
-    "receipt_hash": "1b59d07d0a20a927a52050673c57d051c46cf0669ffc84ae54f67e19a8cf7afb",
+    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -110,6 +111,408 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [],
+    "config_headers": [],
+    "subdirs": [
+      "src"
+    ],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [],
+        "subdirs": [
+          "src"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src",
+        "targets": [
+          "unixcat",
+          "liblivestatus.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      }
+    ],
+    "max_depth": 0,
+    "config_h_consumers_below_root": [
+      "src"
+    ]
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "api/c++/Makefile",
+        "has_makefile_in": false,
+        "has_makefile_am": false,
+        "lines": 42,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      }
+    ]
+  },
+  "tool_requirements": {
+    "detected": [
+      "c++",
+      "ar"
+    ],
+    "missing": []
+  },
+  "macro_inventory": {
+    "macro_dirs": [
+      "m4"
+    ],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [
+      {
+        "name": "AX_BOOST_BASE",
+        "source": "m4/ax_boost_base.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "_AX_BOOST_BASE_TONUMERICVERSION",
+        "source": "m4/ax_boost_base.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_AX_BOOST_BASE_RUNDETECT",
+        "source": "m4/ax_boost_base.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AX_CXX_COMPILE_STDCXX",
+        "source": "m4/ax_cxx_compile_stdcxx.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AX_BOOST_ASIO",
+        "source": "m4/ax_boost_asio.m4",
+        "kind": "AX"
+      }
+    ],
+    "called_macros": [
+      "AC_ARG_ENABLE",
+      "AC_ARG_WITH",
+      "AC_CHECK_FUNCS",
+      "AC_CHECK_HEADER",
+      "AC_CHECK_HEADERS",
+      "AC_CHECK_LIB",
+      "AC_COMPILE_IFELSE",
+      "AC_CONFIG_HEADER",
+      "AC_CONFIG_MACRO_DIR",
+      "AC_CONFIG_SRCDIR",
+      "AC_C_CONST",
+      "AC_C_INLINE",
+      "AC_DEFINE",
+      "AC_DEFINE_UNQUOTED",
+      "AC_FUNC_SELECT_ARGTYPES",
+      "AC_FUNC_STAT",
+      "AC_HEADER_DIRENT",
+      "AC_HEADER_STDBOOL",
+      "AC_HEADER_STDC",
+      "AC_HEADER_SYS_WAIT",
+      "AC_HEADER_TIME",
+      "AC_HELP_STRING",
+      "AC_INIT",
+      "AC_LANG_POP",
+      "AC_LANG_PROGRAM",
+      "AC_LANG_PUSH",
+      "AC_LINK_IFELSE",
+      "AC_MSG_CHECKING",
+      "AC_MSG_ERROR",
+      "AC_MSG_RESULT",
+      "AC_OUTPUT",
+      "AC_PREREQ",
+      "AC_PROG_CC",
+      "AC_PROG_CC_C99",
+      "AC_PROG_CXX",
+      "AC_PROG_RANLIB",
+      "AC_REQUIRE_AUX_FILE",
+      "AC_SEARCH_LIBS",
+      "AC_SUBST",
+      "AC_TYPE_INT32_T",
+      "AC_TYPE_INT64_T",
+      "AC_TYPE_SIGNAL",
+      "AC_TYPE_SIZE_T",
+      "AC_TYPE_SSIZE_T",
+      "AC_TYPE_UINT32_T",
+      "AC_TYPE_UINT64_T",
+      "AM_INIT_AUTOMAKE",
+      "AM_PROG_AR",
+      "AX_BOOST_ASIO",
+      "AX_BOOST_BASE",
+      "AX_CXX_COMPILE_STDCXX",
+      "AX_RE2_BASE_re2_path"
+    ],
+    "unresolved_macros": [
+      "AX_RE2_BASE_re2_path"
+    ]
+  },
+  "conditional_context": {
+    "configure_if": 188,
+    "configure_fi": 184,
+    "configure_case": 69,
+    "configure_esac": 72,
+    "balanced": false,
+    "automake_conditionals": []
+  },
+  "config_aux_inventory": {
+    "aux_dir": ".",
+    "present": [
+      "install-sh",
+      "missing",
+      "depcomp",
+      "compile"
+    ],
+    "missing": []
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "cc": 123,
+      "h": 200
+    },
+    "configure_macros": [
+      "AC_PROG_CC",
+      "AC_PROG_CXX",
+      "AC_PROG_CC_C99"
+    ],
+    "needs_cxx": true,
+    "needs_fortran": false,
+    "sets_c_std": true
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": false,
+    "defines_sampled": []
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "has-m4-macro-dir",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-ax-archive",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "arpa/inet.h",
+      "fcntl.h",
+      "limits.h",
+      "netdb.h",
+      "netinet/in.h",
+      "re2/re2.h",
+      "stdint.h",
+      "stdlib.h",
+      "string.h",
+      "strings.h",
+      "sys/socket.h",
+      "sys/time.h",
+      "sys/timeb.h",
+      "syslog.h",
+      "unistd.h"
+    ],
+    "headers_included_unchecked": [
+      "pthread.h",
+      "re2/stringpiece.h",
+      "sys/resource.h",
+      "sys/stat.h",
+      "sys/types.h",
+      "sys/un.h",
+      "sys/wait.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 6,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "c99",
+    "strip_modern_poison_flags": [],
+    "inject_legacy_shims": false,
+    "compiler_aliasing": {}
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 5,
+    "shadowed_builtins": [],
+    "permitted_mutations": 3,
+    "suspect_global_mutations": 0
+  },
+  "host_environment_veil": {
+    "header_injection_candidates": [
+      "sys/timeb.h"
+    ],
+    "symbol_aliasing_candidates": []
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "pthread.h",
+      "re2/stringpiece.h",
+      "sys/resource.h",
+      "sys/stat.h",
+      "sys/types.h",
+      "sys/un.h",
+      "sys/wait.h",
+      "arpa/inet.h",
+      "fcntl.h",
+      "limits.h",
+      "netdb.h",
+      "netinet/in.h",
+      "re2/re2.h",
+      "stdint.h",
+      "stdlib.h",
+      "string.h",
+      "strings.h",
+      "sys/socket.h",
+      "sys/time.h",
+      "sys/timeb.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "subdir-config-h-include-path",
+    "unresolved-macros"
+  ],
+  "repair_hints": [
+    {
+      "id": "subdir-top-builddir",
+      "phase": "make",
+      "confidence": 0.88,
+      "evidence": [
+        "src consumes config.h below root"
+      ],
+      "action": "ensure ac_subst_file sets relative top_builddir per subdir (0.1.19)",
+      "expected_effect": "config.h found in subdir compiles"
+    },
+    {
+      "id": "load-vendored-aclocal-dir",
+      "phase": "autoreconf",
+      "confidence": 0.85,
+      "evidence": [
+        "AX_RE2_BASE_re2_path"
+      ],
+      "action": "aclocal -I m4",
+      "expected_effect": "resolves unexpanded AX_/custom macros"
+    }
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": -5,
+      "Makefile.in": 1254,
+      "aclocal.m4": 24,
+      "config.h.in": 36,
+      "configure": 33,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_ENABLE": "system-aclocal",
+      "AC_ARG_WITH": "system-aclocal",
+      "AC_CHECK_FUNCS": "system-aclocal",
+      "AC_CHECK_HEADER": "system-aclocal",
+      "AC_CHECK_HEADERS": "system-aclocal",
+      "AC_CHECK_LIB": "system-aclocal",
+      "AC_COMPILE_IFELSE": "system-aclocal",
+      "AC_CONFIG_HEADER": "system-aclocal",
+      "AC_CONFIG_MACRO_DIR": "system-aclocal",
+      "AC_CONFIG_SRCDIR": "system-aclocal",
+      "AC_C_CONST": "system-aclocal",
+      "AC_C_INLINE": "system-aclocal",
+      "AC_DEFINE": "system-aclocal",
+      "AC_DEFINE_UNQUOTED": "system-aclocal",
+      "AC_FUNC_SELECT_ARGTYPES": "system-aclocal",
+      "AC_FUNC_STAT": "system-aclocal",
+      "AC_HEADER_DIRENT": "system-aclocal",
+      "AC_HEADER_STDBOOL": "system-aclocal",
+      "AC_HEADER_STDC": "system-aclocal",
+      "AC_HEADER_SYS_WAIT": "system-aclocal",
+      "AC_HEADER_TIME": "system-aclocal",
+      "AC_HELP_STRING": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_LANG_POP": "system-aclocal",
+      "AC_LANG_PROGRAM": "system-aclocal",
+      "AC_LANG_PUSH": "system-aclocal",
+      "AC_LINK_IFELSE": "system-aclocal",
+      "AC_MSG_CHECKING": "system-aclocal",
+      "AC_MSG_ERROR": "system-aclocal",
+      "AC_MSG_RESULT": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PREREQ": "system-aclocal",
+      "AC_PROG_CC": "system-aclocal",
+      "AC_PROG_CC_C99": "system-aclocal",
+      "AC_PROG_CXX": "system-aclocal",
+      "AC_PROG_RANLIB": "system-aclocal",
+      "AC_REQUIRE_AUX_FILE": "system-aclocal",
+      "AC_SEARCH_LIBS": "system-aclocal",
+      "AC_SUBST": "system-aclocal",
+      "AC_TYPE_INT32_T": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
   }
 }

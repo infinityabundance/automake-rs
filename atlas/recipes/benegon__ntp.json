@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "benegon/ntp",
   "source": {
     "url": "https://github.com/benegon/ntp",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,11 +26,6 @@
     {
       "step": "configure",
       "tool": "./configure",
-      "status": "ok"
-    },
-    {
-      "step": "make",
-      "tool": "make",
       "status": "fail"
     }
   ],
@@ -49,35 +44,89 @@
     "subdirs"
   ],
   "outputs": [],
-  "status": "MAKE_FAIL",
+  "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "make: *** No targets specified and no makefile found.  Stop.",
+  "diagnostic": "./configure: line 1823: syntax error near unexpected token `sntp/libopts'",
   "deep_expansion": {
-    "configure_lines": 0,
+    "configure_lines": 10831,
     "leaked_macros": [],
-    "heredoc_openers": 0,
-    "heredoc_terminators": 0,
+    "heredoc_openers": 195,
+    "heredoc_terminators": 195,
     "heredoc_imbalance": 0,
-    "syntax_errors": [],
-    "cache_var_anomalies": [],
-    "residual_placeholders": [],
-    "failed_during_check": "",
-    "failure_tail": [],
+    "syntax_errors": [
+      {
+        "line": 1823,
+        "token": "sntp/libopts",
+        "source": "LIBOPTS_CHECK_NOBUILD(sntp/libopts)",
+        "block": [
+          "1819: case \"${enable_libopts_install+set}\" in",
+          "1820:  set) ;;",
+          "1821:  *) enable_libopts_install=no ;;",
+          "1822: esac",
+          "1823: LIBOPTS_CHECK_NOBUILD(sntp/libopts)",
+          "1824: ",
+          "1825: printf %s \"checking for fork... \"",
+          "1826: cat confdefs.h 2>/dev/null - <<_ACEOF >conftest.$ac_ext"
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 1546: # eval \"_acrs_sv=\\${}\"; printf '%s\\n' \"s|@@|${_acrs_sv}|g\" >",
+      "line 10354: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "VPATH_HACK_TRUE",
+      "VPATH_HACK_FALSE",
+      "NTP_CROSSCOMPILE_TRUE",
+      "NTP_CROSSCOMPILE_FALSE",
+      "BINSUBDIR",
+      "NTP_BINSUBDIR_IS_BIN_TRUE",
+      "NTP_BINSUBDIR_IS_BIN_FALSE",
+      "CFLAGS",
+      "LDFLAGS",
+      "EDITLINE_LIBS",
+      "HAVE_INLINE",
+      "LIBPARSE",
+      "MAKE_LIBPARSE",
+      "MAKE_LIBPARSE_KERNEL",
+      "MAKE_CHECK_Y2K",
+      "OPENSSL",
+      "OPENSSL_INC",
+      "OPENSSL_LIB",
+      "LCRYPTO",
+      "EF_PROGS",
+      "EF_LIBS",
+      "MAKE_CHECK_LAYOUT",
+      "TESTDCF",
+      "DCFD",
+      "MAKE_PARSEKMODULE",
+      "PROPDELAY",
+      "CHUTEST",
+      "CLKTEST",
+      "MAKE_ADJTIMED"
+    ],
+    "failed_during_check": "checking to see if we need a VPATH hack... no",
+    "failure_tail": [
+      "for directory path separator... checking to see if we need a VPATH hack... no",
+      "./configure: line 1823: syntax error near unexpected token `sntp/libopts'",
+      "./configure: line 1823: `LIBOPTS_CHECK_NOBUILD(sntp/libopts)'"
+    ],
     "conftest_corruption": [],
-    "conftest_directives_intact": 0,
+    "conftest_directives_intact": 340,
     "conftest_directives_mangled": 0,
-    "conftest_programs": []
-  },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "ok",
-    "real_make": "fail",
-    "real_configure_lines": 29617,
-    "real_first_error": "",
-    "classification": "BOTH_MAKE_FAIL"
+    "conftest_programs": [
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar fork ();\\nint main() { return fork(); }",
+      "\\nint main() { #warning foo ; return 0; }",
+      "\\nint main() {  ; return 0; }",
+      "\\nint main() {  ; return 0; }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar gethostent ();\\nint main() { return gethostent(); }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar openlog ();\\nint main() { return openlog(); }"
+    ]
   },
   "receipt": {
-    "court_status": "partial",
+    "court_status": "failed",
     "probe_trace": [],
     "quirks_matched": [
       "uses-libtool-old",
@@ -85,7 +134,7 @@
       "vendored-aclocal",
       "perl-in-configure"
     ],
-    "receipt_hash": "a1f4e5766c35392dc1a93d7294702343cbef0d84a9f13446984a26ca5354d637",
+    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -94,6 +143,1542 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "ElectricFence/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "adjtimed/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "clockstuff/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "include/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "include/isc/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "kernel/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "kernel/sys/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "libntp/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "libparse/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "ntpd/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "ntpdate/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "ntpdc/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "ntpdc/nl.pl",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "ntpq/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "ntpsnmpd/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "parseutil/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "scripts/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "util/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      }
+    ],
+    "config_headers": [
+      "config.h"
+    ],
+    "subdirs": [
+      "scripts",
+      "include",
+      "ElectricFence",
+      "libntp",
+      "sntp",
+      "libparse",
+      "ntpd",
+      "ntpdate",
+      "ntpdc",
+      "ntpq",
+      "ntpsnmpd",
+      "parseutil",
+      "adjtimed",
+      "clockstuff",
+      "kernel",
+      "util",
+      "$(NULL)",
+      "isc",
+      "sys",
+      "libopts"
+    ],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [],
+        "subdirs": [
+          "scripts",
+          "include",
+          "ElectricFence",
+          "libntp",
+          "sntp",
+          "libparse",
+          "ntpd",
+          "ntpdate",
+          "ntpdc",
+          "ntpq",
+          "ntpsnmpd",
+          "parseutil",
+          "adjtimed",
+          "clockstuff",
+          "kernel",
+          "util",
+          "$(NULL)"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "ElectricFence",
+        "targets": [
+          "@EF_PROGS@",
+          "eftest",
+          "tstheap",
+          "@EF_LIBS@",
+          "libefence.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "adjtimed",
+        "targets": [
+          "@MAKE_ADJTIMED@",
+          "@MAKE_ADJTIMED@",
+          "adjtimed"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)/include"
+      },
+      {
+        "dir": "clockstuff",
+        "targets": [
+          "@PROPDELAY@",
+          "@CHUTEST@",
+          "@CLKTEST@",
+          "propdelay",
+          "chutest",
+          "clktest"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)/include"
+      },
+      {
+        "dir": "include",
+        "targets": [],
+        "subdirs": [
+          "isc"
+        ],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "kernel",
+        "targets": [],
+        "subdirs": [
+          "sys"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "libntp",
+        "targets": [
+          "libntp.a",
+          "@MAKE_LIBNTPSIM@",
+          "libntpsim.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)/include -I$(top_srcdir)/lib/isc/include   -I$(top_srcdir)/lib/isc/nothreads/include   -I$(top_srcdir)/li"
+      },
+      {
+        "dir": "libparse",
+        "targets": [
+          "@MAKE_LIBPARSE@",
+          "@MAKE_LIBPARSE_KERNEL@",
+          "libparse.a",
+          "libparse_kernel.a",
+          "parsestreams",
+          "parsesolaris",
+          "@MAKE_PARSEKMODULE@"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)/include -I$(top_srcdir)/lib/isc/include  \t-I$(top_srcdir)/lib/isc/nothreads/include  \t-I$(top_srcdir)/li"
+      },
+      {
+        "dir": "ntpd",
+        "targets": [
+          "ntpd",
+          "@MAKE_NTPDSIM@",
+          "ntpd",
+          "@MAKE_NTPDSIM@",
+          "libntpd.a",
+          "@MAKE_CHECK_Y2K@",
+          "check_y2k",
+          "ntpdsim",
+          "keyword-gen"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)/include -I$(top_srcdir)/lib/isc/include  \t-I$(top_srcdir)/lib/isc/nothreads/include  \t-I$(top_srcdir)/li"
+      },
+      {
+        "dir": "ntpdate",
+        "targets": [
+          "ntpdate",
+          "ntpdate",
+          "ntptimeset"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)/include -I$(top_srcdir)/lib/isc/include  \t-I$(top_srcdir)/lib/isc/nothreads/include  \t-I$(top_srcdir)/li"
+      },
+      {
+        "dir": "ntpdc",
+        "targets": [
+          "ntpdc",
+          "ntpdc",
+          "ntpdc-layout"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)/include -I$(top_srcdir)/lib/isc/include  \t-I$(top_srcdir)/lib/isc/nothreads/include  \t-I$(top_srcdir)/li"
+      },
+      {
+        "dir": "ntpq",
+        "targets": [
+          "ntpq",
+          "ntpq",
+          "libntpq.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)/include -I$(top_srcdir)/lib/isc/include  \t-I$(top_srcdir)/lib/isc/nothreads/include  \t-I$(top_srcdir)/li"
+      },
+      {
+        "dir": "ntpsnmpd",
+        "targets": [
+          "@MAKE_NTPSNMPD@",
+          "@MAKE_NTPSNMPD@",
+          "ntpsnmpd"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)/ntpq -I$(top_srcdir)/include  \t-I$(top_srcdir)/lib/isc/include  \t-I$(top_srcdir)/lib/isc/nothreads/inclu"
+      },
+      {
+        "dir": "parseutil",
+        "targets": [
+          "@TESTDCF@",
+          "@DCFD@",
+          "testdcf",
+          "dcfd"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)/include -I$(top_srcdir)/lib/isc/include  \t\t-I$(top_srcdir)/lib/isc/nothreads/include  \t\t-I$(top_srcdir)/"
+      },
+      {
+        "dir": "sntp",
+        "targets": [
+          "sntp",
+          "sntp"
+        ],
+        "subdirs": [
+          "libopts"
+        ],
+        "sources_include_config_h": true,
+        "am_cppflags": "$(LIBOPTS_CFLAGS) -I$(top_srcdir)/../include  \t-I$(top_srcdir)/../lib/isc/include  \t-I$(top_srcdir)/../lib/isc/nothreads"
+      },
+      {
+        "dir": "sntp/libopts",
+        "targets": [
+          "libopts.la",
+          "libopts.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "util",
+        "targets": [
+          "@MAKE_NTPTIME@",
+          "@MAKE_TICKADJ@",
+          "@MAKE_TIMETRIM@",
+          "ntp-keygen",
+          "@MAKE_NTPTIME@",
+          "@MAKE_TICKADJ@",
+          "@MAKE_TIMETRIM@",
+          "ntp-keygen",
+          "audio-pcm",
+          "byteorder",
+          "hist",
+          "jitter"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)/include -I$(top_srcdir)/lib/isc/include  \t-I$(top_srcdir)/lib/isc/nothreads/include  \t-I$(top_srcdir)/li"
+      }
+    ],
+    "max_depth": 2,
+    "config_h_consumers_below_root": [
+      "libparse",
+      "ntpsnmpd",
+      "ntpdc",
+      "ElectricFence",
+      "ntpq",
+      "util",
+      "libntp",
+      "include",
+      "ntpd",
+      "sntp",
+      "sntp/libopts",
+      "ntpdate"
+    ]
+  },
+  "tool_requirements": {
+    "detected": [
+      "yacc",
+      "perl"
+    ],
+    "missing": []
+  },
+  "macro_inventory": {
+    "macro_dirs": [
+      "m4"
+    ],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [
+      {
+        "name": "NTP_VPATH_HACK",
+        "source": "m4/ntp_vpathhack.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "NTP_OS_CFLAGS",
+        "source": "m4/os_cflags.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "LT_INIT",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LTOPTIONS_VERSION",
+        "source": "m4/libtool.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AC_PROG_LIBTOOL",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AM_PROG_LIBTOOL",
+        "source": "m4/libtool.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "LT_OUTPUT",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_SUPPORTED_TAG",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_LANG",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_CXX",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_F77",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_FC",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_GCJ",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_RC",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "_LT_WITH_SYSROOT",
+        "source": "m4/libtool.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_LT_COMPILER_OPTION",
+        "source": "m4/libtool.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AC_LIBTOOL_COMPILER_OPTION",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "_LT_LINKER_OPTION",
+        "source": "m4/libtool.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AC_LIBTOOL_LINKER_OPTION",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_CMD_MAX_LEN",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_SYS_MAX_CMD_LEN",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_SYS_DLOPEN_SELF",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_DLOPEN_SELF",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "_LT_PATH_TOOL_PREFIX",
+        "source": "m4/libtool.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AC_PATH_TOOL_PREFIX",
+        "source": "m4/libtool.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "LT_PATH_LD",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AM_PROG_LD",
+        "source": "m4/libtool.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AC_PROG_LD",
+        "source": "m4/libtool.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "LT_PATH_NM",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AM_PROG_NM",
+        "source": "m4/libtool.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AC_PROG_NM",
+        "source": "m4/libtool.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "LT_LIB_M",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_CHECK_LIBM",
+        "source": "m4/libtool.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "LT_PROG_GCJ",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_AC_PROG_GCJ",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_PROG_RC",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_AC_PROG_RC",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_AC_PROG_SED",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LTVERSION_VERSION",
+        "source": "m4/ltversion.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AC_LIBTOOL_DLOPEN",
+        "source": "m4/ltoptions.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_WIN32_DLL",
+        "source": "m4/ltoptions.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_ENABLE_SHARED",
+        "source": "m4/ltoptions.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_DISABLE_SHARED",
+        "source": "m4/ltoptions.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AM_ENABLE_SHARED",
+        "source": "m4/ltoptions.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AM_DISABLE_SHARED",
+        "source": "m4/ltoptions.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AC_ENABLE_STATIC",
+        "source": "m4/ltoptions.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_DISABLE_STATIC",
+        "source": "m4/ltoptions.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AM_ENABLE_STATIC",
+        "source": "m4/ltoptions.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AM_DISABLE_STATIC",
+        "source": "m4/ltoptions.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AC_ENABLE_FAST_INSTALL",
+        "source": "m4/ltoptions.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AM_DISABLE_FAST_INSTALL",
+        "source": "m4/ltoptions.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AC_LIBTOOL_PICMODE",
+        "source": "m4/ltoptions.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "NTP_LINEEDITLIBS",
+        "source": "m4/ntp_lineeditlibs.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "NTP_DIR_SEP",
+        "source": "m4/ntp_dir_sep.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AC_DEFINE_DIR",
+        "source": "m4/define_dir.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "NTP_OPENSSL",
+        "source": "m4/ntp_openssl.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "LTSUGAR_VERSION",
+        "source": "m4/ltsugar.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "NTP_LIB_M",
+        "source": "m4/ntp_lib_m.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "or",
+        "source": "m4/lt~obsolete.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "it",
+        "source": "m4/lt~obsolete.m4",
+        "kind": "project-local"
+      }
+    ],
+    "called_macros": [
+      "AC_AIX",
+      "AC_ARG_ENABLE",
+      "AC_ARG_PROGRAM",
+      "AC_ARG_WITH",
+      "AC_CACHE_CHECK",
+      "AC_CACHE_VAL",
+      "AC_CANONICAL_BUILD",
+      "AC_CANONICAL_HOST",
+      "AC_CHECK_FUNC",
+      "AC_CHECK_FUNCS",
+      "AC_CHECK_HEADER",
+      "AC_CHECK_HEADERS",
+      "AC_CHECK_LIB",
+      "AC_CHECK_MEMBERS",
+      "AC_CHECK_SIZEOF",
+      "AC_CHECK_TYPES",
+      "AC_COMPILE_IFELSE",
+      "AC_CONFIG_AUX_DIR",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_MACRO_DIR",
+      "AC_CONFIG_SUBDIRS",
+      "AC_C_BIGENDIAN",
+      "AC_C_CHAR_UNSIGNED",
+      "AC_C_CONST",
+      "AC_C_INLINE",
+      "AC_C_VOLATILE",
+      "AC_DEFINE",
+      "AC_DEFINE_DIR",
+      "AC_DEFINE_UNQUOTED",
+      "AC_DISABLE_SHARED",
+      "AC_EGREP_CPP",
+      "AC_FUNC_FORK",
+      "AC_HEADER_RESOLV",
+      "AC_HEADER_STDC",
+      "AC_HEADER_TIME",
+      "AC_INIT",
+      "AC_ISC_POSIX",
+      "AC_LANG_PROGRAM",
+      "AC_LINK_IFELSE",
+      "AC_MINIX",
+      "AC_MSG_CHECKING",
+      "AC_MSG_ERROR",
+      "AC_MSG_RESULT",
+      "AC_MSG_WARN",
+      "AC_OUTPUT",
+      "AC_PATH_PROG",
+      "AC_PREREQ",
+      "AC_PROG_AWK",
+      "AC_PROG_CC",
+      "AC_PROG_CC_C_O",
+      "AC_PROG_CC_STDC",
+      "AC_PROG_CPP",
+      "AC_PROG_GCC_TRADITIONAL",
+      "AC_PROG_INSTALL",
+      "AC_PROG_LIBTOOL",
+      "AC_PROG_LN_S",
+      "AC_PROG_MAKE_SET",
+      "AC_PROG_YACC",
+      "AC_SEARCH_LIBS",
+      "AC_STRUCT_TM"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 594,
+    "configure_fi": 584,
+    "configure_case": 395,
+    "configure_esac": 397,
+    "balanced": false,
+    "automake_conditionals": [
+      "NTP_CROSSCOMPILE",
+      "NTP_BINSUBDIR_IS_BIN",
+      "SAVECONFIG_ENABLED"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": ".",
+    "present": [
+      "install-sh",
+      "missing",
+      "depcomp",
+      "compile",
+      "ltmain.sh",
+      "config.guess",
+      "config.sub"
+    ],
+    "missing": []
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "S": 5,
+      "c": 374,
+      "h": 215
+    },
+    "configure_macros": [
+      "AC_PROG_CC"
+    ],
+    "needs_cxx": false,
+    "needs_fortran": false,
+    "sets_c_std": true
+  },
+  "libtool_context": {
+    "uses_libtool": true,
+    "macros": [
+      "AC_PROG_LIBTOOL"
+    ],
+    "ltmain_present": true,
+    "libtool_m4_sources": [
+      "m4/libtool.m4",
+      "aclocal.m4"
+    ],
+    "age": "old"
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": false,
+    "defines_sampled": []
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-libtool-old",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "has-m4-macro-dir",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "perl-in-configure",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "vpath_analysis": {
+    "hardcoded_src_paths": 58,
+    "abs_path_leakage": 0,
+    "built_sources": [
+      ".gcc-warning",
+      "libtool",
+      "$(srcdir)/COPYRIGHT",
+      "$(srcdir)/version",
+      "$(srcdir)/version.m4",
+      "$(srcdir)/include/version.def",
+      "$(srcdir)/include/version.texi",
+      "$(srcdir)/.checkChangeLog",
+      "$(NULL)",
+      "ntpsnmpd-opts.c",
+      "ntpsnmpd-opts.h",
+      "@MAKE_CHECK_LAYOUT@",
+      "ntpdc-opts.c",
+      "ntpdc-opts.h",
+      "ntpq-opts.c",
+      "ntpq-opts.h",
+      "ntp-keygen-opts.c",
+      "ntp-keygen-opts.h",
+      "$(VPHACK)",
+      "ntp_parser.c"
+    ],
+    "generated_source_targets": [
+      "parsestreams.loadable_module.o",
+      "../libopts/libopts.la"
+    ]
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "/sys/sync/queue.h",
+      "/sys/sync/sema.h",
+      "arpa/nameser.h",
+      "bstring.h",
+      "dns_sd.h",
+      "errno.h",
+      "fcntl.h",
+      "ieeefp.h",
+      "kvm.h",
+      "libscf.h",
+      "linux/if_addr.h",
+      "linux/serial.h",
+      "machine/inline.h",
+      "machine/soundcard.h",
+      "math.h",
+      "md5.h",
+      "memory.h",
+      "net-snmp/net-snmp-config.h",
+      "net/if.h",
+      "net/if6.h",
+      "net/if_var.h",
+      "net/netmp.h",
+      "net/route.h",
+      "netdb.h",
+      "netinet/in.h",
+      "netinet/in_system.h",
+      "netinet/in_systm.h",
+      "netinet/in_var.h",
+      "netinet/ip.h",
+      "netinfo/ni.h",
+      "nlist.h",
+      "poll.h",
+      "resolv.h",
+      "sched.h",
+      "sgtty.h",
+      "stdlib.h",
+      "string.h",
+      "strings.h",
+      "sun/audioio.h",
+      "sys/audioio.h"
+    ],
+    "headers_included_unchecked": [
+      "arpa/inet.h",
+      "autoopts/options.h",
+      "clua/clua.h",
+      "isc/app.h",
+      "isc/assertions.h",
+      "isc/atomic.h",
+      "isc/base32.h",
+      "isc/base64.h",
+      "isc/bitstring.h",
+      "isc/boolean.h",
+      "isc/buffer.h",
+      "isc/bufferlist.h",
+      "isc/commandline.h",
+      "isc/condition.h",
+      "isc/dir.h",
+      "isc/entropy.h",
+      "isc/error.h",
+      "isc/event.h",
+      "isc/file.h",
+      "isc/formatcheck.h",
+      "isc/fsaccess.h",
+      "isc/hash.h",
+      "isc/heap.h",
+      "isc/hex.h",
+      "isc/hmacmd5.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 9,
+    "shadowed_macros": [
+      "AC_PROG_LIBTOOL",
+      "AM_PROG_LIBTOOL",
+      "AC_LIBTOOL_CXX",
+      "AC_LIBTOOL_F77",
+      "AC_LIBTOOL_FC",
+      "AC_LIBTOOL_GCJ",
+      "AC_LIBTOOL_RC",
+      "AC_LIBTOOL_COMPILER_OPTION",
+      "AC_LIBTOOL_LINKER_OPTION",
+      "AC_LIBTOOL_SYS_MAX_CMD_LEN",
+      "AC_LIBTOOL_DLOPEN_SELF",
+      "AC_PATH_TOOL_PREFIX",
+      "AM_PROG_LD",
+      "AC_PROG_LD",
+      "AM_PROG_NM",
+      "AC_PROG_NM",
+      "AC_CHECK_LIBM",
+      "AC_LIBTOOL_DLOPEN",
+      "AC_LIBTOOL_WIN32_DLL",
+      "AC_ENABLE_SHARED"
+    ]
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "explicit",
+    "strip_modern_poison_flags": [],
+    "inject_legacy_shims": false,
+    "compiler_aliasing": {}
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 1,
+    "shadowed_builtins": [
+      "AC_PROG_LIBTOOL",
+      "AM_PROG_LIBTOOL",
+      "AC_LIBTOOL_CXX",
+      "AC_LIBTOOL_F77",
+      "AC_LIBTOOL_FC",
+      "AC_LIBTOOL_GCJ",
+      "AC_LIBTOOL_RC",
+      "AC_LIBTOOL_COMPILER_OPTION",
+      "AC_LIBTOOL_LINKER_OPTION",
+      "AC_LIBTOOL_SYS_MAX_CMD_LEN",
+      "AC_LIBTOOL_DLOPEN_SELF",
+      "AC_PATH_TOOL_PREFIX",
+      "AM_PROG_LD",
+      "AC_PROG_LD",
+      "AM_PROG_NM"
+    ],
+    "permitted_mutations": 84,
+    "suspect_global_mutations": 0
+  },
+  "parallel_build_safety": {
+    "vpath_out_of_tree_safe": false,
+    "generators": [
+      "parsestreams.loadable_module.o",
+      "../libopts/libopts.la"
+    ],
+    "unordered_generated_sources": [
+      "parsestreams.loadable_module.o",
+      "../libopts/libopts.la"
+    ],
+    "built_sources_declared": true
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "arpa/inet.h",
+      "autoopts/options.h",
+      "clua/clua.h",
+      "isc/app.h",
+      "isc/assertions.h",
+      "isc/atomic.h",
+      "isc/base32.h",
+      "isc/base64.h",
+      "isc/bitstring.h",
+      "isc/boolean.h",
+      "isc/buffer.h",
+      "isc/bufferlist.h",
+      "isc/commandline.h",
+      "isc/condition.h",
+      "isc/dir.h",
+      "isc/entropy.h",
+      "isc/error.h",
+      "isc/event.h",
+      "isc/file.h",
+      "isc/formatcheck.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "subdir-config-h-include-path",
+    "ancient-libtool",
+    "parallel-build-race (gen-source not in BUILT_SOURCES)",
+    "vpath-unsafe (abs-path/hardcoded-srcdir leakage)"
+  ],
+  "repair_hints": [
+    {
+      "id": "subdir-top-builddir",
+      "phase": "make",
+      "confidence": 0.88,
+      "evidence": [
+        "libparse consumes config.h below root",
+        "ntpsnmpd consumes config.h below root",
+        "ntpdc consumes config.h below root",
+        "ElectricFence consumes config.h below root",
+        "ntpq consumes config.h below root"
+      ],
+      "action": "ensure ac_subst_file sets relative top_builddir per subdir (0.1.19)",
+      "expected_effect": "config.h found in subdir compiles"
+    }
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": -3,
+      "Makefile.in": 2507,
+      "aclocal.m4": 43,
+      "config.h.in": 154,
+      "configure": 115,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_AIX": "system-aclocal",
+      "AC_ARG_ENABLE": "system-aclocal",
+      "AC_ARG_PROGRAM": "system-aclocal",
+      "AC_ARG_WITH": "system-aclocal",
+      "AC_CACHE_CHECK": "system-aclocal",
+      "AC_CACHE_VAL": "system-aclocal",
+      "AC_CANONICAL_BUILD": "system-aclocal",
+      "AC_CANONICAL_HOST": "system-aclocal",
+      "AC_CHECK_FUNC": "system-aclocal",
+      "AC_CHECK_FUNCS": "system-aclocal",
+      "AC_CHECK_HEADER": "system-aclocal",
+      "AC_CHECK_HEADERS": "system-aclocal",
+      "AC_CHECK_LIB": "system-aclocal",
+      "AC_CHECK_MEMBERS": "system-aclocal",
+      "AC_CHECK_SIZEOF": "system-aclocal",
+      "AC_CHECK_TYPES": "system-aclocal",
+      "AC_COMPILE_IFELSE": "system-aclocal",
+      "AC_CONFIG_AUX_DIR": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_MACRO_DIR": "system-aclocal",
+      "AC_CONFIG_SUBDIRS": "system-aclocal",
+      "AC_C_BIGENDIAN": "system-aclocal",
+      "AC_C_CHAR_UNSIGNED": "system-aclocal",
+      "AC_C_CONST": "system-aclocal",
+      "AC_C_INLINE": "system-aclocal",
+      "AC_C_VOLATILE": "system-aclocal",
+      "AC_DEFINE": "system-aclocal",
+      "AC_DEFINE_DIR": "m4/define_dir.m4",
+      "AC_DEFINE_UNQUOTED": "system-aclocal",
+      "AC_DISABLE_SHARED": "m4/ltoptions.m4",
+      "AC_EGREP_CPP": "system-aclocal",
+      "AC_FUNC_FORK": "system-aclocal",
+      "AC_HEADER_RESOLV": "system-aclocal",
+      "AC_HEADER_STDC": "system-aclocal",
+      "AC_HEADER_TIME": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_ISC_POSIX": "system-aclocal",
+      "AC_LANG_PROGRAM": "system-aclocal",
+      "AC_LINK_IFELSE": "system-aclocal",
+      "AC_MINIX": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "BUILT_SOURCES",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": true
+      },
+      {
+        "primary": "libparse_a_SOURCES",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": true
+      },
+      {
+        "primary": "libparse_kernel_a_LIBADD",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": true
+      },
+      {
+        "primary": "ntpdc_LDADD",
+        "var": "LIBOPTS_LDADD",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "ntpq_LDADD",
+        "var": "LIBOPTS_LDADD",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "ntp_keygen_LDADD",
+        "var": "LIBOPTS_LDADD",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libntp_a_SOURCES",
+        "var": "libntp_a_SRCS",
+        "resolved_to": [
+          "a_md5encrypt.c",
+          "adjtime.c",
+          "atoint.c",
+          "atolfp.c",
+          "atouint.c",
+          "audio.c",
+          "authkeys.c",
+          "authreadkeys.c",
+          "authusekey.c",
+          "bsd_strerror.c",
+          "buftvtots.c",
+          "caljulian.c",
+          "caltontp.c",
+          "calyearstart.c",
+          "clocktime.c",
+          "clocktypes.c",
+          "decodenetnum.c",
+          "dofptoa.c",
+          "dolfptoa.c",
+          "emalloc.c",
+          "findconfig.c",
+          "fptoa.c",
+          "fptoms.c",
+          "getopt.c",
+          "hextoint.c",
+          "hextolfp.c",
+          "humandate.c",
+          "icom.c",
+          "inttoa.c",
+          "iosignal.c",
+          "lib_strbuf.c",
+          "machines.c",
+          "memmove.c",
+          "mfptoa.c",
+          "ntp_lineedit.c",
+          "mfptoms.c",
+          "mktime.c",
+          "modetoa.c",
+          "mstolfp.c",
+          "msutotsf.c",
+          "msyslog.c",
+          "netof.c",
+          "ntp_libopts.c",
+          "ntp_rfc2553.c",
+          "numtoa.c",
+          "numtohost.c",
+          "octtoint.c",
+          "prettydate.c",
+          "ntp_random.c",
+          "recvbuff.c",
+          "refnumtoa.c",
+          "snprintf.c",
+          "socktoa.c",
+          "socktohost.c",
+          "ssl_init.c",
+          "statestr.c",
+          "strdup.c",
+          "strstr.c",
+          "syssignal.c",
+          "tsftomsu.c",
+          "tstotv.c",
+          "tvtots.c",
+          "uglydate.c",
+          "uinttoa.c",
+          "ymd2yd.c",
+          "$(srcdir)/../lib/isc/assertions.c",
+          "$(srcdir)/../lib/isc/buffer.c",
+          "$(srcdir)/../lib/isc/nothreads/condition.c",
+          "$(srcdir)/../lib/isc/unix/dir.c",
+          "$(srcdir)/../lib/isc/error.c",
+          "$(srcdir)/../lib/isc/unix/errno2result.c",
+          "$(srcdir)/../lib/isc/event.c",
+          "$(srcdir)/../lib/isc/unix/file.c",
+          "$(srcdir)/../lib/isc/inet_ntop.c",
+          "$(srcdir)/../lib/isc/inet_pton.c",
+          "$(srcdir)/../lib/isc/unix/interfaceiter.c",
+          "$(srcdir)/../lib/isc/lib.c",
+          "$(srcdir)/../lib/isc/log.c",
+          "$(srcdir)/../lib/isc/md5.c",
+          "$(srcdir)/../lib/isc/nls/msgcat.c",
+          "$(srcdir)/../lib/isc/unix/net.c",
+          "$(srcdir)/../lib/isc/netaddr.c",
+          "$(srcdir)/../lib/isc/netscope.c",
+          "$(srcdir)/../lib/isc/ondestroy.c",
+          "$(srcdir)/../lib/isc/random.c",
+          "$(srcdir)/../lib/isc/result.c",
+          "$(srcdir)/../lib/isc/unix/stdio.c",
+          "$(srcdir)/../lib/isc/unix/stdtime.c",
+          "$(srcdir)/../lib/isc/unix/strerror.c",
+          "$(srcdir)/../lib/isc/task.c",
+          "$(srcdir)/../lib/isc/nothreads/thread.c",
+          "$(srcdir)/../lib/isc/unix/time.c",
+          "$(srcdir)/../lib/isc/sockaddr.c",
+          "$(NULL)"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libntpsim_a_SOURCES",
+        "var": "libntp_a_SRCS",
+        "resolved_to": [
+          "a_md5encrypt.c",
+          "adjtime.c",
+          "atoint.c",
+          "atolfp.c",
+          "atouint.c",
+          "audio.c",
+          "authkeys.c",
+          "authreadkeys.c",
+          "authusekey.c",
+          "bsd_strerror.c",
+          "buftvtots.c",
+          "caljulian.c",
+          "caltontp.c",
+          "calyearstart.c",
+          "clocktime.c",
+          "clocktypes.c",
+          "decodenetnum.c",
+          "dofptoa.c",
+          "dolfptoa.c",
+          "emalloc.c",
+          "findconfig.c",
+          "fptoa.c",
+          "fptoms.c",
+          "getopt.c",
+          "hextoint.c",
+          "hextolfp.c",
+          "humandate.c",
+          "icom.c",
+          "inttoa.c",
+          "iosignal.c",
+          "lib_strbuf.c",
+          "machines.c",
+          "memmove.c",
+          "mfptoa.c",
+          "ntp_lineedit.c",
+          "mfptoms.c",
+          "mktime.c",
+          "modetoa.c",
+          "mstolfp.c",
+          "msutotsf.c",
+          "msyslog.c",
+          "netof.c",
+          "ntp_libopts.c",
+          "ntp_rfc2553.c",
+          "numtoa.c",
+          "numtohost.c",
+          "octtoint.c",
+          "prettydate.c",
+          "ntp_random.c",
+          "recvbuff.c",
+          "refnumtoa.c",
+          "snprintf.c",
+          "socktoa.c",
+          "socktohost.c",
+          "ssl_init.c",
+          "statestr.c",
+          "strdup.c",
+          "strstr.c",
+          "syssignal.c",
+          "tsftomsu.c",
+          "tstotv.c",
+          "tvtots.c",
+          "uglydate.c",
+          "uinttoa.c",
+          "ymd2yd.c",
+          "$(srcdir)/../lib/isc/assertions.c",
+          "$(srcdir)/../lib/isc/buffer.c",
+          "$(srcdir)/../lib/isc/nothreads/condition.c",
+          "$(srcdir)/../lib/isc/unix/dir.c",
+          "$(srcdir)/../lib/isc/error.c",
+          "$(srcdir)/../lib/isc/unix/errno2result.c",
+          "$(srcdir)/../lib/isc/event.c",
+          "$(srcdir)/../lib/isc/unix/file.c",
+          "$(srcdir)/../lib/isc/inet_ntop.c",
+          "$(srcdir)/../lib/isc/inet_pton.c",
+          "$(srcdir)/../lib/isc/unix/interfaceiter.c",
+          "$(srcdir)/../lib/isc/lib.c",
+          "$(srcdir)/../lib/isc/log.c",
+          "$(srcdir)/../lib/isc/md5.c",
+          "$(srcdir)/../lib/isc/nls/msgcat.c",
+          "$(srcdir)/../lib/isc/unix/net.c",
+          "$(srcdir)/../lib/isc/netaddr.c",
+          "$(srcdir)/../lib/isc/netscope.c",
+          "$(srcdir)/../lib/isc/ondestroy.c",
+          "$(srcdir)/../lib/isc/random.c",
+          "$(srcdir)/../lib/isc/result.c",
+          "$(srcdir)/../lib/isc/unix/stdio.c",
+          "$(srcdir)/../lib/isc/unix/stdtime.c",
+          "$(srcdir)/../lib/isc/unix/strerror.c",
+          "$(srcdir)/../lib/isc/task.c",
+          "$(srcdir)/../lib/isc/nothreads/thread.c",
+          "$(srcdir)/../lib/isc/unix/time.c",
+          "$(srcdir)/../lib/isc/sockaddr.c",
+          "$(NULL)"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "BUILT_SOURCES",
+        "var": "VPHACK",
+        "resolved_to": [
+          "vphack"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "BUILT_SOURCES",
+        "var": "VPHACK_AFTER",
+        "resolved_to": [
+          "vphack_after"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "BUILT_SOURCES",
+        "var": "B_S_DIST",
+        "resolved_to": [
+          "ntpd-opts.c",
+          "ntpd-opts.h",
+          "$(NULL)"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "BUILT_SOURCES",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": true
+      },
+      {
+        "primary": "ntpd_LDADD",
+        "var": "LDADD",
+        "resolved_to": [
+          "version.o",
+          "libntpd.a",
+          "@LIBPARSE@"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "ntpd_LDADD",
+        "var": "LIBOPTS_LDADD",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "ntpdsim_LDADD",
+        "var": "LDADD",
+        "resolved_to": [
+          "version.o",
+          "libntpd.a",
+          "@LIBPARSE@"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "ntpdsim_LDADD",
+        "var": "LIBOPTS_LDADD",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "check_y2k_LDADD",
+        "var": "LDADD",
+        "resolved_to": [
+          "version.o",
+          "libntpd.a",
+          "@LIBPARSE@"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "keyword_gen_LDADD",
+        "var": "LDADD",
+        "resolved_to": [
+          "version.o",
+          "libntpd.a",
+          "@LIBPARSE@"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "ntpd_SOURCES",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": true
+      },
+      {
+        "primary": "ntpdsim_SOURCES",
+        "var": "ntpd_SOURCES",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "ntpdsim_SOURCES",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": true
+      },
+      {
+        "primary": "libntpd_a_SOURCES",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": true
+      },
+      {
+        "primary": "sntp_SOURCES",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": true
+      },
+      {
+        "primary": "BUILT_SOURCES",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": true
+      },
+      {
+        "primary": "ntpdate_LDADD",
+        "var": "LDADD",
+        "resolved_to": [
+          "version.o",
+          "../libntp/libntp.a"
+        ],
+        "resolved": true
+      }
+    ],
+    "unresolved_refs": [
+      "ntpdc_LDADD = $(LIBOPTS_LDADD)",
+      "ntpq_LDADD = $(LIBOPTS_LDADD)",
+      "ntp_keygen_LDADD = $(LIBOPTS_LDADD)",
+      "ntpd_LDADD = $(LIBOPTS_LDADD)",
+      "ntpdsim_LDADD = $(LIBOPTS_LDADD)",
+      "ntpdsim_SOURCES = $(ntpd_SOURCES)"
+    ],
+    "indirection_count": 25
   }
 }

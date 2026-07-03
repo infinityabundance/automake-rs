@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "ester-project/ester",
   "source": {
     "url": "https://github.com/ester-project/ester",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -52,44 +52,57 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1524: --ldflags: command not found",
+  "diagnostic": "./configure: line 1557: --ldflags: command not found",
   "deep_expansion": {
-    "configure_lines": 6628,
+    "configure_lines": 3416,
     "leaked_macros": [],
-    "heredoc_openers": 73,
-    "heredoc_terminators": 73,
+    "heredoc_openers": 37,
+    "heredoc_terminators": 37,
     "heredoc_imbalance": 0,
-    "syntax_errors": [
-      {
-        "line": 2276,
-        "token": "[$3],",
-        "source": "ifelse([$3], [], [LIBS=\"-l$1 $LIBS\"], [$3])",
-        "block": [
-          "2272: _ACEOF",
-          "2273: if ac_fn_c_try_link; then",
-          "2274:   printf '%s\\n' \"yes\"",
-          "2275:   LIBS=$_acl_save_LIBS",
-          "2276:   ifelse([$3], [], [LIBS=\"-l$1 $LIBS\"], [$3])",
-          "2277: else",
-          "2278:   printf '%s\\n' \"no\"",
-          "2279:   LIBS=$_acl_save_LIBS"
-        ]
-      }
-    ],
+    "syntax_errors": [],
     "cache_var_anomalies": [
-      "line 58: do eval test \\${$as_var+y} \\"
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2910: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
-      "LIBTOOL"
+      "LIBTOOL",
+      "SWIG",
+      "SWIG_LIB",
+      "HAVE_SWIG_TRUE",
+      "HAVE_SWIG_FALSE",
+      "PYTHON_CONFIG",
+      "BUILD_ESTER_PY_TRUE",
+      "BUILD_ESTER_PY_FALSE",
+      "H5CC",
+      "H5FC",
+      "HDF5_VERSION",
+      "HDF5_CC",
+      "HDF5_CFLAGS",
+      "HDF5_CPPFLAGS",
+      "HDF5_LDFLAGS",
+      "HDF5_LIBS",
+      "HDF5_FC",
+      "HDF5_FFLAGS",
+      "HDF5_FLIBS",
+      "USE_HDF5_TRUE",
+      "USE_HDF5_FALSE",
+      "extension",
+      "datadir",
+      "CONFIGURE_DEPENDENCIES",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL"
     ],
-    "failed_during_check": "checking for mkl lib... no",
+    "failed_during_check": "checking whether we can run compiled binaries... no",
     "failure_tail": [
-      "checking for mkl lib... no",
-      "./configure: line 2276: syntax error near unexpected token `[$3],'",
-      "./configure: line 2276: `  ifelse([$3], [], [LIBS=\"-l$1 $LIBS\"], [$3])'"
+      "checking whether we can run compiled binaries... no",
+      "configure: error: Could not link"
     ],
     "conftest_corruption": [],
-    "conftest_directives_intact": 43,
+    "conftest_directives_intact": 19,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
       "\\n#define NPY_NO_DEPRECATED_API NPY_1_7_API_VERSION\\n#include <numpy/arrayobject.h>\\nvoid main(void) {\\nint i = NPY_ARRAY_FARRAY_RO;\\n}\\n",
@@ -97,26 +110,29 @@
       "#include <$ac_hdr>",
       "#include <$ac_hdr>",
       "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { size_t x; return 0; }",
-      "char sqrt();\\nint main() { return sqrt(); }"
-    ]
-  },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "ok",
-    "real_make": "fail",
-    "real_configure_lines": 29831,
-    "real_first_error": "",
-    "classification": "OURS_BUG_CONFIGURE"
-  },
-  "divergence": {
-    "stage": "configure",
-    "ours_error": "line 2276: ifelse([$3], [], [LIBS=\"-l$1 $LIBS\"], [$3]) (near `[$3],`)",
-    "ours_error_context": [
-      "ifelse([$3], [], [LIBS=\"-l$1 $LIBS\"], [$3])"
+      "char sqrt ();\\nint main() { return sqrt(); }"
     ],
-    "ours_configure_lines": 6628,
-    "real_configure_lines": 29831,
-    "macros_ours_left_undefined": []
+    "rescan_loop": {
+      "guard": "",
+      "suspect_macro": "",
+      "max_indent": 80,
+      "repeating_unit": "echo $HDF5_FFLAGS | $GREP -e \"-I${arg#-L}\" >/dev/null \\",
+      "repeat_count": 1,
+      "loop_context": [
+        "1973:         fi",
+        "1974: ",
+        "1975:                         ",
+        "1976:                 HDF5_VERSION=$(eval $H5CC -showconfig | $GREP 'HDF5 Version:' \\",
+        "1977:             | $AWK '{print $3}')",
+        "1978: ",
+        "1979:                                                                                 HDF5_tmp_flags=$(eva",
+        "1980:             | $GREP 'FLAGS\\|Extra libraries:' \\",
+        "1981:             | $AWK -F: '{printf(\"%s \"), $2}' )",
+        "1982: ",
+        "1983:                 HDF5_tmp_inst=$(eval $H5CC -showconfig \\",
+        "1984:             | $GREP 'Installation point:' \\"
+      ]
+    }
   },
   "receipt": {
     "court_status": "failed",
@@ -136,7 +152,7 @@
         "verified": false
       }
     ],
-    "receipt_hash": "24e39ed3178d433d21c1340a6407fda16d8349c27724819539e8175382940e80",
+    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -145,6 +161,688 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "lib-example/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "python/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "src/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "src/physics/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tables/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "tables/cesam/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tables/freeeos/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tables/houdek/v9/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "tables/houdek/v9/lib/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "tables/opal/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "test/models/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "utils/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      }
+    ],
+    "config_headers": [
+      "config.h"
+    ],
+    "subdirs": [
+      ".",
+      "tables",
+      "src",
+      "test/models",
+      "lib-example",
+      "python",
+      "utils",
+      "=",
+      "physics",
+      "cesam",
+      "houdek/v9",
+      "opal",
+      "freeeos",
+      "lib"
+    ],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [],
+        "subdirs": [
+          ".",
+          "tables",
+          "src",
+          "test/models",
+          "lib-example",
+          "python",
+          "utils"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "lib-example",
+        "targets": [
+          "polytrope1d",
+          "polytrope2d",
+          "polytrope2d_final"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "python",
+        "targets": [
+          "_ester_wrap.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src",
+        "targets": [
+          "star1d",
+          "star2d",
+          "version",
+          "star_evol",
+          "ester_info",
+          "gen_output",
+          "ester_vtk",
+          "libester.la"
+        ],
+        "subdirs": [
+          "=",
+          "physics"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)/tables/cesam"
+      },
+      {
+        "dir": "src/physics",
+        "targets": [
+          "libphysics.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I../../tables/cesam"
+      },
+      {
+        "dir": "tables",
+        "targets": [],
+        "subdirs": [
+          "cesam",
+          "houdek/v9",
+          "opal",
+          "freeeos"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "tables/cesam",
+        "targets": [
+          "libcesam.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "tables/cesam_nuc",
+        "targets": [
+          "libnuc.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "tables/freeeos",
+        "targets": [
+          "libfreeeos.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "tables/houdek/v9",
+        "targets": [],
+        "subdirs": [
+          "lib"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "tables/houdek/v9/lib",
+        "targets": [
+          "libopint.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "utils",
+        "targets": [
+          "star1dR",
+          "star2dR",
+          "app_luminosity"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)/src/graphics"
+      }
+    ],
+    "max_depth": 4,
+    "config_h_consumers_below_root": [
+      "src/physics"
+    ]
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "doc/code_examples/mapping/Makefile",
+        "has_makefile_in": false,
+        "has_makefile_am": false,
+        "lines": 4,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "doc/code_examples/numdiff/Makefile",
+        "has_makefile_in": false,
+        "has_makefile_am": false,
+        "lines": 4,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "doc/tex/Makefile",
+        "has_makefile_in": false,
+        "has_makefile_am": false,
+        "lines": 16,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "utils/starR/Makefile",
+        "has_makefile_in": false,
+        "has_makefile_am": false,
+        "lines": 8,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      }
+    ]
+  },
+  "tool_requirements": {
+    "detected": [
+      "python",
+      "c++",
+      "ar",
+      "f77",
+      "swig"
+    ],
+    "missing": [
+      {
+        "name": "--ldflags",
+        "phase": "make",
+        "suggested_package": ""
+      }
+    ]
+  },
+  "macro_inventory": {
+    "macro_dirs": [
+      "m4",
+      "config"
+    ],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [
+      {
+        "name": "AX_LIB_HDF5",
+        "source": "m4/ax_lib_hdf5.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AX_PKG_SWIG",
+        "source": "m4/ax_pkg_swig.m4",
+        "kind": "AX"
+      }
+    ],
+    "called_macros": [
+      "AC_ARG_ENABLE",
+      "AC_ARG_VAR",
+      "AC_CHECK_FUNC",
+      "AC_CHECK_FUNCS",
+      "AC_CHECK_HEADERS",
+      "AC_CHECK_HEADER_STDBOOL",
+      "AC_CHECK_LIB",
+      "AC_CHECK_PROG",
+      "AC_COMPILE_IFELSE",
+      "AC_CONFIG_AUX_DIR",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_HEADERS",
+      "AC_CONFIG_MACRO_DIR",
+      "AC_CONFIG_SRCDIR",
+      "AC_C_INLINE",
+      "AC_DEFINE",
+      "AC_ERROR",
+      "AC_FUNC_ERROR_AT_LINE",
+      "AC_INIT",
+      "AC_LANG_POP",
+      "AC_LANG_PROGRAM",
+      "AC_LANG_PUSH",
+      "AC_LANG_SOURCE",
+      "AC_LINK_IFELSE",
+      "AC_MSG_CHECKING",
+      "AC_MSG_RESULT",
+      "AC_OUTPUT",
+      "AC_PATH_PROGS",
+      "AC_PREFIX_DEFAULT",
+      "AC_PREREQ",
+      "AC_PROG_AWK",
+      "AC_PROG_CC",
+      "AC_PROG_CPP",
+      "AC_PROG_CXX",
+      "AC_PROG_F77",
+      "AC_PROG_FC",
+      "AC_PROG_INSTALL",
+      "AC_PROG_LIBTOOL",
+      "AC_PROG_LN_S",
+      "AC_PROG_MAKE_SET",
+      "AC_RUN_IFELSE",
+      "AC_SEARCH_LIBS",
+      "AC_SUBST",
+      "AC_TYPE_SIZE_T",
+      "AC_WARN",
+      "AM_CONDITIONAL",
+      "AM_INIT_AUTOMAKE",
+      "AM_PATH_PYTHON",
+      "AM_PROG_AR",
+      "AM_SILENT_RULES",
+      "AX_LIB_HDF5",
+      "AX_PKG_SWIG"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 189,
+    "configure_fi": 176,
+    "configure_case": 66,
+    "configure_esac": 69,
+    "balanced": false,
+    "automake_conditionals": [
+      "HAVE_SWIG",
+      "BUILD_ESTER_PY",
+      "USE_HDF5"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": "autoconf",
+    "present": [
+      "install-sh",
+      "missing",
+      "depcomp",
+      "compile"
+    ],
+    "missing": [
+      "ltmain.sh"
+    ]
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "cpp": 72,
+      "cxx": 1,
+      "f": 285,
+      "f90": 1,
+      "h": 33
+    },
+    "configure_macros": [
+      "AC_PROG_CC",
+      "AC_PROG_CXX",
+      "AC_PROG_F77",
+      "AC_PROG_FC"
+    ],
+    "needs_cxx": true,
+    "needs_fortran": true,
+    "sets_c_std": true
+  },
+  "libtool_context": {
+    "uses_libtool": true,
+    "macros": [
+      "AC_PROG_LIBTOOL"
+    ],
+    "ltmain_present": false,
+    "libtool_m4_sources": [],
+    "age": "old"
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": false,
+    "defines_sampled": []
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-subdir-objects",
+      "applied_at": "configure",
+      "effect": "neutral",
+      "effectiveness": "low"
+    },
+    {
+      "quirk_id": "uses-libtool-old",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-python",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "has-m4-macro-dir",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-ax-archive",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "vpath_analysis": {
+    "hardcoded_src_paths": 1,
+    "abs_path_leakage": 0,
+    "built_sources": [
+      "__init__.py",
+      "cesam.py",
+      "num.py",
+      "ester_wrap.cpp",
+      "=",
+      "main/read_config.cpp",
+      "=",
+      "star1dR.cpp",
+      "star2dR.cpp",
+      "read_config.cpp"
+    ],
+    "generated_source_targets": [
+      "mod_numerique.lo",
+      "mod_donnees.lo",
+      "sortie.lo",
+      "mod_variables.lo",
+      "mod_nuc.lo",
+      "mod_opa.lo"
+    ]
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "Python.h",
+      "cblas.h",
+      "lapack.h",
+      "stddef.h",
+      "stdlib.h",
+      "string.h",
+      "sys/time.h"
+    ],
+    "headers_included_unchecked": [
+      "dlfcn.h",
+      "numpy/arrayobject.h",
+      "unistd.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 4,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "gnu++",
+    "strip_modern_poison_flags": [],
+    "inject_legacy_shims": false,
+    "compiler_aliasing": {}
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 1,
+    "shadowed_builtins": [],
+    "permitted_mutations": 4,
+    "suspect_global_mutations": 0
+  },
+  "parallel_build_safety": {
+    "vpath_out_of_tree_safe": true,
+    "generators": [
+      "mod_numerique.lo",
+      "mod_donnees.lo",
+      "sortie.lo",
+      "mod_variables.lo",
+      "mod_nuc.lo",
+      "mod_opa.lo"
+    ],
+    "unordered_generated_sources": [
+      "mod_numerique.lo",
+      "mod_donnees.lo",
+      "sortie.lo",
+      "mod_variables.lo",
+      "mod_nuc.lo",
+      "mod_opa.lo"
+    ],
+    "built_sources_declared": true
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "dlfcn.h",
+      "numpy/arrayobject.h",
+      "unistd.h",
+      "Python.h",
+      "cblas.h",
+      "lapack.h",
+      "stddef.h",
+      "stdlib.h",
+      "string.h",
+      "sys/time.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "subdir-config-h-include-path",
+    "ancient-libtool",
+    "parallel-build-race (gen-source not in BUILT_SOURCES)"
+  ],
+  "repair_hints": [
+    {
+      "id": "subdir-top-builddir",
+      "phase": "make",
+      "confidence": 0.88,
+      "evidence": [
+        "src/physics consumes config.h below root"
+      ],
+      "action": "ensure ac_subst_file sets relative top_builddir per subdir (0.1.19)",
+      "expected_effect": "config.h found in subdir compiles"
+    },
+    {
+      "id": "missing-build-tool",
+      "phase": "make",
+      "confidence": 0.75,
+      "evidence": [
+        "--ldflags: command not found"
+      ],
+      "action": "provide --ldflags",
+      "expected_effect": "unblocks the build step needing this tool"
+    }
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": 0,
+      "Makefile.in": 1373,
+      "aclocal.m4": 124,
+      "config.h.in": 134,
+      "configure": 131,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_ENABLE": "system-aclocal",
+      "AC_ARG_VAR": "system-aclocal",
+      "AC_CHECK_FUNC": "system-aclocal",
+      "AC_CHECK_FUNCS": "system-aclocal",
+      "AC_CHECK_HEADERS": "system-aclocal",
+      "AC_CHECK_HEADER_STDBOOL": "system-aclocal",
+      "AC_CHECK_LIB": "system-aclocal",
+      "AC_CHECK_PROG": "system-aclocal",
+      "AC_COMPILE_IFELSE": "system-aclocal",
+      "AC_CONFIG_AUX_DIR": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_HEADERS": "system-aclocal",
+      "AC_CONFIG_MACRO_DIR": "system-aclocal",
+      "AC_CONFIG_SRCDIR": "system-aclocal",
+      "AC_C_INLINE": "system-aclocal",
+      "AC_DEFINE": "system-aclocal",
+      "AC_ERROR": "system-aclocal",
+      "AC_FUNC_ERROR_AT_LINE": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_LANG_POP": "system-aclocal",
+      "AC_LANG_PROGRAM": "system-aclocal",
+      "AC_LANG_PUSH": "system-aclocal",
+      "AC_LANG_SOURCE": "system-aclocal",
+      "AC_LINK_IFELSE": "system-aclocal",
+      "AC_MSG_CHECKING": "system-aclocal",
+      "AC_MSG_RESULT": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PATH_PROGS": "system-aclocal",
+      "AC_PREFIX_DEFAULT": "system-aclocal",
+      "AC_PREREQ": "system-aclocal",
+      "AC_PROG_AWK": "system-aclocal",
+      "AC_PROG_CC": "system-aclocal",
+      "AC_PROG_CPP": "system-aclocal",
+      "AC_PROG_CXX": "system-aclocal",
+      "AC_PROG_F77": "system-aclocal",
+      "AC_PROG_FC": "system-aclocal",
+      "AC_PROG_INSTALL": "system-aclocal",
+      "AC_PROG_LIBTOOL": "system-aclocal",
+      "AC_PROG_LN_S": "system-aclocal",
+      "AC_PROG_MAKE_SET": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
   }
 }

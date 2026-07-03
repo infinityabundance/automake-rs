@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "Albinlk/OpenThread",
   "source": {
     "url": "https://github.com/Albinlk/OpenThread",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,11 +26,11 @@
     {
       "step": "configure",
       "tool": "./configure",
-      "status": "fail"
+      "status": "ok"
     },
     {
-      "step": "auto-quirk",
-      "tool": "quirk-engine",
+      "step": "make",
+      "tool": "make",
       "status": "fail"
     }
   ],
@@ -50,58 +50,76 @@
     "subdirs"
   ],
   "outputs": [],
-  "status": "CONFIGURE_RUN_FAIL",
+  "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "",
+  "diagnostic": "/bin/sh: 1: /scripts/mkversion: not found",
   "deep_expansion": {
-    "configure_lines": 2972,
+    "configure_lines": 4905,
     "leaked_macros": [],
-    "heredoc_openers": 18,
-    "heredoc_terminators": 18,
+    "heredoc_openers": 31,
+    "heredoc_terminators": 31,
     "heredoc_imbalance": 0,
     "syntax_errors": [],
     "cache_var_anomalies": [
-      "line 58: do eval test \\${$as_var+y} \\"
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 1474: # eval \"_acrs_sv=\\${}\"; printf '%s\\n' \"s|@@|${_acrs_sv}|g\" >",
+      "line 1566: # eval \"_acrs_sv=\\${}\"; printf '%s\\n' \"s|@@|${_acrs_sv}|g\" >",
+      "line 4354: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
-      "LIBTOOL"
+      "LIBTOOL",
+      "nlbuild_autotools_stem",
+      "abs_top_nlbuild_autotools_dir",
+      "LIBOPENTHREAD_VERSION_CURRENT",
+      "LIBOPENTHREAD_VERSION_AGE",
+      "LIBOPENTHREAD_VERSION_REVISION",
+      "LIBOPENTHREAD_VERSION_INFO",
+      "OPENTHREAD_TARGET_DARWIN",
+      "OPENTHREAD_TARGET_DARWIN_TRUE",
+      "OPENTHREAD_TARGET_DARWIN_FALSE",
+      "OPENTHREAD_TARGET_LINUX",
+      "OPENTHREAD_TARGET_LINUX_TRUE",
+      "OPENTHREAD_TARGET_LINUX_FALSE",
+      "OPENTHREAD_TARGET_DEFINES",
+      "OPENTHREAD_BUILD_DEBUG_TRUE",
+      "OPENTHREAD_BUILD_DEBUG_FALSE",
+      "OPENTHREAD_BUILD_COVERAGE_TRUE",
+      "OPENTHREAD_BUILD_COVERAGE_FALSE",
+      "OPENTHREAD_BUILD_COVERAGE_REPORTS_TRUE",
+      "OPENTHREAD_BUILD_COVERAGE_REPORTS_FALSE",
+      "OPENTHREAD_BUILD_OPTIMIZED_TRUE",
+      "OPENTHREAD_BUILD_OPTIMIZED_FALSE",
+      "OPENTHREAD_WITH_ADDRESS_SANITIZER_TRUE",
+      "OPENTHREAD_WITH_ADDRESS_SANITIZER_FALSE",
+      "PRETTY",
+      "PRETTY_ARGS",
+      "PRETTY_CHECK",
+      "PRETTY_CHECK_ARGS",
+      "OPENTHREAD_BUILD_TESTS_TRUE",
+      "OPENTHREAD_BUILD_TESTS_FALSE"
     ],
-    "failed_during_check": "checking whether to disable executable checking... no",
+    "failed_during_check": "checking for memcpy... yes",
     "failure_tail": [
-      "filtered build system type... filtered host system type... checking whether to d",
-      "./configure: line 1595: .: filename argument required",
-      ".: usage: . filename [arguments]"
+      "checking for memcpy... yes",
+      "configure: creating Makefile",
+      "configure: creating include/Makefile",
+      "configure: creating include/openthread/Makefile",
+      "configure: creating include/openthread/platform/Makefile"
     ],
     "conftest_corruption": [],
     "conftest_directives_intact": 25,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar strlcpy();\\nint main() { return strlcpy(); }",
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar strlcat();\\nint main() { return strlcat(); }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar strlcpy ();\\nint main() { return strlcpy(); }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar strlcat ();\\nint main() { return strlcat(); }",
       "#include <stdbool.h>",
       "#include <$ac_hdr>",
       "#include <$ac_hdr>",
       "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { int8_t x; return 0; }"
     ]
   },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "ok",
-    "real_make": "fail",
-    "real_configure_lines": 25525,
-    "real_first_error": "",
-    "classification": "OURS_BUG_CONFIGURE"
-  },
-  "divergence": {
-    "stage": "configure",
-    "ours_error": "",
-    "ours_error_context": [],
-    "ours_configure_lines": 2972,
-    "real_configure_lines": 25525,
-    "macros_ours_left_undefined": []
-  },
   "receipt": {
-    "court_status": "failed",
+    "court_status": "partial",
     "probe_trace": [],
     "quirks_matched": [
       "uses-libtool",
@@ -111,19 +129,7 @@
       "vendored-aclocal",
       "uses-ax-archive"
     ],
-    "quirks_applied": [
-      {
-        "id": "uses-subdir-objects",
-        "action": "--disable-dependency-tracking",
-        "verified": false
-      },
-      {
-        "id": "uses-maintainer-mode",
-        "action": "--disable-maintainer-mode",
-        "verified": false
-      }
-    ],
-    "receipt_hash": "24e39ed3178d433d21c1340a6407fda16d8349c27724819539e8175382940e80",
+    "receipt_hash": "fc222e24136e1c7565f3970366c0a81d4ec04fa5491250e780188ba2805c06fb",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -132,6 +138,2016 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "doc/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "examples/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "examples/apps/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "examples/apps/cli/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "examples/apps/ncp/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "examples/platforms/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "examples/platforms/cc2538/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "examples/platforms/cc2650/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "examples/platforms/da15000/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "examples/platforms/nrf52840/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "examples/platforms/posix/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "examples/platforms/utils/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "include/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "include/openthread/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "include/openthread/platform/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "src/cli/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/core/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/diag/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/missing/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/missing/stdbool/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/missing/stdint/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/missing/strlcat/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/missing/strlcpy/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/ncp/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tests/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "tests/scripts/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tests/scripts/thread-cert/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "tests/unit/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "third_party/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "third_party/mbedtls/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tools/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "tools/harness-automation/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tools/harness-thci/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tools/spi-hdlc-adapter/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tools/spinel-cli/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tools/spinel-cli/spinel/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      }
+    ],
+    "config_headers": [
+      "include/openthread-config.h"
+    ],
+    "subdirs": [
+      "include",
+      "src",
+      "third_party",
+      "examples",
+      "tests",
+      "tools",
+      "doc",
+      "$(NULL)",
+      "platforms",
+      "$(NULL)",
+      "apps",
+      "$(NULL)",
+      "$(NULL)",
+      "cli",
+      "ncp",
+      "utils",
+      "$(NULL)",
+      "cc2538",
+      "cc2650",
+      "da15000",
+      "nrf52840",
+      "posix",
+      "openthread",
+      "$(NULL)",
+      "platform",
+      "$(NULL)",
+      "missing",
+      "core",
+      "$(NULL)",
+      "cli",
+      "ncp",
+      "diag",
+      "strlcpy",
+      "strlcat",
+      "$(NULL)",
+      "unit",
+      "scripts",
+      "$(NULL)",
+      "$(NULL)",
+      "thread-cert",
+      "$(NULL)",
+      "mbedtls",
+      "$(NULL)",
+      "spinel-cli",
+      "$(NULL)",
+      "spi-hdlc-adapter",
+      "$(NULL)"
+    ],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [],
+        "subdirs": [
+          "include",
+          "src",
+          "third_party",
+          "examples",
+          "tests",
+          "tools",
+          "doc",
+          "$(NULL)"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "examples",
+        "targets": [],
+        "subdirs": [
+          "platforms",
+          "$(NULL)",
+          "apps",
+          "$(NULL)"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "examples/apps",
+        "targets": [],
+        "subdirs": [
+          "$(NULL)",
+          "cli",
+          "ncp"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "examples/apps/cli",
+        "targets": [
+          "$(NULL)"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "examples/apps/ncp",
+        "targets": [
+          "$(NULL)"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "examples/platforms",
+        "targets": [],
+        "subdirs": [
+          "utils",
+          "$(NULL)",
+          "cc2538",
+          "cc2650",
+          "da15000",
+          "nrf52840",
+          "posix"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "examples/platforms/cc2538",
+        "targets": [
+          "libopenthread-cc2538.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "examples/platforms/cc2650",
+        "targets": [
+          "libopenthread-cc2650.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "examples/platforms/da15000",
+        "targets": [
+          "libopenthread-da15000.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "examples/platforms/nrf52840",
+        "targets": [
+          "libopenthread-nrf52840.a",
+          "libopenthread-nrf52840-sdk.a",
+          "$(NULL)"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "examples/platforms/posix",
+        "targets": [
+          "libopenthread-posix.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "examples/platforms/utils",
+        "targets": [
+          "libopenthread-platform-utils.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "include",
+        "targets": [],
+        "subdirs": [
+          "openthread",
+          "$(NULL)"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "include/openthread",
+        "targets": [],
+        "subdirs": [
+          "platform",
+          "$(NULL)"
+        ],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src",
+        "targets": [],
+        "subdirs": [
+          "missing",
+          "core",
+          "$(NULL)",
+          "cli",
+          "ncp",
+          "diag"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/cli",
+        "targets": [
+          "libopenthread-cli.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/core",
+        "targets": [
+          "$(NULL)"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/diag",
+        "targets": [
+          "libopenthread-diag.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/missing",
+        "targets": [],
+        "subdirs": [
+          "strlcpy",
+          "strlcat",
+          "$(NULL)"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/missing/strlcat",
+        "targets": [
+          "strlcat_test",
+          "libstrlcat.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/missing/strlcpy",
+        "targets": [
+          "strlcpy_test",
+          "libstrlcpy.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/ncp",
+        "targets": [
+          "libopenthread-ncp.a",
+          "spinel-test"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "tests",
+        "targets": [],
+        "subdirs": [
+          "unit",
+          "scripts",
+          "$(NULL)"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "tests/scripts",
+        "targets": [],
+        "subdirs": [
+          "$(NULL)",
+          "thread-cert",
+          "$(NULL)"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "tests/scripts/thread-cert",
+        "targets": [
+          "$(NULL)"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "tests/unit",
+        "targets": [
+          "test-aes",
+          "test-fuzz",
+          "test-hmac-sha256",
+          "test-lowpan",
+          "test-link-quality",
+          "test-mac-frame",
+          "test-message",
+          "test-message-queue",
+          "test-priority-queue",
+          "test-timer",
+          "test-toolchain",
+          "$(NULL)"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)/third_party/mbedtls/repo/include                       $(NULL)"
+      },
+      {
+        "dir": "third_party",
+        "targets": [],
+        "subdirs": [
+          "mbedtls",
+          "$(NULL)"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "third_party/mbedtls",
+        "targets": [
+          "libmbedcrypto.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "tools",
+        "targets": [],
+        "subdirs": [
+          "spinel-cli",
+          "$(NULL)",
+          "spi-hdlc-adapter"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "tools/spi-hdlc-adapter",
+        "targets": [
+          "spi-hdlc-adapter",
+          "$(NULL)"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "tools/spinel-cli",
+        "targets": [],
+        "subdirs": [
+          "$(NULL)"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      }
+    ],
+    "max_depth": 3,
+    "config_h_consumers_below_root": [
+      "tools/spi-hdlc-adapter",
+      "src/ncp",
+      "src/cli",
+      "src/core",
+      "include/openthread",
+      "examples/apps/ncp",
+      "examples/apps/cli",
+      "examples/platforms/posix",
+      "examples/platforms/nrf52840",
+      "examples/platforms/da15000",
+      "examples/platforms/cc2538",
+      "examples/platforms/utils",
+      "third_party/mbedtls"
+    ]
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 542,
+        "first_parse_error": {
+          "line": 202,
+          "kind": "missing-separator",
+          "text": "OPENTHREAD_VERSION ?= $(shell cat $(VERSION_FILE) 2> /dev/null)",
+          "previous_lines": [
+            "DISTCLEANFILES = .local-version                    $(NULL)",
+            "EXTRA_DIST = .astyle/astyle-opts               .astyle/astyle-wrap.sh           "
+          ],
+          "probable_cause": "bare-macro"
+        },
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "tests/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 530,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "tests/unit/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 849,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "tests/scripts/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 526,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "tests/scripts/thread-cert/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 638,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "tools/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 526,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "tools/spi-hdlc-adapter/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 513,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "tools/harness-automation/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 439,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "tools/spinel-cli/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 690,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "tools/spinel-cli/spinel/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 439,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "tools/harness-thci/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 439,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 529,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/diag/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 532,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/missing/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 526,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/missing/stdint/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 439,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/missing/strlcat/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 673,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/missing/strlcpy/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 669,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/missing/stdbool/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 439,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/ncp/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 546,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/cli/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 546,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/core/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 566,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "include/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 528,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "include/openthread/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 643,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "include/openthread/platform/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 522,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "examples/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 529,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "examples/apps/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 528,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "examples/apps/ncp/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 562,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "examples/apps/cli/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 562,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "examples/platforms/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 531,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "examples/platforms/posix/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 530,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      }
+    ]
+  },
+  "tool_requirements": {
+    "detected": [
+      "c++"
+    ],
+    "missing": []
+  },
+  "macro_inventory": {
+    "macro_dirs": [],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [],
+    "called_macros": [
+      "AC_ARG_ENABLE",
+      "AC_ARG_WITH",
+      "AC_CACHE_CHECK",
+      "AC_CANONICAL_BUILD",
+      "AC_CANONICAL_HOST",
+      "AC_CHECK_FUNC",
+      "AC_CHECK_FUNCS",
+      "AC_CHECK_HEADERS",
+      "AC_CHECK_TOOL",
+      "AC_CONFIG_AUX_DIR",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_HEADERS",
+      "AC_CONFIG_MACRO_DIR",
+      "AC_CONFIG_SRCDIR",
+      "AC_DEFINE_UNQUOTED",
+      "AC_DEFUN",
+      "AC_DISABLE_SHARED",
+      "AC_EGREP_CPP",
+      "AC_HEADER_STDBOOL",
+      "AC_HEADER_STDC",
+      "AC_INIT",
+      "AC_MSG_CHECKING",
+      "AC_MSG_ERROR",
+      "AC_MSG_NOTICE",
+      "AC_MSG_RESULT",
+      "AC_NO_EXECUTABLES",
+      "AC_OUTPUT",
+      "AC_PATH_PROG",
+      "AC_PREREQ",
+      "AC_PROG_CC",
+      "AC_PROG_CC_C_O",
+      "AC_PROG_CPP",
+      "AC_PROG_CPP_WERROR",
+      "AC_PROG_CXX",
+      "AC_PROG_CXXCPP",
+      "AC_PROG_CXX_C_O",
+      "AC_PROG_INSTALL",
+      "AC_PROG_LIBTOOL",
+      "AC_PROG_LN_S",
+      "AC_SUBST",
+      "AC_TYPE_INT16_T",
+      "AC_TYPE_INT32_T",
+      "AC_TYPE_INT64_T",
+      "AC_TYPE_INT8_T",
+      "AC_TYPE_UINT16_T",
+      "AC_TYPE_UINT32_T",
+      "AC_TYPE_UINT64_T",
+      "AC_TYPE_UINT8_T",
+      "AM_CONDITIONAL",
+      "AM_INIT_AUTOMAKE",
+      "AM_MAINTAINER_MODE",
+      "AM_PROG_AS",
+      "AM_SILENT_RULES",
+      "AX_CHECK_COMPILER_OPTIONS",
+      "LT_INIT"
+    ],
+    "unresolved_macros": [
+      "AX_CHECK_COMPILER_OPTIONS"
+    ]
+  },
+  "conditional_context": {
+    "configure_if": 297,
+    "configure_fi": 278,
+    "configure_case": 99,
+    "configure_esac": 102,
+    "balanced": false,
+    "automake_conditionals": [
+      "OPENTHREAD_TARGET_DARWIN",
+      "OPENTHREAD_TARGET_LINUX",
+      "OPENTHREAD_BUILD_DEBUG",
+      "OPENTHREAD_BUILD_COVERAGE",
+      "OPENTHREAD_BUILD_COVERAGE_REPORTS",
+      "OPENTHREAD_BUILD_OPTIMIZED",
+      "OPENTHREAD_WITH_ADDRESS_SANITIZER",
+      "OPENTHREAD_BUILD_TESTS",
+      "OPENTHREAD_ENABLE_FTD",
+      "OPENTHREAD_ENABLE_CLI",
+      "OPENTHREAD_ENABLE_NCP",
+      "OPENTHREAD_ENABLE_NCP_SPI",
+      "OPENTHREAD_ENABLE_NCP_UART",
+      "OPENTHREAD_ENABLE_BUILTIN_MBEDTLS",
+      "OPENTHREAD_ENABLE_COMMISSIONER",
+      "OPENTHREAD_ENABLE_JOINER",
+      "OPENTHREAD_ENABLE_DTLS",
+      "OPENTHREAD_ENABLE_JAM_DETECTION",
+      "OPENTHREAD_ENABLE_MAC_WHITELIST",
+      "OPENTHREAD_ENABLE_DIAG",
+      "OPENTHREAD_ENABLE_LEGACY",
+      "OPENTHREAD_ENABLE_DEFAULT_LOGGING",
+      "OPENTHREAD_ENABLE_CERT_LOG",
+      "OPENTHREAD_ENABLE_DHCP6_CLIENT",
+      "OPENTHREAD_ENABLE_DHCP6_SERVER",
+      "OPENTHREAD_ENABLE_DNS_CLIENT",
+      "OPENTHREAD_ENABLE_APPLICATION_COAP",
+      "OPENTHREAD_ENABLE_RAW_LINK_API",
+      "OPENTHREAD_EXAMPLES",
+      "OPENTHREAD_EXAMPLES_POSIX"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": "third_party/nlbuild-autotools/repo/autoconf",
+    "present": [
+      "install-sh",
+      "missing",
+      "depcomp",
+      "compile",
+      "ltmain.sh",
+      "config.guess",
+      "config.sub"
+    ],
+    "missing": []
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "S": 1,
+      "c": 201,
+      "cpp": 138,
+      "h": 283,
+      "hpp": 123,
+      "s": 1
+    },
+    "configure_macros": [
+      "AC_PROG_CC",
+      "AC_PROG_CXX"
+    ],
+    "needs_cxx": true,
+    "needs_fortran": false,
+    "sets_c_std": true
+  },
+  "libtool_context": {
+    "uses_libtool": true,
+    "macros": [
+      "LT_INIT",
+      "AC_PROG_LIBTOOL"
+    ],
+    "ltmain_present": false,
+    "libtool_m4_sources": [
+      "aclocal.m4"
+    ],
+    "age": "modern"
+  },
+  "make_graph": {
+    "targets": [
+      "all",
+      "all-am",
+      "install-data-am",
+      "uninstall-am",
+      "install-am",
+      "installcheck-am",
+      "install-strip",
+      "install-info",
+      "install-info-am",
+      "install-dvi",
+      "install-dvi-am",
+      "install-ps",
+      "install-ps-am",
+      "install-pdf",
+      "install-pdf-am",
+      "install-html",
+      "install-html-am",
+      "install-data-hook",
+      "install-exec-hook",
+      "installdirs-am",
+      ".PHONY",
+      "mostlyclean-am",
+      "clean-am",
+      "distclean-am",
+      "maintainer-clean-am",
+      "distdir",
+      "dist",
+      "dist-all",
+      "dist-gzip",
+      "distcleancheck",
+      "distcheck",
+      "check-am",
+      "TAGS",
+      "tags",
+      "TAGS-am",
+      "tags-am",
+      "cscope",
+      "cscope-am",
+      "distuninstallcheck",
+      "$(srcdir)/Makefile.in"
+    ],
+    "key_variables": {
+      "AR": "ar",
+      "CC": "cc",
+      "CFLAGS": "-Wno-c++14-compat",
+      "CPPFLAGS": "-I${abs_top_srcdir}/third_party/mbedtls -I${abs_top_srcdir}/third_party/mbedtls/repo/include -I${abs_top_srcdir}/third_party/mbedtls/repo/include/mbedtls -DMBED",
+      "CXX": "g++",
+      "CXXFLAGS": "-g -O2",
+      "DEFS": "-DHAVE_CONFIG_H",
+      "LDFLAGS": "",
+      "LIBS": "",
+      "RANLIB": "ranlib"
+    },
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "libtool",
+      "config.log"
+    ],
+    "recursion_depth": 3,
+    "top_targets": [
+      "all",
+      "dist",
+      "all-am"
+    ],
+    "make_diagnostics": [
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make: *** No rule to make target '/automake/pre.am'.  Stop."
+      }
+    ]
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": false,
+    "defines_sampled": [
+      "MBEDTLS_CONFIG_FILE=\"mbedtls-config.h\"",
+      "HAVE_CONFIG_H"
+    ]
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-libtool",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-libtool-old",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-subdir-objects",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-maintainer-mode",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-ax-archive",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "vpath_analysis": {
+    "hardcoded_src_paths": 0,
+    "abs_path_leakage": 0,
+    "built_sources": [
+      ".local-version",
+      "$(NULL)"
+    ],
+    "generated_source_targets": [
+      "VERSION_FILE",
+      "$(builddir)/.local-version",
+      "$(distdir)/.dist-version",
+      "$(distdir)/.dist-version $(builddir)/.local-version"
+    ]
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "stdint.h",
+      "string.h"
+    ],
+    "headers_included_unchecked": [
+      "arpa/inet.h",
+      "core/openthread-core-config.h",
+      "crypto/pbkdf2_cmac.h",
+      "driverlib/aon_rtc.h",
+      "driverlib/chipinfo.h",
+      "driverlib/ioc.h",
+      "driverlib/osc.h",
+      "driverlib/prcm.h",
+      "driverlib/rf_common_cmd.h",
+      "driverlib/rf_data_entry.h",
+      "driverlib/rf_ieee_cmd.h",
+      "driverlib/rf_ieee_mailbox.h",
+      "driverlib/rf_mailbox.h",
+      "driverlib/rfc.h",
+      "driverlib/sys_ctrl.h",
+      "driverlib/trng.h",
+      "driverlib/uart.h",
+      "fcntl.h",
+      "inc/hw_ccfg.h",
+      "inc/hw_fcfg1.h",
+      "inc/hw_memmap.h",
+      "inc/hw_prcm.h",
+      "inttypes.h",
+      "linux/spi/spidev.h",
+      "mbedtls/cmac.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 2,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "gnu++",
+    "strip_modern_poison_flags": [],
+    "inject_legacy_shims": false,
+    "compiler_aliasing": {}
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 29,
+    "shadowed_builtins": [],
+    "permitted_mutations": 22,
+    "suspect_global_mutations": 0
+  },
+  "parallel_build_safety": {
+    "vpath_out_of_tree_safe": true,
+    "generators": [
+      "VERSION_FILE",
+      "$(builddir)/.local-version",
+      "$(distdir)/.dist-version",
+      "$(distdir)/.dist-version $(builddir)/.local-version"
+    ],
+    "unordered_generated_sources": [
+      "VERSION_FILE",
+      "$(distdir)/.dist-version"
+    ],
+    "built_sources_declared": true
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "arpa/inet.h",
+      "core/openthread-core-config.h",
+      "crypto/pbkdf2_cmac.h",
+      "driverlib/aon_rtc.h",
+      "driverlib/chipinfo.h",
+      "driverlib/ioc.h",
+      "driverlib/osc.h",
+      "driverlib/prcm.h",
+      "driverlib/rf_common_cmd.h",
+      "driverlib/rf_data_entry.h",
+      "driverlib/rf_ieee_cmd.h",
+      "driverlib/rf_ieee_mailbox.h",
+      "driverlib/rf_mailbox.h",
+      "driverlib/rfc.h",
+      "driverlib/sys_ctrl.h",
+      "driverlib/trng.h",
+      "driverlib/uart.h",
+      "fcntl.h",
+      "inc/hw_ccfg.h",
+      "inc/hw_fcfg1.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "subdir-config-h-include-path",
+    "unresolved-macros",
+    "parallel-build-race (gen-source not in BUILT_SOURCES)"
+  ],
+  "repair_hints": [
+    {
+      "id": "makefile-bare-macro",
+      "phase": "make",
+      "confidence": 0.7,
+      "evidence": [
+        "Makefile:202 missing-separator",
+        "OPENTHREAD_VERSION ?= $(shell cat $(VERSION_FILE) 2> /dev/null)"
+      ],
+      "action": "define-or-neutralize-leaked-macro",
+      "expected_effect": "partial -> FUNC_OK candidate"
+    },
+    {
+      "id": "subdir-top-builddir",
+      "phase": "make",
+      "confidence": 0.88,
+      "evidence": [
+        "tools/spi-hdlc-adapter consumes config.h below root",
+        "src/ncp consumes config.h below root",
+        "src/cli consumes config.h below root",
+        "src/core consumes config.h below root",
+        "include/openthread consumes config.h below root"
+      ],
+      "action": "ensure ac_subst_file sets relative top_builddir per subdir (0.1.19)",
+      "expected_effect": "config.h found in subdir compiles"
+    },
+    {
+      "id": "ship-or-neutralize-macro",
+      "phase": "autoreconf",
+      "confidence": 0.6,
+      "evidence": [
+        "AX_CHECK_COMPILER_OPTIONS"
+      ],
+      "action": "ship native impl or neutralize",
+      "expected_effect": "resolves unexpanded AX_/custom macros"
+    }
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": 0,
+      "Makefile.in": 2738,
+      "aclocal.m4": 659,
+      "configure": 711,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_ENABLE": "system-aclocal",
+      "AC_ARG_WITH": "system-aclocal",
+      "AC_CACHE_CHECK": "system-aclocal",
+      "AC_CANONICAL_BUILD": "system-aclocal",
+      "AC_CANONICAL_HOST": "system-aclocal",
+      "AC_CHECK_FUNC": "system-aclocal",
+      "AC_CHECK_FUNCS": "system-aclocal",
+      "AC_CHECK_HEADERS": "system-aclocal",
+      "AC_CHECK_TOOL": "system-aclocal",
+      "AC_CONFIG_AUX_DIR": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_HEADERS": "system-aclocal",
+      "AC_CONFIG_MACRO_DIR": "system-aclocal",
+      "AC_CONFIG_SRCDIR": "system-aclocal",
+      "AC_DEFINE_UNQUOTED": "system-aclocal",
+      "AC_DEFUN": "system-aclocal",
+      "AC_DISABLE_SHARED": "system-aclocal",
+      "AC_EGREP_CPP": "system-aclocal",
+      "AC_HEADER_STDBOOL": "system-aclocal",
+      "AC_HEADER_STDC": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_MSG_CHECKING": "system-aclocal",
+      "AC_MSG_ERROR": "system-aclocal",
+      "AC_MSG_NOTICE": "system-aclocal",
+      "AC_MSG_RESULT": "system-aclocal",
+      "AC_NO_EXECUTABLES": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PATH_PROG": "system-aclocal",
+      "AC_PREREQ": "system-aclocal",
+      "AC_PROG_CC": "system-aclocal",
+      "AC_PROG_CC_C_O": "system-aclocal",
+      "AC_PROG_CPP": "system-aclocal",
+      "AC_PROG_CPP_WERROR": "system-aclocal",
+      "AC_PROG_CXX": "system-aclocal",
+      "AC_PROG_CXXCPP": "system-aclocal",
+      "AC_PROG_CXX_C_O": "system-aclocal",
+      "AC_PROG_INSTALL": "system-aclocal",
+      "AC_PROG_LIBTOOL": "system-aclocal",
+      "AC_PROG_LN_S": "system-aclocal",
+      "AC_SUBST": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "BUILT_SOURCES",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "COMMON_LDADD",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "COMMON_LDADD",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "COMMON_LDADD",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "check_PROGRAMS",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "check_PROGRAMS",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "check_PROGRAMS",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "test_aes_LDADD",
+        "var": "COMMON_LDADD",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "test_fuzz_LDADD",
+        "var": "COMMON_LDADD",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "test_hmac_sha256_LDADD",
+        "var": "COMMON_LDADD",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "test_link_quality_LDADD",
+        "var": "COMMON_LDADD",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "test_lowpan_LDADD",
+        "var": "COMMON_LDADD",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "test_mac_frame_LDADD",
+        "var": "COMMON_LDADD",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "test_message_LDADD",
+        "var": "COMMON_LDADD",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "test_message_queue_LDADD",
+        "var": "COMMON_LDADD",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "test_ncp_buffer_LDADD",
+        "var": "COMMON_LDADD",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "test_priority_queue_LDADD",
+        "var": "COMMON_LDADD",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "test_timer_LDADD",
+        "var": "COMMON_LDADD",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "test_toolchain_LDADD",
+        "var": "COMMON_LDADD",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "test_diag_LDADD",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "check_PROGRAMS",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "bin_PROGRAMS",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "spi_hdlc_adapter_LDADD",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "spi_hdlc_adapter_SOURCES",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libopenthread_diag_a_SOURCES",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "strlcat_test_LDADD",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libstrlcat_la_SOURCES",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libstrlcpy_la_SOURCES",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libopenthread_ncp_a_SOURCES",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libopenthread_ncp_a_SOURCES",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libopenthread_ncp_a_SOURCES",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libopenthread_cli_a_SOURCES",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "lib_LIBRARIES",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "lib_LIBRARIES",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libopenthread_ftd_a_SOURCES",
+        "var": "SOURCES_COMMON",
+        "resolved_to": [
+          "api/crypto_api.cpp",
+          "api/dataset_api.cpp",
+          "api/icmp6_api.cpp",
+          "api/instance_api.cpp",
+          "api/ip6_api.cpp",
+          "api/link_api.cpp",
+          "api/message_api.cpp",
+          "api/netdata_api.cpp",
+          "api/tasklet_api.cpp",
+          "api/thread_api.cpp",
+          "api/udp_api.cpp",
+          "coap/coap_base.cpp",
+          "coap/coap_client.cpp",
+          "coap/coap_header.cpp",
+          "coap/coap_server.cpp",
+          "common/crc16.cpp",
+          "common/logging.cpp",
+          "common/message.cpp",
+          "common/tasklet.cpp",
+          "common/timer.cpp",
+          "common/tlvs.cpp",
+          "common/trickle_timer.cpp",
+          "crypto/aes_ccm.cpp",
+          "crypto/aes_ecb.cpp",
+          "crypto/hmac_sha256.cpp",
+          "crypto/mbedtls.cpp",
+          "crypto/sha256.cpp",
+          "mac/mac.cpp",
+          "mac/mac_frame.cpp",
+          "meshcop/dataset.cpp",
+          "meshcop/dataset_manager.cpp",
+          "meshcop/timestamp.cpp",
+          "net/icmp6.cpp",
+          "net/ip6.cpp",
+          "net/ip6_address.cpp",
+          "net/ip6_filter.cpp",
+          "net/ip6_mpl.cpp",
+          "net/ip6_routes.cpp",
+          "net/netif.cpp",
+          "net/udp6.cpp",
+          "thread/announce_begin_server.cpp",
+          "thread/data_poll_manager.cpp",
+          "thread/energy_scan_server.cpp",
+          "thread/key_manager.cpp",
+          "thread/link_quality.cpp",
+          "thread/lowpan.cpp",
+          "thread/mesh_forwarder.cpp",
+          "thread/mle.cpp",
+          "thread/network_data.cpp",
+          "thread/network_data_leader.cpp",
+          "thread/panid_query_server.cpp",
+          "thread/network_diagnostic.cpp",
+          "thread/src_match_controller.cpp",
+          "thread/thread_netif.cpp",
+          "utils/slaac_address.cpp",
+          "$(NULL)",
+          "api/coap_api.cpp",
+          "$(NULL)",
+          "mac/mac_blacklist.cpp",
+          "mac/mac_whitelist.cpp",
+          "$(NULL)",
+          "api/commissioner_api.cpp",
+          "coap/secure_coap_server.cpp",
+          "crypto/pbkdf2_cmac.cpp",
+          "meshcop/announce_begin_client.cpp",
+          "meshcop/commissioner.cpp",
+          "meshcop/energy_scan_client.cpp",
+          "meshcop/panid_query_client.cpp",
+          "$(NULL)",
+          "api/joiner_api.cpp",
+          "coap/secure_coap_client.cpp",
+          "meshcop/joiner.cpp",
+          "$(NULL)",
+          "meshcop/dtls.cpp",
+          "$(NULL)",
+          "api/dhcp6_api.cpp",
+          "net/dhcp6_client.cpp",
+          "$(NULL)",
+          "api/dhcp6_api.cpp",
+          "net/dhcp6_server.cpp",
+          "$(NULL)",
+          "api/dns_api.cpp",
+          "net/dns_client.cpp",
+          "$(NULL)",
+          "api/jam_detection_api.cpp",
+          "utils/jam_detector.cpp",
+          "$(NULL)",
+          "api/link_raw_api.cpp",
+          "$(NULL)"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libopenthread_ftd_a_SOURCES",
+        "var": "SOURCES_FTD",
+        "resolved_to": [
+          "meshcop/dataset_manager_ftd.cpp",
+          "meshcop/joiner_router.cpp",
+          "meshcop/leader.cpp",
+          "thread/address_resolver.cpp",
+          "thread/mle_router.cpp",
+          "thread/network_data_leader_ftd.cpp",
+          "thread/network_data_local.cpp",
+          "$(NULL)"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libopenthread_ftd_a_SOURCES",
+        "var": "SOURCES_MISSING",
+        "resolved_to": [
+          "$(NULL)",
+          "strlcpy.c",
+          "strlcat.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libopenthread_ftd_a_SOURCES",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "lib_LIBRARIES",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libopenthread_mtd_a_SOURCES",
+        "var": "SOURCES_COMMON",
+        "resolved_to": [
+          "api/crypto_api.cpp",
+          "api/dataset_api.cpp",
+          "api/icmp6_api.cpp",
+          "api/instance_api.cpp",
+          "api/ip6_api.cpp",
+          "api/link_api.cpp",
+          "api/message_api.cpp",
+          "api/netdata_api.cpp",
+          "api/tasklet_api.cpp",
+          "api/thread_api.cpp",
+          "api/udp_api.cpp",
+          "coap/coap_base.cpp",
+          "coap/coap_client.cpp",
+          "coap/coap_header.cpp",
+          "coap/coap_server.cpp",
+          "common/crc16.cpp",
+          "common/logging.cpp",
+          "common/message.cpp",
+          "common/tasklet.cpp",
+          "common/timer.cpp",
+          "common/tlvs.cpp",
+          "common/trickle_timer.cpp",
+          "crypto/aes_ccm.cpp",
+          "crypto/aes_ecb.cpp",
+          "crypto/hmac_sha256.cpp",
+          "crypto/mbedtls.cpp",
+          "crypto/sha256.cpp",
+          "mac/mac.cpp",
+          "mac/mac_frame.cpp",
+          "meshcop/dataset.cpp",
+          "meshcop/dataset_manager.cpp",
+          "meshcop/timestamp.cpp",
+          "net/icmp6.cpp",
+          "net/ip6.cpp",
+          "net/ip6_address.cpp",
+          "net/ip6_filter.cpp",
+          "net/ip6_mpl.cpp",
+          "net/ip6_routes.cpp",
+          "net/netif.cpp",
+          "net/udp6.cpp",
+          "thread/announce_begin_server.cpp",
+          "thread/data_poll_manager.cpp",
+          "thread/energy_scan_server.cpp",
+          "thread/key_manager.cpp",
+          "thread/link_quality.cpp",
+          "thread/lowpan.cpp",
+          "thread/mesh_forwarder.cpp",
+          "thread/mle.cpp",
+          "thread/network_data.cpp",
+          "thread/network_data_leader.cpp",
+          "thread/panid_query_server.cpp",
+          "thread/network_diagnostic.cpp",
+          "thread/src_match_controller.cpp",
+          "thread/thread_netif.cpp",
+          "utils/slaac_address.cpp",
+          "$(NULL)",
+          "api/coap_api.cpp",
+          "$(NULL)",
+          "mac/mac_blacklist.cpp",
+          "mac/mac_whitelist.cpp",
+          "$(NULL)",
+          "api/commissioner_api.cpp",
+          "coap/secure_coap_server.cpp",
+          "crypto/pbkdf2_cmac.cpp",
+          "meshcop/announce_begin_client.cpp",
+          "meshcop/commissioner.cpp",
+          "meshcop/energy_scan_client.cpp",
+          "meshcop/panid_query_client.cpp",
+          "$(NULL)",
+          "api/joiner_api.cpp",
+          "coap/secure_coap_client.cpp",
+          "meshcop/joiner.cpp",
+          "$(NULL)",
+          "meshcop/dtls.cpp",
+          "$(NULL)",
+          "api/dhcp6_api.cpp",
+          "net/dhcp6_client.cpp",
+          "$(NULL)",
+          "api/dhcp6_api.cpp",
+          "net/dhcp6_server.cpp",
+          "$(NULL)",
+          "api/dns_api.cpp",
+          "net/dns_client.cpp",
+          "$(NULL)",
+          "api/jam_detection_api.cpp",
+          "utils/jam_detector.cpp",
+          "$(NULL)",
+          "api/link_raw_api.cpp",
+          "$(NULL)"
+        ],
+        "resolved": true
+      }
+    ],
+    "unresolved_refs": [
+      "BUILT_SOURCES = $(NULL)",
+      "COMMON_LDADD = $(NULL)",
+      "COMMON_LDADD = $(NULL)",
+      "COMMON_LDADD = $(NULL)",
+      "check_PROGRAMS = $(NULL)",
+      "check_PROGRAMS = $(NULL)",
+      "check_PROGRAMS = $(NULL)",
+      "test_aes_LDADD = $(COMMON_LDADD)",
+      "test_fuzz_LDADD = $(COMMON_LDADD)",
+      "test_hmac_sha256_LDADD = $(COMMON_LDADD)",
+      "test_link_quality_LDADD = $(COMMON_LDADD)",
+      "test_lowpan_LDADD = $(COMMON_LDADD)",
+      "test_mac_frame_LDADD = $(COMMON_LDADD)",
+      "test_message_LDADD = $(COMMON_LDADD)",
+      "test_message_queue_LDADD = $(COMMON_LDADD)",
+      "test_ncp_buffer_LDADD = $(COMMON_LDADD)",
+      "test_priority_queue_LDADD = $(COMMON_LDADD)",
+      "test_timer_LDADD = $(COMMON_LDADD)",
+      "test_toolchain_LDADD = $(COMMON_LDADD)",
+      "test_diag_LDADD = $(NULL)",
+      "check_PROGRAMS = $(NULL)",
+      "bin_PROGRAMS = $(NULL)",
+      "spi_hdlc_adapter_LDADD = $(NULL)",
+      "spi_hdlc_adapter_SOURCES = $(NULL)",
+      "libopenthread_diag_a_SOURCES = $(NULL)",
+      "strlcat_test_LDADD = $(NULL)",
+      "libstrlcat_la_SOURCES = $(NULL)",
+      "libstrlcpy_la_SOURCES = $(NULL)",
+      "libopenthread_ncp_a_SOURCES = $(NULL)",
+      "libopenthread_ncp_a_SOURCES = $(NULL)",
+      "libopenthread_ncp_a_SOURCES = $(NULL)",
+      "libopenthread_cli_a_SOURCES = $(NULL)",
+      "lib_LIBRARIES = $(NULL)",
+      "lib_LIBRARIES = $(NULL)",
+      "libopenthread_ftd_a_SOURCES = $(NULL)",
+      "lib_LIBRARIES = $(NULL)",
+      "libopenthread_mtd_a_SOURCES = $(NULL)",
+      "bin_PROGRAMS = $(NULL)",
+      "bin_PROGRAMS = $(NULL)",
+      "ot_ncp_ftd_LDADD = $(NULL)",
+      "ot_ncp_ftd_SOURCES = $(NULL)",
+      "bin_PROGRAMS = $(NULL)",
+      "ot_ncp_mtd_LDADD = $(NULL)",
+      "ot_ncp_mtd_SOURCES = $(NULL)",
+      "bin_PROGRAMS = $(NULL)",
+      "bin_PROGRAMS = $(NULL)",
+      "ot_cli_ftd_LDADD = $(NULL)",
+      "ot_cli_ftd_SOURCES = $(NULL)",
+      "bin_PROGRAMS = $(NULL)",
+      "ot_cli_mtd_LDADD = $(NULL)",
+      "ot_cli_mtd_SOURCES = $(NULL)",
+      "libopenthread_posix_a_SOURCES = $(NULL)",
+      "libopenthread_posix_a_SOURCES = $(NULL)",
+      "libopenthread_posix_a_SOURCES = $(NULL)",
+      "lib_LIBRARIES = $(NULL)",
+      "PLATFORM_SOURCES = $(NULL)",
+      "PLATFORM_SOURCES = $(NULL)",
+      "NORDICSEMI_SOURCES = $(NULL)",
+      "libopenthread_nrf52840_a_SOURCES = $(PLATFORM_SOURCES)",
+      "libopenthread_nrf52840_a_SOURCES = $(NORDICSEMI_SOURCES)",
+      "libopenthread_nrf52840_a_SOURCES = $(NULL)",
+      "libopenthread_nrf52840_sdk_a_SOURCES = $(PLATFORM_SOURCES)",
+      "libopenthread_nrf52840_sdk_a_SOURCES = $(NORDICSEMI_SOURCES)",
+      "libopenthread_nrf52840_sdk_a_SOURCES = $(NULL)",
+      "PLATFORM_SOURCES = $(NULL)",
+      "DIALOG_SOURCES = $(NULL)",
+      "libopenthread_da15000_a_SOURCES = $(PLATFORM_SOURCES)",
+      "libopenthread_da15000_a_SOURCES = $(DIALOG_SOURCES)",
+      "libopenthread_da15000_a_SOURCES = $(NULL)",
+      "libopenthread_cc2538_a_SOURCES = $(NULL)",
+      "libopenthread_cc2538_a_SOURCES = $(NULL)",
+      "libopenthread_platform_utils_a_SOURCES = $(NULL)",
+      "libopenthread_cc2650_a_SOURCES = $(NULL)",
+      "libopenthread_cc2650_a_SOURCES = $(NULL)",
+      "libmbedcrypto_a_SOURCES = $(NULL)",
+      "libmbedcrypto_a_SOURCES = $(NULL)"
+    ],
+    "indirection_count": 89
   }
 }

@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "hunter-packages/libmicrohttpd",
   "source": {
     "url": "https://github.com/hunter-packages/libmicrohttpd",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -21,6 +21,16 @@
     {
       "step": "autoreconf",
       "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "fail"
+    },
+    {
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
       "status": "fail"
     }
   ],
@@ -29,7 +39,9 @@
     "configure_args": []
   },
   "dependencies": {
-    "pkg_config": [],
+    "pkg_config": [
+      "for LIBGCRYPT - version >= ... LIBGCRYPT API version... how to link with lib[].."
+    ],
     "system_libs": [],
     "headers_needed": [],
     "missing": []
@@ -41,19 +53,73 @@
     "subdirs"
   ],
   "outputs": [],
-  "status": "CONFIGURE_GEN_FAIL",
+  "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "",
-  "oracle": {
-    "real_autoreconf": "fail",
-    "real_configure": "skipped",
-    "real_make": "skipped",
-    "real_configure_lines": 0,
-    "real_first_error": "autom4te: error: /usr/bin/m4 failed with exit status: 1",
-    "classification": "NOT_STANDALONE"
+  "diagnostic": "configure: error: Package requirements () were not met:",
+  "deep_expansion": {
+    "configure_lines": 4481,
+    "leaked_macros": [],
+    "heredoc_openers": 151,
+    "heredoc_terminators": 151,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [],
+    "cache_var_anomalies": [
+      "line 66: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "PACKAGE_NAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_TARNAME",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL",
+      "srcdir",
+      "prefix",
+      "exec_prefix",
+      "GNUTLS_CPPFLAGS",
+      "HAVE_LIBNAME",
+      "CPU_COUNT",
+      "GLIBC21",
+      "MSGFMT_015",
+      "XGETTEXT_015",
+      "XGETTEXT_EXTRA_OPTIONS",
+      "LIBNAME",
+      "GENCAT",
+      "MHD_LIB_CPPFLAGS",
+      "WOE32DLL",
+      "LIBNAME_PREFIX",
+      "MHD_LIB_LDFLAGS",
+      "CPPFLAGS",
+      "LIBTHREAD",
+      "INTLLIBS",
+      "MHD_LIBDEPS",
+      "POSUB",
+      "LIBS",
+      "LTLIBNAME",
+      "lt_cv_objdir"
+    ],
+    "failed_during_check": "checking for C compiler... cc",
+    "failure_tail": [
+      "checking for C compiler... cc",
+      "for LIBGCRYPT - version >= ... LIBGCRYPT API version... how to link with lib[]..",
+      "no",
+      "okay",
+      "does not match. want= got="
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 185,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "/* end confdefs.h */\\nint main() { return 0; }",
+      "/* end confdefs.h */\\n#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar curl_free();\\nint main() { return curl_free(); }",
+      "/* end confdefs.h */\\n#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar tsearch();\\nint main() { return tsearch(); }",
+      "/* end confdefs.h */\\n#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar [gettimeofday]();\\nint main() { return [gettimeofday](); }",
+      "/* end confdefs.h */\\n#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar [nanosleep]();\\nint main() { return [nanosleep](); }",
+      "/* end confdefs.h */\\n#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar [usleep]();\\nint main() { return [usleep](); }"
+    ]
   },
   "receipt": {
-    "court_status": "not_standalone",
+    "court_status": "failed",
     "probe_trace": [],
     "quirks_matched": [
       "uses-libtool",
@@ -65,7 +131,14 @@
       "uses-ax-archive",
       "uses-pthread-check"
     ],
-    "receipt_hash": "9b7adf94931adf8777cc7048ba55dbbb62d313e6a3801307971c3b426cb3bcb8",
+    "quirks_applied": [
+      {
+        "id": "uses-subdir-objects",
+        "action": "--disable-dependency-tracking",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -74,6 +147,1387 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "contrib/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "doc/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "doc/doxygen/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "doc/examples/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "libmicrohttpd.pc",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "m4/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "po/configure.acT:po/configure.ac.in",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": false
+      },
+      {
+        "path": "src/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "src/examples/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/include/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/microhttpd/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/microhttpd/microhttpd_dll_res.rc",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/testcurl/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/testcurl/https/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/testzzuf/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "w32/common/microhttpd_dll_res_vc.rc",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      }
+    ],
+    "config_headers": [
+      "MHD_config.h"
+    ],
+    "subdirs": [
+      "contrib",
+      "m4",
+      "src",
+      ".",
+      "doc",
+      ".",
+      "doxygen",
+      "examples",
+      ".",
+      "include",
+      "microhttpd",
+      "$(curltests)",
+      "$(zzuftests)",
+      ".",
+      "examples",
+      ".",
+      ".",
+      ".",
+      "https",
+      ".",
+      "."
+    ],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [],
+        "subdirs": [
+          "contrib",
+          "m4",
+          "src",
+          ".",
+          "doc"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "doc",
+        "targets": [],
+        "subdirs": [
+          ".",
+          "doxygen",
+          "examples"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "doc/examples",
+        "targets": [
+          "basicauthentication",
+          "hellobrowser",
+          "logging",
+          "responseheaders"
+        ],
+        "subdirs": [
+          "."
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": "-DWINDOWS"
+      },
+      {
+        "dir": "src",
+        "targets": [],
+        "subdirs": [
+          "include",
+          "microhttpd",
+          "$(curltests)",
+          "$(zzuftests)",
+          ".",
+          "examples"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/examples",
+        "targets": [
+          "benchmark",
+          "benchmark_https",
+          "chunked_example",
+          "minimal_example",
+          "dual_stack_example",
+          "minimal_example_comet",
+          "querystring_example",
+          "timeout",
+          "fileserver_example",
+          "fileserver_example_dirs",
+          "fileserver_example_external_select",
+          "refuse_post_example"
+        ],
+        "subdirs": [
+          "."
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)/src/include    -DDATA_DIR=\\\"$(top_srcdir)/src/datadir/\\\""
+      },
+      {
+        "dir": "src/include",
+        "targets": [],
+        "subdirs": [
+          "."
+        ],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/microhttpd",
+        "targets": [
+          "libmicrohttpd.la",
+          "test_str_compare",
+          "test_str_to_value",
+          "test_str_token",
+          "test_http_reasons",
+          "test_shutdown_select",
+          "test_shutdown_poll",
+          "test_daemon"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)/src/include    -I$(top_srcdir)/src/microhttpd"
+      },
+      {
+        "dir": "src/testcurl",
+        "targets": [
+          "test_start_stop",
+          "test_get",
+          "test_get_sendfile",
+          "test_urlparse",
+          "test_delete",
+          "test_put",
+          "test_process_headers",
+          "test_process_arguments",
+          "test_parse_cookies",
+          "test_large_put",
+          "test_get11",
+          "test_get_sendfile11"
+        ],
+        "subdirs": [
+          ".",
+          "https"
+        ],
+        "sources_include_config_h": true,
+        "am_cppflags": "-DCPU_COUNT=$(CPU_COUNT)  -I$(top_srcdir)  -I$(top_srcdir)/src/microhttpd  -I$(top_srcdir)/src/include  $(LIBCURL_CPPFLA"
+      },
+      {
+        "dir": "src/testcurl/https",
+        "targets": [
+          "test_tls_options",
+          "test_tls_authentication",
+          "test_https_multi_daemon",
+          "test_https_get",
+          "$(TEST_HTTPS_SNI)",
+          "test_https_get_select",
+          "$(HTTPS_PARALLEL_TESTS)",
+          "test_https_session_info",
+          "test_https_time_out",
+          "test_empty_response"
+        ],
+        "subdirs": [
+          "."
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)/src/include    -I$(top_srcdir)/src/microhttpd    -I$(top_srcdir)/src/platform    $(LIBCURL_CPPFLAGS) $(G"
+      },
+      {
+        "dir": "src/testzzuf",
+        "targets": [
+          "test_get",
+          "test_get_chunked",
+          "test_post",
+          "test_post_form",
+          "test_put",
+          "test_put_chunked",
+          "test_put_large",
+          "test_get11",
+          "test_post11",
+          "test_post_form11",
+          "test_put11",
+          "test_put_large11"
+        ],
+        "subdirs": [
+          "."
+        ],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)/src/include    $(LIBCURL_CPPFLAGS)"
+      }
+    ],
+    "max_depth": 3,
+    "config_h_consumers_below_root": [
+      "src/microhttpd",
+      "src/testzzuf",
+      "src/include",
+      "src/testcurl"
+    ]
+  },
+  "macro_inventory": {
+    "macro_dirs": [
+      "m4"
+    ],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": true,
+    "defined_macros": [
+      {
+        "name": "gl_AC_HEADER_INTTYPES_H",
+        "source": "m4/inttypes_h.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AC_TYPE_LONG_LONG_INT",
+        "source": "m4/longlong.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_TYPE_UNSIGNED_LONG_LONG_INT",
+        "source": "m4/longlong.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "_AC_TYPE_LONG_LONG_SNIPPET",
+        "source": "m4/longlong.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gt_INTTYPES_PRI",
+        "source": "m4/inttypes-pri.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AX_REQUIRE_DEFINED",
+        "source": "m4/ax_require_defined.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "gl_AC_HEADER_STDINT_H",
+        "source": "m4/stdint_h.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_FUNC_TSEARCH",
+        "source": "m4/tsearch.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_PREREQ_TSEARCH",
+        "source": "m4/tsearch.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AM_PO_SUBDIRS",
+        "source": "m4/po.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AM_POSTPROCESS_PO_MAKEFILE",
+        "source": "m4/po.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AM_XGETTEXT_OPTION_INIT",
+        "source": "m4/po.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AM_XGETTEXT_OPTION",
+        "source": "m4/po.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AM_PATH_LIBGCRYPT",
+        "source": "m4/libgcrypt.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AC_LIB_LINKFLAGS",
+        "source": "m4/lib-link.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_LIB_HAVE_LINKFLAGS",
+        "source": "m4/lib-link.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_LIB_RPATH",
+        "source": "m4/lib-link.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_LIB_FROMPACKAGE",
+        "source": "m4/lib-link.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_LIB_LINKFLAGS_BODY",
+        "source": "m4/lib-link.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_LIB_APPENDTOVAR",
+        "source": "m4/lib-link.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_LIB_LINKFLAGS_FROM_LIBS",
+        "source": "m4/lib-link.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "LIBCURL_CHECK_CONFIG",
+        "source": "m4/libcurl.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "PKG_PROG_PKG_CONFIG",
+        "source": "m4/pkg.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "PKG_CHECK_EXISTS",
+        "source": "m4/pkg.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_PKG_SHORT_ERRORS_SUPPORTED",
+        "source": "m4/pkg.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "PKG_CHECK_MODULES",
+        "source": "m4/pkg.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "PKG_CHECK_MODULES_STATIC",
+        "source": "m4/pkg.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "PKG_INSTALLDIR",
+        "source": "m4/pkg.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "PKG_NOARCH_INSTALLDIR",
+        "source": "m4/pkg.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "PKG_CHECK_VAR",
+        "source": "m4/pkg.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_XSIZE",
+        "source": "m4/xsize.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_VISIBILITY",
+        "source": "m4/visibility.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_GLIBC21",
+        "source": "m4/glibc21.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AX_PTHREAD",
+        "source": "m4/ax_pthread.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "gt_TYPE_INTMAX_T",
+        "source": "m4/intmax.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AM_PATH_PROG_WITH_TEST",
+        "source": "m4/progtest.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "gt_LC_MESSAGES",
+        "source": "m4/lcmessage.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AX_APPEND_COMPILE_FLAGS",
+        "source": "m4/ax_append_compile_flags.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AM_ICONV_LINKFLAGS_BODY",
+        "source": "m4/iconv.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AM_ICONV_LINK",
+        "source": "m4/iconv.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "gl_iconv_AC_DEFUN",
+        "source": "m4/iconv.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "2",
+        "source": "m4/iconv.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AM_ICONV",
+        "source": "m4/iconv.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "gl_EXTERN_INLINE",
+        "source": "m4/extern-inline.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "MHD_CHECK_SOCKET_SHUTDOWN_TRIGGER",
+        "source": "m4/mhd_shutdown_socket_trigger.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_MHD_OS_KNOWN_SOCKET_SHUTDOWN_TRIGGER",
+        "source": "m4/mhd_shutdown_socket_trigger.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_MHD_RUN_CHECK_SOCKET_SHUTDOWN_TRIGGER",
+        "source": "m4/mhd_shutdown_socket_trigger.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_LOCK",
+        "source": "m4/lock.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_PREREQ_LOCK",
+        "source": "m4/lock.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_THREADLIB_EARLY",
+        "source": "m4/threadlib.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_THREADLIB_EARLY_BODY",
+        "source": "m4/threadlib.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_THREADLIB_BODY",
+        "source": "m4/threadlib.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_THREADLIB",
+        "source": "m4/threadlib.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_DISABLE_THREADS",
+        "source": "m4/threadlib.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AX_CHECK_COMPILE_FLAG",
+        "source": "m4/ax_check_compile_flag.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AM_NLS",
+        "source": "m4/nls.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "MHD_SYS_EXT",
+        "source": "m4/mhd_sys_extentions.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_MHD_CHECK_XOPEN_ENABLE",
+        "source": "m4/mhd_sys_extentions.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "MHD_CHECK_HEADER_PRESENCE",
+        "source": "m4/mhd_sys_extentions.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "MHD_CHECK_HEADERS_PRESENCE",
+        "source": "m4/mhd_sys_extentions.m4",
+        "kind": "project-local"
+      }
+    ],
+    "called_macros": [
+      "AC_ARG_ENABLE",
+      "AC_ARG_WITH",
+      "AC_CACHE_CHECK",
+      "AC_CANONICAL_HOST",
+      "AC_CHECK_DECL",
+      "AC_CHECK_DECLS",
+      "AC_CHECK_FUNCS",
+      "AC_CHECK_FUNCS_ONCE",
+      "AC_CHECK_HEADER",
+      "AC_CHECK_HEADERS",
+      "AC_CHECK_LIB",
+      "AC_CHECK_MEMBER",
+      "AC_CHECK_PROG",
+      "AC_CHECK_TYPE",
+      "AC_COMPILE_IFELSE",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_HEADERS",
+      "AC_CONFIG_MACRO_DIR",
+      "AC_C_BIGENDIAN",
+      "AC_DEFINE",
+      "AC_DEFINE_UNQUOTED",
+      "AC_FUNC_FSEEKO",
+      "AC_INCLUDES_DEFAULT",
+      "AC_INIT",
+      "AC_LANG_PROGRAM",
+      "AC_LINK_IFELSE",
+      "AC_MSG_CHECKING",
+      "AC_MSG_ERROR",
+      "AC_MSG_NOTICE",
+      "AC_MSG_RESULT",
+      "AC_MSG_WARN",
+      "AC_OUTPUT",
+      "AC_PACKAGE_VERSION",
+      "AC_PREREQ",
+      "AC_PROG_AWK",
+      "AC_PROG_CC_STDC",
+      "AC_PROG_INSTALL",
+      "AC_PROG_LN_S",
+      "AC_PROG_MAKE_SET",
+      "AC_SEARCH_LIBS",
+      "AC_SUBST",
+      "AC_SYS_LARGEFILE",
+      "AM_CONDITIONAL",
+      "AM_INIT_AUTOMAKE",
+      "AM_PATH_LIBGCRYPT",
+      "AX_APPEND_COMPILE_FLAGS",
+      "AX_CHECK_COMPILE_FLAG",
+      "AX_CHECK_LINK_FLAG",
+      "AX_COUNT_CPUS",
+      "AX_HAVE_EPOLL",
+      "AX_PTHREAD",
+      "LT_INIT",
+      "LT_LANG",
+      "LT_PREREQ",
+      "PKG_CHECK_MODULES"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 249,
+    "configure_fi": 242,
+    "configure_case": 49,
+    "configure_esac": 53,
+    "balanced": false,
+    "automake_conditionals": [
+      "HAVE_POSIX_THREADS",
+      "USE_POSIX_THREADS",
+      "USE_W32_THREADS",
+      "HAVE_W32",
+      "W32_SHARED_LIB_EXP",
+      "USE_MS_LIB_TOOL",
+      "HAVE_LISTEN_SHUTDOWN",
+      "HAVE_CURL_BINARY",
+      "HAVE_MAKEINFO_BINARY",
+      "W32_STATIC_LIB",
+      "BUILD_DOC",
+      "BUILD_EXAMPLES",
+      "MHD_HAVE_TSEARCH",
+      "HAVE_CURL",
+      "HAVE_MAGIC",
+      "HAVE_POSTPROCESSOR",
+      "HAVE_ZZUF",
+      "HAVE_SOCAT",
+      "HAVE_GNUTLS",
+      "HAVE_GNUTLS_SNI",
+      "ENABLE_HTTPS",
+      "ENABLE_BAUTH",
+      "ENABLE_DAUTH",
+      "ENABLE_UPGRADE",
+      "HAVE_FORK_WAITPID",
+      "USE_COVERAGE"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": ".",
+    "present": [
+      "install-sh",
+      "missing",
+      "depcomp",
+      "compile"
+    ],
+    "missing": [
+      "ltmain.sh",
+      "config.guess",
+      "config.sub"
+    ]
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "c": 109,
+      "h": 29
+    },
+    "configure_macros": [
+      "AC_PROG_CC"
+    ],
+    "needs_cxx": false,
+    "needs_fortran": false,
+    "sets_c_std": false
+  },
+  "libtool_context": {
+    "uses_libtool": true,
+    "macros": [
+      "LT_INIT",
+      "LT_LANG"
+    ],
+    "ltmain_present": false,
+    "libtool_m4_sources": [
+      "aclocal.m4"
+    ],
+    "age": "modern"
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": true,
+    "defines_sampled": []
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-subdir-objects",
+      "applied_at": "configure",
+      "effect": "neutral",
+      "effectiveness": "low"
+    },
+    {
+      "quirk_id": "uses-libtool",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-pkg-config",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "has-m4-macro-dir",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "has-acinclude",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-ax-archive",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-pthread-check",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "vpath_analysis": {
+    "hardcoded_src_paths": 4,
+    "abs_path_leakage": 0,
+    "built_sources": [],
+    "generated_source_targets": [
+      "$(lt_cv_objdir)/libmicrohttpd.def",
+      "$(lt_cv_objdir)/libmicrohttpd.exp",
+      "$(lt_cv_objdir)/libmicrohttpd.lib",
+      "@echo Creating $@ and libmicrohttpd.exp by $(MS_LIB_TOOL)... &&  \tdll_name=`$(EGREP) -o dlname=\\'.+\\' libmicrohttpd.la` &&  \tdll_name=$${dll_name#*\\'} && dll_name=$${dll_name%\\'} && test -n \"$$dll_name\" &&  \techo Creating $$dll_name by $(MS_LIB_TOOL).. && cd \"$(lt_cv_objdir)\" &&  \t$(MS_LIB_TOOL) -def",
+      "@echo Creating $@ and libmicrohttpd.exp by $(DLLTOOL)... &&  \tdll_name=`$(EGREP) -o dlname=\\'.+\\' libmicrohttpd.la` &&  \tdll_name=$${dll_name#*\\'} && dll_name=$${dll_name%\\'} && test -n \"$$dll_name\" &&  \techo Creating $$dll_name by $(DLLTOOL).. && cd \"$(lt_cv_objdir)\" &&  \t$(DLLTOOL) -d ./libmicrohttpd.def -D $$dll_name -l libmicrohttpd.lib $(libmicrohttpd_la_OBJECTS",
+      "$(lt_cv_objdir)/libmicrohttpd-static.lib",
+      "$(MS_LIB_TOOL) -out",
+      "MHD_DLL_RES_LO = libmicrohttpd_la-$(MHD_DLL_RES_SRC",
+      ".rc.lo",
+      "RC_CPP_FLAGS=\" $(DEFAULT_INCLUDES) $(INCLUDES) $(libmicrohttpd_la_CPPFLAGS) $(CPPFLAGS) \" &&  \t$(LIBTOOL) $(AM_V_lt) --tag=RC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(RC) $(RCFLAGS) $(DEFS) $${RC_CPP_FLAGS// -isystem / -I } $< -o $@ &&  \techo > $@-empty.c && $(CC) $(AM_CFLAGS) $(CFLAGS) -c $@-empty.c -o $(@"
+    ]
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "arpa/inet.h",
+      "endian.h",
+      "errno.h",
+      "fcntl.h",
+      "gcrypt.h",
+      "gnutls/gnutls.h",
+      "inetLib.h",
+      "inttypes.h",
+      "limits.h",
+      "locale.h",
+      "machine/endian.h",
+      "machine/param.h",
+      "magic.h",
+      "math.h",
+      "net/if.h",
+      "netdb.h",
+      "netinet/in.h",
+      "netinet/ip.h",
+      "netinet/tcp.h",
+      "poll.h",
+      "pthread_np.h",
+      "search.h",
+      "sockLib.h",
+      "stdbool.h",
+      "stddef.h",
+      "stdio.h",
+      "sys/byteorder.h",
+      "sys/endian.h",
+      "sys/eventfd.h",
+      "sys/ioctl.h",
+      "sys/isa_defs.h",
+      "sys/machine.h",
+      "sys/mman.h",
+      "sys/msg.h",
+      "sys/param.h",
+      "sys/select.h",
+      "sys/socket.h",
+      "sys/stat.h",
+      "sys/time.h",
+      "sys/types.h"
+    ],
+    "headers_included_unchecked": [
+      "curl/curl.h",
+      "gnutls/abstract.h",
+      "mach/clock.h",
+      "mach/mach.h",
+      "pthread.h",
+      "stdint.h",
+      "sys/sendfile.h",
+      "sys/wait.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 8,
+    "shadowed_macros": [
+      "AC_TYPE_LONG_LONG_INT",
+      "AC_TYPE_UNSIGNED_LONG_LONG_INT",
+      "AM_PO_SUBDIRS",
+      "AM_POSTPROCESS_PO_MAKEFILE",
+      "AM_XGETTEXT_OPTION_INIT",
+      "AM_XGETTEXT_OPTION",
+      "AM_PATH_LIBGCRYPT",
+      "AC_LIB_LINKFLAGS",
+      "AC_LIB_HAVE_LINKFLAGS",
+      "AC_LIB_RPATH",
+      "AC_LIB_FROMPACKAGE",
+      "AC_LIB_LINKFLAGS_BODY",
+      "AC_LIB_APPENDTOVAR",
+      "AC_LIB_LINKFLAGS_FROM_LIBS",
+      "AM_PATH_PROG_WITH_TEST",
+      "AM_ICONV_LINKFLAGS_BODY",
+      "AM_ICONV_LINK",
+      "AM_ICONV",
+      "AM_NLS"
+    ]
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "c89_gnu",
+    "strip_modern_poison_flags": [
+      "-Werror=implicit-function-declaration",
+      "-Werror=int-conversion",
+      "-Werror=incompatible-pointer-types"
+    ],
+    "inject_legacy_shims": true,
+    "compiler_aliasing": {
+      "clang-18+": "-std=gnu89 -Wno-error",
+      "gcc-14+": "-std=gnu89 -fpermissive"
+    }
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 8,
+    "shadowed_builtins": [
+      "AC_TYPE_LONG_LONG_INT",
+      "AC_TYPE_UNSIGNED_LONG_LONG_INT",
+      "AM_PO_SUBDIRS",
+      "AM_POSTPROCESS_PO_MAKEFILE",
+      "AM_XGETTEXT_OPTION_INIT",
+      "AM_XGETTEXT_OPTION",
+      "AM_PATH_LIBGCRYPT",
+      "AC_LIB_LINKFLAGS",
+      "AC_LIB_HAVE_LINKFLAGS",
+      "AC_LIB_RPATH",
+      "AC_LIB_FROMPACKAGE",
+      "AC_LIB_LINKFLAGS_BODY",
+      "AC_LIB_APPENDTOVAR",
+      "AC_LIB_LINKFLAGS_FROM_LIBS",
+      "AM_PATH_PROG_WITH_TEST"
+    ],
+    "permitted_mutations": 16,
+    "suspect_global_mutations": 0
+  },
+  "parallel_build_safety": {
+    "vpath_out_of_tree_safe": false,
+    "generators": [
+      "$(lt_cv_objdir)/libmicrohttpd.def",
+      "$(lt_cv_objdir)/libmicrohttpd.exp",
+      "$(lt_cv_objdir)/libmicrohttpd.lib",
+      "@echo Creating $@ and libmicrohttpd.exp by $(MS_LIB_TOOL)... &&  \tdll_name=`$(EGREP) -o dlname=\\'.+\\' libmicrohttpd.la` &&  \tdll_name=$${dll_name#*\\'} && dll_name=$${dll_name%\\'} && test -n \"$$dll_name\" &&  \techo Creating $$dll_name by $(MS_LIB_TOOL).. && cd \"$(lt_cv_objdir)\" &&  \t$(MS_LIB_TOOL) -def",
+      "@echo Creating $@ and libmicrohttpd.exp by $(DLLTOOL)... &&  \tdll_name=`$(EGREP) -o dlname=\\'.+\\' libmicrohttpd.la` &&  \tdll_name=$${dll_name#*\\'} && dll_name=$${dll_name%\\'} && test -n \"$$dll_name\" &&  \techo Creating $$dll_name by $(DLLTOOL).. && cd \"$(lt_cv_objdir)\" &&  \t$(DLLTOOL) -d ./libmicrohttpd.def -D $$dll_name -l libmicrohttpd.lib $(libmicrohttpd_la_OBJECTS",
+      "$(lt_cv_objdir)/libmicrohttpd-static.lib",
+      "$(MS_LIB_TOOL) -out",
+      "MHD_DLL_RES_LO = libmicrohttpd_la-$(MHD_DLL_RES_SRC",
+      ".rc.lo",
+      "RC_CPP_FLAGS=\" $(DEFAULT_INCLUDES) $(INCLUDES) $(libmicrohttpd_la_CPPFLAGS) $(CPPFLAGS) \" &&  \t$(LIBTOOL) $(AM_V_lt) --tag=RC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(RC) $(RCFLAGS) $(DEFS) $${RC_CPP_FLAGS// -isystem / -I } $< -o $@ &&  \techo > $@-empty.c && $(CC) $(AM_CFLAGS) $(CFLAGS) -c $@-empty.c -o $(@"
+    ],
+    "unordered_generated_sources": [
+      "$(lt_cv_objdir)/libmicrohttpd.def",
+      "$(lt_cv_objdir)/libmicrohttpd.exp",
+      "$(lt_cv_objdir)/libmicrohttpd.lib",
+      "@echo Creating $@ and libmicrohttpd.exp by $(MS_LIB_TOOL)... &&  \tdll_name=`$(EGREP) -o dlname=\\'.+\\' libmicrohttpd.la` &&  \tdll_name=$${dll_name#*\\'} && dll_name=$${dll_name%\\'} && test -n \"$$dll_name\" &&  \techo Creating $$dll_name by $(MS_LIB_TOOL).. && cd \"$(lt_cv_objdir)\" &&  \t$(MS_LIB_TOOL) -def",
+      "@echo Creating $@ and libmicrohttpd.exp by $(DLLTOOL)... &&  \tdll_name=`$(EGREP) -o dlname=\\'.+\\' libmicrohttpd.la` &&  \tdll_name=$${dll_name#*\\'} && dll_name=$${dll_name%\\'} && test -n \"$$dll_name\" &&  \techo Creating $$dll_name by $(DLLTOOL).. && cd \"$(lt_cv_objdir)\" &&  \t$(DLLTOOL) -d ./libmicrohttpd.def -D $$dll_name -l libmicrohttpd.lib $(libmicrohttpd_la_OBJECTS",
+      "$(lt_cv_objdir)/libmicrohttpd-static.lib",
+      "$(MS_LIB_TOOL) -out",
+      "MHD_DLL_RES_LO = libmicrohttpd_la-$(MHD_DLL_RES_SRC",
+      ".rc.lo",
+      "RC_CPP_FLAGS=\" $(DEFAULT_INCLUDES) $(INCLUDES) $(libmicrohttpd_la_CPPFLAGS) $(CPPFLAGS) \" &&  \t$(LIBTOOL) $(AM_V_lt) --tag=RC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(RC) $(RCFLAGS) $(DEFS) $${RC_CPP_FLAGS// -isystem / -I } $< -o $@ &&  \techo > $@-empty.c && $(CC) $(AM_CFLAGS) $(CFLAGS) -c $@-empty.c -o $(@"
+    ],
+    "built_sources_declared": false
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "curl/curl.h",
+      "gnutls/abstract.h",
+      "mach/clock.h",
+      "mach/mach.h",
+      "pthread.h",
+      "stdint.h",
+      "sys/sendfile.h",
+      "sys/wait.h",
+      "arpa/inet.h",
+      "endian.h",
+      "errno.h",
+      "fcntl.h",
+      "gcrypt.h",
+      "gnutls/gnutls.h",
+      "inetLib.h",
+      "inttypes.h",
+      "limits.h",
+      "locale.h",
+      "machine/endian.h",
+      "machine/param.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "subdir-config-h-include-path",
+    "modern-compiler-strictness (no explicit C std)",
+    "parallel-build-race (gen-source not in BUILT_SOURCES)",
+    "vpath-unsafe (abs-path/hardcoded-srcdir leakage)"
+  ],
+  "repair_hints": [
+    {
+      "id": "subdir-top-builddir",
+      "phase": "make",
+      "confidence": 0.88,
+      "evidence": [
+        "src/microhttpd consumes config.h below root",
+        "src/testzzuf consumes config.h below root",
+        "src/include consumes config.h below root",
+        "src/testcurl consumes config.h below root"
+      ],
+      "action": "ensure ac_subst_file sets relative top_builddir per subdir (0.1.19)",
+      "expected_effect": "config.h found in subdir compiles"
+    }
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": -1,
+      "Makefile.in": 1825,
+      "aclocal.m4": 29,
+      "configure": 108,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_ENABLE": "system-aclocal",
+      "AC_ARG_WITH": "system-aclocal",
+      "AC_CACHE_CHECK": "system-aclocal",
+      "AC_CANONICAL_HOST": "system-aclocal",
+      "AC_CHECK_DECL": "system-aclocal",
+      "AC_CHECK_DECLS": "system-aclocal",
+      "AC_CHECK_FUNCS": "system-aclocal",
+      "AC_CHECK_FUNCS_ONCE": "system-aclocal",
+      "AC_CHECK_HEADER": "system-aclocal",
+      "AC_CHECK_HEADERS": "system-aclocal",
+      "AC_CHECK_LIB": "system-aclocal",
+      "AC_CHECK_MEMBER": "system-aclocal",
+      "AC_CHECK_PROG": "system-aclocal",
+      "AC_CHECK_TYPE": "system-aclocal",
+      "AC_COMPILE_IFELSE": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_HEADERS": "system-aclocal",
+      "AC_CONFIG_MACRO_DIR": "system-aclocal",
+      "AC_C_BIGENDIAN": "system-aclocal",
+      "AC_DEFINE": "system-aclocal",
+      "AC_DEFINE_UNQUOTED": "system-aclocal",
+      "AC_FUNC_FSEEKO": "system-aclocal",
+      "AC_INCLUDES_DEFAULT": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_LANG_PROGRAM": "system-aclocal",
+      "AC_LINK_IFELSE": "system-aclocal",
+      "AC_MSG_CHECKING": "system-aclocal",
+      "AC_MSG_ERROR": "system-aclocal",
+      "AC_MSG_NOTICE": "system-aclocal",
+      "AC_MSG_RESULT": "system-aclocal",
+      "AC_MSG_WARN": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PACKAGE_VERSION": "system-aclocal",
+      "AC_PREREQ": "system-aclocal",
+      "AC_PROG_AWK": "system-aclocal",
+      "AC_PROG_CC_STDC": "system-aclocal",
+      "AC_PROG_INSTALL": "system-aclocal",
+      "AC_PROG_LN_S": "system-aclocal",
+      "AC_PROG_MAKE_SET": "system-aclocal",
+      "AC_SEARCH_LIBS": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "libmicrohttpd_la_LIBADD",
+        "var": "MHD_LIBDEPS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libmicrohttpd_la_LIBADD",
+        "var": "MHD_DLL_RES_LO",
+        "resolved_to": [
+          "libmicrohttpd_la-$(MHD_DLL_RES_SRC:.rc=.lo)"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "test_upgrade_LDADD",
+        "var": "PTHREAD_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "test_upgrade_tls_LDADD",
+        "var": "PTHREAD_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "test_shutdown_select_LDADD",
+        "var": "PTHREAD_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "test_shutdown_poll_LDADD",
+        "var": "PTHREAD_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "demo_LDADD",
+        "var": "PTHREAD_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "demo_https_LDADD",
+        "var": "PTHREAD_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "test_concurrent_stop_LDADD",
+        "var": "PTHREAD_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "test_quiesce_LDADD",
+        "var": "PTHREAD_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "test_quiesce_stream_LDADD",
+        "var": "PTHREAD_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "perf_get_concurrent_LDADD",
+        "var": "PTHREAD_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "check_PROGRAMS",
+        "var": "TEST_HTTPS_SNI",
+        "resolved_to": [
+          "test_https_sni"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "check_PROGRAMS",
+        "var": "HTTPS_PARALLEL_TESTS",
+        "resolved_to": [
+          "test_https_get_parallel",
+          "test_https_get_parallel_threads"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "test_https_time_out_LDADD",
+        "var": "GNUTLS_LDFLAGS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "test_https_time_out_LDADD",
+        "var": "GNUTLS_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "test_tls_options_LDADD",
+        "var": "GNUTLS_LDFLAGS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "test_tls_options_LDADD",
+        "var": "GNUTLS_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "test_https_get_parallel_LDADD",
+        "var": "PTHREAD_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "test_https_get_parallel_LDADD",
+        "var": "GNUTLS_LDFLAGS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "test_https_get_parallel_LDADD",
+        "var": "GNUTLS_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "test_empty_response_LDADD",
+        "var": "GNUTLS_LDFLAGS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "test_empty_response_LDADD",
+        "var": "GNUTLS_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "test_https_get_parallel_threads_LDADD",
+        "var": "PTHREAD_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "test_https_get_parallel_threads_LDADD",
+        "var": "GNUTLS_LDFLAGS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "test_https_get_parallel_threads_LDADD",
+        "var": "GNUTLS_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "test_tls_authentication_LDADD",
+        "var": "GNUTLS_LDFLAGS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "test_tls_authentication_LDADD",
+        "var": "GNUTLS_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "test_https_session_info_LDADD",
+        "var": "GNUTLS_LDFLAGS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "test_https_session_info_LDADD",
+        "var": "GNUTLS_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "test_https_multi_daemon_LDADD",
+        "var": "GNUTLS_LDFLAGS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "test_https_multi_daemon_LDADD",
+        "var": "GNUTLS_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "test_https_get_LDADD",
+        "var": "GNUTLS_LDFLAGS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "test_https_get_LDADD",
+        "var": "GNUTLS_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "test_https_sni_LDADD",
+        "var": "GNUTLS_LDFLAGS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "test_https_sni_LDADD",
+        "var": "GNUTLS_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "test_https_get_select_LDADD",
+        "var": "GNUTLS_LDFLAGS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "test_https_get_select_LDADD",
+        "var": "GNUTLS_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      }
+    ],
+    "unresolved_refs": [
+      "libmicrohttpd_la_LIBADD = $(MHD_LIBDEPS)",
+      "test_upgrade_LDADD = $(PTHREAD_LIBS)",
+      "test_upgrade_tls_LDADD = $(PTHREAD_LIBS)",
+      "test_shutdown_select_LDADD = $(PTHREAD_LIBS)",
+      "test_shutdown_poll_LDADD = $(PTHREAD_LIBS)",
+      "demo_LDADD = $(PTHREAD_LIBS)",
+      "demo_https_LDADD = $(PTHREAD_LIBS)",
+      "test_concurrent_stop_LDADD = $(PTHREAD_LIBS)",
+      "test_quiesce_LDADD = $(PTHREAD_LIBS)",
+      "test_quiesce_stream_LDADD = $(PTHREAD_LIBS)",
+      "perf_get_concurrent_LDADD = $(PTHREAD_LIBS)",
+      "test_https_time_out_LDADD = $(GNUTLS_LDFLAGS)",
+      "test_https_time_out_LDADD = $(GNUTLS_LIBS)",
+      "test_tls_options_LDADD = $(GNUTLS_LDFLAGS)",
+      "test_tls_options_LDADD = $(GNUTLS_LIBS)",
+      "test_https_get_parallel_LDADD = $(PTHREAD_LIBS)",
+      "test_https_get_parallel_LDADD = $(GNUTLS_LDFLAGS)",
+      "test_https_get_parallel_LDADD = $(GNUTLS_LIBS)",
+      "test_empty_response_LDADD = $(GNUTLS_LDFLAGS)",
+      "test_empty_response_LDADD = $(GNUTLS_LIBS)",
+      "test_https_get_parallel_threads_LDADD = $(PTHREAD_LIBS)",
+      "test_https_get_parallel_threads_LDADD = $(GNUTLS_LDFLAGS)",
+      "test_https_get_parallel_threads_LDADD = $(GNUTLS_LIBS)",
+      "test_tls_authentication_LDADD = $(GNUTLS_LDFLAGS)",
+      "test_tls_authentication_LDADD = $(GNUTLS_LIBS)",
+      "test_https_session_info_LDADD = $(GNUTLS_LDFLAGS)",
+      "test_https_session_info_LDADD = $(GNUTLS_LIBS)",
+      "test_https_multi_daemon_LDADD = $(GNUTLS_LDFLAGS)",
+      "test_https_multi_daemon_LDADD = $(GNUTLS_LIBS)",
+      "test_https_get_LDADD = $(GNUTLS_LDFLAGS)",
+      "test_https_get_LDADD = $(GNUTLS_LIBS)",
+      "test_https_sni_LDADD = $(GNUTLS_LDFLAGS)",
+      "test_https_sni_LDADD = $(GNUTLS_LIBS)",
+      "test_https_get_select_LDADD = $(GNUTLS_LDFLAGS)",
+      "test_https_get_select_LDADD = $(GNUTLS_LIBS)"
+    ],
+    "indirection_count": 38
   }
 }

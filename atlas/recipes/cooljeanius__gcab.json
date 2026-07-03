@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "cooljeanius/gcab",
   "source": {
     "url": "https://github.com/cooljeanius/gcab",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,11 +26,11 @@
     {
       "step": "configure",
       "tool": "./configure",
-      "status": "ok"
+      "status": "fail"
     },
     {
-      "step": "make",
-      "tool": "make",
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
       "status": "fail"
     }
   ],
@@ -51,35 +51,101 @@
     "subdirs"
   ],
   "outputs": [],
-  "status": "MAKE_FAIL",
+  "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "make: *** No targets specified and no makefile found.  Stop.",
+  "diagnostic": "./configure: line 1415: AC_LIB_PROG_LD_GNU: command not found",
   "deep_expansion": {
-    "configure_lines": 0,
+    "configure_lines": 3523,
     "leaked_macros": [],
-    "heredoc_openers": 0,
-    "heredoc_terminators": 0,
+    "heredoc_openers": 28,
+    "heredoc_terminators": 28,
     "heredoc_imbalance": 0,
-    "syntax_errors": [],
-    "cache_var_anomalies": [],
-    "residual_placeholders": [],
+    "syntax_errors": [
+      {
+        "line": 1460,
+        "token": ",abcdefghijklmnopqrstuvw",
+        "source": "LIBm4_translit(,abcdefghijklmnopqrstuvwxyz./+-,",
+        "block": [
+          "1456: else :",
+          "1457:   ",
+          "1458: fi",
+          "1459: ",
+          "1460:       LIBm4_translit(,abcdefghijklmnopqrstuvwxyz./+-,",
+          "1461:                                    ABCDEFGHIJKLMNOPQRSTUVWXYZ____)=",
+          "1462:   LTLIBm4_translit(,abcdefghijklmnopqrstuvwxyz./+-,",
+          "1463:                                    ABCDEFGHIJKLMNOPQRSTUVWXYZ____)="
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 3038: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "LD_PATH",
+      "GIR_TRUE",
+      "GIR_FALSE",
+      "GETTEXT_PACKAGE",
+      "PKG_CONFIG",
+      "GLIB_CFLAGS",
+      "GLIB_LIBS",
+      "GLIB_GENMARSHAL",
+      "GOBJECT_QUERY",
+      "GLIB_MKENUMS",
+      "GLIB_COMPILE_RESOURCES",
+      "VAPIGEN",
+      "VAPI_TRUE",
+      "VAPI_FALSE",
+      "WARN_CFLAGS",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT"
+    ],
     "failed_during_check": "",
-    "failure_tail": [],
+    "failure_tail": [
+      "./configure: line 1415: AC_LIB_PROG_LD_GNU: command not found",
+      "./configure: line 1416: AC_LIB_PREFIX: command not found",
+      "how to link with lib... ./configure: line 1460: syntax error near unexpected tok",
+      "./configure: line 1460: `      LIBm4_translit(,abcdefghijklmnopqrstuvwxyz./+-,'"
+    ],
     "conftest_corruption": [],
-    "conftest_directives_intact": 0,
+    "conftest_directives_intact": 12,
     "conftest_directives_mangled": 0,
-    "conftest_programs": []
-  },
-  "oracle": {
-    "real_autoreconf": "fail",
-    "real_configure": "skipped",
-    "real_make": "skipped",
-    "real_configure_lines": 0,
-    "real_first_error": "Can't exec \"intltoolize\": No such file or directory at /usr/share/autoconf/Autom4te/FileUtils.pm line 293.",
-    "classification": "OURS_BETTER"
+    "conftest_programs": [
+      "char gzread ();\\nint main() { return gzread(); }",
+      "#include <$ac_hdr>",
+      "\\nint main() {  ; return 0; }",
+      "\\nint main() {  ; return 0; }",
+      "\\nint main() {  ; return 0; }",
+      "#include <$ac_hdr>"
+    ],
+    "rescan_loop": {
+      "guard": "",
+      "suspect_macro": "AC_LIB_PREFIX",
+      "max_indent": 176,
+      "repeating_unit": "LIBm4_translit(,abcdefghijklmnopqrstuvwxyz./+-,",
+      "repeat_count": 2,
+      "loop_context": [
+        "1669:                     if test \"$acl_hardcode_minus_L\" != no; then",
+        "1670:                                                                                         LIBm4_transl",
+        "1671:                                    ABCDEFGHIJKLMNOPQRSTUVWXYZ____)=\"${LIBm4_translit(,abcdefghijklmn",
+        "1672:                                    ABCDEFGHIJKLMNOPQRSTUVWXYZ____)}${LIBm4_translit(,abcdefghijklmno",
+        "1673:                                    ABCDEFGHIJKLMNOPQRSTUVWXYZ____):+ }$found_so\"",
+        "1674:                     else",
+        "1675:                                                                                                     ",
+        "1676:                                    ABCDEFGHIJKLMNOPQRSTUVWXYZ____)=\"${LIBm4_translit(,abcdefghijklmn",
+        "1677:                                    ABCDEFGHIJKLMNOPQRSTUVWXYZ____)}${LIBm4_translit(,abcdefghijklmno",
+        "1678:                                    ABCDEFGHIJKLMNOPQRSTUVWXYZ____):+ }-l$name\"",
+        "1679:                     fi",
+        "1680:                   fi"
+      ]
+    }
   },
   "receipt": {
-    "court_status": "partial",
+    "court_status": "failed",
     "probe_trace": [],
     "quirks_matched": [
       "uses-libtool",
@@ -91,7 +157,19 @@
       "vendored-aclocal",
       "uses-ax-archive"
     ],
-    "receipt_hash": "bdbfb6907bfdbc8bdb7cf566a26793b38411d77e6f0819ae26c725daf919e509",
+    "quirks_applied": [
+      {
+        "id": "uses-subdir-objects",
+        "action": "--disable-dependency-tracking",
+        "verified": false
+      },
+      {
+        "id": "uses-maintainer-mode",
+        "action": "--disable-maintainer-mode",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -100,6 +178,872 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "docs/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "docs/reference/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "docs/reference/gcab-docs.sgml",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "gcab.1",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "libgcab-1.0.pc",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "libgcab/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "po/Makefile.in",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "tests/package.m4.tmp:tests/package.m4.in",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": false
+      }
+    ],
+    "config_headers": [
+      "config.h"
+    ],
+    "subdirs": [
+      "docs",
+      "po",
+      "libgcab",
+      "reference"
+    ],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [
+          "libgcab-1.0.la",
+          "gcab"
+        ],
+        "subdirs": [
+          "docs",
+          "po",
+          "libgcab"
+        ],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)\t\t\t\t         -DG_LOG_DOMAIN=\\\"gcab\\\"\t\t\t \t-DLOCALEDIR=\"\\\"$(datadir)/locale\\\"\"\t \t$(GLIB_CFLAGS)\t\t\t\t \t$(NULL"
+      },
+      {
+        "dir": "docs",
+        "targets": [],
+        "subdirs": [
+          "reference"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      }
+    ],
+    "max_depth": 2,
+    "config_h_consumers_below_root": []
+  },
+  "tool_requirements": {
+    "detected": [
+      "c++",
+      "gtkdocize",
+      "intltoolize",
+      "xgettext"
+    ],
+    "missing": [
+      {
+        "name": "AC_LIB_PROG_LD_GNU",
+        "phase": "make",
+        "suggested_package": ""
+      }
+    ]
+  },
+  "macro_inventory": {
+    "macro_dirs": [
+      "m4"
+    ],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [
+      {
+        "name": "gt_INTTYPES_PRI",
+        "source": "m4/inttypes-pri.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AX_REQUIRE_DEFINED",
+        "source": "m4/ax_require_defined.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AX_CHECK_LIBRARY",
+        "source": "m4/ax_check_library.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "LT_INIT",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LTOPTIONS_VERSION",
+        "source": "m4/libtool.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AC_PROG_LIBTOOL",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AM_PROG_LIBTOOL",
+        "source": "m4/libtool.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "LT_OUTPUT",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_SUPPORTED_TAG",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_LANG",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_CXX",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_F77",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_FC",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_GCJ",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_RC",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "_LT_WITH_SYSROOT",
+        "source": "m4/libtool.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_LT_COMPILER_OPTION",
+        "source": "m4/libtool.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AC_LIBTOOL_COMPILER_OPTION",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "_LT_LINKER_OPTION",
+        "source": "m4/libtool.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AC_LIBTOOL_LINKER_OPTION",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_CMD_MAX_LEN",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_SYS_MAX_CMD_LEN",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_SYS_DLOPEN_SELF",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_DLOPEN_SELF",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "_LT_PATH_TOOL_PREFIX",
+        "source": "m4/libtool.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AC_PATH_TOOL_PREFIX",
+        "source": "m4/libtool.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "LT_PATH_LD",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AM_PROG_LD",
+        "source": "m4/libtool.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AC_PROG_LD",
+        "source": "m4/libtool.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "LT_PATH_NM",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AM_PROG_NM",
+        "source": "m4/libtool.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AC_PROG_NM",
+        "source": "m4/libtool.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "_LT_DLL_DEF_P",
+        "source": "m4/libtool.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "LT_LIB_M",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_CHECK_LIBM",
+        "source": "m4/libtool.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "LT_PROG_GCJ",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_AC_PROG_GCJ",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_PROG_GO",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_PROG_RC",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_AC_PROG_RC",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_AC_PROG_SED",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "GLIB_GSETTINGS",
+        "source": "m4/gsettings.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_GSETTINGS_SUBST",
+        "source": "m4/gsettings.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "BISON_I18N",
+        "source": "m4/bison-i18n.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_MANYWARN_ALL_GCC_OBJC_IMPL",
+        "source": "m4/manywarnings-objc.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AM_PO_SUBDIRS",
+        "source": "m4/po.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AM_POSTPROCESS_PO_MAKEFILE",
+        "source": "m4/po.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AM_XGETTEXT_OPTION_INIT",
+        "source": "m4/po.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AM_XGETTEXT_OPTION",
+        "source": "m4/po.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AM_GCONF_SOURCE_2",
+        "source": "m4/gconf-2.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AC_LIB_LINKFLAGS",
+        "source": "m4/lib-link.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_LIB_HAVE_LINKFLAGS",
+        "source": "m4/lib-link.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_LIB_RPATH",
+        "source": "m4/lib-link.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_LIB_FROMPACKAGE",
+        "source": "m4/lib-link.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_LIB_LINKFLAGS_BODY",
+        "source": "m4/lib-link.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_LIB_APPENDTOVAR",
+        "source": "m4/lib-link.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_LIB_LINKFLAGS_FROM_LIBS",
+        "source": "m4/lib-link.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AX_RESTORE_FLAGS",
+        "source": "m4/ax_restore_flags.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "PKG_PROG_PKG_CONFIG",
+        "source": "m4/pkg.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "PKG_CHECK_EXISTS",
+        "source": "m4/pkg.m4",
+        "kind": "project-local"
+      }
+    ],
+    "called_macros": [
+      "AC_CHECK_FUNCS",
+      "AC_CHECK_HEADERS",
+      "AC_CHECK_INCLUDES_DEFAULT",
+      "AC_CHECK_LIB",
+      "AC_CHECK_TOOLS",
+      "AC_CONFIG_AUX_DIR",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_HEADERS",
+      "AC_CONFIG_MACRO_DIR",
+      "AC_CONFIG_SRCDIR",
+      "AC_CONFIG_TESTDIR",
+      "AC_C_INLINE",
+      "AC_DEFINE_UNQUOTED",
+      "AC_DEFUN",
+      "AC_FUNC_MALLOC",
+      "AC_HEADER_STDC",
+      "AC_INIT",
+      "AC_LIB_LINKFLAGS",
+      "AC_LIB_PREFIX",
+      "AC_LIB_PROG_LD_GNU",
+      "AC_MSG_ERROR",
+      "AC_MSG_NOTICE",
+      "AC_OUTPUT",
+      "AC_PACKAGE_NAME",
+      "AC_PATH_PROG",
+      "AC_PATH_PROGS",
+      "AC_PREREQ",
+      "AC_PROG_AR",
+      "AC_PROG_AWK",
+      "AC_PROG_CC",
+      "AC_PROG_CPP",
+      "AC_PROG_CXX",
+      "AC_PROG_INSTALL",
+      "AC_PROG_LN_S",
+      "AC_PROG_MAKE_SET",
+      "AC_PROG_RANLIB",
+      "AC_REQUIRE",
+      "AC_REQUIRE_HEADER_STDC",
+      "AC_REQUIRE_PKG_CONFIG",
+      "AC_SUBST",
+      "AC_TYPE_SIZE_T",
+      "AC_TYPE_SSIZE_T",
+      "AM_CONDITIONAL",
+      "AM_GLIB_GNU_GETTEXT",
+      "AM_GNU_GETTEXT",
+      "AM_INIT_AUTOMAKE",
+      "AM_MAINTAINER_MODE",
+      "AM_MISSING_PROG",
+      "AM_PATH_GLIB_2_0",
+      "AM_PROG_CC_C_O",
+      "AM_PROG_VALAC",
+      "AM_SILENT_RULES",
+      "AX_APPEND_LINK_FLAGS",
+      "AX_DLL_STRING",
+      "AX_RPM_INIT",
+      "AX_SAVE_FLAGS",
+      "AX_WITH_BUILD_PATH",
+      "GTK_DOC_CHECK",
+      "IT_PROG_INTLTOOL",
+      "LT_INIT"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 231,
+    "configure_fi": 220,
+    "configure_case": 76,
+    "configure_esac": 79,
+    "balanced": false,
+    "automake_conditionals": [
+      "GIR",
+      "VAPI"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": "build-aux",
+    "present": [
+      "install-sh",
+      "missing",
+      "depcomp",
+      "compile",
+      "ltmain.sh"
+    ],
+    "missing": []
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "c": 8,
+      "h": 11
+    },
+    "configure_macros": [
+      "AC_PROG_CC",
+      "AC_PROG_CXX"
+    ],
+    "needs_cxx": true,
+    "needs_fortran": false,
+    "sets_c_std": false
+  },
+  "libtool_context": {
+    "uses_libtool": true,
+    "macros": [
+      "LT_INIT"
+    ],
+    "ltmain_present": true,
+    "libtool_m4_sources": [
+      "m4/libtool.m4",
+      "aclocal.m4"
+    ],
+    "age": "modern"
+  },
+  "gettext_intl_context": {
+    "uses_gettext": true,
+    "uses_intltool": true,
+    "po_dir_present": true,
+    "missing_files": [
+      "config.rpath"
+    ]
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": true,
+    "defines_sampled": []
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-subdir-objects",
+      "applied_at": "configure",
+      "effect": "neutral",
+      "effectiveness": "low"
+    },
+    {
+      "quirk_id": "uses-maintainer-mode",
+      "applied_at": "configure",
+      "effect": "neutral",
+      "effectiveness": "low"
+    },
+    {
+      "quirk_id": "uses-libtool",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-intltool",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-gettext",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "has-m4-macro-dir",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-ax-archive",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "vpath_analysis": {
+    "hardcoded_src_paths": 0,
+    "abs_path_leakage": 0,
+    "built_sources": [
+      "$(GCAB_ENUMS)",
+      "$(vapi_DATA)",
+      "$(top_srcdir)/.version"
+    ],
+    "generated_source_targets": [
+      "GCab-1.0.gir"
+    ]
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "dirent.h",
+      "libintl.h",
+      "unistd.h",
+      "zlib.h"
+    ],
+    "headers_included_unchecked": [
+      "gio/gio.h",
+      "glib/gi18n-lib.h",
+      "glib/gi18n.h",
+      "glib/gprintf.h",
+      "libgcab/gcab-cabinet.h",
+      "libgcab/gcab-file.h",
+      "libgcab/gcab-folder.h",
+      "sys/stat.h",
+      "sys/types.h"
+    ],
+    "implicit_link_libs": [
+      "-lz"
+    ]
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 9,
+    "shadowed_macros": [
+      "AC_PROG_LIBTOOL",
+      "AM_PROG_LIBTOOL",
+      "AC_LIBTOOL_CXX",
+      "AC_LIBTOOL_F77",
+      "AC_LIBTOOL_FC",
+      "AC_LIBTOOL_GCJ",
+      "AC_LIBTOOL_RC",
+      "AC_LIBTOOL_COMPILER_OPTION",
+      "AC_LIBTOOL_LINKER_OPTION",
+      "AC_LIBTOOL_SYS_MAX_CMD_LEN",
+      "AC_LIBTOOL_DLOPEN_SELF",
+      "AC_PATH_TOOL_PREFIX",
+      "AM_PROG_LD",
+      "AC_PROG_LD",
+      "AM_PROG_NM",
+      "AC_PROG_NM",
+      "AC_CHECK_LIBM",
+      "AM_PO_SUBDIRS",
+      "AM_POSTPROCESS_PO_MAKEFILE",
+      "AM_XGETTEXT_OPTION_INIT"
+    ]
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "gnu++",
+    "strip_modern_poison_flags": [],
+    "inject_legacy_shims": false,
+    "compiler_aliasing": {}
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 0,
+    "shadowed_builtins": [
+      "AC_PROG_LIBTOOL",
+      "AM_PROG_LIBTOOL",
+      "AC_LIBTOOL_CXX",
+      "AC_LIBTOOL_F77",
+      "AC_LIBTOOL_FC",
+      "AC_LIBTOOL_GCJ",
+      "AC_LIBTOOL_RC",
+      "AC_LIBTOOL_COMPILER_OPTION",
+      "AC_LIBTOOL_LINKER_OPTION",
+      "AC_LIBTOOL_SYS_MAX_CMD_LEN",
+      "AC_LIBTOOL_DLOPEN_SELF",
+      "AC_PATH_TOOL_PREFIX",
+      "AM_PROG_LD",
+      "AC_PROG_LD",
+      "AM_PROG_NM"
+    ],
+    "permitted_mutations": 0,
+    "suspect_global_mutations": 0
+  },
+  "parallel_build_safety": {
+    "vpath_out_of_tree_safe": true,
+    "generators": [
+      "GCab-1.0.gir"
+    ],
+    "unordered_generated_sources": [
+      "GCab-1.0.gir"
+    ],
+    "built_sources_declared": true
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "gio/gio.h",
+      "glib/gi18n-lib.h",
+      "glib/gi18n.h",
+      "glib/gprintf.h",
+      "libgcab/gcab-cabinet.h",
+      "libgcab/gcab-file.h",
+      "libgcab/gcab-folder.h",
+      "sys/stat.h",
+      "sys/types.h",
+      "dirent.h",
+      "libintl.h",
+      "unistd.h",
+      "zlib.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "gettext-support-files-missing",
+    "parallel-build-race (gen-source not in BUILT_SOURCES)"
+  ],
+  "repair_hints": [
+    {
+      "id": "missing-build-tool",
+      "phase": "make",
+      "confidence": 0.75,
+      "evidence": [
+        "AC_LIB_PROG_LD_GNU: command not found"
+      ],
+      "action": "provide AC_LIB_PROG_LD_GNU",
+      "expected_effect": "unblocks the build step needing this tool"
+    }
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": -4,
+      "Makefile.in": 1061,
+      "aclocal.m4": 10,
+      "config.h.in": 122,
+      "configure": 120,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_CHECK_FUNCS": "system-aclocal",
+      "AC_CHECK_HEADERS": "system-aclocal",
+      "AC_CHECK_INCLUDES_DEFAULT": "system-aclocal",
+      "AC_CHECK_LIB": "system-aclocal",
+      "AC_CHECK_TOOLS": "system-aclocal",
+      "AC_CONFIG_AUX_DIR": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_HEADERS": "system-aclocal",
+      "AC_CONFIG_MACRO_DIR": "system-aclocal",
+      "AC_CONFIG_SRCDIR": "system-aclocal",
+      "AC_CONFIG_TESTDIR": "system-aclocal",
+      "AC_C_INLINE": "system-aclocal",
+      "AC_DEFINE_UNQUOTED": "system-aclocal",
+      "AC_DEFUN": "system-aclocal",
+      "AC_FUNC_MALLOC": "system-aclocal",
+      "AC_HEADER_STDC": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_LIB_LINKFLAGS": "m4/lib-link.m4",
+      "AC_LIB_PREFIX": "system-aclocal",
+      "AC_LIB_PROG_LD_GNU": "system-aclocal",
+      "AC_MSG_ERROR": "system-aclocal",
+      "AC_MSG_NOTICE": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PACKAGE_NAME": "system-aclocal",
+      "AC_PATH_PROG": "system-aclocal",
+      "AC_PATH_PROGS": "system-aclocal",
+      "AC_PREREQ": "system-aclocal",
+      "AC_PROG_AR": "system-aclocal",
+      "AC_PROG_AWK": "system-aclocal",
+      "AC_PROG_CC": "system-aclocal",
+      "AC_PROG_CPP": "system-aclocal",
+      "AC_PROG_CXX": "system-aclocal",
+      "AC_PROG_INSTALL": "system-aclocal",
+      "AC_PROG_LN_S": "system-aclocal",
+      "AC_PROG_MAKE_SET": "system-aclocal",
+      "AC_PROG_RANLIB": "system-aclocal",
+      "AC_REQUIRE": "system-aclocal",
+      "AC_REQUIRE_HEADER_STDC": "system-aclocal",
+      "AC_REQUIRE_PKG_CONFIG": "system-aclocal",
+      "AC_SUBST": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "libgcab_1_0_la_SOURCES",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": true
+      },
+      {
+        "primary": "libgcab_1_0_la_LIBADD",
+        "var": "GLIB_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "gcab_SOURCES",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": true
+      },
+      {
+        "primary": "BUILT_SOURCES",
+        "var": "GCAB_ENUMS",
+        "resolved_to": [
+          "libgcab/gcab-enums.c",
+          "libgcab/gcab-enums.h",
+          "$(NULL)"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "BUILT_SOURCES",
+        "var": "vapi_DATA",
+        "resolved_to": [
+          "libgcab-1.0.vapi"
+        ],
+        "resolved": true
+      }
+    ],
+    "unresolved_refs": [
+      "libgcab_1_0_la_LIBADD = $(GLIB_LIBS)"
+    ],
+    "indirection_count": 5
   }
 }

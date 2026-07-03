@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "essej/sooperlooper",
   "source": {
     "url": "https://github.com/essej/sooperlooper",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,10 +26,22 @@
     {
       "step": "configure",
       "tool": "./configure",
+      "status": "ok"
+    },
+    {
+      "step": "make",
+      "tool": "make",
       "status": "fail"
     }
   ],
-  "probe_results": {},
+  "probe_results": {
+    "HAVE_ALSA_ASOUNDLIB_H": 1,
+    "HAVE_CXX$1": 1,
+    "HAVE_JACK_CLIENT_OPEN": 1,
+    "HAVE_RUBBERBAND": 1,
+    "HAVE_SAMPLERATE": 1,
+    "HAVE_SNDFILE": 1
+  },
   "feature_flags": {
     "configure_args": []
   },
@@ -54,98 +66,140 @@
     "subdirs"
   ],
   "outputs": [],
-  "status": "CONFIGURE_RUN_FAIL",
+  "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1479: AM_OPT_FLAGS: command not found",
+  "diagnostic": "make[1]: *** No rule to make target 'all'.  Stop.",
   "deep_expansion": {
-    "configure_lines": 2994,
+    "configure_lines": 3144,
     "leaked_macros": [],
     "heredoc_openers": 21,
     "heredoc_terminators": 21,
     "heredoc_imbalance": 0,
-    "syntax_errors": [
-      {
-        "line": 2995,
-        "token": "",
-        "source": "",
-        "block": [
-          "2991: printf '%s\\n' \"$as_me: WARNING: unrecognized options: $ac_unrecognized_opts\"",
-          "2992: fi",
-          "2993: ",
-          "2994: "
-        ]
-      }
-    ],
+    "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2518: do eval test \\${$as_var+y} \\"
+      "line 1407: # eval \"_acrs_sv=\\${}\"; printf '%s\\n' \"s|@@|${_acrs_sv}|g\" >",
+      "line 2667: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
+      "SOOP_MAJOR_VERSION",
+      "SOOP_MINOR_VERSION",
+      "SOOP_MICRO_VERSION",
+      "SOOP_SO_VERSION",
+      "SOOP_VERSION",
+      "SOOP_RELEASE",
       "CXX",
       "CXXFLAGS",
-      "PACKAGE_NAME",
-      "PACKAGE_TARNAME",
-      "PACKAGE_VERSION",
-      "PACKAGE_STRING",
-      "PACKAGE_BUGREPORT",
-      "PACKAGE_URL",
-      "srcdir",
-      "prefix",
-      "exec_prefix",
-      "CC",
-      "CFLAGS",
-      "CPPFLAGS",
-      "LDFLAGS",
-      "LIBS",
-      "CPP",
-      "DEFS",
-      "LIBOBJS",
-      "INSTALL",
-      "SOOP_MICRO_VERSION",
-      "SAMPLERATE_LIBS",
-      "SAMPLERATE_CFLAGS",
+      "JACK_CFLAGS",
+      "JACK_LIBS",
+      "LOSC_CFLAGS",
+      "LOSC_LIBS",
+      "NCURSES_LIBS",
+      "SIGCPP_CFLAGS",
+      "SIGCPP_LIBS",
+      "ICU_CFLAGS",
+      "ICU_LIBS",
+      "XML_CFLAGS",
       "XML_LIBS",
-      "WX_LIBS",
-      "SOOP_SO_VERSION",
-      "host_os",
+      "SNDFILE_CFLAGS",
+      "SNDFILE_LIBS",
+      "SAMPLERATE_CFLAGS",
+      "SAMPLERATE_LIBS",
+      "RUBBERBAND_CFLAGS",
+      "RUBBERBAND_LIBS",
+      "FFTW_CFLAGS",
       "FFTW_LIBS",
-      "AUDIO_LIBS"
+      "WX_CFLAGS",
+      "WX_LIBS"
     ],
     "failed_during_check": "checking for alsa/asoundlib.h... yes",
     "failure_tail": [
       "checking for alsa/asoundlib.h... yes",
-      "./configure: line 2995: syntax error: unexpected end of file"
+      "./configure: line 2033: AM_BUILD_ENVIRONMENT: command not found",
+      "configure: configuring in libs",
+      "configure: creating Makefile",
+      "configure: creating src/Makefile"
     ],
     "conftest_corruption": [],
-    "conftest_directives_intact": 2,
+    "conftest_directives_intact": 4,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
       "int main() { int x = 1; return *(char*)&x; }",
-      "char jack_client_open();\\nint main() { return jack_client_open(); }",
-      "char initscr();\\nint main() { return initscr(); }",
-      "char nodelay();\\nint main() { return nodelay(); }",
+      "char jack_client_open ();\\nint main() { return jack_client_open(); }",
+      "char initscr ();\\nint main() { return initscr(); }",
+      "char nodelay ();\\nint main() { return nodelay(); }",
       "#include <alsa/asoundlib.h>"
-    ]
-  },
-  "oracle": {
-    "real_autoreconf": "fail",
-    "real_configure": "skipped",
-    "real_make": "skipped",
-    "real_configure_lines": 0,
-    "real_first_error": "configure.ac:35: error: possibly undefined macro: AM_OPT_FLAGS",
-    "classification": "OURS_BETTER"
+    ],
+    "rescan_loop": {
+      "guard": "",
+      "suspect_macro": "AM_OPT_FLAGS",
+      "max_indent": 80,
+      "repeating_unit": "wx_cv_use_macosx_version_min=\"wxUSE_MACOSX_VERSION_MIN=$withval\"",
+      "repeat_count": 1,
+      "loop_context": [
+        "1621:                         eval \"CC=\\\"$CC $MACOSX_VERSION_MIN_OPTS\\\"\"",
+        "1622:                         eval \"CXX=\\\"$CXX $MACOSX_VERSION_MIN_OPTS\\\"\"",
+        "1623:                         eval \"LD=\\\"$LD $MACOSX_VERSION_MIN_OPTS\\\"\"",
+        "1624:                         retest_macosx_linking=yes",
+        "1625:                     fi",
+        "1626: ",
+        "1627:                                                                                 if test \"x$retest_ma",
+        "1628:                         ",
+        "1629:                         printf %s \"checking if C compiler works with SDK/version options... \"",
+        "1630:                         # Try link (obsolete)",
+        "1631:                         ",
+        "1632: "
+      ]
+    }
   },
   "receipt": {
-    "court_status": "failed",
-    "probe_trace": [],
+    "court_status": "partial",
+    "probe_trace": [
+      {
+        "name": "HAVE_ALSA_ASOUNDLIB_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_CXX$1",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_JACK_CLIENT_OPEN",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_RUBBERBAND",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SAMPLERATE",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SNDFILE",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      }
+    ],
     "quirks_matched": [
       "uses-pkg-config",
       "has-m4-macro-dir",
       "vendored-aclocal",
       "uses-ax-archive"
     ],
-    "receipt_hash": "0c30dce6270fb3560c454d8c8d1e4e34e811f65407638476dab76fe1fd927894",
+    "receipt_hash": "68f1454fbc0f9136e618a6b6ae12bc72cb16c393510646d80beacb8deb008a39",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -154,6 +208,620 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "src/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "src/gui/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "version.h",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      }
+    ],
+    "config_headers": [
+      "config.h"
+    ],
+    "subdirs": [
+      "libs",
+      "src",
+      "@subdirs@",
+      "midi++",
+      "pbd",
+      "@SL_DIRS@"
+    ],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [],
+        "subdirs": [
+          "libs",
+          "src"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "libs",
+        "targets": [],
+        "subdirs": [
+          "@subdirs@"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "libs/midi++",
+        "targets": [
+          "libmidipp.a",
+          "mmc",
+          "miditrace"
+        ],
+        "subdirs": [
+          "midi++"
+        ],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)"
+      },
+      {
+        "dir": "libs/pbd",
+        "targets": [
+          "libpbd.a"
+        ],
+        "subdirs": [
+          "pbd"
+        ],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "libs/pbd/pbd",
+        "targets": [],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src",
+        "targets": [
+          "sooperlooper",
+          "slconsole",
+          "slregister",
+          "libslcore.a",
+          "libsldrivers.a"
+        ],
+        "subdirs": [
+          "@SL_DIRS@"
+        ],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/gui",
+        "targets": [
+          "slgui"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      }
+    ],
+    "max_depth": 2,
+    "config_h_consumers_below_root": [
+      "libs/pbd",
+      "libs/pbd/pbd",
+      "libs/midi++",
+      "src",
+      "src/gui"
+    ]
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 523,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 673,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/gui/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 543,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      }
+    ]
+  },
+  "tool_requirements": {
+    "detected": [
+      "c++",
+      "perl"
+    ],
+    "missing": []
+  },
+  "macro_inventory": {
+    "macro_dirs": [
+      "m4"
+    ],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [
+      {
+        "name": "AX_CXX_COMPILE_STDCXX_11",
+        "source": "m4/m4_ax_cxx_compile_stdcxx_11.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AX_CXX_COMPILE_STDCXX",
+        "source": "m4/m4_ax_cxx_compile_stdcxx.m4",
+        "kind": "AX"
+      }
+    ],
+    "called_macros": [
+      "AC_ARG_ENABLE",
+      "AC_ARG_WITH",
+      "AC_CANONICAL_HOST",
+      "AC_CANONICAL_TARGET",
+      "AC_CHECK_FILE",
+      "AC_CHECK_HEADER",
+      "AC_CHECK_LIB",
+      "AC_CONFIG_AUX_DIR",
+      "AC_CONFIG_HEADERS",
+      "AC_CONFIG_SUBDIRS",
+      "AC_C_BIGENDIAN",
+      "AC_DEFINE",
+      "AC_DEFINE_UNQUOTED",
+      "AC_INIT",
+      "AC_LANG_CPLUSPLUS",
+      "AC_LANG_POP",
+      "AC_LANG_PUSH",
+      "AC_MSG_CHECKING",
+      "AC_MSG_ERROR",
+      "AC_MSG_FAILURE",
+      "AC_MSG_RESULT",
+      "AC_MSG_WARN",
+      "AC_OUTPUT",
+      "AC_PATH_PROG",
+      "AC_PROG_CC",
+      "AC_PROG_CXX",
+      "AC_PROG_RANLIB",
+      "AC_SUBST",
+      "AC_TRY_LINK",
+      "AC_VALIDATE_CACHED_SYSTEM_TUPLE",
+      "AM_BUILD_ENVIRONMENT",
+      "AM_CONDITIONAL",
+      "AM_INIT_AUTOMAKE",
+      "AM_OPT_FLAGS",
+      "AM_PATH_GTK",
+      "AX_CXX_COMPILE_STDCXX_11",
+      "GTK_CFLAGS",
+      "GTK_LIBS",
+      "PKG_CHECK_MODULES"
+    ],
+    "unresolved_macros": [
+      "GTK_CFLAGS",
+      "GTK_LIBS"
+    ]
+  },
+  "conditional_context": {
+    "configure_if": 157,
+    "configure_fi": 143,
+    "configure_case": 65,
+    "configure_esac": 68,
+    "balanced": false,
+    "automake_conditionals": [
+      "WITH_ALSA",
+      "WITH_COREMIDI"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": ".",
+    "present": [
+      "install-sh",
+      "missing",
+      "depcomp"
+    ],
+    "missing": [
+      "compile",
+      "config.guess",
+      "config.sub"
+    ]
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "c": 1,
+      "cc": 31,
+      "cpp": 99,
+      "h": 172,
+      "hpp": 39,
+      "m": 2,
+      "mm": 6
+    },
+    "configure_macros": [
+      "AC_PROG_CC",
+      "AC_PROG_CXX"
+    ],
+    "needs_cxx": true,
+    "needs_fortran": false,
+    "sets_c_std": true
+  },
+  "make_graph": {
+    "targets": [
+      "all",
+      "all-am",
+      "install-am",
+      "installcheck-am",
+      "install-strip",
+      "install-info",
+      "install-info-am",
+      "install-dvi",
+      "install-dvi-am",
+      "install-ps",
+      "install-ps-am",
+      "install-pdf",
+      "install-pdf-am",
+      "install-html",
+      "install-html-am",
+      "install-data-hook",
+      "install-exec-hook",
+      "installdirs-am",
+      ".PHONY",
+      "mostlyclean-am",
+      "clean-am",
+      "distclean-am",
+      "maintainer-clean-am",
+      "distdir",
+      "dist",
+      "dist-all",
+      "dist-gzip",
+      "distcleancheck",
+      "distcheck",
+      "check-am",
+      "TAGS",
+      "tags",
+      "TAGS-am",
+      "tags-am",
+      "cscope",
+      "cscope-am",
+      "distuninstallcheck",
+      "$(srcdir)/Makefile.in",
+      "$(am__recursive_targets)",
+      "check"
+    ],
+    "key_variables": {
+      "AR": "ar",
+      "CC": "cc",
+      "CFLAGS": "",
+      "CPPFLAGS": "",
+      "CXX": "g++ -std=c++11",
+      "CXXFLAGS": "-std=c++11",
+      "DEFS": "-DHAVE_CONFIG_H",
+      "LDFLAGS": "",
+      "LIBS": "",
+      "RANLIB": "ranlib"
+    },
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "config.h",
+      "config.log"
+    ],
+    "recursion_depth": 2,
+    "top_targets": [
+      "all",
+      "check",
+      "dist",
+      "all-am"
+    ],
+    "make_diagnostics": [
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[1]: *** No rule to make target 'all'.  Stop."
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make: *** [Makefile:446: all-recursive] Error 1"
+      }
+    ]
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": false,
+    "defines_sampled": [
+      "HAVE_CONFIG_H"
+    ]
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-pkg-config",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "has-m4-macro-dir",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-ax-archive",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "alsa/asoundlib.h"
+    ],
+    "headers_included_unchecked": [
+      "ardour/cycles.h",
+      "fcntl.h",
+      "jack/jack.h",
+      "libxml/parser.h",
+      "libxml/tree.h",
+      "lo/lo.h",
+      "mach/mach_time.h",
+      "midi++/alsa_rawmidi.h",
+      "midi++/alsa_sequencer.h",
+      "midi++/channel.h",
+      "midi++/controllable.h",
+      "midi++/coremidi_midiport.h",
+      "midi++/factory.h",
+      "midi++/fd_midiport.h",
+      "midi++/fifomidi.h",
+      "midi++/manager.h",
+      "midi++/mmc.h",
+      "midi++/nullmidi.h",
+      "midi++/parser.h",
+      "midi++/port.h",
+      "midi++/port_request.h",
+      "midi++/types.h",
+      "pbd/atomic.h",
+      "pbd/basename.h",
+      "pbd/cycles.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 5,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "gnu++",
+    "strip_modern_poison_flags": [],
+    "inject_legacy_shims": false,
+    "compiler_aliasing": {}
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 6,
+    "shadowed_builtins": [],
+    "permitted_mutations": 6,
+    "suspect_global_mutations": 0
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "ardour/cycles.h",
+      "fcntl.h",
+      "jack/jack.h",
+      "libxml/parser.h",
+      "libxml/tree.h",
+      "lo/lo.h",
+      "mach/mach_time.h",
+      "midi++/alsa_rawmidi.h",
+      "midi++/alsa_sequencer.h",
+      "midi++/channel.h",
+      "midi++/controllable.h",
+      "midi++/coremidi_midiport.h",
+      "midi++/factory.h",
+      "midi++/fd_midiport.h",
+      "midi++/fifomidi.h",
+      "midi++/manager.h",
+      "midi++/mmc.h",
+      "midi++/nullmidi.h",
+      "midi++/parser.h",
+      "midi++/port.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "subdir-config-h-include-path",
+    "unresolved-macros"
+  ],
+  "repair_hints": [
+    {
+      "id": "subdir-top-builddir",
+      "phase": "make",
+      "confidence": 0.88,
+      "evidence": [
+        "libs/pbd consumes config.h below root",
+        "libs/pbd/pbd consumes config.h below root",
+        "libs/midi++ consumes config.h below root",
+        "src consumes config.h below root",
+        "src/gui consumes config.h below root"
+      ],
+      "action": "ensure ac_subst_file sets relative top_builddir per subdir (0.1.19)",
+      "expected_effect": "config.h found in subdir compiles"
+    },
+    {
+      "id": "load-vendored-aclocal-dir",
+      "phase": "autoreconf",
+      "confidence": 0.85,
+      "evidence": [
+        "GTK_CFLAGS",
+        "GTK_LIBS"
+      ],
+      "action": "aclocal -I m4",
+      "expected_effect": "resolves unexpanded AX_/custom macros"
+    }
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": 0,
+      "Makefile.in": 1911,
+      "aclocal.m4": 23,
+      "config.h.in": 33,
+      "configure": 30,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_ENABLE": "system-aclocal",
+      "AC_ARG_WITH": "system-aclocal",
+      "AC_CANONICAL_HOST": "system-aclocal",
+      "AC_CANONICAL_TARGET": "system-aclocal",
+      "AC_CHECK_FILE": "system-aclocal",
+      "AC_CHECK_HEADER": "system-aclocal",
+      "AC_CHECK_LIB": "system-aclocal",
+      "AC_CONFIG_AUX_DIR": "system-aclocal",
+      "AC_CONFIG_HEADERS": "system-aclocal",
+      "AC_CONFIG_SUBDIRS": "system-aclocal",
+      "AC_C_BIGENDIAN": "system-aclocal",
+      "AC_DEFINE": "system-aclocal",
+      "AC_DEFINE_UNQUOTED": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_LANG_CPLUSPLUS": "system-aclocal",
+      "AC_LANG_POP": "system-aclocal",
+      "AC_LANG_PUSH": "system-aclocal",
+      "AC_MSG_CHECKING": "system-aclocal",
+      "AC_MSG_ERROR": "system-aclocal",
+      "AC_MSG_FAILURE": "system-aclocal",
+      "AC_MSG_RESULT": "system-aclocal",
+      "AC_MSG_WARN": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PATH_PROG": "system-aclocal",
+      "AC_PROG_CC": "system-aclocal",
+      "AC_PROG_CXX": "system-aclocal",
+      "AC_PROG_RANLIB": "system-aclocal",
+      "AC_SUBST": "system-aclocal",
+      "AC_TRY_LINK": "system-aclocal",
+      "AC_VALIDATE_CACHED_SYSTEM_TUPLE": "system-aclocal",
+      "AM_BUILD_ENVIRONMENT": "system-aclocal",
+      "AM_CONDITIONAL": "system-aclocal",
+      "AM_INIT_AUTOMAKE": "system-aclocal",
+      "AM_OPT_FLAGS": "system-aclocal",
+      "AM_PATH_GTK": "system-aclocal",
+      "AX_CXX_COMPILE_STDCXX_11": "m4/m4_ax_cxx_compile_stdcxx_11.m4",
+      "GTK_CFLAGS": "unresolved",
+      "GTK_LIBS": "unresolved",
+      "PKG_CHECK_MODULES": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "libmidipp_a_SOURCES",
+        "var": "SYSDEP_SRCS",
+        "resolved_to": [
+          "alsa_sequencer_midiport.cc",
+          "coremidi_midiport.cc"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libslcore_a_SOURCES",
+        "var": "SYSDEP_SRCS",
+        "resolved_to": [],
+        "resolved": false
+      }
+    ],
+    "unresolved_refs": [
+      "libslcore_a_SOURCES = $(SYSDEP_SRCS)"
+    ],
+    "indirection_count": 2
   }
 }

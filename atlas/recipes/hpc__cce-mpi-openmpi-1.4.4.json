@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "hpc/cce-mpi-openmpi-1.4.4",
   "source": {
     "url": "https://github.com/hpc/cce-mpi-openmpi-1.4.4",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -51,56 +51,75 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "",
+  "diagnostic": "./configure: line 1359: OMPI_LOAD_PLATFORM: command not found",
   "deep_expansion": {
-    "configure_lines": 4354,
+    "configure_lines": 4782,
     "leaked_macros": [],
-    "heredoc_openers": 67,
-    "heredoc_terminators": 67,
+    "heredoc_openers": 70,
+    "heredoc_terminators": 70,
     "heredoc_imbalance": 0,
-    "syntax_errors": [],
+    "syntax_errors": [
+      {
+        "line": 1385,
+        "token": "OMPI,",
+        "source": "OMPI_SAVE_VERSION(OMPI, Open MPI, $srcdir/VERSION,",
+        "block": [
+          "1381: ompi_show_subtitle \"Checking versions\"",
+          "1382: ",
+          "1383: # Get the version of OMPI that we are installing",
+          "1384: ",
+          "1385: OMPI_SAVE_VERSION(OMPI, Open MPI, $srcdir/VERSION,",
+          "1386:                   ompi/include/ompi/version.h)",
+          "1387: ",
+          "1388: OMPI_SAVE_VERSION(ORTE, Open Run-Time Environment, $srcdir/VERSION,"
+        ]
+      }
+    ],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 3878: do eval test \\${$as_var+y} \\"
+      "line 4305: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
-      "PACKAGE_NAME",
-      "PACKAGE_TARNAME",
-      "PACKAGE_VERSION",
-      "PACKAGE_STRING",
-      "PACKAGE_BUGREPORT",
-      "PACKAGE_URL",
-      "srcdir",
-      "prefix",
-      "exec_prefix",
-      "CC",
-      "CFLAGS",
-      "CPPFLAGS",
-      "LDFLAGS",
-      "LIBS",
-      "CXX",
-      "CXXFLAGS",
-      "CPP",
-      "DEFS",
-      "LIBOBJS",
-      "INSTALL",
-      "OMPI_LIBMPI_EXTRA_LDFLAGS",
-      "libopen_rte_so_version",
-      "OMPI_MPI_ADDRESS_KIND",
-      "OMPI_MPI_OFFSET_KIND",
-      "AMCA_PARAM_SETS_DIR",
-      "top_ompi_builddir",
+      "CONFIGURE_DEPENDENCIES",
       "libmpi_so_version",
+      "libmpi_cxx_so_version",
+      "libmpi_f77_so_version",
+      "libmpi_f90_so_version",
+      "libmca_common_sm_so_version",
+      "libmca_common_mx_so_version",
+      "libmca_common_portals_so_version",
+      "libopen_rte_so_version",
+      "libopen_pal_so_version",
       "OMPI_TOP_BUILDDIR",
-      "OMPI_LIBMPI_EXTRA_LIBS"
+      "OMPI_TOP_SRCDIR",
+      "top_ompi_srcdir",
+      "top_ompi_builddir",
+      "OMPI_NEED_WINDOWS_REPLACEMENTS_TRUE",
+      "OMPI_NEED_WINDOWS_REPLACEMENTS_FALSE",
+      "WANT_MPI_BINDINGS_LAYER_TRUE",
+      "WANT_MPI_BINDINGS_LAYER_FALSE",
+      "WANT_PMPI_BINDINGS_LAYER_TRUE",
+      "WANT_PMPI_BINDINGS_LAYER_FALSE",
+      "COMPILE_PROFILING_SEPARATELY_TRUE",
+      "COMPILE_PROFILING_SEPARATELY_FALSE",
+      "WANT_MPI_CXX_BINDINGS_TRUE",
+      "WANT_MPI_CXX_BINDINGS_FALSE",
+      "WANT_MPI_F77_BINDINGS_LAYER_TRUE",
+      "WANT_MPI_F77_BINDINGS_LAYER_FALSE",
+      "WANT_PMPI_F77_BINDINGS_LAYER_TRUE",
+      "WANT_PMPI_F77_BINDINGS_LAYER_FALSE",
+      "OMPI_F90_IKINDS"
     ],
     "failed_during_check": "",
     "failure_tail": [
-      "./configure: line 1338: .: So: file not found"
+      "./configure: line 1379: ompi_show_title: command not found",
+      "./configure: line 1381: ompi_show_subtitle: command not found",
+      "./configure: line 1385: syntax error near unexpected token `OMPI,'",
+      "./configure: line 1385: `OMPI_SAVE_VERSION(OMPI, Open MPI, $srcdir/VERSION,'"
     ],
     "conftest_corruption": [],
-    "conftest_directives_intact": 115,
+    "conftest_directives_intact": 154,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
       "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { $ac_type x; return 0; }",
@@ -110,22 +129,6 @@
       "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { $ac_type x; return 0; }",
       "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { $ac_type x; return 0; }"
     ]
-  },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "ok",
-    "real_make": "fail",
-    "real_configure_lines": 148226,
-    "real_first_error": "",
-    "classification": "OURS_BUG_CONFIGURE"
-  },
-  "divergence": {
-    "stage": "configure",
-    "ours_error": "",
-    "ours_error_context": [],
-    "ours_configure_lines": 4354,
-    "real_configure_lines": 148226,
-    "macros_ours_left_undefined": []
   },
   "receipt": {
     "court_status": "failed",
@@ -144,7 +147,7 @@
         "verified": false
       }
     ],
-    "receipt_hash": "24e39ed3178d433d21c1340a6407fda16d8349c27724819539e8175382940e80",
+    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -153,6 +156,2119 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "config/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "contrib/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "ompi/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "ompi/datatype/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "ompi/debuggers/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "ompi/etc/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "ompi/include/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "ompi/include/mpif-config.h",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "ompi/include/mpif.h",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "ompi/mpi/c/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "ompi/mpi/c/profile/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "ompi/mpi/cxx/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "ompi/mpi/f77/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "ompi/mpi/f77/profile/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "ompi/mpi/f90/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "ompi/mpi/f90/fortran_kinds.sh",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "ompi/mpi/f90/fortran_sizes.h",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "ompi/mpi/f90/scripts/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "ompi/tools/ompi-server/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "ompi/tools/ompi_info/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "ompi/tools/ortetools/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "ompi/tools/wrappers/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "ompi/tools/wrappers/mpic++-wrapper-data.txt",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "ompi/tools/wrappers/mpicc-wrapper-data.txt",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "ompi/tools/wrappers/mpif77-wrapper-data.txt",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "ompi/tools/wrappers/mpif90-wrapper-data.txt",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "opal/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "opal/asm/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "opal/etc/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "opal/event/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "opal/event/compat/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "opal/event/compat/sys/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "opal/include/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "opal/mca/base/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "opal/tools/opal-checkpoint/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "opal/tools/opal-restart/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "opal/tools/wrappers/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "opal/tools/wrappers/opalc++-wrapper-data.txt",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "opal/tools/wrappers/opalcc-wrapper-data.txt",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "opal/util/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "opal/util/keyval/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "orte/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "orte/etc/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "orte/include/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "orte/tools/orte-checkpoint/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "orte/tools/orte-clean/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "orte/tools/orte-iof/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "orte/tools/orte-ps/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "orte/tools/orte-restart/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "orte/tools/orted/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "orte/tools/orterun/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "orte/tools/wrappers/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "orte/tools/wrappers/ortec++-wrapper-data.txt",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "orte/tools/wrappers/ortecc-wrapper-data.txt",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "test/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "test/asm/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "test/class/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "test/datatype/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "test/event/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "test/peruse/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "test/support/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "test/threads/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "test/util/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      }
+    ],
+    "config_headers": [
+      "ompi/include/mpi.h",
+      "ompi/include/ompi_config.h",
+      "opal/include/opal_config.h",
+      "orte/include/orte_config.h"
+    ],
+    "subdirs": [
+      "config",
+      "contrib",
+      "$(MCA_PROJECT_SUBDIRS)",
+      "test",
+      "include",
+      "datatype",
+      "debuggers",
+      "etc",
+      "mpi/c",
+      "$(MCA_ompi_FRAMEWORKS_SUBDIRS)",
+      "$(MCA_ompi_FRAMEWORK_COMPONENT_STATIC_SUBDIRS)",
+      ".",
+      "mpi/cxx",
+      "mpi/f77",
+      "mpi/f90",
+      "$(MCA_ompi_FRAMEWORK_COMPONENT_DSO_SUBDIRS)",
+      "$(OMPI_CONTRIB_SUBDIRS)",
+      "romio",
+      "mca/vprotocol",
+      "$(MCA_vprotocol_DSO_SUBDIRS)",
+      "$(MCA_vprotocol_STATIC_SUBDIRS)",
+      "tools/ompi_info",
+      "tools/wrappers",
+      "tools/ortetools",
+      "tools/ompi-server"
+    ],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [],
+        "subdirs": [
+          "config",
+          "contrib",
+          "$(MCA_PROJECT_SUBDIRS)",
+          "test"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "ompi",
+        "targets": [
+          "libmpi.la"
+        ],
+        "subdirs": [
+          "include",
+          "datatype",
+          "debuggers",
+          "etc",
+          "mpi/c",
+          "$(MCA_ompi_FRAMEWORKS_SUBDIRS)",
+          "$(MCA_ompi_FRAMEWORK_COMPONENT_STATIC_SUBDIRS)",
+          ".",
+          "mpi/cxx",
+          "mpi/f77",
+          "mpi/f90",
+          "$(MCA_ompi_FRAMEWORK_COMPONENT_DSO_SUBDIRS)",
+          "$(OMPI_CONTRIB_SUBDIRS)"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "ompi/datatype",
+        "targets": [
+          "libdatatype_reliable.la",
+          "libdatatype.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "ompi/mca/allocator",
+        "targets": [
+          "libmca_allocator.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "ompi/mca/allocator/base",
+        "targets": [],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "ompi/mca/allocator/basic",
+        "targets": [
+          "$(component_install)",
+          "$(component_noinst)"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "ompi/mca/allocator/bucket",
+        "targets": [
+          "$(component_install)",
+          "$(component_noinst)"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "ompi/mca/bml",
+        "targets": [
+          "libmca_bml.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "ompi/mca/bml/base",
+        "targets": [],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "ompi/mca/bml/r2",
+        "targets": [
+          "$(component_install)",
+          "$(component_noinst)"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "ompi/mca/common/mx",
+        "targets": [],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "$(common_mx_CPPFLAGS)"
+      },
+      {
+        "dir": "ompi/mca/common/portals",
+        "targets": [],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "$(common_portals_CPPFLAGS)"
+      },
+      {
+        "dir": "ompi/mca/common/sm",
+        "targets": [],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "ompi/mca/dpm",
+        "targets": [
+          "libmca_dpm.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "ompi/mca/dpm/base",
+        "targets": [],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "ompi/mca/dpm/orte",
+        "targets": [
+          "$(component_install)",
+          "$(component_noinst)"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "ompi/mca/io",
+        "targets": [
+          "libmca_io.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "$(LTDLINCL)"
+      },
+      {
+        "dir": "ompi/mca/io/base",
+        "targets": [],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "ompi/mca/io/romio",
+        "targets": [
+          "$(component)",
+          "$(lib)"
+        ],
+        "subdirs": [
+          "romio"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "ompi/mca/mtl",
+        "targets": [
+          "libmca_mtl.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "ompi/mca/mtl/base",
+        "targets": [],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "ompi/mca/mtl/mx",
+        "targets": [
+          "$(component_install)",
+          "$(component_noinst)"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "$(mtl_mx_CPPFLAGS)"
+      },
+      {
+        "dir": "ompi/mca/mtl/portals",
+        "targets": [
+          "$(component_install)",
+          "$(component_noinst)"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "$(mtl_portals_CPPFLAGS)"
+      },
+      {
+        "dir": "ompi/mca/mtl/psm",
+        "targets": [
+          "$(component_install)",
+          "$(component_noinst)"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "$(mtl_psm_CPPFLAGS)"
+      },
+      {
+        "dir": "ompi/mca/osc",
+        "targets": [
+          "libmca_osc.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "ompi/mca/osc/base",
+        "targets": [],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "ompi/mca/osc/pt2pt",
+        "targets": [
+          "$(component_install)",
+          "$(component_noinst)"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "ompi/mca/osc/rdma",
+        "targets": [
+          "$(component_install)",
+          "$(component_noinst)"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "ompi/mca/pml",
+        "targets": [
+          "libmca_pml.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "ompi/mca/pml/base",
+        "targets": [],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "ompi/mca/pml/cm",
+        "targets": [
+          "$(component_install)",
+          "$(component_noinst)"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "ompi/mca/pml/csum",
+        "targets": [
+          "$(component_install)",
+          "$(component_noinst)"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "ompi/mca/pml/v",
+        "targets": [
+          "$(component_install)",
+          "$(component_noinst)"
+        ],
+        "subdirs": [
+          "mca/vprotocol",
+          "$(MCA_vprotocol_DSO_SUBDIRS)",
+          "$(MCA_vprotocol_STATIC_SUBDIRS)"
+        ],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "ompi/mca/pubsub",
+        "targets": [
+          "libmca_pubsub.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "ompi/mca/pubsub/base",
+        "targets": [],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "ompi/mca/pubsub/orte",
+        "targets": [
+          "$(component_install)",
+          "$(component_noinst)"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "ompi/peruse",
+        "targets": [],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "ompi/tools",
+        "targets": [],
+        "subdirs": [
+          "tools/ompi_info",
+          "tools/wrappers",
+          "tools/ortetools",
+          "tools/ompi-server"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "ompi/tools/ompi-server",
+        "targets": [
+          "ompi-server"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "ompi/tools/ompi_info",
+        "targets": [
+          "ompi_info"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-DOMPI_CONFIGURE_USER=\"\\\"@OMPI_CONFIGURE_USER@\\\"\"              -DOMPI_CONFIGURE_HOST=\"\\\"@OMPI_CONFIGURE_HOST@\\\"\"        "
+      }
+    ],
+    "max_depth": 4,
+    "config_h_consumers_below_root": [
+      "ompi/tools/ompi-server",
+      "ompi/tools/ompi_info",
+      "ompi/peruse",
+      "ompi/datatype",
+      "ompi/mca/mtl",
+      "ompi/mca/mtl/mx",
+      "ompi/mca/mtl/base",
+      "ompi/mca/mtl/portals",
+      "ompi/mca/mtl/psm",
+      "ompi/mca/allocator/basic",
+      "ompi/mca/allocator/bucket",
+      "ompi/mca/allocator/base",
+      "ompi/mca/pubsub",
+      "ompi/mca/pubsub/orte",
+      "ompi/mca/pubsub/base",
+      "ompi/mca/bml/base",
+      "ompi/mca/bml/r2",
+      "ompi/mca/io/base",
+      "ompi/mca/common/mx",
+      "ompi/mca/common/sm",
+      "ompi/mca/common/portals",
+      "ompi/mca/dpm",
+      "ompi/mca/dpm/orte",
+      "ompi/mca/dpm/base",
+      "ompi/mca/osc",
+      "ompi/mca/osc/rdma",
+      "ompi/mca/osc/pt2pt",
+      "ompi/mca/osc/base",
+      "ompi/mca/pml",
+      "ompi/mca/pml/cm",
+      "ompi/mca/pml/v",
+      "ompi/mca/pml/base",
+      "ompi/mca/pml/csum"
+    ]
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "orte/test/mpi/Makefile",
+        "has_makefile_in": false,
+        "has_makefile_am": false,
+        "lines": 23,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "orte/test/system/Makefile",
+        "has_makefile_in": false,
+        "has_makefile_am": false,
+        "lines": 12,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "examples/Makefile",
+        "has_makefile_in": false,
+        "has_makefile_am": false,
+        "lines": 77,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      }
+    ]
+  },
+  "tool_requirements": {
+    "detected": [],
+    "missing": [
+      {
+        "name": "OMPI_LOAD_PLATFORM",
+        "phase": "make",
+        "suggested_package": ""
+      }
+    ]
+  },
+  "macro_inventory": {
+    "macro_dirs": [
+      "config"
+    ],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": true,
+    "defined_macros": [
+      {
+        "name": "OMPI_LOAD_PLATFORM",
+        "source": "config/ompi_load_platform.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "OMPI_F90_FIND_MODULE_INCLUDE_FLAG",
+        "source": "config/f90_find_module_include_flag.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "OMPI_F90_GET_INT_KIND",
+        "source": "config/f90_get_int_kind.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "OMPI_CHECK_OPENIB",
+        "source": "config/ompi_check_openib.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "OMPI_SETUP_F77_BANNER",
+        "source": "config/ompi_setup_f77.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "OMPI_PROG_F77",
+        "source": "config/ompi_setup_f77.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "OMPI_SETUP_F77",
+        "source": "config/ompi_setup_f77.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "OMPI_CHECK_GRIDENGINE",
+        "source": "config/ompi_check_sge.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "OMPI_C_COMPILER_VENDOR",
+        "source": "config/ompi_check_vendor.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "OMPI_CXX_COMPILER_VENDOR",
+        "source": "config/ompi_check_vendor.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "OMPI_IFDEF_IFELSE",
+        "source": "config/ompi_check_vendor.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "OMPI_IF_IFELSE",
+        "source": "config/ompi_check_vendor.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_OMPI_CHECK_COMPILER_VENDOR",
+        "source": "config/ompi_check_vendor.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "OMPI_F77_GET_ALIGNMENT",
+        "source": "config/f77_get_alignment.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "LT_INIT",
+        "source": "config/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LTOPTIONS_VERSION",
+        "source": "config/libtool.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AC_PROG_LIBTOOL",
+        "source": "config/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AM_PROG_LIBTOOL",
+        "source": "config/libtool.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "LT_OUTPUT",
+        "source": "config/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_SUPPORTED_TAG",
+        "source": "config/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_LANG",
+        "source": "config/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_CXX",
+        "source": "config/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_F77",
+        "source": "config/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_FC",
+        "source": "config/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_GCJ",
+        "source": "config/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "_LT_COMPILER_OPTION",
+        "source": "config/libtool.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AC_LIBTOOL_COMPILER_OPTION",
+        "source": "config/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "_LT_LINKER_OPTION",
+        "source": "config/libtool.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AC_LIBTOOL_LINKER_OPTION",
+        "source": "config/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_CMD_MAX_LEN",
+        "source": "config/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_SYS_MAX_CMD_LEN",
+        "source": "config/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_SYS_DLOPEN_SELF",
+        "source": "config/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_DLOPEN_SELF",
+        "source": "config/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "_LT_PATH_TOOL_PREFIX",
+        "source": "config/libtool.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AC_PATH_TOOL_PREFIX",
+        "source": "config/libtool.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "LT_PATH_LD",
+        "source": "config/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AM_PROG_LD",
+        "source": "config/libtool.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AC_PROG_LD",
+        "source": "config/libtool.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "LT_PATH_NM",
+        "source": "config/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AM_PROG_NM",
+        "source": "config/libtool.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AC_PROG_NM",
+        "source": "config/libtool.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "LT_LIB_M",
+        "source": "config/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_CHECK_LIBM",
+        "source": "config/libtool.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "_LT_PROG_CXX",
+        "source": "config/libtool.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_LT_PROG_F77",
+        "source": "config/libtool.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_LT_PROG_FC",
+        "source": "config/libtool.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "LT_PROG_GCJ",
+        "source": "config/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_AC_PROG_GCJ",
+        "source": "config/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_PROG_RC",
+        "source": "config/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_AC_PROG_RC",
+        "source": "config/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_AC_PROG_SED",
+        "source": "config/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "_OMPI_ATTRIBUTE_FAIL_SEARCH",
+        "source": "config/ompi_check_attributes.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_OMPI_CHECK_SPECIFIC_ATTRIBUTE",
+        "source": "config/ompi_check_attributes.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "OMPI_CHECK_ATTRIBUTES",
+        "source": "config/ompi_check_attributes.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "OMPI_EVAL_ARG",
+        "source": "config/ompi_mca.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "OMPI_MCA",
+        "source": "config/ompi_mca.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "MCA_CONFIGURE_PROJECT",
+        "source": "config/ompi_mca.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "MCA_CONFIGURE_FRAMEWORK",
+        "source": "config/ompi_mca.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "MCA_CONFIGURE_NO_CONFIG_COMPONENT",
+        "source": "config/ompi_mca.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "MCA_CONFIGURE_M4_CONFIG_COMPONENT",
+        "source": "config/ompi_mca.m4",
+        "kind": "project-local"
+      }
+    ],
+    "called_macros": [
+      "AC_CACHE_CHECK",
+      "AC_CACHE_SAVE",
+      "AC_CHECK_DECL",
+      "AC_CHECK_DECLS",
+      "AC_CHECK_FUNC",
+      "AC_CHECK_FUNCS",
+      "AC_CHECK_HEADERS",
+      "AC_CHECK_LIB",
+      "AC_CHECK_MEMBERS",
+      "AC_CHECK_SIZEOF",
+      "AC_CHECK_TYPES",
+      "AC_COMPILE_IFELSE",
+      "AC_CONFIG_AUX_DIR",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_HEADERS",
+      "AC_CONFIG_MACRO_DIR",
+      "AC_CONFIG_SUBDIRS",
+      "AC_C_BIGENDIAN",
+      "AC_C_INLINE",
+      "AC_C_RESTRICT",
+      "AC_DEFINE",
+      "AC_DEFINE_UNQUOTED",
+      "AC_EGREP_CPP",
+      "AC_EGREP_HEADER",
+      "AC_INCLUDES_DEFAULT",
+      "AC_INIT",
+      "AC_LANG_POP",
+      "AC_LANG_PROGRAM",
+      "AC_LANG_PUSH",
+      "AC_LIBLTDL_CONVENIENCE",
+      "AC_LIBTOOL_DLOPEN",
+      "AC_MSG_CHECKING",
+      "AC_MSG_ERROR",
+      "AC_MSG_NOTICE",
+      "AC_MSG_RESULT",
+      "AC_MSG_WARN",
+      "AC_OUTPUT",
+      "AC_PREPROC_IFELSE",
+      "AC_PREREQ",
+      "AC_PROG_EGREP",
+      "AC_PROG_GREP",
+      "AC_PROG_LIBTOOL",
+      "AC_PROG_LN_S",
+      "AC_RUN_IFELSE",
+      "AC_SUBST",
+      "AM_CONDITIONAL",
+      "AM_CONFIG_HEADER",
+      "AM_DISABLE_STATIC",
+      "AM_ENABLE_SHARED",
+      "AM_INIT_AUTOMAKE",
+      "AM_PROG_AS",
+      "AM_PROG_LEX",
+      "LT_CONFIG_LTDL_DIR",
+      "LT_INIT",
+      "LT_PACKAGE_VERSION"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 441,
+    "configure_fi": 423,
+    "configure_case": 63,
+    "configure_esac": 66,
+    "balanced": false,
+    "automake_conditionals": [
+      "OMPI_NEED_WINDOWS_REPLACEMENTS",
+      "WANT_MPI_BINDINGS_LAYER",
+      "WANT_PMPI_BINDINGS_LAYER",
+      "COMPILE_PROFILING_SEPARATELY",
+      "WANT_MPI_CXX_BINDINGS",
+      "WANT_MPI_F77_BINDINGS_LAYER",
+      "WANT_PMPI_F77_BINDINGS_LAYER"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": "config",
+    "present": [
+      "install-sh",
+      "missing",
+      "depcomp",
+      "compile",
+      "ltmain.sh"
+    ],
+    "missing": []
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "c": 1495,
+      "cc": 13,
+      "f": 2,
+      "f90": 3,
+      "h": 546,
+      "s": 24
+    },
+    "configure_macros": [],
+    "needs_cxx": true,
+    "needs_fortran": true,
+    "sets_c_std": false
+  },
+  "libtool_context": {
+    "uses_libtool": true,
+    "macros": [
+      "LT_INIT",
+      "AC_PROG_LIBTOOL"
+    ],
+    "ltmain_present": false,
+    "libtool_m4_sources": [],
+    "age": "modern"
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": true,
+    "defines_sampled": []
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-subdir-objects",
+      "applied_at": "configure",
+      "effect": "neutral",
+      "effectiveness": "low"
+    },
+    {
+      "quirk_id": "uses-libtool",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-libtool-old",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "has-acinclude",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "vpath_analysis": {
+    "hardcoded_src_paths": 2,
+    "abs_path_leakage": 0,
+    "built_sources": [
+      "mpi-f90-interfaces.h",
+      "+=",
+      "$(ARGZ_H)"
+    ],
+    "generated_source_targets": [
+      "# OMPI",
+      "objects = $(OMPI_LIBEVENT_SOURCES",
+      "verify"
+    ]
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "aio.h",
+      "alloca.h",
+      "arpa/inet.h",
+      "crt_externs.h",
+      "dirent.h",
+      "dlfcn.h",
+      "err.h",
+      "execinfo.h",
+      "fcntl.h",
+      "grp.h",
+      "hostLib.h",
+      "ifaddrs.h",
+      "inttypes.h",
+      "ioLib.h",
+      "libgen.h",
+      "libutil.h",
+      "malloc.h",
+      "net/if.h",
+      "net/uio.h",
+      "netdb.h",
+      "netinet/in.h",
+      "netinet/tcp.h",
+      "poll.h",
+      "pthread.h",
+      "pty.h",
+      "pwd.h",
+      "regex.h",
+      "sched.h",
+      "shlwapi.h",
+      "sockLib.h",
+      "stdarg.h",
+      "stdbool.h",
+      "stddef.h",
+      "stdint.h",
+      "string.h",
+      "strings.h",
+      "stropts.h",
+      "sys/fcntl.h",
+      "sys/ioctl.h",
+      "sys/ipc.h"
+    ],
+    "headers_included_unchecked": [
+      "kernel/image.h",
+      "libltdl/lt_dlloader.h",
+      "libltdl/lt_error.h",
+      "libltdl/lt_system.h",
+      "mach-o/getsect.h",
+      "opal/event/event.h",
+      "sys/_time.h",
+      "sys/_timeradd.h",
+      "sys/devpoll.h",
+      "sys/epoll.h",
+      "sys/event.h",
+      "sys/syscall.h",
+      "sys/timeb.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 4,
+    "shadowed_macros": [
+      "AC_PROG_LIBTOOL",
+      "AM_PROG_LIBTOOL",
+      "AC_LIBTOOL_CXX",
+      "AC_LIBTOOL_F77",
+      "AC_LIBTOOL_FC",
+      "AC_LIBTOOL_GCJ",
+      "AC_LIBTOOL_COMPILER_OPTION",
+      "AC_LIBTOOL_LINKER_OPTION",
+      "AC_LIBTOOL_SYS_MAX_CMD_LEN",
+      "AC_LIBTOOL_DLOPEN_SELF",
+      "AC_PATH_TOOL_PREFIX",
+      "AM_PROG_LD",
+      "AC_PROG_LD",
+      "AM_PROG_NM",
+      "AC_PROG_NM",
+      "AC_CHECK_LIBM"
+    ]
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "gnu++",
+    "strip_modern_poison_flags": [],
+    "inject_legacy_shims": false,
+    "compiler_aliasing": {}
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 19,
+    "shadowed_builtins": [
+      "AC_PROG_LIBTOOL",
+      "AM_PROG_LIBTOOL",
+      "AC_LIBTOOL_CXX",
+      "AC_LIBTOOL_F77",
+      "AC_LIBTOOL_FC",
+      "AC_LIBTOOL_GCJ",
+      "AC_LIBTOOL_COMPILER_OPTION",
+      "AC_LIBTOOL_LINKER_OPTION",
+      "AC_LIBTOOL_SYS_MAX_CMD_LEN",
+      "AC_LIBTOOL_DLOPEN_SELF",
+      "AC_PATH_TOOL_PREFIX",
+      "AM_PROG_LD",
+      "AC_PROG_LD",
+      "AM_PROG_NM",
+      "AC_PROG_NM"
+    ],
+    "permitted_mutations": 0,
+    "suspect_global_mutations": 0
+  },
+  "parallel_build_safety": {
+    "vpath_out_of_tree_safe": true,
+    "generators": [
+      "# OMPI",
+      "objects = $(OMPI_LIBEVENT_SOURCES",
+      "verify"
+    ],
+    "unordered_generated_sources": [
+      "# OMPI",
+      "objects = $(OMPI_LIBEVENT_SOURCES",
+      "verify"
+    ],
+    "built_sources_declared": true
+  },
+  "host_environment_veil": {
+    "header_injection_candidates": [
+      "sys/timeb.h",
+      "malloc.h"
+    ],
+    "symbol_aliasing_candidates": []
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "kernel/image.h",
+      "libltdl/lt_dlloader.h",
+      "libltdl/lt_error.h",
+      "libltdl/lt_system.h",
+      "mach-o/getsect.h",
+      "opal/event/event.h",
+      "sys/_time.h",
+      "sys/_timeradd.h",
+      "sys/devpoll.h",
+      "sys/epoll.h",
+      "sys/event.h",
+      "sys/syscall.h",
+      "sys/timeb.h",
+      "aio.h",
+      "alloca.h",
+      "arpa/inet.h",
+      "crt_externs.h",
+      "dirent.h",
+      "dlfcn.h",
+      "err.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "subdir-config-h-include-path",
+    "parallel-build-race (gen-source not in BUILT_SOURCES)"
+  ],
+  "repair_hints": [
+    {
+      "id": "subdir-top-builddir",
+      "phase": "make",
+      "confidence": 0.88,
+      "evidence": [
+        "ompi/tools/ompi-server consumes config.h below root",
+        "ompi/tools/ompi_info consumes config.h below root",
+        "ompi/peruse consumes config.h below root",
+        "ompi/datatype consumes config.h below root",
+        "ompi/mca/mtl consumes config.h below root"
+      ],
+      "action": "ensure ac_subst_file sets relative top_builddir per subdir (0.1.19)",
+      "expected_effect": "config.h found in subdir compiles"
+    },
+    {
+      "id": "missing-build-tool",
+      "phase": "make",
+      "confidence": 0.75,
+      "evidence": [
+        "OMPI_LOAD_PLATFORM: command not found"
+      ],
+      "action": "provide OMPI_LOAD_PLATFORM",
+      "expected_effect": "unblocks the build step needing this tool"
+    }
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": -21,
+      "Makefile.in": 1946,
+      "aclocal.m4": 304,
+      "configure": 333,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_CACHE_CHECK": "system-aclocal",
+      "AC_CACHE_SAVE": "system-aclocal",
+      "AC_CHECK_DECL": "system-aclocal",
+      "AC_CHECK_DECLS": "system-aclocal",
+      "AC_CHECK_FUNC": "system-aclocal",
+      "AC_CHECK_FUNCS": "system-aclocal",
+      "AC_CHECK_HEADERS": "system-aclocal",
+      "AC_CHECK_LIB": "system-aclocal",
+      "AC_CHECK_MEMBERS": "system-aclocal",
+      "AC_CHECK_SIZEOF": "system-aclocal",
+      "AC_CHECK_TYPES": "system-aclocal",
+      "AC_COMPILE_IFELSE": "system-aclocal",
+      "AC_CONFIG_AUX_DIR": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_HEADERS": "system-aclocal",
+      "AC_CONFIG_MACRO_DIR": "system-aclocal",
+      "AC_CONFIG_SUBDIRS": "system-aclocal",
+      "AC_C_BIGENDIAN": "system-aclocal",
+      "AC_C_INLINE": "system-aclocal",
+      "AC_C_RESTRICT": "system-aclocal",
+      "AC_DEFINE": "system-aclocal",
+      "AC_DEFINE_UNQUOTED": "system-aclocal",
+      "AC_EGREP_CPP": "system-aclocal",
+      "AC_EGREP_HEADER": "system-aclocal",
+      "AC_INCLUDES_DEFAULT": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_LANG_POP": "system-aclocal",
+      "AC_LANG_PROGRAM": "system-aclocal",
+      "AC_LANG_PUSH": "system-aclocal",
+      "AC_LIBLTDL_CONVENIENCE": "system-aclocal",
+      "AC_LIBTOOL_DLOPEN": "system-aclocal",
+      "AC_MSG_CHECKING": "system-aclocal",
+      "AC_MSG_ERROR": "system-aclocal",
+      "AC_MSG_NOTICE": "system-aclocal",
+      "AC_MSG_RESULT": "system-aclocal",
+      "AC_MSG_WARN": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PREPROC_IFELSE": "system-aclocal",
+      "AC_PREREQ": "system-aclocal",
+      "AC_PROG_EGREP": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "libmpi_la_LIBADD",
+        "var": "c_mpi_lib",
+        "resolved_to": [
+          "mpi/c/libmpi_c_mpi.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libmpi_la_LIBADD",
+        "var": "c_pmpi_lib",
+        "resolved_to": [
+          "mpi/c/profile/libmpi_c_pmpi.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libmpi_la_LIBADD",
+        "var": "f77_base_lib",
+        "resolved_to": [
+          "mpi/f77/base/libmpi_f77_base.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libmpi_la_LIBADD",
+        "var": "MCA_ompi_FRAMEWORK_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libmpi_la_LIBADD",
+        "var": "OMPI_LIBMPI_EXTRA_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libmpi_la_SOURCES",
+        "var": "headers",
+        "resolved_to": [],
+        "resolved": true
+      },
+      {
+        "primary": "libmca_mtl_la_SOURCES",
+        "var": "headers",
+        "resolved_to": [
+          "mtl.h"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libmca_mtl_la_SOURCES",
+        "var": "nodist_headers",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "mcacomponent_LTLIBRARIES",
+        "var": "component_install",
+        "resolved_to": [
+          "mca_mtl_mx.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "mca_mtl_mx_la_SOURCES",
+        "var": "mtl_mx_sources",
+        "resolved_to": [
+          "mtl_mx.c",
+          "mtl_mx.h",
+          "mtl_mx_cancel.c",
+          "mtl_mx_component.c",
+          "mtl_mx_endpoint.c",
+          "mtl_mx_endpoint.h",
+          "mtl_mx_probe.c",
+          "mtl_mx_recv.c",
+          "mtl_mx_request.h",
+          "mtl_mx_send.c",
+          "mtl_mx_types.h"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "mca_mtl_mx_la_LIBADD",
+        "var": "mtl_mx_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "noinst_LTLIBRARIES",
+        "var": "component_noinst",
+        "resolved_to": [
+          "libmca_mtl_mx.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libmca_mtl_mx_la_SOURCES",
+        "var": "mtl_mx_sources",
+        "resolved_to": [
+          "mtl_mx.c",
+          "mtl_mx.h",
+          "mtl_mx_cancel.c",
+          "mtl_mx_component.c",
+          "mtl_mx_endpoint.c",
+          "mtl_mx_endpoint.h",
+          "mtl_mx_probe.c",
+          "mtl_mx_recv.c",
+          "mtl_mx_request.h",
+          "mtl_mx_send.c",
+          "mtl_mx_types.h"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libmca_mtl_mx_la_LIBADD",
+        "var": "mtl_mx_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "mcacomponent_LTLIBRARIES",
+        "var": "component_install",
+        "resolved_to": [
+          "mca_mtl_portals.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "mca_mtl_portals_la_SOURCES",
+        "var": "local_sources",
+        "resolved_to": [
+          "mtl_portals_component.c",
+          "mtl_portals.c",
+          "mtl_portals.h",
+          "mtl_portals_endpoint.h",
+          "mtl_portals_recv.c",
+          "mtl_portals_recv.h",
+          "mtl_portals_recv_short.h",
+          "mtl_portals_recv_short.c",
+          "mtl_portals_request.h",
+          "mtl_portals_send_short.h",
+          "mtl_portals_send_short.c",
+          "mtl_portals_send.c",
+          "mtl_portals_probe.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "mca_mtl_portals_la_LIBADD",
+        "var": "mtl_portals_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "noinst_LTLIBRARIES",
+        "var": "component_noinst",
+        "resolved_to": [
+          "libmca_mtl_portals.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libmca_mtl_portals_la_SOURCES",
+        "var": "local_sources",
+        "resolved_to": [
+          "mtl_portals_component.c",
+          "mtl_portals.c",
+          "mtl_portals.h",
+          "mtl_portals_endpoint.h",
+          "mtl_portals_recv.c",
+          "mtl_portals_recv.h",
+          "mtl_portals_recv_short.h",
+          "mtl_portals_recv_short.c",
+          "mtl_portals_request.h",
+          "mtl_portals_send_short.h",
+          "mtl_portals_send_short.c",
+          "mtl_portals_send.c",
+          "mtl_portals_probe.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libmca_mtl_portals_la_LIBADD",
+        "var": "mtl_portals_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "mcacomponent_LTLIBRARIES",
+        "var": "component_install",
+        "resolved_to": [
+          "mca_mtl_psm.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "mca_mtl_psm_la_SOURCES",
+        "var": "mtl_psm_sources",
+        "resolved_to": [
+          "mtl_psm.c",
+          "mtl_psm.h",
+          "mtl_psm_cancel.c",
+          "mtl_psm_component.c",
+          "mtl_psm_endpoint.c",
+          "mtl_psm_endpoint.h",
+          "mtl_psm_probe.c",
+          "mtl_psm_recv.c",
+          "mtl_psm_request.h",
+          "mtl_psm_send.c",
+          "mtl_psm_types.h"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "mca_mtl_psm_la_LIBADD",
+        "var": "mtl_psm_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "noinst_LTLIBRARIES",
+        "var": "component_noinst",
+        "resolved_to": [
+          "libmca_mtl_psm.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libmca_mtl_psm_la_SOURCES",
+        "var": "mtl_psm_sources",
+        "resolved_to": [
+          "mtl_psm.c",
+          "mtl_psm.h",
+          "mtl_psm_cancel.c",
+          "mtl_psm_component.c",
+          "mtl_psm_endpoint.c",
+          "mtl_psm_endpoint.h",
+          "mtl_psm_probe.c",
+          "mtl_psm_recv.c",
+          "mtl_psm_request.h",
+          "mtl_psm_send.c",
+          "mtl_psm_types.h"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libmca_mtl_psm_la_LIBADD",
+        "var": "mtl_psm_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libmca_allocator_la_SOURCES",
+        "var": "headers",
+        "resolved_to": [
+          "allocator.h"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "mcacomponent_LTLIBRARIES",
+        "var": "component_install",
+        "resolved_to": [
+          "mca_allocator_basic.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "mca_allocator_basic_la_SOURCES",
+        "var": "sources",
+        "resolved_to": [
+          "allocator_basic.c",
+          "allocator_basic.h"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "noinst_LTLIBRARIES",
+        "var": "component_noinst",
+        "resolved_to": [
+          "libmca_allocator_basic.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libmca_allocator_basic_la_SOURCES",
+        "var": "sources",
+        "resolved_to": [
+          "allocator_basic.c",
+          "allocator_basic.h"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "mcacomponent_LTLIBRARIES",
+        "var": "component_install",
+        "resolved_to": [
+          "mca_allocator_bucket.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "mca_allocator_bucket_la_SOURCES",
+        "var": "sources",
+        "resolved_to": [
+          "allocator_bucket.c",
+          "allocator_bucket_alloc.c",
+          "allocator_bucket_alloc.h"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "noinst_LTLIBRARIES",
+        "var": "component_noinst",
+        "resolved_to": [
+          "libmca_allocator_bucket.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libmca_allocator_bucket_la_SOURCES",
+        "var": "sources",
+        "resolved_to": [
+          "allocator_bucket.c",
+          "allocator_bucket_alloc.c",
+          "allocator_bucket_alloc.h"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libmca_pubsub_la_SOURCES",
+        "var": "headers",
+        "resolved_to": [
+          "pubsub.h"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "mcacomponent_LTLIBRARIES",
+        "var": "component_install",
+        "resolved_to": [
+          "mca_pubsub_orte.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "mca_pubsub_orte_la_SOURCES",
+        "var": "local_sources",
+        "resolved_to": [
+          "pubsub_orte.c",
+          "pubsub_orte.h",
+          "pubsub_orte_component.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "noinst_LTLIBRARIES",
+        "var": "component_noinst",
+        "resolved_to": [
+          "libmca_pubsub_orte.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libmca_pubsub_orte_la_SOURCES",
+        "var": "local_sources",
+        "resolved_to": [
+          "pubsub_orte.c",
+          "pubsub_orte.h",
+          "pubsub_orte_component.c"
+        ],
+        "resolved": true
+      }
+    ],
+    "unresolved_refs": [
+      "libmpi_la_LIBADD = $(MCA_ompi_FRAMEWORK_LIBS)",
+      "libmpi_la_LIBADD = $(OMPI_LIBMPI_EXTRA_LIBS)",
+      "libmca_mtl_la_SOURCES = $(nodist_headers)",
+      "mca_mtl_mx_la_LIBADD = $(mtl_mx_LIBS)",
+      "libmca_mtl_mx_la_LIBADD = $(mtl_mx_LIBS)",
+      "mca_mtl_portals_la_LIBADD = $(mtl_portals_LIBS)",
+      "libmca_mtl_portals_la_LIBADD = $(mtl_portals_LIBS)",
+      "mca_mtl_psm_la_LIBADD = $(mtl_psm_LIBS)",
+      "libmca_mtl_psm_la_LIBADD = $(mtl_psm_LIBS)",
+      "libmca_pubsub_orte_la_LIBADD = $(pubsub_orte_LIBS)",
+      "libmca_common_mx_la_LIBADD = $(common_mx_LIBS)",
+      "libmca_common_mx_noinst_la_SOURCES = $(libmca_common_mx_la_SOURCES)",
+      "libmca_common_mx_noinst_la_LIBADD = $(common_mx_LIBS)",
+      "libmca_common_sm_noinst_la_SOURCES = $(libmca_common_sm_la_SOURCES)",
+      "libmca_common_portals_la_LIBADD = $(common_portals_LIBS)",
+      "libmca_common_portals_noinst_la_SOURCES = $(libmca_common_portals_la_SOURCES)",
+      "libmca_common_portals_noinst_la_LIBADD = $(common_portals_LIBS)",
+      "libmca_dpm_orte_la_LIBADD = $(dpm_orte_LIBS)",
+      "libmca_pml_la_SOURCES = $(nodist_headers)",
+      "mca_pml_cm_la_LIBADD = $(pml_cm_LIBS)",
+      "libmca_pml_cm_la_LIBADD = $(pml_cm_LIBS)",
+      "mca_pml_v_la_LIBADD = $(MCA_vprotocol_STATIC_LTLIBS)",
+      "libmca_pml_v_la_LIBADD = $(MCA_vprotocol_STATIC_LTLIBS)",
+      "mca_btl_gm_la_LIBADD = $(btl_gm_LIBS)",
+      "libmca_btl_gm_la_LIBADD = $(btl_gm_LIBS)",
+      "mca_btl_mx_la_LIBADD = $(btl_mx_LIBS)",
+      "libmca_btl_mx_la_LIBADD = $(btl_mx_LIBS)",
+      "mca_btl_udapl_la_LIBADD = $(btl_udapl_LIBS)",
+      "libmca_btl_udapl_la_LIBADD = $(btl_udapl_LIBS)",
+      "mca_btl_openib_la_LIBADD = $(btl_openib_LIBS)",
+      "libmca_btl_openib_la_LIBADD = $(btl_openib_LIBS)",
+      "mca_btl_ofud_la_LIBADD = $(btl_ofud_LIBS)",
+      "libmca_btl_ofud_la_LIBADD = $(btl_ofud_LIBS)",
+      "mca_btl_elan_la_LIBADD = $(btl_elan_LIBS)",
+      "libmca_btl_elan_la_LIBADD = $(btl_elan_LIBS)",
+      "mca_btl_portals_la_SOURCES = $(portals_SOURCES)",
+      "nodist_mca_btl_portals_la_SOURCES = $(portals_nodist_SOURCES)",
+      "mca_btl_portals_la_LIBADD = $(btl_portals_LIBS)",
+      "libmca_btl_portals_la_SOURCES = $(portals_SOURCES)",
+      "nodist_libmca_btl_portals_la_SOURCES = $(portals_nodist_SOURCES)",
+      "libmca_btl_portals_la_LIBADD = $(btl_portals_LIBS)",
+      "mca_rcache_vma_la_LIBADD = $(rcache_vma_LIBS)",
+      "libmca_rcache_vma_la_LIBADD = $(rcache_vma_LIBS)",
+      "mca_mpool_rdma_la_LIBADD = $(mpool_rdma_LIBS)",
+      "libmca_mpool_rdma_la_LIBADD = $(mpool_rdma_LIBS)",
+      "mca_mpool_fake_la_LIBADD = $(mpool_fake_LIBS)",
+      "libmca_mpool_fake_la_LIBADD = $(mpool_fake_LIBS)",
+      "libopen_pal_la_LIBADD = $(LIBLTDL)",
+      "libopen_pal_la_LIBADD = $(MCA_opal_FRAMEWORK_LIBS)",
+      "libmca_timer_aix_la_LIBADD = $(timer_aix_LIBS)",
+      "libmca_memory_ptmalloc2_la_LIBADD = $(memory_ptmalloc2_LIBS)",
+      "libmca_memory_malloc_solaris_la_LIBADD = $(memory_malloc_solaris_LIBS)",
+      "mca_crs_blcr_la_LIBADD = $(crs_blcr_LIBS)",
+      "libmca_crs_blcr_la_LIBADD = $(crs_blcr_LIBS)",
+      "mca_maffinity_libnuma_la_LIBADD = $(maffinity_libnuma_LIBS)",
+      "libmca_maffinity_libnuma_la_LIBADD = $(maffinity_libnuma_LIBS)",
+      "noinst_LTLIBRARIES = $(LT_DLLOADERS)",
+      "libltdl_la_LIBADD = $(LTLIBOBJS)",
+      "libltdlc_la_SOURCES = $(libltdl_la_SOURCES)",
+      "libltdlc_la_LIBADD = $(libltdl_la_LIBADD)",
+      "dlopen_la_LIBADD = $(LIBADD_DLOPEN)",
+      "shl_load_la_LIBADD = $(LIBADD_SHL_LOAD)",
+      "BUILT_SOURCES = $(ARGZ_H)",
+      "libopen_rte_la_LIBADD = $(MCA_orte_FRAMEWORK_LIBS)",
+      "mca_ras_lsf_la_SOURCES = $(proxy_SOURCES)",
+      "mca_ras_lsf_la_LIBADD = $(ras_lsf_LIBS)",
+      "libmca_ras_lsf_la_SOURCES = $(proxy_SOURCES)",
+      "libmca_ras_lsf_la_LIBADD = $(ras_lsf_LIBS)",
+      "mca_ras_alps_la_LIBADD = $(ras_alps_LIBS)",
+      "libmca_ras_alps_la_LIBADD = $(ras_alps_LIBS)",
+      "mca_ras_slurm_la_LIBADD = $(ras_slurm_LIBS)",
+      "libmca_ras_slurm_la_LIBADD = $(ras_slurm_LIBS)",
+      "mca_ras_loadleveler_la_LIBADD = $(ras_loadleveler_LIBS)",
+      "libmca_ras_loadleveler_la_LIBADD = $(ras_loadleveler_LIBS)",
+      "mca_ras_tm_la_LIBADD = $(ras_tm_LIBS)",
+      "libmca_ras_tm_la_LIBADD = $(ras_tm_LIBS)",
+      "mca_ras_ccp_la_LIBADD = $(ras_ccp_LIBS)",
+      "libmca_ras_ccp_la_LIBADD = $(ras_ccp_LIBS)",
+      "mca_ess_lsf_la_LIBADD = $(ess_lsf_LIBS)",
+      "libmca_ess_lsf_la_LIBADD = $(ess_lsf_LIBS)",
+      "mca_ess_portals_utcp_la_LIBADD = $(ess_portals_utcp_LIBS)",
+      "libmca_ess_portals_utcp_la_LIBADD = $(ess_portals_utcp_LIBS)",
+      "mca_plm_lsf_la_LIBADD = $(plm_lsf_LIBS)",
+      "libmca_plm_lsf_la_LIBADD = $(plm_lsf_LIBS)",
+      "mca_plm_process_la_LIBADD = $(plm_process_LIBS)",
+      "libmca_plm_process_la_LIBADD = $(plm_process_LIBS)",
+      "mca_plm_tm_la_LIBADD = $(plm_tm_LIBS)",
+      "libmca_plm_tm_la_LIBADD = $(plm_tm_LIBS)",
+      "mca_plm_ccp_la_LIBADD = $(plm_ccp_LIBS)",
+      "libmca_plm_ccp_la_LIBADD = $(plm_ccp_LIBS)",
+      "mca_iof_hnp_la_SOURCES = $(hnp_SOURCES)",
+      "libmca_iof_hnp_la_SOURCES = $(hnp_SOURCES)",
+      "mca_iof_tool_la_SOURCES = $(tool_SOURCES)",
+      "libmca_iof_tool_la_SOURCES = $(tool_SOURCES)",
+      "mca_iof_orted_la_SOURCES = $(orted_SOURCES)",
+      "libmca_iof_orted_la_SOURCES = $(orted_SOURCES)",
+      "atomic_spinlock_LDADD = $(libs)",
+      "atomic_spinlock_noinline_LDADD = $(libs)",
+      "atomic_math_LDADD = $(libs)",
+      "atomic_math_noinline_LDADD = $(libs)",
+      "atomic_cmpset_LDADD = $(libs)",
+      "atomic_cmpset_noinline_LDADD = $(libs)"
+    ],
+    "indirection_count": 558
   }
 }

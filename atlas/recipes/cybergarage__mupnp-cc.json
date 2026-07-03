@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "cybergarage/mupnp-cc",
   "source": {
     "url": "https://github.com/cybergarage/mupnp-cc",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -35,42 +35,77 @@
     }
   ],
   "probe_results": {
+    "HAVE_ARPA_INET_H": 1,
     "HAVE_BOOST_SHRAEDPTR": 1,
-    "HAVE_GDK_IMLIB": 1,
-    "HAVE_GTK": 1,
+    "HAVE_FOPEN": 1,
+    "HAVE_GETIFADDRS": 1,
+    "HAVE_GMTIME_R": 1,
+    "HAVE_ICONV": 1,
+    "HAVE_ICONV_H": 1,
+    "HAVE_IFADDRS_H": 1,
+    "HAVE_INET_NTOA": 1,
+    "HAVE_LIMITS_H": 1,
+    "HAVE_LOCALTIME_R": 1,
+    "HAVE_MEMSET": 1,
+    "HAVE_NETDB_H": 1,
+    "HAVE_NETINET_IN_H": 1,
+    "HAVE_PTHREAD_H": 1,
+    "HAVE_REALPATH": 1,
+    "HAVE_SNPRINTF": 1,
+    "HAVE_SOCKET": 1,
     "HAVE_SOCKLEN_T": 1,
+    "HAVE_STDLIB_H": 1,
     "HAVE_STD_COUT": 1,
-    "HAVE_STD_SHRAEDPTR": 1
+    "HAVE_STD_SHRAEDPTR": 1,
+    "HAVE_STRCHR": 1,
+    "HAVE_STRING_H": 1,
+    "HAVE_SYS_PARAM_H": 1,
+    "HAVE_SYS_SOCKET_H": 1,
+    "HAVE_UNAME": 1,
+    "HAVE_UNISTD_H": 1,
+    "HAVE_UUID_UUID_H": 1
   },
   "feature_flags": {
     "configure_args": []
   },
   "dependencies": {
     "pkg_config": [],
-    "system_libs": [],
+    "system_libs": [
+      "-luuid",
+      "-lpthread"
+    ],
     "headers_needed": [],
     "missing": []
   },
   "quirks": [
-    "subdirs"
+    "subdirs",
+    "LIBS=-luuid -lpthread"
   ],
   "outputs": [],
   "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "Makefile:16: *** missing separator.  Stop.",
+  "diagnostic": "../../include/mupnp/util/Vector.h:25:41: error: 'mupnp_shared_ptr' was not declared in this scope",
   "deep_expansion": {
-    "configure_lines": 3110,
+    "configure_lines": 3325,
     "leaked_macros": [],
-    "heredoc_openers": 52,
-    "heredoc_terminators": 52,
+    "heredoc_openers": 51,
+    "heredoc_terminators": 51,
     "heredoc_imbalance": 0,
     "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2634: do eval test \\${$as_var+y} \\"
+      "line 2848: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
+      "XML_CFLAGS",
+      "XML_LIBS",
+      "ENABLE_UNITTEST_TRUE",
+      "ENABLE_UNITTEST_FALSE",
+      "GTK_CFLAGS",
+      "GDK_IMLIB_CFLAGS",
+      "GTK_LIBS",
+      "GDK_IMLIB_LIBS",
       "PACKAGE_NAME",
       "PACKAGE_TARNAME",
       "PACKAGE_VERSION",
@@ -91,12 +126,7 @@
       "DEFS",
       "LIBOBJS",
       "INSTALL",
-      "GDK_IMLIB_LIBS",
-      "XML_CFLAGS",
-      "GDK_IMLIB_CFLAGS",
-      "XML_LIBS",
-      "GTK_LIBS",
-      "GTK_CFLAGS"
+      "LD"
     ],
     "failed_during_check": "checking for uname... yes",
     "failure_tail": [
@@ -107,28 +137,26 @@
       "configure: creating lib/unix/Makefile"
     ],
     "conftest_corruption": [],
-    "conftest_directives_intact": 39,
+    "conftest_directives_intact": 33,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
       "#include <$ac_hdr>",
       "#include <$ac_hdr>",
-      "char main();\\nint main() { return main(); }",
+      "\\nint main() { return main(); }",
       "#include <$ac_hdr>",
-      "char main();\\nint main() { return main(); }",
-      "char main();\\nint main() { return main(); }"
+      "\\nint main() { return main(); }",
+      "\\nint main() { return main(); }"
     ]
-  },
-  "oracle": {
-    "real_autoreconf": "fail",
-    "real_configure": "skipped",
-    "real_make": "skipped",
-    "real_configure_lines": 0,
-    "real_first_error": "autoreconf: error: /usr/bin/autoheader failed with exit status: 1",
-    "classification": "OURS_BETTER"
   },
   "receipt": {
     "court_status": "partial",
     "probe_trace": [
+      {
+        "name": "HAVE_ARPA_INET_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
       {
         "name": "HAVE_BOOST_SHRAEDPTR",
         "kind": "func",
@@ -136,13 +164,97 @@
         "reason": "ok"
       },
       {
-        "name": "HAVE_GDK_IMLIB",
+        "name": "HAVE_FOPEN",
         "kind": "func",
         "result": "yes",
         "reason": "ok"
       },
       {
-        "name": "HAVE_GTK",
+        "name": "HAVE_GETIFADDRS",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_GMTIME_R",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_ICONV",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_ICONV_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_IFADDRS_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_INET_NTOA",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_LIMITS_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_LOCALTIME_R",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_MEMSET",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_NETDB_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_NETINET_IN_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_PTHREAD_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_REALPATH",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SNPRINTF",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SOCKET",
         "kind": "func",
         "result": "yes",
         "reason": "ok"
@@ -150,6 +262,12 @@
       {
         "name": "HAVE_SOCKLEN_T",
         "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STDLIB_H",
+        "kind": "header",
         "result": "yes",
         "reason": "ok"
       },
@@ -164,13 +282,55 @@
         "kind": "func",
         "result": "yes",
         "reason": "ok"
+      },
+      {
+        "name": "HAVE_STRCHR",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STRING_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SYS_PARAM_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SYS_SOCKET_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_UNAME",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_UNISTD_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_UUID_UUID_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
       }
     ],
     "quirks_matched": [
       "uses-subdir-objects",
       "vendored-aclocal"
     ],
-    "receipt_hash": "5aee15c856691fcb8558a50ecd240dff4ff4067c2be9a1b226d3696ac8fb6cad",
+    "receipt_hash": "7c90abf690e6b9fa8f4aeb6d41fa2673d2c3d39b7ce352eca5beb746faba4de5",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -179,6 +339,1009 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "examples/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "examples/clock/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "examples/clock/unix/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "examples/tv/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "examples/tv/unix/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "examples/upnpdump/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "examples/upnpdump/unix/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "include/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "lib/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "lib/unix/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "test/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "test/unix/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      }
+    ],
+    "config_headers": [
+      "config.h"
+    ],
+    "subdirs": [
+      "include",
+      "lib",
+      "test",
+      "examples",
+      "upnpdump",
+      "clock",
+      "tv",
+      "unix",
+      "server",
+      "serverdump",
+      "unix",
+      "unix",
+      "unix",
+      "unix",
+      "unix",
+      "unix"
+    ],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [],
+        "subdirs": [
+          "include",
+          "lib",
+          "test",
+          "examples"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "examples",
+        "targets": [],
+        "subdirs": [
+          "upnpdump",
+          "clock",
+          "tv"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "examples/clock",
+        "targets": [],
+        "subdirs": [
+          "unix"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "examples/clock/unix",
+        "targets": [
+          "upnpclock"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)/include -I../ -I../../common @XML_CFLAGS@ @GTK_CFLAGS@ @GDK_IMLIB_CFLAGS@"
+      },
+      {
+        "dir": "examples/media",
+        "targets": [],
+        "subdirs": [
+          "server",
+          "serverdump"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "examples/media/server",
+        "targets": [],
+        "subdirs": [
+          "unix"
+        ],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "examples/media/server/unix",
+        "targets": [
+          "mediagate"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)/include -I../../../common -I../ @XML_CFLAGS@"
+      },
+      {
+        "dir": "examples/media/serverdump",
+        "targets": [],
+        "subdirs": [
+          "unix"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "examples/media/serverdump/unix",
+        "targets": [
+          "serverdump"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)/include -I../../../common @XML_CFLAGS@"
+      },
+      {
+        "dir": "examples/tv",
+        "targets": [],
+        "subdirs": [
+          "unix"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "examples/tv/unix",
+        "targets": [
+          "upnptv"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)/include -I../ -I../../common @XML_CFLAGS@ @GTK_CFLAGS@ @GDK_IMLIB_CFLAGS@"
+      },
+      {
+        "dir": "examples/upnpdump",
+        "targets": [],
+        "subdirs": [
+          "unix"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "examples/upnpdump/unix",
+        "targets": [
+          "upnpdump"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)/include -I../../common @XML_CFLAGS@"
+      },
+      {
+        "dir": "lib",
+        "targets": [],
+        "subdirs": [
+          "unix"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "lib/unix",
+        "targets": [
+          "libmupnp++.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)/include @XML_CFLAGS@"
+      },
+      {
+        "dir": "test",
+        "targets": [],
+        "subdirs": [
+          "unix"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "test/unix",
+        "targets": [
+          "mupnptest"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)/include -I../"
+      }
+    ],
+    "max_depth": 3,
+    "config_h_consumers_below_root": [
+      "examples/tv/unix",
+      "examples/media/server",
+      "examples/clock/unix"
+    ]
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 521,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "include/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1165,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "examples/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 521,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "examples/tv/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 521,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "examples/tv/unix/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 513,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "examples/upnpdump/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 521,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "examples/upnpdump/unix/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 513,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "examples/clock/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 521,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "examples/clock/unix/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 514,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "test/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 521,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "test/unix/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 679,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "lib/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 521,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "lib/unix/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 481,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      }
+    ]
+  },
+  "tool_requirements": {
+    "detected": [
+      "c++"
+    ],
+    "missing": []
+  },
+  "macro_inventory": {
+    "macro_dirs": [
+      "config"
+    ],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [],
+    "called_macros": [
+      "AC_ARG_ENABLE",
+      "AC_CHECK_FUNCS",
+      "AC_CHECK_HEADERS",
+      "AC_CHECK_LIB",
+      "AC_CHECK_PROG",
+      "AC_COMPILE_IFELSE",
+      "AC_CONFIG_AUX_DIR",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_HEADERS",
+      "AC_CONFIG_SRCDIR",
+      "AC_C_CONST",
+      "AC_C_INLINE",
+      "AC_DEFINE",
+      "AC_HEADER_STDBOOL",
+      "AC_INIT",
+      "AC_LANG",
+      "AC_LANG_PROGRAM",
+      "AC_MSG_CHECKING",
+      "AC_MSG_ERROR",
+      "AC_MSG_NOTICE",
+      "AC_MSG_RESULT",
+      "AC_OUTPUT",
+      "AC_PROG_AWK",
+      "AC_PROG_CC",
+      "AC_PROG_CPP",
+      "AC_PROG_CXX",
+      "AC_PROG_EGREP",
+      "AC_PROG_INSTALL",
+      "AC_PROG_RANLIB",
+      "AC_STRUCT_TM",
+      "AC_SUBST",
+      "AM_CONDITIONAL",
+      "AM_INIT_AUTOMAKE",
+      "AM_PATH_GDK_IMLIB",
+      "AM_PATH_GTK",
+      "GTK_CFLAGS",
+      "GTK_CONFIG",
+      "GTK_LIBS",
+      "GTK_VERSION"
+    ],
+    "unresolved_macros": [
+      "GTK_CFLAGS",
+      "GTK_CONFIG",
+      "GTK_LIBS",
+      "GTK_VERSION"
+    ]
+  },
+  "conditional_context": {
+    "configure_if": 163,
+    "configure_fi": 157,
+    "configure_case": 63,
+    "configure_esac": 66,
+    "balanced": false,
+    "automake_conditionals": [
+      "ENABLE_UNITTEST"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": "config",
+    "present": [
+      "install-sh",
+      "missing",
+      "depcomp",
+      "compile"
+    ],
+    "missing": []
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "cpp": 129,
+      "h": 157
+    },
+    "configure_macros": [
+      "AC_PROG_CC",
+      "AC_PROG_CXX"
+    ],
+    "needs_cxx": true,
+    "needs_fortran": false,
+    "sets_c_std": false
+  },
+  "make_graph": {
+    "targets": [
+      "all",
+      "all-am",
+      "install-am",
+      "installcheck-am",
+      "install-strip",
+      "install-info",
+      "install-info-am",
+      "install-dvi",
+      "install-dvi-am",
+      "install-ps",
+      "install-ps-am",
+      "install-pdf",
+      "install-pdf-am",
+      "install-html",
+      "install-html-am",
+      "install-data-hook",
+      "install-exec-hook",
+      "installdirs-am",
+      ".PHONY",
+      "mostlyclean-am",
+      "clean-am",
+      "distclean-am",
+      "maintainer-clean-am",
+      "distdir",
+      "dist",
+      "dist-all",
+      "dist-gzip",
+      "distcleancheck",
+      "distcheck",
+      "check-am",
+      "TAGS",
+      "tags",
+      "TAGS-am",
+      "tags-am",
+      "cscope",
+      "cscope-am",
+      "distuninstallcheck",
+      "$(srcdir)/Makefile.in",
+      "$(am__recursive_targets)",
+      "check"
+    ],
+    "key_variables": {
+      "AR": "ar",
+      "CC": "cc",
+      "CFLAGS": "-g -O2",
+      "CPPFLAGS": "",
+      "CXX": "g++",
+      "CXXFLAGS": "-g -O2",
+      "DEFS": "-DHAVE_CONFIG_H",
+      "LDFLAGS": "",
+      "LIBS": "-luuid -lpthread",
+      "RANLIB": "ranlib"
+    },
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "config.h",
+      "config.log"
+    ],
+    "recursion_depth": 3,
+    "top_targets": [
+      "all",
+      "check",
+      "dist",
+      "all-am"
+    ],
+    "make_diagnostics": [
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "../../include/mupnp/util/Vector.h:25:41: error: 'mupnp_shared_ptr' was not declared in this scope"
+      },
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "../../include/mupnp/util/Vector.h:25:41: error: 'mupnp_shared_ptr' was not declared in this scope"
+      },
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "../../include/mupnp/util/Vector.h:25:58: error: template argument 1 is invalid"
+      },
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "../../include/mupnp/util/Vector.h:25:58: error: template argument 2 is invalid"
+      },
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "../../include/mupnp/util/Vector.h:25:59: error: expected '{' before '>' token"
+      },
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "../../include/mupnp/util/Vector.h:25:58: error: template argument 1 is invalid"
+      },
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "../../include/mupnp/util/Vector.h:25:58: error: template argument 2 is invalid"
+      },
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "../../include/mupnp/util/Vector.h:25:59: error: expected '{' before '>' token"
+      },
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "../../include/mupnp/util/Thread.h:88:36: error: invalid use of incomplete type 'class uHTTP::SharedVector<uHTTP::Thread>"
+      },
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "../../include/mupnp/util/Thread.h:88:36: error: invalid use of incomplete type 'class uHTTP::SharedVector<uHTTP::Thread>"
+      }
+    ]
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": true,
+    "defines_sampled": [
+      "HAVE_CONFIG_H"
+    ]
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-subdir-objects",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "vpath_analysis": {
+    "hardcoded_src_paths": 6,
+    "abs_path_leakage": 0,
+    "built_sources": [],
+    "generated_source_targets": []
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "arpa/inet.h",
+      "expat.h",
+      "iconv.h",
+      "ifaddrs.h",
+      "limits.h",
+      "netdb.h",
+      "netinet/in.h",
+      "pthread.h",
+      "stdlib.h",
+      "string.h",
+      "sys/param.h",
+      "sys/socket.h",
+      "unistd.h",
+      "uuid/uuid.h"
+    ],
+    "headers_included_unchecked": [
+      "X11/Xlib.h",
+      "bsys/unixemu.h",
+      "btron/bsocket.h",
+      "btron/clk.h",
+      "btron/kasago.h",
+      "btron/proctask.h",
+      "btron/taskcomm.h",
+      "fcntl.h",
+      "gdk/gdkx.h",
+      "gtk/gtk.h",
+      "mach/mach.h",
+      "mach/semaphore.h",
+      "mupnp/Action.h",
+      "mupnp/ActionList.h",
+      "mupnp/AllowedValue.h",
+      "mupnp/AllowedValueList.h",
+      "mupnp/AllowedValueRange.h",
+      "mupnp/Argument.h",
+      "mupnp/ArgumentList.h",
+      "mupnp/ControlPoint.h",
+      "mupnp/Device.h",
+      "mupnp/DeviceList.h",
+      "mupnp/Icon.h",
+      "mupnp/IconList.h",
+      "mupnp/Log.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 4,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "gnu++",
+    "strip_modern_poison_flags": [],
+    "inject_legacy_shims": false,
+    "compiler_aliasing": {}
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 8,
+    "shadowed_builtins": [],
+    "permitted_mutations": 5,
+    "suspect_global_mutations": 0
+  },
+  "parallel_build_safety": {
+    "vpath_out_of_tree_safe": false,
+    "generators": [],
+    "unordered_generated_sources": [],
+    "built_sources_declared": false
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "X11/Xlib.h",
+      "bsys/unixemu.h",
+      "btron/bsocket.h",
+      "btron/clk.h",
+      "btron/kasago.h",
+      "btron/proctask.h",
+      "btron/taskcomm.h",
+      "fcntl.h",
+      "gdk/gdkx.h",
+      "gtk/gtk.h",
+      "mach/mach.h",
+      "mach/semaphore.h",
+      "mupnp/Action.h",
+      "mupnp/ActionList.h",
+      "mupnp/AllowedValue.h",
+      "mupnp/AllowedValueList.h",
+      "mupnp/AllowedValueRange.h",
+      "mupnp/Argument.h",
+      "mupnp/ArgumentList.h",
+      "mupnp/ControlPoint.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "subdir-config-h-include-path",
+    "unresolved-macros",
+    "vpath-unsafe (abs-path/hardcoded-srcdir leakage)"
+  ],
+  "repair_hints": [
+    {
+      "id": "subdir-top-builddir",
+      "phase": "make",
+      "confidence": 0.88,
+      "evidence": [
+        "examples/tv/unix consumes config.h below root",
+        "examples/media/server consumes config.h below root",
+        "examples/clock/unix consumes config.h below root"
+      ],
+      "action": "ensure ac_subst_file sets relative top_builddir per subdir (0.1.19)",
+      "expected_effect": "config.h found in subdir compiles"
+    },
+    {
+      "id": "load-vendored-aclocal-dir",
+      "phase": "autoreconf",
+      "confidence": 0.85,
+      "evidence": [
+        "GTK_CFLAGS",
+        "GTK_CONFIG",
+        "GTK_LIBS",
+        "GTK_VERSION"
+      ],
+      "action": "aclocal -I config",
+      "expected_effect": "resolves unexpanded AX_/custom macros"
+    }
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": -1,
+      "Makefile.in": 1228,
+      "aclocal.m4": 17,
+      "config.h.in": 25,
+      "configure": 22,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_ENABLE": "system-aclocal",
+      "AC_CHECK_FUNCS": "system-aclocal",
+      "AC_CHECK_HEADERS": "system-aclocal",
+      "AC_CHECK_LIB": "system-aclocal",
+      "AC_CHECK_PROG": "system-aclocal",
+      "AC_COMPILE_IFELSE": "system-aclocal",
+      "AC_CONFIG_AUX_DIR": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_HEADERS": "system-aclocal",
+      "AC_CONFIG_SRCDIR": "system-aclocal",
+      "AC_C_CONST": "system-aclocal",
+      "AC_C_INLINE": "system-aclocal",
+      "AC_DEFINE": "system-aclocal",
+      "AC_HEADER_STDBOOL": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_LANG": "system-aclocal",
+      "AC_LANG_PROGRAM": "system-aclocal",
+      "AC_MSG_CHECKING": "system-aclocal",
+      "AC_MSG_ERROR": "system-aclocal",
+      "AC_MSG_NOTICE": "system-aclocal",
+      "AC_MSG_RESULT": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PROG_AWK": "system-aclocal",
+      "AC_PROG_CC": "system-aclocal",
+      "AC_PROG_CPP": "system-aclocal",
+      "AC_PROG_CXX": "system-aclocal",
+      "AC_PROG_EGREP": "system-aclocal",
+      "AC_PROG_INSTALL": "system-aclocal",
+      "AC_PROG_RANLIB": "system-aclocal",
+      "AC_STRUCT_TM": "system-aclocal",
+      "AC_SUBST": "system-aclocal",
+      "AM_CONDITIONAL": "system-aclocal",
+      "AM_INIT_AUTOMAKE": "system-aclocal",
+      "AM_PATH_GDK_IMLIB": "system-aclocal",
+      "AM_PATH_GTK": "system-aclocal",
+      "GTK_CFLAGS": "unresolved",
+      "GTK_CONFIG": "unresolved",
+      "GTK_LIBS": "unresolved",
+      "GTK_VERSION": "unresolved"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "libmupnp___a_SOURCES",
+        "var": "mupnpcc_sources",
+        "resolved_to": [
+          "../../src/mupnp/soap/SOAPRequest.cpp",
+          "../../src/mupnp/soap/SOAP.cpp",
+          "../../src/mupnp/soap/SOAPResponse.cpp",
+          "../../src/mupnp/IconList.cpp",
+          "../../src/mupnp/UPnP.cpp",
+          "../../src/mupnp/DeviceList.cpp",
+          "../../src/mupnp/Service.cpp",
+          "../../src/mupnp/control/RenewSubscriber.cpp",
+          "../../src/mupnp/control/ActionResponse.cpp",
+          "../../src/mupnp/control/QueryResponse.cpp",
+          "../../src/mupnp/control/ControlRequest.cpp",
+          "../../src/mupnp/control/QueryRequest.cpp",
+          "../../src/mupnp/control/ActionRequest.cpp",
+          "../../src/mupnp/control/ControlResponse.cpp",
+          "../../src/mupnp/xml/Parser.cpp",
+          "../../src/mupnp/xml/libxml2/Libxml2Parser.cpp",
+          "../../src/mupnp/xml/StateVariableData.cpp",
+          "../../src/mupnp/xml/xerces/XercesParser.cpp",
+          "../../src/mupnp/xml/Node.cpp",
+          "../../src/mupnp/xml/ActionData.cpp",
+          "../../src/mupnp/xml/expat/ExpatParser.cpp",
+          "../../src/mupnp/xml/DeviceData.cpp",
+          "../../src/mupnp/xml/XML.cpp",
+          "../../src/mupnp/xml/NodeList.cpp",
+          "../../src/mupnp/xml/AttributeList.cpp",
+          "../../src/mupnp/xml/ServiceData.cpp",
+          "../../src/mupnp/Icon.cpp",
+          "../../src/mupnp/event/PropertyList.cpp",
+          "../../src/mupnp/event/NotifyRequest.cpp",
+          "../../src/mupnp/event/Subscription.cpp",
+          "../../src/mupnp/event/SubscriptionRequest.cpp",
+          "../../src/mupnp/event/Subscriber.cpp",
+          "../../src/mupnp/StateVariable.cpp",
+          "../../src/mupnp/UPnPStatus.cpp",
+          "../../src/mupnp/Device.cpp",
+          "../../src/mupnp/ActionList.cpp",
+          "../../src/mupnp/ArgumentList.cpp",
+          "../../src/mupnp/AllowedValueRange.cpp",
+          "../../src/mupnp/net/SocketInputStream.cpp",
+          "../../src/mupnp/net/MulticastSocket.cpp",
+          "../../src/mupnp/net/URI.cpp",
+          "../../src/mupnp/net/HostInterface.cpp",
+          "../../src/mupnp/net/URL.cpp",
+          "../../src/mupnp/net/Socket.cpp",
+          "../../src/mupnp/net/SocketCore.cpp",
+          "../../src/mupnp/net/DatagramSocket.cpp",
+          "../../src/mupnp/net/SocketUtil.cpp",
+          "../../src/mupnp/net/ServerSocket.cpp",
+          "../../src/mupnp/ServiceList.cpp",
+          "../../src/mupnp/io/StringBufferInputStream.cpp",
+          "../../src/mupnp/io/StringReader.cpp",
+          "../../src/mupnp/io/BufferedReader.cpp",
+          "../../src/mupnp/io/File.cpp",
+          "../../src/mupnp/io/FileInputStream.cpp",
+          "../../src/mupnp/device/NT.cpp",
+          "../../src/mupnp/device/USN.cpp",
+          "../../src/mupnp/device/Disposer.cpp",
+          "../../src/mupnp/device/ST.cpp",
+          "../../src/mupnp/device/NTS.cpp",
+          "../../src/mupnp/device/Advertiser.cpp",
+          "../../src/mupnp/device/MAN.cpp",
+          "../../src/mupnp/Argument.cpp",
+          "../../src/mupnp/AllowedValueList.cpp",
+          "../../src/mupnp/ControlPoint.cpp",
+          "../../src/mupnp/AllowedValue.cpp",
+          "../../src/mupnp/util/Logger.cpp",
+          "../../src/mupnp/util/StringTokenizer.cpp",
+          "../../src/mupnp/util/Debug.cpp",
+          "../../src/mupnp/util/Mutex.cpp",
+          "../../src/mupnp/util/Semaphore.cpp",
+          "../../src/mupnp/util/StringUtil.cpp",
+          "../../src/mupnp/util/Log.cpp",
+          "../../src/mupnp/util/Date.cpp",
+          "../../src/mupnp/util/MessageQueue.cpp",
+          "../../src/mupnp/util/LoggerTarget.cpp",
+          "../../src/mupnp/util/TimeUtil.cpp",
+          "../../src/mupnp/util/Random.cpp",
+          "../../src/mupnp/util/LoggerFileTarget.cpp",
+          "../../src/mupnp/util/LoggerTargetList.cpp",
+          "../../src/mupnp/util/ThreadList.cpp",
+          "../../src/mupnp/util/Message.cpp",
+          "../../src/mupnp/util/Thread.cpp",
+          "../../src/mupnp/ssdp/SSDPNotifySocket.cpp",
+          "../../src/mupnp/ssdp/SSDPSearchResponseSocketList.cpp",
+          "../../src/mupnp/ssdp/SSDP.cpp",
+          "../../src/mupnp/ssdp/HTTPMUSocket.cpp",
+          "../../src/mupnp/ssdp/SSDPSearchResponseSocket.cpp",
+          "../../src/mupnp/ssdp/SSDPSearchSocketList.cpp",
+          "../../src/mupnp/ssdp/SSDPSearchSocket.cpp",
+          "../../src/mupnp/ssdp/SSDPResponse.cpp",
+          "../../src/mupnp/ssdp/SSDPNotifySocketList.cpp",
+          "../../src/mupnp/ssdp/SSDPPacket.cpp",
+          "../../src/mupnp/ssdp/HTTPUSocket.cpp",
+          "../../src/mupnp/Action.cpp",
+          "../../src/mupnp/ServiceStateTable.cpp",
+          "../../src/mupnp/http/HTTPHeader.cpp",
+          "../../src/mupnp/http/HTTPResponse.cpp",
+          "../../src/mupnp/http/HTTPSocket.cpp",
+          "../../src/mupnp/http/HTTPWorkerThread.cpp",
+          "../../src/mupnp/http/HTTP.cpp",
+          "../../src/mupnp/http/HTTPPacket.cpp",
+          "../../src/mupnp/http/HTTPMessageQueue.cpp",
+          "../../src/mupnp/http/HTTPRequest.cpp",
+          "../../src/mupnp/http/HTTPServer.cpp",
+          "../../src/mupnp/http/HTTPDate.cpp",
+          "../../src/mupnp/http/HTTPStatus.cpp",
+          "../../src/mupnp/http/HTTPServerList.cpp"
+        ],
+        "resolved": true
+      }
+    ],
+    "unresolved_refs": [],
+    "indirection_count": 1
   }
 }

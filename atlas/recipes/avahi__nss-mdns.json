@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "avahi/nss-mdns",
   "source": {
     "url": "https://github.com/avahi/nss-mdns",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -34,13 +34,39 @@
       "status": "fail"
     }
   ],
-  "probe_results": {},
+  "probe_results": {
+    "HAVE_ARPA_INET_H": 1,
+    "HAVE_FCNTL_H": 1,
+    "HAVE_GETHOSTBYADDR": 1,
+    "HAVE_GETHOSTBYNAME": 1,
+    "HAVE_GETTIMEOFDAY": 1,
+    "HAVE_INET_NTOA": 1,
+    "HAVE_INTTYPES_H": 1,
+    "HAVE_MEMSET": 1,
+    "HAVE_NETDB_H": 1,
+    "HAVE_NETINET_IN_H": 1,
+    "HAVE_NSS_H": 1,
+    "HAVE_SELECT": 1,
+    "HAVE_SOCKET": 1,
+    "HAVE_STDLIB_H": 1,
+    "HAVE_STRCASECMP": 1,
+    "HAVE_STRCSPN": 1,
+    "HAVE_STRDUP": 1,
+    "HAVE_STRERROR": 1,
+    "HAVE_STRING_H": 1,
+    "HAVE_STRNCASECMP": 1,
+    "HAVE_STRSPN": 1,
+    "HAVE_SYS_IOCTL_H": 1,
+    "HAVE_SYS_SOCKET_H": 1,
+    "HAVE_SYS_TIME_H": 1,
+    "HAVE_UNISTD_H": 1
+  },
   "feature_flags": {
     "configure_args": []
   },
   "dependencies": {
     "pkg_config": [
-      "checking for check >= 0.11... no"
+      "checking for check >= 0.11... yes"
     ],
     "system_libs": [],
     "headers_needed": [],
@@ -53,9 +79,9 @@
   "outputs": [],
   "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "Makefile:16: *** missing separator.  Stop.",
+  "diagnostic": "collect2: error: ld returned 1 exit status",
   "deep_expansion": {
-    "configure_lines": 2548,
+    "configure_lines": 2645,
     "leaked_macros": [],
     "heredoc_openers": 19,
     "heredoc_terminators": 19,
@@ -63,16 +89,22 @@
     "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2072: do eval test \\${$as_var+y} \\"
+      "line 2168: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
+      "PACKAGE_URL",
+      "CHECK_CFLAGS",
+      "CHECK_LIBS",
+      "ENABLE_TESTS_TRUE",
+      "ENABLE_TESTS_FALSE",
+      "FREEBSD_NSS_TRUE",
+      "FREEBSD_NSS_FALSE",
       "PACKAGE_NAME",
       "PACKAGE_TARNAME",
       "PACKAGE_VERSION",
       "PACKAGE_STRING",
       "PACKAGE_BUGREPORT",
-      "PACKAGE_URL",
       "srcdir",
       "prefix",
       "exec_prefix",
@@ -86,7 +118,10 @@
       "CPP",
       "DEFS",
       "LIBOBJS",
-      "INSTALL"
+      "INSTALL",
+      "LD",
+      "AR",
+      "top_srcdir"
     ],
     "failed_during_check": "checking for strspn... yes",
     "failure_tail": [
@@ -101,35 +136,170 @@
     "conftest_programs": [
       "#include <$ac_hdr>",
       "char __res_nquery ();\\nint main() { return __res_nquery (); }",
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func();\\nint main() { return $ac_func(); }"
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func ();\\nint main() { return $ac_func(); }"
     ]
-  },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "ok",
-    "real_make": "ok",
-    "real_configure_lines": 16887,
-    "real_first_error": "",
-    "classification": "OURS_BUG_MAKE"
-  },
-  "divergence": {
-    "stage": "make",
-    "ours_error": "",
-    "ours_error_context": [],
-    "ours_configure_lines": 2548,
-    "real_configure_lines": 16887,
-    "macros_ours_left_undefined": []
   },
   "receipt": {
     "court_status": "partial",
-    "probe_trace": [],
+    "probe_trace": [
+      {
+        "name": "HAVE_ARPA_INET_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_FCNTL_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_GETHOSTBYADDR",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_GETHOSTBYNAME",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_GETTIMEOFDAY",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_INET_NTOA",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_INTTYPES_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_MEMSET",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_NETDB_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_NETINET_IN_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_NSS_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SELECT",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SOCKET",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STDLIB_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STRCASECMP",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STRCSPN",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STRDUP",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STRERROR",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STRING_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STRNCASECMP",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STRSPN",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SYS_IOCTL_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SYS_SOCKET_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SYS_TIME_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_UNISTD_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      }
+    ],
     "quirks_matched": [
       "uses-libtool",
       "uses-pkg-config",
       "uses-subdir-objects",
       "vendored-aclocal"
     ],
-    "receipt_hash": "50943c81e776f99633ce47bc1c02476e04eeac1c88eab40282963440dadccda2",
+    "receipt_hash": "4ce188295f07a961c4a3ceca20d1f8230f6bcf0c0c1c9f8b062fdc4a68cf70cb",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -138,6 +308,513 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      }
+    ],
+    "config_headers": [
+      "config.h"
+    ],
+    "subdirs": [],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [
+          "nss_mdns.la",
+          "nss_mdns4.la",
+          "nss_mdns6.la",
+          "nss_mdns_minimal.la",
+          "nss_mdns4_minimal.la",
+          "nss_mdns6_minimal.la",
+          "libnss_mdns.la",
+          "libnss_mdns4.la",
+          "libnss_mdns6.la",
+          "libnss_mdns_minimal.la",
+          "libnss_mdns4_minimal.la",
+          "libnss_mdns6_minimal.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      }
+    ],
+    "max_depth": 0,
+    "config_h_consumers_below_root": []
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 851,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      }
+    ]
+  },
+  "tool_requirements": {
+    "detected": [
+      "ar"
+    ],
+    "missing": []
+  },
+  "macro_inventory": {
+    "macro_dirs": [],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [],
+    "called_macros": [
+      "AC_ARG_ENABLE",
+      "AC_ARG_VAR",
+      "AC_CHECK_FUNCS",
+      "AC_CHECK_HEADERS",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_HEADERS",
+      "AC_CONFIG_MACRO_DIRS",
+      "AC_CONFIG_SRCDIR",
+      "AC_DISABLE_STATIC",
+      "AC_INIT",
+      "AC_MSG_ERROR",
+      "AC_OUTPUT",
+      "AC_PREFIX_DEFAULT",
+      "AC_PREREQ",
+      "AC_PROG_CC",
+      "AC_PROG_CC_C99",
+      "AC_PROG_CPP",
+      "AC_PROG_INSTALL",
+      "AC_PROG_LN_S",
+      "AC_PROG_MAKE_SET",
+      "AC_SEARCH_LIBS",
+      "AC_SUBST",
+      "AC_USE_SYSTEM_EXTENSIONS",
+      "AM_CONDITIONAL",
+      "AM_INIT_AUTOMAKE",
+      "AM_PROG_AR",
+      "AM_SILENT_RULES",
+      "LT_INIT",
+      "PKG_CHECK_MODULES"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 108,
+    "configure_fi": 105,
+    "configure_case": 64,
+    "configure_esac": 67,
+    "balanced": false,
+    "automake_conditionals": [
+      "ENABLE_TESTS",
+      "FREEBSD_NSS"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": ".",
+    "present": [
+      "install-sh",
+      "missing",
+      "depcomp",
+      "compile"
+    ],
+    "missing": [
+      "ltmain.sh"
+    ]
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "c": 7,
+      "h": 4
+    },
+    "configure_macros": [
+      "AC_PROG_CC",
+      "AC_PROG_CC_C99"
+    ],
+    "needs_cxx": false,
+    "needs_fortran": false,
+    "sets_c_std": true
+  },
+  "libtool_context": {
+    "uses_libtool": true,
+    "macros": [
+      "LT_INIT"
+    ],
+    "ltmain_present": false,
+    "libtool_m4_sources": [],
+    "age": "modern"
+  },
+  "make_graph": {
+    "targets": [
+      "all",
+      "all-am",
+      "$(am__depfiles_remade)",
+      "am--depfiles",
+      "install",
+      "install-am",
+      "installcheck",
+      "install-strip",
+      "install-info",
+      "install-info-am",
+      "install-dvi",
+      "install-dvi-am",
+      "install-ps",
+      "install-ps-am",
+      "install-pdf",
+      "install-pdf-am",
+      "install-html",
+      "install-html-am",
+      "install-data-hook",
+      "install-exec-hook",
+      "installdirs",
+      "installdirs-am",
+      ".PHONY",
+      "mostlyclean-am",
+      "clean-am",
+      "distclean-am",
+      "maintainer-clean-am",
+      "clean",
+      "distdir",
+      "dist",
+      "dist-all",
+      "dist-gzip",
+      "distcleancheck",
+      "distcheck",
+      "check-am",
+      "check",
+      "check-TESTS",
+      "recheck",
+      "test-suite.log",
+      "$(TEST_SUITE_LOG)"
+    ],
+    "key_variables": {
+      "AR": "ar",
+      "CC": "cc",
+      "CFLAGS": "-g -O2",
+      "CPPFLAGS": "",
+      "CXX": "c++",
+      "CXXFLAGS": "-g -O2",
+      "DEFAULT_INCLUDES": "-I. -I$(top_builddir)",
+      "DEFS": "-DHAVE_CONFIG_H",
+      "LDFLAGS": "",
+      "LIBS": "",
+      "RANLIB": "ranlib"
+    },
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "config.h",
+      "libtool",
+      "config.log"
+    ],
+    "recursion_depth": 0,
+    "top_targets": [
+      "all",
+      "install",
+      "check",
+      "clean",
+      "dist",
+      "all-am"
+    ],
+    "make_diagnostics": [
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "collect2: error: ld returned 1 exit status"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[1]: *** [Makefile:762: check_util] Error 1"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make: *** [Makefile:336: all-am] Error 2"
+      }
+    ]
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": false,
+    "defines_sampled": [
+      "HAVE_CONFIG_H",
+      "MDNS_ALLOW_FILE=\\\"$(MDNS_ALLOW_FILE)\\\"",
+      "AVAHI_SOCKET=\\\"$(AVAHI_SOCKET)\\\"",
+      "NSS_IPV4_ONLY=1",
+      "MDNS_MINIMAL",
+      "NSS_IPV6_ONLY=1"
+    ]
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-libtool",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-pkg-config",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-subdir-objects",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "arpa/inet.h",
+      "fcntl.h",
+      "inttypes.h",
+      "netdb.h",
+      "netinet/in.h",
+      "nss.h",
+      "stdlib.h",
+      "string.h",
+      "sys/ioctl.h",
+      "sys/socket.h",
+      "sys/time.h",
+      "unistd.h"
+    ],
+    "headers_included_unchecked": [
+      "sys/ktrace.h",
+      "sys/param.h",
+      "sys/select.h",
+      "sys/types.h",
+      "sys/uio.h",
+      "sys/un.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 3,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "c99",
+    "strip_modern_poison_flags": [],
+    "inject_legacy_shims": false,
+    "compiler_aliasing": {}
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 0,
+    "shadowed_builtins": [],
+    "permitted_mutations": 1,
+    "suspect_global_mutations": 0
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "sys/ktrace.h",
+      "sys/param.h",
+      "sys/select.h",
+      "sys/types.h",
+      "sys/uio.h",
+      "sys/un.h",
+      "arpa/inet.h",
+      "fcntl.h",
+      "inttypes.h",
+      "netdb.h",
+      "netinet/in.h",
+      "nss.h",
+      "stdlib.h",
+      "string.h",
+      "sys/ioctl.h",
+      "sys/socket.h",
+      "sys/time.h",
+      "unistd.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": 0,
+      "Makefile.in": 1076,
+      "aclocal.m4": 4,
+      "config.h.in": 9,
+      "configure": 8,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_ENABLE": "system-aclocal",
+      "AC_ARG_VAR": "system-aclocal",
+      "AC_CHECK_FUNCS": "system-aclocal",
+      "AC_CHECK_HEADERS": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_HEADERS": "system-aclocal",
+      "AC_CONFIG_MACRO_DIRS": "system-aclocal",
+      "AC_CONFIG_SRCDIR": "system-aclocal",
+      "AC_DISABLE_STATIC": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_MSG_ERROR": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PREFIX_DEFAULT": "system-aclocal",
+      "AC_PREREQ": "system-aclocal",
+      "AC_PROG_CC": "system-aclocal",
+      "AC_PROG_CC_C99": "system-aclocal",
+      "AC_PROG_CPP": "system-aclocal",
+      "AC_PROG_INSTALL": "system-aclocal",
+      "AC_PROG_LN_S": "system-aclocal",
+      "AC_PROG_MAKE_SET": "system-aclocal",
+      "AC_SEARCH_LIBS": "system-aclocal",
+      "AC_SUBST": "system-aclocal",
+      "AC_USE_SYSTEM_EXTENSIONS": "system-aclocal",
+      "AM_CONDITIONAL": "system-aclocal",
+      "AM_INIT_AUTOMAKE": "system-aclocal",
+      "AM_PROG_AR": "system-aclocal",
+      "AM_SILENT_RULES": "system-aclocal",
+      "LT_INIT": "system-aclocal",
+      "PKG_CHECK_MODULES": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "libnss_mdns_minimal_la_SOURCES",
+        "var": "libnss_mdns_la_SOURCES",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libnss_mdns4_la_SOURCES",
+        "var": "libnss_mdns_la_SOURCES",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libnss_mdns4_minimal_la_SOURCES",
+        "var": "libnss_mdns_la_SOURCES",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libnss_mdns6_la_SOURCES",
+        "var": "libnss_mdns_la_SOURCES",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libnss_mdns6_minimal_la_SOURCES",
+        "var": "libnss_mdns_la_SOURCES",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "nss_mdns_la_SOURCES",
+        "var": "libnss_mdns_la_SOURCES",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "nss_mdns_minimal_la_SOURCES",
+        "var": "nss_mdns_la_SOURCES",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "nss_mdns4_la_SOURCES",
+        "var": "nss_mdns_la_SOURCES",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "nss_mdns4_minimal_la_SOURCES",
+        "var": "nss_mdns_la_SOURCES",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "nss_mdns6_la_SOURCES",
+        "var": "nss_mdns_la_SOURCES",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "nss_mdns6_minimal_la_SOURCES",
+        "var": "nss_mdns_la_SOURCES",
+        "resolved_to": [],
+        "resolved": false
+      }
+    ],
+    "unresolved_refs": [
+      "libnss_mdns_minimal_la_SOURCES = $(libnss_mdns_la_SOURCES)",
+      "libnss_mdns4_la_SOURCES = $(libnss_mdns_la_SOURCES)",
+      "libnss_mdns4_minimal_la_SOURCES = $(libnss_mdns_la_SOURCES)",
+      "libnss_mdns6_la_SOURCES = $(libnss_mdns_la_SOURCES)",
+      "libnss_mdns6_minimal_la_SOURCES = $(libnss_mdns_la_SOURCES)",
+      "nss_mdns_la_SOURCES = $(libnss_mdns_la_SOURCES)",
+      "nss_mdns_minimal_la_SOURCES = $(nss_mdns_la_SOURCES)",
+      "nss_mdns4_la_SOURCES = $(nss_mdns_la_SOURCES)",
+      "nss_mdns4_minimal_la_SOURCES = $(nss_mdns_la_SOURCES)",
+      "nss_mdns6_la_SOURCES = $(nss_mdns_la_SOURCES)",
+      "nss_mdns6_minimal_la_SOURCES = $(nss_mdns_la_SOURCES)"
+    ],
+    "indirection_count": 11
   }
 }

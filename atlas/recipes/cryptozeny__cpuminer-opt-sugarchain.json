@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "cryptozeny/cpuminer-opt-sugarchain",
   "source": {
     "url": "https://github.com/cryptozeny/cpuminer-opt-sugarchain",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,11 +26,11 @@
     {
       "step": "configure",
       "tool": "./configure",
-      "status": "fail"
+      "status": "ok"
     },
     {
-      "step": "auto-quirk",
-      "tool": "quirk-engine",
+      "step": "make",
+      "tool": "make",
       "status": "fail"
     }
   ],
@@ -45,6 +45,8 @@
     "HAVE_BYTESWAP_H": 1,
     "HAVE_CONSENSUS_LIB": 1,
     "HAVE_DECL_BE16TOH": 1,
+    "HAVE_DECL_BE32DEC": 1,
+    "HAVE_DECL_BE32ENC": 1,
     "HAVE_DECL_BE32TOH": 1,
     "HAVE_DECL_BE64TOH": 1,
     "HAVE_DECL_BSWAP_16": 1,
@@ -56,7 +58,11 @@
     "HAVE_DECL_HTOLE16": 1,
     "HAVE_DECL_HTOLE32": 1,
     "HAVE_DECL_HTOLE64": 1,
+    "HAVE_DECL_LE16DEC": 1,
+    "HAVE_DECL_LE16ENC": 1,
     "HAVE_DECL_LE16TOH": 1,
+    "HAVE_DECL_LE32DEC": 1,
+    "HAVE_DECL_LE32ENC": 1,
     "HAVE_DECL_LE32TOH": 1,
     "HAVE_DECL_LE64TOH": 1,
     "HAVE_DECL_STRERROR_R": 1,
@@ -103,22 +109,43 @@
     "subdirs"
   ],
   "outputs": [],
-  "status": "CONFIGURE_RUN_FAIL",
+  "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1414: ac_cv_have_decl_be32dec,: command not found",
+  "diagnostic": "algo/blake/sph-blake2s.c:326:9: error: size of array element is not a multiple of its alignment",
   "deep_expansion": {
-    "configure_lines": 2776,
+    "configure_lines": 3006,
     "leaked_macros": [],
-    "heredoc_openers": 32,
-    "heredoc_terminators": 32,
+    "heredoc_openers": 33,
+    "heredoc_terminators": 33,
     "heredoc_imbalance": 0,
     "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2300: do eval test \\${$as_var+y} \\"
+      "line 2529: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
+      "WANT_JANSSON_TRUE",
+      "WANT_JANSSON_FALSE",
+      "HAVE_WINDOWS_TRUE",
+      "HAVE_WINDOWS_FALSE",
+      "USE_ASM_TRUE",
+      "USE_ASM_FALSE",
+      "ARCH_x86_TRUE",
+      "ARCH_x86_FALSE",
+      "ARCH_x86_64_TRUE",
+      "ARCH_x86_64_FALSE",
+      "ARCH_ARM_TRUE",
+      "ARCH_ARM_FALSE",
+      "MINGW_TRUE",
+      "MINGW_FALSE",
+      "LIBCURL",
+      "LIBCURL_CFLAGS",
+      "LIBCURL_CPPFLAGS",
+      "JANSSON_LIBS",
+      "PTHREAD_FLAGS",
+      "PTHREAD_LIBS",
+      "WS2_LIBS",
       "PACKAGE_NAME",
       "PACKAGE_TARNAME",
       "PACKAGE_VERSION",
@@ -126,65 +153,30 @@
       "PACKAGE_BUGREPORT",
       "PACKAGE_URL",
       "srcdir",
-      "prefix",
-      "exec_prefix",
-      "CC",
-      "CFLAGS",
-      "CPPFLAGS",
-      "LDFLAGS",
-      "LIBS",
-      "CXX",
-      "CXXFLAGS",
-      "CPP",
-      "DEFS",
-      "LIBOBJS",
-      "INSTALL",
-      "PTHREAD_FLAGS",
-      "JANSSON_LIBS",
-      "LIBCURL_CFLAGS",
-      "PTHREAD_LIBS",
-      "LIBCURL_CPPFLAGS",
-      "WS2_LIBS",
-      "LIBCURL",
-      "LIBCURL_LDFLAGS"
+      "prefix"
     ],
     "failed_during_check": "checking whether __uint128_t is supported... no",
     "failure_tail": [
       "checking whether __uint128_t is supported... no",
-      "no",
-      "no",
-      "configure: error: OpenSSL crypto library required"
+      "configure: creating Makefile",
+      "configure: creating compat/Makefile",
+      "configure: creating compat/jansson/Makefile",
+      "configure: creating cpuminer-config.h"
     ],
     "conftest_corruption": [],
-    "conftest_directives_intact": 11,
+    "conftest_directives_intact": 36,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
       "#include <$ac_hdr>",
       "#include <$ac_hdr>",
-      "AC_INCLUDES_DEFAULT\\n#ifdef HAVE_SYS_ENDIAN_H\\n#include <sys/endian.h>\\n#endif\\n\\nint main (void)\\n{\\n#ifndef be32dec, le32dec, be32enc, le32enc, le16dec, le16enc\\n(void) be32dec, le32dec, be32enc, le32enc, le16dec, le16enc;\\n#endif\\n;\\nreturn 0;",
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar alloca();\\nint main() { return alloca(); }",
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func();\\nint main() { return $ac_func(); }",
-      "\\nint main() { asm (\"vmovdqa %ymm0, %ymm1\"); ; return 0; }"
+      "AC_INCLUDES_DEFAULT\\n#ifdef HAVE_SYS_ENDIAN_H\\n#include <sys/endian.h>\\n#endif\\n\\nint main (void)\\n{\\n#ifndef be32dec\\n(void) be32dec;\\n#endif\\n;\\nreturn 0;",
+      "AC_INCLUDES_DEFAULT\\n#ifdef HAVE_SYS_ENDIAN_H\\n#include <sys/endian.h>\\n#endif\\n\\nint main (void)\\n{\\n#ifndef le32dec\\n(void) le32dec;\\n#endif\\n;\\nreturn 0;",
+      "AC_INCLUDES_DEFAULT\\n#ifdef HAVE_SYS_ENDIAN_H\\n#include <sys/endian.h>\\n#endif\\n\\nint main (void)\\n{\\n#ifndef be32enc\\n(void) be32enc;\\n#endif\\n;\\nreturn 0;",
+      "AC_INCLUDES_DEFAULT\\n#ifdef HAVE_SYS_ENDIAN_H\\n#include <sys/endian.h>\\n#endif\\n\\nint main (void)\\n{\\n#ifndef le32enc\\n(void) le32enc;\\n#endif\\n;\\nreturn 0;"
     ]
   },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "ok",
-    "real_make": "fail",
-    "real_configure_lines": 8413,
-    "real_first_error": "",
-    "classification": "OURS_BUG_CONFIGURE"
-  },
-  "divergence": {
-    "stage": "configure",
-    "ours_error": "",
-    "ours_error_context": [],
-    "ours_configure_lines": 2776,
-    "real_configure_lines": 8413,
-    "macros_ours_left_undefined": []
-  },
   "receipt": {
-    "court_status": "failed",
+    "court_status": "partial",
     "probe_trace": [
       {
         "name": "HAVE_BOOST",
@@ -242,6 +234,18 @@
       },
       {
         "name": "HAVE_DECL_BE16TOH",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_DECL_BE32DEC",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_DECL_BE32ENC",
         "kind": "func",
         "result": "yes",
         "reason": "ok"
@@ -313,7 +317,31 @@
         "reason": "ok"
       },
       {
+        "name": "HAVE_DECL_LE16DEC",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_DECL_LE16ENC",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
         "name": "HAVE_DECL_LE16TOH",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_DECL_LE32DEC",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_DECL_LE32ENC",
         "kind": "func",
         "result": "yes",
         "reason": "ok"
@@ -517,19 +545,7 @@
       "has-m4-macro-dir",
       "vendored-aclocal"
     ],
-    "quirks_applied": [
-      {
-        "id": "uses-subdir-objects",
-        "action": "--disable-dependency-tracking",
-        "verified": false
-      },
-      {
-        "id": "uses-maintainer-mode",
-        "action": "--disable-maintainer-mode",
-        "verified": false
-      }
-    ],
-    "receipt_hash": "12b922d5f475096eeee26e3c1534c76703af064d79b97f09b90012a2ca2badf8",
+    "receipt_hash": "407507138dca5312d047e9d21f6cd229cb9471569bbf8199758cd833bad657d8",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -538,6 +554,1313 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "compat/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "compat/jansson/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      }
+    ],
+    "config_headers": [
+      "cpuminer-config.h"
+    ],
+    "subdirs": [
+      "=",
+      "compat",
+      "=",
+      "jansson",
+      "=",
+      "lib",
+      "src",
+      "include",
+      "scripts",
+      "examples",
+      "libcurl",
+      "opts",
+      "curl",
+      "Win32",
+      "Linux",
+      "Solaris",
+      "EPM",
+      "AIX",
+      "vms",
+      "RPM",
+      "RPM",
+      "cygwin",
+      "certs",
+      "data",
+      "server",
+      "libtest",
+      "$(BUILD_UNIT)",
+      "scripts",
+      "tests",
+      "mpn",
+      "mpz",
+      "mpq",
+      "mpf",
+      "printf",
+      "scanf",
+      "rand",
+      "cxx",
+      "demos",
+      "tune",
+      "doc",
+      "calc",
+      "expr",
+      ".",
+      "devel",
+      "mpn",
+      "mpz",
+      "mpq",
+      "mpf",
+      "rand",
+      "misc",
+      "cxx"
+    ],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [
+          "cpuminer"
+        ],
+        "subdirs": [
+          "=",
+          "compat"
+        ],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "compat",
+        "targets": [],
+        "subdirs": [
+          "=",
+          "jansson",
+          "="
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "compat/jansson",
+        "targets": [
+          "libjansson.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "depends/curl-7.47.0",
+        "targets": [],
+        "subdirs": [
+          "lib",
+          "src",
+          "include",
+          "scripts"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "depends/curl-7.47.0/docs",
+        "targets": [],
+        "subdirs": [
+          "examples",
+          "libcurl"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "depends/curl-7.47.0/docs/libcurl",
+        "targets": [],
+        "subdirs": [
+          "opts"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "depends/curl-7.47.0/include",
+        "targets": [],
+        "subdirs": [
+          "curl"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "depends/curl-7.47.0/lib",
+        "targets": [
+          "libcurl.la",
+          "libcurlu.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-DBUILDING_LIBCURL"
+      },
+      {
+        "dir": "depends/curl-7.47.0/packages",
+        "targets": [],
+        "subdirs": [
+          "Win32",
+          "Linux",
+          "Solaris",
+          "EPM",
+          "AIX",
+          "vms"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "depends/curl-7.47.0/packages/AIX",
+        "targets": [],
+        "subdirs": [
+          "RPM"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "depends/curl-7.47.0/packages/Linux",
+        "targets": [],
+        "subdirs": [
+          "RPM"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "depends/curl-7.47.0/packages/Win32",
+        "targets": [],
+        "subdirs": [
+          "cygwin"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "depends/curl-7.47.0/src",
+        "targets": [
+          "curl",
+          "libcurltool.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-DCURL_STATICLIB"
+      },
+      {
+        "dir": "depends/curl-7.47.0/tests",
+        "targets": [],
+        "subdirs": [
+          "certs",
+          "data",
+          "server",
+          "libtest",
+          "$(BUILD_UNIT)"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "depends/curl-7.47.0/tests/certs",
+        "targets": [],
+        "subdirs": [
+          "scripts"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "depends/curl-7.47.0/tests/libtest",
+        "targets": [
+          "libhostname.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-DCURL_STATICLIB"
+      },
+      {
+        "dir": "depends/curl-7.47.0/tests/unit",
+        "targets": [
+          "$(UNITPROGS)"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-DCURL_STATICLIB -DUNITTESTS"
+      },
+      {
+        "dir": "depends/gmp-6.1.0",
+        "targets": [
+          "libgmp.la",
+          "$(GMPXX_LTLIBRARIES_OPTION)"
+        ],
+        "subdirs": [
+          "tests",
+          "mpn",
+          "mpz",
+          "mpq",
+          "mpf",
+          "printf",
+          "scanf",
+          "rand",
+          "cxx",
+          "demos",
+          "tune",
+          "doc"
+        ],
+        "sources_include_config_h": true,
+        "am_cppflags": "-D__GMP_WITHIN_GMP"
+      },
+      {
+        "dir": "depends/gmp-6.1.0/cxx",
+        "targets": [
+          "libcxx.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-D__GMP_WITHIN_GMPXX -I$(top_srcdir)"
+      },
+      {
+        "dir": "depends/gmp-6.1.0/demos",
+        "targets": [
+          "factorize",
+          "isprime",
+          "pexpr",
+          "primes",
+          "qcn"
+        ],
+        "subdirs": [
+          "calc",
+          "expr"
+        ],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)"
+      },
+      {
+        "dir": "depends/gmp-6.1.0/demos/calc",
+        "targets": [
+          "calc"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)"
+      },
+      {
+        "dir": "depends/gmp-6.1.0/demos/expr",
+        "targets": [
+          "libexpr.a",
+          "run-expr",
+          "t-expr"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir) -I$(top_srcdir)/tests"
+      },
+      {
+        "dir": "depends/gmp-6.1.0/mpf",
+        "targets": [
+          "libmpf.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-D__GMP_WITHIN_GMP -I$(top_srcdir)"
+      },
+      {
+        "dir": "depends/gmp-6.1.0/mpn",
+        "targets": [
+          "libmpn.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-D__GMP_WITHIN_GMP -I$(top_srcdir)    -DOPERATION_`echo $* | sed 's/_$$//'`"
+      },
+      {
+        "dir": "depends/gmp-6.1.0/mpq",
+        "targets": [
+          "libmpq.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-D__GMP_WITHIN_GMP -I$(top_srcdir)"
+      },
+      {
+        "dir": "depends/gmp-6.1.0/mpz",
+        "targets": [
+          "libmpz.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-D__GMP_WITHIN_GMP -I$(top_srcdir)"
+      },
+      {
+        "dir": "depends/gmp-6.1.0/printf",
+        "targets": [
+          "libprintf.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-D__GMP_WITHIN_GMP -I$(top_srcdir)"
+      },
+      {
+        "dir": "depends/gmp-6.1.0/rand",
+        "targets": [
+          "librandom.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-D__GMP_WITHIN_GMP -I$(top_srcdir)"
+      },
+      {
+        "dir": "depends/gmp-6.1.0/scanf",
+        "targets": [
+          "libscanf.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-D__GMP_WITHIN_GMP -I$(top_srcdir)"
+      },
+      {
+        "dir": "depends/gmp-6.1.0/tests",
+        "targets": [
+          "libtests.la",
+          "t-bswap",
+          "t-constants",
+          "t-count_zeros",
+          "t-hightomask",
+          "t-modlinv",
+          "t-popc",
+          "t-parity",
+          "t-sub"
+        ],
+        "subdirs": [
+          ".",
+          "devel",
+          "mpn",
+          "mpz",
+          "mpq",
+          "mpf",
+          "rand",
+          "misc",
+          "cxx"
+        ],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)"
+      },
+      {
+        "dir": "depends/gmp-6.1.0/tests/cxx",
+        "targets": [
+          "t-binary",
+          "t-cast",
+          "t-cxx11",
+          "t-headers",
+          "t-iostream",
+          "t-istream",
+          "t-locale",
+          "t-misc",
+          "t-mix",
+          "t-ops",
+          "t-ops2",
+          "t-ops3"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir) -I$(top_srcdir)/tests"
+      },
+      {
+        "dir": "depends/gmp-6.1.0/tests/devel",
+        "targets": [
+          "aors_n",
+          "anymul_1",
+          "copy",
+          "divmod_1",
+          "divrem",
+          "shift",
+          "logops_n",
+          "tst-addsub",
+          "try"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir) -I$(top_srcdir)/tests"
+      },
+      {
+        "dir": "depends/gmp-6.1.0/tests/misc",
+        "targets": [
+          "t-printf",
+          "t-scanf",
+          "t-locale"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir) -I$(top_srcdir)/tests"
+      },
+      {
+        "dir": "depends/gmp-6.1.0/tests/mpf",
+        "targets": [
+          "t-dm2exp",
+          "t-conv",
+          "t-add",
+          "t-sub",
+          "t-sqrt",
+          "t-sqrt_ui",
+          "t-muldiv",
+          "reuse",
+          "t-cmp_d",
+          "t-cmp_si",
+          "t-div",
+          "t-fits"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir) -I$(top_srcdir)/tests"
+      },
+      {
+        "dir": "depends/gmp-6.1.0/tests/mpn",
+        "targets": [
+          "t-asmtype",
+          "t-aors_1",
+          "t-divrem_1",
+          "t-mod_1",
+          "t-fat",
+          "t-get_d",
+          "t-instrument",
+          "t-iord_u",
+          "t-mp_bases",
+          "t-perfsqr",
+          "t-scan",
+          "logic"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir) -I$(top_srcdir)/tests"
+      },
+      {
+        "dir": "depends/gmp-6.1.0/tests/mpq",
+        "targets": [
+          "t-aors",
+          "t-cmp",
+          "t-cmp_ui",
+          "t-cmp_si",
+          "t-equal",
+          "t-get_d",
+          "t-get_str",
+          "t-inp_str",
+          "t-inv",
+          "t-md_2exp",
+          "t-set_f",
+          "t-set_str"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir) -I$(top_srcdir)/tests"
+      },
+      {
+        "dir": "depends/gmp-6.1.0/tests/mpz",
+        "targets": [
+          "reuse",
+          "t-addsub",
+          "t-cmp",
+          "t-mul",
+          "t-mul_i",
+          "t-tdiv",
+          "t-tdiv_ui",
+          "t-fdiv",
+          "t-fdiv_ui",
+          "t-cdiv_ui",
+          "t-gcd",
+          "t-gcd_ui"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir) -I$(top_srcdir)/tests"
+      },
+      {
+        "dir": "depends/gmp-6.1.0/tests/rand",
+        "targets": [
+          "t-iset",
+          "t-lc2exp",
+          "t-mt",
+          "t-rand",
+          "t-urbui",
+          "t-urmui",
+          "t-urndmm",
+          "findlc",
+          "gen",
+          "gen.static",
+          "spect",
+          "stat"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir) -I$(top_srcdir)/tests"
+      },
+      {
+        "dir": "depends/gmp-6.1.0/tune",
+        "targets": [
+          "libspeed.la",
+          "speed",
+          "speed-dynamic",
+          "speed-ext",
+          "tuneup",
+          "tune-gcd-p"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir) -I$(top_srcdir)/tests"
+      },
+      {
+        "dir": "depends/openssl-1.0.2g/demos/tunala",
+        "targets": [
+          "tunala"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_builddir)/../../include"
+      }
+    ],
+    "max_depth": 2,
+    "config_h_consumers_below_root": [
+      "compat/jansson",
+      "depends/openssl-1.0.2g/demos/tunala",
+      "depends/gmp-6.1.0",
+      "depends/gmp-6.1.0/tests",
+      "depends/gmp-6.1.0/tests/misc",
+      "depends/gmp-6.1.0/tests/mpn",
+      "depends/gmp-6.1.0/tests/mpq",
+      "depends/gmp-6.1.0/tests/devel",
+      "depends/gmp-6.1.0/tests/mpf",
+      "depends/gmp-6.1.0/tests/mpz",
+      "depends/gmp-6.1.0/tests/cxx",
+      "depends/gmp-6.1.0/printf",
+      "depends/gmp-6.1.0/tune",
+      "depends/gmp-6.1.0/mpq",
+      "depends/gmp-6.1.0/scanf",
+      "depends/gmp-6.1.0/mpf",
+      "depends/gmp-6.1.0/mpz",
+      "depends/gmp-6.1.0/demos",
+      "depends/gmp-6.1.0/demos/calc",
+      "depends/curl-7.47.0/tests/libtest",
+      "depends/curl-7.47.0/lib"
+    ]
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1563,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "compat/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 522,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "compat/jansson/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 487,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      }
+    ]
+  },
+  "tool_requirements": {
+    "detected": [
+      "c++"
+    ],
+    "missing": []
+  },
+  "macro_inventory": {
+    "macro_dirs": [
+      "m4"
+    ],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [],
+    "called_macros": [
+      "AC_ARG_ENABLE",
+      "AC_ARG_WITH",
+      "AC_CANONICAL_SYSTEM",
+      "AC_CHECK_DECLS",
+      "AC_CHECK_FUNCS",
+      "AC_CHECK_HEADERS",
+      "AC_CHECK_LIB",
+      "AC_COMPILE_IFELSE",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_HEADERS",
+      "AC_CONFIG_MACRO_DIR",
+      "AC_CONFIG_SRCDIR",
+      "AC_DEFINE",
+      "AC_FUNC_ALLOCA",
+      "AC_HEADER_STDC",
+      "AC_INCLUDES_DEFAULT",
+      "AC_INIT",
+      "AC_LANG_PROGRAM",
+      "AC_MSG_CHECKING",
+      "AC_MSG_ERROR",
+      "AC_MSG_RESULT",
+      "AC_MSG_WARN",
+      "AC_OUTPUT",
+      "AC_PREREQ",
+      "AC_PROG_CC_C99",
+      "AC_PROG_CXX",
+      "AC_PROG_GCC_TRADITIONAL",
+      "AC_PROG_RANLIB",
+      "AC_SUBST",
+      "AM_CONDITIONAL",
+      "AM_INIT_AUTOMAKE",
+      "AM_MAINTAINER_MODE",
+      "AM_PROG_AS",
+      "AM_PROG_CC_C_O"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 127,
+    "configure_fi": 124,
+    "configure_case": 64,
+    "configure_esac": 67,
+    "balanced": false,
+    "automake_conditionals": [
+      "WANT_JANSSON",
+      "HAVE_WINDOWS",
+      "USE_ASM",
+      "ARCH_x86",
+      "ARCH_x86_64",
+      "ARCH_ARM",
+      "MINGW"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": ".",
+    "present": [
+      "install-sh",
+      "missing",
+      "depcomp",
+      "compile"
+    ],
+    "missing": [
+      "config.guess",
+      "config.sub"
+    ]
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "S": 18,
+      "c": 2579,
+      "cc": 34,
+      "cpp": 24,
+      "f": 1,
+      "h": 820,
+      "hpp": 2,
+      "s": 29
+    },
+    "configure_macros": [
+      "AC_PROG_CC",
+      "AC_PROG_CXX",
+      "AC_PROG_CC_C99"
+    ],
+    "needs_cxx": true,
+    "needs_fortran": true,
+    "sets_c_std": true
+  },
+  "make_graph": {
+    "targets": [
+      "all",
+      "all-am",
+      "$(am__depfiles_remade)",
+      "am--depfiles",
+      "install-exec-am",
+      "uninstall-am",
+      "install-man",
+      "install-man-am",
+      "uninstall-man",
+      "uninstall-man-am",
+      "install-am",
+      "installcheck-am",
+      "install-strip",
+      "install-info",
+      "install-info-am",
+      "install-dvi",
+      "install-dvi-am",
+      "install-ps",
+      "install-ps-am",
+      "install-pdf",
+      "install-pdf-am",
+      "install-html",
+      "install-html-am",
+      "install-data-hook",
+      "install-exec-hook",
+      "installdirs-am",
+      ".PHONY",
+      "mostlyclean-am",
+      "clean-am",
+      "distclean-am",
+      "maintainer-clean-am",
+      "distdir",
+      "dist",
+      "dist-all",
+      "dist-gzip",
+      "distcleancheck",
+      "distcheck",
+      "check-am",
+      "TAGS",
+      "tags"
+    ],
+    "key_variables": {
+      "AR": "ar",
+      "CC": "cc",
+      "CFLAGS": "",
+      "CPPFLAGS": "",
+      "CXX": "g++",
+      "CXXFLAGS": "-g -O2",
+      "DEFAULT_INCLUDES": "-I. -I$(top_builddir)",
+      "DEFS": "-DHAVE_CONFIG_H",
+      "LDFLAGS": "",
+      "LIBS": "",
+      "RANLIB": "ranlib"
+    },
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "config.log"
+    ],
+    "recursion_depth": 2,
+    "top_targets": [
+      "all",
+      "dist",
+      "all-am"
+    ],
+    "make_diagnostics": [
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "algo/blake/sph-blake2s.c:326:9: error: size of array element is not a multiple of its alignment"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[2]: *** [Makefile:865: algo/blake/cpuminer-sph-blake2s.o] Error 1"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[2]: *** Waiting for unfinished jobs...."
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[1]: *** [Makefile:495: all-am] Error 2"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make: *** [Makefile:1510: all-recursive] Error 1"
+      }
+    ]
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": false,
+    "defines_sampled": [
+      "HAVE_CONFIG_H",
+      "NOASM"
+    ]
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-subdir-objects",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-maintainer-mode",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "has-m4-macro-dir",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "vpath_analysis": {
+    "hardcoded_src_paths": 14,
+    "abs_path_leakage": 0,
+    "built_sources": [
+      "gmp.h",
+      "fac_table.h",
+      "fib_table.h",
+      "mpn/fib_table.c",
+      "mp_bases.h",
+      "mpn/mp_bases.c",
+      "trialdivtab.h",
+      "mpn/jacobitab.h",
+      "mpn/perfsqr.h",
+      "calc.h",
+      "tool_hugehelp.c"
+    ],
+    "generated_source_targets": [
+      "abs_srcdir=\"`cd $(srcdir) && pwd`\" ;  \t$(MKDIR_P) mini-gmp/tests  \t&& cd mini-gmp/tests  \t&& LD_LIBRARY_PATH=\"../../.libs",
+      "$(top_builddir)/tests/libtests.la"
+    ]
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "sys/endian.h",
+      "sys/param.h",
+      "sys/sysctl.h",
+      "syslog.h"
+    ],
+    "headers_included_unchecked": [
+      "amitcp/socketbasetags.h",
+      "arpa/inet.h",
+      "compat/portable_endian.h",
+      "curl/curl.h",
+      "curl/curlver.h",
+      "curl/mprintf.h",
+      "cyassl/openssl/ssl.h",
+      "fcntl.h",
+      "gnutls/gnutls.h",
+      "inttypes.h",
+      "librtmp/rtmp.h",
+      "mbedtls/ctr_drbg.h",
+      "mbedtls/entropy.h",
+      "mbedtls/ssl.h",
+      "mbedtls/version.h",
+      "metalink/metalink.h",
+      "net/if.h",
+      "netinet/in.h",
+      "netinet/tcp.h",
+      "nettle/md5.h",
+      "nghttp2/nghttp2.h",
+      "nks/synch.h",
+      "nks/thread.h",
+      "openssl/aes.h",
+      "openssl/asn1.h"
+    ],
+    "implicit_link_libs": [
+      "-lcrypto",
+      "-lgmp",
+      "-lssl"
+    ]
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 1,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "c99",
+    "strip_modern_poison_flags": [],
+    "inject_legacy_shims": false,
+    "compiler_aliasing": {}
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 8,
+    "shadowed_builtins": [],
+    "permitted_mutations": 3,
+    "suspect_global_mutations": 0
+  },
+  "parallel_build_safety": {
+    "vpath_out_of_tree_safe": false,
+    "generators": [
+      "abs_srcdir=\"`cd $(srcdir) && pwd`\" ;  \t$(MKDIR_P) mini-gmp/tests  \t&& cd mini-gmp/tests  \t&& LD_LIBRARY_PATH=\"../../.libs",
+      "$(top_builddir)/tests/libtests.la"
+    ],
+    "unordered_generated_sources": [
+      "$(top_builddir)/tests/libtests.la"
+    ],
+    "built_sources_declared": true
+  },
+  "host_environment_veil": {
+    "header_injection_candidates": [
+      "sys/sysctl.h"
+    ],
+    "symbol_aliasing_candidates": []
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "amitcp/socketbasetags.h",
+      "arpa/inet.h",
+      "compat/portable_endian.h",
+      "curl/curl.h",
+      "curl/curlver.h",
+      "curl/mprintf.h",
+      "cyassl/openssl/ssl.h",
+      "fcntl.h",
+      "gnutls/gnutls.h",
+      "inttypes.h",
+      "librtmp/rtmp.h",
+      "mbedtls/ctr_drbg.h",
+      "mbedtls/entropy.h",
+      "mbedtls/ssl.h",
+      "mbedtls/version.h",
+      "metalink/metalink.h",
+      "net/if.h",
+      "netinet/in.h",
+      "netinet/tcp.h",
+      "nettle/md5.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "subdir-config-h-include-path",
+    "parallel-build-race (gen-source not in BUILT_SOURCES)",
+    "vpath-unsafe (abs-path/hardcoded-srcdir leakage)"
+  ],
+  "repair_hints": [
+    {
+      "id": "subdir-top-builddir",
+      "phase": "make",
+      "confidence": 0.88,
+      "evidence": [
+        "compat/jansson consumes config.h below root",
+        "depends/openssl-1.0.2g/demos/tunala consumes config.h below root",
+        "depends/gmp-6.1.0 consumes config.h below root",
+        "depends/gmp-6.1.0/tests consumes config.h below root",
+        "depends/gmp-6.1.0/tests/misc consumes config.h below root"
+      ],
+      "action": "ensure ac_subst_file sets relative top_builddir per subdir (0.1.19)",
+      "expected_effect": "config.h found in subdir compiles"
+    }
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": -21,
+      "Makefile.in": 1455,
+      "aclocal.m4": 310,
+      "configure": 316,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_ENABLE": "system-aclocal",
+      "AC_ARG_WITH": "system-aclocal",
+      "AC_CANONICAL_SYSTEM": "system-aclocal",
+      "AC_CHECK_DECLS": "system-aclocal",
+      "AC_CHECK_FUNCS": "system-aclocal",
+      "AC_CHECK_HEADERS": "system-aclocal",
+      "AC_CHECK_LIB": "system-aclocal",
+      "AC_COMPILE_IFELSE": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_HEADERS": "system-aclocal",
+      "AC_CONFIG_MACRO_DIR": "system-aclocal",
+      "AC_CONFIG_SRCDIR": "system-aclocal",
+      "AC_DEFINE": "system-aclocal",
+      "AC_FUNC_ALLOCA": "system-aclocal",
+      "AC_HEADER_STDC": "system-aclocal",
+      "AC_INCLUDES_DEFAULT": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_LANG_PROGRAM": "system-aclocal",
+      "AC_MSG_CHECKING": "system-aclocal",
+      "AC_MSG_ERROR": "system-aclocal",
+      "AC_MSG_RESULT": "system-aclocal",
+      "AC_MSG_WARN": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PREREQ": "system-aclocal",
+      "AC_PROG_CC_C99": "system-aclocal",
+      "AC_PROG_CXX": "system-aclocal",
+      "AC_PROG_GCC_TRADITIONAL": "system-aclocal",
+      "AC_PROG_RANLIB": "system-aclocal",
+      "AC_SUBST": "system-aclocal",
+      "AM_CONDITIONAL": "system-aclocal",
+      "AM_INIT_AUTOMAKE": "system-aclocal",
+      "AM_MAINTAINER_MODE": "system-aclocal",
+      "AM_PROG_AS": "system-aclocal",
+      "AM_PROG_CC_C_O": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "lib_LTLIBRARIES",
+        "var": "GMPXX_LTLIBRARIES_OPTION",
+        "resolved_to": [
+          "libgmpxx.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libgmp_la_LIBADD",
+        "var": "libgmp_la_DEPENDENCIES",
+        "resolved_to": [
+          "@TAL_OBJECT@",
+          "$(MPF_OBJECTS)",
+          "$(MPZ_OBJECTS)",
+          "$(MPQ_OBJECTS)",
+          "$(MPN_OBJECTS)",
+          "@mpn_objs_in_libgmp@",
+          "$(PRINTF_OBJECTS)",
+          "$(SCANF_OBJECTS)",
+          "$(RANDOM_OBJECTS)"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libgmpxx_la_LIBADD",
+        "var": "libgmpxx_la_DEPENDENCIES",
+        "resolved_to": [
+          "$(CXX_OBJECTS)",
+          "libgmp.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libtests_la_LIBADD",
+        "var": "libtests_la_DEPENDENCIES",
+        "resolved_to": [
+          "@CALLING_CONVENTIONS_OBJS@"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libstat_la_LIBADD",
+        "var": "LIBM",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libmpn_la_LIBADD",
+        "var": "OFILES",
+        "resolved_to": [
+          "@mpn_objects@"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libspeed_la_LIBADD",
+        "var": "libspeed_la_DEPENDENCIES",
+        "resolved_to": [
+          "$(SPEED_CYCLECOUNTER_OBJ)",
+          "$(top_builddir)/tests/libtests.la",
+          "$(top_builddir)/libgmp.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libspeed_la_LIBADD",
+        "var": "LIBM",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "nodist_tuneup_SOURCES",
+        "var": "TUNE_MPN_SRCS",
+        "resolved_to": [
+          "$(TUNE_MPN_SRCS_BASIC)",
+          "divrem_1.c",
+          "mod_1.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "tuneup_LDADD",
+        "var": "tuneup_DEPENDENCIES",
+        "resolved_to": [
+          "$(TUNE_SQR_OBJ)",
+          "libspeed.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "tuneup_LDADD",
+        "var": "TUNE_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "qcn_LDADD",
+        "var": "LDADD",
+        "resolved_to": [
+          "$(top_builddir)/libgmp.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "qcn_LDADD",
+        "var": "LIBM",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "primes_LDADD",
+        "var": "LDADD",
+        "resolved_to": [
+          "$(top_builddir)/libgmp.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "primes_LDADD",
+        "var": "LIBM",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "t_expr_LDADD",
+        "var": "LDADD",
+        "resolved_to": [
+          "libexpr.a",
+          "$(top_builddir)/libgmp.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "noinst_PROGRAMS",
+        "var": "UNITPROGS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "curl_SOURCES",
+        "var": "CURL_FILES",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libcurltool_la_SOURCES",
+        "var": "curl_SOURCES",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libcurl_la_SOURCES",
+        "var": "CSOURCES",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libcurl_la_SOURCES",
+        "var": "HHEADERS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libcurlu_la_SOURCES",
+        "var": "CSOURCES",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libcurlu_la_SOURCES",
+        "var": "HHEADERS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libminizip_la_SOURCES",
+        "var": "iowin32_src",
+        "resolved_to": [
+          "iowin32.c"
+        ],
+        "resolved": true
+      }
+    ],
+    "unresolved_refs": [
+      "libstat_la_LIBADD = $(LIBM)",
+      "libspeed_la_LIBADD = $(LIBM)",
+      "tuneup_LDADD = $(TUNE_LIBS)",
+      "qcn_LDADD = $(LIBM)",
+      "primes_LDADD = $(LIBM)",
+      "noinst_PROGRAMS = $(UNITPROGS)",
+      "curl_SOURCES = $(CURL_FILES)",
+      "libcurltool_la_SOURCES = $(curl_SOURCES)",
+      "libcurl_la_SOURCES = $(CSOURCES)",
+      "libcurl_la_SOURCES = $(HHEADERS)",
+      "libcurlu_la_SOURCES = $(CSOURCES)",
+      "libcurlu_la_SOURCES = $(HHEADERS)"
+    ],
+    "indirection_count": 24
   }
 }

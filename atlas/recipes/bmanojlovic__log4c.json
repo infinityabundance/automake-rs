@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "bmanojlovic/log4c",
   "source": {
     "url": "https://github.com/bmanojlovic/log4c",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,6 +26,11 @@
     {
       "step": "configure",
       "tool": "./configure",
+      "status": "ok"
+    },
+    {
+      "step": "make",
+      "tool": "make",
       "status": "fail"
     }
   ],
@@ -44,44 +49,39 @@
     "subdirs"
   ],
   "outputs": [],
-  "status": "CONFIGURE_RUN_FAIL",
+  "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1710: syntax error near unexpected token `1.95.1'",
+  "diagnostic": "rc.c:349:20: error: 'VERSION' undeclared (first use in this function)",
   "deep_expansion": {
-    "configure_lines": 2771,
-    "leaked_macros": [
-      {
-        "name": "AM_PATH_EXPAT",
-        "line": 1710,
-        "context": "AM_PATH_EXPAT(1.95.1)"
-      }
-    ],
+    "configure_lines": 2954,
+    "leaked_macros": [],
     "heredoc_openers": 27,
     "heredoc_terminators": 27,
     "heredoc_imbalance": 0,
-    "syntax_errors": [
-      {
-        "line": 1710,
-        "token": "1.95.1",
-        "source": "AM_PATH_EXPAT(1.95.1)",
-        "block": [
-          "1706: # Check --with-expat option",
-          "1707: ",
-          "1708: if test x$with_expat = xyes ; then",
-          "1709:  use_expat=yes",
-          "1710:  AM_PATH_EXPAT(1.95.1)",
-          "1711: fi",
-          "1712: ",
-          "1713: # "
-        ]
-      }
-    ],
+    "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2295: do eval test \\${$as_var+y} \\"
+      "line 1433: # eval \"_acrs_sv=\\${}\"; printf '%s\\n' \"s|@@|${_acrs_sv}|g\" >",
+      "line 2477: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
+      "LOG4C_MAJOR_VERSION",
+      "LOG4C_MINOR_VERSION",
+      "LOG4C_MICRO_VERSION",
+      "LT_VERSION",
+      "WITH_ROLLINGFILE_TRUE",
+      "WITH_ROLLINGFILE_FALSE",
+      "TEST_TRUE",
+      "TEST_FALSE",
+      "DOC_TRUE",
+      "DOC_FALSE",
+      "HAVE_DOT",
+      "HAVE_LATEX",
+      "HAVE_LATEX_TRUE",
+      "HAVE_LATEX_FALSE",
+      "USE_EXPAT_TRUE",
+      "USE_EXPAT_FALSE",
       "PACKAGE_NAME",
       "PACKAGE_TARNAME",
       "PACKAGE_VERSION",
@@ -94,29 +94,15 @@
       "CC",
       "CFLAGS",
       "CPPFLAGS",
-      "LDFLAGS",
-      "LIBS",
-      "CXX",
-      "CXXFLAGS",
-      "CPP",
-      "DEFS",
-      "LIBOBJS",
-      "INSTALL",
-      "LOG4C_MINOR_VERSION",
-      "LOG4C_MICRO_VERSION",
-      "host_alias",
-      "host_vendor",
-      "LT_VERSION",
-      "HAVE_LATEX",
-      "LOG4C_MAJOR_VERSION",
-      "host_cpu",
-      "host_os"
+      "LDFLAGS"
     ],
     "failed_during_check": "checking for sbrk... yes",
     "failure_tail": [
       "checking for sbrk... yes",
-      "./configure: line 1710: syntax error near unexpected token `1.95.1'",
-      "./configure: line 1710: ` AM_PATH_EXPAT(1.95.1)'"
+      "configure: creating Makefile",
+      "configure: creating log4c-config",
+      "configure: creating log4crc.sample",
+      "configure: creating log4c.spec"
     ],
     "conftest_corruption": [],
     "conftest_directives_intact": 19,
@@ -126,26 +112,18 @@
       "#include <$ac_hdr>",
       "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { size_t x; return 0; }",
       "#include <time.h>",
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar alloca();\\nint main() { return alloca(); }",
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar malloc();\\nint main() { return malloc(); }"
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar alloca ();\\nint main() { return alloca(); }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar malloc ();\\nint main() { return malloc(); }"
     ]
   },
-  "oracle": {
-    "real_autoreconf": "fail",
-    "real_configure": "skipped",
-    "real_make": "skipped",
-    "real_configure_lines": 0,
-    "real_first_error": "configure.in:206: error: possibly undefined macro: AM_PATH_EXPAT",
-    "classification": "OURS_BETTER"
-  },
   "receipt": {
-    "court_status": "failed",
+    "court_status": "partial",
     "probe_trace": [],
     "quirks_matched": [
       "uses-libtool-old",
       "vendored-aclocal"
     ],
-    "receipt_hash": "0c30dce6270fb3560c454d8c8d1e4e34e811f65407638476dab76fe1fd927894",
+    "receipt_hash": "fc222e24136e1c7565f3970366c0a81d4ec04fa5491250e780188ba2805c06fb",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -154,6 +132,853 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "config/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "doc/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "doc/main.doc",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "examples/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "examples/helloworld/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "examples/helloworld1/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "log4c.spec",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "log4crc.sample",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "src/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "src/log4c/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/log4c/version.h",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/sd/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tests/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "tests/log4c/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      }
+    ],
+    "config_headers": [
+      "src/config.h"
+    ],
+    "subdirs": [
+      "config",
+      "src",
+      "${DOC_SUBDIR}",
+      "${TEST_SUBDIR}",
+      "examples",
+      "helloworld",
+      "helloworld1",
+      "sd",
+      "log4c",
+      "log4c"
+    ],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [],
+        "subdirs": [
+          "config",
+          "src",
+          "${DOC_SUBDIR}",
+          "${TEST_SUBDIR}",
+          "examples"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "examples",
+        "targets": [
+          "liblog4c_examples.la",
+          "liblog4c_userloc.la",
+          "application_1",
+          "application_2",
+          "application_3"
+        ],
+        "subdirs": [
+          "helloworld",
+          "helloworld1"
+        ],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I${top_srcdir}/src"
+      },
+      {
+        "dir": "examples/helloworld",
+        "targets": [
+          "helloworld"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I${top_srcdir}/src"
+      },
+      {
+        "dir": "examples/helloworld1",
+        "targets": [
+          "helloworld1"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I${top_srcdir}/src"
+      },
+      {
+        "dir": "src",
+        "targets": [],
+        "subdirs": [
+          "sd",
+          "log4c"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/log4c",
+        "targets": [
+          "liblog4c.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)/src  \t-DLOG4C_RCPATH=\"\\\"$(sysconfdir)\\\"\""
+      },
+      {
+        "dir": "src/sd",
+        "targets": [
+          "liblog4c_sd.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)/src  \t$(EXPAT_CFLAGS)"
+      },
+      {
+        "dir": "tests",
+        "targets": [],
+        "subdirs": [
+          "log4c"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "tests/log4c",
+        "targets": [
+          "test_category",
+          "test_rc",
+          "bench",
+          "bench_fwrite",
+          "test_stream2",
+          "test_layout_r",
+          "cpp_compile_test"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)/src  \t-DSRCDIR=\"\\\"$(srcdir)\\\"\""
+      }
+    ],
+    "max_depth": 2,
+    "config_h_consumers_below_root": [
+      "tests/log4c",
+      "src/sd",
+      "src/log4c",
+      "examples"
+    ]
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 530,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "tests/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 520,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "tests/log4c/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 620,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 507,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/sd/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 515,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/log4c/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 625,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "examples/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 601,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "examples/helloworld1/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 479,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "examples/helloworld/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 479,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "doc/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 476,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 1
+      },
+      {
+        "path": "msvc6/Makefile",
+        "has_makefile_in": false,
+        "has_makefile_am": false,
+        "lines": 348,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 1
+      },
+      {
+        "path": "config/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 432,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      }
+    ]
+  },
+  "tool_requirements": {
+    "detected": [
+      "yacc",
+      "c++",
+      "doxygen"
+    ],
+    "missing": []
+  },
+  "macro_inventory": {
+    "macro_dirs": [
+      "config"
+    ],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [
+      {
+        "name": "AM_PATH_EXPAT",
+        "source": "config/expat.m4",
+        "kind": "AM"
+      }
+    ],
+    "called_macros": [
+      "AC_ARG_ENABLE",
+      "AC_ARG_WITH",
+      "AC_CANONICAL_HOST",
+      "AC_CHECK_FUNCS",
+      "AC_CHECK_HEADER",
+      "AC_CHECK_HEADERS",
+      "AC_CHECK_LIB",
+      "AC_CONFIG_AUX_DIR",
+      "AC_CONFIG_COMMANDS",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_SRCDIR",
+      "AC_C_CONST",
+      "AC_C_INLINE",
+      "AC_DEFINE",
+      "AC_FUNC_ALLOCA",
+      "AC_FUNC_MALLOC",
+      "AC_FUNC_MMAP",
+      "AC_FUNC_REALLOC",
+      "AC_FUNC_UTIME_NULL",
+      "AC_FUNC_VPRINTF",
+      "AC_HEADER_STDC",
+      "AC_HEADER_TIME",
+      "AC_HELP_STRING",
+      "AC_INIT",
+      "AC_MSG_NOTICE",
+      "AC_OUTPUT",
+      "AC_PATH_PROG",
+      "AC_PREREQ",
+      "AC_PROG_AWK",
+      "AC_PROG_CC",
+      "AC_PROG_CPP",
+      "AC_PROG_CXX",
+      "AC_PROG_INSTALL",
+      "AC_PROG_LIBTOOL",
+      "AC_PROG_LN_S",
+      "AC_PROG_MAKE_SET",
+      "AC_PROG_RANLIB",
+      "AC_PROG_YACC",
+      "AC_STRUCT_TM",
+      "AC_SUBST",
+      "AC_TYPE_SIZE_T",
+      "AM_CONDITIONAL",
+      "AM_CONFIG_HEADER",
+      "AM_INIT_AUTOMAKE",
+      "AM_PATH_EXPAT",
+      "AM_PROG_LEX",
+      "LT_VERSION"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 150,
+    "configure_fi": 144,
+    "configure_case": 67,
+    "configure_esac": 70,
+    "balanced": false,
+    "automake_conditionals": [
+      "WITH_ROLLINGFILE",
+      "TEST",
+      "DOC",
+      "HAVE_LATEX",
+      "USE_EXPAT"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": "config",
+    "present": [
+      "install-sh",
+      "missing",
+      "depcomp",
+      "compile"
+    ],
+    "missing": [
+      "ltmain.sh",
+      "config.guess",
+      "config.sub"
+    ]
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "c": 50,
+      "cpp": 1,
+      "h": 42
+    },
+    "configure_macros": [
+      "AC_PROG_CC",
+      "AC_PROG_CXX"
+    ],
+    "needs_cxx": true,
+    "needs_fortran": false,
+    "sets_c_std": false
+  },
+  "libtool_context": {
+    "uses_libtool": true,
+    "macros": [
+      "AC_PROG_LIBTOOL"
+    ],
+    "ltmain_present": false,
+    "libtool_m4_sources": [],
+    "age": "old"
+  },
+  "make_graph": {
+    "targets": [
+      "all",
+      "all-am",
+      "install-exec-am",
+      "install-data-am",
+      "uninstall-am",
+      "install-am",
+      "installcheck-am",
+      "install-strip",
+      "install-info",
+      "install-info-am",
+      "install-dvi",
+      "install-dvi-am",
+      "install-ps",
+      "install-ps-am",
+      "install-pdf",
+      "install-pdf-am",
+      "install-html",
+      "install-html-am",
+      "install-data-hook",
+      "install-exec-hook",
+      "installdirs-am",
+      ".PHONY",
+      "mostlyclean-am",
+      "clean-am",
+      "distclean-am",
+      "maintainer-clean-am",
+      "distdir",
+      "dist",
+      "dist-all",
+      "dist-gzip",
+      "distcleancheck",
+      "distcheck",
+      "check-am",
+      "TAGS",
+      "tags",
+      "TAGS-am",
+      "tags-am",
+      "cscope",
+      "cscope-am",
+      "distuninstallcheck"
+    ],
+    "key_variables": {
+      "AR": "ar",
+      "CC": "cc",
+      "CFLAGS": "-g -O2",
+      "CPPFLAGS": "",
+      "CXX": "g++",
+      "CXXFLAGS": "-g -O2",
+      "DEFS": "-DHAVE_CONFIG_H",
+      "LDFLAGS": "",
+      "LIBS": "",
+      "RANLIB": "ranlib"
+    },
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "libtool",
+      "config.log"
+    ],
+    "recursion_depth": 2,
+    "top_targets": [
+      "all",
+      "dist",
+      "all-am"
+    ],
+    "make_diagnostics": [
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "rc.c:349:20: error: 'VERSION' undeclared (first use in this function)"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[4]: *** [Makefile:624: rc.lo] Error 1"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[4]: *** Waiting for unfinished jobs...."
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[3]: *** [Makefile:250: all-am] Error 2"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[2]: *** [Makefile:454: all-recursive] Error 1"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[1]: *** [Makefile:473: all-recursive] Error 1"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make: *** [Makefile:224: all] Error 2"
+      }
+    ]
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": true,
+    "defines_sampled": [
+      "HAVE_CONFIG_H"
+    ]
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-libtool-old",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "vpath_analysis": {
+    "hardcoded_src_paths": 5,
+    "abs_path_leakage": 0,
+    "built_sources": [
+      "log4c-config"
+    ],
+    "generated_source_targets": [
+      "# requires flex-2.5.27 from http",
+      "domnode-xml-parser.lo",
+      "domnode-xml-scanner.lo",
+      "domnode-xml.lo"
+    ]
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "fcntl.h",
+      "getopt.h",
+      "inttypes.h",
+      "langinfo.h",
+      "limits.h",
+      "pthread.h",
+      "stdarg.h",
+      "stddef.h",
+      "stdint.h",
+      "stdlib.h",
+      "string.h",
+      "sys/time.h",
+      "syslog.h",
+      "unistd.h",
+      "varargs.h"
+    ],
+    "headers_included_unchecked": [
+      "log4c/appender.h",
+      "log4c/appender_type_rollingfile.h",
+      "log4c/appender_type_stream.h",
+      "log4c/appender_type_stream2.h",
+      "log4c/buffer.h",
+      "log4c/category.h",
+      "log4c/defs.h",
+      "log4c/init.h",
+      "log4c/layout.h",
+      "log4c/layout_type_basic.h",
+      "log4c/layout_type_basic_r.h",
+      "log4c/layout_type_dated.h",
+      "log4c/location_info.h",
+      "log4c/logging_event.h",
+      "log4c/priority.h",
+      "log4c/rc.h",
+      "log4c/rollingpolicy.h",
+      "log4c/rollingpolicy_type_sizewin.h",
+      "log4c/version.h",
+      "sd/defs.h",
+      "sd/domnode.h",
+      "sd/error.h",
+      "sd/factory.h",
+      "sd/hash.h",
+      "sd/list.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 1,
+    "shadowed_macros": [
+      "AM_PATH_EXPAT"
+    ]
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "gnu++",
+    "strip_modern_poison_flags": [],
+    "inject_legacy_shims": false,
+    "compiler_aliasing": {}
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 2,
+    "shadowed_builtins": [
+      "AM_PATH_EXPAT"
+    ],
+    "permitted_mutations": 6,
+    "suspect_global_mutations": 0
+  },
+  "parallel_build_safety": {
+    "vpath_out_of_tree_safe": false,
+    "generators": [
+      "# requires flex-2.5.27 from http",
+      "domnode-xml-parser.lo",
+      "domnode-xml-scanner.lo",
+      "domnode-xml.lo"
+    ],
+    "unordered_generated_sources": [
+      "# requires flex-2.5.27 from http",
+      "domnode-xml-parser.lo",
+      "domnode-xml-scanner.lo",
+      "domnode-xml.lo"
+    ],
+    "built_sources_declared": true
+  },
+  "host_environment_veil": {
+    "header_injection_candidates": [
+      "varargs.h"
+    ],
+    "symbol_aliasing_candidates": []
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "log4c/appender.h",
+      "log4c/appender_type_rollingfile.h",
+      "log4c/appender_type_stream.h",
+      "log4c/appender_type_stream2.h",
+      "log4c/buffer.h",
+      "log4c/category.h",
+      "log4c/defs.h",
+      "log4c/init.h",
+      "log4c/layout.h",
+      "log4c/layout_type_basic.h",
+      "log4c/layout_type_basic_r.h",
+      "log4c/layout_type_dated.h",
+      "log4c/location_info.h",
+      "log4c/logging_event.h",
+      "log4c/priority.h",
+      "log4c/rc.h",
+      "log4c/rollingpolicy.h",
+      "log4c/rollingpolicy_type_sizewin.h",
+      "log4c/version.h",
+      "sd/defs.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "subdir-config-h-include-path",
+    "ancient-libtool",
+    "parallel-build-race (gen-source not in BUILT_SOURCES)",
+    "vpath-unsafe (abs-path/hardcoded-srcdir leakage)"
+  ],
+  "repair_hints": [
+    {
+      "id": "subdir-top-builddir",
+      "phase": "make",
+      "confidence": 0.88,
+      "evidence": [
+        "tests/log4c consumes config.h below root",
+        "src/sd consumes config.h below root",
+        "src/log4c consumes config.h below root",
+        "examples consumes config.h below root"
+      ],
+      "action": "ensure ac_subst_file sets relative top_builddir per subdir (0.1.19)",
+      "expected_effect": "config.h found in subdir compiles"
+    }
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": 0,
+      "Makefile.in": 1164,
+      "aclocal.m4": 7,
+      "configure": 11,
+      "configure.in": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_ENABLE": "system-aclocal",
+      "AC_ARG_WITH": "system-aclocal",
+      "AC_CANONICAL_HOST": "system-aclocal",
+      "AC_CHECK_FUNCS": "system-aclocal",
+      "AC_CHECK_HEADER": "system-aclocal",
+      "AC_CHECK_HEADERS": "system-aclocal",
+      "AC_CHECK_LIB": "system-aclocal",
+      "AC_CONFIG_AUX_DIR": "system-aclocal",
+      "AC_CONFIG_COMMANDS": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_SRCDIR": "system-aclocal",
+      "AC_C_CONST": "system-aclocal",
+      "AC_C_INLINE": "system-aclocal",
+      "AC_DEFINE": "system-aclocal",
+      "AC_FUNC_ALLOCA": "system-aclocal",
+      "AC_FUNC_MALLOC": "system-aclocal",
+      "AC_FUNC_MMAP": "system-aclocal",
+      "AC_FUNC_REALLOC": "system-aclocal",
+      "AC_FUNC_UTIME_NULL": "system-aclocal",
+      "AC_FUNC_VPRINTF": "system-aclocal",
+      "AC_HEADER_STDC": "system-aclocal",
+      "AC_HEADER_TIME": "system-aclocal",
+      "AC_HELP_STRING": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_MSG_NOTICE": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PATH_PROG": "system-aclocal",
+      "AC_PREREQ": "system-aclocal",
+      "AC_PROG_AWK": "system-aclocal",
+      "AC_PROG_CC": "system-aclocal",
+      "AC_PROG_CPP": "system-aclocal",
+      "AC_PROG_CXX": "system-aclocal",
+      "AC_PROG_INSTALL": "system-aclocal",
+      "AC_PROG_LIBTOOL": "system-aclocal",
+      "AC_PROG_LN_S": "system-aclocal",
+      "AC_PROG_MAKE_SET": "system-aclocal",
+      "AC_PROG_RANLIB": "system-aclocal",
+      "AC_PROG_YACC": "system-aclocal",
+      "AC_STRUCT_TM": "system-aclocal",
+      "AC_SUBST": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
   }
 }

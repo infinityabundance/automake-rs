@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "envytools/valgrind",
   "source": {
     "url": "https://github.com/envytools/valgrind",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -50,77 +50,66 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1400: syntax error near unexpected token `('",
+  "diagnostic": "configure: error: Valgrind relies on GCC to be compiled",
   "deep_expansion": {
-    "configure_lines": 9245,
+    "configure_lines": 10583,
     "leaked_macros": [],
     "heredoc_openers": 191,
     "heredoc_terminators": 191,
     "heredoc_imbalance": 0,
-    "syntax_errors": [
-      {
-        "line": 1400,
-        "token": "(",
-        "source": "apparently causes problems on older Linux distros (eg. with",
-        "block": [
-          "1396: fi",
-          "1397: done",
-          "1398: printf '%s\\n' \"${OBJC-not found}\"",
-          "1399: fi",
-          "1400:  apparently causes problems on older Linux distros (eg. with",
-          "1401: # autoconf 2.59).  If we ever have any Objective-C code in the Valgrind code",
-          "1402: # base (eg. most likely as Darwin-specific tests) we'll need one of the",
-          "1403: # following:"
-        ]
-      }
-    ],
+    "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 8754: do eval test \\${$as_var+y} \\"
+      "line 1642: # eval \"_acrs_sv=\\${}\"; printf '%s\\n' \"s|@@|${_acrs_sv}|g\" >",
+      "line 10091: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
-      "PACKAGE_NAME",
-      "PACKAGE_TARNAME",
-      "PACKAGE_VERSION",
-      "PACKAGE_STRING",
-      "PACKAGE_BUGREPORT"
+      "LTO_RANLIB",
+      "AR",
+      "LTO_AR",
+      "DIFF",
+      "COMPILER_IS_CLANG_TRUE",
+      "COMPILER_IS_CLANG_FALSE",
+      "COMPILER_IS_ICC_TRUE",
+      "COMPILER_IS_ICC_FALSE",
+      "VGCONF_OS",
+      "VGCONF_ARCH_PRI",
+      "VGCONF_ARCH_SEC",
+      "VGCONF_PLATFORM_PRI_CAPS",
+      "VGCONF_PLATFORM_SEC_CAPS",
+      "VGCONF_ARCHS_INCLUDE_X86_TRUE",
+      "VGCONF_ARCHS_INCLUDE_X86_FALSE",
+      "VGCONF_ARCHS_INCLUDE_AMD64_TRUE",
+      "VGCONF_ARCHS_INCLUDE_AMD64_FALSE",
+      "VGCONF_ARCHS_INCLUDE_PPC32_TRUE",
+      "VGCONF_ARCHS_INCLUDE_PPC32_FALSE",
+      "VGCONF_ARCHS_INCLUDE_PPC64_TRUE",
+      "VGCONF_ARCHS_INCLUDE_PPC64_FALSE",
+      "VGCONF_ARCHS_INCLUDE_ARM_TRUE",
+      "VGCONF_ARCHS_INCLUDE_ARM_FALSE",
+      "VGCONF_ARCHS_INCLUDE_ARM64_TRUE",
+      "VGCONF_ARCHS_INCLUDE_ARM64_FALSE",
+      "VGCONF_ARCHS_INCLUDE_S390X_TRUE",
+      "VGCONF_ARCHS_INCLUDE_S390X_FALSE",
+      "VGCONF_ARCHS_INCLUDE_MIPS32_TRUE",
+      "VGCONF_ARCHS_INCLUDE_MIPS32_FALSE"
     ],
-    "failed_during_check": "checking for Objective-C compiler... gcc",
+    "failed_during_check": "",
     "failure_tail": [
-      "checking for Objective-C compiler... gcc",
-      "./configure: line 1400: syntax error near unexpected token `('",
-      "./configure: line 1400: ` apparently causes problems on older Linux distros (eg."
+      "configure: error: Valgrind relies on GCC to be compiled"
     ],
     "conftest_corruption": [],
-    "conftest_directives_intact": 119,
+    "conftest_directives_intact": 36,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
       "\\nint main() {\\nreturn 0;\\n; return 0; }",
-      "\\n#include <sys/prctl.h>\\n\\nint main() {  ; return 0; }",
+      "\\n#[include <sys/prctl.h>]\\n\\nint main() {  ; return 0; }",
       "#include <features.h>",
       "#include <features.h>\\n#if defined(__GNU_LIBRARY__) && defined(__GLIBC__) && defined(__GLIBC_MINOR_\\nglibc version is: __GLIBC__ __GLIBC_MINOR__\\n#endif",
-      "\\n#define _GNU_SOURCE\\n#include <fcntl.h>\\n#include <unistd.h>\\n\\nint main() {\\nint a = AT_FDCWD;\\n; return 0; }",
-      "\\n#define _GNU_SOURCE\\n#include <string.h>\\n\\nint main() {\\nchar *d;\\nchar *s;\\nsize_t n = 0;\\nchar *r = stpncpy(d, s, n);\\n; return 0; }"
+      "\\n#[define _GNU_SOURCE]\\n#[include <fcntl.h>]\\n#[include <unistd.h>]\\n\\nint main() {\\nint a = AT_FDCWD;\\n; return 0; }",
+      "\\n#[define _GNU_SOURCE]\\n#[include <string.h>]\\n\\nint main() {\\nchar *d;\\nchar *s;\\nsize_t n = 0;\\nchar *r = stpncpy(d, s, n);\\n; return 0; }"
     ]
-  },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "ok",
-    "real_make": "fail",
-    "real_configure_lines": 19262,
-    "real_first_error": "",
-    "classification": "OURS_BUG_CONFIGURE"
-  },
-  "divergence": {
-    "stage": "configure",
-    "ours_error": "line 1400: apparently causes problems on older Linux distros (eg. with (near `(`)",
-    "ours_error_context": [
-      "apparently causes problems on older Linux distros (eg. with"
-    ],
-    "ours_configure_lines": 9245,
-    "real_configure_lines": 19262,
-    "macros_ours_left_undefined": []
   },
   "receipt": {
     "court_status": "failed",
@@ -143,7 +132,7 @@
         "verified": false
       }
     ],
-    "receipt_hash": "24e39ed3178d433d21c1340a6407fda16d8349c27724819539e8175382940e80",
+    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -152,6 +141,2188 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "VEX/Makefile:Makefile.vex.in",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": false
+      },
+      {
+        "path": "auxprogs/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "cachegrind/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "cachegrind/tests/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "cachegrind/tests/x86/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "callgrind/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "callgrind/tests/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "coregrind/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "dhat/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "dhat/tests/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "docs/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "drd/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "drd/tests/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "exp-bbv/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "exp-bbv/tests/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "exp-bbv/tests/amd64-linux/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "exp-bbv/tests/arm-linux/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "exp-bbv/tests/ppc32-linux/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "exp-bbv/tests/x86-linux/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "exp-bbv/tests/x86/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "gdbserver_tests/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "gdbserver_tests/solaris/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "glibc-2.X.supp",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "helgrind/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "helgrind/tests/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "include/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "lackey/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "lackey/tests/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "massif/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "massif/tests/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "memcheck/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "memcheck/tests/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "memcheck/tests/amd64-linux/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "memcheck/tests/amd64-solaris/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "memcheck/tests/amd64/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "memcheck/tests/arm64-linux/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "memcheck/tests/common/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "memcheck/tests/darwin/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "memcheck/tests/linux/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "memcheck/tests/mips32/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "memcheck/tests/mips64/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "memcheck/tests/ppc32/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "memcheck/tests/ppc64/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "memcheck/tests/s390x/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "memcheck/tests/solaris/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "memcheck/tests/vbit-test/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "memcheck/tests/x86-linux/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "memcheck/tests/x86-solaris/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "memcheck/tests/x86/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "mmt/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "mmt/tests/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "mpi/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "none/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "none/tests/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "none/tests/amd64-darwin/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "none/tests/amd64-linux/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "none/tests/amd64-solaris/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "none/tests/amd64/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "none/tests/arm/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "none/tests/arm64/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "none/tests/darwin/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "none/tests/linux/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "none/tests/mips32/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "none/tests/mips64/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "none/tests/nanomips/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "none/tests/ppc32/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "none/tests/ppc64/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "none/tests/s390x/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "none/tests/scripts/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "none/tests/solaris/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "none/tests/x86-darwin/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "none/tests/x86-linux/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "none/tests/x86-solaris/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "none/tests/x86/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "perf/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "shared/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "solaris/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "tests/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "valgrind.pc",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "valgrind.spec",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      }
+    ],
+    "config_headers": [
+      "config.h"
+    ],
+    "subdirs": [
+      "include",
+      "VEX",
+      "coregrind",
+      ".",
+      "$(TOOLS)",
+      "$(EXP_TOOLS)",
+      "shared",
+      "tests",
+      "perf",
+      "gdbserver_tests",
+      "memcheck/tests/vbit-test",
+      "auxprogs",
+      "mpi",
+      "solaris",
+      "docs",
+      ".",
+      "solaris",
+      ".",
+      "x86",
+      "amd64",
+      "mips32",
+      "mips64",
+      "ppc32",
+      "ppc64",
+      "s390x",
+      "linux",
+      "darwin",
+      "solaris",
+      "x86-linux",
+      "amd64-linux",
+      "arm64-linux",
+      "x86-solaris",
+      "amd64-solaris",
+      ".",
+      "scripts",
+      "x86",
+      "amd64",
+      "ppc32",
+      "ppc64",
+      "arm",
+      "arm64",
+      "s390x",
+      "mips32",
+      "mips64",
+      "nanomips",
+      "linux",
+      "darwin",
+      "solaris",
+      "amd64-linux",
+      "x86-linux",
+      "amd64-darwin",
+      "x86-darwin",
+      "amd64-solaris",
+      "x86-solaris"
+    ],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [],
+        "subdirs": [
+          "include",
+          "VEX",
+          "coregrind",
+          ".",
+          "$(TOOLS)",
+          "$(EXP_TOOLS)",
+          "shared",
+          "tests",
+          "perf",
+          "gdbserver_tests",
+          "memcheck/tests/vbit-test",
+          "auxprogs",
+          "mpi",
+          "solaris",
+          "docs"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "dhat",
+        "targets": [
+          "dhat-@VGCONF_ARCH_PRI@-@VGCONF_OS@"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "dhat/tests",
+        "targets": [
+          "acc",
+          "basic",
+          "big",
+          "empty",
+          "sig",
+          "single"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "gdbserver_tests",
+        "targets": [
+          "clean_after_fork",
+          "fork_chain",
+          "gone",
+          "main_pic",
+          "passsigalrm",
+          "self_invalidate",
+          "sleepers",
+          "t",
+          "watchpoints"
+        ],
+        "subdirs": [
+          ".",
+          "solaris"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "helgrind",
+        "targets": [
+          "helgrind-@VGCONF_ARCH_PRI@-@VGCONF_OS@"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "helgrind/tests",
+        "targets": [
+          "annotate_hbefore",
+          "cond_init_destroy",
+          "cond_timedwait_invalid",
+          "cond_timedwait_test",
+          "free_is_write",
+          "hg01_all_ok",
+          "hg02_deadlock",
+          "hg03_inherit",
+          "hg04_race",
+          "hg05_race2",
+          "hg06_readshared",
+          "locked_vs_unlocked1"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "include",
+        "targets": [],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "lackey",
+        "targets": [
+          "lackey-@VGCONF_ARCH_PRI@-@VGCONF_OS@"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "massif",
+        "targets": [
+          "massif-@VGCONF_ARCH_PRI@-@VGCONF_OS@"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "massif/tests",
+        "targets": [
+          "alloc-fns",
+          "basic",
+          "big-alloc",
+          "culling1",
+          "culling2",
+          "custom_alloc",
+          "deep",
+          "ignored",
+          "ignoring",
+          "inlinfomalloc",
+          "insig",
+          "long-names"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "memcheck",
+        "targets": [
+          "memcheck-@VGCONF_ARCH_PRI@-@VGCONF_OS@"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "memcheck/tests",
+        "targets": [
+          "accounting",
+          "addressable",
+          "atomic_incs",
+          "badaddrvalue",
+          "badfree",
+          "badjump",
+          "badjump2",
+          "badloop",
+          "badpoll",
+          "badrw",
+          "big_blocks_freed_list",
+          "brk2"
+        ],
+        "subdirs": [
+          ".",
+          "x86",
+          "amd64",
+          "mips32",
+          "mips64",
+          "ppc32",
+          "ppc64",
+          "s390x",
+          "linux",
+          "darwin",
+          "solaris",
+          "x86-linux",
+          "amd64-linux",
+          "arm64-linux",
+          "x86-solaris",
+          "amd64-solaris"
+        ],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "memcheck/tests/darwin",
+        "targets": [
+          "aio",
+          "deep_badparam",
+          "env",
+          "ioctl-tiocsbrk",
+          "pth-supp",
+          "pth-undocumented",
+          "mkfifo",
+          "scalar",
+          "scalar_fork",
+          "scalar_nocancel",
+          "scalar_vfork"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "memcheck/tests/linux",
+        "targets": [
+          "brk",
+          "capget",
+          "check_preadv2_pwritev2",
+          "dlclose_leak",
+          "dlclose_leak_so.so",
+          "ioctl-tiocsig",
+          "getregset",
+          "lsframe1",
+          "lsframe2",
+          "rfcomm",
+          "sigqueue",
+          "stack_changes"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "memcheck/tests/s390x",
+        "targets": [
+          "$(INSN_TESTS)"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "memcheck/tests/x86",
+        "targets": [
+          "bug152022",
+          "espindola2",
+          "fpeflags",
+          "fprem",
+          "fxsave",
+          "more_x86_fp",
+          "pushfpopf",
+          "pushfw_x86",
+          "pushpopmem",
+          "sh-mem-vec128",
+          "sse_memory",
+          "tronical"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "memcheck/tests/x86-solaris",
+        "targets": [
+          "scalar",
+          "context_eflags",
+          "context_eflags2",
+          "context_fpu",
+          "context_gpr",
+          "context_sse",
+          "ldsoexec"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "mmt",
+        "targets": [
+          "mmt-@VGCONF_ARCH_PRI@-@VGCONF_OS@"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "none",
+        "targets": [
+          "none-@VGCONF_ARCH_PRI@-@VGCONF_OS@"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "none/tests",
+        "targets": [
+          "args",
+          "async-sigs",
+          "bitfield1",
+          "bug129866",
+          "bug234814",
+          "closeall",
+          "coolo_strlen",
+          "discard",
+          "exec-sigmask",
+          "execve",
+          "faultstatus",
+          "fcntl_setown"
+        ],
+        "subdirs": [
+          ".",
+          "scripts",
+          "x86",
+          "amd64",
+          "ppc32",
+          "ppc64",
+          "arm",
+          "arm64",
+          "s390x",
+          "mips32",
+          "mips64",
+          "nanomips",
+          "linux",
+          "darwin",
+          "solaris",
+          "amd64-linux",
+          "x86-linux",
+          "amd64-darwin",
+          "x86-darwin",
+          "amd64-solaris",
+          "x86-solaris"
+        ],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "none/tests/amd64",
+        "targets": [
+          "allexec",
+          "amd64locked",
+          "bt_flags",
+          "bug127521-64",
+          "bug132813-amd64",
+          "bug132918",
+          "bug137714-amd64",
+          "cet_nops",
+          "clc",
+          "cmpxchg",
+          "getseg",
+          "$(INSN_TESTS)"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "none/tests/amd64-darwin",
+        "targets": [
+          "bug341419",
+          "cet_nops_gs"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "none/tests/amd64-linux",
+        "targets": [
+          "bug345887",
+          "cet_nops_fs",
+          "cet_nops_gs",
+          "map_32bits"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "none/tests/amd64-solaris",
+        "targets": [
+          "cet_nops_fs",
+          "coredump_single_thread",
+          "coredump_single_thread_sse",
+          "syscall_return_args"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "none/tests/arm",
+        "targets": [
+          "allexec",
+          "intdiv",
+          "ldrt",
+          "ldrt_arm",
+          "neon128",
+          "neon64",
+          "v6intARM",
+          "v6intThumb",
+          "v6media",
+          "v8crypto_a",
+          "v8crypto_t",
+          "v8fpsimd_a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "none/tests/arm64",
+        "targets": [
+          "allexec",
+          "cvtf_imm",
+          "fp_and_simd",
+          "integer",
+          "memory"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "none/tests/darwin",
+        "targets": [
+          "access_extended",
+          "apple-main-arg",
+          "bug228343",
+          "bug254164",
+          "rlimit"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "none/tests/linux",
+        "targets": [
+          "blockfault",
+          "brk-overflow1",
+          "brk-overflow2",
+          "clonev",
+          "mremap",
+          "mremap2",
+          "mremap3",
+          "mremap4",
+          "mremap5",
+          "mremap6",
+          "pthread-stack",
+          "stack-overflow"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "none/tests/mips32",
+        "targets": [
+          "allexec",
+          "block_size",
+          "branches",
+          "branch_pc",
+          "branches_r6",
+          "change_fp_mode",
+          "FPUarithmetic",
+          "LoadStore",
+          "LoadStore1",
+          "MemCpyTest",
+          "MIPS32int",
+          "MIPS32r6int"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "none/tests/mips64",
+        "targets": [
+          "allexec",
+          "arithmetic_instruction",
+          "branch_and_jump_instructions",
+          "branches",
+          "branches_r6",
+          "branch_pc",
+          "change_fp_mode",
+          "cvm_bbit",
+          "cvm_ins",
+          "cvm_lx_ins",
+          "cvm_atomic",
+          "cvm_atomic_thread"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "none/tests/nanomips",
+        "targets": [
+          "arithmetic",
+          "bits",
+          "branches",
+          "load_store",
+          "move",
+          "pc_instructions",
+          "allexec"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "none/tests/ppc32",
+        "targets": [
+          "allexec",
+          "lsw",
+          "jm-insns",
+          "round",
+          "test_isa_2_06_part1",
+          "test_isa_2_06_part2",
+          "test_isa_2_06_part3",
+          "test_dfp1",
+          "test_dfp2",
+          "test_dfp3",
+          "test_dfp4",
+          "test_dfp5"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "none/tests/ppc64",
+        "targets": [
+          "allexec",
+          "lsw",
+          "jm-insns",
+          "round",
+          "test_isa_2_06_part1",
+          "test_isa_2_06_part2",
+          "test_isa_2_06_part3",
+          "test_dfp1",
+          "test_dfp2",
+          "test_dfp3",
+          "test_dfp4",
+          "test_dfp5"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "none/tests/s390x",
+        "targets": [
+          "$(INSN_TESTS)",
+          "allexec",
+          "op00"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "none/tests/solaris",
+        "targets": [
+          "block_all_signals",
+          "blockfault",
+          "context_link",
+          "context_link2",
+          "context_null",
+          "context_stack",
+          "coredump_many_segments",
+          "coredump_many_threads",
+          "mmap_noreserve",
+          "proc_aout",
+          "proc_auxv",
+          "proc_auxv_multiple"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "none/tests/x86",
+        "targets": [
+          "aad_aam",
+          "allexec",
+          "badseg",
+          "bswapw",
+          "bt_everything",
+          "bt_literal",
+          "bug125959-x86",
+          "bug126147-x86",
+          "bug132813-x86",
+          "bug135421-x86",
+          "bug137714-x86",
+          "bug152818-x86"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "none/tests/x86-darwin",
+        "targets": [
+          "bug341419",
+          "bug350062",
+          "cet_nops_gs"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "none/tests/x86-linux",
+        "targets": [
+          "bug345887",
+          "cet_nops_fs",
+          "cet_nops_gs",
+          "hang",
+          "seg_override",
+          "sigcontext"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "none/tests/x86-solaris",
+        "targets": [
+          "cet_nops_fs",
+          "coredump_single_thread",
+          "coredump_single_thread_sse",
+          "syscalls"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "tests",
+        "targets": [
+          "arch_test",
+          "os_test",
+          "libc_test",
+          "true",
+          "x86_amd64_features",
+          "s390x_features",
+          "mips_features",
+          "power_insn_available",
+          "is_ppc64_BE",
+          "min_power_isa"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      }
+    ],
+    "max_depth": 3,
+    "config_h_consumers_below_root": [
+      "helgrind",
+      "helgrind/tests",
+      "include",
+      "none/tests",
+      "none/tests/x86",
+      "none/tests/ppc32",
+      "none/tests/ppc64",
+      "none/tests/amd64",
+      "memcheck/tests",
+      "memcheck/tests/x86-solaris",
+      "memcheck/tests/linux"
+    ]
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "mmt/mmaptest/Makefile",
+        "has_makefile_in": false,
+        "has_makefile_am": false,
+        "lines": 41,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "VEX/switchback/Makefile",
+        "has_makefile_in": false,
+        "has_makefile_am": false,
+        "lines": 12,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      }
+    ]
+  },
+  "tool_requirements": {
+    "detected": [
+      "c++",
+      "perl"
+    ],
+    "missing": []
+  },
+  "macro_inventory": {
+    "macro_dirs": [],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [],
+    "called_macros": [
+      "AC_ARG_ENABLE",
+      "AC_ARG_VAR",
+      "AC_ARG_WITH",
+      "AC_CACHE_CHECK",
+      "AC_CANONICAL_HOST",
+      "AC_CHECK_FILE",
+      "AC_CHECK_FUNCS",
+      "AC_CHECK_HEADER",
+      "AC_CHECK_HEADERS",
+      "AC_CHECK_LIB",
+      "AC_CHECK_MEMBER",
+      "AC_CHECK_PROG",
+      "AC_CHECK_PROGS",
+      "AC_CHECK_TOOL",
+      "AC_CHECK_TYPE",
+      "AC_CHECK_TYPES",
+      "AC_COMPILE_IFELSE",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_HEADERS",
+      "AC_CONFIG_SRCDIR",
+      "AC_DEFINE",
+      "AC_DEFINE_UNQUOTED",
+      "AC_DEFUN",
+      "AC_EGREP_CPP",
+      "AC_FUNC_MEMCMP",
+      "AC_FUNC_MMAP",
+      "AC_GCC_WARNING_SUBST",
+      "AC_GCC_WARNING_SUBST_NO",
+      "AC_HEADER_TIME",
+      "AC_HWCAP_CONTAINS_FLAG",
+      "AC_INIT",
+      "AC_LANG",
+      "AC_LANG_POP",
+      "AC_LANG_PROGRAM",
+      "AC_LANG_PUSH",
+      "AC_LANG_SOURCE",
+      "AC_LINK_IFELSE",
+      "AC_MSG_CHECKING",
+      "AC_MSG_ERROR",
+      "AC_MSG_FAILURE",
+      "AC_MSG_NOTICE",
+      "AC_MSG_RESULT",
+      "AC_MSG_WARN",
+      "AC_OUTPUT",
+      "AC_PATH_PROG",
+      "AC_PATH_PROGS",
+      "AC_PROG_CC",
+      "AC_PROG_CC_C99",
+      "AC_PROG_CPP",
+      "AC_PROG_CXX",
+      "AC_PROG_LN_S",
+      "AC_PROG_OBJC",
+      "AC_PROG_RANLIB",
+      "AC_PROG_SED",
+      "AC_RUN_IFELSE",
+      "AC_SUBST",
+      "AC_TYPE_OFF_T",
+      "AC_TYPE_SIZE_T",
+      "AC_TYPE_UID_T",
+      "AM_CONDITIONAL"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 661,
+    "configure_fi": 607,
+    "configure_case": 76,
+    "configure_esac": 79,
+    "balanced": false,
+    "automake_conditionals": [
+      "COMPILER_IS_CLANG",
+      "COMPILER_IS_ICC",
+      "VGCONF_ARCHS_INCLUDE_X86",
+      "VGCONF_ARCHS_INCLUDE_AMD64",
+      "VGCONF_ARCHS_INCLUDE_PPC32",
+      "VGCONF_ARCHS_INCLUDE_PPC64",
+      "VGCONF_ARCHS_INCLUDE_ARM",
+      "VGCONF_ARCHS_INCLUDE_ARM64",
+      "VGCONF_ARCHS_INCLUDE_S390X",
+      "VGCONF_ARCHS_INCLUDE_MIPS32",
+      "VGCONF_ARCHS_INCLUDE_MIPS64",
+      "VGCONF_ARCHS_INCLUDE_NANOMIPS",
+      "VGCONF_PLATFORMS_INCLUDE_X86_LINUX",
+      "VGCONF_PLATFORMS_INCLUDE_AMD64_LINUX",
+      "VGCONF_PLATFORMS_INCLUDE_PPC32_LINUX",
+      "VGCONF_PLATFORMS_INCLUDE_PPC64BE_LINUX",
+      "VGCONF_PLATFORMS_INCLUDE_PPC64LE_LINUX",
+      "VGCONF_PLATFORMS_INCLUDE_ARM_LINUX",
+      "VGCONF_PLATFORMS_INCLUDE_ARM64_LINUX",
+      "VGCONF_PLATFORMS_INCLUDE_S390X_LINUX",
+      "VGCONF_PLATFORMS_INCLUDE_MIPS32_LINUX",
+      "VGCONF_PLATFORMS_INCLUDE_MIPS64_LINUX",
+      "VGCONF_PLATFORMS_INCLUDE_NANOMIPS_LINUX",
+      "VGCONF_PLATFORMS_INCLUDE_X86_DARWIN",
+      "VGCONF_PLATFORMS_INCLUDE_AMD64_DARWIN",
+      "VGCONF_PLATFORMS_INCLUDE_X86_SOLARIS",
+      "VGCONF_PLATFORMS_INCLUDE_AMD64_SOLARIS",
+      "VGCONF_OS_IS_LINUX",
+      "VGCONF_OS_IS_DARWIN",
+      "VGCONF_OS_IS_SOLARIS"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": ".",
+    "present": [
+      "install-sh",
+      "missing",
+      "depcomp",
+      "compile"
+    ],
+    "missing": [
+      "config.guess",
+      "config.sub"
+    ]
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "S": 60,
+      "c": 1317,
+      "cpp": 32,
+      "h": 348,
+      "s": 2
+    },
+    "configure_macros": [
+      "AC_PROG_CC",
+      "AC_PROG_CXX",
+      "AC_PROG_OBJC",
+      "AC_PROG_CC_C99"
+    ],
+    "needs_cxx": true,
+    "needs_fortran": false,
+    "sets_c_std": true
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": false,
+    "defines_sampled": []
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-subdir-objects",
+      "applied_at": "configure",
+      "effect": "neutral",
+      "effectiveness": "low"
+    },
+    {
+      "quirk_id": "uses-maintainer-mode",
+      "applied_at": "configure",
+      "effect": "neutral",
+      "effectiveness": "low"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "perl-in-configure",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "vpath_analysis": {
+    "hardcoded_src_paths": 7,
+    "abs_path_leakage": 0,
+    "built_sources": [
+      "default.supp",
+      "include/vgversion.h",
+      "valgrind.pc",
+      "$(mach_user_srcs)",
+      "fixup_macho_loadcmds"
+    ],
+    "generated_source_targets": [
+      "# https"
+    ]
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "asm/unistd.h",
+      "endian.h",
+      "features.h",
+      "mqueue.h",
+      "sys/endian.h",
+      "sys/epoll.h",
+      "sys/eventfd.h",
+      "sys/klog.h",
+      "sys/lgrp_user_impl.h",
+      "sys/poll.h",
+      "sys/prctl.h",
+      "sys/signal.h",
+      "sys/signalfd.h",
+      "sys/syscall.h",
+      "sys/sysnvl.h",
+      "sys/time.h",
+      "sys/types.h"
+    ],
+    "headers_included_unchecked": [
+      "arpa/inet.h",
+      "arpa/nameser.h",
+      "asm/cachectl.h",
+      "asm/vm86.h",
+      "bsm/audit.h",
+      "dlfcn.h",
+      "fcntl.h",
+      "gnu/libc-version.h",
+      "inttypes.h",
+      "libkern/OSAtomic.h",
+      "linux/capability.h",
+      "linux/mman.h",
+      "linux/stat.h",
+      "linux/unistd.h",
+      "mach-o/dyld.h",
+      "mach-o/fat.h",
+      "mach-o/loader.h",
+      "mach-o/nlist.h",
+      "mach/i386/thread_status.h",
+      "mach/mach.h",
+      "mach/mach_init.h",
+      "mach/mach_vm.h",
+      "mach/machine/ndr_def.h",
+      "mach/message.h",
+      "mach/port.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 3,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "c99",
+    "strip_modern_poison_flags": [],
+    "inject_legacy_shims": false,
+    "compiler_aliasing": {}
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 24,
+    "shadowed_builtins": [],
+    "permitted_mutations": 9,
+    "suspect_global_mutations": 0
+  },
+  "parallel_build_safety": {
+    "vpath_out_of_tree_safe": false,
+    "generators": [
+      "# https"
+    ],
+    "unordered_generated_sources": [
+      "# https"
+    ],
+    "built_sources_declared": true
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "arpa/inet.h",
+      "arpa/nameser.h",
+      "asm/cachectl.h",
+      "asm/vm86.h",
+      "bsm/audit.h",
+      "dlfcn.h",
+      "fcntl.h",
+      "gnu/libc-version.h",
+      "inttypes.h",
+      "libkern/OSAtomic.h",
+      "linux/capability.h",
+      "linux/mman.h",
+      "linux/stat.h",
+      "linux/unistd.h",
+      "mach-o/dyld.h",
+      "mach-o/fat.h",
+      "mach-o/loader.h",
+      "mach-o/nlist.h",
+      "mach/i386/thread_status.h",
+      "mach/mach.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "subdir-config-h-include-path",
+    "parallel-build-race (gen-source not in BUILT_SOURCES)",
+    "vpath-unsafe (abs-path/hardcoded-srcdir leakage)"
+  ],
+  "repair_hints": [
+    {
+      "id": "subdir-top-builddir",
+      "phase": "make",
+      "confidence": 0.88,
+      "evidence": [
+        "helgrind consumes config.h below root",
+        "helgrind/tests consumes config.h below root",
+        "include consumes config.h below root",
+        "none/tests consumes config.h below root",
+        "none/tests/x86 consumes config.h below root"
+      ],
+      "action": "ensure ac_subst_file sets relative top_builddir per subdir (0.1.19)",
+      "expected_effect": "config.h found in subdir compiles"
+    }
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": -29,
+      "Makefile.in": 1944,
+      "aclocal.m4": 201,
+      "config.h.in": 274,
+      "configure": 240,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_ENABLE": "system-aclocal",
+      "AC_ARG_VAR": "system-aclocal",
+      "AC_ARG_WITH": "system-aclocal",
+      "AC_CACHE_CHECK": "system-aclocal",
+      "AC_CANONICAL_HOST": "system-aclocal",
+      "AC_CHECK_FILE": "system-aclocal",
+      "AC_CHECK_FUNCS": "system-aclocal",
+      "AC_CHECK_HEADER": "system-aclocal",
+      "AC_CHECK_HEADERS": "system-aclocal",
+      "AC_CHECK_LIB": "system-aclocal",
+      "AC_CHECK_MEMBER": "system-aclocal",
+      "AC_CHECK_PROG": "system-aclocal",
+      "AC_CHECK_PROGS": "system-aclocal",
+      "AC_CHECK_TOOL": "system-aclocal",
+      "AC_CHECK_TYPE": "system-aclocal",
+      "AC_CHECK_TYPES": "system-aclocal",
+      "AC_COMPILE_IFELSE": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_HEADERS": "system-aclocal",
+      "AC_CONFIG_SRCDIR": "system-aclocal",
+      "AC_DEFINE": "system-aclocal",
+      "AC_DEFINE_UNQUOTED": "system-aclocal",
+      "AC_DEFUN": "system-aclocal",
+      "AC_EGREP_CPP": "system-aclocal",
+      "AC_FUNC_MEMCMP": "system-aclocal",
+      "AC_FUNC_MMAP": "system-aclocal",
+      "AC_GCC_WARNING_SUBST": "system-aclocal",
+      "AC_GCC_WARNING_SUBST_NO": "system-aclocal",
+      "AC_HEADER_TIME": "system-aclocal",
+      "AC_HWCAP_CONTAINS_FLAG": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_LANG": "system-aclocal",
+      "AC_LANG_POP": "system-aclocal",
+      "AC_LANG_PROGRAM": "system-aclocal",
+      "AC_LANG_PUSH": "system-aclocal",
+      "AC_LANG_SOURCE": "system-aclocal",
+      "AC_LINK_IFELSE": "system-aclocal",
+      "AC_MSG_CHECKING": "system-aclocal",
+      "AC_MSG_ERROR": "system-aclocal",
+      "AC_MSG_FAILURE": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "mmt_@VGCONF_ARCH_PRI@_@VGCONF_OS@_SOURCES",
+        "var": "MMT_SOURCES_COMMON",
+        "resolved_to": [
+          "mmt_main.c",
+          "mmt_nv_ioctl.c",
+          "mmt_instrument.c",
+          "mmt_trace.c",
+          "mmt_nouveau_ioctl.c",
+          "mmt_trace_bin.c",
+          "mmt_fglrx_ioctl.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "mmt_@VGCONF_ARCH_PRI@_@VGCONF_OS@_LDADD",
+        "var": "TOOL_LDADD_@VGCONF_PLATFORM_PRI_CAPS@",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "mmt_@VGCONF_ARCH_SEC@_@VGCONF_OS@_SOURCES",
+        "var": "MMT_SOURCES_COMMON",
+        "resolved_to": [
+          "mmt_main.c",
+          "mmt_nv_ioctl.c",
+          "mmt_instrument.c",
+          "mmt_trace.c",
+          "mmt_nouveau_ioctl.c",
+          "mmt_trace_bin.c",
+          "mmt_fglrx_ioctl.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "mmt_@VGCONF_ARCH_SEC@_@VGCONF_OS@_LDADD",
+        "var": "TOOL_LDADD_@VGCONF_PLATFORM_SEC_CAPS@",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "dhat_@VGCONF_ARCH_PRI@_@VGCONF_OS@_SOURCES",
+        "var": "EXP_DHAT_SOURCES_COMMON",
+        "resolved_to": [
+          "dh_main.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "dhat_@VGCONF_ARCH_PRI@_@VGCONF_OS@_LDADD",
+        "var": "TOOL_LDADD_@VGCONF_PLATFORM_PRI_CAPS@",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "dhat_@VGCONF_ARCH_SEC@_@VGCONF_OS@_SOURCES",
+        "var": "EXP_DHAT_SOURCES_COMMON",
+        "resolved_to": [
+          "dh_main.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "dhat_@VGCONF_ARCH_SEC@_@VGCONF_OS@_LDADD",
+        "var": "TOOL_LDADD_@VGCONF_PLATFORM_SEC_CAPS@",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "massif_@VGCONF_ARCH_PRI@_@VGCONF_OS@_SOURCES",
+        "var": "MASSIF_SOURCES_COMMON",
+        "resolved_to": [
+          "ms_main.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "massif_@VGCONF_ARCH_PRI@_@VGCONF_OS@_LDADD",
+        "var": "TOOL_LDADD_@VGCONF_PLATFORM_PRI_CAPS@",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "massif_@VGCONF_ARCH_SEC@_@VGCONF_OS@_SOURCES",
+        "var": "MASSIF_SOURCES_COMMON",
+        "resolved_to": [
+          "ms_main.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "massif_@VGCONF_ARCH_SEC@_@VGCONF_OS@_LDADD",
+        "var": "TOOL_LDADD_@VGCONF_PLATFORM_SEC_CAPS@",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "helgrind_@VGCONF_ARCH_PRI@_@VGCONF_OS@_SOURCES",
+        "var": "HELGRIND_SOURCES_COMMON",
+        "resolved_to": [
+          "hg_addrdescr.c",
+          "hg_basics.c",
+          "hg_errors.c",
+          "hg_lock_n_thread.c",
+          "hg_main.c",
+          "hg_wordset.c",
+          "libhb_core.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "helgrind_@VGCONF_ARCH_PRI@_@VGCONF_OS@_LDADD",
+        "var": "TOOL_LDADD_@VGCONF_PLATFORM_PRI_CAPS@",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "helgrind_@VGCONF_ARCH_SEC@_@VGCONF_OS@_SOURCES",
+        "var": "HELGRIND_SOURCES_COMMON",
+        "resolved_to": [
+          "hg_addrdescr.c",
+          "hg_basics.c",
+          "hg_errors.c",
+          "hg_lock_n_thread.c",
+          "hg_main.c",
+          "hg_wordset.c",
+          "libhb_core.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "helgrind_@VGCONF_ARCH_SEC@_@VGCONF_OS@_LDADD",
+        "var": "TOOL_LDADD_@VGCONF_PLATFORM_SEC_CAPS@",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "vgpreload_helgrind_@VGCONF_ARCH_PRI@_@VGCONF_OS@_so_SOURCES",
+        "var": "VGPRELOAD_HELGRIND_SOURCES_COMMON",
+        "resolved_to": [
+          "hg_intercepts.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "vgpreload_helgrind_@VGCONF_ARCH_SEC@_@VGCONF_OS@_so_SOURCES",
+        "var": "VGPRELOAD_HELGRIND_SOURCES_COMMON",
+        "resolved_to": [
+          "hg_intercepts.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "lackey_@VGCONF_ARCH_PRI@_@VGCONF_OS@_SOURCES",
+        "var": "LACKEY_SOURCES_COMMON",
+        "resolved_to": [
+          "lk_main.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "lackey_@VGCONF_ARCH_PRI@_@VGCONF_OS@_LDADD",
+        "var": "TOOL_LDADD_@VGCONF_PLATFORM_PRI_CAPS@",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "lackey_@VGCONF_ARCH_SEC@_@VGCONF_OS@_SOURCES",
+        "var": "LACKEY_SOURCES_COMMON",
+        "resolved_to": [
+          "lk_main.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "lackey_@VGCONF_ARCH_SEC@_@VGCONF_OS@_LDADD",
+        "var": "TOOL_LDADD_@VGCONF_PLATFORM_SEC_CAPS@",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "none_@VGCONF_ARCH_PRI@_@VGCONF_OS@_SOURCES",
+        "var": "NONE_SOURCES_COMMON",
+        "resolved_to": [
+          "nl_main.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "none_@VGCONF_ARCH_PRI@_@VGCONF_OS@_LDADD",
+        "var": "TOOL_LDADD_@VGCONF_PLATFORM_PRI_CAPS@",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "none_@VGCONF_ARCH_SEC@_@VGCONF_OS@_SOURCES",
+        "var": "NONE_SOURCES_COMMON",
+        "resolved_to": [
+          "nl_main.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "none_@VGCONF_ARCH_SEC@_@VGCONF_OS@_LDADD",
+        "var": "TOOL_LDADD_@VGCONF_PLATFORM_SEC_CAPS@",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "check_PROGRAMS",
+        "var": "INSN_TESTS",
+        "resolved_to": [
+          "insn_basic",
+          "insn_cmov",
+          "insn_mmx",
+          "insn_mmxext",
+          "insn_sse",
+          "insn_sse2",
+          "insn_ssse3",
+          "insn_sse3",
+          "insn_fpu"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "check_PROGRAMS",
+        "var": "INSN_TESTS",
+        "resolved_to": [
+          "clc",
+          "clcle",
+          "cvb",
+          "cvd",
+          "icm",
+          "lpr",
+          "tcxb",
+          "lam_stam",
+          "xc",
+          "mvst",
+          "add",
+          "sub",
+          "mul",
+          "and",
+          "or",
+          "xor",
+          "insert",
+          "div",
+          "srst",
+          "fold_And16",
+          "flogr",
+          "sub_EI",
+          "add_EI",
+          "and_EI",
+          "or_EI",
+          "xor_EI",
+          "insert_EI",
+          "mul_GE",
+          "add_GE",
+          "condloadstore",
+          "op_exception",
+          "fgx",
+          "stck",
+          "stckf",
+          "stcke",
+          "stfle",
+          "cksm",
+          "mvcl",
+          "clcl",
+          "troo",
+          "trto",
+          "trot",
+          "trtt",
+          "tr",
+          "tre",
+          "cij",
+          "cgij",
+          "clij",
+          "clgij",
+          "crj",
+          "cgrj",
+          "clrj",
+          "clgrj",
+          "cs",
+          "csg",
+          "cds",
+          "cdsg",
+          "cu21",
+          "cu21_1",
+          "cu24",
+          "cu24_1",
+          "cu42",
+          "cu12",
+          "cu12_1",
+          "ex_sig",
+          "ex_clone",
+          "cu14",
+          "cu14_1",
+          "cu41",
+          "fpconv",
+          "ecag",
+          "fpext_warn",
+          "rounding-1",
+          "rounding-2",
+          "rounding-3",
+          "rounding-4",
+          "rounding-5",
+          "bfp-1",
+          "bfp-2",
+          "bfp-3",
+          "bfp-4",
+          "srnm",
+          "srnmb",
+          "comp-1",
+          "comp-2",
+          "exrl",
+          "tmll",
+          "tm",
+          "stmg",
+          "ex",
+          "clst",
+          "mvc",
+          "test_fork",
+          "test_sig",
+          "rounding-6",
+          "rxsbg",
+          "popcnt",
+          "high-word",
+          "traps",
+          "spechelper-alr",
+          "spechelper-algr",
+          "spechelper-slr",
+          "spechelper-slgr",
+          "spechelper-cr",
+          "spechelper-clr",
+          "spechelper-ltr",
+          "spechelper-or",
+          "spechelper-icm-1",
+          "spechelper-icm-2",
+          "spechelper-tmll",
+          "spechelper-tm",
+          "laa",
+          "vector",
+          "lsc2",
+          "ppno",
+          "vector_string",
+          "vector_integer",
+          "vector_float",
+          "add-z14",
+          "sub-z14",
+          "mul-z14",
+          "bic",
+          "dfp-1",
+          "dfp-2",
+          "dfp-3",
+          "dfp-4",
+          "dfptest",
+          "dfpext",
+          "dfpconv",
+          "srnmt",
+          "pfpo",
+          "fpext",
+          "fixbr"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "check_PROGRAMS",
+        "var": "INSN_TESTS",
+        "resolved_to": [
+          "insn_basic",
+          "insn_mmx",
+          "insn_sse",
+          "insn_sse2",
+          "insn_fpu",
+          "insn_sse3",
+          "insn_ssse3",
+          "insn_pclmulqdq"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "memcheck_@VGCONF_ARCH_PRI@_@VGCONF_OS@_SOURCES",
+        "var": "MEMCHECK_SOURCES_COMMON",
+        "resolved_to": [
+          "mc_leakcheck.c",
+          "mc_malloc_wrappers.c",
+          "mc_main.c",
+          "mc_main_asm.c",
+          "mc_translate.c",
+          "mc_machine.c",
+          "mc_errors.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "memcheck_@VGCONF_ARCH_PRI@_@VGCONF_OS@_LDADD",
+        "var": "TOOL_LDADD_@VGCONF_PLATFORM_PRI_CAPS@",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "memcheck_@VGCONF_ARCH_SEC@_@VGCONF_OS@_SOURCES",
+        "var": "MEMCHECK_SOURCES_COMMON",
+        "resolved_to": [
+          "mc_leakcheck.c",
+          "mc_malloc_wrappers.c",
+          "mc_main.c",
+          "mc_main_asm.c",
+          "mc_translate.c",
+          "mc_machine.c",
+          "mc_errors.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "memcheck_@VGCONF_ARCH_SEC@_@VGCONF_OS@_LDADD",
+        "var": "TOOL_LDADD_@VGCONF_PLATFORM_SEC_CAPS@",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "vgpreload_memcheck_@VGCONF_ARCH_PRI@_@VGCONF_OS@_so_SOURCES",
+        "var": "VGPRELOAD_MEMCHECK_SOURCES_COMMON",
+        "resolved_to": [
+          "mc_replace_strmem.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "vgpreload_memcheck_@VGCONF_ARCH_SEC@_@VGCONF_OS@_so_SOURCES",
+        "var": "VGPRELOAD_MEMCHECK_SOURCES_COMMON",
+        "resolved_to": [
+          "mc_replace_strmem.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "check_PROGRAMS",
+        "var": "INSN_TESTS",
+        "resolved_to": [
+          "cs",
+          "csg",
+          "cds",
+          "cdsg",
+          "cu21",
+          "cu42",
+          "ltgjhe"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "vbit_test_SOURCES",
+        "var": "SOURCES",
+        "resolved_to": [
+          "main.c",
+          "unary.c",
+          "binary.c",
+          "ternary.c",
+          "qernary.c",
+          "util.c",
+          "vbits.c",
+          "irops.c",
+          "valgrind.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "vbit_test_sec_SOURCES",
+        "var": "SOURCES",
+        "resolved_to": [
+          "main.c",
+          "unary.c",
+          "binary.c",
+          "ternary.c",
+          "qernary.c",
+          "util.c",
+          "vbits.c",
+          "irops.c",
+          "valgrind.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "vbit_test_sec_LDADD",
+        "var": "TOOL_LDADD_@VGCONF_PLATFORM_SEC_CAPS@",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "cachegrind_@VGCONF_ARCH_PRI@_@VGCONF_OS@_SOURCES",
+        "var": "CACHEGRIND_SOURCES_COMMON",
+        "resolved_to": [
+          "cg_main.c",
+          "cg_arch.c"
+        ],
+        "resolved": true
+      }
+    ],
+    "unresolved_refs": [
+      "mmt_@VGCONF_ARCH_PRI@_@VGCONF_OS@_LDADD = $(TOOL_LDADD_@VGCONF_PLATFORM_PRI_CAPS@)",
+      "mmt_@VGCONF_ARCH_SEC@_@VGCONF_OS@_LDADD = $(TOOL_LDADD_@VGCONF_PLATFORM_SEC_CAPS@)",
+      "dhat_@VGCONF_ARCH_PRI@_@VGCONF_OS@_LDADD = $(TOOL_LDADD_@VGCONF_PLATFORM_PRI_CAPS@)",
+      "dhat_@VGCONF_ARCH_SEC@_@VGCONF_OS@_LDADD = $(TOOL_LDADD_@VGCONF_PLATFORM_SEC_CAPS@)",
+      "massif_@VGCONF_ARCH_PRI@_@VGCONF_OS@_LDADD = $(TOOL_LDADD_@VGCONF_PLATFORM_PRI_CAPS@)",
+      "massif_@VGCONF_ARCH_SEC@_@VGCONF_OS@_LDADD = $(TOOL_LDADD_@VGCONF_PLATFORM_SEC_CAPS@)",
+      "helgrind_@VGCONF_ARCH_PRI@_@VGCONF_OS@_LDADD = $(TOOL_LDADD_@VGCONF_PLATFORM_PRI_CAPS@)",
+      "helgrind_@VGCONF_ARCH_SEC@_@VGCONF_OS@_LDADD = $(TOOL_LDADD_@VGCONF_PLATFORM_SEC_CAPS@)",
+      "lackey_@VGCONF_ARCH_PRI@_@VGCONF_OS@_LDADD = $(TOOL_LDADD_@VGCONF_PLATFORM_PRI_CAPS@)",
+      "lackey_@VGCONF_ARCH_SEC@_@VGCONF_OS@_LDADD = $(TOOL_LDADD_@VGCONF_PLATFORM_SEC_CAPS@)",
+      "none_@VGCONF_ARCH_PRI@_@VGCONF_OS@_LDADD = $(TOOL_LDADD_@VGCONF_PLATFORM_PRI_CAPS@)",
+      "none_@VGCONF_ARCH_SEC@_@VGCONF_OS@_LDADD = $(TOOL_LDADD_@VGCONF_PLATFORM_SEC_CAPS@)",
+      "memcheck_@VGCONF_ARCH_PRI@_@VGCONF_OS@_LDADD = $(TOOL_LDADD_@VGCONF_PLATFORM_PRI_CAPS@)",
+      "memcheck_@VGCONF_ARCH_SEC@_@VGCONF_OS@_LDADD = $(TOOL_LDADD_@VGCONF_PLATFORM_SEC_CAPS@)",
+      "vbit_test_sec_LDADD = $(TOOL_LDADD_@VGCONF_PLATFORM_SEC_CAPS@)",
+      "cachegrind_@VGCONF_ARCH_PRI@_@VGCONF_OS@_LDADD = $(TOOL_LDADD_@VGCONF_PLATFORM_PRI_CAPS@)",
+      "cachegrind_@VGCONF_ARCH_SEC@_@VGCONF_OS@_LDADD = $(TOOL_LDADD_@VGCONF_PLATFORM_SEC_CAPS@)",
+      "exp_bbv_@VGCONF_ARCH_PRI@_@VGCONF_OS@_LDADD = $(TOOL_LDADD_@VGCONF_PLATFORM_PRI_CAPS@)",
+      "exp_bbv_@VGCONF_ARCH_SEC@_@VGCONF_OS@_LDADD = $(TOOL_LDADD_@VGCONF_PLATFORM_SEC_CAPS@)",
+      "nodist_libcoregrind_@VGCONF_ARCH_PRI@_@VGCONF_OS@_a_SOURCES = $(BUILT_SOURCES)",
+      "libcoregrind_@VGCONF_ARCH_PRI@_@VGCONF_OS@_a_LIBADD = $(libnolto_coregrind_@VGCONF_ARCH_PRI@_@VGCONF_OS@_a_OBJECTS)",
+      "nodist_libcoregrind_@VGCONF_ARCH_SEC@_@VGCONF_OS@_a_SOURCES = $(BUILT_SOURCES)",
+      "libcoregrind_@VGCONF_ARCH_SEC@_@VGCONF_OS@_a_LIBADD = $(libnolto_coregrind_@VGCONF_ARCH_SEC@_@VGCONF_OS@_a_OBJECTS)",
+      "getoff_@VGCONF_ARCH_PRI@_@VGCONF_OS@_LDADD = $(LDADD)",
+      "getoff_@VGCONF_ARCH_SEC@_@VGCONF_OS@_LDADD = $(LDADD)",
+      "drd_@VGCONF_ARCH_PRI@_@VGCONF_OS@_LDADD = $(TOOL_LDADD_@VGCONF_PLATFORM_PRI_CAPS@)",
+      "drd_@VGCONF_ARCH_SEC@_@VGCONF_OS@_LDADD = $(TOOL_LDADD_@VGCONF_PLATFORM_SEC_CAPS@)",
+      "boost_thread_LDADD = $(BOOST_LIBS)",
+      "callgrind_@VGCONF_ARCH_PRI@_@VGCONF_OS@_LDADD = $(TOOL_LDADD_@VGCONF_PLATFORM_PRI_CAPS@)",
+      "callgrind_@VGCONF_ARCH_SEC@_@VGCONF_OS@_LDADD = $(TOOL_LDADD_@VGCONF_PLATFORM_SEC_CAPS@)"
+    ],
+    "indirection_count": 73
   }
 }

@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "christian-sahlmann/gwyddion",
   "source": {
     "url": "https://github.com/christian-sahlmann/gwyddion",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -21,6 +21,16 @@
     {
       "step": "autoreconf",
       "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "fail"
+    },
+    {
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
       "status": "fail"
     }
   ],
@@ -41,19 +51,91 @@
     "subdirs"
   ],
   "outputs": [],
-  "status": "CONFIGURE_GEN_FAIL",
+  "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "",
-  "oracle": {
-    "real_autoreconf": "fail",
-    "real_configure": "skipped",
-    "real_make": "skipped",
-    "real_configure_lines": 0,
-    "real_first_error": "Can't exec \"gtkdocize\": No such file or directory at /usr/share/autoconf/Autom4te/FileUtils.pm line 293.",
-    "classification": "NOT_STANDALONE"
+  "diagnostic": "./configure: line 1740: gconftool-2: command not found",
+  "deep_expansion": {
+    "configure_lines": 5819,
+    "leaked_macros": [],
+    "heredoc_openers": 44,
+    "heredoc_terminators": 44,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 3985,
+        "token": "newline",
+        "source": "esacMSGFMT=\"$ac_cv_path_MSGFMT\"",
+        "block": [
+          "3981:     done",
+          "3982:     IFS=\"$ac_save_IFS\"",
+          "3983:   test -z \"$ac_cv_path_MSGFMT\" && ac_cv_path_MSGFMT=\":\"",
+          "3984:     ;;",
+          "3985: esacMSGFMT=\"$ac_cv_path_MSGFMT\"",
+          "3986: if test \"$MSGFMT\" != \":\"; then",
+          "3987:   printf '%s\\n' \"$MSGFMT\"",
+          "3988: else"
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 1419: # eval \"_acrs_sv=\\${}\"; printf '%s\\n' \"s|@@|${_acrs_sv}|g\" >",
+      "line 4337: if test \"${$gt_func_gnugettext_libc+set}\" = set; then",
+      "line 4380: if test \"${$gt_func_gnugettext_libintl+set}\" = set; then",
+      "line 5273: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "GWY_VERSION_MAJOR",
+      "GWY_VERSION_MINOR",
+      "GWY_VERSION_STRING",
+      "LIBRARY_RELEASE",
+      "HTML_DIR",
+      "ENABLE_GTK_DOC_TRUE",
+      "ENABLE_GTK_DOC_FALSE",
+      "GTK_DOC_USE_LIBTOOL_TRUE",
+      "GTK_DOC_USE_LIBTOOL_FALSE",
+      "GTK_DOC_PATH",
+      "OS_MSWIN_TRUE",
+      "OS_MSWIN_FALSE",
+      "MSWIN_BITS",
+      "OS_DARWIN_TRUE",
+      "OS_DARWIN_FALSE",
+      "HOME_INSTALLATION_TRUE",
+      "HOME_INSTALLATION_FALSE",
+      "XDG_DATA_HOME_DIR",
+      "MODULE_DEPENDENCIES_TRUE",
+      "MODULE_DEPENDENCIES_FALSE",
+      "DESKTOP_FILE_UPDATE_TRUE",
+      "DESKTOP_FILE_UPDATE_FALSE",
+      "GCONF_SCHEMAS_INSTALL_TRUE",
+      "GCONF_SCHEMAS_INSTALL_FALSE",
+      "GCONF_SCHEMA_CONFIG_SOURCE",
+      "GCONF_SCHEMA_FILE_DIR",
+      "HAVE_PYTHON_TRUE",
+      "HAVE_PYTHON_FALSE",
+      "PYTHON_SYSCFG_BASECFLAGS"
+    ],
+    "failed_during_check": "checking for python... /usr/bin/python3",
+    "failure_tail": [
+      "checking for python... /usr/bin/python3",
+      "./configure: line 3985: syntax error near unexpected token `newline'",
+      "./configure: line 3985: `esacMSGFMT=\"$ac_cv_path_MSGFMT\"'"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 20,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "#include <stdio.h>\\n#include <sys/types.h>\\n#include <stdint.h>\\n#include <stddef.h>\\nint main() { printf(\"%d\", (int)sizeof(void*)); return 0; }",
+      "char PyRun_String ();\\nint main() { return PyRun_String(); }",
+      "\\nint main() {  ; return 0; }",
+      "\\nint main() {  ; return 0; }",
+      "\\nint main() {  ; return 0; }",
+      "\\nint main() {  ; return 0; }"
+    ]
   },
   "receipt": {
-    "court_status": "not_standalone",
+    "court_status": "failed",
     "probe_trace": [],
     "quirks_matched": [
       "uses-libtool-old",
@@ -65,7 +147,14 @@
       "vendored-aclocal",
       "perl-in-configure"
     ],
-    "receipt_hash": "9b7adf94931adf8777cc7048ba55dbbb62d313e6a3801307971c3b426cb3bcb8",
+    "quirks_applied": [
+      {
+        "id": "uses-maintainer-mode",
+        "action": "--disable-maintainer-mode",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -74,6 +163,1719 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "app/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "data/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "data/glmaterials/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "data/gradients/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "data/gwyddion.nsit",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "data/gwyddion.pc",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "data/mingw-gwyddion-libs.spec",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "devel-docs/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "devel-docs/libgwyapp/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "devel-docs/libgwyapp/releaseinfo.xml",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "devel-docs/libgwyddion/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "devel-docs/libgwyddion/releaseinfo.xml",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "devel-docs/libgwydgets/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "devel-docs/libgwydgets/releaseinfo.xml",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "devel-docs/libgwydraw/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "devel-docs/libgwydraw/releaseinfo.xml",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "devel-docs/libgwymodule/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "devel-docs/libgwymodule/releaseinfo.xml",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "devel-docs/libgwyprocess/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "devel-docs/libgwyprocess/releaseinfo.xml",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "gwyddion.spec:data/gwyddion.spec.in",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": false
+      },
+      {
+        "path": "libdraw/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "libgwyddion/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "libgwyddion/gwyversion.h",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "libgwydgets/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "libgwymodule/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "libprocess/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "m4/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "modules/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "modules/file/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "modules/graph/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "modules/layer/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "modules/process/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "modules/pygwy/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "modules/tools/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "modules/volume/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "modules/xyz/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "perl/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "pixmaps/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "plugins/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "plugins/file/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "plugins/process/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "po/Makefile.in",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "python/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "ruby/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "thumbnailer/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "utils/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      }
+    ],
+    "config_headers": [],
+    "subdirs": [
+      "m4",
+      "libgwyddion",
+      "libprocess",
+      "libdraw",
+      "libgwydgets",
+      "libgwymodule",
+      "app",
+      "modules",
+      "plugins",
+      "po",
+      "pixmaps",
+      "perl",
+      "python",
+      "ruby",
+      "data",
+      "utils",
+      "thumbnailer",
+      "devel-docs",
+      "glmaterials",
+      "gradients",
+      "libgwyddion",
+      "libgwyprocess",
+      "libgwydraw",
+      "libgwydgets",
+      "libgwymodule",
+      "libgwyapp",
+      "file",
+      "graph",
+      "layer",
+      "process",
+      "tools",
+      "volume",
+      "xyz",
+      "pygwy",
+      "file",
+      "process"
+    ],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [],
+        "subdirs": [
+          "m4",
+          "libgwyddion",
+          "libprocess",
+          "libdraw",
+          "libgwydgets",
+          "libgwymodule",
+          "app",
+          "modules",
+          "plugins",
+          "po",
+          "pixmaps",
+          "perl",
+          "python",
+          "ruby",
+          "data",
+          "utils",
+          "thumbnailer",
+          "devel-docs"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "app",
+        "targets": [
+          "gwyddion",
+          "libgwyapp2.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)"
+      },
+      {
+        "dir": "data",
+        "targets": [],
+        "subdirs": [
+          "glmaterials",
+          "gradients"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "devel-docs",
+        "targets": [],
+        "subdirs": [
+          "libgwyddion",
+          "libgwyprocess",
+          "libgwydraw",
+          "libgwydgets",
+          "libgwymodule",
+          "libgwyapp"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "libdraw",
+        "targets": [
+          "libgwydraw2.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir) -DG_LOG_DOMAIN=\\\"GwyDraw\\\""
+      },
+      {
+        "dir": "libgwyddion",
+        "targets": [
+          "libgwyddion2.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_builddir)  \t-I$(top_srcdir)  \t-DG_LOG_DOMAIN=\\\"Gwyddion\\\"  \t-DGWY_LIBDIR=\\\"$(libdir)\\\"  \t-DGWY_LIBEXECDIR=\\\"$(li"
+      },
+      {
+        "dir": "libgwydgets",
+        "targets": [
+          "libgwydgets2.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir) -DG_LOG_DOMAIN=\\\"Gwydgets\\\""
+      },
+      {
+        "dir": "libgwymodule",
+        "targets": [
+          "libgwymodule2.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir) -DG_LOG_DOMAIN=\\\"GwyModule\\\""
+      },
+      {
+        "dir": "libprocess",
+        "targets": [
+          "libgwyprocess2.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir) -DG_LOG_DOMAIN=\\\"GwyProcess\\\""
+      },
+      {
+        "dir": "modules",
+        "targets": [
+          "$(plugin_proxy_module)"
+        ],
+        "subdirs": [
+          "file",
+          "graph",
+          "layer",
+          "process",
+          "tools",
+          "volume",
+          "xyz",
+          "pygwy"
+        ],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir) -DG_LOG_DOMAIN=\\\"Module\\\""
+      },
+      {
+        "dir": "modules/file",
+        "targets": [
+          "accurexii-txt.la",
+          "aistfile.la",
+          "alicona.la",
+          "ambfile.la",
+          "anfatec.la",
+          "apefile.la",
+          "$(apedaxfile_module)",
+          "asciiexport.la",
+          "assing-afm.la",
+          "attocube.la",
+          "bcrfile.la",
+          "burleigh.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir) -DG_LOG_DOMAIN=\\\"Module\\\""
+      },
+      {
+        "dir": "modules/graph",
+        "targets": [
+          "graph_align.la",
+          "graph_cd.la",
+          "graph_cut.la",
+          "graph_dos_spectrum.la",
+          "graph_export_ascii.la",
+          "graph_export_bitmap.la",
+          "graph_export_vector.la",
+          "graph_fdfit.la",
+          "graph_filter.la",
+          "graph_fit.la",
+          "graph_level.la",
+          "graph_peaks.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir) -DG_LOG_DOMAIN=\\\"Module\\\""
+      },
+      {
+        "dir": "modules/layer",
+        "targets": [
+          "axis.la",
+          "ellipse.la",
+          "lattice.la",
+          "line.la",
+          "path.la",
+          "point.la",
+          "rectangle.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir) -DG_LOG_DOMAIN=\\\"Module\\\""
+      },
+      {
+        "dir": "modules/process",
+        "targets": [
+          "acf2d.la",
+          "angle_dist.la",
+          "arithmetic.la",
+          "averaging.la",
+          "basicops.la",
+          "bdep_synth.la",
+          "calcoefs_load.la",
+          "calcoefs_new.la",
+          "calcoefs_simple.la",
+          "calcoefs_view.la",
+          "calibrate.la",
+          "coerce.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir) -DG_LOG_DOMAIN=\\\"Module\\\""
+      },
+      {
+        "dir": "modules/pygwy",
+        "targets": [
+          "$(pygwy_module)",
+          "$(gwy_pymodule)"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir) -DG_LOG_DOMAIN=\\\"Module\\\""
+      },
+      {
+        "dir": "modules/tools",
+        "targets": [
+          "crop.la",
+          "distance.la",
+          "filter.la",
+          "grainmeasure.la",
+          "grainremover.la",
+          "icolorange.la",
+          "level3.la",
+          "linestats.la",
+          "maskedit.la",
+          "pathlevel.la",
+          "profile.la",
+          "readvalue.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir) -DG_LOG_DOMAIN=\\\"Module\\\""
+      },
+      {
+        "dir": "modules/volume",
+        "targets": [
+          "volume_calibrate.la",
+          "volume_extract.la",
+          "volume_fdfit.la",
+          "volume_invert.la",
+          "volume_kmeans.la",
+          "volume_kmedians.la",
+          "volume_linestat.la",
+          "volume_slice.la",
+          "volume_zcal.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir) -DG_LOG_DOMAIN=\\\"Module\\\""
+      },
+      {
+        "dir": "modules/xyz",
+        "targets": [
+          "xyz_drift.la",
+          "xyz_level.la",
+          "xyz_raster.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir) -DG_LOG_DOMAIN=\\\"Module\\\""
+      },
+      {
+        "dir": "plugins",
+        "targets": [],
+        "subdirs": [
+          "file",
+          "process"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "plugins/file",
+        "targets": [
+          "dump"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-DDEBUG -DG_LOG_DOMAIN=\\\"Plug-in\\\""
+      },
+      {
+        "dir": "plugins/process",
+        "targets": [
+          "$(pascal_plugins)"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "thumbnailer",
+        "targets": [
+          "gwyddion-thumbnailer",
+          "$(gwythumbcreator_module)"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)"
+      },
+      {
+        "dir": "utils",
+        "targets": [
+          "dump-modules"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)"
+      }
+    ],
+    "max_depth": 2,
+    "config_h_consumers_below_root": [
+      "modules",
+      "modules/pygwy",
+      "modules/tools",
+      "modules/graph",
+      "modules/process",
+      "modules/file",
+      "modules/layer",
+      "modules/xyz",
+      "modules/volume",
+      "libgwyddion",
+      "app",
+      "libprocess",
+      "plugins/file",
+      "libdraw",
+      "libgwydgets",
+      "utils",
+      "thumbnailer",
+      "libgwymodule"
+    ]
+  },
+  "tool_requirements": {
+    "detected": [
+      "python",
+      "c++",
+      "gtkdocize",
+      "xgettext",
+      "perl"
+    ],
+    "missing": [
+      {
+        "name": "gconftool-2",
+        "phase": "make",
+        "suggested_package": ""
+      }
+    ]
+  },
+  "macro_inventory": {
+    "macro_dirs": [
+      "m4"
+    ],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [
+      {
+        "name": "AC_TYPE_LONG_LONG_INT",
+        "source": "m4/longlong.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "gl_AC_TYPE_LONG_LONG",
+        "source": "m4/longlong.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "GWY_ENABLE",
+        "source": "m4/gwy-enable.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "GWY_WITH",
+        "source": "m4/gwy-enable.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AM_PO_SUBDIRS",
+        "source": "m4/po.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AM_POSTPROCESS_PO_MAKEFILE",
+        "source": "m4/po.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AM_GCONF_SOURCE_2",
+        "source": "m4/gconf-2.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "bh_C_SIGNED",
+        "source": "m4/signed.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "PKG_PROG_PKG_CONFIG",
+        "source": "m4/pkg.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "PKG_CHECK_EXISTS",
+        "source": "m4/pkg.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_PKG_SHORT_ERRORS_SUPPORTED",
+        "source": "m4/pkg.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "PKG_CHECK_MODULES",
+        "source": "m4/pkg.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_XSIZE",
+        "source": "m4/xsize.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AM_CHECK_PYTHON_HEADERS",
+        "source": "m4/python-include.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "gl_GLIBC21",
+        "source": "m4/glibc21.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gt_TYPE_INTMAX_T",
+        "source": "m4/intmax.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AM_PATH_PROG_WITH_TEST",
+        "source": "m4/progtest.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "gt_LC_MESSAGES",
+        "source": "m4/lcmessage.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "GTK_DOC_CHECK",
+        "source": "m4/gtk-doc.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AM_ICONV_LINKFLAGS_BODY",
+        "source": "m4/iconv.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AM_ICONV_LINK",
+        "source": "m4/iconv.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AM_ICONV",
+        "source": "m4/iconv.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "GWY_PROG_CC_OPTION",
+        "source": "m4/gwy-cc-options.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "GWY_CHECK_LIBM",
+        "source": "m4/gwy-math.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "GWY_CHECK_MATH_FUNC",
+        "source": "m4/gwy-math.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "GWY_CHECK_MATH_FUNCS",
+        "source": "m4/gwy-math.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "GWY_OUTPUT_MATH_FUNC",
+        "source": "m4/gwy-math.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "GWY_OUTPUT_MATH_FUNCS",
+        "source": "m4/gwy-math.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AM_NLS",
+        "source": "m4/nls.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "gt_TYPE_WCHAR_T",
+        "source": "m4/wchar_t.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_SIZE_MAX",
+        "source": "m4/size_max.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "GWY_PYTHON_SYSCFG_VAR",
+        "source": "m4/gwy-python.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "GWY_CHECK_PYTHON_HEADERS",
+        "source": "m4/gwy-python.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gt_TYPE_WINT_T",
+        "source": "m4/wint_t.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gt_PRINTF_POSIX",
+        "source": "m4/printf-posix.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AM_LANGINFO_CODESET",
+        "source": "m4/codeset.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "GWY_CHECK_FPCLASSIFY",
+        "source": "m4/gwy-c99math.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AM_GNU_GETTEXT",
+        "source": "m4/gettext.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "gt_INTL_MACOSX",
+        "source": "m4/gettext.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AM_GNU_GETTEXT_NEED",
+        "source": "m4/gettext.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AM_GNU_GETTEXT_VERSION",
+        "source": "m4/gettext.m4",
+        "kind": "AM"
+      }
+    ],
+    "called_macros": [
+      "AC_ARG_ENABLE",
+      "AC_ARG_VAR",
+      "AC_CANONICAL_HOST",
+      "AC_CHECK_FUNCS",
+      "AC_CHECK_HEADER",
+      "AC_CHECK_HEADERS",
+      "AC_CHECK_LIB",
+      "AC_CHECK_PROG",
+      "AC_CHECK_PROGS",
+      "AC_CHECK_SIZEOF",
+      "AC_CONFIG_COMMANDS",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_HEADER",
+      "AC_CONFIG_MACRO_DIR",
+      "AC_CONFIG_SRCDIR",
+      "AC_DEFINE",
+      "AC_DEFINE_UNQUOTED",
+      "AC_DISABLE_STATIC",
+      "AC_HELP_STRING",
+      "AC_INIT",
+      "AC_LANG_POP",
+      "AC_LANG_PUSH",
+      "AC_LANG_SOURCE",
+      "AC_LIBTOOL_WIN32_DLL",
+      "AC_LINK_IFELSE",
+      "AC_MSG_CHECKING",
+      "AC_MSG_NOTICE",
+      "AC_MSG_RESULT",
+      "AC_MSG_WARN",
+      "AC_OUTPUT",
+      "AC_PATH_PROGS",
+      "AC_PATH_TOOL",
+      "AC_PATH_XTRA",
+      "AC_PREREQ",
+      "AC_PROG_CC",
+      "AC_PROG_CC_C99",
+      "AC_PROG_CXX",
+      "AC_PROG_INSTALL",
+      "AC_PROG_LIBTOOL",
+      "AC_SUBST",
+      "AC_USE_SYSTEM_EXTENSIONS",
+      "AM_CONDITIONAL",
+      "AM_GCONF_SOURCE_2",
+      "AM_GNU_GETTEXT",
+      "AM_INIT_AUTOMAKE",
+      "AM_MAINTAINER_MODE",
+      "AM_PATH_PYTHON",
+      "AM_SILENT_RULES",
+      "GTK_BASE",
+      "GTK_CFLAGS",
+      "GTK_DOC_CHECK",
+      "GTK_LIBS",
+      "GTK_MAC",
+      "LT_AC_LANG_F77_CONFIG",
+      "PKG_CHECK_MODULES",
+      "PKG_CONFIG"
+    ],
+    "unresolved_macros": [
+      "GTK_BASE",
+      "GTK_CFLAGS",
+      "GTK_LIBS",
+      "GTK_MAC"
+    ]
+  },
+  "conditional_context": {
+    "configure_if": 504,
+    "configure_fi": 474,
+    "configure_case": 93,
+    "configure_esac": 96,
+    "balanced": false,
+    "automake_conditionals": [
+      "OS_MSWIN",
+      "OS_DARWIN",
+      "HOME_INSTALLATION",
+      "MODULE_DEPENDENCIES",
+      "DESKTOP_FILE_UPDATE",
+      "GCONF_SCHEMAS_INSTALL",
+      "HAVE_PYTHON",
+      "ENABLE_PYGWY",
+      "HAVE_PERL",
+      "HAVE_RUBY",
+      "HAVE_RUBY_NARRAY",
+      "HAVE_PASCAL",
+      "HAVE_ZLIB",
+      "HAVE_BZIP2",
+      "HAVE_MINIZIP",
+      "HAVE_LIBZIP",
+      "HAVE_ANY_ZIP",
+      "HAVE_PNG",
+      "HAVE_WEBP",
+      "HAVE_CXX",
+      "HAVE_EXR",
+      "HAVE_CFITSIO",
+      "HAVE_XML2",
+      "KDE4_THUMBNAILER",
+      "ENABLE_PLUGIN_PROXY"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": ".",
+    "present": [
+      "install-sh",
+      "missing"
+    ],
+    "missing": [
+      "depcomp",
+      "compile",
+      "ltmain.sh",
+      "config.guess",
+      "config.sub"
+    ]
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "c": 445,
+      "cc": 4,
+      "h": 181
+    },
+    "configure_macros": [
+      "AC_PROG_CC",
+      "AC_PROG_CXX",
+      "AC_PROG_CC_C99"
+    ],
+    "needs_cxx": true,
+    "needs_fortran": false,
+    "sets_c_std": true
+  },
+  "libtool_context": {
+    "uses_libtool": true,
+    "macros": [
+      "AC_PROG_LIBTOOL"
+    ],
+    "ltmain_present": false,
+    "libtool_m4_sources": [
+      "aclocal.m4"
+    ],
+    "age": "old"
+  },
+  "gettext_intl_context": {
+    "uses_gettext": true,
+    "uses_intltool": false,
+    "po_dir_present": true,
+    "missing_files": [
+      "config.rpath"
+    ]
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": false,
+    "defines_sampled": []
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-maintainer-mode",
+      "applied_at": "configure",
+      "effect": "neutral",
+      "effectiveness": "low"
+    },
+    {
+      "quirk_id": "uses-libtool-old",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-pkg-config",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-gettext",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-python",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "has-m4-macro-dir",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "perl-in-configure",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "vpath_analysis": {
+    "hardcoded_src_paths": 7,
+    "abs_path_leakage": 0,
+    "built_sources": [
+      "pygwywrap.c",
+      "authors.h"
+    ],
+    "generated_source_targets": [
+      "pygwy.lang"
+    ]
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "GL/glext.h",
+      "QtCore/qstring.h",
+      "QtGui/qimage.h",
+      "X11/Xmu/WinUtil.h",
+      "bzlib.h",
+      "kio/thumbcreator.h",
+      "stdbool.h",
+      "zlib.h"
+    ],
+    "headers_included_unchecked": [
+      "AppKit/AppKit.h",
+      "CoreFoundation/CoreFoundation.h",
+      "GL/gl.h",
+      "OpenGL/gl.h",
+      "X11/Xatom.h",
+      "app/app.h",
+      "app/data-browser.h",
+      "app/datachooser.h",
+      "app/file.h",
+      "app/filelist.h",
+      "app/funcuse.h",
+      "app/glmaterial-editor.h",
+      "app/gradient-editor.h",
+      "app/gwyapp.h",
+      "app/gwyappfilechooser.h",
+      "app/gwyapptypes.h",
+      "app/gwymoduleutils-file.h",
+      "app/gwymoduleutils.h",
+      "app/gwyplaintool.h",
+      "app/gwytool.h",
+      "app/help.h",
+      "app/log.h",
+      "app/logging.h",
+      "app/menu.h",
+      "app/meta.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 6,
+    "shadowed_macros": [
+      "AC_TYPE_LONG_LONG_INT",
+      "AM_PO_SUBDIRS",
+      "AM_POSTPROCESS_PO_MAKEFILE",
+      "AM_GCONF_SOURCE_2",
+      "AM_CHECK_PYTHON_HEADERS",
+      "AM_PATH_PROG_WITH_TEST",
+      "AM_ICONV_LINKFLAGS_BODY",
+      "AM_ICONV_LINK",
+      "AM_ICONV",
+      "AM_NLS",
+      "AM_LANGINFO_CODESET",
+      "AM_GNU_GETTEXT",
+      "AM_GNU_GETTEXT_NEED",
+      "AM_GNU_GETTEXT_VERSION"
+    ]
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "c99",
+    "strip_modern_poison_flags": [],
+    "inject_legacy_shims": false,
+    "compiler_aliasing": {}
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 20,
+    "shadowed_builtins": [
+      "AC_TYPE_LONG_LONG_INT",
+      "AM_PO_SUBDIRS",
+      "AM_POSTPROCESS_PO_MAKEFILE",
+      "AM_GCONF_SOURCE_2",
+      "AM_CHECK_PYTHON_HEADERS",
+      "AM_PATH_PROG_WITH_TEST",
+      "AM_ICONV_LINKFLAGS_BODY",
+      "AM_ICONV_LINK",
+      "AM_ICONV",
+      "AM_NLS",
+      "AM_LANGINFO_CODESET",
+      "AM_GNU_GETTEXT",
+      "AM_GNU_GETTEXT_NEED",
+      "AM_GNU_GETTEXT_VERSION"
+    ],
+    "permitted_mutations": 3,
+    "suspect_global_mutations": 0
+  },
+  "parallel_build_safety": {
+    "vpath_out_of_tree_safe": false,
+    "generators": [
+      "pygwy.lang"
+    ],
+    "unordered_generated_sources": [
+      "pygwy.lang"
+    ],
+    "built_sources_declared": true
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "AppKit/AppKit.h",
+      "CoreFoundation/CoreFoundation.h",
+      "GL/gl.h",
+      "OpenGL/gl.h",
+      "X11/Xatom.h",
+      "app/app.h",
+      "app/data-browser.h",
+      "app/datachooser.h",
+      "app/file.h",
+      "app/filelist.h",
+      "app/funcuse.h",
+      "app/glmaterial-editor.h",
+      "app/gradient-editor.h",
+      "app/gwyapp.h",
+      "app/gwyappfilechooser.h",
+      "app/gwyapptypes.h",
+      "app/gwymoduleutils-file.h",
+      "app/gwymoduleutils.h",
+      "app/gwyplaintool.h",
+      "app/gwytool.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "subdir-config-h-include-path",
+    "unresolved-macros",
+    "ancient-libtool",
+    "gettext-support-files-missing",
+    "parallel-build-race (gen-source not in BUILT_SOURCES)",
+    "vpath-unsafe (abs-path/hardcoded-srcdir leakage)"
+  ],
+  "repair_hints": [
+    {
+      "id": "subdir-top-builddir",
+      "phase": "make",
+      "confidence": 0.88,
+      "evidence": [
+        "modules consumes config.h below root",
+        "modules/pygwy consumes config.h below root",
+        "modules/tools consumes config.h below root",
+        "modules/graph consumes config.h below root",
+        "modules/process consumes config.h below root"
+      ],
+      "action": "ensure ac_subst_file sets relative top_builddir per subdir (0.1.19)",
+      "expected_effect": "config.h found in subdir compiles"
+    },
+    {
+      "id": "load-vendored-aclocal-dir",
+      "phase": "autoreconf",
+      "confidence": 0.85,
+      "evidence": [
+        "GTK_BASE",
+        "GTK_CFLAGS",
+        "GTK_LIBS",
+        "GTK_MAC"
+      ],
+      "action": "aclocal -I m4",
+      "expected_effect": "resolves unexpanded AX_/custom macros"
+    },
+    {
+      "id": "missing-build-tool",
+      "phase": "make",
+      "confidence": 0.75,
+      "evidence": [
+        "gconftool-2: command not found"
+      ],
+      "action": "provide gconftool-2",
+      "expected_effect": "unblocks the build step needing this tool"
+    }
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": -4,
+      "Makefile.in": 1545,
+      "aclocal.m4": 57,
+      "config.h.in": 85,
+      "configure": 80,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_ENABLE": "system-aclocal",
+      "AC_ARG_VAR": "system-aclocal",
+      "AC_CANONICAL_HOST": "system-aclocal",
+      "AC_CHECK_FUNCS": "system-aclocal",
+      "AC_CHECK_HEADER": "system-aclocal",
+      "AC_CHECK_HEADERS": "system-aclocal",
+      "AC_CHECK_LIB": "system-aclocal",
+      "AC_CHECK_PROG": "system-aclocal",
+      "AC_CHECK_PROGS": "system-aclocal",
+      "AC_CHECK_SIZEOF": "system-aclocal",
+      "AC_CONFIG_COMMANDS": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_HEADER": "system-aclocal",
+      "AC_CONFIG_MACRO_DIR": "system-aclocal",
+      "AC_CONFIG_SRCDIR": "system-aclocal",
+      "AC_DEFINE": "system-aclocal",
+      "AC_DEFINE_UNQUOTED": "system-aclocal",
+      "AC_DISABLE_STATIC": "system-aclocal",
+      "AC_HELP_STRING": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_LANG_POP": "system-aclocal",
+      "AC_LANG_PUSH": "system-aclocal",
+      "AC_LANG_SOURCE": "system-aclocal",
+      "AC_LIBTOOL_WIN32_DLL": "system-aclocal",
+      "AC_LINK_IFELSE": "system-aclocal",
+      "AC_MSG_CHECKING": "system-aclocal",
+      "AC_MSG_NOTICE": "system-aclocal",
+      "AC_MSG_RESULT": "system-aclocal",
+      "AC_MSG_WARN": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PATH_PROGS": "system-aclocal",
+      "AC_PATH_TOOL": "system-aclocal",
+      "AC_PATH_XTRA": "system-aclocal",
+      "AC_PREREQ": "system-aclocal",
+      "AC_PROG_CC": "system-aclocal",
+      "AC_PROG_CC_C99": "system-aclocal",
+      "AC_PROG_CXX": "system-aclocal",
+      "AC_PROG_INSTALL": "system-aclocal",
+      "AC_PROG_LIBTOOL": "system-aclocal",
+      "AC_SUBST": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "module_LTLIBRARIES",
+        "var": "plugin_proxy_module",
+        "resolved_to": [
+          "plugin-proxy.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "plugin_proxy_la_LIBADD",
+        "var": "module_libadd",
+        "resolved_to": [
+          "$(top_builddir)/app/libgwyapp2.la",
+          "$(top_builddir)/libdraw/libgwydraw2.la",
+          "$(top_builddir)/libgwyddion/libgwyddion2.la",
+          "$(top_builddir)/libgwydgets/libgwydgets2.la",
+          "$(top_builddir)/libgwymodule/libgwymodule2.la",
+          "$(top_builddir)/libprocess/libgwyprocess2.la",
+          "@GTK_LIBS@"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "module_LTLIBRARIES",
+        "var": "pygwy_module",
+        "resolved_to": [
+          "pygwy.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "pyexec_LTLIBRARIES",
+        "var": "gwy_pymodule",
+        "resolved_to": [
+          "gwy.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "pygwy_la_LIBADD",
+        "var": "module_libadd",
+        "resolved_to": [
+          "$(top_builddir)/app/libgwyapp2.la",
+          "$(top_builddir)/libdraw/libgwydraw2.la",
+          "$(top_builddir)/libgwyddion/libgwyddion2.la",
+          "$(top_builddir)/libgwydgets/libgwydgets2.la",
+          "$(top_builddir)/libgwymodule/libgwymodule2.la",
+          "$(top_builddir)/libprocess/libgwyprocess2.la",
+          "@GTK_LIBS@"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "pygwy_la_LIBADD",
+        "var": "PYTHON_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "pygwy_la_LIBADD",
+        "var": "PYGTK_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "gwy_la_LIBADD",
+        "var": "PYGTK_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "gwy_la_LIBADD",
+        "var": "PYTHON_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "apedaxfile_la_LIBADD",
+        "var": "zip_libs",
+        "resolved_to": [
+          "@LIBZIP_LIBS@",
+          "@MINIZIP_LIBS@"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "nanoobserver_la_LIBADD",
+        "var": "zip_libs",
+        "resolved_to": [
+          "@LIBZIP_LIBS@",
+          "@MINIZIP_LIBS@"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "nanoscantech_la_LIBADD",
+        "var": "zip_libs",
+        "resolved_to": [
+          "@LIBZIP_LIBS@",
+          "@MINIZIP_LIBS@"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "opengps_la_LIBADD",
+        "var": "zip_libs",
+        "resolved_to": [
+          "@LIBZIP_LIBS@",
+          "@MINIZIP_LIBS@"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "sensofarx_la_LIBADD",
+        "var": "zip_libs",
+        "resolved_to": [
+          "@LIBZIP_LIBS@",
+          "@MINIZIP_LIBS@"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "spmxfile_la_LIBADD",
+        "var": "zip_libs",
+        "resolved_to": [
+          "@LIBZIP_LIBS@",
+          "@MINIZIP_LIBS@"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "jpkscan_la_LIBADD",
+        "var": "zip_libs",
+        "resolved_to": [
+          "@LIBZIP_LIBS@",
+          "@MINIZIP_LIBS@"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "file_LTLIBRARIES",
+        "var": "apedaxfile_module",
+        "resolved_to": [
+          "apedaxfile.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "file_LTLIBRARIES",
+        "var": "fitsfile_module",
+        "resolved_to": [
+          "fitsfile.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "file_LTLIBRARIES",
+        "var": "hdrimage_module",
+        "resolved_to": [
+          "hdrimage.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "file_LTLIBRARIES",
+        "var": "matfile_module",
+        "resolved_to": [],
+        "resolved": true
+      },
+      {
+        "primary": "file_LTLIBRARIES",
+        "var": "nanoobserver_module",
+        "resolved_to": [
+          "nanoobserver.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "file_LTLIBRARIES",
+        "var": "nanoscantech_module",
+        "resolved_to": [
+          "nanoscantech.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "file_LTLIBRARIES",
+        "var": "opengps_module",
+        "resolved_to": [
+          "opengps.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "file_LTLIBRARIES",
+        "var": "sensofarx_module",
+        "resolved_to": [
+          "sensofarx.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "file_LTLIBRARIES",
+        "var": "spml_module",
+        "resolved_to": [
+          "spml.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "file_LTLIBRARIES",
+        "var": "spmxfile_module",
+        "resolved_to": [
+          "spmxfile.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libgwyapp2_la_LIBADD",
+        "var": "libgwyapp_libadd",
+        "resolved_to": [
+          "$(libgwymodule)",
+          "$(libgwydgets)",
+          "$(libgwydraw)",
+          "$(libgwyprocess)",
+          "$(libgwyddion)"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "gwyddion_LDADD",
+        "var": "LIBXMU",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "gwyddion_LDADD",
+        "var": "libgwymodule",
+        "resolved_to": [
+          "$(top_builddir)/libgwymodule/libgwymodule2.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "gwyddion_LDADD",
+        "var": "libgwydgets",
+        "resolved_to": [
+          "$(top_builddir)/libgwydgets/libgwydgets2.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "gwyddion_LDADD",
+        "var": "libgwydraw",
+        "resolved_to": [
+          "$(top_builddir)/libdraw/libgwydraw2.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "gwyddion_LDADD",
+        "var": "libgwyprocess",
+        "resolved_to": [
+          "$(top_builddir)/libprocess/libgwyprocess2.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "gwyddion_LDADD",
+        "var": "libgwyddion",
+        "resolved_to": [
+          "$(top_builddir)/libgwyddion/libgwyddion2.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libgwyprocess2_la_LIBADD",
+        "var": "libgwyprocess_libadd",
+        "resolved_to": [
+          "$(libgwyddion)"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "process_PROGRAMS",
+        "var": "pascal_plugins",
+        "resolved_to": [
+          "invert_pascal"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libgwydraw2_la_LIBADD",
+        "var": "libgwydraw_libadd",
+        "resolved_to": [
+          "$(libgwyprocess)",
+          "$(libgwyddion)"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libgwydgets2_la_LIBADD",
+        "var": "libgwydgets_libadd",
+        "resolved_to": [
+          "$(libgwydraw)",
+          "$(libgwyprocess)",
+          "$(libgwyddion)"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "dump_modules_LDADD",
+        "var": "libgwyapp",
+        "resolved_to": [
+          "$(top_builddir)/app/libgwyapp2.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "dump_modules_LDADD",
+        "var": "libgwymodule",
+        "resolved_to": [
+          "$(top_builddir)/libgwymodule/libgwymodule2.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "dump_modules_LDADD",
+        "var": "libgwydgets",
+        "resolved_to": [
+          "$(top_builddir)/libgwydgets/libgwydgets2.la"
+        ],
+        "resolved": true
+      }
+    ],
+    "unresolved_refs": [
+      "pygwy_la_LIBADD = $(PYTHON_LIBS)",
+      "pygwy_la_LIBADD = $(PYGTK_LIBS)",
+      "gwy_la_LIBADD = $(PYGTK_LIBS)",
+      "gwy_la_LIBADD = $(PYTHON_LIBS)",
+      "gwyddion_LDADD = $(LIBXMU)"
+    ],
+    "indirection_count": 51
   }
 }

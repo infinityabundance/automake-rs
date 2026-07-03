@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "bvanheu/libsigrok-ad",
   "source": {
     "url": "https://github.com/bvanheu/libsigrok-ad",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,73 +26,157 @@
     {
       "step": "configure",
       "tool": "./configure",
-      "status": "fail"
+      "status": "ok"
     },
     {
-      "step": "auto-quirk",
-      "tool": "quirk-engine",
+      "step": "make",
+      "tool": "make",
       "status": "fail"
     }
   ],
-  "probe_results": {},
+  "probe_results": {
+    "HAVE_FCNTL_H": 1,
+    "HAVE_GETTIMEOFDAY": 1,
+    "HAVE_HW_AGILENT_DMM": 1,
+    "HAVE_HW_ALSA": 1,
+    "HAVE_HW_ANALOG_DISCOVERY": 1,
+    "HAVE_HW_APPA_55II": 1,
+    "HAVE_HW_ASIX_SIGMA": 1,
+    "HAVE_HW_BRYMEN_DMM": 1,
+    "HAVE_HW_CEM_DT_885X": 1,
+    "HAVE_HW_CENTER_3XX": 1,
+    "HAVE_HW_CHRONOVU_LA8": 1,
+    "HAVE_HW_COLEAD_SLM": 1,
+    "HAVE_HW_DEMO": 1,
+    "HAVE_HW_FLUKE_DMM": 1,
+    "HAVE_HW_FX2LAFW": 1,
+    "HAVE_HW_GMC_MH_1X_2X": 1,
+    "HAVE_HW_HAMEG_HMO": 1,
+    "HAVE_HW_HANTEK_DSO": 1,
+    "HAVE_HW_IKALOGIC_SCANALOGIC2": 1,
+    "HAVE_HW_IKALOGIC_SCANAPLUS": 1,
+    "HAVE_HW_KECHENG_KC_330B": 1,
+    "HAVE_HW_LASCAR_EL_USB": 1,
+    "HAVE_HW_LINK_MSO19": 1,
+    "HAVE_HW_MIC_985XX": 1,
+    "HAVE_HW_NORMA_DMM": 1,
+    "HAVE_HW_OLS": 1,
+    "HAVE_HW_RIGOL_DS": 1,
+    "HAVE_HW_SALEAE_LOGIC16": 1,
+    "HAVE_HW_SERIAL_DMM": 1,
+    "HAVE_HW_TELEINFO": 1,
+    "HAVE_HW_TONDAJ_SL_814": 1,
+    "HAVE_HW_UNI_T_DMM": 1,
+    "HAVE_HW_UNI_T_UT32X": 1,
+    "HAVE_HW_VICTOR_DMM": 1,
+    "HAVE_HW_ZEROPLUS_LOGIC_CUBE": 1,
+    "HAVE_LIBUSB_1_0": 1,
+    "HAVE_MEMSET": 1,
+    "HAVE_STRCHR": 1,
+    "HAVE_STRCSPN": 1,
+    "HAVE_STRDUP": 1,
+    "HAVE_STRERROR": 1,
+    "HAVE_STRNCASECMP": 1,
+    "HAVE_STRSTR": 1,
+    "HAVE_STRTOL": 1,
+    "HAVE_STRTOUL": 1,
+    "HAVE_STRTOULL": 1,
+    "HAVE_SYS_TIME_H": 1,
+    "HAVE_TERMIOS_H": 1
+  },
   "feature_flags": {
     "configure_args": []
   },
   "dependencies": {
-    "pkg_config": [],
-    "system_libs": [],
-    "headers_needed": [],
-    "missing": []
+    "pkg_config": [
+      "checking for libzip >= 0.10... yes",
+      "checking for libserialport >= 0.1.0... no",
+      "checking for libusb-1.0 >= 1.0.16... yes",
+      "checking for libftdi >= 0.16... yes",
+      "checking for libudev >= 151... yes",
+      "checking for alsa >= 1.0... yes",
+      "checking for check >= 0.9.4... yes",
+      "- glib-2.0 >= 2.32.0: yes (2.80.0)"
+    ],
+    "system_libs": [
+      "-lm",
+      "-lzip",
+      "-lusb-1.0",
+      "-lftdi",
+      "-ludev",
+      "-lasound",
+      "-lcheck_pic",
+      "-lrt",
+      "-lm",
+      "-lsubunit"
+    ],
+    "headers_needed": [
+      "glib.h"
+    ],
+    "missing": [
+      "glib.h"
+    ]
   },
   "quirks": [
     "libtool",
     "pkg-config",
-    "subdirs"
+    "subdirs",
+    "LIBS=-lm -lzip -lusb-1.0 -lftdi -ludev -lasound -lcheck_pic -lrt -lm -lsubunit"
   ],
   "outputs": [],
-  "status": "CONFIGURE_RUN_FAIL",
+  "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1338: syntax error near unexpected token `)'",
+  "diagnostic": "sched.c:20:10: fatal error: glib.h: No such file or directory",
   "deep_expansion": {
-    "configure_lines": 3243,
+    "configure_lines": 3775,
     "leaked_macros": [],
     "heredoc_openers": 29,
     "heredoc_terminators": 29,
     "heredoc_imbalance": 0,
-    "syntax_errors": [
-      {
-        "line": 1338,
-        "token": ")",
-        "source": "format changed there).",
-        "block": [
-          "1334:     ac_configure_args_raw=`      printf '%s\\n' \"$ac_configure_args_raw\" | se",
-          "1335: esac",
-          "1336: ",
-          "1337: ",
-          "1338:  format changed there).",
-          "1339: # Requires Autoconf >= 2.63",
-          "1340: ",
-          "1341: # libsigrok package version number (NOT the same as shared lib version!)."
-        ]
-      }
-    ],
+    "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2707: do eval test \\${$as_var+y} \\"
+      "line 3238: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
       "PKG_CONFIG",
-      "PACKAGE_NAME",
-      "PACKAGE_TARNAME",
-      "PACKAGE_VERSION",
-      "PACKAGE_STRING",
-      "PACKAGE_BUGREPORT"
+      "SR_LIB_VERSION_CURRENT",
+      "SR_LIB_VERSION_REVISION",
+      "SR_LIB_VERSION_AGE",
+      "SR_LIB_VERSION",
+      "SR_LIB_LDFLAGS",
+      "HW_ANALOG_DISCOVERY_TRUE",
+      "HW_ANALOG_DISCOVERY_FALSE",
+      "libzip_CFLAGS",
+      "libzip_LIBS",
+      "libserialport_CFLAGS",
+      "libserialport_LIBS",
+      "NEED_SERIAL_TRUE",
+      "NEED_SERIAL_FALSE",
+      "libusb_CFLAGS",
+      "libusb_LIBS",
+      "NEED_USB_TRUE",
+      "NEED_USB_FALSE",
+      "libftdi_CFLAGS",
+      "libftdi_LIBS",
+      "libudev_CFLAGS",
+      "libudev_LIBS",
+      "alsa_CFLAGS",
+      "alsa_LIBS",
+      "check_CFLAGS",
+      "check_LIBS",
+      "HAVE_CHECK_TRUE",
+      "HAVE_CHECK_FALSE",
+      "SR_PKGLIBS"
     ],
-    "failed_during_check": "",
+    "failed_during_check": "checking for strtoull... yes",
     "failure_tail": [
-      "./configure: line 1338: syntax error near unexpected token `)'",
-      "./configure: line 1338: ` format changed there).'"
+      "checking for strtoull... yes",
+      "configure: creating Makefile",
+      "configure: creating version.h",
+      "configure: creating hardware/Makefile",
+      "configure: creating hardware/agilent-dmm/Makefile"
     ],
     "conftest_corruption": [],
     "conftest_directives_intact": 21,
@@ -106,41 +190,305 @@
       "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { int32_t x; return 0; }"
     ]
   },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "ok",
-    "real_make": "ok",
-    "real_configure_lines": 19554,
-    "real_first_error": "",
-    "classification": "OURS_BUG_CONFIGURE"
-  },
-  "divergence": {
-    "stage": "configure",
-    "ours_error": "line 1338: format changed there). (near `)`)",
-    "ours_error_context": [
-      "format changed there)."
-    ],
-    "ours_configure_lines": 3243,
-    "real_configure_lines": 19554,
-    "macros_ours_left_undefined": []
-  },
   "receipt": {
-    "court_status": "failed",
-    "probe_trace": [],
+    "court_status": "partial",
+    "probe_trace": [
+      {
+        "name": "HAVE_FCNTL_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_GETTIMEOFDAY",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_HW_AGILENT_DMM",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_HW_ALSA",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_HW_ANALOG_DISCOVERY",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_HW_APPA_55II",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_HW_ASIX_SIGMA",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_HW_BRYMEN_DMM",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_HW_CEM_DT_885X",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_HW_CENTER_3XX",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_HW_CHRONOVU_LA8",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_HW_COLEAD_SLM",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_HW_DEMO",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_HW_FLUKE_DMM",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_HW_FX2LAFW",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_HW_GMC_MH_1X_2X",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_HW_HAMEG_HMO",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_HW_HANTEK_DSO",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_HW_IKALOGIC_SCANALOGIC2",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_HW_IKALOGIC_SCANAPLUS",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_HW_KECHENG_KC_330B",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_HW_LASCAR_EL_USB",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_HW_LINK_MSO19",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_HW_MIC_985XX",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_HW_NORMA_DMM",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_HW_OLS",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_HW_RIGOL_DS",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_HW_SALEAE_LOGIC16",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_HW_SERIAL_DMM",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_HW_TELEINFO",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_HW_TONDAJ_SL_814",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_HW_UNI_T_DMM",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_HW_UNI_T_UT32X",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_HW_VICTOR_DMM",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_HW_ZEROPLUS_LOGIC_CUBE",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_LIBUSB_1_0",
+        "kind": "lib",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_MEMSET",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STRCHR",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STRCSPN",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STRDUP",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STRERROR",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STRNCASECMP",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STRSTR",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STRTOL",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STRTOUL",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STRTOULL",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SYS_TIME_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_TERMIOS_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      }
+    ],
     "quirks_matched": [
       "uses-libtool",
       "uses-pkg-config",
       "uses-subdir-objects",
       "vendored-aclocal"
     ],
-    "quirks_applied": [
-      {
-        "id": "uses-subdir-objects",
-        "action": "--disable-dependency-tracking",
-        "verified": false
-      }
-    ],
-    "receipt_hash": "24e39ed3178d433d21c1340a6407fda16d8349c27724819539e8175382940e80",
+    "receipt_hash": "6f4e947a3861cfe479f3b2c61ff9be3c4bf7de6da1b09ea30dc24d8205f4d08a",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -149,6 +497,1539 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "contrib/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "hardware/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "hardware/agilent-dmm/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "hardware/alsa/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "hardware/analog-discovery/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "hardware/appa-55ii/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "hardware/asix-sigma/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "hardware/brymen-dmm/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "hardware/cem-dt-885x/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "hardware/center-3xx/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "hardware/chronovu-la8/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "hardware/colead-slm/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "hardware/common/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "hardware/common/dmm/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "hardware/demo/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "hardware/fluke-dmm/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "hardware/fx2lafw/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "hardware/gmc-mh-1x-2x/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "hardware/hameg-hmo/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "hardware/hantek-dso/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "hardware/ikalogic-scanalogic2/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "hardware/ikalogic-scanaplus/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "hardware/kecheng-kc-330b/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "hardware/lascar-el-usb/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "hardware/link-mso19/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "hardware/mic-985xx/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "hardware/norma-dmm/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "hardware/openbench-logic-sniffer/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "hardware/rigol-ds/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "hardware/saleae-logic16/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "hardware/serial-dmm/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "hardware/teleinfo/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "hardware/tondaj-sl-814/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "hardware/uni-t-dmm/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "hardware/uni-t-ut32x/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "hardware/victor-dmm/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "hardware/zeroplus-logic-cube/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "input/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "libsigrok.pc",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "output/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "output/text/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tests/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "version.h",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      }
+    ],
+    "config_headers": [],
+    "subdirs": [
+      "contrib",
+      "hardware",
+      "input",
+      "output",
+      "tests",
+      "agilent-dmm",
+      "alsa",
+      "analog-discovery",
+      "appa-55ii",
+      "asix-sigma",
+      "brymen-dmm",
+      "cem-dt-885x",
+      "center-3xx",
+      "chronovu-la8",
+      "colead-slm",
+      "common",
+      "demo",
+      "fluke-dmm",
+      "fx2lafw",
+      "gmc-mh-1x-2x",
+      "hameg-hmo",
+      "hantek-dso",
+      "ikalogic-scanalogic2",
+      "ikalogic-scanaplus",
+      "kecheng-kc-330b",
+      "lascar-el-usb",
+      "link-mso19",
+      "mic-985xx",
+      "norma-dmm",
+      "openbench-logic-sniffer",
+      "rigol-ds",
+      "saleae-logic16",
+      "serial-dmm",
+      "teleinfo",
+      "tondaj-sl-814",
+      "uni-t-dmm",
+      "uni-t-ut32x",
+      "victor-dmm",
+      "zeroplus-logic-cube",
+      "dmm",
+      "text"
+    ],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [
+          "libsigrok.la"
+        ],
+        "subdirs": [
+          "contrib",
+          "hardware",
+          "input",
+          "output",
+          "tests"
+        ],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)"
+      },
+      {
+        "dir": "hardware",
+        "targets": [
+          "libsigrokhardware.la"
+        ],
+        "subdirs": [
+          "agilent-dmm",
+          "alsa",
+          "analog-discovery",
+          "appa-55ii",
+          "asix-sigma",
+          "brymen-dmm",
+          "cem-dt-885x",
+          "center-3xx",
+          "chronovu-la8",
+          "colead-slm",
+          "common",
+          "demo",
+          "fluke-dmm",
+          "fx2lafw",
+          "gmc-mh-1x-2x",
+          "hameg-hmo",
+          "hantek-dso",
+          "ikalogic-scanalogic2",
+          "ikalogic-scanaplus",
+          "kecheng-kc-330b",
+          "lascar-el-usb",
+          "link-mso19",
+          "mic-985xx",
+          "norma-dmm",
+          "openbench-logic-sniffer",
+          "rigol-ds",
+          "saleae-logic16",
+          "serial-dmm",
+          "teleinfo",
+          "tondaj-sl-814",
+          "uni-t-dmm",
+          "uni-t-ut32x",
+          "victor-dmm",
+          "zeroplus-logic-cube"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "hardware/agilent-dmm",
+        "targets": [
+          "libsigrok_hw_agilent_dmm.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "hardware/alsa",
+        "targets": [
+          "libsigrok_hw_alsa.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "hardware/analog-discovery",
+        "targets": [
+          "libsigrok_hw_analog_discovery.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "hardware/appa-55ii",
+        "targets": [
+          "libsigrok_hw_appa_55ii.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "hardware/asix-sigma",
+        "targets": [
+          "libsigrok_hw_asix_sigma.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-DFIRMWARE_DIR='\"$(FIRMWARE_DIR)\"'"
+      },
+      {
+        "dir": "hardware/brymen-dmm",
+        "targets": [
+          "libsigrok_hw_brymen_dmm.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "hardware/cem-dt-885x",
+        "targets": [
+          "libsigrok_hw_cem_dt_885x.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "hardware/center-3xx",
+        "targets": [
+          "libsigrok_hw_center_3xx.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "hardware/chronovu-la8",
+        "targets": [
+          "libsigrok_hw_chronovu_la8.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "hardware/colead-slm",
+        "targets": [
+          "libsigrok_hw_colead_slm.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "hardware/common",
+        "targets": [
+          "libsigrok_hw_common.la"
+        ],
+        "subdirs": [
+          "dmm"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "hardware/common/dmm",
+        "targets": [
+          "libsigrok_hw_common_dmm.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "hardware/demo",
+        "targets": [
+          "libsigrok_hw_demo.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "hardware/fluke-dmm",
+        "targets": [
+          "libsigrok_hw_fluke_dmm.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "hardware/fx2lafw",
+        "targets": [
+          "libsigrok_hw_fx2lafw.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-DFIRMWARE_DIR='\"$(FIRMWARE_DIR)\"'"
+      },
+      {
+        "dir": "hardware/gmc-mh-1x-2x",
+        "targets": [
+          "libsigrok_hw_gmc_mh_1x_2x.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "hardware/hameg-hmo",
+        "targets": [
+          "libsigrok_hw_hameg_hmo.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "hardware/hantek-dso",
+        "targets": [
+          "libsigrok_hw_hantek_dso.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-DFIRMWARE_DIR='\"$(FIRMWARE_DIR)\"'"
+      },
+      {
+        "dir": "hardware/ikalogic-scanalogic2",
+        "targets": [
+          "libsigrok_hw_ikalogic_scanalogic2.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "hardware/ikalogic-scanaplus",
+        "targets": [
+          "libsigrok_hw_ikalogic_scanaplus.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "hardware/kecheng-kc-330b",
+        "targets": [
+          "libsigrok_hw_kecheng_kc_330b.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "hardware/lascar-el-usb",
+        "targets": [
+          "libsigrok_hw_lascar_el_usb.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "hardware/link-mso19",
+        "targets": [
+          "libsigrok_hw_link_mso_19.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "hardware/mic-985xx",
+        "targets": [
+          "libsigrok_hw_mic_985xx.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "hardware/norma-dmm",
+        "targets": [
+          "libsigrok_hw_norma_dmm.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "hardware/openbench-logic-sniffer",
+        "targets": [
+          "libsigrok_hw_ols.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "hardware/rigol-ds",
+        "targets": [
+          "libsigrok_hw_rigol_ds.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "hardware/saleae-logic16",
+        "targets": [
+          "libsigrok_hw_saleae_logic16.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-DFIRMWARE_DIR='\"$(FIRMWARE_DIR)\"'"
+      },
+      {
+        "dir": "hardware/serial-dmm",
+        "targets": [
+          "libsigrok_hw_serial_dmm.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "hardware/teleinfo",
+        "targets": [
+          "libsigrok_hw_teleinfo.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "hardware/tondaj-sl-814",
+        "targets": [
+          "libsigrok_hw_tondaj_sl_814.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "hardware/uni-t-dmm",
+        "targets": [
+          "libsigrok_hw_uni_t_dmm.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "hardware/uni-t-ut32x",
+        "targets": [
+          "libsigrok_hw_uni_t_ut32x.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "hardware/victor-dmm",
+        "targets": [
+          "libsigrok_hw_victor_dmm.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "hardware/zeroplus-logic-cube",
+        "targets": [
+          "libsigrok_hw_zeroplus.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "input",
+        "targets": [
+          "libsigrokinput.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "output",
+        "targets": [
+          "libsigrokoutput.la"
+        ],
+        "subdirs": [
+          "text"
+        ],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "tests",
+        "targets": [
+          "${TESTS}"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      }
+    ],
+    "max_depth": 3,
+    "config_h_consumers_below_root": [
+      "output"
+    ]
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 600,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "tests/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 675,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "input/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 510,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "hardware/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 575,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "hardware/gmc-mh-1x-2x/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 494,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "hardware/ikalogic-scanalogic2/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 494,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "hardware/uni-t-dmm/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 494,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "hardware/demo/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 490,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "hardware/uni-t-ut32x/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 494,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "hardware/serial-dmm/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 494,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "hardware/asix-sigma/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 491,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "hardware/zeroplus-logic-cube/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 502,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "hardware/analog-discovery/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 494,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "hardware/agilent-dmm/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 494,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "hardware/common/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 561,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "hardware/common/dmm/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 510,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "hardware/kecheng-kc-330b/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 494,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "hardware/openbench-logic-sniffer/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 494,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "hardware/brymen-dmm/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 498,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "hardware/center-3xx/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 494,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "hardware/lascar-el-usb/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 494,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "hardware/hantek-dso/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 495,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "hardware/fluke-dmm/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 494,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "hardware/mic-985xx/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 494,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "hardware/ikalogic-scanaplus/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 494,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "hardware/cem-dt-885x/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 494,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "hardware/victor-dmm/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 494,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "hardware/chronovu-la8/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 494,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "hardware/appa-55ii/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 494,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "hardware/tondaj-sl-814/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 494,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      }
+    ]
+  },
+  "tool_requirements": {
+    "detected": [
+      "ar"
+    ],
+    "missing": []
+  },
+  "macro_inventory": {
+    "macro_dirs": [],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [],
+    "called_macros": [
+      "AC_ARG_ENABLE",
+      "AC_CHECK_FUNCS",
+      "AC_CHECK_HEADERS",
+      "AC_CONFIG_AUX_DIR",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_HEADER",
+      "AC_CONFIG_MACRO_DIR",
+      "AC_C_BIGENDIAN",
+      "AC_C_INLINE",
+      "AC_DEFINE",
+      "AC_DEFINE_UNQUOTED",
+      "AC_DEFINEs",
+      "AC_HELP_STRING",
+      "AC_INIT",
+      "AC_OUTPUT",
+      "AC_PREREQ",
+      "AC_PROG_CC",
+      "AC_PROG_CPP",
+      "AC_PROG_INSTALL",
+      "AC_PROG_LN_S",
+      "AC_SEARCH_LIBS",
+      "AC_SUBST",
+      "AC_TYPE_INT16_T",
+      "AC_TYPE_INT32_T",
+      "AC_TYPE_INT64_T",
+      "AC_TYPE_INT8_T",
+      "AC_TYPE_SIZE_T",
+      "AC_TYPE_UINT16_T",
+      "AC_TYPE_UINT32_T",
+      "AC_TYPE_UINT64_T",
+      "AC_TYPE_UINT8_T",
+      "AM_CONDITIONAL",
+      "AM_CONDITIONALs",
+      "AM_INIT_AUTOMAKE",
+      "AM_LIBTOOLFLAGS",
+      "AM_PATH_GLIB_2_0",
+      "AM_PROG_AR",
+      "AM_PROG_CC_C_O",
+      "AM_SILENT_RULES",
+      "LT_INIT",
+      "PKG_CHECK_MODULES",
+      "PKG_CONFIG",
+      "PKG_PROG_PKG_CONFIG"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 264,
+    "configure_fi": 261,
+    "configure_case": 66,
+    "configure_esac": 69,
+    "balanced": false,
+    "automake_conditionals": [
+      "HW_ANALOG_DISCOVERY",
+      "NEED_SERIAL",
+      "NEED_USB",
+      "HAVE_CHECK",
+      "HW_AGILENT_DMM",
+      "HW_ALSA",
+      "HW_APPA_55II",
+      "HW_ASIX_SIGMA",
+      "HW_BRYMEN_DMM",
+      "HW_CEM_DT_885X",
+      "HW_CENTER_3XX",
+      "HW_CHRONOVU_LA8",
+      "HW_COLEAD_SLM",
+      "HW_DEMO",
+      "HW_FLUKE_DMM",
+      "HW_FX2LAFW",
+      "HW_GMC_MH_1X_2X",
+      "HW_HANTEK_DSO",
+      "HW_HAMEG_HMO",
+      "HW_IKALOGIC_SCANALOGIC2",
+      "HW_IKALOGIC_SCANAPLUS",
+      "HW_KECHENG_KC_330B",
+      "HW_LASCAR_EL_USB",
+      "HW_LINK_MSO19",
+      "HW_MIC_985XX",
+      "HW_NORMA_DMM",
+      "HW_OLS",
+      "HW_RIGOL_DS",
+      "HW_SALEAE_LOGIC16",
+      "HW_SERIAL_DMM"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": "autostuff",
+    "present": [
+      "install-sh",
+      "missing",
+      "depcomp",
+      "compile"
+    ],
+    "missing": [
+      "ltmain.sh"
+    ]
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "c": 119,
+      "h": 41
+    },
+    "configure_macros": [
+      "AC_PROG_CC"
+    ],
+    "needs_cxx": false,
+    "needs_fortran": false,
+    "sets_c_std": false
+  },
+  "libtool_context": {
+    "uses_libtool": true,
+    "macros": [
+      "LT_INIT"
+    ],
+    "ltmain_present": false,
+    "libtool_m4_sources": [],
+    "age": "modern"
+  },
+  "make_graph": {
+    "targets": [
+      "all",
+      "all-am",
+      "$(am__depfiles_remade)",
+      "am--depfiles",
+      "install-data-am",
+      "uninstall-am",
+      "install-am",
+      "installcheck-am",
+      "install-strip",
+      "install-info",
+      "install-info-am",
+      "install-dvi",
+      "install-dvi-am",
+      "install-ps",
+      "install-ps-am",
+      "install-pdf",
+      "install-pdf-am",
+      "install-html",
+      "install-html-am",
+      "install-data-hook",
+      "install-exec-hook",
+      "installdirs-am",
+      ".PHONY",
+      "mostlyclean-am",
+      "clean-am",
+      "distclean-am",
+      "maintainer-clean-am",
+      "distdir",
+      "dist",
+      "dist-all",
+      "dist-gzip",
+      "distcleancheck",
+      "distcheck",
+      "check-am",
+      "TAGS",
+      "tags",
+      "TAGS-am",
+      "tags-am",
+      "cscope",
+      "cscope-am"
+    ],
+    "key_variables": {
+      "AR": "ar",
+      "CC": "cc",
+      "CFLAGS": "-Wall -Wextra -fvisibility=hidden  -I/usr/include/libusb-1.0     -pthread",
+      "CPPFLAGS": "",
+      "CXX": "c++",
+      "CXXFLAGS": "-g -O2",
+      "DEFAULT_INCLUDES": "-I. -I$(top_builddir)",
+      "DEFS": "-DHAVE_CONFIG_H",
+      "LDFLAGS": "",
+      "LIBS": "-lm   -lzip  -lusb-1.0  -lftdi  -ludev  -lasound  -lcheck_pic -lrt -lm -lsubunit",
+      "RANLIB": "ranlib"
+    },
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "config.h",
+      "libtool",
+      "config.log"
+    ],
+    "recursion_depth": 3,
+    "top_targets": [
+      "all",
+      "dist",
+      "all-am"
+    ],
+    "make_diagnostics": [
+      {
+        "command": "",
+        "error_type": "missing-header",
+        "message": "sched.c:20:10: fatal error: glib.h: No such file or directory"
+      },
+      {
+        "command": "",
+        "error_type": "missing-header",
+        "message": "api.c:20:10: fatal error: glib.h: No such file or directory"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[3]: *** [Makefile:481: libsigrok_hw_agilent_dmm_la-api.lo] Error 1"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[3]: *** Waiting for unfinished jobs...."
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[3]: *** [Makefile:484: libsigrok_hw_agilent_dmm_la-sched.lo] Error 1"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[2]: *** [Makefile:233: all-am] Error 2"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[1]: *** [Makefile:522: all-recursive] Error 1"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make: *** [Makefile:540: all-recursive] Error 1"
+      }
+    ]
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": true,
+    "defines_sampled": [
+      "HAVE_CONFIG_H"
+    ]
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-libtool",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-pkg-config",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-subdir-objects",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "fcntl.h",
+      "sys/time.h",
+      "termios.h"
+    ],
+    "headers_included_unchecked": [
+      "alsa/asoundlib.h",
+      "arpa/inet.h",
+      "glib/gstdio.h",
+      "inttypes.h",
+      "libsigrok/libsigrok.h",
+      "netinet/in.h",
+      "stdint.h",
+      "sys/socket.h",
+      "sys/stat.h",
+      "sys/types.h",
+      "unistd.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 3,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "c89_gnu",
+    "strip_modern_poison_flags": [
+      "-Werror=implicit-function-declaration",
+      "-Werror=int-conversion",
+      "-Werror=incompatible-pointer-types"
+    ],
+    "inject_legacy_shims": true,
+    "compiler_aliasing": {
+      "clang-18+": "-std=gnu89 -Wno-error",
+      "gcc-14+": "-std=gnu89 -fpermissive"
+    }
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 8,
+    "shadowed_builtins": [],
+    "permitted_mutations": 34,
+    "suspect_global_mutations": 0
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "alsa/asoundlib.h",
+      "arpa/inet.h",
+      "glib/gstdio.h",
+      "inttypes.h",
+      "libsigrok/libsigrok.h",
+      "netinet/in.h",
+      "stdint.h",
+      "sys/socket.h",
+      "sys/stat.h",
+      "sys/types.h",
+      "unistd.h",
+      "fcntl.h",
+      "sys/time.h",
+      "termios.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "subdir-config-h-include-path",
+    "modern-compiler-strictness (no explicit C std)"
+  ],
+  "repair_hints": [
+    {
+      "id": "subdir-top-builddir",
+      "phase": "make",
+      "confidence": 0.88,
+      "evidence": [
+        "output consumes config.h below root"
+      ],
+      "action": "ensure ac_subst_file sets relative top_builddir per subdir (0.1.19)",
+      "expected_effect": "config.h found in subdir compiles"
+    }
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": 0,
+      "Makefile.in": 1201,
+      "aclocal.m4": 10,
+      "config.h.in": 24,
+      "configure": 18,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_ENABLE": "system-aclocal",
+      "AC_CHECK_FUNCS": "system-aclocal",
+      "AC_CHECK_HEADERS": "system-aclocal",
+      "AC_CONFIG_AUX_DIR": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_HEADER": "system-aclocal",
+      "AC_CONFIG_MACRO_DIR": "system-aclocal",
+      "AC_C_BIGENDIAN": "system-aclocal",
+      "AC_C_INLINE": "system-aclocal",
+      "AC_DEFINE": "system-aclocal",
+      "AC_DEFINE_UNQUOTED": "system-aclocal",
+      "AC_DEFINEs": "system-aclocal",
+      "AC_HELP_STRING": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PREREQ": "system-aclocal",
+      "AC_PROG_CC": "system-aclocal",
+      "AC_PROG_CPP": "system-aclocal",
+      "AC_PROG_INSTALL": "system-aclocal",
+      "AC_PROG_LN_S": "system-aclocal",
+      "AC_SEARCH_LIBS": "system-aclocal",
+      "AC_SUBST": "system-aclocal",
+      "AC_TYPE_INT16_T": "system-aclocal",
+      "AC_TYPE_INT32_T": "system-aclocal",
+      "AC_TYPE_INT64_T": "system-aclocal",
+      "AC_TYPE_INT8_T": "system-aclocal",
+      "AC_TYPE_SIZE_T": "system-aclocal",
+      "AC_TYPE_UINT16_T": "system-aclocal",
+      "AC_TYPE_UINT32_T": "system-aclocal",
+      "AC_TYPE_UINT64_T": "system-aclocal",
+      "AC_TYPE_UINT8_T": "system-aclocal",
+      "AM_CONDITIONAL": "system-aclocal",
+      "AM_CONDITIONALs": "system-aclocal",
+      "AM_INIT_AUTOMAKE": "system-aclocal",
+      "AM_LIBTOOLFLAGS": "system-aclocal",
+      "AM_PATH_GLIB_2_0": "system-aclocal",
+      "AM_PROG_AR": "system-aclocal",
+      "AM_PROG_CC_C_O": "system-aclocal",
+      "AM_SILENT_RULES": "system-aclocal",
+      "LT_INIT": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "libsigrok_la_LIBADD",
+        "var": "LIBOBJS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "check_PROGRAMS",
+        "var": "TESTS",
+        "resolved_to": [
+          "check_main"
+        ],
+        "resolved": true
+      }
+    ],
+    "unresolved_refs": [
+      "libsigrok_la_LIBADD = $(LIBOBJS)"
+    ],
+    "indirection_count": 2
   }
 }

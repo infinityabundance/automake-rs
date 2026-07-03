@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "dmatveev/libinotify-kqueue",
   "source": {
     "url": "https://github.com/dmatveev/libinotify-kqueue",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.14",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -39,6 +39,8 @@
     "HAVE_NOTE_EXTEND_ON_SUBFILE_RENAME": 1,
     "HAVE_O_EVTONLY": 1,
     "HAVE_PTHREAD": 1,
+    "HAVE_PTHREAD_BARRIER": 1,
+    "HAVE_PTHREAD_PRIO_INHERIT": 1,
     "HAVE_SYS_QUEUE_H": 1,
     "HAVE_SYS_TREE_H": 1
   },
@@ -48,8 +50,12 @@
   "dependencies": {
     "pkg_config": [],
     "system_libs": [],
-    "headers_needed": [],
-    "missing": []
+    "headers_needed": [
+      "sys/tree.h"
+    ],
+    "missing": [
+      "sys/tree.h"
+    ]
   },
   "quirks": [
     "autoconf-archive-macros",
@@ -58,9 +64,9 @@
   "outputs": [],
   "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "",
+  "diagnostic": "./compat.h:37:10: fatal error: sys/tree.h: No such file or directory",
   "deep_expansion": {
-    "configure_lines": 2804,
+    "configure_lines": 2948,
     "leaked_macros": [],
     "heredoc_openers": 30,
     "heredoc_terminators": 30,
@@ -68,13 +74,29 @@
     "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2328: do eval test \\${$as_var+y} \\"
+      "line 2471: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
+      "LINUX_TRUE",
+      "LINUX_FALSE",
+      "FREEBSD_TRUE",
+      "FREEBSD_FALSE",
       "PTHREAD_CC",
       "PTHREAD_CFLAGS",
       "PTHREAD_LIBS",
+      "BUILD_LIBRARY_TRUE",
+      "BUILD_LIBRARY_FALSE",
+      "HAVE_PTHREAD_BARRIER_TRUE",
+      "HAVE_PTHREAD_BARRIER_FALSE",
+      "HAVE_ATFUNCS_TRUE",
+      "HAVE_ATFUNCS_FALSE",
+      "HAVE_OPENAT_TRUE",
+      "HAVE_OPENAT_FALSE",
+      "HAVE_FDOPENDIR_TRUE",
+      "HAVE_FDOPENDIR_FALSE",
+      "HAVE_FSTATAT_TRUE",
+      "HAVE_FSTATAT_FALSE",
       "PACKAGE_NAME",
       "PACKAGE_TARNAME",
       "PACKAGE_VERSION",
@@ -84,21 +106,7 @@
       "srcdir",
       "prefix",
       "exec_prefix",
-      "CC",
-      "CFLAGS",
-      "CPPFLAGS",
-      "LDFLAGS",
-      "LIBS",
-      "CXX",
-      "CXXFLAGS",
-      "CPP",
-      "DEFS",
-      "LIBOBJS",
-      "INSTALL",
-      "host_cpu",
-      "host_os",
-      "host_alias",
-      "host_vendor"
+      "CC"
     ],
     "failed_during_check": "checking for struct dirent.d_type... no",
     "failure_tail": [
@@ -108,32 +116,16 @@
       "configure: creating ./config.status"
     ],
     "conftest_corruption": [],
-    "conftest_directives_intact": 3,
+    "conftest_directives_intact": 27,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
       "#include <$ac_hdr>",
-      "\\n\\n@%:@include <sys/queue.h>\\n\\nint main() {\\n@%:@ifndef SLIST_FOREACH_SAFE\\n@%:@error\\n@%:@endif\\nreturn 0;\\n; return 0; }\\n",
-      "\\n\\n@%:@include <sys/queue.h>\\n\\nint main() {\\n@%:@ifndef SLIST_REMOVE_AFTER\\n@%:@error\\n@%:@endif\\nreturn 0;\\n; return 0; }\\n",
-      "\\n\\n@%:@include <sys/tree.h>\\n\\nint main() {\\n@%:@ifndef RB_FOREACH_SAFE\\n@%:@error\\n@%:@endif\\nreturn 0;\\n; return 0; }\\n",
-      "\\n\\n@%:@include <pthread.h>\\n\\nint main() {\\npthread_barrier_t barrier;\\npthread_barrier_init(&barrier, NULL, 1);\\npthread_barrier_wait(&barrier);\\npthread_barrier_destroy(&barrier);\\nreturn 0;\\n; return 0; }\\n",
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func();\\nint main() { return $ac_func(); }"
+      "\\n\\n#include <sys/queue.h>\\n\\nint main() {\\n#ifndef SLIST_FOREACH_SAFE\\n#error\\n#endif\\nreturn 0;\\n; return 0; }\\n",
+      "\\n\\n#include <sys/queue.h>\\n\\nint main() {\\n#ifndef SLIST_REMOVE_AFTER\\n#error\\n#endif\\nreturn 0;\\n; return 0; }\\n",
+      "\\n\\n#include <sys/tree.h>\\n\\nint main() {\\n#ifndef RB_FOREACH_SAFE\\n#error\\n#endif\\nreturn 0;\\n; return 0; }\\n",
+      "\\n\\n#include <pthread.h>\\n\\nint main() {\\npthread_barrier_t barrier;\\npthread_barrier_init(&barrier, NULL, 1);\\npthread_barrier_wait(&barrier);\\npthread_barrier_destroy(&barrier);\\nreturn 0;\\n; return 0; }\\n",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func ();\\nint main() { return $ac_func(); }"
     ]
-  },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "ok",
-    "real_make": "ok",
-    "real_configure_lines": 20554,
-    "real_first_error": "",
-    "classification": "OURS_BUG_MAKE"
-  },
-  "divergence": {
-    "stage": "make",
-    "ours_error": "",
-    "ours_error_context": [],
-    "ours_configure_lines": 2804,
-    "real_configure_lines": 20554,
-    "macros_ours_left_undefined": []
   },
   "receipt": {
     "court_status": "partial",
@@ -163,6 +155,18 @@
         "reason": "ok"
       },
       {
+        "name": "HAVE_PTHREAD_BARRIER",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_PTHREAD_PRIO_INHERIT",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
         "name": "HAVE_SYS_QUEUE_H",
         "kind": "header",
         "result": "yes",
@@ -183,7 +187,7 @@
       "uses-ax-archive",
       "uses-pthread-check"
     ],
-    "receipt_hash": "abd40991a23c140cd1709077d188b34114969707a9880e66e98a3e41094b5275",
+    "receipt_hash": "acd37183178e04724693e4bb2cff51b85b82e65dad5467149dec574061700ddf",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -192,6 +196,441 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      }
+    ],
+    "config_headers": [
+      "config.h"
+    ],
+    "subdirs": [],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [
+          "libinotify.la",
+          "check_libinotify"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      }
+    ],
+    "max_depth": 0,
+    "config_h_consumers_below_root": []
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 687,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      }
+    ]
+  },
+  "tool_requirements": {
+    "detected": [
+      "c++"
+    ],
+    "missing": []
+  },
+  "macro_inventory": {
+    "macro_dirs": [
+      "m4"
+    ],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [
+      {
+        "name": "AX_PTHREAD",
+        "source": "m4/ax_pthread.m4",
+        "kind": "AX"
+      }
+    ],
+    "called_macros": [
+      "AC_ARG_ENABLE",
+      "AC_CHECK_FUNCS",
+      "AC_CHECK_HEADERS",
+      "AC_CHECK_MEMBER",
+      "AC_COMPILE_IFELSE",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_HEADERS",
+      "AC_CONFIG_MACRO_DIR",
+      "AC_CONFIG_SRCDIR",
+      "AC_DEFINE",
+      "AC_INIT",
+      "AC_LANG_PROGRAM",
+      "AC_MSG_CHECKING",
+      "AC_MSG_ERROR",
+      "AC_MSG_RESULT",
+      "AC_MSG_WARN",
+      "AC_OUTPUT",
+      "AC_PROG_CXX",
+      "AC_PROG_LIBTOOL",
+      "AC_RUN_IFELSE",
+      "AM_CONDITIONAL",
+      "AM_INIT_AUTOMAKE",
+      "AX_PTHREAD"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 132,
+    "configure_fi": 122,
+    "configure_case": 65,
+    "configure_esac": 68,
+    "balanced": false,
+    "automake_conditionals": [
+      "LINUX",
+      "FREEBSD",
+      "BUILD_LIBRARY",
+      "HAVE_PTHREAD_BARRIER",
+      "HAVE_ATFUNCS",
+      "HAVE_OPENAT",
+      "HAVE_FDOPENDIR",
+      "HAVE_FSTATAT"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": ".",
+    "present": [
+      "install-sh",
+      "missing",
+      "depcomp",
+      "compile"
+    ],
+    "missing": [
+      "ltmain.sh"
+    ]
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "c": 14,
+      "cc": 20,
+      "h": 12
+    },
+    "configure_macros": [
+      "AC_PROG_CXX"
+    ],
+    "needs_cxx": true,
+    "needs_fortran": false,
+    "sets_c_std": false
+  },
+  "libtool_context": {
+    "uses_libtool": true,
+    "macros": [
+      "AC_PROG_LIBTOOL"
+    ],
+    "ltmain_present": false,
+    "libtool_m4_sources": [],
+    "age": "old"
+  },
+  "make_graph": {
+    "targets": [
+      "all",
+      "all-am",
+      "$(am__depfiles_remade)",
+      "am--depfiles",
+      "install-exec-am",
+      "install-data-am",
+      "uninstall-am",
+      "install",
+      "install-am",
+      "installcheck",
+      "install-strip",
+      "install-info",
+      "install-info-am",
+      "install-dvi",
+      "install-dvi-am",
+      "install-ps",
+      "install-ps-am",
+      "install-pdf",
+      "install-pdf-am",
+      "install-html",
+      "install-html-am",
+      "install-data-hook",
+      "install-exec-hook",
+      "installdirs",
+      "installdirs-am",
+      ".PHONY",
+      "mostlyclean-am",
+      "clean-am",
+      "distclean-am",
+      "maintainer-clean-am",
+      "clean",
+      "distdir",
+      "dist",
+      "dist-all",
+      "dist-gzip",
+      "distcleancheck",
+      "distcheck",
+      "check-am",
+      "check",
+      "TAGS"
+    ],
+    "key_variables": {
+      "AR": "ar",
+      "CC": "cc",
+      "CFLAGS": "-g -O2",
+      "CPPFLAGS": "",
+      "CXX": "g++",
+      "CXXFLAGS": "-g -O2",
+      "DEFAULT_INCLUDES": "-I. -I$(top_builddir)",
+      "DEFS": "-DHAVE_CONFIG_H",
+      "LDFLAGS": "",
+      "LIBS": "",
+      "RANLIB": "ranlib"
+    },
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "config.h",
+      "libtool",
+      "config.log"
+    ],
+    "recursion_depth": 0,
+    "top_targets": [
+      "all",
+      "install",
+      "check",
+      "clean",
+      "dist",
+      "all-am"
+    ],
+    "make_diagnostics": [
+      {
+        "command": "",
+        "error_type": "missing-header",
+        "message": "./compat.h:37:10: fatal error: sys/tree.h: No such file or directory"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[1]: *** [Makefile:557: tests/core/check_libinotify-event.o] Error 1"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[1]: *** Waiting for unfinished jobs...."
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make: *** [Makefile:285: all-am] Error 2"
+      }
+    ]
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": true,
+    "defines_sampled": [
+      "HAVE_CONFIG_H",
+      "NDEBUG"
+    ]
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-libtool-old",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-subdir-objects",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "has-m4-macro-dir",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-ax-archive",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-pthread-check",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "sys/event.h"
+    ],
+    "headers_included_unchecked": [
+      "fcntl.h",
+      "inttypes.h",
+      "pthread.h",
+      "stdint.h",
+      "sys/cdefs.h",
+      "sys/inotify.h",
+      "sys/ioctl.h",
+      "sys/param.h",
+      "sys/queue.h",
+      "sys/resource.h",
+      "sys/socket.h",
+      "sys/stat.h",
+      "sys/tree.h",
+      "sys/types.h",
+      "sys/uio.h",
+      "unistd.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 3,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "gnu++",
+    "strip_modern_poison_flags": [],
+    "inject_legacy_shims": false,
+    "compiler_aliasing": {}
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 0,
+    "shadowed_builtins": [],
+    "permitted_mutations": 2,
+    "suspect_global_mutations": 0
+  },
+  "host_environment_veil": {
+    "header_injection_candidates": [
+      "sys/cdefs.h"
+    ],
+    "symbol_aliasing_candidates": []
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "fcntl.h",
+      "inttypes.h",
+      "pthread.h",
+      "stdint.h",
+      "sys/cdefs.h",
+      "sys/inotify.h",
+      "sys/ioctl.h",
+      "sys/param.h",
+      "sys/queue.h",
+      "sys/resource.h",
+      "sys/socket.h",
+      "sys/stat.h",
+      "sys/tree.h",
+      "sys/types.h",
+      "sys/uio.h",
+      "unistd.h",
+      "sys/event.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "ancient-libtool"
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": -1,
+      "Makefile.in": 1119,
+      "aclocal.m4": 5,
+      "config.h.in": 13,
+      "configure": 10,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_ENABLE": "system-aclocal",
+      "AC_CHECK_FUNCS": "system-aclocal",
+      "AC_CHECK_HEADERS": "system-aclocal",
+      "AC_CHECK_MEMBER": "system-aclocal",
+      "AC_COMPILE_IFELSE": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_HEADERS": "system-aclocal",
+      "AC_CONFIG_MACRO_DIR": "system-aclocal",
+      "AC_CONFIG_SRCDIR": "system-aclocal",
+      "AC_DEFINE": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_LANG_PROGRAM": "system-aclocal",
+      "AC_MSG_CHECKING": "system-aclocal",
+      "AC_MSG_ERROR": "system-aclocal",
+      "AC_MSG_RESULT": "system-aclocal",
+      "AC_MSG_WARN": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PROG_CXX": "system-aclocal",
+      "AC_PROG_LIBTOOL": "system-aclocal",
+      "AC_RUN_IFELSE": "system-aclocal",
+      "AM_CONDITIONAL": "system-aclocal",
+      "AM_INIT_AUTOMAKE": "system-aclocal",
+      "AX_PTHREAD": "m4/ax_pthread.m4"
+    },
+    "rebuild_trigger_risk": false
   }
 }

@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "AnthonyBradford/optionmatrix",
   "source": {
     "url": "https://github.com/AnthonyBradford/optionmatrix",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -34,7 +34,33 @@
       "status": "fail"
     }
   ],
-  "probe_results": {},
+  "probe_results": {
+    "HAVE_ATEXIT": 1,
+    "HAVE_CURSES_H": 1,
+    "HAVE_FLOAT_H": 1,
+    "HAVE_GETOPT_H": 1,
+    "HAVE_GETTIMEOFDAY": 1,
+    "HAVE_GSL_GSL_ERRNO_H": 1,
+    "HAVE_LOCALECONV": 1,
+    "HAVE_LOCALE_H": 1,
+    "HAVE_MALLOC": 1,
+    "HAVE_MATH_H": 1,
+    "HAVE_MEMSET": 1,
+    "HAVE_MODF": 1,
+    "HAVE_NCURSES_H": 1,
+    "HAVE_POW": 1,
+    "HAVE_PTHREAD_H": 1,
+    "HAVE_SETLOCALE": 1,
+    "HAVE_SQRT": 1,
+    "HAVE_STDBOOL_H": 1,
+    "HAVE_STDDEF_H": 1,
+    "HAVE_STDLIB_H": 1,
+    "HAVE_STRINGS_H": 1,
+    "HAVE_STRING_H": 1,
+    "HAVE_STRSTR": 1,
+    "HAVE_SYS_TIME_H": 1,
+    "HAVE_UNISTD_H": 1
+  },
   "feature_flags": {
     "configure_args": []
   },
@@ -43,6 +69,7 @@
     "system_libs": [
       "-lgsl",
       "-lgslcblas",
+      "-lpthread",
       "-lgtk-3",
       "-lm",
       "-lgtk-3",
@@ -66,25 +93,29 @@
   "quirks": [
     "pkg-config",
     "subdirs",
-    "LIBS=-lgsl -lgslcblas -lgtk-3 -lm -lgtk-3 -lgdk-3 -lz -lpangocairo-1.0 -lpango-1.0 -lharfbuzz -latk-1.0 -lcairo-gobject -lcairo -lgdk_pixbuf-2.0 -lgio-2.0 -lgobject-2.0 -lglib-2.0 -lcurses"
+    "LIBS=-lgsl -lgslcblas -lpthread -lgtk-3 -lm -lgtk-3 -lgdk-3 -lz -lpangocairo-1.0 -lpango-1.0 -lharfbuzz -latk-1.0 -lcairo-gobject -lcairo -lgdk_pixbuf-2.0 -lgio-2.0 -lgobject-2.0 -lglib-2.0 -lcurses"
   ],
   "outputs": [],
   "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "Makefile:16: *** missing separator.  Stop.",
+  "diagnostic": "Makefile:228: *** Recursive variable 'CXXFLAGS' references itself (eventually).  Stop.",
   "deep_expansion": {
-    "configure_lines": 2918,
+    "configure_lines": 3052,
     "leaked_macros": [],
-    "heredoc_openers": 39,
-    "heredoc_terminators": 39,
+    "heredoc_openers": 40,
+    "heredoc_terminators": 40,
     "heredoc_imbalance": 0,
     "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2435: do eval test \\${$as_var+y} \\"
+      "line 2568: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
+      "GTK_CFLAGS",
+      "GTK_LIBS",
+      "CXXFLAGS",
+      "LDFLAGS",
       "PACKAGE_NAME",
       "PACKAGE_TARNAME",
       "PACKAGE_VERSION",
@@ -94,49 +125,184 @@
     "failed_during_check": "checking for strstr... yes",
     "failure_tail": [
       "checking for strstr... yes",
-      "./configure: line 1854: test: =: unary operator expected",
+      "./configure: line 1944: test: =: unary operator expected",
       "configure: creating Makefile",
       "configure: creating src/models/abradford/Makefile",
       "configure: creating src/models/spinsky/Makefile"
     ],
     "conftest_corruption": [],
-    "conftest_directives_intact": 14,
+    "conftest_directives_intact": 20,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
-      "char pow();\\nint main() { return pow(); }",
-      "char gtk_main();\\nint main() { return gtk_main(); }",
-      "char gtk_main();\\nint main() { return gtk_main(); }",
-      "char initscr();\\nint main() { return initscr(); }",
-      "char initscr();\\nint main() { return initscr(); }",
-      "char initscr();\\nint main() { return initscr(); }"
+      "char pow ();\\nint main() { return pow(); }",
+      "char gtk_main ();\\nint main() { return gtk_main(); }",
+      "char gtk_main ();\\nint main() { return gtk_main(); }",
+      "char initscr ();\\nint main() { return initscr(); }",
+      "char initscr ();\\nint main() { return initscr(); }",
+      "char initscr ();\\nint main() { return initscr(); }"
     ]
-  },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "ok",
-    "real_make": "ok",
-    "real_configure_lines": 9285,
-    "real_first_error": "",
-    "classification": "OURS_BUG_MAKE"
-  },
-  "divergence": {
-    "stage": "make",
-    "ours_error": "",
-    "ours_error_context": [],
-    "ours_configure_lines": 2918,
-    "real_configure_lines": 9285,
-    "macros_ours_left_undefined": []
   },
   "receipt": {
     "court_status": "partial",
-    "probe_trace": [],
+    "probe_trace": [
+      {
+        "name": "HAVE_ATEXIT",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_CURSES_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_FLOAT_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_GETOPT_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_GETTIMEOFDAY",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_GSL_GSL_ERRNO_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_LOCALECONV",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_LOCALE_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_MALLOC",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_MATH_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_MEMSET",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_MODF",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_NCURSES_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_POW",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_PTHREAD_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SETLOCALE",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SQRT",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STDBOOL_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STDDEF_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STDLIB_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STRINGS_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STRING_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STRSTR",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SYS_TIME_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_UNISTD_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      }
+    ],
     "quirks_matched": [
       "uses-pkg-config",
       "uses-subdir-objects",
       "uses-maintainer-mode",
       "vendored-aclocal"
     ],
-    "receipt_hash": "50943c81e776f99633ce47bc1c02476e04eeac1c88eab40282963440dadccda2",
+    "receipt_hash": "5470e6ea43ca6b84eb86ca16631a2aa515d5dd6b3ec7f2e2c198b53e1c7d6dac",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -145,6 +311,881 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "doc/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "doc/html/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "man/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "src/common/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/curses/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/gtk/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/models/abradford/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/models/financialrecipes/examples/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/models/financialrecipes/src/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/models/metaoptions/src/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/models/metaoptions/tests/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/models/spinsky/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      }
+    ],
+    "config_headers": [
+      "config.h"
+    ],
+    "subdirs": [
+      "src/models/abradford/",
+      "src/models/spinsky",
+      "src/models/financialrecipes/src",
+      "src/models/financialrecipes/examples",
+      "src/models/metaoptions/src",
+      "src/models/metaoptions/tests",
+      "src/common",
+      "src/curses",
+      "src/gtk",
+      "man",
+      "doc",
+      "doc/html"
+    ],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [],
+        "subdirs": [
+          "src/models/abradford/",
+          "src/models/spinsky",
+          "src/models/financialrecipes/src",
+          "src/models/financialrecipes/examples",
+          "src/models/metaoptions/src",
+          "src/models/metaoptions/tests",
+          "src/common",
+          "src/curses",
+          "src/gtk",
+          "man",
+          "doc",
+          "doc/html"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/common",
+        "targets": [
+          "liboptionmatrix.a",
+          "checks",
+          "$(TESTS)"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/curses",
+        "targets": [
+          "optionmatrix_console"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/gtk",
+        "targets": [
+          "optionmatrix"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/models/abradford",
+        "targets": [
+          "libabradford.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/models/financialrecipes/examples",
+        "targets": [
+          "run_all_examples"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/models/financialrecipes/src",
+        "targets": [
+          "librecipes.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/models/metaoptions/src",
+        "targets": [
+          "libmetaoptions.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/models/metaoptions/tests",
+        "targets": [
+          "$(TESTS)",
+          "check_options",
+          "ExtremeSpreadOption_check",
+          "PartialFloatLB_check",
+          "PartialFixedLB_check",
+          "FixedStrikeLookback_check",
+          "FloatingStrikeLookback_check",
+          "BAWAmericanApprox_check",
+          "StandardBarrier_check",
+          "PartialTimeTwoAssetBarrier_check",
+          "cbnd_check",
+          "cnd_check"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/models/spinsky",
+        "targets": [
+          "libspinsky.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      }
+    ],
+    "max_depth": 4,
+    "config_h_consumers_below_root": [
+      "src/models/abradford",
+      "src/models/financialrecipes/src",
+      "src/models/financialrecipes/examples",
+      "src/gtk",
+      "src/common"
+    ]
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 609,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/models/metaoptions/tests/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 2889,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/models/metaoptions/src/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 762,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/models/abradford/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 514,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/models/spinsky/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 509,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/models/financialrecipes/src/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 652,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/models/financialrecipes/examples/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 785,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/gtk/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 583,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/common/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 755,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/curses/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 551,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "doc/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1053,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "doc/html/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 439,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "man/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 463,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      }
+    ]
+  },
+  "tool_requirements": {
+    "detected": [
+      "c++",
+      "help2man",
+      "makeinfo",
+      "pkg-config"
+    ],
+    "missing": []
+  },
+  "macro_inventory": {
+    "macro_dirs": [],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [],
+    "called_macros": [
+      "AC_ARG_WITH",
+      "AC_CHECK_FUNCS",
+      "AC_CHECK_HEADERS",
+      "AC_CHECK_LIB",
+      "AC_CHECK_PROG",
+      "AC_COMPILE_IFELSE",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_HEADERS",
+      "AC_CONFIG_SRCDIR",
+      "AC_C_INLINE",
+      "AC_DEFUN",
+      "AC_FUNC_MALLOC",
+      "AC_HEADER_STDBOOL",
+      "AC_INIT",
+      "AC_LANG",
+      "AC_LANG_PROGRAM",
+      "AC_MSG_CHECKING",
+      "AC_MSG_NOTICE",
+      "AC_MSG_RESULT",
+      "AC_MSG_WARN",
+      "AC_OUTPUT",
+      "AC_PATH_PROG",
+      "AC_PREREQ",
+      "AC_PROG_CC",
+      "AC_PROG_CXX",
+      "AC_PROG_INSTALL",
+      "AC_PROG_MAKE_SET",
+      "AC_PROG_RANLIB",
+      "AC_REQUIRE",
+      "AC_SUBST",
+      "AC_TYPE_SIZE_T",
+      "AM_INIT_AUTOMAKE",
+      "AM_MAINTAINER_MODE",
+      "AM_MISSING_PROG",
+      "AM_PROG_CC_C_O",
+      "GTK_CFLAGS",
+      "GTK_LIBS",
+      "PKG_CHECK_MODULES"
+    ],
+    "unresolved_macros": [
+      "GTK_CFLAGS",
+      "GTK_LIBS"
+    ]
+  },
+  "conditional_context": {
+    "configure_if": 152,
+    "configure_fi": 135,
+    "configure_case": 64,
+    "configure_esac": 67,
+    "balanced": false,
+    "automake_conditionals": []
+  },
+  "config_aux_inventory": {
+    "aux_dir": ".",
+    "present": [
+      "install-sh",
+      "missing",
+      "depcomp",
+      "compile"
+    ],
+    "missing": []
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "c": 71,
+      "cc": 173,
+      "cpp": 42,
+      "h": 32
+    },
+    "configure_macros": [
+      "AC_PROG_CC",
+      "AC_PROG_CXX"
+    ],
+    "needs_cxx": true,
+    "needs_fortran": false,
+    "sets_c_std": false
+  },
+  "make_graph": {
+    "targets": [
+      "all",
+      "all-am",
+      "install-data-am",
+      "uninstall-am",
+      "install-am",
+      "installcheck-am",
+      "install-strip",
+      "install-info",
+      "install-info-am",
+      "install-dvi",
+      "install-dvi-am",
+      "install-ps",
+      "install-ps-am",
+      "install-pdf",
+      "install-pdf-am",
+      "install-html",
+      "install-html-am",
+      "install-data-hook",
+      "install-exec-hook",
+      "installdirs-am",
+      ".PHONY",
+      "mostlyclean-am",
+      "clean-am",
+      "distclean-am",
+      "maintainer-clean-am",
+      "distdir",
+      "dist",
+      "dist-all",
+      "dist-gzip",
+      "distcleancheck",
+      "distcheck",
+      "check-am",
+      "TAGS",
+      "tags",
+      "TAGS-am",
+      "tags-am",
+      "cscope",
+      "cscope-am",
+      "distuninstallcheck",
+      "$(srcdir)/Makefile.in"
+    ],
+    "key_variables": {
+      "AR": "ar",
+      "CC": "cc",
+      "CFLAGS": "-DGTK_DISABLE_SINGLE_INCLUDES -DGDK_DISABLE_DEPRECATED -DGTK_DISABLE_DEPRECATED -DGSEAL_ENABLE -I/usr/include/gtk-3.0 -I/usr/include/pango-1.0 -I/usr/include/gl",
+      "CPPFLAGS": "-I/usr/include/gtk-3.0 -I/usr/include/pango-1.0 -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/harfbuzz -I/usr/include/free",
+      "CXX": "g++",
+      "CXXFLAGS": "\"${CXXFLAGS} -I${ql_boost_include_path}\"",
+      "DEFS": "-DHAVE_CONFIG_H",
+      "LDFLAGS": "\"${LDFLAGS} -L${ql_boost_lib_path}\"",
+      "LIBS": "-lgsl -lgslcblas -lpthread -lgtk-3 -lm  -lgtk-3 -lgdk-3 -lz -lpangocairo-1.0 -lpango-1.0 -lharfbuzz -latk-1.0 -lcairo-gobject -lcairo -lgdk_pixbuf-2.0 -lgio-2.0",
+      "RANLIB": "ranlib"
+    },
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "config.h",
+      "config.log"
+    ],
+    "recursion_depth": 4,
+    "top_targets": [
+      "all",
+      "dist",
+      "all-am"
+    ],
+    "make_diagnostics": [
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "Makefile:228: *** Recursive variable 'CXXFLAGS' references itself (eventually).  Stop."
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[1]: *** [Makefile:236: all-am] Error 2"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make: *** [Makefile:536: all-recursive] Error 1"
+      }
+    ]
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": true,
+    "defines_sampled": [
+      "GTK_DISABLE_SINGLE_INCLUDES",
+      "GDK_DISABLE_DEPRECATED",
+      "GTK_DISABLE_DEPRECATED",
+      "GSEAL_ENABLE",
+      "HAVE_CONFIG_H"
+    ]
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-pkg-config",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-subdir-objects",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-maintainer-mode",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "vpath_analysis": {
+    "hardcoded_src_paths": 3,
+    "abs_path_leakage": 0,
+    "built_sources": [],
+    "generated_source_targets": []
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "curses.h",
+      "float.h",
+      "getopt.h",
+      "gsl/gsl_errno.h",
+      "itpp/itbase.h",
+      "locale.h",
+      "math.h",
+      "ncurses.h",
+      "ncurses/curses.h",
+      "ncurses/ncurses.h",
+      "newmat/newmat.h",
+      "pdcurses.h",
+      "pdcurses/curses.h",
+      "pdcurses/pdcurses.h",
+      "pthread.h",
+      "stddef.h",
+      "stdlib.h",
+      "string.h",
+      "strings.h",
+      "sys/time.h",
+      "unistd.h"
+    ],
+    "headers_included_unchecked": [
+      "gtk/gtk.h",
+      "sys/types.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 4,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "gnu++",
+    "strip_modern_poison_flags": [],
+    "inject_legacy_shims": false,
+    "compiler_aliasing": {}
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 0,
+    "shadowed_builtins": [],
+    "permitted_mutations": 2,
+    "suspect_global_mutations": 0
+  },
+  "parallel_build_safety": {
+    "vpath_out_of_tree_safe": false,
+    "generators": [],
+    "unordered_generated_sources": [],
+    "built_sources_declared": false
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "gtk/gtk.h",
+      "sys/types.h",
+      "curses.h",
+      "float.h",
+      "getopt.h",
+      "gsl/gsl_errno.h",
+      "itpp/itbase.h",
+      "locale.h",
+      "math.h",
+      "ncurses.h",
+      "ncurses/curses.h",
+      "ncurses/ncurses.h",
+      "newmat/newmat.h",
+      "pdcurses.h",
+      "pdcurses/curses.h",
+      "pdcurses/pdcurses.h",
+      "pthread.h",
+      "stddef.h",
+      "stdlib.h",
+      "string.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "subdir-config-h-include-path",
+    "unresolved-macros",
+    "vpath-unsafe (abs-path/hardcoded-srcdir leakage)"
+  ],
+  "repair_hints": [
+    {
+      "id": "subdir-top-builddir",
+      "phase": "make",
+      "confidence": 0.88,
+      "evidence": [
+        "src/models/abradford consumes config.h below root",
+        "src/models/financialrecipes/src consumes config.h below root",
+        "src/models/financialrecipes/examples consumes config.h below root",
+        "src/gtk consumes config.h below root",
+        "src/common consumes config.h below root"
+      ],
+      "action": "ensure ac_subst_file sets relative top_builddir per subdir (0.1.19)",
+      "expected_effect": "config.h found in subdir compiles"
+    },
+    {
+      "id": "ship-or-neutralize-macro",
+      "phase": "autoreconf",
+      "confidence": 0.6,
+      "evidence": [
+        "GTK_CFLAGS",
+        "GTK_LIBS"
+      ],
+      "action": "ship native impl or neutralize",
+      "expected_effect": "resolves unexpanded AX_/custom macros"
+    }
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": -1,
+      "Makefile.in": 1226,
+      "aclocal.m4": 27,
+      "config.h.in": 34,
+      "configure": 31,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_WITH": "system-aclocal",
+      "AC_CHECK_FUNCS": "system-aclocal",
+      "AC_CHECK_HEADERS": "system-aclocal",
+      "AC_CHECK_LIB": "system-aclocal",
+      "AC_CHECK_PROG": "system-aclocal",
+      "AC_COMPILE_IFELSE": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_HEADERS": "system-aclocal",
+      "AC_CONFIG_SRCDIR": "system-aclocal",
+      "AC_C_INLINE": "system-aclocal",
+      "AC_DEFUN": "system-aclocal",
+      "AC_FUNC_MALLOC": "system-aclocal",
+      "AC_HEADER_STDBOOL": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_LANG": "system-aclocal",
+      "AC_LANG_PROGRAM": "system-aclocal",
+      "AC_MSG_CHECKING": "system-aclocal",
+      "AC_MSG_NOTICE": "system-aclocal",
+      "AC_MSG_RESULT": "system-aclocal",
+      "AC_MSG_WARN": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PATH_PROG": "system-aclocal",
+      "AC_PREREQ": "system-aclocal",
+      "AC_PROG_CC": "system-aclocal",
+      "AC_PROG_CXX": "system-aclocal",
+      "AC_PROG_INSTALL": "system-aclocal",
+      "AC_PROG_MAKE_SET": "system-aclocal",
+      "AC_PROG_RANLIB": "system-aclocal",
+      "AC_REQUIRE": "system-aclocal",
+      "AC_SUBST": "system-aclocal",
+      "AC_TYPE_SIZE_T": "system-aclocal",
+      "AM_INIT_AUTOMAKE": "system-aclocal",
+      "AM_MAINTAINER_MODE": "system-aclocal",
+      "AM_MISSING_PROG": "system-aclocal",
+      "AM_PROG_CC_C_O": "system-aclocal",
+      "GTK_CFLAGS": "unresolved",
+      "GTK_LIBS": "unresolved",
+      "PKG_CHECK_MODULES": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "check_PROGRAMS",
+        "var": "TESTS",
+        "resolved_to": [
+          "check_options",
+          "CashOrNothing_check",
+          "bisection_check",
+          "NewtonRaphson_check",
+          "RollGeskeWhaley_check",
+          "cnd_check",
+          "cbnd_check",
+          "ExtremeSpreadOption_check",
+          "PartialFloatLB_check",
+          "PartialFixedLB_check",
+          "FloatingStrikeLookback_check",
+          "StandardBarrier_check",
+          "DoubleBarrier_check",
+          "LevyAsian_check",
+          "SoftBarrier_check",
+          "BinaryBarrier_check",
+          "JumpDiffusion_check",
+          "EuropeanExchangeOption_check",
+          "AmericanExchangeOption_check",
+          "ExchangeExchangeOption_check",
+          "gbs_check",
+          "quanto_check",
+          "gtheta_check",
+          "gdelta_check",
+          "ggamma_check",
+          "gvega_check",
+          "gcarry_check",
+          "grho_check",
+          "blackscholes_check",
+          "black76_check",
+          "ExtendibleWriter_check",
+          "MiltersenSchwartz_check",
+          "FixedStrikeLookback_check",
+          "Executive_check",
+          "SuperShare_check",
+          "TwoAssetBarrier_check",
+          "AssetOrNothing_check",
+          "ComplexChooser_check",
+          "GapOption_check",
+          "SimpleChooser_check",
+          "Swapoption_check",
+          "BSAmericanApprox_check",
+          "SpreadApproximation_check",
+          "EquityLinkedFXO_check",
+          "ForwardStartOption_check",
+          "OptionsOnOptions_check",
+          "BAWbisection_check",
+          "ForEquOptInDomCur_check",
+          "GeometricAverageRateOption_check",
+          "DiscreteAdjustedBarrier_check",
+          "PartialTimeBarrier_check",
+          "OptionsOnTheMaxMin_check",
+          "TakeoverFXoption_check",
+          "TwoAssetCashOrNothing_check",
+          "TwoAssetCorrelation_check",
+          "GarmanKohlhagen_check",
+          "merton73_check"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "check_PROGRAMS",
+        "var": "TESTS",
+        "resolved_to": [
+          "checks"
+        ],
+        "resolved": true
+      }
+    ],
+    "unresolved_refs": [],
+    "indirection_count": 2
   }
 }

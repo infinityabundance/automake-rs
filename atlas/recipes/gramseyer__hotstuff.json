@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "gramseyer/hotstuff",
   "source": {
     "url": "https://github.com/gramseyer/hotstuff",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.14",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -56,7 +56,7 @@
   "verified": false,
   "diagnostic": "configure: error: failed to find XDRC",
   "deep_expansion": {
-    "configure_lines": 2565,
+    "configure_lines": 2634,
     "leaked_macros": [],
     "heredoc_openers": 16,
     "heredoc_terminators": 16,
@@ -64,11 +64,24 @@
     "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2089: do eval test \\${$as_var+y} \\"
+      "line 2157: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
       "PKG_CONFIG",
+      "libsodium_CFLAGS",
+      "libsodium_LIBS",
+      "lmdb_CFLAGS",
+      "lmdb_LIBS",
+      "Catch2_CFLAGS",
+      "Catch2_LIBS",
+      "xdrpp_CFLAGS",
+      "xdrpp_LIBS",
+      "r_abs_top_srcdir",
+      "r_abs_top_builddir",
+      "XDRC",
+      "utility_CFLAGS",
+      "utility_LIBS",
       "PACKAGE_NAME",
       "PACKAGE_TARNAME",
       "PACKAGE_VERSION",
@@ -83,15 +96,7 @@
       "CPPFLAGS",
       "LDFLAGS",
       "LIBS",
-      "CXX",
-      "CXXFLAGS",
-      "CPP",
-      "DEFS",
-      "LIBOBJS",
-      "INSTALL",
-      "XDRC",
-      "r_abs_top_srcdir",
-      "r_abs_top_builddir"
+      "CXX"
     ],
     "failed_during_check": "checking for xdrpp... no",
     "failure_tail": [
@@ -103,16 +108,8 @@
     "conftest_directives_mangled": 0,
     "conftest_programs": []
   },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "fail",
-    "real_make": "skipped",
-    "real_configure_lines": 6081,
-    "real_first_error": "configure: error: Package requirements (xdrpp) were not met:",
-    "classification": "BOTH_CONFIGURE_FAIL"
-  },
   "receipt": {
-    "court_status": "not_standalone",
+    "court_status": "failed",
     "probe_trace": [],
     "quirks_matched": [
       "uses-pkg-config",
@@ -128,7 +125,7 @@
         "verified": false
       }
     ],
-    "receipt_hash": "1b59d07d0a20a927a52050673c57d051c46cf0669ffc84ae54f67e19a8cf7afb",
+    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -137,6 +134,401 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "hotstuff-uninstalled.pc",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "hotstuff.pc",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      }
+    ],
+    "config_headers": [
+      "config.h"
+    ],
+    "subdirs": [
+      "$(PKGCONFIG_SUBDIRS)"
+    ],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [
+          "libhotstuff.a",
+          "test"
+        ],
+        "subdirs": [
+          "$(PKGCONFIG_SUBDIRS)"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": "$(xdrpp_CFLAGS) $(libsodium_CFLAGS) $(lmdb_CFLAGS) $(utility_CFLAGS)"
+      }
+    ],
+    "max_depth": 0,
+    "config_h_consumers_below_root": []
+  },
+  "tool_requirements": {
+    "detected": [
+      "c++",
+      "pkg-config"
+    ],
+    "missing": []
+  },
+  "macro_inventory": {
+    "macro_dirs": [
+      "m4"
+    ],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [],
+    "called_macros": [
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_HEADERS",
+      "AC_CONFIG_MACRO_DIR",
+      "AC_CONFIG_SRCDIR",
+      "AC_INIT",
+      "AC_LANG",
+      "AC_MSG_CHECKING",
+      "AC_MSG_ERROR",
+      "AC_MSG_NOTICE",
+      "AC_MSG_RESULT",
+      "AC_OUTPUT",
+      "AC_PATH_PROG",
+      "AC_PROG_CXX",
+      "AC_PROG_RANLIB",
+      "AC_SUBST",
+      "AM_INIT_AUTOMAKE",
+      "AX_APPEND_COMPILE_FLAGS",
+      "PKG_CHECK_MODULES",
+      "PKG_PROG_PKG_CONFIG"
+    ],
+    "unresolved_macros": [
+      "AX_APPEND_COMPILE_FLAGS"
+    ]
+  },
+  "conditional_context": {
+    "configure_if": 106,
+    "configure_fi": 102,
+    "configure_case": 63,
+    "configure_esac": 66,
+    "balanced": false,
+    "automake_conditionals": []
+  },
+  "config_aux_inventory": {
+    "aux_dir": ".",
+    "present": [
+      "install-sh",
+      "missing",
+      "depcomp",
+      "compile"
+    ],
+    "missing": []
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "cc": 31,
+      "h": 39
+    },
+    "configure_macros": [
+      "AC_PROG_CXX"
+    ],
+    "needs_cxx": true,
+    "needs_fortran": false,
+    "sets_c_std": true
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": false,
+    "defines_sampled": []
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-subdir-objects",
+      "applied_at": "configure",
+      "effect": "neutral",
+      "effectiveness": "low"
+    },
+    {
+      "quirk_id": "uses-pkg-config",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "has-m4-macro-dir",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-ax-archive",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "vpath_analysis": {
+    "hardcoded_src_paths": 3,
+    "abs_path_leakage": 0,
+    "built_sources": [
+      "$(XH_FILES)"
+    ],
+    "generated_source_targets": []
+  },
+  "feature_probe_gap": {
+    "headers_checked": [],
+    "headers_included_unchecked": [
+      "fcntl.h",
+      "sys/stat.h",
+      "utils/bitvector.h",
+      "utils/cleanup.h",
+      "utils/debug_utils.h",
+      "utils/mkdir.h",
+      "utils/non_movable.h",
+      "utils/serialize_endian.h",
+      "xdrpp/marshal.h",
+      "xdrpp/pollset.h",
+      "xdrpp/socket.h",
+      "xdrpp/srpc.h",
+      "xdrpp/types.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 2,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "gnu++",
+    "strip_modern_poison_flags": [],
+    "inject_legacy_shims": false,
+    "compiler_aliasing": {}
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 3,
+    "shadowed_builtins": [],
+    "permitted_mutations": 0,
+    "suspect_global_mutations": 0
+  },
+  "parallel_build_safety": {
+    "vpath_out_of_tree_safe": false,
+    "generators": [],
+    "unordered_generated_sources": [],
+    "built_sources_declared": true
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "fcntl.h",
+      "sys/stat.h",
+      "utils/bitvector.h",
+      "utils/cleanup.h",
+      "utils/debug_utils.h",
+      "utils/mkdir.h",
+      "utils/non_movable.h",
+      "utils/serialize_endian.h",
+      "xdrpp/marshal.h",
+      "xdrpp/pollset.h",
+      "xdrpp/socket.h",
+      "xdrpp/srpc.h",
+      "xdrpp/types.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "unresolved-macros",
+    "vpath-unsafe (abs-path/hardcoded-srcdir leakage)"
+  ],
+  "repair_hints": [
+    {
+      "id": "load-vendored-aclocal-dir",
+      "phase": "autoreconf",
+      "confidence": 0.85,
+      "evidence": [
+        "AX_APPEND_COMPILE_FLAGS"
+      ],
+      "action": "aclocal -I m4",
+      "expected_effect": "resolves unexpanded AX_/custom macros"
+    }
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": -1,
+      "Makefile.in": 1218,
+      "aclocal.m4": 8,
+      "config.h.in": 18,
+      "configure": 14,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_HEADERS": "system-aclocal",
+      "AC_CONFIG_MACRO_DIR": "system-aclocal",
+      "AC_CONFIG_SRCDIR": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_LANG": "system-aclocal",
+      "AC_MSG_CHECKING": "system-aclocal",
+      "AC_MSG_ERROR": "system-aclocal",
+      "AC_MSG_NOTICE": "system-aclocal",
+      "AC_MSG_RESULT": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PATH_PROG": "system-aclocal",
+      "AC_PROG_CXX": "system-aclocal",
+      "AC_PROG_RANLIB": "system-aclocal",
+      "AC_SUBST": "system-aclocal",
+      "AM_INIT_AUTOMAKE": "system-aclocal",
+      "AX_APPEND_COMPILE_FLAGS": "unresolved",
+      "PKG_CHECK_MODULES": "system-aclocal",
+      "PKG_PROG_PKG_CONFIG": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "BUILT_SOURCES",
+        "var": "XH_FILES",
+        "resolved_to": [
+          "$(X_FILES:.x=.h)"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libhotstuff_a_SOURCES",
+        "var": "HOTSTUFF_SRCS",
+        "resolved_to": [
+          "hotstuff/block.cc",
+          "hotstuff/block_storage/io_utils.cc",
+          "hotstuff/block_storage/block_fetch_server.cc",
+          "hotstuff/block_storage/block_fetch_manager.cc",
+          "hotstuff/block_storage/block_fetch_worker.cc",
+          "hotstuff/block_storage/block_store.cc",
+          "hotstuff/block_storage/garbage_collector.cc",
+          "hotstuff/config/replica_config.cc",
+          "hotstuff/consensus.cc",
+          "hotstuff/crypto/crypto_utils.cc",
+          "hotstuff/crypto/certs.cc",
+          "hotstuff/event.cc",
+          "hotstuff/event_queue.cc",
+          "hotstuff/hotstuff.cc",
+          "hotstuff/hotstuff_app.cc",
+          "hotstuff/log_access_wrapper.cc",
+          "hotstuff/lmdb.cc",
+          "hotstuff/manage_data_dirs.cc",
+          "hotstuff/network_event.cc",
+          "hotstuff/network_event_queue.cc",
+          "hotstuff/protocol/hotstuff_protocol_client.cc",
+          "hotstuff/protocol/hotstuff_protocol_manager.cc",
+          "hotstuff/protocol/hotstuff_server.cc",
+          "hotstuff/vm/hotstuff_vm_bridge.cc",
+          "hotstuff/vm/nonspeculative_vm_bridge.cc",
+          "hotstuff/vm/vm_control_interface.cc"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "test_SOURCES",
+        "var": "SRCS",
+        "resolved_to": [
+          "$(HOTSTUFF_SRCS)"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "test_SOURCES",
+        "var": "EXTRA_SRCS",
+        "resolved_to": [
+          "$(EXAMPLES_SRCS)",
+          "$(TEST_SRCS)"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "test_LDADD",
+        "var": "LDADD",
+        "resolved_to": [
+          "$(xdrpp_LIBS)",
+          "$(libsodium_LIBS)",
+          "$(lmdb_LIBS)",
+          "$(utility_LIBS)"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "test_LDADD",
+        "var": "Catch2_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      }
+    ],
+    "unresolved_refs": [
+      "test_LDADD = $(Catch2_LIBS)"
+    ],
+    "indirection_count": 6
   }
 }

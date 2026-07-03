@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "ecerulm/autotools-template",
   "source": {
     "url": "https://github.com/ecerulm/autotools-template",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,15 +26,18 @@
     {
       "step": "configure",
       "tool": "./configure",
-      "status": "fail"
+      "status": "ok"
     },
     {
-      "step": "auto-quirk",
-      "tool": "quirk-engine",
+      "step": "make",
+      "tool": "make",
       "status": "fail"
     }
   ],
-  "probe_results": {},
+  "probe_results": {
+    "HAVE_ASSERT_H": 1,
+    "HAVE_STDLIB_H": 1
+  },
   "feature_flags": {
     "configure_args": []
   },
@@ -49,38 +52,37 @@
     "pkg-config"
   ],
   "outputs": [],
-  "status": "CONFIGURE_RUN_FAIL",
+  "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1715: syntax error near unexpected token `)'",
+  "diagnostic": "make: *** No targets.  Stop.",
   "deep_expansion": {
-    "configure_lines": 2984,
+    "configure_lines": 3004,
     "leaked_macros": [],
-    "heredoc_openers": 21,
-    "heredoc_terminators": 21,
+    "heredoc_openers": 18,
+    "heredoc_terminators": 18,
     "heredoc_imbalance": 0,
-    "syntax_errors": [
-      {
-        "line": 1715,
-        "token": ")",
-        "source": ") \\",
-        "block": [
-          "1711: ifeq ($(VALGRIND_ENABLED),yes)",
-          "1712: \t-$(foreach tool,$(valgrind_tools), \\",
-          "1713: \t\t$(if $(VALGRIND_HAVE_TOOL_$(tool))$(VALGRIND_HAVE_TOOL_exp_$(tool)), \\",
-          "1714: \t\t\t$(MAKE) $(AM_MAKEFLAGS) -k check-valgrind-tool VALGRIND_TOOL=$(tool); \\",
-          "1715: \t\t) \\",
-          "1716: \t)",
-          "1717: else",
-          "1718: \t@echo \"Need to reconfigure with --enable-valgrind\""
-        ]
-      }
-    ],
+    "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2508: do eval test \\${$as_var+y} \\"
+      "line 2527: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
+      "VALGRIND_ENABLED_TRUE",
+      "VALGRIND_ENABLED_FALSE",
+      "VALGRIND_ENABLED",
+      "VALGRIND_HAVE_TOOL_memcheck",
+      "VALGRIND_HAVE_TOOL_helgrind",
+      "VALGRIND_HAVE_TOOL_drd",
+      "VALGRIND_HAVE_TOOL_exp_sgcheck",
+      "VALGRIND_CHECK_RULES",
+      "CODE_COVERAGE_ENABLED_TRUE",
+      "CODE_COVERAGE_ENABLED_FALSE",
+      "CODE_COVERAGE_ENABLED",
+      "GCOV",
+      "CODE_COVERAGE_CFLAGS",
+      "CODE_COVERAGE_LDFLAGS",
+      "CODE_COVERAGE_RULES",
       "PACKAGE_NAME",
       "PACKAGE_TARNAME",
       "PACKAGE_VERSION",
@@ -94,60 +96,40 @@
       "CFLAGS",
       "CPPFLAGS",
       "LDFLAGS",
-      "LIBS",
-      "CXX",
-      "CXXFLAGS",
-      "CPP",
-      "DEFS",
-      "LIBOBJS",
-      "INSTALL",
-      "VALGRIND_HAVE_TOOL_vgtooln",
-      "CODE_COVERAGE_CFLAGS",
-      "CODE_COVERAGE_RULES",
-      "VALGRIND_CHECK_RULES",
-      "CODE_COVERAGE_ENABLED",
-      "VALGRIND_ENABLED",
-      "GCOV",
-      "CODE_COVERAGE_LDFLAGS"
+      "LIBS"
     ],
-    "failed_during_check": "checking whether to enable Valgrind on the unit tests... yes",
+    "failed_during_check": "checking whether to build with code coverage support... no",
     "failure_tail": [
-      "checking whether to enable Valgrind on the unit tests... yes",
-      "./configure: line 1715: syntax error near unexpected token `)'",
-      "./configure: line 1715: `\t\t) \\'"
+      "for Valgrind tool memcheck... for Valgrind tool helgrind... for Valgrind tool dr",
+      "configure: creating Makefile",
+      "sed: -e expression #23, char 24: unterminated `s' command",
+      "configure: creating config.h",
+      "configure: creating ./config.status"
     ],
     "conftest_corruption": [],
-    "conftest_directives_intact": 3,
+    "conftest_directives_intact": 2,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
-      "char pthread_cond_wait ();\\nint main() { return pthread_cond_wait (); }",
-      "char g_test_init ();\\nint main() { return g_test_init (); }",
       "#include <assert.h>",
-      "#include <stdlib.h>",
-      "#include <stdatomic.h>"
+      "#include <stdlib.h>"
     ]
   },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "ok",
-    "real_make": "ok",
-    "real_configure_lines": 6820,
-    "real_first_error": "",
-    "classification": "OURS_BUG_CONFIGURE"
-  },
-  "divergence": {
-    "stage": "configure",
-    "ours_error": "line 1715: ) \\ (near `)`)",
-    "ours_error_context": [
-      ") \\"
-    ],
-    "ours_configure_lines": 2984,
-    "real_configure_lines": 6820,
-    "macros_ours_left_undefined": []
-  },
   "receipt": {
-    "court_status": "failed",
-    "probe_trace": [],
+    "court_status": "partial",
+    "probe_trace": [
+      {
+        "name": "HAVE_ASSERT_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STDLIB_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      }
+    ],
     "quirks_matched": [
       "uses-pkg-config",
       "uses-subdir-objects",
@@ -155,14 +137,7 @@
       "vendored-aclocal",
       "uses-ax-archive"
     ],
-    "quirks_applied": [
-      {
-        "id": "uses-subdir-objects",
-        "action": "--disable-dependency-tracking",
-        "verified": false
-      }
-    ],
-    "receipt_hash": "24e39ed3178d433d21c1340a6407fda16d8349c27724819539e8175382940e80",
+    "receipt_hash": "0fa092a5243df68c170dc0d56b8d0313ef29cbd2fd5658c7443b9497b3db5559",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -171,6 +146,312 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      }
+    ],
+    "config_headers": [
+      "config.h"
+    ],
+    "subdirs": [],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [
+          "libcommon.a",
+          "myexecutable",
+          "#",
+          "make",
+          "all",
+          "will",
+          "generate",
+          "./my_executable",
+          "add.ctaptest"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)/src # so that tests also find header files"
+      }
+    ],
+    "max_depth": 0,
+    "config_h_consumers_below_root": []
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 0,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      }
+    ]
+  },
+  "macro_inventory": {
+    "macro_dirs": [
+      "m4"
+    ],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [
+      {
+        "name": "AX_VALGRIND_CHECK",
+        "source": "m4/ax_valgrind_check.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AX_CODE_COVERAGE",
+        "source": "m4/ax_code_coverage.m4",
+        "kind": "AX"
+      }
+    ],
+    "called_macros": [
+      "AC_ARG_ENABLE",
+      "AC_CHECK_HEADER",
+      "AC_CONFIG_AUX_DIR",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_HEADERS",
+      "AC_CONFIG_MACRO_DIR",
+      "AC_CONFIG_SRCDIR",
+      "AC_DEFINE",
+      "AC_HEADER_ASSERT",
+      "AC_INIT",
+      "AC_LANG",
+      "AC_MSG_ERROR",
+      "AC_MSG_WARN",
+      "AC_OUTPUT",
+      "AC_PREREQ",
+      "AC_PROG_CC",
+      "AC_PROG_CC_89",
+      "AC_PROG_CC_C99",
+      "AC_PROG_CC_C_O",
+      "AC_PROG_CC_STDC",
+      "AC_PROG_INSTALL",
+      "AC_PROG_RANLIB",
+      "AC_REQUIRE_AUX_FILE",
+      "AC_SEARCH_LIBS",
+      "AM_INIT_AUTOMAKE",
+      "AM_SILENT_RULES",
+      "AX_CODE_COVERAGE",
+      "AX_VALGRIND_CHECK",
+      "PKG_CHECK_MODULES"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 126,
+    "configure_fi": 118,
+    "configure_case": 64,
+    "configure_esac": 67,
+    "balanced": false,
+    "automake_conditionals": []
+  },
+  "config_aux_inventory": {
+    "aux_dir": "build-aux",
+    "present": [
+      "install-sh",
+      "missing",
+      "depcomp",
+      "compile"
+    ],
+    "missing": []
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "c": 5,
+      "h": 4
+    },
+    "configure_macros": [
+      "AC_PROG_CC",
+      "AC_PROG_CC_C99"
+    ],
+    "needs_cxx": false,
+    "needs_fortran": false,
+    "sets_c_std": true
+  },
+  "make_graph": {
+    "targets": [],
+    "key_variables": {},
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "config.h",
+      "config.log"
+    ],
+    "recursion_depth": 0,
+    "top_targets": [],
+    "make_diagnostics": [
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make: *** No targets.  Stop."
+      }
+    ]
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": false,
+    "defines_sampled": []
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-pkg-config",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-subdir-objects",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "has-m4-macro-dir",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-ax-archive",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "stdatomic.h",
+      "stdlib.h"
+    ],
+    "headers_included_unchecked": [],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 5,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "c99",
+    "strip_modern_poison_flags": [],
+    "inject_legacy_shims": false,
+    "compiler_aliasing": {}
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 0,
+    "shadowed_builtins": [],
+    "permitted_mutations": 1,
+    "suspect_global_mutations": 0
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "stdatomic.h",
+      "stdlib.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": 0,
+      "Makefile.in": 1043,
+      "aclocal.m4": 5,
+      "config.h.in": 12,
+      "configure": 11,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_ENABLE": "system-aclocal",
+      "AC_CHECK_HEADER": "system-aclocal",
+      "AC_CONFIG_AUX_DIR": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_HEADERS": "system-aclocal",
+      "AC_CONFIG_MACRO_DIR": "system-aclocal",
+      "AC_CONFIG_SRCDIR": "system-aclocal",
+      "AC_DEFINE": "system-aclocal",
+      "AC_HEADER_ASSERT": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_LANG": "system-aclocal",
+      "AC_MSG_ERROR": "system-aclocal",
+      "AC_MSG_WARN": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PREREQ": "system-aclocal",
+      "AC_PROG_CC": "system-aclocal",
+      "AC_PROG_CC_89": "system-aclocal",
+      "AC_PROG_CC_C99": "system-aclocal",
+      "AC_PROG_CC_C_O": "system-aclocal",
+      "AC_PROG_CC_STDC": "system-aclocal",
+      "AC_PROG_INSTALL": "system-aclocal",
+      "AC_PROG_RANLIB": "system-aclocal",
+      "AC_REQUIRE_AUX_FILE": "system-aclocal",
+      "AC_SEARCH_LIBS": "system-aclocal",
+      "AM_INIT_AUTOMAKE": "system-aclocal",
+      "AM_SILENT_RULES": "system-aclocal",
+      "AX_CODE_COVERAGE": "m4/ax_code_coverage.m4",
+      "AX_VALGRIND_CHECK": "m4/ax_valgrind_check.m4",
+      "PKG_CHECK_MODULES": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
   }
 }

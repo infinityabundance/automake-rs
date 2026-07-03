@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "adjacentlink/emane-layer-dlep",
   "source": {
     "url": "https://github.com/adjacentlink/emane-layer-dlep",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.14",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,6 +26,11 @@
     {
       "step": "configure",
       "tool": "./configure",
+      "status": "ok"
+    },
+    {
+      "step": "make",
+      "tool": "make",
       "status": "fail"
     }
   ],
@@ -36,8 +41,14 @@
   "dependencies": {
     "pkg_config": [],
     "system_libs": [],
-    "headers_needed": [],
-    "missing": []
+    "headers_needed": [
+      "emane/platformserviceprovider.h",
+      "emane/controls/serializedcontrolmessage.h"
+    ],
+    "missing": [
+      "emane/platformserviceprovider.h",
+      "emane/controls/serializedcontrolmessage.h"
+    ]
   },
   "quirks": [
     "autoconf-archive-macros",
@@ -46,40 +57,37 @@
     "subdirs"
   ],
   "outputs": [],
-  "status": "CONFIGURE_RUN_FAIL",
+  "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 2009: syntax error near unexpected token `('",
+  "diagnostic": "dlepclientimpl.h:37:10: fatal error: emane/platformserviceprovider.h: No such file or directory",
   "deep_expansion": {
-    "configure_lines": 2576,
+    "configure_lines": 2679,
     "leaked_macros": [],
     "heredoc_openers": 19,
     "heredoc_terminators": 19,
     "heredoc_imbalance": 0,
-    "syntax_errors": [
-      {
-        "line": 2009,
-        "token": "(",
-        "source": "sed -e 's|@PACKAGE_NAME@|emane-layer-dlep|g' -e 's|@PACKAGE_TARNAME@|ema",
-        "block": [
-          "2005: test \"x$exec_prefix\" = xNONE && exec_prefix='${prefix}'",
-          "2006: ",
-          "2007: ac_subst_file () {",
-          "2008:   mkdir -p \"$(dirname \"$2\")\" 2>/dev/null || :",
-          "2009:   sed -e 's|@PACKAGE_NAME@|emane-layer-dlep|g' -e 's|@PACKAGE_TARNAME@|emane",
-          "2010: }",
-          "2011: ",
-          "2012: if test -f 'Makefile.in'; then printf '%s\\n' \"configure: creating Makefile\";"
-        ]
-      }
-    ],
+    "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2100: do eval test \\${$as_var+y} \\"
+      "line 2202: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
       "CXX",
       "CXXFLAGS",
+      "libemane_CFLAGS",
+      "libemane_LIBS",
+      "libdlep_CFLAGS",
+      "libdlep_LIBS",
+      "LANG",
+      "HAVE_RPMBUILD_TRUE",
+      "HAVE_RPMBUILD_FALSE",
+      "HAVE_DEB_TRUE",
+      "HAVE_DEB_FALSE",
+      "DISTRIB_CODENAME",
+      "RELDATE",
+      "DATE_RFC2822",
+      "PACKAGE_VERSION_CODE",
       "PACKAGE_NAME",
       "PACKAGE_TARNAME",
       "PACKAGE_VERSION",
@@ -93,22 +101,15 @@
       "CFLAGS",
       "CPPFLAGS",
       "LDFLAGS",
-      "LIBS",
-      "CPP",
-      "DEFS",
-      "LIBOBJS",
-      "INSTALL",
-      "LANG",
-      "DISTRIB_CODENAME",
-      "RELDATE",
-      "DATE_RFC2822",
-      "PACKAGE_VERSION_CODE"
+      "LIBS"
     ],
     "failed_during_check": "checking endianness... big-endian",
     "failure_tail": [
       "checking endianness... big-endian",
-      "./configure: line 2009: syntax error near unexpected token `('",
-      "./configure: line 2009: `  sed -e 's|@PACKAGE_NAME@|emane-layer-dlep|g' -e 's|@P"
+      "dh_clean: warning: Compatibility levels before 10 are deprecated (level 8 in use",
+      "configure: creating Makefile",
+      "configure: creating src/Makefile",
+      "configure: creating src/xml/Makefile"
     ],
     "conftest_corruption": [],
     "conftest_directives_intact": 0,
@@ -119,16 +120,8 @@
       "\\nint main() {  ; return 0; }"
     ]
   },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "fail",
-    "real_make": "skipped",
-    "real_configure_lines": 20969,
-    "real_first_error": "configure: error: Package requirements (libemane) were not met:",
-    "classification": "BOTH_CONFIGURE_FAIL"
-  },
   "receipt": {
-    "court_status": "not_standalone",
+    "court_status": "partial",
     "probe_trace": [],
     "quirks_matched": [
       "uses-libtool-old",
@@ -137,7 +130,7 @@
       "vendored-aclocal",
       "uses-ax-archive"
     ],
-    "receipt_hash": "1b59d07d0a20a927a52050673c57d051c46cf0669ffc84ae54f67e19a8cf7afb",
+    "receipt_hash": "fc222e24136e1c7565f3970366c0a81d4ec04fa5491250e780188ba2805c06fb",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -146,6 +139,470 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "src/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "src/xml/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      }
+    ],
+    "config_headers": [],
+    "subdirs": [
+      "src",
+      "src/xml"
+    ],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [],
+        "subdirs": [
+          "src",
+          "src/xml"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src",
+        "targets": [
+          "libemanelayerdlep.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      }
+    ],
+    "max_depth": 2,
+    "config_h_consumers_below_root": []
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 540,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 554,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/xml/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 452,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      }
+    ]
+  },
+  "tool_requirements": {
+    "detected": [
+      "c++"
+    ],
+    "missing": []
+  },
+  "macro_inventory": {
+    "macro_dirs": [
+      "m4"
+    ],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [
+      {
+        "name": "AX_CXX_COMPILE_STDCXX_11",
+        "source": "m4/ax_cxx_compile_stdcxx_11.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AX_CXX_COMPILE_STDCXX",
+        "source": "m4/ax_cxx_compile_stdcxx.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AX_CHECK_COMPILE_FLAG",
+        "source": "m4/ax_check_compile_flag.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AX_CHECK_LINK_FLAG",
+        "source": "m4/ax_check_link_flag.m4",
+        "kind": "AX"
+      }
+    ],
+    "called_macros": [
+      "AC_ARG_WITH",
+      "AC_CHECK_FILE",
+      "AC_CHECK_PROG",
+      "AC_CONFIG_MACRO_DIR",
+      "AC_CONFIG_SRCDIR",
+      "AC_COPYRIGHT",
+      "AC_C_BIGENDIAN",
+      "AC_DEFINE",
+      "AC_INIT",
+      "AC_LANG",
+      "AC_OUTPUT",
+      "AC_PROG_CXX",
+      "AC_PROG_CXXCPP",
+      "AC_PROG_INSTALL",
+      "AC_PROG_LIBTOOL",
+      "AC_SUBST",
+      "AM_CONDITIONAL",
+      "AM_INIT_AUTOMAKE",
+      "AX_CHECK_COMPILE_FLAG",
+      "AX_CHECK_LINK_FLAG",
+      "AX_CXX_COMPILE_STDCXX_11",
+      "PKG_CHECK_MODULES"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 113,
+    "configure_fi": 108,
+    "configure_case": 63,
+    "configure_esac": 66,
+    "balanced": false,
+    "automake_conditionals": [
+      "HAVE_RPMBUILD",
+      "HAVE_DEB"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": ".",
+    "present": [
+      "install-sh",
+      "missing"
+    ],
+    "missing": [
+      "depcomp",
+      "compile",
+      "ltmain.sh"
+    ]
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "cc": 3,
+      "h": 3
+    },
+    "configure_macros": [
+      "AC_PROG_CXX"
+    ],
+    "needs_cxx": true,
+    "needs_fortran": false,
+    "sets_c_std": true
+  },
+  "libtool_context": {
+    "uses_libtool": true,
+    "macros": [
+      "AC_PROG_LIBTOOL"
+    ],
+    "ltmain_present": false,
+    "libtool_m4_sources": [],
+    "age": "old"
+  },
+  "make_graph": {
+    "targets": [
+      "all",
+      "all-am",
+      "install-am",
+      "installcheck-am",
+      "install-strip",
+      "install-info",
+      "install-info-am",
+      "install-dvi",
+      "install-dvi-am",
+      "install-ps",
+      "install-ps-am",
+      "install-pdf",
+      "install-pdf-am",
+      "install-html",
+      "install-html-am",
+      "install-data-hook",
+      "install-exec-hook",
+      "installdirs-am",
+      ".PHONY",
+      "mostlyclean-am",
+      "clean-am",
+      "distclean-am",
+      "maintainer-clean-am",
+      "distdir",
+      "dist",
+      "dist-all",
+      "dist-gzip",
+      "distcleancheck",
+      "distcheck",
+      "check-am",
+      "TAGS",
+      "tags",
+      "TAGS-am",
+      "tags-am",
+      "cscope",
+      "cscope-am",
+      "distuninstallcheck",
+      "$(srcdir)/Makefile.in",
+      "$(am__recursive_targets)",
+      "check"
+    ],
+    "key_variables": {
+      "AR": "ar",
+      "CC": "cc",
+      "CFLAGS": "-g -O2",
+      "CPPFLAGS": "",
+      "CXX": "g++ -std=c++11",
+      "CXXFLAGS": "-g -O3 -Wall -Wextra -std=c++11",
+      "DEFS": "-DPACKAGE=\"emane-layer-dlep\" -DVERSION=\"1.0.2\" -DPACKAGE_NAME=\"emane-layer-dlep\" -DPACKAGE_TARNAME=\"emane-layer-dlep\" -DPACKAGE_VERSION=\"1.0.2\" -DPACKAGE_STRING",
+      "LDFLAGS": "",
+      "LIBS": "",
+      "RANLIB": "ranlib"
+    },
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "libtool",
+      "config.log"
+    ],
+    "recursion_depth": 2,
+    "top_targets": [
+      "all",
+      "check",
+      "dist",
+      "all-am"
+    ],
+    "make_diagnostics": [
+      {
+        "command": "",
+        "error_type": "missing-header",
+        "message": "dlepclientimpl.h:37:10: fatal error: emane/platformserviceprovider.h: No such file or directory"
+      },
+      {
+        "command": "",
+        "error_type": "missing-header",
+        "message": "shimlayer.cc:33:10: fatal error: emane/controls/serializedcontrolmessage.h: No such file or directory"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[2]: *** [Makefile:505: libemanelayerdlep_la-dlepclientimpl.lo] Error 1"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[2]: *** Waiting for unfinished jobs...."
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[2]: *** [Makefile:502: libemanelayerdlep_la-shimlayer.lo] Error 1"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[1]: *** [Makefile:253: all-am] Error 2"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make: *** [Makefile:449: all-recursive] Error 1"
+      }
+    ]
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": false,
+    "defines_sampled": [
+      "PACKAGE=\"emane-layer-dlep\"",
+      "VERSION=\"1.0.2\"",
+      "PACKAGE_NAME=\"emane-layer-dlep\"",
+      "PACKAGE_TARNAME=\"emane-layer-dlep\"",
+      "PACKAGE_VERSION=\"1.0.2\"",
+      "PACKAGE_STRING=\"emane-layer-dlep",
+      "PACKAGE_BUGREPORT=\"emane",
+      "__LITTLE_ENDIAN=1234",
+      "__BIG_ENDIAN=4321"
+    ]
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-libtool-old",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-pkg-config",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "has-m4-macro-dir",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-ax-archive",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 5,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "gnu++",
+    "strip_modern_poison_flags": [],
+    "inject_legacy_shims": false,
+    "compiler_aliasing": {}
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 4,
+    "shadowed_builtins": [],
+    "permitted_mutations": 4,
+    "suspect_global_mutations": 0
+  },
+  "risk_factors": [
+    "ancient-libtool"
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": 0,
+      "Makefile.in": 1019,
+      "aclocal.m4": 6,
+      "configure": 12,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_WITH": "system-aclocal",
+      "AC_CHECK_FILE": "system-aclocal",
+      "AC_CHECK_PROG": "system-aclocal",
+      "AC_CONFIG_MACRO_DIR": "system-aclocal",
+      "AC_CONFIG_SRCDIR": "system-aclocal",
+      "AC_COPYRIGHT": "system-aclocal",
+      "AC_C_BIGENDIAN": "system-aclocal",
+      "AC_DEFINE": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_LANG": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PROG_CXX": "system-aclocal",
+      "AC_PROG_CXXCPP": "system-aclocal",
+      "AC_PROG_INSTALL": "system-aclocal",
+      "AC_PROG_LIBTOOL": "system-aclocal",
+      "AC_SUBST": "system-aclocal",
+      "AM_CONDITIONAL": "system-aclocal",
+      "AM_INIT_AUTOMAKE": "system-aclocal",
+      "AX_CHECK_COMPILE_FLAG": "m4/ax_check_compile_flag.m4",
+      "AX_CHECK_LINK_FLAG": "m4/ax_check_link_flag.m4",
+      "AX_CXX_COMPILE_STDCXX_11": "m4/ax_cxx_compile_stdcxx_11.m4",
+      "PKG_CHECK_MODULES": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "libemanelayerdlep_la_LIBADD",
+        "var": "libemane_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libemanelayerdlep_la_LIBADD",
+        "var": "libdlep_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      }
+    ],
+    "unresolved_refs": [
+      "libemanelayerdlep_la_LIBADD = $(libemane_LIBS)",
+      "libemanelayerdlep_la_LIBADD = $(libdlep_LIBS)"
+    ],
+    "indirection_count": 2
   }
 }

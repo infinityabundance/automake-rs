@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "benchmark-subsetting/cere",
   "source": {
     "url": "https://github.com/benchmark-subsetting/cere",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.14",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -54,18 +54,28 @@
   "verified": false,
   "diagnostic": "configure: error: At least LLVM version 7.0 is required",
   "deep_expansion": {
-    "configure_lines": 3211,
+    "configure_lines": 3309,
     "leaked_macros": [],
-    "heredoc_openers": 40,
-    "heredoc_terminators": 40,
+    "heredoc_openers": 37,
+    "heredoc_terminators": 37,
     "heredoc_imbalance": 0,
     "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2735: do eval test \\${$as_var+y} \\"
+      "line 2832: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
+      "CERELIBS",
+      "GCC_PATH",
+      "DRAGONEGG_PATH",
+      "LLVM_BINDIR",
+      "LLVM_CPPFLAGS",
+      "FORTRAN_SUPPORT",
+      "WITH_FLANG_TRUE",
+      "WITH_FLANG_FALSE",
+      "RONN",
+      "PPROF",
       "PACKAGE_NAME",
       "PACKAGE_TARNAME",
       "PACKAGE_VERSION",
@@ -78,27 +88,19 @@
       "configure: error: At least LLVM version 7.0 is required"
     ],
     "conftest_corruption": [],
-    "conftest_directives_intact": 33,
+    "conftest_directives_intact": 35,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
-      "\\n@%:@include <llvm/IR/LLVMContext.h>\\n@%:@include <llvm/IR/Module.h>\\nint main() { llvm::LLVMContext context;\\nllvm::Module *M = new llvm::Module(\"test\", context); ; return 0; }",
-      "char ();\\nint main() { return (); }",
-      "char exit();\\nint main() { return exit(); }",
-      "char sin();\\nint main() { return sin(); }",
+      "\\n#include <llvm/IR/LLVMContext.h>\\n#include <llvm/IR/Module.h>\\nint main() { llvm::LLVMContext context;\\nllvm::Module *M = new llvm::Module(\"test\", context); ; return 0; }",
+      "char exit ();\\nint main() { return exit(); }",
+      "char sin ();\\nint main() { return sin(); }",
       "#include <$ac_hdr>",
-      "inline int foo() { return 0; }\\nint main() { return foo(); }"
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { int16_t x; return 0; }",
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { int32_t x; return 0; }"
     ]
   },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "fail",
-    "real_make": "skipped",
-    "real_configure_lines": 23377,
-    "real_first_error": "configure: error: LLVM version up to 16.0.6 is supported",
-    "classification": "BOTH_CONFIGURE_FAIL"
-  },
   "receipt": {
-    "court_status": "not_standalone",
+    "court_status": "failed",
     "probe_trace": [],
     "quirks_matched": [
       "uses-libtool",
@@ -115,7 +117,7 @@
         "verified": false
       }
     ],
-    "receipt_hash": "1b59d07d0a20a927a52050673c57d051c46cf0669ffc84ae54f67e19a8cf7afb",
+    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -124,6 +126,866 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "doc/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "src/GlobalRename/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "src/RegionDump/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/RegionInstrumentation/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/RegionOutliner/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/RegionReplay/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/ccan/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/cere/vars.py.in",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/memory_dump/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/rdtsc/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tests/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      }
+    ],
+    "config_headers": [
+      "config.h"
+    ],
+    "subdirs": [
+      "src/",
+      "tests/",
+      "doc/",
+      "ccan",
+      "rdtsc",
+      "memory_dump",
+      "RegionOutliner",
+      "RegionInstrumentation",
+      "RegionReplay",
+      "RegionDump",
+      "GlobalRename"
+    ],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [],
+        "subdirs": [
+          "src/",
+          "tests/",
+          "doc/"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src",
+        "targets": [],
+        "subdirs": [
+          "ccan",
+          "rdtsc",
+          "memory_dump",
+          "RegionOutliner",
+          "RegionInstrumentation",
+          "RegionReplay",
+          "RegionDump",
+          "GlobalRename"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/GlobalRename",
+        "targets": [
+          "libcere_globalrename.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/RegionDump",
+        "targets": [
+          "libcere_regiondump.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/RegionInstrumentation",
+        "targets": [
+          "libcere_regioninstrumentation.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/RegionOutliner",
+        "targets": [
+          "libcere_regionoutliner.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/RegionReplay",
+        "targets": [
+          "libcere_regionreplay.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/ccan",
+        "targets": [
+          "libccan.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/memory_dump",
+        "targets": [
+          "libcere_dump.la",
+          "libcere_load.la",
+          "cere-tracer"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/rdtsc",
+        "targets": [
+          "libcere_rdtsc.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      }
+    ],
+    "max_depth": 2,
+    "config_h_consumers_below_root": [
+      "src/RegionInstrumentation"
+    ]
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "tests/test_04/Makefile",
+        "has_makefile_in": false,
+        "has_makefile_am": false,
+        "lines": 35,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "tests/test_UI_Regions/Makefile",
+        "has_makefile_in": false,
+        "has_makefile_am": false,
+        "lines": 38,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "tests/test_UI_Capture_Repr/Makefile",
+        "has_makefile_in": false,
+        "has_makefile_am": false,
+        "lines": 35,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "tests/test_09/Makefile",
+        "has_makefile_in": false,
+        "has_makefile_am": false,
+        "lines": 10,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "tests/test_13/Makefile",
+        "has_makefile_in": false,
+        "has_makefile_am": false,
+        "lines": 24,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "tests/test_10/Makefile",
+        "has_makefile_in": false,
+        "has_makefile_am": false,
+        "lines": 24,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "tests/test_Omp_Blackscholes/Makefile",
+        "has_makefile_in": false,
+        "has_makefile_am": false,
+        "lines": 16,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "tests/test_01/Makefile",
+        "has_makefile_in": false,
+        "has_makefile_am": false,
+        "lines": 24,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "tests/test_05/Makefile",
+        "has_makefile_in": false,
+        "has_makefile_am": false,
+        "lines": 35,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "tests/test_UI_Profile/Makefile",
+        "has_makefile_in": false,
+        "has_makefile_am": false,
+        "lines": 34,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "tests/test_12/Makefile",
+        "has_makefile_in": false,
+        "has_makefile_am": false,
+        "lines": 10,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "tests/test_UI_Cluster/Makefile",
+        "has_makefile_in": false,
+        "has_makefile_am": false,
+        "lines": 38,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "tests/test_15/Makefile",
+        "has_makefile_in": false,
+        "has_makefile_am": false,
+        "lines": 24,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "tests/test_06/Makefile",
+        "has_makefile_in": false,
+        "has_makefile_am": false,
+        "lines": 38,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "tests/test_07/Makefile",
+        "has_makefile_in": false,
+        "has_makefile_am": false,
+        "lines": 10,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "tests/test_UI_Replay_Repr/Makefile",
+        "has_makefile_in": false,
+        "has_makefile_am": false,
+        "lines": 35,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "tests/test_08/Makefile",
+        "has_makefile_in": false,
+        "has_makefile_am": false,
+        "lines": 10,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "tests/test_UI_Flags/Makefile",
+        "has_makefile_in": false,
+        "has_makefile_am": false,
+        "lines": 38,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "tests/test_11/Makefile",
+        "has_makefile_in": false,
+        "has_makefile_am": false,
+        "lines": 10,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "tests/test_Omp_Instrument/Makefile",
+        "has_makefile_in": false,
+        "has_makefile_am": false,
+        "lines": 24,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "tests/test_Omp_Capture_Replay/Makefile",
+        "has_makefile_in": false,
+        "has_makefile_am": false,
+        "lines": 23,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "tests/test_UI_Dump/Makefile",
+        "has_makefile_in": false,
+        "has_makefile_am": false,
+        "lines": 35,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "tests/test_14/Makefile",
+        "has_makefile_in": false,
+        "has_makefile_am": false,
+        "lines": 24,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "tests/test_02/Makefile",
+        "has_makefile_in": false,
+        "has_makefile_am": false,
+        "lines": 36,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "tests/long_01/Makefile",
+        "has_makefile_in": false,
+        "has_makefile_am": false,
+        "lines": 22,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "tests/test_UI_Replay/Makefile",
+        "has_makefile_in": false,
+        "has_makefile_am": false,
+        "lines": 10,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "tests/test_check_io/Makefile",
+        "has_makefile_in": false,
+        "has_makefile_am": false,
+        "lines": 24,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "tests/test_03/Makefile",
+        "has_makefile_in": false,
+        "has_makefile_am": false,
+        "lines": 35,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "tests/test_pthread/Makefile",
+        "has_makefile_in": false,
+        "has_makefile_am": false,
+        "lines": 23,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "examples/NPB3.0-SER/Makefile",
+        "has_makefile_in": false,
+        "has_makefile_am": false,
+        "lines": 65,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 7
+      }
+    ]
+  },
+  "tool_requirements": {
+    "detected": [
+      "python",
+      "c++"
+    ],
+    "missing": []
+  },
+  "macro_inventory": {
+    "macro_dirs": [
+      "m4"
+    ],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [
+      {
+        "name": "AX_LLVM",
+        "source": "m4/ax_llvm.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AX_PYTHON_MODULE",
+        "source": "m4/ax_python_module.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AX_COMPARE_VERSION",
+        "source": "m4/ax_compare_version.m4",
+        "kind": "AX"
+      }
+    ],
+    "called_macros": [
+      "AC_ARG_WITH",
+      "AC_CHECK_FUNCS",
+      "AC_CHECK_HEADERS",
+      "AC_CHECK_HEADER_STDBOOL",
+      "AC_CHECK_LIB",
+      "AC_CHECK_TOOL",
+      "AC_CONFIG_AUX_DIR",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_HEADERS",
+      "AC_CONFIG_MACRO_DIR",
+      "AC_C_BIGENDIAN",
+      "AC_C_INLINE",
+      "AC_C_RESTRICT",
+      "AC_DEFINE",
+      "AC_DEFINE_UNQUOTED",
+      "AC_FUNC_ALLOCA",
+      "AC_FUNC_CHOWN",
+      "AC_FUNC_ERROR_AT_LINE",
+      "AC_FUNC_LSTAT_FOLLOWS_SLASHED_SYMLINK",
+      "AC_FUNC_MALLOC",
+      "AC_FUNC_MKTIME",
+      "AC_FUNC_REALLOC",
+      "AC_INIT",
+      "AC_MSG_ERROR",
+      "AC_MSG_NOTICE",
+      "AC_OUTPUT",
+      "AC_PATH_PROG",
+      "AC_PATH_PROGS",
+      "AC_PREREQ",
+      "AC_PROG_AWK",
+      "AC_PROG_CC",
+      "AC_PROG_CPP",
+      "AC_PROG_CXX",
+      "AC_PROG_INSTALL",
+      "AC_PROG_LN_S",
+      "AC_PROG_MAKE_SET",
+      "AC_REQUIRE_AUX_FILE",
+      "AC_SUBST",
+      "AC_TYPE_INT16_T",
+      "AC_TYPE_INT32_T",
+      "AC_TYPE_INT64_T",
+      "AC_TYPE_PID_T",
+      "AC_TYPE_SIZE_T",
+      "AC_TYPE_UINT16_T",
+      "AC_TYPE_UINT32_T",
+      "AC_TYPE_UINT64_T",
+      "AC_TYPE_UINT8_T",
+      "AM_CONDITIONAL",
+      "AM_INIT_AUTOMAKE",
+      "AM_PATH_PYTHON",
+      "AM_SILENT_RULES",
+      "AX_LLVM",
+      "AX_PYTHON_MODULE",
+      "LT_INIT"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 183,
+    "configure_fi": 170,
+    "configure_case": 63,
+    "configure_esac": 66,
+    "balanced": false,
+    "automake_conditionals": [
+      "WITH_FLANG"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": "autoconf",
+    "present": [
+      "install-sh",
+      "missing"
+    ],
+    "missing": [
+      "depcomp",
+      "compile",
+      "ltmain.sh"
+    ]
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "c": 192,
+      "cpp": 14,
+      "f": 252,
+      "h": 197
+    },
+    "configure_macros": [
+      "AC_PROG_CC",
+      "AC_PROG_CXX"
+    ],
+    "needs_cxx": true,
+    "needs_fortran": true,
+    "sets_c_std": false
+  },
+  "libtool_context": {
+    "uses_libtool": true,
+    "macros": [
+      "LT_INIT"
+    ],
+    "ltmain_present": false,
+    "libtool_m4_sources": [],
+    "age": "modern"
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": true,
+    "defines_sampled": []
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-subdir-objects",
+      "applied_at": "configure",
+      "effect": "neutral",
+      "effectiveness": "low"
+    },
+    {
+      "quirk_id": "uses-libtool",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-python",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "has-m4-macro-dir",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-ax-archive",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "fcntl.h",
+      "inttypes.h",
+      "limits.h",
+      "malloc.h",
+      "stdint.h",
+      "stdlib.h",
+      "string.h",
+      "sys/time.h",
+      "unistd.h",
+      "utime.h"
+    ],
+    "headers_included_unchecked": [
+      "../ccan/ccan/htable/htable.h",
+      "asm/ptrace.h",
+      "bits/wordsize.h",
+      "ccan/hash/hash.h",
+      "ccan/htable/htable.h",
+      "dlfcn.h",
+      "llvm/IR/Constants.h",
+      "llvm/IR/DataLayout.h",
+      "llvm/IR/IRBuilder.h",
+      "llvm/IR/Instructions.h",
+      "llvm/IR/Module.h",
+      "llvm/IR/Type.h",
+      "pthread.h",
+      "rpc/rpc.h",
+      "rpc/xdr.h",
+      "sys/immu.h",
+      "sys/mman.h",
+      "sys/prctl.h",
+      "sys/ptrace.h",
+      "sys/schedctl.h",
+      "sys/stat.h",
+      "sys/syscall.h",
+      "sys/sysmp.h",
+      "sys/syssgi.h",
+      "sys/times.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 5,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "gnu++",
+    "strip_modern_poison_flags": [],
+    "inject_legacy_shims": false,
+    "compiler_aliasing": {}
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 0,
+    "shadowed_builtins": [],
+    "permitted_mutations": 1,
+    "suspect_global_mutations": 0
+  },
+  "host_environment_veil": {
+    "header_injection_candidates": [
+      "malloc.h"
+    ],
+    "symbol_aliasing_candidates": []
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "../ccan/ccan/htable/htable.h",
+      "asm/ptrace.h",
+      "bits/wordsize.h",
+      "ccan/hash/hash.h",
+      "ccan/htable/htable.h",
+      "dlfcn.h",
+      "llvm/IR/Constants.h",
+      "llvm/IR/DataLayout.h",
+      "llvm/IR/IRBuilder.h",
+      "llvm/IR/Instructions.h",
+      "llvm/IR/Module.h",
+      "llvm/IR/Type.h",
+      "pthread.h",
+      "rpc/rpc.h",
+      "rpc/xdr.h",
+      "sys/immu.h",
+      "sys/mman.h",
+      "sys/prctl.h",
+      "sys/ptrace.h",
+      "sys/schedctl.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "subdir-config-h-include-path"
+  ],
+  "repair_hints": [
+    {
+      "id": "subdir-top-builddir",
+      "phase": "make",
+      "confidence": 0.88,
+      "evidence": [
+        "src/RegionInstrumentation consumes config.h below root"
+      ],
+      "action": "ensure ac_subst_file sets relative top_builddir per subdir (0.1.19)",
+      "expected_effect": "config.h found in subdir compiles"
+    }
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": 0,
+      "Makefile.in": 1340,
+      "aclocal.m4": 51,
+      "config.h.in": 63,
+      "configure": 61,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_WITH": "system-aclocal",
+      "AC_CHECK_FUNCS": "system-aclocal",
+      "AC_CHECK_HEADERS": "system-aclocal",
+      "AC_CHECK_HEADER_STDBOOL": "system-aclocal",
+      "AC_CHECK_LIB": "system-aclocal",
+      "AC_CHECK_TOOL": "system-aclocal",
+      "AC_CONFIG_AUX_DIR": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_HEADERS": "system-aclocal",
+      "AC_CONFIG_MACRO_DIR": "system-aclocal",
+      "AC_C_BIGENDIAN": "system-aclocal",
+      "AC_C_INLINE": "system-aclocal",
+      "AC_C_RESTRICT": "system-aclocal",
+      "AC_DEFINE": "system-aclocal",
+      "AC_DEFINE_UNQUOTED": "system-aclocal",
+      "AC_FUNC_ALLOCA": "system-aclocal",
+      "AC_FUNC_CHOWN": "system-aclocal",
+      "AC_FUNC_ERROR_AT_LINE": "system-aclocal",
+      "AC_FUNC_LSTAT_FOLLOWS_SLASHED_SYMLINK": "system-aclocal",
+      "AC_FUNC_MALLOC": "system-aclocal",
+      "AC_FUNC_MKTIME": "system-aclocal",
+      "AC_FUNC_REALLOC": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_MSG_ERROR": "system-aclocal",
+      "AC_MSG_NOTICE": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PATH_PROG": "system-aclocal",
+      "AC_PATH_PROGS": "system-aclocal",
+      "AC_PREREQ": "system-aclocal",
+      "AC_PROG_AWK": "system-aclocal",
+      "AC_PROG_CC": "system-aclocal",
+      "AC_PROG_CPP": "system-aclocal",
+      "AC_PROG_CXX": "system-aclocal",
+      "AC_PROG_INSTALL": "system-aclocal",
+      "AC_PROG_LN_S": "system-aclocal",
+      "AC_PROG_MAKE_SET": "system-aclocal",
+      "AC_REQUIRE_AUX_FILE": "system-aclocal",
+      "AC_SUBST": "system-aclocal",
+      "AC_TYPE_INT16_T": "system-aclocal",
+      "AC_TYPE_INT32_T": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
   }
 }

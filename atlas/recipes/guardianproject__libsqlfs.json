@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "guardianproject/libsqlfs",
   "source": {
     "url": "https://github.com/guardianproject/libsqlfs",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,6 +26,11 @@
     {
       "step": "configure",
       "tool": "./configure",
+      "status": "ok"
+    },
+    {
+      "step": "make",
+      "tool": "make",
       "status": "fail"
     }
   ],
@@ -35,20 +40,23 @@
   },
   "dependencies": {
     "pkg_config": [],
-    "system_libs": [],
+    "system_libs": [
+      "-lpthread"
+    ],
     "headers_needed": [],
     "missing": []
   },
   "quirks": [
     "libtool",
-    "subdirs"
+    "subdirs",
+    "LIBS=-lpthread"
   ],
   "outputs": [],
-  "status": "CONFIGURE_RUN_FAIL",
+  "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "configure: error: --with-sqlcipher was given but test failed",
+  "diagnostic": "sqlfs.c:2302:17: error: 'strncat' specified bound 1 equals source length [-Werror=stringop-overflow=]",
   "deep_expansion": {
-    "configure_lines": 2606,
+    "configure_lines": 2712,
     "leaked_macros": [],
     "heredoc_openers": 20,
     "heredoc_terminators": 20,
@@ -56,55 +64,49 @@
     "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2125: do eval test \\${$as_var+y} \\"
+      "line 1411: # eval \"_acrs_sv=\\${}\"; printf '%s\\n' \"s|@@|${_acrs_sv}|g\" >",
+      "line 2230: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
+      "WITH_SQLCIPHER_TRUE",
+      "WITH_SQLCIPHER_FALSE",
+      "SQLITE",
+      "LIBFUSE",
+      "WITH_LIBFUSE_TRUE",
+      "WITH_LIBFUSE_FALSE",
       "PACKAGE_NAME",
       "PACKAGE_TARNAME",
       "PACKAGE_VERSION",
       "PACKAGE_STRING",
       "PACKAGE_BUGREPORT"
     ],
-    "failed_during_check": "checking for sqlite3_key in -lsqlcipher... no",
+    "failed_during_check": "checking for fuse_main in -lfuse... yes",
     "failure_tail": [
-      "checking for sqlite3_key in -lsqlcipher... no",
-      "configure: error: --with-sqlcipher was given but test failed"
+      "checking for fuse_main in -lfuse... yes",
+      "configure: creating Makefile",
+      "configure: creating tests/Makefile",
+      "configure: creating libsqlfs.pc",
+      "configure: creating ./config.status"
     ],
     "conftest_corruption": [],
     "conftest_directives_intact": 1,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
-      "char sqlite3_key();\\nint main() { return sqlite3_key(); }",
-      "char sqlite3_open();\\nint main() { return sqlite3_open(); }",
+      "char sqlite3_key ();\\nint main() { return sqlite3_key(); }",
+      "char sqlite3_open ();\\nint main() { return sqlite3_open(); }",
       "#include <sys/types.h>\\nint main() { return sizeof(off_t) >= 8 ? 0 : 1; }",
-      "char fuse_main();\\nint main() { return fuse_main(); }"
+      "char fuse_main ();\\nint main() { return fuse_main(); }"
     ]
   },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "ok",
-    "real_make": "fail",
-    "real_configure_lines": 19695,
-    "real_first_error": "",
-    "classification": "OURS_BUG_CONFIGURE"
-  },
-  "divergence": {
-    "stage": "configure",
-    "ours_error": "",
-    "ours_error_context": [],
-    "ours_configure_lines": 2606,
-    "real_configure_lines": 19695,
-    "macros_ours_left_undefined": []
-  },
   "receipt": {
-    "court_status": "failed",
+    "court_status": "partial",
     "probe_trace": [],
     "quirks_matched": [
       "uses-libtool-old",
       "vendored-aclocal"
     ],
-    "receipt_hash": "24e39ed3178d433d21c1340a6407fda16d8349c27724819539e8175382940e80",
+    "receipt_hash": "fc222e24136e1c7565f3970366c0a81d4ec04fa5491250e780188ba2805c06fb",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -113,6 +115,424 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "libsqlfs.pc",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "tests/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      }
+    ],
+    "config_headers": [],
+    "subdirs": [
+      ".",
+      "tests"
+    ],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [
+          "libsqlfs-1.0.la",
+          "sqlfscat",
+          "sqlfsls"
+        ],
+        "subdirs": [
+          ".",
+          "tests"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "tests",
+        "targets": [
+          "c_api",
+          "c_thread_api",
+          "c_perf",
+          "fsx"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      }
+    ],
+    "max_depth": 1,
+    "config_h_consumers_below_root": []
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 672,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "tests/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 727,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      }
+    ]
+  },
+  "tool_requirements": {
+    "detected": [
+      "c++"
+    ],
+    "missing": []
+  },
+  "macro_inventory": {
+    "macro_dirs": [],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [],
+    "called_macros": [
+      "AC_ARG_WITH",
+      "AC_CANONICAL_HOST",
+      "AC_CANONICAL_TARGET",
+      "AC_CHECK_LIB",
+      "AC_CONFIG_AUX_DIR",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_MACRO_DIR",
+      "AC_CONFIG_SRCDIR",
+      "AC_DEFINE",
+      "AC_INIT",
+      "AC_MSG_FAILURE",
+      "AC_OUTPUT",
+      "AC_PROG_CC",
+      "AC_PROG_CXX",
+      "AC_PROG_LIBTOOL",
+      "AC_SUBST",
+      "AC_SYS_LARGEFILE",
+      "AM_CONDITIONAL",
+      "AM_INIT_AUTOMAKE",
+      "AM_PROG_CC_C_O"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 117,
+    "configure_fi": 113,
+    "configure_case": 66,
+    "configure_esac": 69,
+    "balanced": false,
+    "automake_conditionals": [
+      "WITH_SQLCIPHER",
+      "WITH_LIBFUSE"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": ".",
+    "present": [
+      "install-sh",
+      "missing",
+      "depcomp",
+      "compile",
+      "config.guess",
+      "config.sub"
+    ],
+    "missing": [
+      "ltmain.sh"
+    ]
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "c": 12,
+      "cpp": 1,
+      "h": 2
+    },
+    "configure_macros": [
+      "AC_PROG_CC",
+      "AC_PROG_CXX"
+    ],
+    "needs_cxx": true,
+    "needs_fortran": false,
+    "sets_c_std": false
+  },
+  "libtool_context": {
+    "uses_libtool": true,
+    "macros": [
+      "AC_PROG_LIBTOOL"
+    ],
+    "ltmain_present": false,
+    "libtool_m4_sources": [],
+    "age": "old"
+  },
+  "make_graph": {
+    "targets": [
+      "all",
+      "all-am",
+      "$(am__depfiles_remade)",
+      "am--depfiles",
+      "install-exec-am",
+      "install-data-am",
+      "uninstall-am",
+      "install-am",
+      "installcheck-am",
+      "install-strip",
+      "install-info",
+      "install-info-am",
+      "install-dvi",
+      "install-dvi-am",
+      "install-ps",
+      "install-ps-am",
+      "install-pdf",
+      "install-pdf-am",
+      "install-html",
+      "install-html-am",
+      "install-data-hook",
+      "install-exec-hook",
+      "installdirs-am",
+      ".PHONY",
+      "mostlyclean-am",
+      "clean-am",
+      "distclean-am",
+      "maintainer-clean-am",
+      "distdir",
+      "dist",
+      "dist-all",
+      "dist-gzip",
+      "distcleancheck",
+      "distcheck",
+      "check-am",
+      "TAGS",
+      "tags",
+      "TAGS-am",
+      "tags-am",
+      "cscope"
+    ],
+    "key_variables": {
+      "AR": "ar",
+      "CC": "cc",
+      "CFLAGS": "-g -Wall -Wformat-security -Werror -Werror=format -Werror=format-security",
+      "CPPFLAGS": "-D_FILE_OFFSET_BITS=64 -D_REENTRANT -DFUSE_USE_VERSION=25",
+      "CXX": "g++",
+      "CXXFLAGS": "-g -O2",
+      "DEFAULT_INCLUDES": "-I. -I$(top_builddir)",
+      "DEFS": "-DPACKAGE=\"libsqlfs\" -DVERSION=\"1.3.2\" -DPACKAGE_NAME=\"libsqlfs\" -DPACKAGE_TARNAME=\"libsqlfs\" -DPACKAGE_VERSION=\"1.3.2\" -DPACKAGE_STRING=\"libsqlfs 1.3.2\" -DPACK",
+      "LDFLAGS": "",
+      "LIBS": "-lpthread",
+      "RANLIB": "ranlib"
+    },
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "libtool",
+      "config.log"
+    ],
+    "recursion_depth": 1,
+    "top_targets": [
+      "all",
+      "dist",
+      "all-am"
+    ],
+    "make_diagnostics": [
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "sqlfs.c:2302:17: error: 'strncat' specified bound 1 equals source length [-Werror=stringop-overflow=]"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[2]: *** [Makefile:580: sqlfs.lo] Error 1"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[1]: *** [Makefile:291: all-am] Error 2"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make: *** [Makefile:619: all-recursive] Error 1"
+      }
+    ]
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": true,
+    "defines_sampled": [
+      "_FILE_OFFSET_BITS=64",
+      "_REENTRANT",
+      "FUSE_USE_VERSION=25",
+      "PACKAGE=\"libsqlfs\"",
+      "VERSION=\"1.3.2\"",
+      "PACKAGE_NAME=\"libsqlfs\"",
+      "PACKAGE_TARNAME=\"libsqlfs\"",
+      "PACKAGE_VERSION=\"1.3.2\"",
+      "PACKAGE_STRING=\"libsqlfs",
+      "PACKAGE_BUGREPORT=\"guardian-dev@lists.mayfirst.org\"",
+      "_GNU_SOURCE=1",
+      "HAVE_LIBFUSE=1"
+    ]
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-libtool-old",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "feature_probe_gap": {
+    "headers_checked": [],
+    "headers_included_unchecked": [
+      "fcntl.h",
+      "inttypes.h",
+      "pthread.h",
+      "stdint.h",
+      "sys/mman.h",
+      "sys/stat.h",
+      "sys/time.h",
+      "sys/types.h",
+      "unistd.h"
+    ],
+    "implicit_link_libs": [
+      "-lpthread"
+    ]
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 2,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "gnu++",
+    "strip_modern_poison_flags": [],
+    "inject_legacy_shims": false,
+    "compiler_aliasing": {}
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 0,
+    "shadowed_builtins": [],
+    "permitted_mutations": 2,
+    "suspect_global_mutations": 0
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "fcntl.h",
+      "inttypes.h",
+      "pthread.h",
+      "stdint.h",
+      "sys/mman.h",
+      "sys/stat.h",
+      "sys/time.h",
+      "sys/types.h",
+      "unistd.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "ancient-libtool"
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": 0,
+      "Makefile.in": 1004,
+      "aclocal.m4": 4,
+      "configure": 8,
+      "configure.in": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_WITH": "system-aclocal",
+      "AC_CANONICAL_HOST": "system-aclocal",
+      "AC_CANONICAL_TARGET": "system-aclocal",
+      "AC_CHECK_LIB": "system-aclocal",
+      "AC_CONFIG_AUX_DIR": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_MACRO_DIR": "system-aclocal",
+      "AC_CONFIG_SRCDIR": "system-aclocal",
+      "AC_DEFINE": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_MSG_FAILURE": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PROG_CC": "system-aclocal",
+      "AC_PROG_CXX": "system-aclocal",
+      "AC_PROG_LIBTOOL": "system-aclocal",
+      "AC_SUBST": "system-aclocal",
+      "AC_SYS_LARGEFILE": "system-aclocal",
+      "AM_CONDITIONAL": "system-aclocal",
+      "AM_INIT_AUTOMAKE": "system-aclocal",
+      "AM_PROG_CC_C_O": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
   }
 }

@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "archiecobbs/libnbcompat",
   "source": {
     "url": "https://github.com/archiecobbs/libnbcompat",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,11 +26,11 @@
     {
       "step": "configure",
       "tool": "./configure",
-      "status": "fail"
+      "status": "ok"
     },
     {
-      "step": "auto-quirk",
-      "tool": "quirk-engine",
+      "step": "make",
+      "tool": "make",
       "status": "fail"
     }
   ],
@@ -48,38 +48,29 @@
     "libtool"
   ],
   "outputs": [],
-  "status": "CONFIGURE_RUN_FAIL",
+  "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1458: syntax error near unexpected token `;'",
+  "diagnostic": "make[1]: *** No rule to make target '.libs/libnbcompat.la', needed by 'rmd160-test'.  Stop.",
   "deep_expansion": {
-    "configure_lines": 3511,
+    "configure_lines": 3889,
     "leaked_macros": [],
-    "heredoc_openers": 78,
-    "heredoc_terminators": 78,
+    "heredoc_openers": 84,
+    "heredoc_terminators": 84,
     "heredoc_imbalance": 0,
-    "syntax_errors": [
-      {
-        "line": 1458,
-        "token": ";",
-        "source": "; do printf %s \"checking for $ac_hdr... \"",
-        "block": [
-          "1454: \tsys/file.h sys/mkdev.h sys/ndir.h sys/param.h sys/socket.h sys/stat.h \\",
-          "1455: \tsys/statfs.h sys/statvfs.h sys/time.h sys/ttycom.h sys/types.h \\",
-          "1456: \tsys/uio.h sys/vfs.h sysexits.h termcap.h time.h tzfile.h unistd.h \\",
-          "1457: \tutil.h utime.h sys/mman.h",
-          "1458: ; do printf %s \"checking for $ac_hdr... \"",
-          "1459: cat confdefs.h 2>/dev/null - <<_ACEOF >conftest.$ac_ext",
-          "1460: #include <$ac_hdr>",
-          "1461: _ACEOF"
-        ]
-      }
-    ],
+    "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 3035: do eval test \\${$as_var+y} \\"
+      "line 1433: # eval \"_acrs_sv=\\${}\"; printf '%s\\n' \"s|@@|${_acrs_sv}|g\" >",
+      "line 3412: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
+      "LIBNBCOMPAT_LT_CURRENT",
+      "LIBNBCOMPAT_LT_REVISION",
+      "LIBNBCOMPAT_LT_AGE",
+      "CANONICAL_HOST",
+      "WITH_DB_TRUE",
+      "WITH_DB_FALSE",
       "PACKAGE_NAME",
       "PACKAGE_TARNAME",
       "PACKAGE_VERSION",
@@ -101,23 +92,20 @@
       "LIBOBJS",
       "INSTALL",
       "host_os",
-      "CANONICAL_HOST",
       "host_alias",
-      "host_vendor",
-      "host_cpu",
-      "LIBNBCOMPAT_LT_REVISION",
-      "LIBNBCOMPAT_LT_CURRENT",
-      "LIBNBCOMPAT_LT_AGE"
+      "LD"
     ],
-    "failed_during_check": "checking for $ac_hdr... \"'",
+    "failed_during_check": "checking if vsnprintf is standards compliant... configure: creating Makefile",
     "failure_tail": [
-      "./configure: line 1458: `; do printf %s \"checking for $ac_hdr... \"'"
+      "checking if vsnprintf is standards compliant... configure: creating Makefile",
+      "configure: creating nbcompat/nbconfig.h",
+      "configure: creating ./config.status"
     ],
     "conftest_corruption": [],
-    "conftest_directives_intact": 111,
+    "conftest_directives_intact": 130,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
-      "char fparseln();\\nint main() { return fparseln(); }",
+      "char fparseln ();\\nint main() { return fparseln(); }",
       "#include <time.h>",
       "#include <stdbool.h>",
       "#include <$ac_hdr>",
@@ -125,26 +113,8 @@
       "#include <$ac_hdr>"
     ]
   },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "ok",
-    "real_make": "ok",
-    "real_configure_lines": 19176,
-    "real_first_error": "",
-    "classification": "OURS_BUG_CONFIGURE"
-  },
-  "divergence": {
-    "stage": "configure",
-    "ours_error": "line 1458: ; do printf %s \"checking for $ac_hdr... \" (near `;`)",
-    "ours_error_context": [
-      "; do printf %s \"checking for $ac_hdr... \""
-    ],
-    "ours_configure_lines": 3511,
-    "real_configure_lines": 19176,
-    "macros_ours_left_undefined": []
-  },
   "receipt": {
-    "court_status": "failed",
+    "court_status": "partial",
     "probe_trace": [],
     "quirks_matched": [
       "uses-libtool",
@@ -153,14 +123,7 @@
       "has-m4-macro-dir",
       "vendored-aclocal"
     ],
-    "quirks_applied": [
-      {
-        "id": "uses-subdir-objects",
-        "action": "--disable-dependency-tracking",
-        "verified": false
-      }
-    ],
-    "receipt_hash": "24e39ed3178d433d21c1340a6407fda16d8349c27724819539e8175382940e80",
+    "receipt_hash": "fc222e24136e1c7565f3970366c0a81d4ec04fa5491250e780188ba2805c06fb",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -169,6 +132,595 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      }
+    ],
+    "config_headers": [
+      "nbcompat/nbconfig.h"
+    ],
+    "subdirs": [],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [
+          "libnbcompat.la",
+          "rmd160-test",
+          "sha1-test",
+          "sha2-test"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      }
+    ],
+    "max_depth": 0,
+    "config_h_consumers_below_root": []
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 895,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      }
+    ]
+  },
+  "macro_inventory": {
+    "macro_dirs": [
+      "m4"
+    ],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [
+      {
+        "name": "AC_MSG_TRY_COMPILE",
+        "source": "m4/aclocal-bsd.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_MSG_TRY_LINK",
+        "source": "m4/aclocal-bsd.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_LIBRARY_NET",
+        "source": "m4/aclocal-bsd.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_C___ATTRIBUTE__",
+        "source": "m4/aclocal-bsd.m4",
+        "kind": "AC"
+      }
+    ],
+    "called_macros": [
+      "AC_ARG_ENABLE",
+      "AC_ARG_PROGRAM",
+      "AC_CANONICAL_HOST",
+      "AC_CHECK_DECLS",
+      "AC_CHECK_FUNC",
+      "AC_CHECK_FUNCS",
+      "AC_CHECK_HEADERS",
+      "AC_CHECK_LIB",
+      "AC_CHECK_MEMBERS",
+      "AC_CHECK_PROG",
+      "AC_CHECK_SIZEOF",
+      "AC_CHECK_TYPES",
+      "AC_CONFIG_AUX_DIR",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_HEADERS",
+      "AC_CONFIG_MACRO_DIRS",
+      "AC_C_BIGENDIAN",
+      "AC_C___ATTRIBUTE__",
+      "AC_DEFINE",
+      "AC_FUNC_GETPGRP",
+      "AC_FUNC_STRERROR_R",
+      "AC_FUNC_VFORK",
+      "AC_GNU_SOURCE",
+      "AC_HEADER_STDBOOL",
+      "AC_HEADER_STDC",
+      "AC_HEADER_TIME",
+      "AC_INCLUDES_DEFAULT",
+      "AC_INIT",
+      "AC_LIBOBJ",
+      "AC_MSG_CHECKING",
+      "AC_MSG_NOTICE",
+      "AC_MSG_RESULT",
+      "AC_MSG_TRY_COMPILE",
+      "AC_MSG_TRY_LINK",
+      "AC_OUTPUT",
+      "AC_PREREQ",
+      "AC_PROG_CC_C99",
+      "AC_PROG_INSTALL",
+      "AC_PROG_LIBTOOL",
+      "AC_PROG_SED",
+      "AC_REPLACE_FUNCS",
+      "AC_SEARCH_LIBS",
+      "AC_SUBST",
+      "AC_TRY_LINK",
+      "AC_TRY_RUN",
+      "AC_TYPE_INT16_T",
+      "AC_TYPE_INT32_T",
+      "AC_TYPE_INT64_T",
+      "AC_TYPE_INT8_T",
+      "AC_TYPE_SIZE_T",
+      "AC_TYPE_UINT16_T",
+      "AC_TYPE_UINT32_T",
+      "AC_TYPE_UINT64_T",
+      "AC_TYPE_UINT8_T",
+      "AC_TYPE_UINTPTR_T",
+      "AC_USE_SYSTEM_EXTENSIONS",
+      "AM_CONDITIONAL",
+      "AM_INIT_AUTOMAKE",
+      "LT_INIT"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 191,
+    "configure_fi": 187,
+    "configure_case": 67,
+    "configure_esac": 70,
+    "balanced": false,
+    "automake_conditionals": [
+      "WITH_DB"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": "config",
+    "present": [
+      "install-sh",
+      "missing",
+      "depcomp",
+      "compile"
+    ],
+    "missing": [
+      "ltmain.sh",
+      "config.guess",
+      "config.sub"
+    ]
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "c": 100,
+      "h": 54
+    },
+    "configure_macros": [
+      "AC_PROG_CC",
+      "AC_PROG_CC_C99"
+    ],
+    "needs_cxx": false,
+    "needs_fortran": false,
+    "sets_c_std": true
+  },
+  "libtool_context": {
+    "uses_libtool": true,
+    "macros": [
+      "LT_INIT",
+      "AC_PROG_LIBTOOL"
+    ],
+    "ltmain_present": false,
+    "libtool_m4_sources": [],
+    "age": "modern"
+  },
+  "make_graph": {
+    "targets": [
+      "all",
+      "all-am",
+      "install-data-am",
+      "uninstall-am",
+      "install",
+      "install-am",
+      "installcheck",
+      "install-strip",
+      "install-info",
+      "install-info-am",
+      "install-dvi",
+      "install-dvi-am",
+      "install-ps",
+      "install-ps-am",
+      "install-pdf",
+      "install-pdf-am",
+      "install-html",
+      "install-html-am",
+      "install-data-hook",
+      "install-exec-hook",
+      "installdirs",
+      "installdirs-am",
+      ".PHONY",
+      "mostlyclean-am",
+      "clean-am",
+      "distclean-am",
+      "maintainer-clean-am",
+      "clean",
+      "distdir",
+      "dist",
+      "dist-all",
+      "dist-gzip",
+      "distcleancheck",
+      "distcheck",
+      "check-am",
+      "check",
+      "check-TESTS",
+      "recheck",
+      "test-suite.log",
+      "$(TEST_SUITE_LOG)"
+    ],
+    "key_variables": {
+      "AR": "ar",
+      "CC": "cc",
+      "CFLAGS": "-g -O2",
+      "CPPFLAGS": "",
+      "CXX": "c++",
+      "CXXFLAGS": "-g -O2",
+      "DEFAULT_INCLUDES": "-I.",
+      "DEFS": "-DHAVE_CONFIG_H",
+      "LDFLAGS": "",
+      "LIBS": "",
+      "RANLIB": "ranlib"
+    },
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "libtool",
+      "config.log"
+    ],
+    "recursion_depth": 0,
+    "top_targets": [
+      "all",
+      "install",
+      "check",
+      "clean",
+      "dist",
+      "all-am"
+    ],
+    "make_diagnostics": [
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[1]: *** No rule to make target '.libs/libnbcompat.la', needed by 'rmd160-test'.  Stop."
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[1]: *** Waiting for unfinished jobs...."
+      },
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "./nbcompat/grp.h:50:34: error: expected ')' before 'int'"
+      },
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "./nbcompat/grp.h:54:34: error: unknown type name 'gid_t'"
+      },
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "./nbcompat/pwd.h:50:33: error: expected ')' before 'int'"
+      },
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "./nbcompat/pwd.h:54:33: error: unknown type name 'uid_t'"
+      },
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "./nbcompat/stat.h:46:30: error: unknown type name 'mode_t'"
+      },
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "./nbcompat/statvfs.h:66:9: error: unknown type name 'uint64_t'"
+      },
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "./nbcompat/statvfs.h:69:9: error: unknown type name 'uint64_t'"
+      },
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "./nbcompat/statvfs.h:73:18: error: unknown type name 'int32_t'"
+      }
+    ]
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": false,
+    "defines_sampled": [
+      "HAVE_CONFIG_H",
+      "__DBINTERFACE_PRIVATE"
+    ]
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-libtool",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-libtool-old",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-subdir-objects",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "has-m4-macro-dir",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "alloca.h",
+      "assert.h",
+      "bsd/libutil.h",
+      "ctype.h",
+      "dirent.h",
+      "endian.h",
+      "err.h",
+      "errno.h",
+      "fcntl.h",
+      "fnmatch.h",
+      "fts.h",
+      "getopt.h",
+      "glob.h",
+      "grp.h",
+      "inttypes.h",
+      "libutil.h",
+      "limits.h",
+      "machine/endian.h",
+      "md5.h",
+      "ndir.h",
+      "netdb.h",
+      "paths.h",
+      "poll.h",
+      "pwd.h",
+      "regex.h",
+      "rmd160.h",
+      "sha1.h",
+      "sha2.h",
+      "signal.h",
+      "stdarg.h",
+      "stddef.h",
+      "stdint.h",
+      "stdio.h",
+      "stdlib.h",
+      "string.h",
+      "sys/byteorder.h",
+      "sys/cdefs.h",
+      "sys/dir.h",
+      "sys/endian.h",
+      "sys/file.h"
+    ],
+    "headers_included_unchecked": [
+      "arpa/inet.h",
+      "lib/libkern/libkern.h",
+      "nbcompat/assert.h",
+      "nbcompat/cdefs.h",
+      "nbcompat/ctype.h",
+      "nbcompat/db.h",
+      "nbcompat/dirent.h",
+      "nbcompat/endian.h",
+      "nbcompat/err.h",
+      "nbcompat/fnmatch.h",
+      "nbcompat/fts.h",
+      "nbcompat/getopt.h",
+      "nbcompat/glob.h",
+      "nbcompat/grp.h",
+      "nbcompat/limits.h",
+      "nbcompat/md5.h",
+      "nbcompat/mpool.h",
+      "nbcompat/nbconfig.h",
+      "nbcompat/ndbm.h",
+      "nbcompat/netdb.h",
+      "nbcompat/param.h",
+      "nbcompat/paths.h",
+      "nbcompat/poll.h",
+      "nbcompat/pwd.h",
+      "nbcompat/queue.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 6,
+    "shadowed_macros": [
+      "AC_MSG_TRY_COMPILE",
+      "AC_MSG_TRY_LINK",
+      "AC_LIBRARY_NET",
+      "AC_C___ATTRIBUTE__"
+    ]
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "c99",
+    "strip_modern_poison_flags": [],
+    "inject_legacy_shims": false,
+    "compiler_aliasing": {}
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 0,
+    "shadowed_builtins": [
+      "AC_MSG_TRY_COMPILE",
+      "AC_MSG_TRY_LINK",
+      "AC_LIBRARY_NET",
+      "AC_C___ATTRIBUTE__"
+    ],
+    "permitted_mutations": 2,
+    "suspect_global_mutations": 0
+  },
+  "host_environment_veil": {
+    "header_injection_candidates": [
+      "sys/cdefs.h"
+    ],
+    "symbol_aliasing_candidates": []
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "arpa/inet.h",
+      "lib/libkern/libkern.h",
+      "nbcompat/assert.h",
+      "nbcompat/cdefs.h",
+      "nbcompat/ctype.h",
+      "nbcompat/db.h",
+      "nbcompat/dirent.h",
+      "nbcompat/endian.h",
+      "nbcompat/err.h",
+      "nbcompat/fnmatch.h",
+      "nbcompat/fts.h",
+      "nbcompat/getopt.h",
+      "nbcompat/glob.h",
+      "nbcompat/grp.h",
+      "nbcompat/limits.h",
+      "nbcompat/md5.h",
+      "nbcompat/mpool.h",
+      "nbcompat/nbconfig.h",
+      "nbcompat/ndbm.h",
+      "nbcompat/netdb.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": 0,
+      "Makefile.in": 1521,
+      "aclocal.m4": 12,
+      "configure": 21,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_ENABLE": "system-aclocal",
+      "AC_ARG_PROGRAM": "system-aclocal",
+      "AC_CANONICAL_HOST": "system-aclocal",
+      "AC_CHECK_DECLS": "system-aclocal",
+      "AC_CHECK_FUNC": "system-aclocal",
+      "AC_CHECK_FUNCS": "system-aclocal",
+      "AC_CHECK_HEADERS": "system-aclocal",
+      "AC_CHECK_LIB": "system-aclocal",
+      "AC_CHECK_MEMBERS": "system-aclocal",
+      "AC_CHECK_PROG": "system-aclocal",
+      "AC_CHECK_SIZEOF": "system-aclocal",
+      "AC_CHECK_TYPES": "system-aclocal",
+      "AC_CONFIG_AUX_DIR": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_HEADERS": "system-aclocal",
+      "AC_CONFIG_MACRO_DIRS": "system-aclocal",
+      "AC_C_BIGENDIAN": "system-aclocal",
+      "AC_C___ATTRIBUTE__": "m4/aclocal-bsd.m4",
+      "AC_DEFINE": "system-aclocal",
+      "AC_FUNC_GETPGRP": "system-aclocal",
+      "AC_FUNC_STRERROR_R": "system-aclocal",
+      "AC_FUNC_VFORK": "system-aclocal",
+      "AC_GNU_SOURCE": "system-aclocal",
+      "AC_HEADER_STDBOOL": "system-aclocal",
+      "AC_HEADER_STDC": "system-aclocal",
+      "AC_HEADER_TIME": "system-aclocal",
+      "AC_INCLUDES_DEFAULT": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_LIBOBJ": "system-aclocal",
+      "AC_MSG_CHECKING": "system-aclocal",
+      "AC_MSG_NOTICE": "system-aclocal",
+      "AC_MSG_RESULT": "system-aclocal",
+      "AC_MSG_TRY_COMPILE": "m4/aclocal-bsd.m4",
+      "AC_MSG_TRY_LINK": "m4/aclocal-bsd.m4",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PREREQ": "system-aclocal",
+      "AC_PROG_CC_C99": "system-aclocal",
+      "AC_PROG_INSTALL": "system-aclocal",
+      "AC_PROG_LIBTOOL": "system-aclocal",
+      "AC_PROG_SED": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "libnbcompat_la_LIBADD",
+        "var": "LTLIBOBJS",
+        "resolved_to": [],
+        "resolved": false
+      }
+    ],
+    "unresolved_refs": [
+      "libnbcompat_la_LIBADD = $(LTLIBOBJS)"
+    ],
+    "indirection_count": 1
   }
 }

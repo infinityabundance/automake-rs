@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "farsightsec/axa",
   "source": {
     "url": "https://github.com/farsightsec/axa",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.14",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -52,76 +52,69 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1426: LT_LIB_M: command not found",
+  "diagnostic": "configure: error: required library not found",
   "deep_expansion": {
-    "configure_lines": 2947,
+    "configure_lines": 3068,
     "leaked_macros": [],
-    "heredoc_openers": 27,
-    "heredoc_terminators": 27,
+    "heredoc_openers": 26,
+    "heredoc_terminators": 26,
     "heredoc_imbalance": 0,
     "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2452: do eval test \\${$as_var+y} \\"
+      "line 2572: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
+      "PACKAGE_DESCRIPTION",
+      "AXA_MAJOR_VERSION",
+      "AXA_MINOR_VERSION",
+      "AXA_PATCHLEVEL_VERSION",
+      "AXA_VERSION",
+      "my_CFLAGS",
       "PKG_CONFIG",
       "pkgconfigdir",
-      "PACKAGE_NAME",
-      "PACKAGE_TARNAME",
-      "PACKAGE_VERSION",
-      "PACKAGE_STRING",
-      "PACKAGE_BUGREPORT",
-      "PACKAGE_URL",
-      "srcdir",
-      "prefix",
-      "exec_prefix",
-      "CC",
-      "CFLAGS",
-      "CPPFLAGS",
-      "LDFLAGS",
-      "LIBS",
-      "CXX",
-      "CXXFLAGS",
-      "CPP",
-      "DEFS",
-      "LIBOBJS",
-      "INSTALL",
-      "AXA_MAJOR_VERSION",
-      "DOXYGEN_INPUT",
-      "PACKAGE_DESCRIPTION",
-      "libedit_LIBS",
-      "libprotobuf_c_CFLAGS",
+      "LIBM",
+      "libpcap_CFLAGS",
+      "libpcap_LIBS",
+      "strlcpy_LIBS",
       "libedit_CFLAGS",
-      "libpcap_LIBS"
+      "libedit_LIBS",
+      "libnmsg_CFLAGS",
+      "libnmsg_LIBS",
+      "libwdns_CFLAGS",
+      "libwdns_LIBS",
+      "libssl_CFLAGS",
+      "libssl_LIBS",
+      "libcrypto_CFLAGS",
+      "libcrypto_LIBS",
+      "yajl_CFLAGS",
+      "yajl_LIBS",
+      "HAVE_YAJL_TRUE",
+      "HAVE_YAJL_FALSE",
+      "check_CFLAGS",
+      "check_LIBS",
+      "HAVE_DOXYGEN_TRUE"
     ],
-    "failed_during_check": "checking for libpcap headers... configure: error: cannot find pcap.h in ",
+    "failed_during_check": "checking for pcap_open_offline in -lpcap... no",
     "failure_tail": [
-      "checking for libpcap headers... configure: error: cannot find pcap.h in"
+      "checking for pcap_open_offline in -lpcap... no",
+      "configure: error: required library not found"
     ],
     "conftest_corruption": [],
-    "conftest_directives_intact": 11,
+    "conftest_directives_intact": 7,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
       "#include <sys/types.h>\\nint main() { return sizeof(off_t) >= 8 ? 0 : 1; }",
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func();\\nint main() { return $ac_func(); }",
-      "char pcap_open_offline();\\nint main() { return pcap_open_offline(); }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func ();\\nint main() { return $ac_func(); }",
+      "char cos ();\\nint main() { return cos(); }",
+      "char pcap_open_offline ();\\nint main() { return pcap_open_offline(); }",
       "char pcap_create ();\\nint main() { return pcap_create (); }",
-      "char strlcpy ();\\nint main() { return strlcpy (); }",
-      "char history();\\nint main() { return history(); }"
+      "char strlcpy ();\\nint main() { return strlcpy (); }"
     ]
   },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "fail",
-    "real_make": "skipped",
-    "real_configure_lines": 17086,
-    "real_first_error": "configure: error: Package requirements (libnmsg >= 0.9.1) were not met:",
-    "classification": "BOTH_CONFIGURE_FAIL"
-  },
   "receipt": {
-    "court_status": "not_standalone",
+    "court_status": "failed",
     "probe_trace": [],
     "quirks_matched": [
       "uses-libtool",
@@ -138,7 +131,7 @@
         "verified": false
       }
     ],
-    "receipt_hash": "1b59d07d0a20a927a52050673c57d051c46cf0669ffc84ae54f67e19a8cf7afb",
+    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -147,6 +140,734 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "axa/libaxa.pc",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "axa/version.h",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "sratool/options.man",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "sratool/radtool.man",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "sratool/sratool.man",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "sratunnel/radtunnel.man",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "sratunnel/sratunnel.man",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "tests/test-tools-with-server.sh",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "tests/test-tools-without-server.sh",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "tools/axa_link_certs.man",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "tools/axa_make_cert.man",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "tools/axa_server_cert.man",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      }
+    ],
+    "config_headers": [
+      "config.h"
+    ],
+    "subdirs": [],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [
+          "axa/libaxa.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-include $(top_builddir)/config.h          -I${top_srcdir}/axa"
+      }
+    ],
+    "max_depth": 1,
+    "config_h_consumers_below_root": []
+  },
+  "tool_requirements": {
+    "detected": [
+      "pkg-config",
+      "doxygen"
+    ],
+    "missing": []
+  },
+  "macro_inventory": {
+    "macro_dirs": [
+      "m4"
+    ],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [
+      {
+        "name": "PKG_PROG_PKG_CONFIG",
+        "source": "m4/pkg.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "PKG_CHECK_EXISTS",
+        "source": "m4/pkg.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_PKG_SHORT_ERRORS_SUPPORTED",
+        "source": "m4/pkg.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "PKG_CHECK_MODULES",
+        "source": "m4/pkg.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "PKG_INSTALLDIR",
+        "source": "m4/pkg.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "PKG_NOARCH_INSTALLDIR",
+        "source": "m4/pkg.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "PKG_CHECK_VAR",
+        "source": "m4/pkg.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "MY_CHECK_LIBEDIT",
+        "source": "m4/libedit.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "MY_CHECK_LIBPROTOBUF_C",
+        "source": "m4/protobuf-c.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AX_DEFINE_DIR",
+        "source": "m4/ax_define_dir.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "MY_CHECK_LIBPCAP",
+        "source": "m4/pcap.m4",
+        "kind": "project-local"
+      }
+    ],
+    "called_macros": [
+      "AC_ARG_WITH",
+      "AC_CHECK_FUNCS",
+      "AC_CHECK_HEADERS",
+      "AC_CHECK_TYPES",
+      "AC_CONFIG_AUX_DIR",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_HEADERS",
+      "AC_CONFIG_MACRO_DIR",
+      "AC_CONFIG_SRCDIR",
+      "AC_DEFINE",
+      "AC_DEFINE_UNQUOTED",
+      "AC_INIT",
+      "AC_MSG_CHECKING",
+      "AC_MSG_ERROR",
+      "AC_MSG_RESULT",
+      "AC_MSG_WARN",
+      "AC_OUTPUT",
+      "AC_PATH_PROG",
+      "AC_PREREQ",
+      "AC_PROG_CC_STDC",
+      "AC_SEARCH_LIBS",
+      "AC_SUBST",
+      "AC_SYS_LARGEFILE",
+      "AC_USE_SYSTEM_EXTENSIONS",
+      "AM_CONDITIONAL",
+      "AM_INIT_AUTOMAKE",
+      "AM_SILENT_RULES",
+      "AX_DEFINE_DIR",
+      "LT_INIT",
+      "LT_LIB_M",
+      "PKG_CHECK_MODULES",
+      "PKG_CONFIG",
+      "PKG_INSTALLDIR",
+      "PKG_PROG_PKG_CONFIG"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 175,
+    "configure_fi": 171,
+    "configure_case": 63,
+    "configure_esac": 66,
+    "balanced": false,
+    "automake_conditionals": [
+      "HAVE_YAJL",
+      "HAVE_DOXYGEN"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": "build-aux",
+    "present": [
+      "install-sh",
+      "missing",
+      "depcomp",
+      "compile"
+    ],
+    "missing": [
+      "ltmain.sh"
+    ]
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "c": 49,
+      "h": 22
+    },
+    "configure_macros": [
+      "AC_PROG_CC"
+    ],
+    "needs_cxx": false,
+    "needs_fortran": false,
+    "sets_c_std": false
+  },
+  "libtool_context": {
+    "uses_libtool": true,
+    "macros": [
+      "LT_INIT"
+    ],
+    "ltmain_present": false,
+    "libtool_m4_sources": [],
+    "age": "modern"
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": true,
+    "defines_sampled": []
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-subdir-objects",
+      "applied_at": "configure",
+      "effect": "neutral",
+      "effectiveness": "low"
+    },
+    {
+      "quirk_id": "uses-libtool",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-pkg-config",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "has-m4-macro-dir",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-ax-archive",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "libgen.h",
+      "nmsg/base/dnsqr.pb-c.h",
+      "nmsg/base/encode.pb-c.h",
+      "nmsg/base/packet.pb-c.h",
+      "nmsg/sie/newdomain.pb-c.h"
+    ],
+    "headers_included_unchecked": [
+      "arpa/inet.h",
+      "axa/axa.h",
+      "axa/axa_endian.h",
+      "axa/bits.h",
+      "axa/client.h",
+      "axa/client_config.h",
+      "axa/dns_walk.h",
+      "axa/fields.h",
+      "axa/json.h",
+      "axa/kickfile.h",
+      "axa/open_nmsg_out.h",
+      "axa/protocol.h",
+      "axa/socket.h",
+      "axa/strbuf.h",
+      "axa/trie.h",
+      "axa/version.h",
+      "axa/wire.h",
+      "axa/yajl_shortcuts.h",
+      "bsd/string.h",
+      "fcntl.h",
+      "inttypes.h",
+      "libkern/OSByteOrder.h",
+      "libmy/b64_encode.h",
+      "net/ethernet.h",
+      "netinet/ether.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 5,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "c89_gnu",
+    "strip_modern_poison_flags": [
+      "-Werror=implicit-function-declaration",
+      "-Werror=int-conversion",
+      "-Werror=incompatible-pointer-types"
+    ],
+    "inject_legacy_shims": true,
+    "compiler_aliasing": {
+      "clang-18+": "-std=gnu89 -Wno-error",
+      "gcc-14+": "-std=gnu89 -fpermissive"
+    }
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 1,
+    "shadowed_builtins": [],
+    "permitted_mutations": 1,
+    "suspect_global_mutations": 0
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "arpa/inet.h",
+      "axa/axa.h",
+      "axa/axa_endian.h",
+      "axa/bits.h",
+      "axa/client.h",
+      "axa/client_config.h",
+      "axa/dns_walk.h",
+      "axa/fields.h",
+      "axa/json.h",
+      "axa/kickfile.h",
+      "axa/open_nmsg_out.h",
+      "axa/protocol.h",
+      "axa/socket.h",
+      "axa/strbuf.h",
+      "axa/trie.h",
+      "axa/version.h",
+      "axa/wire.h",
+      "axa/yajl_shortcuts.h",
+      "bsd/string.h",
+      "fcntl.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "modern-compiler-strictness (no explicit C std)"
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": -2,
+      "Makefile.in": 1117,
+      "aclocal.m4": 6,
+      "config.h.in": 14,
+      "configure": 12,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_WITH": "system-aclocal",
+      "AC_CHECK_FUNCS": "system-aclocal",
+      "AC_CHECK_HEADERS": "system-aclocal",
+      "AC_CHECK_TYPES": "system-aclocal",
+      "AC_CONFIG_AUX_DIR": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_HEADERS": "system-aclocal",
+      "AC_CONFIG_MACRO_DIR": "system-aclocal",
+      "AC_CONFIG_SRCDIR": "system-aclocal",
+      "AC_DEFINE": "system-aclocal",
+      "AC_DEFINE_UNQUOTED": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_MSG_CHECKING": "system-aclocal",
+      "AC_MSG_ERROR": "system-aclocal",
+      "AC_MSG_RESULT": "system-aclocal",
+      "AC_MSG_WARN": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PATH_PROG": "system-aclocal",
+      "AC_PREREQ": "system-aclocal",
+      "AC_PROG_CC_STDC": "system-aclocal",
+      "AC_SEARCH_LIBS": "system-aclocal",
+      "AC_SUBST": "system-aclocal",
+      "AC_SYS_LARGEFILE": "system-aclocal",
+      "AC_USE_SYSTEM_EXTENSIONS": "system-aclocal",
+      "AM_CONDITIONAL": "system-aclocal",
+      "AM_INIT_AUTOMAKE": "system-aclocal",
+      "AM_SILENT_RULES": "system-aclocal",
+      "AX_DEFINE_DIR": "m4/ax_define_dir.m4",
+      "LT_INIT": "system-aclocal",
+      "LT_LIB_M": "system-aclocal",
+      "PKG_CHECK_MODULES": "m4/pkg.m4",
+      "PKG_CONFIG": "system-aclocal",
+      "PKG_INSTALLDIR": "m4/pkg.m4",
+      "PKG_PROG_PKG_CONFIG": "m4/pkg.m4"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "sratool_sratool_LDADD",
+        "var": "libssl_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "sratool_sratool_LDADD",
+        "var": "libcrypto_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "sratool_sratool_LDADD",
+        "var": "libpcap_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "sratool_sratool_LDADD",
+        "var": "libnmsg_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "sratool_sratool_LDADD",
+        "var": "libz_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "sratool_sratool_LDADD",
+        "var": "libwdns_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "sratool_sratool_LDADD",
+        "var": "libedit_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "sratool_sratool_LDADD",
+        "var": "strlcpy_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "sratool_sratool_LDADD",
+        "var": "LIBM",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "sratool_radtool_SOURCES",
+        "var": "sratool_sratool_SOURCES",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "sratool_radtool_LDADD",
+        "var": "sratool_sratool_LDADD",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "sratunnel_sratunnel_LDADD",
+        "var": "libnmsg_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "sratunnel_sratunnel_LDADD",
+        "var": "libssl_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "sratunnel_sratunnel_LDADD",
+        "var": "libcrypto_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "sratunnel_sratunnel_LDADD",
+        "var": "libpcap_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "sratunnel_sratunnel_LDADD",
+        "var": "strlcpy_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "sratunnel_sratunnel_LDADD",
+        "var": "LIBM",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "sratunnel_radtunnel_SOURCES",
+        "var": "sratunnel_sratunnel_SOURCES",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "sratunnel_radtunnel_LDADD",
+        "var": "sratunnel_sratunnel_LDADD",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "tests_test_json_LDADD",
+        "var": "libnmsg_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "tests_test_json_LDADD",
+        "var": "check_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "tests_test_apikey_LDADD",
+        "var": "libnmsg_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "tests_test_apikey_LDADD",
+        "var": "check_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "tests_test_client_config_LDADD",
+        "var": "libnmsg_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "tests_test_client_config_LDADD",
+        "var": "check_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "tests_test_client_config_LDADD",
+        "var": "strlcpy_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "tests_test_stats_LDADD",
+        "var": "libnmsg_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "tests_test_stats_LDADD",
+        "var": "check_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "tests_test_stats_LDADD",
+        "var": "strlcpy_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "tests_test_kill_LDADD",
+        "var": "libnmsg_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "tests_test_kill_LDADD",
+        "var": "check_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "tests_test_kill_LDADD",
+        "var": "strlcpy_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "tests_test_kickfile_LDADD",
+        "var": "libnmsg_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "tests_test_kickfile_LDADD",
+        "var": "check_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "tests_test_kickfile_LDADD",
+        "var": "strlcpy_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      }
+    ],
+    "unresolved_refs": [
+      "sratool_sratool_LDADD = $(libssl_LIBS)",
+      "sratool_sratool_LDADD = $(libcrypto_LIBS)",
+      "sratool_sratool_LDADD = $(libpcap_LIBS)",
+      "sratool_sratool_LDADD = $(libnmsg_LIBS)",
+      "sratool_sratool_LDADD = $(libz_LIBS)",
+      "sratool_sratool_LDADD = $(libwdns_LIBS)",
+      "sratool_sratool_LDADD = $(libedit_LIBS)",
+      "sratool_sratool_LDADD = $(strlcpy_LIBS)",
+      "sratool_sratool_LDADD = $(LIBM)",
+      "sratool_radtool_SOURCES = $(sratool_sratool_SOURCES)",
+      "sratool_radtool_LDADD = $(sratool_sratool_LDADD)",
+      "sratunnel_sratunnel_LDADD = $(libnmsg_LIBS)",
+      "sratunnel_sratunnel_LDADD = $(libssl_LIBS)",
+      "sratunnel_sratunnel_LDADD = $(libcrypto_LIBS)",
+      "sratunnel_sratunnel_LDADD = $(libpcap_LIBS)",
+      "sratunnel_sratunnel_LDADD = $(strlcpy_LIBS)",
+      "sratunnel_sratunnel_LDADD = $(LIBM)",
+      "sratunnel_radtunnel_SOURCES = $(sratunnel_sratunnel_SOURCES)",
+      "sratunnel_radtunnel_LDADD = $(sratunnel_sratunnel_LDADD)",
+      "tests_test_json_LDADD = $(libnmsg_LIBS)",
+      "tests_test_json_LDADD = $(check_LIBS)",
+      "tests_test_apikey_LDADD = $(libnmsg_LIBS)",
+      "tests_test_apikey_LDADD = $(check_LIBS)",
+      "tests_test_client_config_LDADD = $(libnmsg_LIBS)",
+      "tests_test_client_config_LDADD = $(check_LIBS)",
+      "tests_test_client_config_LDADD = $(strlcpy_LIBS)",
+      "tests_test_stats_LDADD = $(libnmsg_LIBS)",
+      "tests_test_stats_LDADD = $(check_LIBS)",
+      "tests_test_stats_LDADD = $(strlcpy_LIBS)",
+      "tests_test_kill_LDADD = $(libnmsg_LIBS)",
+      "tests_test_kill_LDADD = $(check_LIBS)",
+      "tests_test_kill_LDADD = $(strlcpy_LIBS)",
+      "tests_test_kickfile_LDADD = $(libnmsg_LIBS)",
+      "tests_test_kickfile_LDADD = $(check_LIBS)",
+      "tests_test_kickfile_LDADD = $(strlcpy_LIBS)"
+    ],
+    "indirection_count": 35
   }
 }

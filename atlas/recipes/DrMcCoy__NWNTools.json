@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "DrMcCoy/NWNTools",
   "source": {
     "url": "https://github.com/DrMcCoy/NWNTools",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,14 +26,21 @@
     {
       "step": "configure",
       "tool": "./configure",
+      "status": "ok"
+    },
+    {
+      "step": "make",
+      "tool": "make",
       "status": "fail"
     }
   ],
   "probe_results": {
     "HAVE_ALLOCA": 1,
     "HAVE_ASSERT_H": 1,
+    "HAVE_BASENAME": 1,
     "HAVE_CTYPE_H": 1,
     "HAVE_FREE": 1,
+    "HAVE_LIBGEN_H": 1,
     "HAVE_MALLOC": 1,
     "HAVE_MALLOC_H": 1,
     "HAVE_MEMCMP": 1,
@@ -42,16 +49,19 @@
     "HAVE_MEMSET": 1,
     "HAVE_POW": 1,
     "HAVE_REALLOC": 1,
+    "HAVE_SNPRINTF": 1,
     "HAVE_SQRT": 1,
     "HAVE_STDARG_H": 1,
     "HAVE_STDBOOL_H": 1,
     "HAVE_STDDEF_H": 1,
     "HAVE_STDLIB_H": 1,
+    "HAVE_STRCASECMP": 1,
     "HAVE_STRCHR": 1,
     "HAVE_STRICMP": 1,
     "HAVE_STRINGS_H": 1,
     "HAVE_STRING_H": 1,
     "HAVE_STRLWR": 1,
+    "HAVE_STRNCASECMP": 1,
     "HAVE_STRNICMP": 1,
     "HAVE_STRRCHR": 1,
     "HAVE_STRTOL": 1,
@@ -75,11 +85,11 @@
     "subdirs"
   ],
   "outputs": [],
-  "status": "CONFIGURE_RUN_FAIL",
+  "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "",
+  "diagnostic": "NwnDefines.h:127:17: error: 'strcasecmp' was not declared in this scope; did you mean 'wcscasecmp'?",
   "deep_expansion": {
-    "configure_lines": 2668,
+    "configure_lines": 2802,
     "leaked_macros": [],
     "heredoc_openers": 27,
     "heredoc_terminators": 27,
@@ -87,19 +97,29 @@
     "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2191: do eval test \\${$as_var+y} \\"
+      "line 1411: # eval \"_acrs_sv=\\${}\"; printf '%s\\n' \"s|@@|${_acrs_sv}|g\" >",
+      "line 2324: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
+      "RELEASE",
+      "EBUILD_TRUE",
+      "EBUILD_FALSE",
+      "RPMBUILD_TRUE",
+      "RPMBUILD_FALSE",
       "PACKAGE_NAME",
       "PACKAGE_TARNAME",
       "PACKAGE_VERSION",
       "PACKAGE_STRING",
       "PACKAGE_BUGREPORT"
     ],
-    "failed_during_check": "checking for python... /usr/bin/python3",
+    "failed_during_check": "checking for basename... yes",
     "failure_tail": [
-      "checking for python... /usr/bin/python3"
+      "checking for basename... yes",
+      "configure: creating _MathLib/Makefile",
+      "configure: creating _NscLib/Makefile",
+      "configure: creating _NwnLib/Makefile",
+      "configure: creating _NmcLib/Makefile"
     ],
     "conftest_corruption": [],
     "conftest_directives_intact": 18,
@@ -110,27 +130,11 @@
       "#include <stdbool.h>",
       "int main() { int x = 1; return *(char*)&x; }",
       "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { size_t x; return 0; }",
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func();\\nint main() { return $ac_func(); }"
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func ();\\nint main() { return $ac_func(); }"
     ]
   },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "ok",
-    "real_make": "fail",
-    "real_configure_lines": 8425,
-    "real_first_error": "",
-    "classification": "OURS_BUG_CONFIGURE"
-  },
-  "divergence": {
-    "stage": "configure",
-    "ours_error": "",
-    "ours_error_context": [],
-    "ours_configure_lines": 2668,
-    "real_configure_lines": 8425,
-    "macros_ours_left_undefined": []
-  },
   "receipt": {
-    "court_status": "failed",
+    "court_status": "partial",
     "probe_trace": [
       {
         "name": "HAVE_ALLOCA",
@@ -145,6 +149,12 @@
         "reason": "ok"
       },
       {
+        "name": "HAVE_BASENAME",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
         "name": "HAVE_CTYPE_H",
         "kind": "header",
         "result": "yes",
@@ -153,6 +163,12 @@
       {
         "name": "HAVE_FREE",
         "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_LIBGEN_H",
+        "kind": "header",
         "result": "yes",
         "reason": "ok"
       },
@@ -205,6 +221,12 @@
         "reason": "ok"
       },
       {
+        "name": "HAVE_SNPRINTF",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
         "name": "HAVE_SQRT",
         "kind": "func",
         "result": "yes",
@@ -235,6 +257,12 @@
         "reason": "ok"
       },
       {
+        "name": "HAVE_STRCASECMP",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
         "name": "HAVE_STRCHR",
         "kind": "func",
         "result": "yes",
@@ -260,6 +288,12 @@
       },
       {
         "name": "HAVE_STRLWR",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STRNCASECMP",
         "kind": "func",
         "result": "yes",
         "reason": "ok"
@@ -323,7 +357,7 @@
       "uses-python",
       "vendored-aclocal"
     ],
-    "receipt_hash": "f11abbf2d071b6c02a5535b3e82f09210bc1d49b94e3d3192a024867be644fe0",
+    "receipt_hash": "dc09344df47b0653f03d3677afebd369bfed3193138eeb3bb250d3ed72a8eaf2",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -332,6 +366,680 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "_MathLib/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "_NmcLib/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "_NscLib/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "_NwnLib/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "nwnmdlcomp/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "nwnnsscomp/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "nwnnsscomp/python/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "nwntools.spec",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      }
+    ],
+    "config_headers": [],
+    "subdirs": [
+      "_MathLib",
+      "_NwnLib",
+      "_NscLib",
+      "_NmcLib",
+      "nwnnsscomp",
+      "nwnmdlcomp",
+      "python"
+    ],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [],
+        "subdirs": [
+          "_MathLib",
+          "_NwnLib",
+          "_NscLib",
+          "_NmcLib",
+          "nwnnsscomp",
+          "nwnmdlcomp"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "_MathLib",
+        "targets": [
+          "libmath.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "_NmcLib",
+        "targets": [
+          "libnmc.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "_NscLib",
+        "targets": [
+          "libnsc.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "_NwnLib",
+        "targets": [
+          "libnwn.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "nwnmdlcomp",
+        "targets": [
+          "nwnmdlcomp"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "nwnnsscomp",
+        "targets": [
+          "nwnnsscomp"
+        ],
+        "subdirs": [
+          "python"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "wxnwntreasure",
+        "targets": [
+          "wxnwntreasure"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "$(WX_CPPFLAGS)"
+      }
+    ],
+    "max_depth": 2,
+    "config_h_consumers_below_root": [
+      "_NwnLib"
+    ]
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 551,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "_NmcLib/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 541,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "jnwntreasure/Makefile",
+        "has_makefile_in": false,
+        "has_makefile_am": false,
+        "lines": 20,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 1
+      },
+      {
+        "path": "_NwnLib/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 524,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "_MathLib/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 517,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "_NscLib/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 535,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "nwnnsscomp/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 586,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "nwnnsscomp/python/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 450,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "nwnmdlcomp/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 522,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      }
+    ]
+  },
+  "tool_requirements": {
+    "detected": [
+      "yacc",
+      "python",
+      "c++",
+      "bison"
+    ],
+    "missing": []
+  },
+  "macro_inventory": {
+    "macro_dirs": [],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [],
+    "called_macros": [
+      "AC_ARG_VAR",
+      "AC_CANONICAL_HOST",
+      "AC_CHECK_FUNCS",
+      "AC_CHECK_HEADERS",
+      "AC_CHECK_PROG",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_HEADER",
+      "AC_CONFIG_SRCDIR",
+      "AC_COPYRIGHT",
+      "AC_C_BIGENDIAN",
+      "AC_C_CONST",
+      "AC_C_INLINE",
+      "AC_DEFINE",
+      "AC_HEADER_STDBOOL",
+      "AC_HEADER_STDC",
+      "AC_INIT",
+      "AC_MSG_ERROR",
+      "AC_MSG_RESULT",
+      "AC_OUTPUT",
+      "AC_PATH_PROG",
+      "AC_PREREQ",
+      "AC_PROG_CC",
+      "AC_PROG_CXX",
+      "AC_PROG_RANLIB",
+      "AC_PROG_YACC",
+      "AC_STRUCT_TM",
+      "AC_SUBST",
+      "AC_TYPE_SIZE_T",
+      "AM_CONDITIONAL",
+      "AM_INIT_AUTOMAKE",
+      "AM_OPTIONS_WXCONFIG",
+      "AM_PATH_PYTHON",
+      "AM_PATH_WXCONFIG"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 124,
+    "configure_fi": 118,
+    "configure_case": 66,
+    "configure_esac": 69,
+    "balanced": false,
+    "automake_conditionals": [
+      "EBUILD",
+      "RPMBUILD"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": ".",
+    "present": [
+      "install-sh",
+      "missing"
+    ],
+    "missing": [
+      "depcomp",
+      "compile",
+      "config.guess",
+      "config.sub"
+    ]
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "c": 5,
+      "cpp": 100,
+      "h": 129
+    },
+    "configure_macros": [
+      "AC_PROG_CC",
+      "AC_PROG_CXX"
+    ],
+    "needs_cxx": true,
+    "needs_fortran": false,
+    "sets_c_std": false
+  },
+  "make_graph": {
+    "targets": [
+      "all",
+      "all-am",
+      "install-am",
+      "installcheck-am",
+      "install-strip",
+      "install-info",
+      "install-info-am",
+      "install-dvi",
+      "install-dvi-am",
+      "install-ps",
+      "install-ps-am",
+      "install-pdf",
+      "install-pdf-am",
+      "install-html",
+      "install-html-am",
+      "install-data-hook",
+      "install-exec-hook",
+      "installdirs-am",
+      ".PHONY",
+      "mostlyclean-am",
+      "clean-am",
+      "distclean-am",
+      "maintainer-clean-am",
+      "distdir",
+      "dist",
+      "dist-all",
+      "dist-gzip",
+      "distcleancheck",
+      "distcheck",
+      "check-am",
+      "TAGS",
+      "tags",
+      "TAGS-am",
+      "tags-am",
+      "cscope",
+      "cscope-am",
+      "distuninstallcheck",
+      "$(srcdir)/Makefile.in",
+      "$(am__recursive_targets)",
+      "check"
+    ],
+    "key_variables": {
+      "AR": "ar",
+      "CC": "cc",
+      "CFLAGS": "-g -O2",
+      "CPPFLAGS": "",
+      "CXX": "g++",
+      "CXXFLAGS": "-g -O2",
+      "DEFS": "-DHAVE_CONFIG_H",
+      "LDFLAGS": "",
+      "LIBS": "",
+      "RANLIB": "ranlib"
+    },
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "config.h",
+      "config.log"
+    ],
+    "recursion_depth": 2,
+    "top_targets": [
+      "all",
+      "check",
+      "dist",
+      "all-am"
+    ],
+    "make_diagnostics": [
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "NwnDefines.h:127:17: error: 'strcasecmp' was not declared in this scope; did you mean 'wcscasecmp'?"
+      },
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "NwnDefines.h:127:17: error: 'strcasecmp' was not declared in this scope; did you mean 'wcscasecmp'?"
+      },
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "NwnDefines.h:127:17: error: 'strcasecmp' was not declared in this scope; did you mean 'wcscasecmp'?"
+      },
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "NwnDefines.h:127:17: error: 'strcasecmp' was not declared in this scope; did you mean 'wcscasecmp'?"
+      },
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "NwnDefines.h:127:17: error: 'strcasecmp' was not declared in this scope; did you mean 'wcscasecmp'?"
+      },
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "NwnDefines.h:127:17: error: 'strcasecmp' was not declared in this scope; did you mean 'wcscasecmp'?"
+      },
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "NwnDefines.h:127:17: error: 'strcasecmp' was not declared in this scope; did you mean 'wcscasecmp'?"
+      },
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "NwnDefines.h:127:17: error: 'strcasecmp' was not declared in this scope; did you mean 'wcscasecmp'?"
+      },
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "NwnDefines.h:127:17: error: 'strcasecmp' was not declared in this scope; did you mean 'wcscasecmp'?"
+      },
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "NwnDefines.h:127:17: error: 'strcasecmp' was not declared in this scope; did you mean 'wcscasecmp'?"
+      }
+    ]
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": true,
+    "defines_sampled": [
+      "HAVE_CONFIG_H"
+    ]
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-python",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "vpath_analysis": {
+    "hardcoded_src_paths": 1,
+    "abs_path_leakage": 0,
+    "built_sources": [
+      "NscParser.cpp",
+      "NscParser.h"
+    ],
+    "generated_source_targets": []
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "assert.h",
+      "ctype.h",
+      "libgen.h",
+      "libiberty.h",
+      "malloc.h",
+      "stdarg.h",
+      "stddef.h"
+    ],
+    "headers_included_unchecked": [
+      "fmod/fmod.h",
+      "gl/gl.h",
+      "gl/glu.h",
+      "wx/image.h",
+      "wx/imaglist.h",
+      "wx/spinctrl.h",
+      "wx/string.h",
+      "wx/treectrl.h",
+      "wx/wx.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 1,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "gnu++",
+    "strip_modern_poison_flags": [],
+    "inject_legacy_shims": false,
+    "compiler_aliasing": {}
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 0,
+    "shadowed_builtins": [],
+    "permitted_mutations": 0,
+    "suspect_global_mutations": 0
+  },
+  "parallel_build_safety": {
+    "vpath_out_of_tree_safe": true,
+    "generators": [],
+    "unordered_generated_sources": [],
+    "built_sources_declared": true
+  },
+  "host_environment_veil": {
+    "header_injection_candidates": [
+      "malloc.h"
+    ],
+    "symbol_aliasing_candidates": []
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "fmod/fmod.h",
+      "gl/gl.h",
+      "gl/glu.h",
+      "wx/image.h",
+      "wx/imaglist.h",
+      "wx/spinctrl.h",
+      "wx/string.h",
+      "wx/treectrl.h",
+      "wx/wx.h",
+      "assert.h",
+      "ctype.h",
+      "libgen.h",
+      "libiberty.h",
+      "malloc.h",
+      "stdarg.h",
+      "stddef.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "subdir-config-h-include-path"
+  ],
+  "repair_hints": [
+    {
+      "id": "subdir-top-builddir",
+      "phase": "make",
+      "confidence": 0.88,
+      "evidence": [
+        "_NwnLib consumes config.h below root"
+      ],
+      "action": "ensure ac_subst_file sets relative top_builddir per subdir (0.1.19)",
+      "expected_effect": "config.h found in subdir compiles"
+    }
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": -5,
+      "Makefile.in": 1109,
+      "aclocal.m4": 13,
+      "config.h.in": 18,
+      "configure": 16,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_VAR": "system-aclocal",
+      "AC_CANONICAL_HOST": "system-aclocal",
+      "AC_CHECK_FUNCS": "system-aclocal",
+      "AC_CHECK_HEADERS": "system-aclocal",
+      "AC_CHECK_PROG": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_HEADER": "system-aclocal",
+      "AC_CONFIG_SRCDIR": "system-aclocal",
+      "AC_COPYRIGHT": "system-aclocal",
+      "AC_C_BIGENDIAN": "system-aclocal",
+      "AC_C_CONST": "system-aclocal",
+      "AC_C_INLINE": "system-aclocal",
+      "AC_DEFINE": "system-aclocal",
+      "AC_HEADER_STDBOOL": "system-aclocal",
+      "AC_HEADER_STDC": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_MSG_ERROR": "system-aclocal",
+      "AC_MSG_RESULT": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PATH_PROG": "system-aclocal",
+      "AC_PREREQ": "system-aclocal",
+      "AC_PROG_CC": "system-aclocal",
+      "AC_PROG_CXX": "system-aclocal",
+      "AC_PROG_RANLIB": "system-aclocal",
+      "AC_PROG_YACC": "system-aclocal",
+      "AC_STRUCT_TM": "system-aclocal",
+      "AC_SUBST": "system-aclocal",
+      "AC_TYPE_SIZE_T": "system-aclocal",
+      "AM_CONDITIONAL": "system-aclocal",
+      "AM_INIT_AUTOMAKE": "system-aclocal",
+      "AM_OPTIONS_WXCONFIG": "system-aclocal",
+      "AM_PATH_PYTHON": "system-aclocal",
+      "AM_PATH_WXCONFIG": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
   }
 }

@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "cr-marcstevens/m4gb",
   "source": {
     "url": "https://github.com/cr-marcstevens/m4gb",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,113 +26,132 @@
     {
       "step": "configure",
       "tool": "./configure",
-      "status": "fail"
+      "status": "ok"
     },
     {
-      "step": "auto-quirk",
-      "tool": "quirk-engine",
+      "step": "make",
+      "tool": "make",
       "status": "fail"
     }
   ],
-  "probe_results": {},
+  "probe_results": {
+    "HAVE_CXX$1": 1,
+    "HAVE_FGB": 1,
+    "HAVE_OPENF4": 1,
+    "HAVE_PTHREAD": 1,
+    "HAVE_PTHREAD_PRIO_INHERIT": 1
+  },
   "feature_flags": {
     "configure_args": []
   },
   "dependencies": {
     "pkg_config": [],
-    "system_libs": [],
-    "headers_needed": [],
-    "missing": []
+    "system_libs": [
+      "-pthread"
+    ],
+    "headers_needed": [
+      "../lib/config.h"
+    ],
+    "missing": [
+      "../lib/config.h"
+    ]
   },
   "quirks": [
     "autoconf-archive-macros",
-    "libtool"
+    "libtool",
+    "LIBS=-pthread"
   ],
   "outputs": [],
-  "status": "CONFIGURE_RUN_FAIL",
+  "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1345: This: command not found",
+  "diagnostic": "src/config.hpp:28:10: fatal error: ../lib/config.h: No such file or directory",
   "deep_expansion": {
-    "configure_lines": 3536,
+    "configure_lines": 2886,
     "leaked_macros": [],
-    "heredoc_openers": 37,
-    "heredoc_terminators": 37,
+    "heredoc_openers": 28,
+    "heredoc_terminators": 28,
     "heredoc_imbalance": 0,
     "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 1906: do eval test \\${$as_var+y} \\"
+      "line 2409: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
+      "CXX",
+      "CXXFLAGS",
+      "PTHREAD_CC",
+      "PTHREAD_CFLAGS",
+      "PTHREAD_LIBS",
+      "HAVE_OPENF4_TRUE",
+      "HAVE_OPENF4_FALSE",
+      "OPENF4_CPPFLAGS",
+      "OPENF4_LDFLAGS",
+      "OPENF4_LIB",
+      "HAVE_FGB_TRUE",
+      "HAVE_FGB_FALSE",
+      "FGB_CPPFLAGS",
+      "FGB_LDFLAGS",
+      "FGB_LIB",
       "PACKAGE_NAME",
       "PACKAGE_TARNAME",
       "PACKAGE_VERSION",
       "PACKAGE_STRING",
-      "PACKAGE_BUGREPORT",
-      "PACKAGE_URL",
-      "srcdir",
-      "prefix",
-      "exec_prefix",
-      "CC",
-      "CFLAGS",
-      "CPPFLAGS",
-      "LDFLAGS",
-      "LIBS",
-      "CXX",
-      "CXXFLAGS",
-      "CPP",
-      "DEFS",
-      "LIBOBJS",
-      "INSTALL",
-      "FGB_LIB",
-      "host_cpu",
-      "PTHREAD_CFLAGS",
-      "host_alias",
-      "OPENF4_LIB",
-      "host_os",
-      "PTHREAD_CC",
-      "host_vendor",
-      "FGB_LDFLAGS"
+      "PACKAGE_BUGREPORT"
     ],
-    "failed_during_check": "",
+    "failed_during_check": "checking for usability of OpenF4... no",
     "failure_tail": [
-      "./configure: line 1351: $: command not found",
-      "./configure: line 1353: _ACEOF: command not found",
+      "checking for usability of OpenF4... no",
       "configure: creating Makefile",
-      "./configure: line 1814: s|@HAVE_CXX$1@|${HAVE_CXX$1}|g: bad substitution"
+      "configure: creating config.h",
+      "configure: creating ./config.status"
     ],
     "conftest_corruption": [],
-    "conftest_directives_intact": 21,
+    "conftest_directives_intact": 16,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
-      "inline int foo() { return 0; }\\nint main() { return foo(); }",
-      "int main() { const int x = 1; return x-1; }",
-      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { off_t x; return 0; }",
-      "\\nchar pthread_join();\\nint main() { pthread_join(); return 0; }",
-      "int main(void){return 0;}",
-      "int main(void){return 0;}"
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { size_t x; return 0; }",
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { uint16_t x; return 0; }",
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { uint32_t x; return 0; }",
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { uint64_t x; return 0; }",
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { uint8_t x; return 0; }",
+      "\\nint main() {  ; return 0; }"
     ]
   },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "ok",
-    "real_make": "ok",
-    "real_configure_lines": 21782,
-    "real_first_error": "",
-    "classification": "OURS_BUG_CONFIGURE"
-  },
-  "divergence": {
-    "stage": "configure",
-    "ours_error": "",
-    "ours_error_context": [],
-    "ours_configure_lines": 3536,
-    "real_configure_lines": 21782,
-    "macros_ours_left_undefined": []
-  },
   "receipt": {
-    "court_status": "failed",
-    "probe_trace": [],
+    "court_status": "partial",
+    "probe_trace": [
+      {
+        "name": "HAVE_CXX$1",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_FGB",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_OPENF4",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_PTHREAD",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_PTHREAD_PRIO_INHERIT",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      }
+    ],
     "quirks_matched": [
       "uses-libtool",
       "uses-subdir-objects",
@@ -141,14 +160,7 @@
       "uses-ax-archive",
       "uses-pthread-check"
     ],
-    "quirks_applied": [
-      {
-        "id": "uses-subdir-objects",
-        "action": "--disable-dependency-tracking",
-        "verified": false
-      }
-    ],
-    "receipt_hash": "24e39ed3178d433d21c1340a6407fda16d8349c27724819539e8175382940e80",
+    "receipt_hash": "0e135489b8c3166bea10e0cd39eac89a54abbbfaadda97d95988cfb5916dd5f4",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -157,6 +169,485 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      }
+    ],
+    "config_headers": [
+      "config.h"
+    ],
+    "subdirs": [],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [
+          "bin/solver_m4gb",
+          "tests/test_detail",
+          "tests/test_gf_p_simple",
+          "tests/test_gf_2n_simple",
+          "tests/test_monomial_degrevlex",
+          "tests/test_polynomial",
+          "tests/test_parser",
+          "tests/test_runtime_stats"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      }
+    ],
+    "max_depth": 0,
+    "config_h_consumers_below_root": []
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 882,
+        "first_parse_error": {
+          "line": 200,
+          "kind": "missing-separator",
+          "text": "FIELDSIZE ?= 31",
+          "previous_lines": [
+            "EXTRA_CPPFLAGS = -DMAXVARS=${MAXVARS} -DFIELDSIZE=${FIELDSIZE}",
+            "EXTRA_DIST = README.md LICENSE.txt"
+          ],
+          "probable_cause": "shell-fragment-in-make"
+        },
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      }
+    ]
+  },
+  "tool_requirements": {
+    "detected": [
+      "c++"
+    ],
+    "missing": []
+  },
+  "macro_inventory": {
+    "macro_dirs": [
+      "m4"
+    ],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [
+      {
+        "name": "AX_FGB",
+        "source": "m4/ax_fgb.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AX_CXX_COMPILE_STDCXX",
+        "source": "m4/ax_cxx_compile_stdcxx.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AX_PTHREAD",
+        "source": "m4/ax_pthread.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AX_CHECK_COMPILE_FLAG",
+        "source": "m4/ax_check_compile_flag.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AX_PREFIX_CONFIG_H",
+        "source": "m4/ax_prefix_config_h.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AX_OPENF4",
+        "source": "m4/ax_openf4.m4",
+        "kind": "AX"
+      }
+    ],
+    "called_macros": [
+      "AC_ARG_ENABLE",
+      "AC_CONFIG_AUX_DIR",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_HEADERS",
+      "AC_CONFIG_MACRO_DIR",
+      "AC_CONFIG_SRCDIR",
+      "AC_INIT",
+      "AC_LANG",
+      "AC_OUTPUT",
+      "AC_PREREQ",
+      "AC_PROG_CXX",
+      "AC_PROG_GREP",
+      "AC_PROG_INSTALL",
+      "AC_PROG_LN_S",
+      "AC_PROG_MAKE_SET",
+      "AC_PROG_MKDIR_P",
+      "AC_TYPE_SIZE_T",
+      "AC_TYPE_UINT16_T",
+      "AC_TYPE_UINT32_T",
+      "AC_TYPE_UINT64_T",
+      "AC_TYPE_UINT8_T",
+      "AM_INIT_AUTOMAKE",
+      "AX_CHECK_COMPILE_FLAG",
+      "AX_CXX_COMPILE_STDCXX",
+      "AX_FGB",
+      "AX_OPENF4",
+      "AX_PREFIX_CONFIG_H",
+      "AX_PTHREAD",
+      "LT_INIT"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 129,
+    "configure_fi": 124,
+    "configure_case": 64,
+    "configure_esac": 67,
+    "balanced": false,
+    "automake_conditionals": []
+  },
+  "config_aux_inventory": {
+    "aux_dir": "build-aux",
+    "present": [
+      "install-sh",
+      "missing",
+      "depcomp",
+      "compile"
+    ],
+    "missing": [
+      "ltmain.sh"
+    ]
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "cpp": 12,
+      "h": 1,
+      "hpp": 22
+    },
+    "configure_macros": [
+      "AC_PROG_CXX"
+    ],
+    "needs_cxx": true,
+    "needs_fortran": false,
+    "sets_c_std": true
+  },
+  "libtool_context": {
+    "uses_libtool": true,
+    "macros": [
+      "LT_INIT"
+    ],
+    "ltmain_present": false,
+    "libtool_m4_sources": [],
+    "age": "modern"
+  },
+  "make_graph": {
+    "targets": [
+      "all",
+      "all-am",
+      "$(am__depfiles_remade)",
+      "am--depfiles",
+      "install-exec-am",
+      "uninstall-am",
+      "install",
+      "install-am",
+      "installcheck",
+      "install-strip",
+      "install-info",
+      "install-info-am",
+      "install-dvi",
+      "install-dvi-am",
+      "install-ps",
+      "install-ps-am",
+      "install-pdf",
+      "install-pdf-am",
+      "install-html",
+      "install-html-am",
+      "install-data-hook",
+      "install-exec-hook",
+      "installdirs",
+      "installdirs-am",
+      ".PHONY",
+      "mostlyclean-am",
+      "clean-am",
+      "distclean-am",
+      "maintainer-clean-am",
+      "clean",
+      "distdir",
+      "dist",
+      "dist-all",
+      "dist-gzip",
+      "distcleancheck",
+      "distcheck",
+      "check-am",
+      "check",
+      "check-TESTS",
+      "recheck"
+    ],
+    "key_variables": {
+      "AR": "ar",
+      "CC": "cc",
+      "CFLAGS": "",
+      "CPPFLAGS": "",
+      "CXX": "g++ -std=c++11",
+      "CXXFLAGS": "-O3 -Wall -Wfatal-errors -std=c++11 -pthread",
+      "DEFAULT_INCLUDES": "-I. -I$(top_builddir)",
+      "DEFS": "-DHAVE_CONFIG_H",
+      "LDFLAGS": "",
+      "LIBS": "-pthread",
+      "RANLIB": "ranlib"
+    },
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "config.h",
+      "libtool",
+      "config.log"
+    ],
+    "recursion_depth": 0,
+    "top_targets": [
+      "all",
+      "install",
+      "check",
+      "clean",
+      "dist",
+      "all-am"
+    ],
+    "make_diagnostics": [
+      {
+        "command": "",
+        "error_type": "missing-header",
+        "message": "src/config.hpp:28:10: fatal error: ../lib/config.h: No such file or directory"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[1]: *** [Makefile:787: src/bin_solver_m4gb-m4gb.o] Error 1"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[1]: *** Waiting for unfinished jobs...."
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make: *** [Makefile:304: all-am] Error 2"
+      }
+    ]
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": false,
+    "defines_sampled": [
+      "HAVE_CONFIG_H",
+      "MAXVARS=${MAXVARS}",
+      "FIELDSIZE=${FIELDSIZE}",
+      "DEG=${DEG}"
+    ]
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-libtool",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-subdir-objects",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "has-m4-macro-dir",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-ax-archive",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-pthread-check",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "feature_probe_gap": {
+    "headers_checked": [],
+    "headers_included_unchecked": [
+      "fcntl.h",
+      "mach/mach.h",
+      "sys/resource.h",
+      "unistd.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 5,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "gnu++",
+    "strip_modern_poison_flags": [],
+    "inject_legacy_shims": false,
+    "compiler_aliasing": {}
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 0,
+    "shadowed_builtins": [],
+    "permitted_mutations": 1,
+    "suspect_global_mutations": 0
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "fcntl.h",
+      "mach/mach.h",
+      "sys/resource.h",
+      "unistd.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "repair_hints": [
+    {
+      "id": "makefile-shell-fragment-in-make",
+      "phase": "make",
+      "confidence": 0.5,
+      "evidence": [
+        "Makefile:200 missing-separator",
+        "FIELDSIZE ?= 31"
+      ],
+      "action": "classify-shell-fragment-in-make",
+      "expected_effect": "partial -> FUNC_OK candidate"
+    }
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": 0,
+      "Makefile.in": 1131,
+      "aclocal.m4": 7,
+      "config.h.in": 16,
+      "configure": 15,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_ENABLE": "system-aclocal",
+      "AC_CONFIG_AUX_DIR": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_HEADERS": "system-aclocal",
+      "AC_CONFIG_MACRO_DIR": "system-aclocal",
+      "AC_CONFIG_SRCDIR": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_LANG": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PREREQ": "system-aclocal",
+      "AC_PROG_CXX": "system-aclocal",
+      "AC_PROG_GREP": "system-aclocal",
+      "AC_PROG_INSTALL": "system-aclocal",
+      "AC_PROG_LN_S": "system-aclocal",
+      "AC_PROG_MAKE_SET": "system-aclocal",
+      "AC_PROG_MKDIR_P": "system-aclocal",
+      "AC_TYPE_SIZE_T": "system-aclocal",
+      "AC_TYPE_UINT16_T": "system-aclocal",
+      "AC_TYPE_UINT32_T": "system-aclocal",
+      "AC_TYPE_UINT64_T": "system-aclocal",
+      "AC_TYPE_UINT8_T": "system-aclocal",
+      "AM_INIT_AUTOMAKE": "system-aclocal",
+      "AX_CHECK_COMPILE_FLAG": "m4/ax_check_compile_flag.m4",
+      "AX_CXX_COMPILE_STDCXX": "m4/ax_cxx_compile_stdcxx.m4",
+      "AX_FGB": "m4/ax_fgb.m4",
+      "AX_OPENF4": "m4/ax_openf4.m4",
+      "AX_PREFIX_CONFIG_H": "m4/ax_prefix_config_h.m4",
+      "AX_PTHREAD": "m4/ax_pthread.m4",
+      "LT_INIT": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "bin_solver_openf4_LDADD",
+        "var": "OPENF4_LIB",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "bin_solver_fgb_LDADD",
+        "var": "FGB_LIB",
+        "resolved_to": [],
+        "resolved": false
+      }
+    ],
+    "unresolved_refs": [
+      "bin_solver_openf4_LDADD = $(OPENF4_LIB)",
+      "bin_solver_fgb_LDADD = $(FGB_LIB)"
+    ],
+    "indirection_count": 2
   }
 }

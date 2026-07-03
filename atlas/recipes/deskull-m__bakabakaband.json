@@ -1,13 +1,13 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "deskull-m/bakabakaband",
   "source": {
     "url": "https://github.com/deskull-m/bakabakaband",
-    "git_sha": "99b9fb5d5aa2817ff93353d45d39e21ef435c02b",
+    "git_sha": "0b685873f21426658a3914c89b31f59278eeb8f7",
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -47,39 +47,42 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1356: syntax error near unexpected token `game_libpath,'",
+  "diagnostic": "configure: error: nkf is not found. Please install nkf.",
   "deep_expansion": {
-    "configure_lines": 2951,
+    "configure_lines": 3157,
     "leaked_macros": [],
     "heredoc_openers": 35,
     "heredoc_terminators": 35,
     "heredoc_imbalance": 0,
-    "syntax_errors": [
-      {
-        "line": 1356,
-        "token": "game_libpath,",
-        "source": "MY_EXPAND_DIR(game_libpath, \"$datarootdir/games/$PACKAGE/lib/\")",
-        "block": [
-          "1352: ",
-          "1353: ",
-          "1354: ",
-          "1355: if test \"$GAMEGROUP\" != \"\"; then",
-          "1356:   MY_EXPAND_DIR(game_libpath, \"$datarootdir/games/$PACKAGE/lib/\")",
-          "1357: else",
-          "1358:   MY_EXPAND_DIR(game_libpath, \"./lib/\")",
-          "1359:   bindir=\"..\""
-        ]
-      }
-    ],
+    "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2475: do eval test \\${$as_var+y} \\"
+      "line 1516: # eval \"_acrs_sv=\\${}\"; printf '%s\\n' \"s|@@|${_acrs_sv}|g\" >",
+      "line 2680: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
+      "GAMEGROUP",
+      "SET_GID_TRUE",
+      "SET_GID_FALSE",
+      "DEFAULT_LIB_PATH",
+      "DEFAULT_VAR_PATH",
       "CXX",
       "CXXFLAGS",
       "PKG_CONFIG",
+      "COMPILER_IS_CLANG_TRUE",
+      "COMPILER_IS_CLANG_FALSE",
+      "PCH_TRUE",
+      "PCH_FALSE",
+      "libcurl_CFLAGS",
+      "libcurl_LIBS",
+      "XFT_CFLAGS",
+      "XFT_LIBS",
+      "COMPILER_HAVE_EXEC_CHARSET_EUC_JP_MS_TRUE",
+      "COMPILER_HAVE_EXEC_CHARSET_EUC_JP_MS_FALSE",
+      "USE_NKF_TRUE",
+      "USE_NKF_FALSE",
+      "PCH_CHECKSUMMER",
       "PACKAGE_NAME",
       "PACKAGE_TARNAME",
       "PACKAGE_VERSION",
@@ -87,59 +90,24 @@
       "PACKAGE_BUGREPORT",
       "PACKAGE_URL",
       "srcdir",
-      "prefix",
-      "exec_prefix",
-      "CC",
-      "CFLAGS",
-      "CPPFLAGS",
-      "LDFLAGS",
-      "LIBS",
-      "CPP",
-      "DEFS",
-      "LIBOBJS",
-      "INSTALL",
-      "GAMEGROUP",
-      "host_vendor",
-      "host_cpu",
-      "DEFAULT_VAR_PATH",
-      "DEFAULT_LIB_PATH",
-      "host_os",
-      "host_alias"
+      "prefix"
     ],
-    "failed_during_check": "",
+    "failed_during_check": "checking whether the compiler supports -fexec-charset=euc-jp-ms... no",
     "failure_tail": [
-      "./configure: line 1356: syntax error near unexpected token `game_libpath,'",
-      "./configure: line 1356: `  MY_EXPAND_DIR(game_libpath, \"$datarootdir/games/$PACK"
+      "checking whether the compiler supports -fexec-charset=euc-jp-ms... no",
+      "configure: error: nkf is not found. Please install nkf."
     ],
     "conftest_corruption": [],
-    "conftest_directives_intact": 16,
+    "conftest_directives_intact": 13,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
-      "\\n#ifdef __clang__\\nint main() { return 0; }\\n#else\\n#error \"Not Clang\"\\n#endif\\n",
-      "char initscr();\\nint main() { return initscr(); }",
-      "char initscr();\\nint main() { return initscr(); }",
-      "char initscr();\\nint main() { return initscr(); }",
-      "char tgetent();\\nint main() { return tgetent(); }",
-      "char iconv_open();\\nint main() { return iconv_open(); }"
+      "\\n#[ifdef __clang__]\\nint main() { return 0; }\\n#[else]\\n#[error \"Not Clang\"]\\n#[endif]\\n",
+      "char initscr ();\\nint main() { return initscr(); }",
+      "char initscr ();\\nint main() { return initscr(); }",
+      "char initscr ();\\nint main() { return initscr(); }",
+      "char tgetent ();\\nint main() { return tgetent(); }",
+      "char iconv_open ();\\nint main() { return iconv_open(); }"
     ]
-  },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "ok",
-    "real_make": "fail",
-    "real_configure_lines": 10282,
-    "real_first_error": "",
-    "classification": "OURS_BUG_CONFIGURE"
-  },
-  "divergence": {
-    "stage": "configure",
-    "ours_error": "line 1356: MY_EXPAND_DIR(game_libpath, \"$datarootdir/games/$PACKAGE/lib/\") (near `game_libpath,`)",
-    "ours_error_context": [
-      "MY_EXPAND_DIR(game_libpath, \"$datarootdir/games/$PACKAGE/lib/\")"
-    ],
-    "ours_configure_lines": 2951,
-    "real_configure_lines": 10282,
-    "macros_ours_left_undefined": []
   },
   "receipt": {
     "court_status": "failed",
@@ -151,7 +119,7 @@
       "vendored-aclocal",
       "uses-ax-archive"
     ],
-    "receipt_hash": "24e39ed3178d433d21c1340a6407fda16d8349c27724819539e8175382940e80",
+    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -160,6 +128,552 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "lib/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "lib/apex/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "lib/bone/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "lib/data/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "lib/edit/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "lib/edit/quests/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "lib/edit/towns/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "lib/file/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "lib/file/books/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "lib/help/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "lib/info/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "lib/pref/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "lib/save/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "lib/script/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "lib/user/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "lib/xtra/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "lib/xtra/graf/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "lib/xtra/music/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "lib/xtra/sound/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      }
+    ],
+    "config_headers": [
+      "src/autoconf.h"
+    ],
+    "subdirs": [
+      "src",
+      "lib",
+      "apex",
+      "bone",
+      "data",
+      "edit",
+      "file",
+      "help",
+      "info",
+      "pref",
+      "save",
+      "script",
+      "user",
+      "xtra",
+      "quests",
+      "towns",
+      "books",
+      "graf",
+      "music",
+      "sound"
+    ],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [],
+        "subdirs": [
+          "src",
+          "lib"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "lib",
+        "targets": [],
+        "subdirs": [
+          "apex",
+          "bone",
+          "data",
+          "edit",
+          "file",
+          "help",
+          "info",
+          "pref",
+          "save",
+          "script",
+          "user",
+          "xtra"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "lib/edit",
+        "targets": [],
+        "subdirs": [
+          "quests",
+          "towns"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "lib/file",
+        "targets": [],
+        "subdirs": [
+          "books"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "lib/xtra",
+        "targets": [],
+        "subdirs": [
+          "graf",
+          "music",
+          "sound"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src",
+        "targets": [
+          "hengband"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      }
+    ],
+    "max_depth": 3,
+    "config_h_consumers_below_root": []
+  },
+  "tool_requirements": {
+    "detected": [
+      "c++"
+    ],
+    "missing": []
+  },
+  "macro_inventory": {
+    "macro_dirs": [
+      "m4"
+    ],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": true,
+    "defined_macros": [
+      {
+        "name": "AX_CXX_COMPILE_STDCXX",
+        "source": "m4/ax_cxx_compile_stdcxx.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "MY_EXPAND_DIR",
+        "source": "acinclude.m4",
+        "kind": "project-local"
+      }
+    ],
+    "called_macros": [
+      "AC_ARG_ENABLE",
+      "AC_ARG_VAR",
+      "AC_ARG_WITH",
+      "AC_CANONICAL_HOST",
+      "AC_CHECK_FUNCS",
+      "AC_CHECK_HEADERS",
+      "AC_CHECK_LIB",
+      "AC_CHECK_PROG",
+      "AC_COMPILE_IFELSE",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_HEADERS",
+      "AC_CONFIG_MACRO_DIRS",
+      "AC_CONFIG_SRCDIR",
+      "AC_C_CONST",
+      "AC_DEFINE",
+      "AC_DEFINE_UNQUOTED",
+      "AC_FUNC_MEMCMP",
+      "AC_FUNC_STRFTIME",
+      "AC_FUNC_VPRINTF",
+      "AC_INIT",
+      "AC_LANG",
+      "AC_LANG_PROGRAM",
+      "AC_LANG_SOURCE",
+      "AC_LINK_IFELSE",
+      "AC_MSG_CHECKING",
+      "AC_MSG_ERROR",
+      "AC_MSG_RESULT",
+      "AC_OUTPUT",
+      "AC_PATH_PROGS",
+      "AC_PATH_XTRA",
+      "AC_PROG_CXX",
+      "AC_SEARCH_LIBS",
+      "AC_STRUCT_TM",
+      "AC_SUBST",
+      "AC_TYPE_PID_T",
+      "AC_TYPE_SIZE_T",
+      "AM_CONDITIONAL",
+      "AM_INIT_AUTOMAKE",
+      "AM_SILENT_RULES",
+      "AX_CXX_COMPILE_STDCXX",
+      "PKG_CHECK_MODULES",
+      "PKG_PROG_PKG_CONFIG"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 182,
+    "configure_fi": 177,
+    "configure_case": 67,
+    "configure_esac": 70,
+    "balanced": false,
+    "automake_conditionals": [
+      "SET_GID",
+      "COMPILER_IS_CLANG",
+      "PCH",
+      "COMPILER_HAVE_EXEC_CHARSET_EUC_JP_MS",
+      "USE_NKF"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": ".",
+    "present": [
+      "install-sh",
+      "missing",
+      "depcomp",
+      "compile"
+    ],
+    "missing": [
+      "config.guess",
+      "config.sub"
+    ]
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "cc": 1,
+      "cpp": 998,
+      "h": 1166,
+      "hpp": 9
+    },
+    "configure_macros": [
+      "AC_PROG_CXX"
+    ],
+    "needs_cxx": true,
+    "needs_fortran": false,
+    "sets_c_std": true
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": false,
+    "defines_sampled": []
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-pkg-config",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "has-m4-macro-dir",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "has-acinclude",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-ax-archive",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "fcntl.h",
+      "stdint.h",
+      "sys/file.h",
+      "sys/ioctl.h",
+      "sys/time.h",
+      "termio.h",
+      "unistd.h"
+    ],
+    "headers_included_unchecked": [
+      "curl/curl.h",
+      "fmt/format.h",
+      "lore/lore-store.h",
+      "market/arena-info-table.h",
+      "monster-race/monster-race.h",
+      "monster-race/race-indice-types.h",
+      "realm/realm-names-table.h",
+      "simpleini/SimpleIni.h",
+      "store/owner-insults.h",
+      "sys/param.h",
+      "sys/resource.h",
+      "sys/stat.h",
+      "sys/types.h",
+      "sys/wait.h",
+      "system/floor-type-definition.h",
+      "window/display-sub-window-spells.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 5,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "gnu++",
+    "strip_modern_poison_flags": [],
+    "inject_legacy_shims": false,
+    "compiler_aliasing": {}
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 2,
+    "shadowed_builtins": [],
+    "permitted_mutations": 9,
+    "suspect_global_mutations": 0
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "curl/curl.h",
+      "fmt/format.h",
+      "lore/lore-store.h",
+      "market/arena-info-table.h",
+      "monster-race/monster-race.h",
+      "monster-race/race-indice-types.h",
+      "realm/realm-names-table.h",
+      "simpleini/SimpleIni.h",
+      "store/owner-insults.h",
+      "sys/param.h",
+      "sys/resource.h",
+      "sys/stat.h",
+      "sys/types.h",
+      "sys/wait.h",
+      "system/floor-type-definition.h",
+      "window/display-sub-window-spells.h",
+      "fcntl.h",
+      "stdint.h",
+      "sys/file.h",
+      "sys/ioctl.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": -54,
+      "Makefile.in": 1275,
+      "aclocal.m4": 97,
+      "configure": 104,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_ENABLE": "system-aclocal",
+      "AC_ARG_VAR": "system-aclocal",
+      "AC_ARG_WITH": "system-aclocal",
+      "AC_CANONICAL_HOST": "system-aclocal",
+      "AC_CHECK_FUNCS": "system-aclocal",
+      "AC_CHECK_HEADERS": "system-aclocal",
+      "AC_CHECK_LIB": "system-aclocal",
+      "AC_CHECK_PROG": "system-aclocal",
+      "AC_COMPILE_IFELSE": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_HEADERS": "system-aclocal",
+      "AC_CONFIG_MACRO_DIRS": "system-aclocal",
+      "AC_CONFIG_SRCDIR": "system-aclocal",
+      "AC_C_CONST": "system-aclocal",
+      "AC_DEFINE": "system-aclocal",
+      "AC_DEFINE_UNQUOTED": "system-aclocal",
+      "AC_FUNC_MEMCMP": "system-aclocal",
+      "AC_FUNC_STRFTIME": "system-aclocal",
+      "AC_FUNC_VPRINTF": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_LANG": "system-aclocal",
+      "AC_LANG_PROGRAM": "system-aclocal",
+      "AC_LANG_SOURCE": "system-aclocal",
+      "AC_LINK_IFELSE": "system-aclocal",
+      "AC_MSG_CHECKING": "system-aclocal",
+      "AC_MSG_ERROR": "system-aclocal",
+      "AC_MSG_RESULT": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PATH_PROGS": "system-aclocal",
+      "AC_PATH_XTRA": "system-aclocal",
+      "AC_PROG_CXX": "system-aclocal",
+      "AC_SEARCH_LIBS": "system-aclocal",
+      "AC_STRUCT_TM": "system-aclocal",
+      "AC_SUBST": "system-aclocal",
+      "AC_TYPE_PID_T": "system-aclocal",
+      "AC_TYPE_SIZE_T": "system-aclocal",
+      "AM_CONDITIONAL": "system-aclocal",
+      "AM_INIT_AUTOMAKE": "system-aclocal",
+      "AM_SILENT_RULES": "system-aclocal",
+      "AX_CXX_COMPILE_STDCXX": "m4/ax_cxx_compile_stdcxx.m4"
+    },
+    "rebuild_trigger_risk": false
   }
 }

@@ -1,13 +1,13 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "BrandRegard/gnash",
   "source": {
     "url": "https://github.com/BrandRegard/gnash",
-    "git_sha": "",
+    "git_sha": "0a6c9c7a2f5267f6ab1308c04fa481ff6a2601d7",
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -17,27 +17,685 @@
     "cflags": "-g -O2",
     "host": "x86_64-pc-linux-gnu"
   },
-  "pass_pipeline": [],
-  "probe_results": {},
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "fail"
+    },
+    {
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
+      "status": "fail"
+    }
+  ],
+  "probe_results": {
+    "HAVE_ATK_ATK_H": 1,
+    "HAVE_CLOCK_GETTIME": 1,
+    "HAVE_CURL_CURL_H": 1,
+    "HAVE_DCGETTEXT": 1,
+    "HAVE_DEJAGNU_H": 1,
+    "HAVE_DIRENT_H": 1,
+    "HAVE_DLFCN_H": 1,
+    "HAVE_EXPAT_H": 1,
+    "HAVE_FCNTL_SPLICE": 1,
+    "HAVE_FCNTL_TEE": 1,
+    "HAVE_FINITE": 1,
+    "HAVE_FONTCONFIG_FONTCONFIG_H": 1,
+    "HAVE_FTIME": 1,
+    "HAVE_FUNCTION": 1,
+    "HAVE_GETOPT": 1,
+    "HAVE_GETOPT_H": 1,
+    "HAVE_GETPWNAM": 1,
+    "HAVE_GETTEXT": 1,
+    "HAVE_GETTIMEOFDAY": 1,
+    "HAVE_GIF_LIB_H": 1,
+    "HAVE_GLIB": 1,
+    "HAVE_GST_APP_GSTAPPSINK_H": 1,
+    "HAVE_GST_GST_H": 1,
+    "HAVE_GST_INTERFACES_PROBEPROBE_H": 1,
+    "HAVE_GST_PBUTILS_INSTALL_PLUGINS_H": 1,
+    "HAVE_GTK2": 1,
+    "HAVE_INTTYPES_H": 1,
+    "HAVE_IPV6": 1,
+    "HAVE_ISFINITE": 1,
+    "HAVE_JPEGLIB_H": 1,
+    "HAVE_LIBAVCODEC_AVCODEC_H": 1,
+    "HAVE_LIBAVCODEC_VAAPI_H": 1,
+    "HAVE_LIBAVFORMAT_AVFORMAT_H": 1,
+    "HAVE_LIBGEN_H": 1,
+    "HAVE_LIBRT": 1,
+    "HAVE_LIBSWSCALE_SWSCALE_H": 1,
+    "HAVE_LIBX11": 1,
+    "HAVE_LOCALTIME_R": 1,
+    "HAVE_LOCAL_THREAD_STORAGE": 1,
+    "HAVE_LONG_TIMEZONE": 1,
+    "HAVE_LTDL": 1,
+    "HAVE_LTDL_H": 1,
+    "HAVE_MALLINFO": 1,
+    "HAVE_MEMORY_H": 1,
+    "HAVE_MKSTEMPS": 1,
+    "HAVE_MMAP": 1,
+    "HAVE_PNG_H": 1,
+    "HAVE_POLL_H": 1,
+    "HAVE_PPOLL": 1,
+    "HAVE_PRETTY_FUNCTION": 1,
+    "HAVE_PSELECT": 1,
+    "HAVE_PTHREADS": 1,
+    "HAVE_PWD_H": 1,
+    "HAVE_SCANDIR": 1,
+    "HAVE_SDL_H": 1,
+    "HAVE_SENDFILE": 1,
+    "HAVE_SHMAT": 1,
+    "HAVE_SHMDT": 1,
+    "HAVE_SHMGET": 1,
+    "HAVE_SIGNAL_H": 1,
+    "HAVE_SPEEX_H": 1,
+    "HAVE_STDINT_H": 1,
+    "HAVE_STDLIB_H": 1,
+    "HAVE_STRINGS_H": 1,
+    "HAVE_STRING_H": 1,
+    "HAVE_SYSCONF": 1,
+    "HAVE_SYS_EPOLL_H": 1,
+    "HAVE_SYS_STAT_H": 1,
+    "HAVE_SYS_TIME_H": 1,
+    "HAVE_SYS_TYPES_H": 1,
+    "HAVE_SYS_UTSNAME_H": 1,
+    "HAVE_TM_GMTOFF": 1,
+    "HAVE_TZSET": 1,
+    "HAVE_UNISTD_H": 1,
+    "HAVE_X11": 1,
+    "HAVE_X11_X_H": 1,
+    "HAVE_ZLIB_H": 1,
+    "HAVE_func": 1
+  },
   "feature_flags": {
     "configure_args": []
   },
   "dependencies": {
     "pkg_config": [],
-    "system_libs": [],
+    "system_libs": [
+      "-lrt",
+      "-lX11"
+    ],
     "headers_needed": [],
     "missing": []
   },
-  "quirks": [],
+  "quirks": [
+    "libtool",
+    "pkg-config",
+    "gettext",
+    "subdirs",
+    "LIBS=-lrt -lX11"
+  ],
   "outputs": [],
-  "status": "CLONE_FAIL",
+  "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "",
+  "diagnostic": "./configure: line 1352: gnash,: command not found",
+  "deep_expansion": {
+    "configure_lines": 6317,
+    "leaked_macros": [],
+    "heredoc_openers": 16,
+    "heredoc_terminators": 16,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1538,
+        "token": "yes",
+        "source": "(, (yes))",
+        "block": [
+          "1534: BUILDDATE=\"`date +%Y%m%d`\"",
+          "1535: (BUILDDATE)",
+          "1536: ",
+          "1537: ",
+          "1538: (, (yes))",
+          "1539: ",
+          "1540: SET_MAKE=''",
+          "1541: "
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 4612: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL",
+      "srcdir",
+      "prefix",
+      "exec_prefix",
+      "CC",
+      "CFLAGS",
+      "CPPFLAGS",
+      "LDFLAGS",
+      "LIBS",
+      "CXX",
+      "CXXFLAGS",
+      "CPP",
+      "DEFS",
+      "LIBOBJS",
+      "INSTALL",
+      "KDE3_LIBS",
+      "USE_NLS",
+      "KDE4_PLUGINDIR",
+      "GENCAT",
+      "GCONF_SCHEMA_CONFIG_SOURCE",
+      "MING_CFLAGS",
+      "LIRC_LIBS",
+      "PTHREAD_CC",
+      "UP_LIBS"
+    ],
+    "failed_during_check": "",
+    "failure_tail": [
+      "./configure: line 1532: AMIGAOS4,: command not found",
+      "./configure: line 1535: BUILDDATE: command not found",
+      "./configure: line 1538: syntax error near unexpected token `yes'",
+      "./configure: line 1538: `(, (yes))'"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 12,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": []
+  },
   "receipt": {
     "court_status": "failed",
-    "probe_trace": [],
-    "quirks_matched": [],
-    "receipt_hash": "",
+    "probe_trace": [
+      {
+        "name": "HAVE_ATK_ATK_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_CLOCK_GETTIME",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_CURL_CURL_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_DCGETTEXT",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_DEJAGNU_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_DIRENT_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_DLFCN_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_EXPAT_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_FCNTL_SPLICE",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_FCNTL_TEE",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_FINITE",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_FONTCONFIG_FONTCONFIG_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_FTIME",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_FUNCTION",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_GETOPT",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_GETOPT_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_GETPWNAM",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_GETTEXT",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_GETTIMEOFDAY",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_GIF_LIB_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_GLIB",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_GST_APP_GSTAPPSINK_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_GST_GST_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_GST_INTERFACES_PROBEPROBE_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_GST_PBUTILS_INSTALL_PLUGINS_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_GTK2",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_INTTYPES_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_IPV6",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_ISFINITE",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_JPEGLIB_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_LIBAVCODEC_AVCODEC_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_LIBAVCODEC_VAAPI_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_LIBAVFORMAT_AVFORMAT_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_LIBGEN_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_LIBRT",
+        "kind": "lib",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_LIBSWSCALE_SWSCALE_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_LIBX11",
+        "kind": "lib",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_LOCALTIME_R",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_LOCAL_THREAD_STORAGE",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_LONG_TIMEZONE",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_LTDL",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_LTDL_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_MALLINFO",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_MEMORY_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_MKSTEMPS",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_MMAP",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_PNG_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_POLL_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_PPOLL",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_PRETTY_FUNCTION",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_PSELECT",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_PTHREADS",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_PWD_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SCANDIR",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SDL_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SENDFILE",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SHMAT",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SHMDT",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SHMGET",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SIGNAL_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SPEEX_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STDINT_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STDLIB_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STRINGS_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STRING_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SYSCONF",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SYS_EPOLL_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SYS_STAT_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SYS_TIME_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SYS_TYPES_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SYS_UTSNAME_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_TM_GMTOFF",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_TZSET",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_UNISTD_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_X11",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_X11_X_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_ZLIB_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_func",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      }
+    ],
+    "quirks_matched": [
+      "uses-libtool-old",
+      "uses-pkg-config",
+      "uses-gettext",
+      "uses-maintainer-mode",
+      "vendored-aclocal",
+      "perl-in-configure"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-maintainer-mode",
+        "action": "--disable-maintainer-mode",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "2a256d71851f16eb6e1a21e20bd0f11b6cbd09afed2588b1f1f3f1d53c069974",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -46,6 +704,2762 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "cygnal/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "cygnal/cgi-bin/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "cygnal/cgi-bin/echo/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "cygnal/cgi-bin/fitcDemo/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "cygnal/cgi-bin/oflaDemo/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "cygnal/libamf/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "cygnal/libnet/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "cygnal/testsuite/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "cygnal/testsuite/cygnal.all/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "cygnal/testsuite/libamf.all/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "cygnal/testsuite/libnet.all/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "desktop/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "desktop/gnash-gtk-launcher:desktop/gnash-gtk-launcher.in",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": false
+      },
+      {
+        "path": "desktop/gnash-qt-launcher:desktop/gnash-qt-launcher.in",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": false
+      },
+      {
+        "path": "doc/C/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "doc/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "extensions/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "extensions/dbus/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "extensions/dejagnu/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "extensions/fileio/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "extensions/gtk2/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "extensions/lirc/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "extensions/mysql/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "gnash.pc:gnash.pc.in",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": false
+      },
+      {
+        "path": "gui/Info.plist",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "gui/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "gui/pythonmod/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "libbase/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "libcore/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "libcore/parser/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "libcore/vm/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "libdevice/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "libmedia/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "librender/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "libsound/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "plugin/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "plugin/aos4/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "plugin/klash/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "plugin/klash4/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "plugin/npapi/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "plugin/win32/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "po/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "testsuite/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "testsuite/actionscript.all/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "testsuite/as3compile.all/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "testsuite/libbase.all/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "testsuite/libcore.all/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "testsuite/libmedia.all/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "testsuite/media/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "testsuite/misc-haxe.all/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "testsuite/misc-haxe.all/classes.all/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "testsuite/misc-ming.all/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "testsuite/misc-ming.all/action_order/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "testsuite/misc-ming.all/displaylist_depths/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "testsuite/misc-ming.all/init_action/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "testsuite/misc-ming.all/loading/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "testsuite/misc-ming.all/loop/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "testsuite/misc-ming.all/register_class/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "testsuite/misc-ming.all/sound/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "testsuite/misc-mtasc.all/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "testsuite/misc-swfc.all/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "testsuite/misc-swfmill.all/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "testsuite/misc-swfmill.all/trace-as2/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "testsuite/misc-swfmill.all/trace-as3/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "testsuite/movies.all/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "testsuite/network.all/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "testsuite/samples/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "testsuite/swfdec/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "utilities/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      }
+    ],
+    "config_headers": [
+      "gnashconfig.h"
+    ],
+    "subdirs": [
+      "desktop",
+      "$(DEVICES_DIR)",
+      "libbase",
+      "libmedia",
+      "libsound",
+      "libcore",
+      "librender",
+      "gui",
+      "plugin",
+      "$(CYGNAL_DIR)",
+      "utilities",
+      "$(EXT_DIR)",
+      "doc",
+      "po",
+      "$(TEST_DIR)",
+      "$(NULL)",
+      "libamf",
+      "libnet",
+      ".",
+      "cgi-bin",
+      "echo",
+      "oflaDemo",
+      "libamf.all",
+      "libnet.all",
+      "cygnal.all",
+      "C",
+      "$(OTHER_DIRS)",
+      ".",
+      "pythonmod",
+      "parser",
+      "vm",
+      "debian",
+      "doc",
+      "ipkg",
+      "redhat",
+      "klash",
+      "klash4",
+      "npapi",
+      "win32",
+      "aos4",
+      ".",
+      "media",
+      "$(DIR_AS3)",
+      "$(DIR_SWFDEC_TESTSUITE)",
+      "samples",
+      "$(DIR_MING)",
+      "$(DIR_MTASC)",
+      "$(DIR_HAXE)",
+      "$(DIR_SWFMILL)",
+      "$(DIR_SWFC)",
+      "movies.all",
+      "libbase.all",
+      "libmedia.all",
+      "libcore.all",
+      "$(NULL)"
+    ],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [],
+        "subdirs": [
+          "desktop",
+          "$(DEVICES_DIR)",
+          "libbase",
+          "libmedia",
+          "libsound",
+          "libcore",
+          "librender",
+          "gui",
+          "plugin",
+          "$(CYGNAL_DIR)",
+          "utilities",
+          "$(EXT_DIR)",
+          "doc",
+          "po",
+          "$(TEST_DIR)",
+          "$(NULL)"
+        ],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "cygnal",
+        "targets": [
+          "cygnal",
+          "libcygnal.la"
+        ],
+        "subdirs": [
+          "libamf",
+          "libnet",
+          ".",
+          "cgi-bin"
+        ],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I..          -I$(srcdir)/libamf          -I$(srcdir)/libnet          -I$(top_srcdir)\t         -I$(top_srcdir)/libbase  "
+      },
+      {
+        "dir": "cygnal/cgi-bin",
+        "targets": [],
+        "subdirs": [
+          "echo",
+          "oflaDemo"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "cygnal/cgi-bin/echo",
+        "targets": [
+          "echo.la",
+          "#",
+          "gateway.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)/libbase  \t-I$(top_srcdir)/libcore  \t-I$(top_srcdir)/libltdl  \t-I$(top_srcdir)/cygnal          -I$(top_sr"
+      },
+      {
+        "dir": "cygnal/cgi-bin/fitcDemo",
+        "targets": [
+          "fitcDemo.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)/libbase          -I$(top_srcdir)/libamf  \t-I$(top_srcdir)/libnet  \t-I$(top_srcdir)/libcore  \t-I$(top_src"
+      },
+      {
+        "dir": "cygnal/cgi-bin/oflaDemo",
+        "targets": [
+          "oflaDemo.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)/libbase  \t-I$(top_srcdir)/libcore  \t-I$(top_srcdir)/libltdl  \t-I$(top_srcdir)/cygnal          -I$(top_sr"
+      },
+      {
+        "dir": "cygnal/libamf",
+        "targets": [
+          "libgnashamf.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)/cygnal/libamf  \t-I$(top_srcdir)/cygnal/libnet  \t-I$(top_srcdir)/libcore  \t-I$(top_srcdir)/libbase  \t$(BO"
+      },
+      {
+        "dir": "cygnal/libnet",
+        "targets": [
+          "libgnashnet.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)/cygnal/libamf  \t-I$(top_srcdir)/cygnal/libnet          -I$(top_srcdir)/libbase          -I$(top_srcdir)/"
+      },
+      {
+        "dir": "cygnal/testsuite",
+        "targets": [],
+        "subdirs": [
+          "libamf.all",
+          "libnet.all",
+          "cygnal.all"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "cygnal/testsuite/cygnal.all",
+        "targets": [
+          "libcygnal.la",
+          "test_crc"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)/cygnal/libamf          -I$(top_srcdir)/cygnal/libnet          -I$(top_srcdir)/libbase          -I$(top_s"
+      },
+      {
+        "dir": "cygnal/testsuite/libamf.all",
+        "targets": [
+          "test_amf",
+          "test_amfmsg",
+          "test_buffer",
+          "test_lc",
+          "test_el",
+          "test_sol",
+          "test_flv"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)/cygnal/libamf          -I$(top_srcdir)/cygnal/libnet          -I$(top_srcdir)/libbase          -I$(top_s"
+      },
+      {
+        "dir": "cygnal/testsuite/libnet.all",
+        "targets": [
+          "generate_amfbins",
+          "$(test_progs)"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)/testsuite          -I$(top_srcdir)/cygnal/libnet          -I$(top_srcdir)/cygnal/libamf          -I$(top"
+      },
+      {
+        "dir": "doc",
+        "targets": [],
+        "subdirs": [
+          "C"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "extensions",
+        "targets": [],
+        "subdirs": [
+          "$(OTHER_DIRS)"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "extensions/dbus",
+        "targets": [
+          "dbus.la",
+          "#",
+          "SharedTest"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)/libbase  \t\t-I$(top_srcdir)/libcore  \t\t-I$(top_srcdir)/libcore/abc  \t\t-I$(top_srcdir)/libcore/swf  \t\t-I$("
+      },
+      {
+        "dir": "extensions/dejagnu",
+        "targets": [
+          "dejagnu.la",
+          "#",
+          "SharedTest"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)/libbase  \t-I$(top_srcdir)/libcore  \t-I$(top_srcdir)/libcore/abc  \t-I$(top_srcdir)/libcore/swf  \t-I$(top_"
+      },
+      {
+        "dir": "extensions/fileio",
+        "targets": [
+          "fileio.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)/libbase              -I$(top_srcdir)/libcore              -I$(top_srcdir)/libcore/abc              -I$(t"
+      },
+      {
+        "dir": "extensions/gtk2",
+        "targets": [
+          "gtkext.la",
+          "hello"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)/libbase  \t-I$(top_srcdir)/gui  \t-I$(top_srcdir)/libcore  \t-I$(top_srcdir)/libcore/abc  \t-I$(top_srcdir)/"
+      },
+      {
+        "dir": "extensions/lirc",
+        "targets": [
+          "lirc.la",
+          "#",
+          "SharedTest"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)/libbase  \t\t-I$(top_srcdir)/libcore  \t\t-I$(top_srcdir)/libcore/abc  \t\t-I$(top_srcdir)/libcore/swf  \t\t-I$("
+      },
+      {
+        "dir": "extensions/mysql",
+        "targets": [
+          "mysql.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)/libbase              -I$(top_srcdir)/libcore              -I$(top_srcdir)/libcore/abc              -I$(t"
+      },
+      {
+        "dir": "gui",
+        "targets": [
+          "libgnashgui.la",
+          "test_glue"
+        ],
+        "subdirs": [
+          ".",
+          "pythonmod"
+        ],
+        "sources_include_config_h": true,
+        "am_cppflags": "-DCXXFLAGS=\"\\\"$(CXXFLAGS)\\\"\""
+      },
+      {
+        "dir": "gui/pythonmod",
+        "targets": [
+          "gnash.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "$(GLEXT_CFLAGS)"
+      },
+      {
+        "dir": "libbase",
+        "targets": [
+          "libgnashbase.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "libcore",
+        "targets": [
+          "libgnashcore.la"
+        ],
+        "subdirs": [
+          "parser",
+          "vm"
+        ],
+        "sources_include_config_h": true,
+        "am_cppflags": "$(DIRECTFB_CFLAGS)"
+      },
+      {
+        "dir": "libcore/parser",
+        "targets": [
+          "libgnashparser.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "$(DIRECTFB_CFLAGS)"
+      },
+      {
+        "dir": "libcore/vm",
+        "targets": [
+          "libgnashvm.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "$(DIRECTFB_CFLAGS)"
+      },
+      {
+        "dir": "libdevice",
+        "targets": [
+          "libgnashdevice.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I..  \t-I$(srcdir)  \t-I$(top_srcdir)  \t-I$(top_srcdir)/libmedia  \t-I$(top_srcdir)/libbase  \t-I$(top_srcdir)/librender  \t"
+      },
+      {
+        "dir": "libmedia",
+        "targets": [
+          "libgnashmedia.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "librender",
+        "targets": [
+          "libgnashrender.la",
+          "testr"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I..  \t-I$(srcdir)  \t-I$(top_srcdir)  \t-I$(top_srcdir)/libcore  \t-I$(top_srcdir)/libmedia  \t-I$(top_srcdir)/libcore/pars"
+      },
+      {
+        "dir": "libsound",
+        "targets": [
+          "libgnashsound.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "packaging",
+        "targets": [],
+        "subdirs": [
+          "debian",
+          "doc",
+          "ipkg",
+          "redhat"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "plugin",
+        "targets": [],
+        "subdirs": [
+          "klash",
+          "klash4",
+          "npapi",
+          "win32",
+          "aos4"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "plugin/aos4",
+        "targets": [
+          "libnpgnash.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)/libbase  \t-I$(top_srcdir)/libmedia  \t-I$(top_srcdir)/libsound  \t-I$(top_srcdir)/libmedia/ffmpeg  \t-I$(to"
+      },
+      {
+        "dir": "plugin/klash",
+        "targets": [
+          "libklashpart.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "$(KDE3_CFLAGS)  \t$(QT3_CFLAGS)  \t$(X11_CFLAGS)  \t-DGNASHBINDIR=\\\"${bindir}\\\""
+      },
+      {
+        "dir": "plugin/klash4",
+        "targets": [
+          "libklashpart.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "$(KDE4_CFLAGS)  \t$(QT4_CFLAGS)  \t$(X11_CFLAGS)  \t-I$(top_srcdir)/libbase  \t-DGNASHBINDIR=\\\"${bindir}\\\"  \t$(NULL)"
+      },
+      {
+        "dir": "plugin/npapi",
+        "targets": [
+          "libgnashplugin.la",
+          "test"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-DXP_UNIX -DMOZ_X11"
+      },
+      {
+        "dir": "plugin/win32",
+        "targets": [
+          "npgnash.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)/libbase  \t-I$(top_srcdir)/libmedia  \t-I$(top_srcdir)/libsound  \t-I$(top_srcdir)/libmedia/ffmpeg  \t-I$(to"
+      },
+      {
+        "dir": "testsuite",
+        "targets": [
+          "libtestsuite.la"
+        ],
+        "subdirs": [
+          ".",
+          "media",
+          "$(DIR_AS3)",
+          "$(DIR_SWFDEC_TESTSUITE)",
+          "samples",
+          "$(DIR_MING)",
+          "$(DIR_MTASC)",
+          "$(DIR_HAXE)",
+          "$(DIR_SWFMILL)",
+          "$(DIR_SWFC)",
+          "movies.all",
+          "libbase.all",
+          "libmedia.all",
+          "libcore.all",
+          "$(NULL)"
+        ],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "testsuite/movies.all",
+        "targets": [
+          "gravity_embedded-TestRunner",
+          "tic_tac2-TestRunner",
+          "$(NULL)"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)/libbase          -I$(top_srcdir)/libmedia  \t-I$(top_srcdir)/libsound          -I$(top_srcdir)/librender "
+      },
+      {
+        "dir": "utilities",
+        "targets": [
+          "gprocessor",
+          "rtmpget",
+          "gdebug.swf"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)/cygnal/libamf  \t-I$(top_srcdir)/cygnal/libnet"
+      }
+    ],
+    "max_depth": 3,
+    "config_h_consumers_below_root": [
+      "gui",
+      "libcore",
+      "libcore/parser",
+      "libcore/vm",
+      "libmedia",
+      "librender",
+      "libbase",
+      "utilities",
+      "libsound",
+      "libdevice",
+      "plugin/npapi",
+      "plugin/klash4",
+      "plugin/klash",
+      "plugin/aos4",
+      "plugin/win32",
+      "extensions/dbus",
+      "extensions/fileio",
+      "extensions/mysql",
+      "extensions/dejagnu",
+      "extensions/lirc",
+      "extensions/gtk2",
+      "cygnal",
+      "cygnal/libnet",
+      "cygnal/libamf",
+      "cygnal/cgi-bin/oflaDemo",
+      "cygnal/cgi-bin/fitcDemo",
+      "cygnal/testsuite/cygnal.all",
+      "cygnal/testsuite/libnet.all",
+      "cygnal/testsuite/libamf.all",
+      "testsuite"
+    ]
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 2241,
+        "first_parse_error": {
+          "line": 1704,
+          "kind": "missing-separator",
+          "text": "DEB_BUILD_OPTIONS ?= $(shell echo $DEB_BUILD_OPTIONS)",
+          "previous_lines": [
+            "# build options, we can then see what is enabled or not. The",
+            "# default produces a package with normal defaults."
+          ],
+          "probable_cause": "bare-macro"
+        },
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "gui/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 4049,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "gui/pythonmod/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1085,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "libcore/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 2714,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "libcore/parser/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 913,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "libcore/vm/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 902,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "libmedia/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1399,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "librender/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1150,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "desktop/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 897,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "libbase/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1495,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "utilities/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1003,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "libsound/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1040,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "libdevice/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1782,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "doc/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 890,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "doc/C/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1109,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "po/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 753,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "plugin/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 897,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "plugin/npapi/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1226,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "plugin/klash4/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1038,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "plugin/klash/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1035,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "plugin/aos4/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 935,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "plugin/win32/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 963,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "extensions/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 889,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "extensions/dbus/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 913,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "extensions/fileio/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 971,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "extensions/mysql/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 900,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "extensions/dejagnu/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 906,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "extensions/lirc/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 912,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "extensions/gtk2/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 940,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "cygnal/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1202,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      }
+    ]
+  },
+  "tool_requirements": {
+    "detected": [
+      "c++",
+      "xgettext",
+      "perl",
+      "python",
+      "makeinfo",
+      "doxygen"
+    ],
+    "missing": []
+  },
+  "macro_inventory": {
+    "macro_dirs": [
+      "macros"
+    ],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [
+      {
+        "name": "GNASH_PATH_PANGO",
+        "source": "macros/pango.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "GNASH_PATH_X11",
+        "source": "macros/x11.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "LT_INIT",
+        "source": "macros/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LTOPTIONS_VERSION",
+        "source": "macros/libtool.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AC_PROG_LIBTOOL",
+        "source": "macros/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AM_PROG_LIBTOOL",
+        "source": "macros/libtool.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "LT_OUTPUT",
+        "source": "macros/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_SUPPORTED_TAG",
+        "source": "macros/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_LANG",
+        "source": "macros/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_CXX",
+        "source": "macros/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_F77",
+        "source": "macros/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_FC",
+        "source": "macros/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_GCJ",
+        "source": "macros/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_RC",
+        "source": "macros/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "_LT_WITH_SYSROOT",
+        "source": "macros/libtool.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_LT_COMPILER_OPTION",
+        "source": "macros/libtool.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AC_LIBTOOL_COMPILER_OPTION",
+        "source": "macros/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "_LT_LINKER_OPTION",
+        "source": "macros/libtool.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AC_LIBTOOL_LINKER_OPTION",
+        "source": "macros/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_CMD_MAX_LEN",
+        "source": "macros/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_SYS_MAX_CMD_LEN",
+        "source": "macros/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_SYS_DLOPEN_SELF",
+        "source": "macros/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_DLOPEN_SELF",
+        "source": "macros/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "_LT_PATH_TOOL_PREFIX",
+        "source": "macros/libtool.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AC_PATH_TOOL_PREFIX",
+        "source": "macros/libtool.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "LT_PATH_LD",
+        "source": "macros/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AM_PROG_LD",
+        "source": "macros/libtool.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AC_PROG_LD",
+        "source": "macros/libtool.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "LT_PATH_NM",
+        "source": "macros/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AM_PROG_NM",
+        "source": "macros/libtool.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AC_PROG_NM",
+        "source": "macros/libtool.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "LT_LIB_M",
+        "source": "macros/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_CHECK_LIBM",
+        "source": "macros/libtool.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "LT_PROG_GCJ",
+        "source": "macros/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_AC_PROG_GCJ",
+        "source": "macros/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_PROG_RC",
+        "source": "macros/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_AC_PROG_RC",
+        "source": "macros/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_AC_PROG_SED",
+        "source": "macros/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "GNASH_PATH_FFMPEG",
+        "source": "macros/ffmpeg.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "GNASH_PATH_AGG",
+        "source": "macros/agg.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "GNASH_PATH_GLIB",
+        "source": "macros/glib.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AM_PO_SUBDIRS",
+        "source": "macros/po.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AM_POSTPROCESS_PO_MAKEFILE",
+        "source": "macros/po.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AM_XGETTEXT_OPTION_INIT",
+        "source": "macros/po.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AM_XGETTEXT_OPTION",
+        "source": "macros/po.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AM_GCONF_SOURCE_2",
+        "source": "macros/gconf-2.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AC_LIB_LINKFLAGS",
+        "source": "macros/lib-link.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_LIB_HAVE_LINKFLAGS",
+        "source": "macros/lib-link.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_LIB_RPATH",
+        "source": "macros/lib-link.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_LIB_FROMPACKAGE",
+        "source": "macros/lib-link.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_LIB_LINKFLAGS_BODY",
+        "source": "macros/lib-link.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_LIB_APPENDTOVAR",
+        "source": "macros/lib-link.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_LIB_LINKFLAGS_FROM_LIBS",
+        "source": "macros/lib-link.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_PATH_MING",
+        "source": "macros/ming.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "PKG_PROG_PKG_CONFIG",
+        "source": "macros/pkg.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "PKG_CHECK_EXISTS",
+        "source": "macros/pkg.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "PKG_CHECK_MODULES",
+        "source": "macros/pkg.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "LTVERSION_VERSION",
+        "source": "macros/ltversion.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AM_PATH_PROG_WITH_TEST",
+        "source": "macros/progtest.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "GNASH_PATH_LIRC",
+        "source": "macros/lirc.m4",
+        "kind": "project-local"
+      }
+    ],
+    "called_macros": [
+      "AC_ARG_ENABLE",
+      "AC_ARG_WITH",
+      "AC_CACHE_CHECK",
+      "AC_CANONICAL_BUILD",
+      "AC_CANONICAL_HOST",
+      "AC_CHECK_FUNC",
+      "AC_CHECK_FUNCS",
+      "AC_CHECK_HEADERS",
+      "AC_CHECK_LIB",
+      "AC_CHECK_SIZEOF",
+      "AC_COMPILE_IFELSE",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_HEADERS",
+      "AC_CONFIG_LINKS",
+      "AC_CONFIG_MACRO_DIR",
+      "AC_CONFIG_SRCDIR",
+      "AC_C_BIGENDIAN",
+      "AC_C_CONST",
+      "AC_C_INLINE",
+      "AC_DEFINE",
+      "AC_DEFINE_UNQUOTED",
+      "AC_DEFUN",
+      "AC_DISABLE_STATIC",
+      "AC_ERROR",
+      "AC_EXEEXT",
+      "AC_HEADER_DIRENT",
+      "AC_HELP_STRING",
+      "AC_INIT",
+      "AC_LANG_POP",
+      "AC_LANG_PROGRAM",
+      "AC_LANG_PUSH",
+      "AC_LANG_SOURCE",
+      "AC_LIBTOOL_DLOPEN",
+      "AC_LIBTOOL_WIN32_DLL",
+      "AC_LINK_IFELSE",
+      "AC_MSG_CHECKING",
+      "AC_MSG_ERROR",
+      "AC_MSG_NOTICE",
+      "AC_MSG_RESULT",
+      "AC_MSG_WARN",
+      "AC_OUTPUT",
+      "AC_PATH_HAXE",
+      "AC_PATH_MING",
+      "AC_PATH_MTASC",
+      "AC_PATH_PROG",
+      "AC_PATH_PROGS",
+      "AC_PATH_SWFMILL",
+      "AC_PATH_TOOL",
+      "AC_PATH_XTRA",
+      "AC_PREREQ",
+      "AC_PROG_CC",
+      "AC_PROG_CXX",
+      "AC_PROG_INSTALL",
+      "AC_PROG_LIBTOOL",
+      "AC_PROG_MAKE_SET",
+      "AC_REPLACE_FUNCS",
+      "AC_SEARCH_LIBS",
+      "AC_SUBST",
+      "AC_TRY_COMPILE",
+      "AC_TRY_LINK"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 553,
+    "configure_fi": 547,
+    "configure_case": 104,
+    "configure_esac": 79,
+    "balanced": false,
+    "automake_conditionals": [
+      "LINUX",
+      "WIN32",
+      "HAIKU",
+      "AMIGAOS4",
+      "HAS_GETTEXT",
+      "ANDROID",
+      "CROSS_COMPILING",
+      "ENABLE_DEVELOPER_TESTS",
+      "ENABLE_TSLIB",
+      "USE_VAAPI",
+      "HAVE_VAAPI",
+      "HAVE_VAAPI_GLX",
+      "HAVE_VAAPI_X11",
+      "BUILD_DEVICES",
+      "BUILD_OVG_RENDERER",
+      "BUILD_GLES1_RENDERER",
+      "BUILD_GLES2_RENDERER",
+      "BUILD_OGL_RENDERER",
+      "BUILD_AGG_RENDERER",
+      "BUILD_CAIRO_RENDERER",
+      "HAVE_PERL",
+      "HAVE_CSOUND",
+      "BUILD_DEJAGNU_EXT",
+      "BUILD_FILEIO_EXT",
+      "BUILD_MYSQL_EXT",
+      "BUILD_GTK_EXT",
+      "BUILD_LIRC_EXT",
+      "BUILD_DBUS_EXT",
+      "BUILD_EXTENSIONS",
+      "ENABLE_EXTENSIONS"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": ".",
+    "present": [
+      "install-sh",
+      "missing",
+      "depcomp",
+      "compile",
+      "ltmain.sh",
+      "config.guess",
+      "config.sub"
+    ],
+    "missing": []
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "c": 127,
+      "cpp": 490,
+      "h": 465,
+      "hpp": 1
+    },
+    "configure_macros": [
+      "AC_PROG_CC",
+      "AC_PROG_CXX"
+    ],
+    "needs_cxx": true,
+    "needs_fortran": false,
+    "sets_c_std": false
+  },
+  "libtool_context": {
+    "uses_libtool": true,
+    "macros": [
+      "AC_PROG_LIBTOOL"
+    ],
+    "ltmain_present": true,
+    "libtool_m4_sources": [
+      "aclocal.m4"
+    ],
+    "age": "old"
+  },
+  "gettext_intl_context": {
+    "uses_gettext": true,
+    "uses_intltool": false,
+    "po_dir_present": true,
+    "missing_files": [
+      "po/Makefile.in.in"
+    ]
+  },
+  "make_graph": {
+    "targets": [
+      "all",
+      ".SUFFIXES",
+      "am--refresh",
+      "$(srcdir)/Makefile.in",
+      ".PRECIOUS",
+      "Makefile",
+      "$(top_builddir)/config.status",
+      "$(top_srcdir)/configure",
+      "$(ACLOCAL_M4)",
+      "$(am__aclocal_m4_deps)",
+      "gnashconfig.h",
+      "stamp-h1",
+      "$(srcdir)/gnashconfig.h.in",
+      "distclean-hdr",
+      "gnash.pc",
+      "mostlyclean-libtool",
+      "clean-libtool",
+      "distclean-libtool",
+      "install-pkgconfigDATA",
+      "uninstall-pkgconfigDATA",
+      "$(RECURSIVE_TARGETS)",
+      "$(RECURSIVE_CLEAN_TARGETS)",
+      "tags-recursive",
+      "ctags-recursive",
+      "ID",
+      "tags",
+      "TAGS",
+      "ctags",
+      "CTAGS",
+      "GTAGS",
+      "distclean-tags",
+      "distdir",
+      "dist-gzip",
+      "dist-bzip2",
+      "dist-lzma",
+      "dist-xz",
+      "dist-tarZ",
+      "dist-shar",
+      "dist-zip",
+      "dist"
+    ],
+    "key_variables": {
+      "AR": "ar",
+      "CC": "gcc",
+      "CFLAGS": "-g -O2          -W     -Wall     -Wcast-align     -Wcast-qual     -Wpointer-arith     -Wreturn-type     -Wmissing-declarations     -Wmissing-prototypes     -Wst",
+      "CPPFLAGS": "",
+      "CXX": "g++",
+      "CXXFLAGS": "-g -O2          -W     -Wall     -Wcast-align     -Wcast-qual     -Wpointer-arith     -Wreturn-type     -Wnon-virtual-dtor     -Wunused      -fvisibility-inline",
+      "DEFS": "-DHAVE_CONFIG_H",
+      "LDFLAGS": "-Wl,--as-needed",
+      "LIBS": "-lrt -lX11",
+      "RANLIB": "ranlib"
+    },
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "libtool",
+      "stamp-h1",
+      "config.log"
+    ],
+    "recursion_depth": 3,
+    "top_targets": [
+      "all",
+      "dist"
+    ],
+    "make_diagnostics": []
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": true,
+    "defines_sampled": [
+      "CURL_STATICLIB",
+      "HAVE_CONFIG_H",
+      "__STDC_CONSTANT_MACROS",
+      "XP_UNIX",
+      "_GNU_SOURCE=1",
+      "_REENTRANT",
+      "PIC"
+    ]
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-maintainer-mode",
+      "applied_at": "configure",
+      "effect": "neutral",
+      "effectiveness": "low"
+    },
+    {
+      "quirk_id": "uses-libtool-old",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-pkg-config",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-gettext",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "perl-in-configure",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "vpath_analysis": {
+    "hardcoded_src_paths": 423,
+    "abs_path_leakage": 0,
+    "built_sources": [
+      "revno.h",
+      ".configline",
+      "bundle",
+      "klash3.moc",
+      "Qt4Gui.moc",
+      "Qt4Glue.moc",
+      "gen-gnash.c",
+      "klash_part.moc",
+      "klash_part.moc"
+    ],
+    "generated_source_targets": [
+      "@head config.log | grep \" .*/configure \" | sed -e 's",
+      "##npgnash.la",
+      "@runtest=$(RUNTEST);  \tif $(SHELL) -c \"$$runtest --version\" > /dev/null 2>&1; then  \t    GNASH_GC_TRIGGER_THRESHOLD=0 GNASHRC=../gnashrc $$runtest $(RUNTESTFLAGS) $(TEST_DRIVERS); true;  \telse  \t  echo \"WARNING",
+      "echo \"$(top_builddir)/gui/gnash -1 -r0 -v -P 'FlashVars=?a=a_in_fvars&v=v_in_fvars&MixCaseFvars=mixFvars&dejagnu.nested=chFVars&_root.fqv=fqFVars&complex={a"
+    ]
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "getopt.h",
+      "libgen.h",
+      "pwd.h",
+      "signal.h",
+      "sys/time.h",
+      "sys/utsname.h",
+      "unistd.h",
+      "winsock.h",
+      "winsock2.h"
+    ],
+    "headers_included_unchecked": [
+      "AGL/agl.h",
+      "Carbon/Carbon.h",
+      "EGL/egl.h",
+      "GL/gl.h",
+      "GLES/egl.h",
+      "OpenGL/gl.h",
+      "OpenGL/glext.h",
+      "OpenGL/glu.h",
+      "Qt/qcolor.h",
+      "Qt/qicon.h",
+      "Qt/qpixmap.h",
+      "VG/openvg.h",
+      "VG/vgu.h",
+      "X11/X.h",
+      "X11/Xlib.h",
+      "X11/cursorfont.h",
+      "X11/keysym.h",
+      "cairo/cairo.h",
+      "classes/requester.h",
+      "classes/window.h",
+      "curl/curl.h",
+      "devices/ahi.h",
+      "devices/timer.h",
+      "dos/dos.h",
+      "events/InputDevice.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 1,
+    "shadowed_macros": [
+      "AC_PROG_LIBTOOL",
+      "AM_PROG_LIBTOOL",
+      "AC_LIBTOOL_CXX",
+      "AC_LIBTOOL_F77",
+      "AC_LIBTOOL_FC",
+      "AC_LIBTOOL_GCJ",
+      "AC_LIBTOOL_RC",
+      "AC_LIBTOOL_COMPILER_OPTION",
+      "AC_LIBTOOL_LINKER_OPTION",
+      "AC_LIBTOOL_SYS_MAX_CMD_LEN",
+      "AC_LIBTOOL_DLOPEN_SELF",
+      "AC_PATH_TOOL_PREFIX",
+      "AM_PROG_LD",
+      "AC_PROG_LD",
+      "AM_PROG_NM",
+      "AC_PROG_NM",
+      "AC_CHECK_LIBM",
+      "AM_PO_SUBDIRS",
+      "AM_POSTPROCESS_PO_MAKEFILE",
+      "AM_XGETTEXT_OPTION_INIT"
+    ]
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "gnu++",
+    "strip_modern_poison_flags": [],
+    "inject_legacy_shims": false,
+    "compiler_aliasing": {}
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 26,
+    "shadowed_builtins": [
+      "AC_PROG_LIBTOOL",
+      "AM_PROG_LIBTOOL",
+      "AC_LIBTOOL_CXX",
+      "AC_LIBTOOL_F77",
+      "AC_LIBTOOL_FC",
+      "AC_LIBTOOL_GCJ",
+      "AC_LIBTOOL_RC",
+      "AC_LIBTOOL_COMPILER_OPTION",
+      "AC_LIBTOOL_LINKER_OPTION",
+      "AC_LIBTOOL_SYS_MAX_CMD_LEN",
+      "AC_LIBTOOL_DLOPEN_SELF",
+      "AC_PATH_TOOL_PREFIX",
+      "AM_PROG_LD",
+      "AC_PROG_LD",
+      "AM_PROG_NM"
+    ],
+    "permitted_mutations": 50,
+    "suspect_global_mutations": 0
+  },
+  "parallel_build_safety": {
+    "vpath_out_of_tree_safe": false,
+    "generators": [
+      "@head config.log | grep \" .*/configure \" | sed -e 's",
+      "##npgnash.la",
+      "@runtest=$(RUNTEST);  \tif $(SHELL) -c \"$$runtest --version\" > /dev/null 2>&1; then  \t    GNASH_GC_TRIGGER_THRESHOLD=0 GNASHRC=../gnashrc $$runtest $(RUNTESTFLAGS) $(TEST_DRIVERS); true;  \telse  \t  echo \"WARNING",
+      "echo \"$(top_builddir)/gui/gnash -1 -r0 -v -P 'FlashVars=?a=a_in_fvars&v=v_in_fvars&MixCaseFvars=mixFvars&dejagnu.nested=chFVars&_root.fqv=fqFVars&complex={a"
+    ],
+    "unordered_generated_sources": [
+      "@head config.log | grep \" .*/configure \" | sed -e 's",
+      "##npgnash.la",
+      "@runtest=$(RUNTEST);  \tif $(SHELL) -c \"$$runtest --version\" > /dev/null 2>&1; then  \t    GNASH_GC_TRIGGER_THRESHOLD=0 GNASHRC=../gnashrc $$runtest $(RUNTESTFLAGS) $(TEST_DRIVERS); true;  \telse  \t  echo \"WARNING",
+      "echo \"$(top_builddir)/gui/gnash -1 -r0 -v -P 'FlashVars=?a=a_in_fvars&v=v_in_fvars&MixCaseFvars=mixFvars&dejagnu.nested=chFVars&_root.fqv=fqFVars&complex={a"
+    ],
+    "built_sources_declared": true
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "AGL/agl.h",
+      "Carbon/Carbon.h",
+      "EGL/egl.h",
+      "GL/gl.h",
+      "GLES/egl.h",
+      "OpenGL/gl.h",
+      "OpenGL/glext.h",
+      "OpenGL/glu.h",
+      "Qt/qcolor.h",
+      "Qt/qicon.h",
+      "Qt/qpixmap.h",
+      "VG/openvg.h",
+      "VG/vgu.h",
+      "X11/X.h",
+      "X11/Xlib.h",
+      "X11/cursorfont.h",
+      "X11/keysym.h",
+      "cairo/cairo.h",
+      "classes/requester.h",
+      "classes/window.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "subdir-config-h-include-path",
+    "ancient-libtool",
+    "gettext-support-files-missing",
+    "parallel-build-race (gen-source not in BUILT_SOURCES)",
+    "vpath-unsafe (abs-path/hardcoded-srcdir leakage)"
+  ],
+  "repair_hints": [
+    {
+      "id": "makefile-bare-macro",
+      "phase": "make",
+      "confidence": 0.7,
+      "evidence": [
+        "Makefile:1704 missing-separator",
+        "DEB_BUILD_OPTIONS ?= $(shell echo $DEB_BUILD_OPTIONS)"
+      ],
+      "action": "define-or-neutralize-leaked-macro",
+      "expected_effect": "partial -> FUNC_OK candidate"
+    },
+    {
+      "id": "subdir-top-builddir",
+      "phase": "make",
+      "confidence": 0.88,
+      "evidence": [
+        "gui consumes config.h below root",
+        "libcore consumes config.h below root",
+        "libcore/parser consumes config.h below root",
+        "libcore/vm consumes config.h below root",
+        "libmedia consumes config.h below root"
+      ],
+      "action": "ensure ac_subst_file sets relative top_builddir per subdir (0.1.19)",
+      "expected_effect": "config.h found in subdir compiles"
+    }
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": -30,
+      "Makefile.in": 5007,
+      "aclocal.m4": 696,
+      "configure": 1269,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_ENABLE": "system-aclocal",
+      "AC_ARG_WITH": "system-aclocal",
+      "AC_CACHE_CHECK": "system-aclocal",
+      "AC_CANONICAL_BUILD": "system-aclocal",
+      "AC_CANONICAL_HOST": "system-aclocal",
+      "AC_CHECK_FUNC": "system-aclocal",
+      "AC_CHECK_FUNCS": "system-aclocal",
+      "AC_CHECK_HEADERS": "system-aclocal",
+      "AC_CHECK_LIB": "system-aclocal",
+      "AC_CHECK_SIZEOF": "system-aclocal",
+      "AC_COMPILE_IFELSE": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_HEADERS": "system-aclocal",
+      "AC_CONFIG_LINKS": "system-aclocal",
+      "AC_CONFIG_MACRO_DIR": "system-aclocal",
+      "AC_CONFIG_SRCDIR": "system-aclocal",
+      "AC_C_BIGENDIAN": "system-aclocal",
+      "AC_C_CONST": "system-aclocal",
+      "AC_C_INLINE": "system-aclocal",
+      "AC_DEFINE": "system-aclocal",
+      "AC_DEFINE_UNQUOTED": "system-aclocal",
+      "AC_DEFUN": "system-aclocal",
+      "AC_DISABLE_STATIC": "system-aclocal",
+      "AC_ERROR": "system-aclocal",
+      "AC_EXEEXT": "system-aclocal",
+      "AC_HEADER_DIRENT": "system-aclocal",
+      "AC_HELP_STRING": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_LANG_POP": "system-aclocal",
+      "AC_LANG_PROGRAM": "system-aclocal",
+      "AC_LANG_PUSH": "system-aclocal",
+      "AC_LANG_SOURCE": "system-aclocal",
+      "AC_LIBTOOL_DLOPEN": "system-aclocal",
+      "AC_LIBTOOL_WIN32_DLL": "system-aclocal",
+      "AC_LINK_IFELSE": "system-aclocal",
+      "AC_MSG_CHECKING": "system-aclocal",
+      "AC_MSG_ERROR": "system-aclocal",
+      "AC_MSG_NOTICE": "system-aclocal",
+      "AC_MSG_RESULT": "system-aclocal",
+      "AC_MSG_WARN": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "test_glue_LDADD",
+        "var": "GNASH_LIBS",
+        "resolved_to": [
+          "$(top_builddir)/libcore/libgnashcore.la",
+          "$(top_builddir)/libdevice/libgnashdevice.la",
+          "$(top_builddir)/librender/libgnashrender.la",
+          "$(top_builddir)/libsound/libgnashsound.la",
+          "$(top_builddir)/libmedia/libgnashmedia.la",
+          "$(top_builddir)/libbase/libgnashbase.la",
+          "$(top_builddir)/libdevice/libgnashvaapi.la",
+          "$(LIBVA_LIBS)",
+          "$(LIBVA_X11_LIBS)",
+          "$(LIBVA_GLX_LIBS)"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "gnash_la_LIBADD",
+        "var": "GNASH_LIBS",
+        "resolved_to": [
+          "$(top_builddir)/libmedia/libgnashmedia.la",
+          "$(top_builddir)/librender/libgnashrender.la",
+          "$(top_builddir)/libsound/libgnashsound.la",
+          "$(top_builddir)/libcore/libgnashcore.la",
+          "$(top_builddir)/libbase/libgnashbase.la",
+          "$(RENDERER_LIBS)"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "gnash_la_LIBADD",
+        "var": "GTK2_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "gnash_la_LIBADD",
+        "var": "DEPS_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "gnash_la_LIBADD",
+        "var": "LIBVA_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "gnash_la_LIBADD",
+        "var": "LIBVA_X11_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "gnash_la_LIBADD",
+        "var": "GLEXT_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "nodist_gnash_la_SOURCES",
+        "var": "BUILT_SOURCES",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "gnash_la_SOURCES",
+        "var": "RENDERER_GLUE",
+        "resolved_to": [
+          "$(top_srcdir)/gui/gtk/gtk_glue_gtkglext.cpp",
+          "$(top_srcdir)/gui/gtk/gtk_glue_agg.cpp",
+          "$(top_srcdir)/gui/gtk/gtk_glue_cairo.cpp"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libgnashcore_la_SOURCES",
+        "var": "FREETYPE_SOURCES",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libgnashcore_la_SOURCES",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libgnashcore_la_SOURCES",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libgnashcore_la_SOURCES",
+        "var": "libgnashasobjs_la_SOURCES",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libgnashcore_la_LIBADD",
+        "var": "BOOST_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libgnashcore_la_LIBADD",
+        "var": "FREETYPE2_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libgnashcore_la_LIBADD",
+        "var": "FONTCONFIG_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libgnashcore_la_LIBADD",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libgnashcore_la_LIBADD",
+        "var": "HAIKU_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libgnashvm_la_SOURCES",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libgnashmedia_la_SOURCES",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libgnashmedia_la_SOURCES",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libgnashmedia_la_SOURCES",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libgnashmedia_la_SOURCES",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libgnashmedia_la_SOURCES",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libgnashmedia_la_SOURCES",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libgnashmedia_la_LIBADD",
+        "var": "BOOST_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libgnashmedia_la_LIBADD",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libgnashmedia_la_LIBADD",
+        "var": "GSTREAMER_APP_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libgnashmedia_la_LIBADD",
+        "var": "GSTREAMER_PBUTILS_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libgnashmedia_la_LIBADD",
+        "var": "GSTREAMER_PLUGINS_BASE_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libgnashmedia_la_LIBADD",
+        "var": "GSTREAMER_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libgnashmedia_la_LIBADD",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libgnashmedia_la_LIBADD",
+        "var": "FFMPEG_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libgnashmedia_la_LIBADD",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libgnashmedia_la_LIBADD",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libgnashmedia_la_LIBADD",
+        "var": "SPEEX_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libgnashmedia_la_LIBADD",
+        "var": "SPEEXDSP_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libgnashmedia_la_LIBADD",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libgnashmedia_la_LIBADD",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libgnashrender_la_LIBADD",
+        "var": "LIBVA_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      }
+    ],
+    "unresolved_refs": [
+      "gnash_la_LIBADD = $(GTK2_LIBS)",
+      "gnash_la_LIBADD = $(DEPS_LIBS)",
+      "gnash_la_LIBADD = $(LIBVA_LIBS)",
+      "gnash_la_LIBADD = $(LIBVA_X11_LIBS)",
+      "gnash_la_LIBADD = $(GLEXT_LIBS)",
+      "nodist_gnash_la_SOURCES = $(BUILT_SOURCES)",
+      "libgnashcore_la_SOURCES = $(FREETYPE_SOURCES)",
+      "libgnashcore_la_SOURCES = $(NULL)",
+      "libgnashcore_la_SOURCES = $(NULL)",
+      "libgnashcore_la_SOURCES = $(libgnashasobjs_la_SOURCES)",
+      "libgnashcore_la_LIBADD = $(BOOST_LIBS)",
+      "libgnashcore_la_LIBADD = $(FREETYPE2_LIBS)",
+      "libgnashcore_la_LIBADD = $(FONTCONFIG_LIBS)",
+      "libgnashcore_la_LIBADD = $(NULL)",
+      "libgnashcore_la_LIBADD = $(HAIKU_LIBS)",
+      "libgnashvm_la_SOURCES = $(NULL)",
+      "libgnashmedia_la_SOURCES = $(NULL)",
+      "libgnashmedia_la_SOURCES = $(NULL)",
+      "libgnashmedia_la_SOURCES = $(NULL)",
+      "libgnashmedia_la_SOURCES = $(NULL)",
+      "libgnashmedia_la_SOURCES = $(NULL)",
+      "libgnashmedia_la_SOURCES = $(NULL)",
+      "libgnashmedia_la_LIBADD = $(BOOST_LIBS)",
+      "libgnashmedia_la_LIBADD = $(NULL)",
+      "libgnashmedia_la_LIBADD = $(GSTREAMER_APP_LIBS)",
+      "libgnashmedia_la_LIBADD = $(GSTREAMER_PBUTILS_LIBS)",
+      "libgnashmedia_la_LIBADD = $(GSTREAMER_PLUGINS_BASE_LIBS)",
+      "libgnashmedia_la_LIBADD = $(GSTREAMER_LIBS)",
+      "libgnashmedia_la_LIBADD = $(NULL)",
+      "libgnashmedia_la_LIBADD = $(FFMPEG_LIBS)",
+      "libgnashmedia_la_LIBADD = $(NULL)",
+      "libgnashmedia_la_LIBADD = $(NULL)",
+      "libgnashmedia_la_LIBADD = $(SPEEX_LIBS)",
+      "libgnashmedia_la_LIBADD = $(SPEEXDSP_LIBS)",
+      "libgnashmedia_la_LIBADD = $(NULL)",
+      "libgnashmedia_la_LIBADD = $(NULL)",
+      "libgnashrender_la_LIBADD = $(LIBVA_LIBS)",
+      "libgnashrender_la_LIBADD = $(LIBVA_X11_LIBS)",
+      "libgnashrender_la_LIBADD = $(LIBVA_GLX_LIBS)",
+      "libgnashrender_la_LIBADD = $(OPENGL_LIBS)",
+      "libgnashrender_la_LIBADD = $(AGG_LIBS)",
+      "libgnashrender_la_LIBADD = $(LIBVA)",
+      "libgnashrender_la_LIBADD = $(OPENVG_LIBS)",
+      "libgnashrender_la_LIBADD = $(GLES1_LIBS)",
+      "libgnashrender_la_LIBADD = $(CAIRO_LIBS)",
+      "libgnashrender_la_SOURCES = $(NULL)",
+      "testr_LDADD = $(GTK2_LIBS)",
+      "testr_LDADD = $(EXTRA_EGL_LIBS)",
+      "testr_LDADD = $(EGL_LIBS)",
+      "testr_LDADD = $(OPENVG_LIBS)",
+      "testr_LDADD = $(GLES1_LIBS)",
+      "libgnashbase_la_SOURCES = $(NULL)",
+      "libgnashbase_la_SOURCES = $(NULL)",
+      "libgnashbase_la_SOURCES = $(NULL)",
+      "libgnashbase_la_SOURCES = $(NULL)",
+      "libgnashbase_la_SOURCES = $(NULL)",
+      "libgnashbase_la_SOURCES = $(NULL)",
+      "libgnashbase_la_LIBADD = $(JPEG_LIBS)",
+      "libgnashbase_la_LIBADD = $(PNG_LIBS)",
+      "libgnashbase_la_LIBADD = $(GIF_LIBS)",
+      "libgnashbase_la_LIBADD = $(Z_LIBS)",
+      "libgnashbase_la_LIBADD = $(CURL_LIBS)",
+      "libgnashbase_la_LIBADD = $(LIBINTL)",
+      "libgnashbase_la_LIBADD = $(BOOST_LIBS)",
+      "libgnashbase_la_LIBADD = $(OPENGL_LIBS)",
+      "libgnashbase_la_LIBADD = $(PTHREAD_LIBS)",
+      "libgnashbase_la_LIBADD = $(LTDL_LIBS)",
+      "libgnashbase_la_LIBADD = $(NULL)",
+      "libgnashbase_la_LIBADD = $(HAIKU_LIBS)",
+      "libgnashbase_la_LIBADD = $(NULL)",
+      "libgnashsound_la_SOURCES = $(NULL)",
+      "libgnashsound_la_SOURCES = $(NULL)",
+      "libgnashsound_la_SOURCES = $(NULL)",
+      "libgnashsound_la_SOURCES = $(NULL)",
+      "libgnashsound_la_LIBADD = $(BOOST_LIBS)",
+      "libgnashsound_la_LIBADD = $(SDL_LIBS)",
+      "libgnashsound_la_LIBADD = $(NULL)",
+      "libgnashdevice_la_LIBADD = $(CURL_LIBS)",
+      "libgnashdevice_la_LIBADD = $(LIBVA_LIBS)",
+      "libgnashdevice_la_LIBADD = $(LIBVA_X11_LIBS)",
+      "libgnashdevice_la_LIBADD = $(LIBVA_GLX_LIBS)",
+      "libgnashdevice_la_LIBADD = $(TS_LIBS)",
+      "libgnashdevice_la_LIBADD = $(LTDL_LIBS)",
+      "libgnashdevice_la_LIBADD = $(GNASH_LIBS)",
+      "libgnashdevice_la_SOURCES = $(NULL)",
+      "libgnashdevice_la_LIBADD = $(TS_LIBS)",
+      "libgnashdevice_la_LIBADD = $(X11_LIBS)",
+      "test_x11_LDADD = $(X11_LIBS)",
+      "test_x11_LDADD = $(GNASH_LIBS)",
+      "libgnashplugin_la_LIBADD = $(GLIB_LIBS)",
+      "libgnashplugin_la_LIBADD = $(NULL)",
+      "test_LDADD = $(GLIB_LIBS)",
+      "test_LDADD = $(NULL)",
+      "dbus_la_LIBADD = $(LIBADD_DL)",
+      "dbus_la_LIBADD = $(BOOST_LIBS)",
+      "dbus_la_LIBADD = $(NULL)",
+      "fileio_la_LIBADD = $(LIBADD_DL)",
+      "dejagnu_la_LIBADD = $(LIBADD_DL)",
+      "lirc_la_LIBADD = $(LIBADD_DL)",
+      "lirc_la_LIBADD = $(NULL)",
+      "gtkext_la_LIBADD = $(LIBADD_DL)",
+      "libtestsuite_la_SOURCES = $(NULL)",
+      "libtestsuite_la_LIBADD = $(RENDERER_LIBS)",
+      "libtestsuite_la_LIBADD = $(NULL)",
+      "check_PROGRAMS = $(NULL)",
+      "gravity_embedded_TestRunner_SOURCES = $(NULL)",
+      "gravity_embedded_TestRunner_LDADD = $(NULL)",
+      "tic_tac2_TestRunner_SOURCES = $(NULL)",
+      "tic_tac2_TestRunner_LDADD = $(NULL)",
+      "check_PROGRAMS = $(NULL)",
+      "check_PROGRAMS = $(NULL)",
+      "clip_as_button2_TestRunner_SOURCES = $(NULL)",
+      "clip_as_button2_TestRunner_LDADD = $(NULL)",
+      "subshapes_TestRunner_SOURCES = $(NULL)",
+      "subshapes_TestRunner_LDADD = $(NULL)",
+      "gotoFrameOnKeyEvent_TestRunner_SOURCES = $(NULL)",
+      "gotoFrameOnKeyEvent_TestRunner_LDADD = $(NULL)",
+      "test_15bpp_bitmap_TestRunner_SOURCES = $(NULL)",
+      "test_15bpp_bitmap_TestRunner_LDADD = $(NULL)",
+      "check_PROGRAMS = $(NULL)",
+      "check_PROGRAMS = $(NULL)",
+      "backgroundTestRunner_SOURCES = $(NULL)",
+      "backgroundTestRunner_LDADD = $(NULL)",
+      "missing_bitmapTestRunner_SOURCES = $(NULL)",
+      "missing_bitmapTestRunner_LDADD = $(NULL)",
+      "check_PROGRAMS = $(NULL)",
+      "check_PROGRAMS = $(NULL)",
+      "check_PROGRAMS = $(NULL)",
+      "check_PROGRAMS = $(NULL)",
+      "check_PROGRAMS = $(NULL)",
+      "check_PROGRAMS = $(NULL)",
+      "definebitsjpeg2_LDADD = $(MING_LIBS)",
+      "DefineTextTest_Runner_SOURCES = $(NULL)",
+      "DefineTextTest_Runner_LDADD = $(NULL)",
+      "DefineEditTextTest_Runner_SOURCES = $(NULL)",
+      "DefineEditTextTest_Runner_LDADD = $(NULL)",
+      "spritehier_LDADD = $(MING_LIBS)",
+      "opcode_guard_test_SOURCES = $(NULL)",
+      "runtime_vm_stack_test_SOURCES = $(NULL)",
+      "new_child_in_unload_test_SOURCES = $(NULL)",
+      "PlaceObject2Test_SOURCES = $(NULL)",
+      "DefineEditTextVariableNameTest_SOURCES = $(NULL)",
+      "DefineEditTextVariableNameTest_Runner_SOURCES = $(NULL)",
+      "DefineEditTextVariableNameTest_Runner_LDADD = $(NULL)",
+      "DefineEditTextVariableNameTest2_SOURCES = $(NULL)",
+      "timeline_var_test_SOURCES = $(NULL)",
+      "root_stop_testrunner_SOURCES = $(NULL)",
+      "root_stop_testrunner_LDADD = $(NULL)",
+      "morph_test1runner_SOURCES = $(NULL)",
+      "morph_test1runner_LDADD = $(NULL)",
+      "key_event_testrunner_SOURCES = $(NULL)",
+      "key_event_testrunner_LDADD = $(NULL)",
+      "KeyEventOrderRunner_SOURCES = $(NULL)",
+      "KeyEventOrderRunner_LDADD = $(NULL)",
+      "move_object_test_SOURCES = $(NULL)",
+      "place_and_remove_object_test_SOURCES = $(NULL)",
+      "place_and_remove_object_insane_test_SOURCES = $(NULL)",
+      "unload_movieclip_test1_SOURCES = $(NULL)",
+      "replace_shapes1test_runner_SOURCES = $(NULL)",
+      "replace_shapes1test_runner_LDADD = $(NULL)",
+      "replace_sprites1test_runner_SOURCES = $(NULL)",
+      "replace_sprites1test_runner_LDADD = $(NULL)",
+      "replace_buttons1test_runner_SOURCES = $(NULL)",
+      "replace_buttons1test_runner_LDADD = $(NULL)",
+      "masks_test_SOURCES = $(NULL)",
+      "masks_testrunner_SOURCES = $(NULL)",
+      "masks_testrunner_LDADD = $(NULL)",
+      "masks_test2_SOURCES = $(NULL)",
+      "masks_test2runner_SOURCES = $(NULL)",
+      "masks_test2runner_LDADD = $(NULL)",
+      "matrix_test_SOURCES = $(NULL)",
+      "get_frame_number_test_SOURCES = $(NULL)",
+      "frame_label_test_SOURCES = $(NULL)",
+      "path_format_test_SOURCES = $(NULL)",
+      "callFunction_test_SOURCES = $(NULL)",
+      "duplicate_movie_clip_test_SOURCES = $(NULL)",
+      "duplicate_movie_clip_test2_SOURCES = $(NULL)",
+      "event_handler_scope_test_SOURCES = $(NULL)",
+      "attachMovieTest_SOURCES = $(NULL)",
+      "attachMovieTestRunner_SOURCES = $(NULL)",
+      "attachMovieTestRunner_LDADD = $(NULL)",
+      "attachMovieLoopingTest_SOURCES = $(NULL)",
+      "attachMovieLoopingTestRunner_SOURCES = $(NULL)",
+      "attachMovieLoopingTestRunner_LDADD = $(NULL)",
+      "goto_frame_test_SOURCES = $(NULL)",
+      "consecutive_goto_frame_test_SOURCES = $(NULL)",
+      "multi_doactions_and_goto_frame_test_SOURCES = $(NULL)",
+      "reverse_execute_PlaceObject2_test1_SOURCES = $(NULL)",
+      "reverse_execute_PlaceObject2_test2_SOURCES = $(NULL)",
+      "BitmapDataTest_SOURCES = $(NULL)",
+      "BitmapDataTestRunner_SOURCES = $(NULL)",
+      "BitmapDataTestRunner_LDADD = $(NULL)",
+      "BitmapDataDraw_SOURCES = $(NULL)",
+      "BeginBitmapFill_SOURCES = $(NULL)",
+      "BeginBitmapFillRunner_SOURCES = $(NULL)",
+      "BeginBitmapFillRunner_LDADD = $(NULL)",
+      "BitmapSmoothingTest_SOURCES = $(NULL)",
+      "RollOverOutTest_SOURCES = $(NULL)",
+      "RollOverOutTest_Runner_SOURCES = $(NULL)",
+      "RollOverOutTest_Runner_LDADD = $(NULL)",
+      "ButtonEventsTest_SOURCES = $(NULL)",
+      "ButtonEventsTest_Runner_SOURCES = $(NULL)",
+      "ButtonEventsTest_Runner_LDADD = $(NULL)",
+      "SpriteButtonEventsTest_SOURCES = $(NULL)",
+      "SpriteButtonEventsTest_Runner_SOURCES = $(NULL)",
+      "SpriteButtonEventsTest_Runner_LDADD = $(NULL)",
+      "ResolveEventsTest_SOURCES = $(NULL)",
+      "ResolveEventsTest_Runner_SOURCES = $(NULL)",
+      "ResolveEventsTest_Runner_LDADD = $(NULL)",
+      "ButtonPropertiesTest_SOURCES = $(NULL)",
+      "ButtonPropertiesTestRunner_SOURCES = $(NULL)",
+      "ButtonPropertiesTestRunner_LDADD = $(NULL)",
+      "intervalTestRunner_SOURCES = $(NULL)",
+      "intervalTestRunner_LDADD = $(NULL)",
+      "DrawingApiTestRunner_SOURCES = $(NULL)",
+      "DrawingApiTestRunner_LDADD = $(NULL)",
+      "PrototypeEventListenersTestRunner_SOURCES = $(NULL)",
+      "PrototypeEventListenersTestRunner_LDADD = $(NULL)",
+      "DragDropTestRunner_SOURCES = $(NULL)",
+      "DragDropTestRunner_LDADD = $(NULL)",
+      "static_vs_dynamic1_SOURCES = $(NULL)",
+      "static_vs_dynamic2_SOURCES = $(NULL)",
+      "getTimer_test_SOURCES = $(NULL)",
+      "NetStream_SquareTest_SOURCES = $(NULL)",
+      "NetStream_SquareTestRunner_SOURCES = $(NULL)",
+      "NetStream_SquareTestRunner_LDADD = $(NULL)",
+      "Video_EmbedSquareTest_SOURCES = $(NULL)",
+      "Video_EmbedSquareTestRunner_SOURCES = $(NULL)",
+      "Video_EmbedSquareTestRunner_LDADD = $(NULL)",
+      "instanceNameTest_SOURCES = $(NULL)",
+      "Dejagnu_SOURCES = $(NULL)",
+      "check_PROGRAMS = $(NULL)",
+      "displaylist_depths_test_SOURCES = $(NULL)",
+      "displaylist_depths_test2_SOURCES = $(NULL)",
+      "displaylist_depths_test3_SOURCES = $(NULL)",
+      "displaylist_depths_test4_SOURCES = $(NULL)",
+      "displaylist_depths_test5_SOURCES = $(NULL)",
+      "displaylist_depths_test6_SOURCES = $(NULL)",
+      "displaylist_depths_test7_SOURCES = $(NULL)",
+      "displaylist_depths_test8_SOURCES = $(NULL)",
+      "displaylist_depths_test9_SOURCES = $(NULL)",
+      "displaylist_depths_test10_SOURCES = $(NULL)",
+      "check_PROGRAMS = $(NULL)",
+      "check_PROGRAMS = $(NULL)",
+      "registerClassTest_SOURCES = $(NULL)",
+      "registerClassTestRunner_SOURCES = $(NULL)",
+      "registerClassTestRunner_LDADD = $(NULL)",
+      "registerClassTest2_SOURCES = $(NULL)",
+      "RegisterClassTest3_SOURCES = $(NULL)",
+      "RegisterClassTest4_SOURCES = $(NULL)",
+      "check_PROGRAMS = $(NULL)",
+      "InitActionTest_SOURCES = $(NULL)",
+      "InitActionTest2_SOURCES = $(NULL)",
+      "check_PROGRAMS = $(NULL)",
+      "loop_test_Runner_LDADD = $(NULL)",
+      "loop_test2runner_SOURCES = $(NULL)",
+      "loop_test2runner_LDADD = $(NULL)",
+      "simple_loop_test_SOURCES = $(NULL)",
+      "simple_loop_testrunner_SOURCES = $(NULL)",
+      "simple_loop_testrunner_LDADD = $(NULL)",
+      "check_PROGRAMS = $(NULL)",
+      "check_PROGRAMS = $(NULL)",
+      "action_execution_order_test_SOURCES = $(NULL)",
+      "action_execution_order_test1_SOURCES = $(NULL)",
+      "action_execution_order_test2_SOURCES = $(NULL)",
+      "action_execution_order_test3_SOURCES = $(NULL)",
+      "action_execution_order_test4_SOURCES = $(NULL)",
+      "action_execution_order_test5_SOURCES = $(NULL)",
+      "action_execution_order_test6_SOURCES = $(NULL)",
+      "action_execution_order_test7_SOURCES = $(NULL)",
+      "action_execution_order_test8_SOURCES = $(NULL)",
+      "action_execution_order_test9_SOURCES = $(NULL)",
+      "action_execution_order_test11_SOURCES = $(NULL)",
+      "PlaceAndRemove_SOURCES = $(NULL)",
+      "ActionOrderTest3_SOURCES = $(NULL)",
+      "ActionOrderTest4_SOURCES = $(NULL)",
+      "ActionOrderTest5_SOURCES = $(NULL)",
+      "action_execution_order_extend_test_SOURCES = $(NULL)",
+      "check_PROGRAMS = $(NULL)",
+      "check_PROGRAMS = $(NULL)",
+      "moviecliploader_test_LDADD = $(MING_LIBS)",
+      "LoadBitmapTest_SOURCES = $(NULL)",
+      "loadImageTest_SOURCES = $(NULL)",
+      "loadMovieTest_SOURCES = $(NULL)",
+      "loadMovieTestRunner_SOURCES = $(NULL)",
+      "loadMovieTestRunner_LDADD = $(NULL)",
+      "LoadVarsTest_SOURCES = $(NULL)",
+      "check_PROGRAMS = $(NULL)",
+      "check_PROGRAMS = $(NULL)",
+      "eventSoundTest1_Runner_SOURCES = $(NULL)",
+      "eventSoundTest1_Runner_LDADD = $(NULL)",
+      "streamingSoundTest1_Runner_SOURCES = $(NULL)",
+      "streamingSoundTest1_Runner_LDADD = $(NULL)",
+      "streamingSoundTest2_Runner_SOURCES = $(NULL)",
+      "streamingSoundTest2_Runner_LDADD = $(NULL)",
+      "StreamSoundTest_SOURCES = $(NULL)",
+      "StreamSoundTestRunner_SOURCES = $(NULL)",
+      "StreamSoundTestRunner_LDADD = $(NULL)",
+      "EmbeddedSoundTest_SOURCES = $(NULL)",
+      "EmbeddedSoundTest_Runner_SOURCES = $(NULL)",
+      "EmbeddedSoundTest_Runner_LDADD = $(NULL)",
+      "check_PROGRAMS = $(NULL)",
+      "libgnashmingutils_la_LIBADD = $(MING_LIBS)",
+      "Dejagnu_SOURCES = $(NULL)",
+      "check_PROGRAMS = $(NULL)",
+      "button_test1runner_SOURCES = $(NULL)",
+      "button_test1runner_LDADD = $(NULL)",
+      "sound_stop_runner_SOURCES = $(NULL)",
+      "sound_stop_runner_LDADD = $(NULL)"
+    ],
+    "indirection_count": 422
   }
 }

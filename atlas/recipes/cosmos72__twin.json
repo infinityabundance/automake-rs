@@ -1,13 +1,13 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "cosmos72/twin",
   "source": {
     "url": "https://github.com/cosmos72/twin",
-    "git_sha": "fd20d62360c4e962b13502919726ba55d7928770",
+    "git_sha": "253045b77450e4d34062800ae4569aa7278e8f49",
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.14",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,12 +26,12 @@
     {
       "step": "configure",
       "tool": "./configure",
-      "status": "ok"
+      "status": "fail"
     },
     {
-      "step": "make",
-      "tool": "make",
-      "status": "ok"
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
+      "status": "fail"
     }
   ],
   "probe_results": {},
@@ -39,10 +39,7 @@
     "configure_args": []
   },
   "dependencies": {
-    "pkg_config": [
-      "checking for pkg-config... /usr/bin/pkg-config",
-      "checking pkg-config is at least version 0.25... yes"
-    ],
+    "pkg_config": [],
     "system_libs": [],
     "headers_needed": [],
     "missing": []
@@ -52,143 +49,90 @@
     "pkg-config",
     "subdirs"
   ],
-  "outputs": [
-    {
-      "path": "libs/libtw/.libs/libtw.so.3",
-      "sha256": "89e88ef440e9827a",
-      "kind": "library"
-    },
-    {
-      "path": "libs/libtw/.libs/libtw.a",
-      "sha256": "94aacf82903713eb",
-      "kind": "library"
-    },
-    {
-      "path": "libs/libtw/.libs/libtw.so",
-      "sha256": "89e88ef440e9827a",
-      "kind": "library"
-    },
-    {
-      "path": "libs/libtw/.libs/libtw.so.3.0.0",
-      "sha256": "89e88ef440e9827a",
-      "kind": "library"
-    },
-    {
-      "path": "libs/libtutf/.libs/libtutf.so.1",
-      "sha256": "a4e3dec3e4993cd4",
-      "kind": "library"
-    },
-    {
-      "path": "libs/libtutf/.libs/libtutf.a",
-      "sha256": "9c129b5572c21ee2",
-      "kind": "library"
-    },
-    {
-      "path": "libs/libtutf/.libs/libtutf.so.1.0.1",
-      "sha256": "a4e3dec3e4993cd4",
-      "kind": "library"
-    },
-    {
-      "path": "libs/libtutf/.libs/libtutf.so",
-      "sha256": "a4e3dec3e4993cd4",
-      "kind": "library"
-    },
-    {
-      "path": "libs/libtstl/.libs/libtstl.so.1",
-      "sha256": "0fbd3009226dedfd",
-      "kind": "library"
-    },
-    {
-      "path": "libs/libtstl/.libs/libtstl.so",
-      "sha256": "0fbd3009226dedfd",
-      "kind": "library"
-    },
-    {
-      "path": "libs/libtstl/.libs/libtstl.a",
-      "sha256": "caa1514e3321d2fb",
-      "kind": "library"
-    },
-    {
-      "path": "libs/libtstl/.libs/libtstl.so.1.2.0",
-      "sha256": "0fbd3009226dedfd",
-      "kind": "library"
-    }
-  ],
-  "status": "FUNC_OK",
-  "verified": true,
-  "diagnostic": "",
+  "outputs": [],
+  "status": "CONFIGURE_RUN_FAIL",
+  "verified": false,
+  "diagnostic": "./configure: line 1692: syntax error near unexpected token `_LT_SYS_DYNAMIC_LINKER'",
   "deep_expansion": {
-    "configure_lines": 27709,
+    "configure_lines": 5480,
     "leaked_macros": [],
-    "heredoc_openers": 157,
-    "heredoc_terminators": 157,
+    "heredoc_openers": 82,
+    "heredoc_terminators": 82,
     "heredoc_imbalance": 0,
-    "syntax_errors": [],
+    "syntax_errors": [
+      {
+        "line": 1692,
+        "token": "_LT_SYS_DYNAMIC_LINKER",
+        "source": "fim4_require(_LT_SYS_DYNAMIC_LINKER)printf %s \"what extension is used fo",
+        "block": [
+          "1688:       CC=$ac_prog",
+          "1689:       break",
+          "1690:     fi",
+          "1691:   done",
+          "1692: fim4_require(_LT_SYS_DYNAMIC_LINKER)printf %s \"what extension is used for ru",
+          "1693: if test \"${libltdl_cv_shlibext+set}\" = set; then",
+          "1694:   printf '%s\\n' \"(cached) \\$libltdl_cv_shlibext\"",
+          "1695: else"
+        ]
+      }
+    ],
     "cache_var_anomalies": [
-      "line 68: do eval test \\${$as_var+y} \\",
-      "line 1789: if eval test \\${$3+y}",
-      "line 1823: if eval test \\${$3+y}",
-      "line 1889: if eval test \\${$3+y}",
-      "line 1942: if eval test \\${$3+y}",
-      "line 2167: if eval test \\${$3+y}",
-      "line 2270: if eval test \\${$3+y}",
-      "line 2305: if eval test \\${$3+y}",
-      "line 2388: if eval test \\${$3+y}",
-      "line 2686: if eval test \\${$4+y}",
-      "line 25225: do eval test \\${$as_var+y} \\"
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2592: # eval \"_acrs_sv=\\${}\"; printf '%s\\n' \"s|@@|${_acrs_sv}|g\" >",
+      "line 4867: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
-      "PROGRAM",
-      "OUTPUT",
-      "TOOL_OUTPUT",
-      "srcdir",
-      "datadir",
-      "docdir",
-      "infodir",
-      "localedir",
-      "mandir",
-      "configure_input",
-      "top_builddir",
-      "top_build_prefix",
-      "abs_srcdir",
-      "top_srcdir",
-      "abs_top_srcdir",
-      "builddir",
-      "abs_builddir",
-      "abs_top_builddir",
-      "INSTALL",
-      "MKDIR_P"
+      "LIBTOOL",
+      "LIBLTDL",
+      "LTDLDEPS",
+      "LTDLINCL",
+      "INCLTDL",
+      "LT_DLLOADERS",
+      "LIBADD_DLOPEN",
+      "LIBADD_SHL_LOAD",
+      "LIBADD_DLD_LINK",
+      "LT_DLPREOPEN",
+      "LIBADD_DL",
+      "sys_symbol_underscore",
+      "LT_ARGZ_H",
+      "INSTALL_LTDL_TRUE",
+      "INSTALL_LTDL_FALSE",
+      "CONVENIENCE_LTDL_TRUE",
+      "CONVENIENCE_LTDL_FALSE",
+      "LT_CONFIG_H",
+      "LTDLOPEN",
+      "ltdl_LIBOBJS",
+      "ltdl_LTLIBOBJS",
+      "PKG_CONFIG",
+      "PACKAGE_VERSION_MAJOR",
+      "PACKAGE_VERSION_MINOR",
+      "PACKAGE_VERSION_PATCH",
+      "PACKAGE_VERSION_EXTRA",
+      "X11_CPPFLAGS",
+      "X11_LDFLAGS",
+      "LIBX11",
+      "XFT_CFLAGS"
     ],
-    "failed_during_check": "checking that generated files are newer than configure... done",
+    "failed_during_check": "checking where to find libltdl library... -Lno -lltdl",
     "failure_tail": [
-      "checking that generated files are newer than configure... done",
-      "configure: creating ./config.status",
-      "config.status: creating Makefile",
-      "config.status: creating clients/Makefile",
-      "config.status: creating clients/mapscrn/Makefile"
+      "checking where to find libltdl library... -Lno -lltdl",
+      "./configure: line 1692: syntax error near unexpected token `_LT_SYS_DYNAMIC_LINK",
+      "./configure: line 1692: `fim4_require(_LT_SYS_DYNAMIC_LINKER)printf %s \"what ext"
     ],
     "conftest_corruption": [],
-    "conftest_directives_intact": 250,
+    "conftest_directives_intact": 102,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
-      "/* end confdefs.h.  */\\n$4\\n#include <$2>",
-      "/* end confdefs.h.  */\\n/* Define $2 to an innocuous variant, in case <limits.h> declares $2.\\nFor example, HP-UX 11i <limits.h> declares gettimeofday.  */\\n#define $2 innocuous_$2\\n\\n/* System header to define __stub macros and hopefully few prototypes,\\nwhich can conflict with char $2 (void); below.  */\\n\\n#include <limits.h>\\n#undef $2\\n\\n/* Override any GCC internal prototype to avoid an error.",
-      "/* end confdefs.h.  */\\n$4\\nint\\nmain (void)\\n{\\n#ifndef $as_decl_name\\n#ifdef __cplusplus\\n(void) $as_decl_use;\\n#else\\n(void) $as_decl_name;\\n#endif\\n#endif",
-      "/* end confdefs.h.  */\\n$4\\nint\\nmain (void)\\n{\\nif (sizeof ($2))\\nreturn 0;\\n;\\nreturn 0;\\n}",
-      "/* end confdefs.h.  */\\n$4\\nint\\nmain (void)\\n{\\nif (sizeof (($2)))\\nreturn 0;\\n;\\nreturn 0;\\n}",
-      "/* end confdefs.h.  */\\n$4\\nint\\nmain (void)\\n{\\nif (sizeof ($2))\\nreturn 0;\\n;\\nreturn 0;\\n}"
+      "#include <ltdl.h>",
+      "char dlopen ();\\nint main() { return dlopen (); }",
+      "#if HAVE_DLFCN_H\\n#  include <dlfcn.h>\\n#endif\\n\\nint main() { dlopen(0, 0); ; return 0; }",
+      "char dlopen ();\\nint main() { return dlopen(); }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func ();\\nint main() { return $ac_func(); }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar shl_load ();\\nint main() { return shl_load(); }"
     ]
   },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "ok",
-    "real_make": "ok",
-    "real_configure_lines": 27177,
-    "real_first_error": "",
-    "classification": "BOTH_OK"
-  },
   "receipt": {
-    "court_status": "quirk_dependent",
+    "court_status": "failed",
     "probe_trace": [],
     "quirks_matched": [
       "uses-libtool",
@@ -199,7 +143,19 @@
       "has-acinclude",
       "vendored-aclocal"
     ],
-    "receipt_hash": "a6db5cba0560d78227bf2aa14f1e808fcbcb931588422c811513724308d5e3ca",
+    "quirks_applied": [
+      {
+        "id": "uses-subdir-objects",
+        "action": "--disable-dependency-tracking",
+        "verified": false
+      },
+      {
+        "id": "uses-maintainer-mode",
+        "action": "--disable-maintainer-mode",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -208,6 +164,1390 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "clients/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "clients/mapscrn/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "contrib/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "contrib/twcd/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "docs/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "include/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "include/Tutf/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "include/Tutf/version.h",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "include/Tw/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "include/Tw/version.h",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "include/version.h",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "libs/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "libs/libltdl/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "libs/libtstl/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "libs/libtutf/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "libs/libtw/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "server/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "server/hw/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "test/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      }
+    ],
+    "config_headers": [
+      "include/config.h"
+    ],
+    "subdirs": [
+      "docs",
+      "include",
+      "libs",
+      "clients",
+      "test",
+      "server",
+      "mapscrn",
+      "twcd",
+      "Tutf",
+      "Tw",
+      "$(SUBDIR_LIBLTDL)",
+      "libtstl",
+      "libtutf",
+      "libtw",
+      "$(SUBDIR_LIBTT)",
+      "hw"
+    ],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [],
+        "subdirs": [
+          "docs",
+          "include",
+          "libs",
+          "clients",
+          "test",
+          "server"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "clients",
+        "targets": [
+          "twattach",
+          "twcat",
+          "twclip",
+          "twclutter",
+          "twcuckoo",
+          "twdialog",
+          "twevent",
+          "twfindtwin",
+          "twlsmsgport",
+          "twlsobj",
+          "twsendmsg",
+          "twsetroot"
+        ],
+        "subdirs": [
+          "mapscrn"
+        ],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)/include"
+      },
+      {
+        "dir": "contrib",
+        "targets": [],
+        "subdirs": [
+          "twcd"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "include",
+        "targets": [],
+        "subdirs": [
+          "Tutf",
+          "Tw"
+        ],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "libs",
+        "targets": [],
+        "subdirs": [
+          "$(SUBDIR_LIBLTDL)",
+          "libtstl",
+          "libtutf",
+          "libtw",
+          "$(SUBDIR_LIBTT)"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "libs/libltdl",
+        "targets": [],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-DLT_CONFIG_H='<$(LT_CONFIG_H)>'  \t\t\t  -DLTDL -I. -I$(srcdir) -Ilibltdl  \t\t\t  -I$(srcdir)/libltdl"
+      },
+      {
+        "dir": "libs/libtstl",
+        "targets": [
+          "libtstl.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)/include"
+      },
+      {
+        "dir": "libs/libtutf",
+        "targets": [
+          "libtutf.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)/include"
+      },
+      {
+        "dir": "libs/libtw",
+        "targets": [
+          "libtw.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)/include"
+      },
+      {
+        "dir": "server",
+        "targets": [
+          "twdisplay",
+          "twin",
+          "twin_server"
+        ],
+        "subdirs": [
+          "hw"
+        ],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)/include $(LTDLINCL) -DPLUGINDIR=\"\\\"$(pkglibdir)\\\"\" -DCONFDIR=\"\\\"$(sysconfdir)/twin\\\"\""
+      },
+      {
+        "dir": "server/hw",
+        "targets": [
+          "libhw_all.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)/include -I$(top_srcdir)/server"
+      },
+      {
+        "dir": "test",
+        "targets": [
+          "twtest"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)/include"
+      }
+    ],
+    "max_depth": 2,
+    "config_h_consumers_below_root": [
+      "libs/libtw",
+      "libs/libtstl",
+      "libs/libltdl",
+      "clients",
+      "server",
+      "server/hw"
+    ]
+  },
+  "tool_requirements": {
+    "detected": [
+      "c++"
+    ],
+    "missing": []
+  },
+  "macro_inventory": {
+    "macro_dirs": [
+      "m4"
+    ],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": true,
+    "defined_macros": [
+      {
+        "name": "LT_INIT",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LTOPTIONS_VERSION",
+        "source": "m4/libtool.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AC_PROG_LIBTOOL",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AM_PROG_LIBTOOL",
+        "source": "m4/libtool.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "LT_OUTPUT",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_SUPPORTED_TAG",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_LANG",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_CXX",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_F77",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_FC",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_GCJ",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_RC",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "_LT_WITH_SYSROOT",
+        "source": "m4/libtool.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_LT_COMPILER_OPTION",
+        "source": "m4/libtool.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AC_LIBTOOL_COMPILER_OPTION",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "_LT_LINKER_OPTION",
+        "source": "m4/libtool.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AC_LIBTOOL_LINKER_OPTION",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_CMD_MAX_LEN",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_SYS_MAX_CMD_LEN",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_SYS_DLOPEN_SELF",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_DLOPEN_SELF",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "_LT_PATH_TOOL_PREFIX",
+        "source": "m4/libtool.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AC_PATH_TOOL_PREFIX",
+        "source": "m4/libtool.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "LT_PATH_LD",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AM_PROG_LD",
+        "source": "m4/libtool.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AC_PROG_LD",
+        "source": "m4/libtool.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "LT_PATH_NM",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AM_PROG_NM",
+        "source": "m4/libtool.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AC_PROG_NM",
+        "source": "m4/libtool.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "_LT_DLL_DEF_P",
+        "source": "m4/libtool.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "LT_LIB_M",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_CHECK_LIBM",
+        "source": "m4/libtool.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "LT_PROG_GCJ",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_AC_PROG_GCJ",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_PROG_GO",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_PROG_RC",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_AC_PROG_RC",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_AC_PROG_SED",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LTVERSION_VERSION",
+        "source": "m4/ltversion.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AC_LIBTOOL_DLOPEN",
+        "source": "m4/ltoptions.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_WIN32_DLL",
+        "source": "m4/ltoptions.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_ENABLE_SHARED",
+        "source": "m4/ltoptions.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_DISABLE_SHARED",
+        "source": "m4/ltoptions.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AM_ENABLE_SHARED",
+        "source": "m4/ltoptions.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AM_DISABLE_SHARED",
+        "source": "m4/ltoptions.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AC_ENABLE_STATIC",
+        "source": "m4/ltoptions.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_DISABLE_STATIC",
+        "source": "m4/ltoptions.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AM_ENABLE_STATIC",
+        "source": "m4/ltoptions.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AM_DISABLE_STATIC",
+        "source": "m4/ltoptions.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AC_ENABLE_FAST_INSTALL",
+        "source": "m4/ltoptions.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AM_DISABLE_FAST_INSTALL",
+        "source": "m4/ltoptions.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AC_LIBTOOL_PICMODE",
+        "source": "m4/ltoptions.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LTSUGAR_VERSION",
+        "source": "m4/ltsugar.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "or",
+        "source": "m4/lt~obsolete.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "it",
+        "source": "m4/lt~obsolete.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "LTOBSOLETE_VERSION",
+        "source": "m4/lt~obsolete.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AC_PROG_EGREP",
+        "source": "m4/lt~obsolete.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "_LT_AC_PROG_ECHO_BACKSLASH",
+        "source": "m4/lt~obsolete.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_LT_AC_SHELL_INIT",
+        "source": "m4/lt~obsolete.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_LT_AC_SYS_LIBPATH_AIX",
+        "source": "m4/lt~obsolete.m4",
+        "kind": "project-local"
+      }
+    ],
+    "called_macros": [
+      "AC_CACHE_CHECK",
+      "AC_CHECK_FUNCS",
+      "AC_CHECK_HEADERS",
+      "AC_CHECK_MEMBER",
+      "AC_CHECK_SIZEOF",
+      "AC_CHECK_TYPE",
+      "AC_COMPILE_IFELSE",
+      "AC_CONFIG_AUX_DIR",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_HEADERS",
+      "AC_CONFIG_MACRO_DIR",
+      "AC_CONFIG_MACRO_DIRS",
+      "AC_CONFIG_SRCDIR",
+      "AC_C_BIGENDIAN",
+      "AC_C_CONST",
+      "AC_C_INLINE",
+      "AC_DEFINE",
+      "AC_DEFINE_UNQUOTED",
+      "AC_FUNC_ALLOCA",
+      "AC_FUNC_CHOWN",
+      "AC_FUNC_FORK",
+      "AC_FUNC_LSTAT_FOLLOWS_SLASHED_SYMLINK",
+      "AC_FUNC_MALLOC",
+      "AC_FUNC_MEMCMP",
+      "AC_FUNC_MMAP",
+      "AC_FUNC_REALLOC",
+      "AC_FUNC_WAIT3",
+      "AC_HEADER_SYS_WAIT",
+      "AC_INIT",
+      "AC_LANG_POP",
+      "AC_LANG_PROGRAM",
+      "AC_LANG_PUSH",
+      "AC_LINK_IFELSE",
+      "AC_OUTPUT",
+      "AC_PATH_X",
+      "AC_PREREQ",
+      "AC_PROG_CC",
+      "AC_PROG_CXX",
+      "AC_PROG_INSTALL",
+      "AC_PROG_LN_S",
+      "AC_PROG_SED",
+      "AC_SEARCH_LIBS",
+      "AC_STRUCT_TM",
+      "AC_SUBST",
+      "AC_TYPE_INT16_T",
+      "AC_TYPE_INT32_T",
+      "AC_TYPE_INT8_T",
+      "AC_TYPE_OFF_T",
+      "AC_TYPE_PID_T",
+      "AC_TYPE_SIZE_T",
+      "AC_TYPE_UID_T",
+      "AC_TYPE_UINT16_T",
+      "AC_TYPE_UINT32_T",
+      "AC_TYPE_UINT8_T",
+      "AM_CONDITIONAL",
+      "AM_INIT_AUTOMAKE",
+      "AM_MAINTAINER_MODE",
+      "AM_PROG_AS",
+      "LT_CONFIG_LTDL_DIR",
+      "LT_INIT"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 377,
+    "configure_fi": 369,
+    "configure_case": 87,
+    "configure_esac": 90,
+    "balanced": false,
+    "automake_conditionals": [
+      "LIBHW_DISPLAY_la",
+      "LIBHW_TTY_la",
+      "LIBHW_TWIN_la",
+      "LIBHW_X11_la",
+      "LIBHW_XFT_la",
+      "LIBRCPARSE_la",
+      "LIBSOCKET_la",
+      "TWSERVER_STATIC"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": "admin",
+    "present": [
+      "install-sh",
+      "missing",
+      "depcomp",
+      "compile",
+      "ltmain.sh"
+    ],
+    "missing": []
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "c": 58,
+      "cpp": 69,
+      "h": 265,
+      "hpp": 1
+    },
+    "configure_macros": [
+      "AC_PROG_CC",
+      "AC_PROG_CXX"
+    ],
+    "needs_cxx": true,
+    "needs_fortran": false,
+    "sets_c_std": true
+  },
+  "libtool_context": {
+    "uses_libtool": true,
+    "macros": [
+      "LT_INIT"
+    ],
+    "ltmain_present": false,
+    "libtool_m4_sources": [
+      "m4/libtool.m4",
+      "aclocal.m4"
+    ],
+    "age": "modern"
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": false,
+    "defines_sampled": []
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-subdir-objects",
+      "applied_at": "configure",
+      "effect": "neutral",
+      "effectiveness": "low"
+    },
+    {
+      "quirk_id": "uses-maintainer-mode",
+      "applied_at": "configure",
+      "effect": "neutral",
+      "effectiveness": "low"
+    },
+    {
+      "quirk_id": "uses-libtool",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-pkg-config",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "has-m4-macro-dir",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "has-acinclude",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "vpath_analysis": {
+    "hardcoded_src_paths": 0,
+    "abs_path_leakage": 0,
+    "built_sources": [
+      "+=",
+      "libltdl/$(LT_ARGZ_H)"
+    ],
+    "generated_source_targets": []
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "X11/Xft/Xft.h",
+      "arpa/inet.h",
+      "asm/page.h",
+      "crypt.h",
+      "dirent.h",
+      "dlfcn.h",
+      "fcntl.h",
+      "fontconfig/fontconfig.h",
+      "grp.h",
+      "inttypes.h",
+      "libintl.h",
+      "limits.h",
+      "linux/kd.h",
+      "linux/keyboard.h",
+      "linux/vt.h",
+      "locale.h",
+      "machine/param.h",
+      "malloc.h",
+      "memory.h",
+      "ncurses.h",
+      "ncurses/ncurses.h",
+      "ncurses/termcap.h",
+      "ndir.h",
+      "netdb.h",
+      "netinet/in.h",
+      "pthread.h",
+      "pwd.h",
+      "shadow.h",
+      "signal.h",
+      "stdarg.h",
+      "stddef.h",
+      "stdint.h",
+      "stdlib.h",
+      "string.h",
+      "sys/dir.h",
+      "sys/filio.h",
+      "sys/ioctl.h",
+      "sys/mman.h",
+      "sys/ndir.h",
+      "sys/param.h"
+    ],
+    "headers_included_unchecked": [
+      "Tutf/Tutf.h",
+      "Tutf/Tutf_defs.h",
+      "Tutf/Tutftypes.h",
+      "Tutf/adobe_stdenc.h",
+      "Tutf/adobe_symbol.h",
+      "Tutf/apl_iso_ir_68.h",
+      "Tutf/ascii.h",
+      "Tutf/atarist.h",
+      "Tutf/compiler.h",
+      "Tutf/cp1006.h",
+      "Tutf/cp1250.h",
+      "Tutf/cp1251.h",
+      "Tutf/cp1252.h",
+      "Tutf/cp1253.h",
+      "Tutf/cp1254.h",
+      "Tutf/cp1255.h",
+      "Tutf/cp1256.h",
+      "Tutf/cp1257.h",
+      "Tutf/cp1258.h",
+      "Tutf/cp424.h",
+      "Tutf/cp437.h",
+      "Tutf/cp737.h",
+      "Tutf/cp775.h",
+      "Tutf/cp850.h",
+      "Tutf/cp852.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 9,
+    "shadowed_macros": [
+      "AC_PROG_LIBTOOL",
+      "AM_PROG_LIBTOOL",
+      "AC_LIBTOOL_CXX",
+      "AC_LIBTOOL_F77",
+      "AC_LIBTOOL_FC",
+      "AC_LIBTOOL_GCJ",
+      "AC_LIBTOOL_RC",
+      "AC_LIBTOOL_COMPILER_OPTION",
+      "AC_LIBTOOL_LINKER_OPTION",
+      "AC_LIBTOOL_SYS_MAX_CMD_LEN",
+      "AC_LIBTOOL_DLOPEN_SELF",
+      "AC_PATH_TOOL_PREFIX",
+      "AM_PROG_LD",
+      "AC_PROG_LD",
+      "AM_PROG_NM",
+      "AC_PROG_NM",
+      "AC_CHECK_LIBM",
+      "AC_LIBTOOL_DLOPEN",
+      "AC_LIBTOOL_WIN32_DLL",
+      "AC_ENABLE_SHARED"
+    ]
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "gnu++",
+    "strip_modern_poison_flags": [],
+    "inject_legacy_shims": false,
+    "compiler_aliasing": {}
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 8,
+    "shadowed_builtins": [
+      "AC_PROG_LIBTOOL",
+      "AM_PROG_LIBTOOL",
+      "AC_LIBTOOL_CXX",
+      "AC_LIBTOOL_F77",
+      "AC_LIBTOOL_FC",
+      "AC_LIBTOOL_GCJ",
+      "AC_LIBTOOL_RC",
+      "AC_LIBTOOL_COMPILER_OPTION",
+      "AC_LIBTOOL_LINKER_OPTION",
+      "AC_LIBTOOL_SYS_MAX_CMD_LEN",
+      "AC_LIBTOOL_DLOPEN_SELF",
+      "AC_PATH_TOOL_PREFIX",
+      "AM_PROG_LD",
+      "AC_PROG_LD",
+      "AM_PROG_NM"
+    ],
+    "permitted_mutations": 0,
+    "suspect_global_mutations": 0
+  },
+  "parallel_build_safety": {
+    "vpath_out_of_tree_safe": true,
+    "generators": [],
+    "unordered_generated_sources": [],
+    "built_sources_declared": true
+  },
+  "host_environment_veil": {
+    "header_injection_candidates": [
+      "malloc.h"
+    ],
+    "symbol_aliasing_candidates": []
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "Tutf/Tutf.h",
+      "Tutf/Tutf_defs.h",
+      "Tutf/Tutftypes.h",
+      "Tutf/adobe_stdenc.h",
+      "Tutf/adobe_symbol.h",
+      "Tutf/apl_iso_ir_68.h",
+      "Tutf/ascii.h",
+      "Tutf/atarist.h",
+      "Tutf/compiler.h",
+      "Tutf/cp1006.h",
+      "Tutf/cp1250.h",
+      "Tutf/cp1251.h",
+      "Tutf/cp1252.h",
+      "Tutf/cp1253.h",
+      "Tutf/cp1254.h",
+      "Tutf/cp1255.h",
+      "Tutf/cp1256.h",
+      "Tutf/cp1257.h",
+      "Tutf/cp1258.h",
+      "Tutf/cp424.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "subdir-config-h-include-path"
+  ],
+  "repair_hints": [
+    {
+      "id": "subdir-top-builddir",
+      "phase": "make",
+      "confidence": 0.88,
+      "evidence": [
+        "libs/libtw consumes config.h below root",
+        "libs/libtstl consumes config.h below root",
+        "libs/libltdl consumes config.h below root",
+        "clients consumes config.h below root",
+        "server consumes config.h below root"
+      ],
+      "action": "ensure ac_subst_file sets relative top_builddir per subdir (0.1.19)",
+      "expected_effect": "config.h found in subdir compiles"
+    }
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": -4,
+      "Makefile.in": 1940,
+      "aclocal.m4": 22,
+      "configure": 66,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_CACHE_CHECK": "system-aclocal",
+      "AC_CHECK_FUNCS": "system-aclocal",
+      "AC_CHECK_HEADERS": "system-aclocal",
+      "AC_CHECK_MEMBER": "system-aclocal",
+      "AC_CHECK_SIZEOF": "system-aclocal",
+      "AC_CHECK_TYPE": "system-aclocal",
+      "AC_COMPILE_IFELSE": "system-aclocal",
+      "AC_CONFIG_AUX_DIR": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_HEADERS": "system-aclocal",
+      "AC_CONFIG_MACRO_DIR": "system-aclocal",
+      "AC_CONFIG_MACRO_DIRS": "system-aclocal",
+      "AC_CONFIG_SRCDIR": "system-aclocal",
+      "AC_C_BIGENDIAN": "system-aclocal",
+      "AC_C_CONST": "system-aclocal",
+      "AC_C_INLINE": "system-aclocal",
+      "AC_DEFINE": "system-aclocal",
+      "AC_DEFINE_UNQUOTED": "system-aclocal",
+      "AC_FUNC_ALLOCA": "system-aclocal",
+      "AC_FUNC_CHOWN": "system-aclocal",
+      "AC_FUNC_FORK": "system-aclocal",
+      "AC_FUNC_LSTAT_FOLLOWS_SLASHED_SYMLINK": "system-aclocal",
+      "AC_FUNC_MALLOC": "system-aclocal",
+      "AC_FUNC_MEMCMP": "system-aclocal",
+      "AC_FUNC_MMAP": "system-aclocal",
+      "AC_FUNC_REALLOC": "system-aclocal",
+      "AC_FUNC_WAIT3": "system-aclocal",
+      "AC_HEADER_SYS_WAIT": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_LANG_POP": "system-aclocal",
+      "AC_LANG_PROGRAM": "system-aclocal",
+      "AC_LANG_PUSH": "system-aclocal",
+      "AC_LINK_IFELSE": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PATH_X": "system-aclocal",
+      "AC_PREREQ": "system-aclocal",
+      "AC_PROG_CC": "system-aclocal",
+      "AC_PROG_CXX": "system-aclocal",
+      "AC_PROG_INSTALL": "system-aclocal",
+      "AC_PROG_LN_S": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "libtw_la_LIBADD",
+        "var": "LIBSOCK",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libtw_la_LIBADD",
+        "var": "LIBZ",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libtstl_la_LIBADD",
+        "var": "LIBDL",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "noinst_LTLIBRARIES",
+        "var": "LT_DLLOADERS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libltdl_la_LIBADD",
+        "var": "ltdl_LTLIBOBJS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libltdlc_la_SOURCES",
+        "var": "libltdl_la_SOURCES",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libltdlc_la_LIBADD",
+        "var": "libltdl_la_LIBADD",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "dlopen_la_LIBADD",
+        "var": "LIBADD_DLOPEN",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "shl_load_la_LIBADD",
+        "var": "LIBADD_SHL_LOAD",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "twattach_LDADD",
+        "var": "LIBTW",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "twcat_LDADD",
+        "var": "LIBTW",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "twclip_LDADD",
+        "var": "LIBTW",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "twclutter_LDADD",
+        "var": "LIBTW",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "twcuckoo_LDADD",
+        "var": "LIBTW",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "twdialog_LDADD",
+        "var": "LIBTW",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "twdm_LDADD",
+        "var": "LIBTW",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "twdm_LDADD",
+        "var": "LIBTUTF",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "twdm_LDADD",
+        "var": "LIBCRYPT",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "twevent_LDADD",
+        "var": "LIBTW",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "twfindtwin_LDADD",
+        "var": "LIBTW",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "twlsmsgport_LDADD",
+        "var": "LIBTW",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "twlsobj_LDADD",
+        "var": "LIBTW",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "twsendmsg_LDADD",
+        "var": "LIBTW",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "twsetroot_LDADD",
+        "var": "LIBTW",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "twsysmon_LDADD",
+        "var": "LIBTW",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "twterm_LDADD",
+        "var": "LIBTW",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "twterm_LDADD",
+        "var": "LIBTUTF",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "twthreadtest_LDADD",
+        "var": "LIBTW",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "twthreadtest_LDADD",
+        "var": "LIBPTHREAD",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "twin_server_SOURCES",
+        "var": "twin_server_common_SOURCES",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "twin_server_static_SOURCES",
+        "var": "twin_server_common_SOURCES",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "twdisplay_LDADD",
+        "var": "LIBTW",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "twdisplay_LDADD",
+        "var": "LIBTUTF",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "twdisplay_LDADD",
+        "var": "LIBDL",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "twdisplay_LDADD",
+        "var": "LIBTSTL",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "twin_server_LDADD",
+        "var": "LIBTUTF",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "twin_server_LDADD",
+        "var": "LIBDL",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "twin_server_LDADD",
+        "var": "LIBTSTL",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "twin_server_static_LDADD",
+        "var": "LIBTUTF",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "twin_server_static_LDADD",
+        "var": "LIBDL",
+        "resolved_to": [],
+        "resolved": false
+      }
+    ],
+    "unresolved_refs": [
+      "libtw_la_LIBADD = $(LIBSOCK)",
+      "libtw_la_LIBADD = $(LIBZ)",
+      "libtstl_la_LIBADD = $(LIBDL)",
+      "noinst_LTLIBRARIES = $(LT_DLLOADERS)",
+      "libltdl_la_LIBADD = $(ltdl_LTLIBOBJS)",
+      "libltdlc_la_SOURCES = $(libltdl_la_SOURCES)",
+      "libltdlc_la_LIBADD = $(libltdl_la_LIBADD)",
+      "dlopen_la_LIBADD = $(LIBADD_DLOPEN)",
+      "shl_load_la_LIBADD = $(LIBADD_SHL_LOAD)",
+      "twattach_LDADD = $(LIBTW)",
+      "twcat_LDADD = $(LIBTW)",
+      "twclip_LDADD = $(LIBTW)",
+      "twclutter_LDADD = $(LIBTW)",
+      "twcuckoo_LDADD = $(LIBTW)",
+      "twdialog_LDADD = $(LIBTW)",
+      "twdm_LDADD = $(LIBTW)",
+      "twdm_LDADD = $(LIBTUTF)",
+      "twdm_LDADD = $(LIBCRYPT)",
+      "twevent_LDADD = $(LIBTW)",
+      "twfindtwin_LDADD = $(LIBTW)",
+      "twlsmsgport_LDADD = $(LIBTW)",
+      "twlsobj_LDADD = $(LIBTW)",
+      "twsendmsg_LDADD = $(LIBTW)",
+      "twsetroot_LDADD = $(LIBTW)",
+      "twsysmon_LDADD = $(LIBTW)",
+      "twterm_LDADD = $(LIBTW)",
+      "twterm_LDADD = $(LIBTUTF)",
+      "twthreadtest_LDADD = $(LIBTW)",
+      "twthreadtest_LDADD = $(LIBPTHREAD)",
+      "twin_server_SOURCES = $(twin_server_common_SOURCES)",
+      "twin_server_static_SOURCES = $(twin_server_common_SOURCES)",
+      "twdisplay_LDADD = $(LIBTW)",
+      "twdisplay_LDADD = $(LIBTUTF)",
+      "twdisplay_LDADD = $(LIBDL)",
+      "twdisplay_LDADD = $(LIBTSTL)",
+      "twin_server_LDADD = $(LIBTUTF)",
+      "twin_server_LDADD = $(LIBDL)",
+      "twin_server_LDADD = $(LIBTSTL)",
+      "twin_server_static_LDADD = $(LIBTUTF)",
+      "twin_server_static_LDADD = $(LIBDL)",
+      "twin_server_static_LDADD = $(LIBTSTL)",
+      "librcparse_la_LIBADD = $(LIBTUTF)",
+      "librcparse_la_LIBADD = $(LIBTSTL)",
+      "libsocket_la_LIBADD = $(LIBTUTF)",
+      "libsocket_la_LIBADD = $(LIBTSTL)",
+      "libsocket_la_LIBADD = $(LIBSOCK)",
+      "libsocket_la_LIBADD = $(LIBZ)",
+      "twin_server_static_LDADD = $(LIBSOCK)",
+      "twin_server_static_LDADD = $(LIBZ)",
+      "twin_server_static_LDADD = $(LIBTERMCAP)",
+      "twin_server_static_LDADD = $(LIBGPM)",
+      "twin_server_static_LDADD = $(LIBTW)",
+      "twin_server_static_LDADD = $(LIBZ)",
+      "twin_server_static_LDADD = $(LIBX11)",
+      "twin_server_static_LDADD = $(LIBXFT)",
+      "twin_server_static_LDADD = $(XFT_LIBS)",
+      "twin_server_static_LDADD = $(LIBX11)",
+      "libhw_all_a_LIBADD = $(LIBTUTF)",
+      "libhw_all_a_LIBADD = $(LIBTSTL)",
+      "libhw_display_la_LIBADD = $(LIBTSTL)",
+      "libhw_x11_la_LIBADD = $(LIBTUTF)",
+      "libhw_x11_la_LIBADD = $(LIBTSTL)",
+      "libhw_x11_la_LIBADD = $(LIBX11)",
+      "libhw_xft_la_LIBADD = $(LIBTUTF)",
+      "libhw_xft_la_LIBADD = $(LIBTSTL)",
+      "libhw_xft_la_LIBADD = $(LIBXFT)",
+      "libhw_xft_la_LIBADD = $(XFT_LIBS)",
+      "libhw_xft_la_LIBADD = $(LIBX11)",
+      "libhw_tty_la_LIBADD = $(LIBTUTF)",
+      "libhw_tty_la_LIBADD = $(LIBTSTL)",
+      "libhw_tty_la_LIBADD = $(LIBTERMCAP)",
+      "libhw_tty_la_LIBADD = $(LIBGPM)",
+      "libhw_twin_la_LIBADD = $(LIBTUTF)",
+      "libhw_twin_la_LIBADD = $(LIBTSTL)",
+      "libhw_twin_la_LIBADD = $(LIBTW)",
+      "libhw_twin_la_LIBADD = $(LIBZ)",
+      "twtest_LDADD = $(LIBTSTL)"
+    ],
+    "indirection_count": 77
   }
 }

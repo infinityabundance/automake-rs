@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "DavidGriffith/hf",
   "source": {
     "url": "https://github.com/DavidGriffith/hf",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,66 +26,102 @@
     {
       "step": "configure",
       "tool": "./configure",
+      "status": "ok"
+    },
+    {
+      "step": "make",
+      "tool": "make",
       "status": "fail"
     }
   ],
-  "probe_results": {},
+  "probe_results": {
+    "HAVE_ALSA_ASOUNDLIB_H": 1,
+    "HAVE_ARPA_INET_H": 1,
+    "HAVE_BITTYPES": 1,
+    "HAVE_ERRNO_H": 1,
+    "HAVE_ERROR_AT_LINE": 1,
+    "HAVE_FCNTL_H": 1,
+    "HAVE_FORK": 1,
+    "HAVE_GETOPT_H": 1,
+    "HAVE_GETPAGESIZE": 1,
+    "HAVE_GETTIMEOFDAY": 1,
+    "HAVE_LIBINTL_H": 1,
+    "HAVE_LIMITS_H": 1,
+    "HAVE_MALLOC": 1,
+    "HAVE_MEMCHR": 1,
+    "HAVE_MEMCMP": 1,
+    "HAVE_MEMMOVE": 1,
+    "HAVE_MEMSET": 1,
+    "HAVE_MKTIME": 1,
+    "HAVE_MMAP": 1,
+    "HAVE_MUNMAP": 1,
+    "HAVE_NETINET_IN_H": 1,
+    "HAVE_PTHREAD_H": 1,
+    "HAVE_REALLOC": 1,
+    "HAVE_SCHED_H": 1,
+    "HAVE_SELECT": 1,
+    "HAVE_SOCKET": 1,
+    "HAVE_STAT": 1,
+    "HAVE_STDBOOL_H": 1,
+    "HAVE_STDLIB_H": 1,
+    "HAVE_STRCASECMP": 1,
+    "HAVE_STRDUP": 1,
+    "HAVE_STRERROR": 1,
+    "HAVE_STRFTIME": 1,
+    "HAVE_STRING_H": 1,
+    "HAVE_STRSTR": 1,
+    "HAVE_STRTOD": 1,
+    "HAVE_STRTOL": 1,
+    "HAVE_STRTOUL": 1,
+    "HAVE_SYSLOG_H": 1,
+    "HAVE_SYS_IOCTL_H": 1,
+    "HAVE_SYS_IO_H": 1,
+    "HAVE_SYS_KD_H": 1,
+    "HAVE_SYS_SOCKET_H": 1,
+    "HAVE_SYS_SOUNDCARD_H": 1,
+    "HAVE_SYS_TIME_H": 1,
+    "HAVE_SYS_WAIT_H": 1,
+    "HAVE_TERMIOS_H": 1,
+    "HAVE_TIME_H": 1,
+    "HAVE_UNISTD_H": 1,
+    "HAVE_VPRINTF": 1
+  },
   "feature_flags": {
     "configure_args": []
   },
   "dependencies": {
     "pkg_config": [],
-    "system_libs": [],
+    "system_libs": [
+      "-lncurses"
+    ],
     "headers_needed": [],
     "missing": []
   },
   "quirks": [
-    "subdirs"
+    "subdirs",
+    "LIBS=-lncurses"
   ],
   "outputs": [],
-  "status": "CONFIGURE_RUN_FAIL",
+  "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1720: syntax error near unexpected token `1.2.0,,'",
+  "diagnostic": "/tmp/atlasx_DavidGriffith__hf/s/hfkernel/main.c:311:(.text+0xa85): undefined reference to `alsa_fdx_driver'",
   "deep_expansion": {
-    "configure_lines": 2780,
-    "leaked_macros": [
-      {
-        "name": "AM_PATH_GTK",
-        "line": 1720,
-        "context": "AM_PATH_GTK(1.2.0,,"
-      },
-      {
-        "name": "AC_MSG_ERROR",
-        "line": 1721,
-        "context": "AC_MSG_ERROR(Cannot find GTK: Is gtk-config in path?))"
-      }
-    ],
+    "configure_lines": 2917,
+    "leaked_macros": [],
     "heredoc_openers": 43,
     "heredoc_terminators": 43,
     "heredoc_imbalance": 0,
-    "syntax_errors": [
-      {
-        "line": 1720,
-        "token": "1.2.0,,",
-        "source": "AM_PATH_GTK(1.2.0,,",
-        "block": [
-          "1716: ",
-          "1717: ",
-          "1718: ",
-          "1719: ",
-          "1720: AM_PATH_GTK(1.2.0,,",
-          "1721:             AC_MSG_ERROR(Cannot find GTK: Is gtk-config in path?))",
-          "1722: ",
-          "1723: # Checks for directories, needed needed for hfterm's help and example fixtex"
-        ]
-      }
-    ],
+    "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2304: do eval test \\${$as_var+y} \\"
+      "line 2440: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
+      "HAVEOSS_TRUE",
+      "HAVEOSS_FALSE",
+      "HAVEALSA_TRUE",
+      "HAVEALSA_FALSE",
       "PACKAGE_NAME",
       "PACKAGE_TARNAME",
       "PACKAGE_VERSION",
@@ -95,36 +131,331 @@
     "failed_during_check": "checking for strtoul... yes",
     "failure_tail": [
       "checking for strtoul... yes",
-      "./configure: line 1720: syntax error near unexpected token `1.2.0,,'",
-      "./configure: line 1720: `AM_PATH_GTK(1.2.0,,'"
+      "configure: creating Makefile",
+      "configure: creating dcf77/Makefile",
+      "configure: creating doc/Makefile",
+      "configure: creating doc/hf-examplefiles/Makefile"
     ],
     "conftest_corruption": [],
     "conftest_directives_intact": 41,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
-      "char set_hwparams();\\nint main() { return set_hwparams(); }",
-      "char initscr();\\nint main() { return initscr(); }",
+      "char set_hwparams ();\\nint main() { return set_hwparams(); }",
+      "char initscr ();\\nint main() { return initscr(); }",
       "#include <sys/wait.h>",
       "#include <$ac_hdr>",
       "#include <$ac_hdr>",
       "#include <$ac_hdr>"
     ]
   },
-  "oracle": {
-    "real_autoreconf": "fail",
-    "real_configure": "skipped",
-    "real_make": "skipped",
-    "real_configure_lines": 0,
-    "real_first_error": "configure.ac:73: error: possibly undefined macro: AM_PATH_GTK",
-    "classification": "OURS_BETTER"
-  },
   "receipt": {
-    "court_status": "failed",
-    "probe_trace": [],
+    "court_status": "partial",
+    "probe_trace": [
+      {
+        "name": "HAVE_ALSA_ASOUNDLIB_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_ARPA_INET_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_BITTYPES",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_ERRNO_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_ERROR_AT_LINE",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_FCNTL_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_FORK",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_GETOPT_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_GETPAGESIZE",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_GETTIMEOFDAY",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_LIBINTL_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_LIMITS_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_MALLOC",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_MEMCHR",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_MEMCMP",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_MEMMOVE",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_MEMSET",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_MKTIME",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_MMAP",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_MUNMAP",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_NETINET_IN_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_PTHREAD_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_REALLOC",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SCHED_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SELECT",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SOCKET",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STAT",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STDBOOL_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STDLIB_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STRCASECMP",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STRDUP",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STRERROR",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STRFTIME",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STRING_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STRSTR",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STRTOD",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STRTOL",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STRTOUL",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SYSLOG_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SYS_IOCTL_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SYS_IO_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SYS_KD_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SYS_SOCKET_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SYS_SOUNDCARD_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SYS_TIME_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SYS_WAIT_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_TERMIOS_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_TIME_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_UNISTD_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_VPRINTF",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      }
+    ],
     "quirks_matched": [
       "vendored-aclocal"
     ],
-    "receipt_hash": "0c30dce6270fb3560c454d8c8d1e4e34e811f65407638476dab76fe1fd927894",
+    "receipt_hash": "4e8f34b93f5c6383de46594359f852f9504104a2d6453b9aa48e13767c7f14ef",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -133,6 +464,1036 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "dcf77/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "doc/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "doc/hf-examplefiles/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "doc/man/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "doc/man/de/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "hfkernel/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "hfkernel/cw/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "hfkernel/fsk/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "hfkernel/l1/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "hfkernel/mt63/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "hfterm/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "hfterm/src/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "scripts/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "test/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "util/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      }
+    ],
+    "config_headers": [],
+    "subdirs": [
+      "scripts",
+      "hfkernel",
+      "hfterm",
+      "dcf77",
+      "doc",
+      "test",
+      "util",
+      "man",
+      "hf-examplefiles",
+      "de",
+      "fsk",
+      "l1",
+      "mt63",
+      "cw",
+      "src"
+    ],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [],
+        "subdirs": [
+          "scripts",
+          "hfkernel",
+          "hfterm",
+          "dcf77",
+          "doc",
+          "test",
+          "util"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "dcf77",
+        "targets": [
+          "libdcf.a",
+          "mktables",
+          "dcf77rx",
+          "dcf77gen"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "doc",
+        "targets": [],
+        "subdirs": [
+          "man",
+          "hf-examplefiles"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "doc/man",
+        "targets": [],
+        "subdirs": [
+          "de"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "hfkernel",
+        "targets": [
+          "hfkernel"
+        ],
+        "subdirs": [
+          "fsk",
+          "l1",
+          "mt63",
+          "cw"
+        ],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)/hfkernel/fsk  \t-I$(top_srcdir)/hfkernel/l1  \t-I$(top_srcdir)/hfkernel/mt63  \t-I$(top_srcdir)/hfkernel/cw"
+      },
+      {
+        "dir": "hfkernel/cw",
+        "targets": [
+          "libcw.a",
+          "elbug"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)/hfkernel  \t-I$(top_srcdir)/hfkernel/fsk  \t-I$(top_srcdir)/hfkernel/l1  \t-I$(top_srcdir)/hfkernel/mt63  \t"
+      },
+      {
+        "dir": "hfkernel/fsk",
+        "targets": [
+          "libfsk.a",
+          "mkgtortables"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)/hfkernel  \t-I$(top_srcdir)/hfkernel/fsk  \t-I$(top_srcdir)/hfkernel/l1  \t-I$(top_srcdir)/hfkernel/mt63  \t"
+      },
+      {
+        "dir": "hfkernel/l1",
+        "targets": [
+          "$(OSS)"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)/hfkernel  \t-I$(top_srcdir)/hfkernel/l1  \t-I$(top_srcdir)/hfkernel/fsk  \t-I$(top_srcdir)/hfkernel/mt63  \t"
+      },
+      {
+        "dir": "hfkernel/mt63",
+        "targets": [
+          "libmt63.a",
+          "mt63rx",
+          "mt63tx",
+          "mt63trx",
+          "ratecal1",
+          "peakrms",
+          "morsecod",
+          "addnoise"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)/hfkernel  \t-I$(top_srcdir)/hfkernel/l1  \t-I$(top_srcdir)/hfkernel/fsk  \t-I$(top_srcdir)/hfkernel/mt63  \t"
+      },
+      {
+        "dir": "hfterm",
+        "targets": [],
+        "subdirs": [
+          "src"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "hfterm/src",
+        "targets": [
+          "hfterm"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)/hfkernel  \t-I$(top_srcdir)/hfkernel/l1  \t-I$(top_srcdir)/hfkernel/fsk  \t-I$(top_srcdir)/hfkernel/mt63  \t"
+      },
+      {
+        "dir": "test",
+        "targets": [
+          "testcos",
+          "testgettimeofday",
+          "testoss",
+          "testpoly",
+          "$(ALSA)",
+          "portecho"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "util",
+        "targets": [
+          "paccalc",
+          "channel",
+          "$(OSS)",
+          "testgaussgen",
+          "filtbench",
+          "chantab",
+          "amtorsymsort",
+          "pactorcrc"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)/hfkernel  \t-I$(top_srcdir)/hfkernel/l1  \t-I$(top_srcdir)/hfkernel/fsk  \t-I$(top_srcdir)/hfkernel/mt63"
+      }
+    ],
+    "max_depth": 3,
+    "config_h_consumers_below_root": [
+      "dcf77",
+      "hfterm/src",
+      "util",
+      "hfkernel",
+      "hfkernel/l1",
+      "hfkernel/fsk",
+      "hfkernel/cw",
+      "test"
+    ]
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 530,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "dcf77/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 571,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "hfterm/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 521,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "hfterm/src/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 510,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "util/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 585,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "doc/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 600,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "doc/hf-examplefiles/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 444,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "doc/man/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 534,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "doc/man/de/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 461,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "scripts/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 444,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "hfkernel/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 565,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "hfkernel/l1/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 489,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "hfkernel/fsk/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 505,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "hfkernel/cw/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 500,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "hfkernel/mt63/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 638,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "test/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 518,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      }
+    ]
+  },
+  "tool_requirements": {
+    "detected": [
+      "c++"
+    ],
+    "missing": []
+  },
+  "macro_inventory": {
+    "macro_dirs": [],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [],
+    "called_macros": [
+      "AC_CHECK_FUNCS",
+      "AC_CHECK_HEADERS",
+      "AC_CHECK_LIB",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_HEADER",
+      "AC_CONFIG_SRCDIR",
+      "AC_C_CONST",
+      "AC_C_INLINE",
+      "AC_DEFINE",
+      "AC_DEFINE_UNQUOTED",
+      "AC_FUNC_ERROR_AT_LINE",
+      "AC_FUNC_FORK",
+      "AC_FUNC_MALLOC",
+      "AC_FUNC_MEMCMP",
+      "AC_FUNC_MKTIME",
+      "AC_FUNC_MMAP",
+      "AC_FUNC_REALLOC",
+      "AC_FUNC_SELECT_ARGTYPES",
+      "AC_FUNC_STAT",
+      "AC_FUNC_STRFTIME",
+      "AC_FUNC_STRTOD",
+      "AC_FUNC_VPRINTF",
+      "AC_HEADER_STDBOOL",
+      "AC_HEADER_STDC",
+      "AC_HEADER_SYS_WAIT",
+      "AC_HEADER_TIME",
+      "AC_INIT",
+      "AC_MSG_CHECKING",
+      "AC_MSG_ERROR",
+      "AC_MSG_RESULT",
+      "AC_OUTPUT",
+      "AC_PREREQ",
+      "AC_PROG_CC",
+      "AC_PROG_CXX",
+      "AC_PROG_GCC_TRADITIONAL",
+      "AC_PROG_RANLIB",
+      "AC_STRUCT_TM",
+      "AC_TRY_COMPILE",
+      "AC_TYPE_PID_T",
+      "AC_TYPE_SIGNAL",
+      "AC_TYPE_SIZE_T",
+      "AM_CONDITIONAL",
+      "AM_INIT_AUTOMAKE",
+      "AM_PATH_GTK"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 139,
+    "configure_fi": 136,
+    "configure_case": 63,
+    "configure_esac": 66,
+    "balanced": false,
+    "automake_conditionals": [
+      "HAVEOSS",
+      "HAVEALSA"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": ".",
+    "present": [
+      "install-sh",
+      "missing",
+      "depcomp"
+    ],
+    "missing": [
+      "compile"
+    ]
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "c": 69,
+      "cc": 10,
+      "h": 32,
+      "m": 3
+    },
+    "configure_macros": [
+      "AC_PROG_CC",
+      "AC_PROG_CXX"
+    ],
+    "needs_cxx": true,
+    "needs_fortran": false,
+    "sets_c_std": false
+  },
+  "make_graph": {
+    "targets": [
+      "all",
+      "all-am",
+      "install-am",
+      "installcheck-am",
+      "install-strip",
+      "install-info",
+      "install-info-am",
+      "install-dvi",
+      "install-dvi-am",
+      "install-ps",
+      "install-ps-am",
+      "install-pdf",
+      "install-pdf-am",
+      "install-html",
+      "install-html-am",
+      "install-data-hook",
+      "install-exec-hook",
+      "installdirs-am",
+      ".PHONY",
+      "mostlyclean-am",
+      "clean-am",
+      "distclean-am",
+      "maintainer-clean-am",
+      "distdir",
+      "dist",
+      "dist-all",
+      "dist-gzip",
+      "distcleancheck",
+      "distcheck",
+      "check-am",
+      "TAGS",
+      "tags",
+      "TAGS-am",
+      "tags-am",
+      "cscope",
+      "cscope-am",
+      "distuninstallcheck",
+      "$(srcdir)/Makefile.in",
+      "$(am__recursive_targets)",
+      "check"
+    ],
+    "key_variables": {
+      "AR": "ar",
+      "CC": "cc",
+      "CFLAGS": "-g -O2",
+      "CPPFLAGS": "",
+      "CXX": "g++",
+      "CXXFLAGS": "-g -O2",
+      "DEFS": "-DHAVE_CONFIG_H",
+      "LDFLAGS": "",
+      "LIBS": "-lncurses",
+      "RANLIB": "ranlib"
+    },
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "config.h",
+      "config.log"
+    ],
+    "recursion_depth": 3,
+    "top_targets": [
+      "all",
+      "check",
+      "dist",
+      "all-am"
+    ],
+    "make_diagnostics": [
+      {
+        "command": "",
+        "error_type": "linker-error",
+        "message": "/usr/bin/ld: main.o: in function `l1_init':"
+      },
+      {
+        "command": "",
+        "error_type": "linker-error",
+        "message": "/tmp/atlasx_DavidGriffith__hf/s/hfkernel/main.c:311:(.text+0xa85): undefined reference to `alsa_fdx_driver'"
+      },
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "collect2: error: ld returned 1 exit status"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[3]: *** [Makefile:499: hfkernel] Error 1"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[2]: *** [Makefile:250: all-am] Error 2"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[1]: *** [Makefile:508: all-recursive] Error 1"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make: *** [Makefile:446: all-recursive] Error 1"
+      }
+    ]
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": true,
+    "defines_sampled": [
+      "HAVE_CONFIG_H"
+    ]
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "vpath_analysis": {
+    "hardcoded_src_paths": 3,
+    "abs_path_leakage": 0,
+    "built_sources": [],
+    "generated_source_targets": []
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "alsa/asoundlib.h",
+      "arpa/inet.h",
+      "errno.h",
+      "fcntl.h",
+      "forms.h",
+      "getopt.h",
+      "libintl.h",
+      "limits.h",
+      "netinet/in.h",
+      "pthread.h",
+      "sched.h",
+      "stdlib.h",
+      "string.h",
+      "stropts.h",
+      "sys/audioio.h",
+      "sys/conf.h",
+      "sys/io.h",
+      "sys/ioctl.h",
+      "sys/kbio.h",
+      "sys/kd.h",
+      "sys/socket.h",
+      "sys/soundcard.h",
+      "sys/time.h",
+      "sys/vtkd.h",
+      "syslog.h",
+      "termios.h",
+      "unistd.h"
+    ],
+    "headers_included_unchecked": [
+      "asm/byteorder.h",
+      "gdk/gdk.h",
+      "gdk/gdkkeysyms.h",
+      "gtk/gtk.h",
+      "gtk/gtkgc.h",
+      "gtk/gtkmain.h",
+      "gtk/gtkwidget.h",
+      "machine/cpufunc.h",
+      "machine/sysarch.h",
+      "sys/endian.h",
+      "sys/fcntl.h",
+      "sys/ipc.h",
+      "sys/mman.h",
+      "sys/resource.h",
+      "sys/stat.h",
+      "sys/types.h",
+      "sys/un.h",
+      "sys/wait.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 2,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "gnu++",
+    "strip_modern_poison_flags": [],
+    "inject_legacy_shims": false,
+    "compiler_aliasing": {}
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 0,
+    "shadowed_builtins": [],
+    "permitted_mutations": 0,
+    "suspect_global_mutations": 0
+  },
+  "parallel_build_safety": {
+    "vpath_out_of_tree_safe": false,
+    "generators": [],
+    "unordered_generated_sources": [],
+    "built_sources_declared": false
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "asm/byteorder.h",
+      "gdk/gdk.h",
+      "gdk/gdkkeysyms.h",
+      "gtk/gtk.h",
+      "gtk/gtkgc.h",
+      "gtk/gtkmain.h",
+      "gtk/gtkwidget.h",
+      "machine/cpufunc.h",
+      "machine/sysarch.h",
+      "sys/endian.h",
+      "sys/fcntl.h",
+      "sys/ipc.h",
+      "sys/mman.h",
+      "sys/resource.h",
+      "sys/stat.h",
+      "sys/types.h",
+      "sys/un.h",
+      "sys/wait.h",
+      "alsa/asoundlib.h",
+      "arpa/inet.h"
+    ],
+    "undefined_symbols": [
+      "alsa_fdx_driver"
+    ],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "subdir-config-h-include-path",
+    "vpath-unsafe (abs-path/hardcoded-srcdir leakage)"
+  ],
+  "repair_hints": [
+    {
+      "id": "subdir-top-builddir",
+      "phase": "make",
+      "confidence": 0.88,
+      "evidence": [
+        "dcf77 consumes config.h below root",
+        "hfterm/src consumes config.h below root",
+        "util consumes config.h below root",
+        "hfkernel consumes config.h below root",
+        "hfkernel/l1 consumes config.h below root"
+      ],
+      "action": "ensure ac_subst_file sets relative top_builddir per subdir (0.1.19)",
+      "expected_effect": "config.h found in subdir compiles"
+    }
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": -1,
+      "Makefile.in": 1266,
+      "aclocal.m4": 12,
+      "config.h.in": 18,
+      "configure": 16,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_CHECK_FUNCS": "system-aclocal",
+      "AC_CHECK_HEADERS": "system-aclocal",
+      "AC_CHECK_LIB": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_HEADER": "system-aclocal",
+      "AC_CONFIG_SRCDIR": "system-aclocal",
+      "AC_C_CONST": "system-aclocal",
+      "AC_C_INLINE": "system-aclocal",
+      "AC_DEFINE": "system-aclocal",
+      "AC_DEFINE_UNQUOTED": "system-aclocal",
+      "AC_FUNC_ERROR_AT_LINE": "system-aclocal",
+      "AC_FUNC_FORK": "system-aclocal",
+      "AC_FUNC_MALLOC": "system-aclocal",
+      "AC_FUNC_MEMCMP": "system-aclocal",
+      "AC_FUNC_MKTIME": "system-aclocal",
+      "AC_FUNC_MMAP": "system-aclocal",
+      "AC_FUNC_REALLOC": "system-aclocal",
+      "AC_FUNC_SELECT_ARGTYPES": "system-aclocal",
+      "AC_FUNC_STAT": "system-aclocal",
+      "AC_FUNC_STRFTIME": "system-aclocal",
+      "AC_FUNC_STRTOD": "system-aclocal",
+      "AC_FUNC_VPRINTF": "system-aclocal",
+      "AC_HEADER_STDBOOL": "system-aclocal",
+      "AC_HEADER_STDC": "system-aclocal",
+      "AC_HEADER_SYS_WAIT": "system-aclocal",
+      "AC_HEADER_TIME": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_MSG_CHECKING": "system-aclocal",
+      "AC_MSG_ERROR": "system-aclocal",
+      "AC_MSG_RESULT": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PREREQ": "system-aclocal",
+      "AC_PROG_CC": "system-aclocal",
+      "AC_PROG_CXX": "system-aclocal",
+      "AC_PROG_GCC_TRADITIONAL": "system-aclocal",
+      "AC_PROG_RANLIB": "system-aclocal",
+      "AC_STRUCT_TM": "system-aclocal",
+      "AC_TRY_COMPILE": "system-aclocal",
+      "AC_TYPE_PID_T": "system-aclocal",
+      "AC_TYPE_SIGNAL": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "#dnl hfterm_LDADD",
+        "var": "INTLLIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "hfterm_LDADD",
+        "var": "OSLIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "bin_PROGRAMS",
+        "var": "OSS",
+        "resolved_to": [
+          "reffreq"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "channel_LDADD",
+        "var": "THRLIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "channel_LDADD",
+        "var": "SOCKLIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "channel_LDADD",
+        "var": "SCHEDLIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "hfkernel_LDADD",
+        "var": "MYLIBS",
+        "resolved_to": [
+          "./l1/libl1.a",
+          "./fsk/libfsk.a",
+          "./mt63/libmt63.a",
+          "./cw/libcw.a"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "hfkernel_LDADD",
+        "var": "OSLIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "hfkernel_LDADD",
+        "var": "SOCKLIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "hfkernel_LDADD",
+        "var": "THRLIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "hfkernel_LDADD",
+        "var": "SCHEDLIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "hfkernel_LDADD",
+        "var": "ALSALIBS",
+        "resolved_to": [
+          "-lasound"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "noinst_LIBRARIES",
+        "var": "OSS",
+        "resolved_to": [
+          "libl1.a"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libl1_a_SOURCES",
+        "var": "ALSA",
+        "resolved_to": [
+          "alsa.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "noinst_PROGRAMS",
+        "var": "ALSA",
+        "resolved_to": [
+          "alsafdx",
+          "alsalatency"
+        ],
+        "resolved": true
+      }
+    ],
+    "unresolved_refs": [
+      "#dnl hfterm_LDADD = $(INTLLIBS)",
+      "hfterm_LDADD = $(OSLIBS)",
+      "channel_LDADD = $(THRLIBS)",
+      "channel_LDADD = $(SOCKLIBS)",
+      "channel_LDADD = $(SCHEDLIBS)",
+      "hfkernel_LDADD = $(OSLIBS)",
+      "hfkernel_LDADD = $(SOCKLIBS)",
+      "hfkernel_LDADD = $(THRLIBS)",
+      "hfkernel_LDADD = $(SCHEDLIBS)"
+    ],
+    "indirection_count": 15
   }
 }

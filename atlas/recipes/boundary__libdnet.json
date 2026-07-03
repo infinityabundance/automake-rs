@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "boundary/libdnet",
   "source": {
     "url": "https://github.com/boundary/libdnet",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,11 +26,11 @@
     {
       "step": "configure",
       "tool": "./configure",
-      "status": "fail"
+      "status": "ok"
     },
     {
-      "step": "auto-quirk",
-      "tool": "quirk-engine",
+      "step": "make",
+      "tool": "make",
       "status": "fail"
     }
   ],
@@ -48,38 +48,35 @@
     "subdirs"
   ],
   "outputs": [],
-  "status": "CONFIGURE_RUN_FAIL",
+  "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1434: syntax error near unexpected token `after'",
+  "diagnostic": "addr.c:298:25: error: 'struct sockaddr_in6' has no member named 'sin6_len'",
   "deep_expansion": {
-    "configure_lines": 2984,
+    "configure_lines": 3224,
     "leaked_macros": [],
-    "heredoc_openers": 33,
-    "heredoc_terminators": 33,
+    "heredoc_openers": 35,
+    "heredoc_terminators": 35,
     "heredoc_imbalance": 0,
-    "syntax_errors": [
-      {
-        "line": 1434,
-        "token": "after",
-        "source": "fi after automake upgrade",
-        "block": [
-          "1430: else",
-          "1431:   printf '%s\\n' \"no\"",
-          "1432:   :",
-          "1433:   ",
-          "1434: fi after automake upgrade",
-          "1435: printf %s \"checking for Python... \"",
-          "1436: # Check --with-python option",
-          "1437: "
-        ]
-      }
-    ],
+    "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2508: do eval test \\${$as_var+y} \\"
+      "line 1421: # eval \"_acrs_sv=\\${}\"; printf '%s\\n' \"s|@@|${_acrs_sv}|g\" >",
+      "line 2747: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
+      "ac_aux_dir",
+      "PYTHON",
+      "TCLINC",
+      "TCLLIB",
+      "PYTHON_TRUE",
+      "PYTHON_FALSE",
+      "TCL_TRUE",
+      "TCL_FALSE",
+      "CHECKINC",
+      "CHECKLIB",
+      "HAVE_CHECK_TRUE",
+      "HAVE_CHECK_FALSE",
       "PACKAGE_NAME",
       "PACKAGE_TARNAME",
       "PACKAGE_VERSION",
@@ -96,57 +93,30 @@
       "LIBS",
       "CXX",
       "CXXFLAGS",
-      "CPP",
-      "DEFS",
-      "LIBOBJS",
-      "INSTALL",
-      "CHECKLIB",
-      "CHECKINC",
-      "ac_aux_dir",
-      "TCLLIB",
-      "PYTHON",
-      "host_alias",
-      "host_cpu",
-      "host_os",
-      "host_vendor"
+      "CPP"
     ],
-    "failed_during_check": "",
+    "failed_during_check": "checking for cooked raw IP sockets... no",
     "failure_tail": [
-      "./configure: line 1434: syntax error near unexpected token `after'",
-      "./configure: line 1434: `fi after automake upgrade'"
+      "checking for cooked raw IP sockets... no",
+      "configure: creating Makefile",
+      "configure: creating dnet-config",
+      "configure: creating include/Makefile",
+      "configure: creating include/dnet/Makefile"
     ],
     "conftest_corruption": [],
-    "conftest_directives_intact": 21,
+    "conftest_directives_intact": 23,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
-      "char main();\\nint main() { return main(); }",
-      "char main();\\nint main() { return main(); }",
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar gethostbyname();\\nint main() { return gethostbyname(); }",
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar socket();\\nint main() { return socket(); }",
-      "char putmsg();\\nint main() { return putmsg(); }",
-      "char open_mib();\\nint main() { return open_mib(); }"
+      "\\nint main() { return main(); }",
+      "\\nint main() { return main(); }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar gethostbyname ();\\nint main() { return gethostbyname(); }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar socket ();\\nint main() { return socket(); }",
+      "char putmsg ();\\nint main() { return putmsg(); }",
+      "char open_mib ();\\nint main() { return open_mib(); }"
     ]
   },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "ok",
-    "real_make": "ok",
-    "real_configure_lines": 17261,
-    "real_first_error": "",
-    "classification": "OURS_BUG_CONFIGURE"
-  },
-  "divergence": {
-    "stage": "configure",
-    "ours_error": "line 1434: fi after automake upgrade (near `after`)",
-    "ours_error_context": [
-      "fi after automake upgrade"
-    ],
-    "ours_configure_lines": 2984,
-    "real_configure_lines": 17261,
-    "macros_ours_left_undefined": []
-  },
   "receipt": {
-    "court_status": "failed",
+    "court_status": "partial",
     "probe_trace": [],
     "quirks_matched": [
       "uses-python",
@@ -154,14 +124,7 @@
       "has-m4-macro-dir",
       "vendored-aclocal"
     ],
-    "quirks_applied": [
-      {
-        "id": "uses-maintainer-mode",
-        "action": "--disable-maintainer-mode",
-        "verified": false
-      }
-    ],
-    "receipt_hash": "24e39ed3178d433d21c1340a6407fda16d8349c27724819539e8175382940e80",
+    "receipt_hash": "fc222e24136e1c7565f3970366c0a81d4ec04fa5491250e780188ba2805c06fb",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -170,6 +133,1115 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "include/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "include/dnet/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "man/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "python/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "python/setup.py",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "src/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "test/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "test/check/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "test/dnet/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      }
+    ],
+    "config_headers": [
+      "include/config.h"
+    ],
+    "subdirs": [
+      "include",
+      "man",
+      "src",
+      "python",
+      "test",
+      "dnet",
+      "check",
+      "dnet"
+    ],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [],
+        "subdirs": [
+          "include",
+          "man",
+          "src",
+          "python",
+          "test"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "include",
+        "targets": [],
+        "subdirs": [
+          "dnet"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src",
+        "targets": [
+          "libdnet.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "test",
+        "targets": [],
+        "subdirs": [
+          "check",
+          "dnet"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "test/check",
+        "targets": [
+          "$(TESTS)"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "test/dnet",
+        "targets": [
+          "dnet"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      }
+    ],
+    "max_depth": 2,
+    "config_h_consumers_below_root": [
+      "src",
+      "test/dnet",
+      "test/check"
+    ]
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 515,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "python/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 617,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 497,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "include/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 512,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "include/dnet/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 527,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "test/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 523,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "test/dnet/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 524,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "test/check/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 722,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "man/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 455,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      }
+    ]
+  },
+  "tool_requirements": {
+    "detected": [
+      "python"
+    ],
+    "missing": []
+  },
+  "macro_inventory": {
+    "macro_dirs": [
+      "m4",
+      "config"
+    ],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [
+      {
+        "name": "AC_DNET_SOCKADDR_SA_LEN",
+        "source": "m4/acinclude.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_DNET_SOCKADDR_IN6",
+        "source": "m4/acinclude.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_DNET_ARPREQ_ARP_DEV",
+        "source": "m4/acinclude.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_DNET_ROUTE_RT_MSGHDR",
+        "source": "m4/acinclude.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_DNET_BSD_BPF",
+        "source": "m4/acinclude.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_DNET_LINUX_PROCFS",
+        "source": "m4/acinclude.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_DNET_LINUX_PF_PACKET",
+        "source": "m4/acinclude.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_DNET_STREAMS_MIB2",
+        "source": "m4/acinclude.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_DNET_STREAMS_ROUTE",
+        "source": "m4/acinclude.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_DNET_IOCTL_ARP",
+        "source": "m4/acinclude.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_DNET_RAWIP_HOST_OFFLEN",
+        "source": "m4/acinclude.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_DNET_RAWIP_COOKED",
+        "source": "m4/acinclude.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_LBL_LIBRARY_NET",
+        "source": "m4/acinclude.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_PROG_LIBTOOL",
+        "source": "config/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "_AC_PROG_LIBTOOL",
+        "source": "config/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_SETUP",
+        "source": "config/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "_LT_AC_SYS_COMPILER",
+        "source": "config/libtool.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_LT_CC_BASENAME",
+        "source": "config/libtool.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_LT_COMPILER_BOILERPLATE",
+        "source": "config/libtool.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_LT_LINKER_BOILERPLATE",
+        "source": "config/libtool.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_LT_AC_SYS_LIBPATH_AIX",
+        "source": "config/libtool.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_LT_AC_SHELL_INIT",
+        "source": "config/libtool.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_LT_AC_PROG_ECHO_BACKSLASH",
+        "source": "config/libtool.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_LT_AC_LOCK",
+        "source": "config/libtool.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AC_LIBTOOL_COMPILER_OPTION",
+        "source": "config/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_LINKER_OPTION",
+        "source": "config/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_SYS_MAX_CMD_LEN",
+        "source": "config/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "_LT_AC_CHECK_DLFCN",
+        "source": "config/libtool.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_LT_AC_TRY_DLOPEN_SELF",
+        "source": "config/libtool.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AC_LIBTOOL_DLOPEN_SELF",
+        "source": "config/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_PROG_CC_C_O",
+        "source": "config/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_SYS_HARD_LINK_LOCKS",
+        "source": "config/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_OBJDIR",
+        "source": "config/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_PROG_LD_HARDCODE_LIBPATH",
+        "source": "config/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_SYS_LIB_STRIP",
+        "source": "config/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_SYS_DYNAMIC_LINKER",
+        "source": "config/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "_LT_AC_TAGCONFIG",
+        "source": "config/libtool.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AC_LIBTOOL_DLOPEN",
+        "source": "config/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_WIN32_DLL",
+        "source": "config/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_ENABLE_SHARED",
+        "source": "config/libtool.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_DISABLE_SHARED",
+        "source": "config/libtool.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_ENABLE_STATIC",
+        "source": "config/libtool.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_DISABLE_STATIC",
+        "source": "config/libtool.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_ENABLE_FAST_INSTALL",
+        "source": "config/libtool.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_DISABLE_FAST_INSTALL",
+        "source": "config/libtool.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_LIBTOOL_PICMODE",
+        "source": "config/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_PROG_EGREP",
+        "source": "config/libtool.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_PATH_TOOL_PREFIX",
+        "source": "config/libtool.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_PATH_MAGIC",
+        "source": "config/libtool.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_PROG_LD",
+        "source": "config/libtool.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_PROG_LD_GNU",
+        "source": "config/libtool.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_PROG_LD_RELOAD_FLAG",
+        "source": "config/libtool.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_DEPLIBS_CHECK_METHOD",
+        "source": "config/libtool.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_PROG_NM",
+        "source": "config/libtool.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_CHECK_LIBM",
+        "source": "config/libtool.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_LIBLTDL_CONVENIENCE",
+        "source": "config/libtool.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_LIBLTDL_INSTALLABLE",
+        "source": "config/libtool.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_LIBTOOL_CXX",
+        "source": "config/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "_LT_AC_LANG_CXX",
+        "source": "config/libtool.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_LT_AC_PROG_CXXCPP",
+        "source": "config/libtool.m4",
+        "kind": "project-local"
+      }
+    ],
+    "called_macros": [
+      "AC_ARG_WITH",
+      "AC_CANONICAL_HOST",
+      "AC_CHECK_HEADERS",
+      "AC_CHECK_LIB",
+      "AC_CONFIG_AUX_DIR",
+      "AC_CONFIG_HEADERS",
+      "AC_CONFIG_MACRO_DIR",
+      "AC_CONFIG_SRCDIR",
+      "AC_CYGWIN",
+      "AC_C_CONST",
+      "AC_C_INLINE",
+      "AC_DEFINE",
+      "AC_DNET_ARPREQ_ARP_DEV",
+      "AC_DNET_BSD_BPF",
+      "AC_DNET_IOCTL_ARP",
+      "AC_DNET_LINUX_PF_PACKET",
+      "AC_DNET_LINUX_PROCFS",
+      "AC_DNET_RAWIP_COOKED",
+      "AC_DNET_RAWIP_HOST_OFFLEN",
+      "AC_DNET_ROUTE_RT_MSGHDR",
+      "AC_DNET_SOCKADDR_IN6",
+      "AC_DNET_SOCKADDR_SA_LEN",
+      "AC_DNET_STREAMS_MIB2",
+      "AC_DNET_STREAMS_ROUTE",
+      "AC_ERROR",
+      "AC_FUNC_MEMCMP",
+      "AC_HEADER_STDC",
+      "AC_INIT",
+      "AC_LBL_LIBRARY_NET",
+      "AC_LIBOBJ",
+      "AC_LIBTOOL_DLOPEN",
+      "AC_MSG_CHECKING",
+      "AC_MSG_ERROR",
+      "AC_MSG_RESULT",
+      "AC_OUTPUT",
+      "AC_PROG_CC",
+      "AC_PROG_GCC_TRADITIONAL",
+      "AC_PROG_INSTALL",
+      "AC_REPLACE_FUNCS",
+      "AC_SUBST",
+      "AC_TYPE_PID_T",
+      "AC_TYPE_SIZE_T",
+      "AM_CONDITIONAL",
+      "AM_INIT_AUTOMAKE",
+      "AM_MAINTAINER_MODE",
+      "AM_PATH_PYTHON",
+      "AM_PROG_LIBTOOL"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 200,
+    "configure_fi": 176,
+    "configure_case": 72,
+    "configure_esac": 75,
+    "balanced": false,
+    "automake_conditionals": [
+      "PYTHON",
+      "TCL",
+      "HAVE_CHECK"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": "config",
+    "present": [
+      "install-sh",
+      "missing",
+      "depcomp",
+      "compile"
+    ],
+    "missing": [
+      "config.guess",
+      "config.sub"
+    ]
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "c": 68,
+      "h": 25
+    },
+    "configure_macros": [
+      "AC_PROG_CC"
+    ],
+    "needs_cxx": false,
+    "needs_fortran": false,
+    "sets_c_std": false
+  },
+  "libtool_context": {
+    "uses_libtool": true,
+    "macros": [
+      "AM_PROG_LIBTOOL"
+    ],
+    "ltmain_present": false,
+    "libtool_m4_sources": [],
+    "age": "unknown"
+  },
+  "make_graph": {
+    "targets": [
+      "all",
+      "all-am",
+      "install-exec-am",
+      "uninstall-am",
+      "install-am",
+      "installcheck-am",
+      "install-strip",
+      "install-info",
+      "install-info-am",
+      "install-dvi",
+      "install-dvi-am",
+      "install-ps",
+      "install-ps-am",
+      "install-pdf",
+      "install-pdf-am",
+      "install-html",
+      "install-html-am",
+      "install-data-hook",
+      "install-exec-hook",
+      "installdirs-am",
+      ".PHONY",
+      "mostlyclean-am",
+      "clean-am",
+      "distclean-am",
+      "maintainer-clean-am",
+      "distdir",
+      "dist",
+      "dist-all",
+      "dist-gzip",
+      "distcleancheck",
+      "distcheck",
+      "check-am",
+      "TAGS",
+      "tags",
+      "TAGS-am",
+      "tags-am",
+      "cscope",
+      "cscope-am",
+      "distuninstallcheck",
+      "$(srcdir)/Makefile.in"
+    ],
+    "key_variables": {
+      "AR": "ar",
+      "CC": "cc",
+      "CFLAGS": "-g -O2",
+      "CPPFLAGS": "",
+      "CXX": "c++",
+      "CXXFLAGS": "-g -O2",
+      "DEFS": "-DHAVE_CONFIG_H",
+      "LDFLAGS": "",
+      "LIBS": "",
+      "RANLIB": "ranlib"
+    },
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "libtool",
+      "config.log"
+    ],
+    "recursion_depth": 2,
+    "top_targets": [
+      "all",
+      "dist",
+      "all-am"
+    ],
+    "make_diagnostics": [
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "addr.c:298:25: error: 'struct sockaddr_in6' has no member named 'sin6_len'"
+      },
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "addr.c:307:24: error: 'struct sockaddr_in' has no member named 'sin_len'"
+      },
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "addr.c:394:25: error: 'struct sockaddr_in6' has no member named 'sin6_len'"
+      },
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "addr.c:403:24: error: 'struct sockaddr_in' has no member named 'sin_len'"
+      },
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "addr.c:429:25: error: 'const struct sockaddr' has no member named 'sa_len'"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[2]: *** [Makefile:494: addr.lo] Error 1"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[2]: *** Waiting for unfinished jobs...."
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[1]: *** [Makefile:239: all-am] Error 2"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make: *** [Makefile:460: all-recursive] Error 1"
+      }
+    ]
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": true,
+    "defines_sampled": [
+      "HAVE_CONFIG_H"
+    ]
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-python",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-maintainer-mode",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "has-m4-macro-dir",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "fcntl.h",
+      "hpsecurity.h",
+      "ip_compat.h",
+      "ip_fil.h",
+      "ip_fil_compat.h",
+      "iphlpapi.h",
+      "linux/if_tun.h",
+      "linux/ip_fw.h",
+      "linux/ip_fwchains.h",
+      "linux/netfilter_ipv4/ipchains_core.h",
+      "net/bpf.h",
+      "net/if.h",
+      "net/if_arp.h",
+      "net/if_dl.h",
+      "net/if_tun.h",
+      "net/if_var.h",
+      "net/pfilt.h",
+      "net/pfvar.h",
+      "net/radix.h",
+      "net/raw.h",
+      "net/route.h",
+      "netinet/in_var.h",
+      "netinet/ip_compat.h",
+      "netinet/ip_fil.h",
+      "netinet/ip_fil_compat.h",
+      "netinet/ip_fw.h",
+      "stropts.h",
+      "sys/bufmod.h",
+      "sys/dlpi.h",
+      "sys/dlpi_ext.h",
+      "sys/dlpihdr.h",
+      "sys/ioctl.h",
+      "sys/mib.h",
+      "sys/ndd_var.h",
+      "sys/socket.h",
+      "sys/sockio.h",
+      "sys/sysctl.h",
+      "sys/time.h",
+      "unistd.h",
+      "windows.h"
+    ],
+    "headers_included_unchecked": [
+      "arpa/inet.h",
+      "asm/types.h",
+      "dnet/addr.h",
+      "dnet/arp.h",
+      "dnet/blob.h",
+      "dnet/eth.h",
+      "dnet/fw.h",
+      "dnet/icmp.h",
+      "dnet/icmpv6.h",
+      "dnet/intf.h",
+      "dnet/ip.h",
+      "dnet/ip6.h",
+      "dnet/os.h",
+      "dnet/rand.h",
+      "dnet/route.h",
+      "dnet/sctp.h",
+      "dnet/tcp.h",
+      "dnet/tun.h",
+      "dnet/udp.h",
+      "inet/common.h",
+      "inet/ip.h",
+      "inet/mib2.h",
+      "linux/if.h",
+      "linux/if_ether.h",
+      "linux/if_packet.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 6,
+    "shadowed_macros": [
+      "AC_DNET_SOCKADDR_SA_LEN",
+      "AC_DNET_SOCKADDR_IN6",
+      "AC_DNET_ARPREQ_ARP_DEV",
+      "AC_DNET_ROUTE_RT_MSGHDR",
+      "AC_DNET_BSD_BPF",
+      "AC_DNET_LINUX_PROCFS",
+      "AC_DNET_LINUX_PF_PACKET",
+      "AC_DNET_STREAMS_MIB2",
+      "AC_DNET_STREAMS_ROUTE",
+      "AC_DNET_IOCTL_ARP",
+      "AC_DNET_RAWIP_HOST_OFFLEN",
+      "AC_DNET_RAWIP_COOKED",
+      "AC_LBL_LIBRARY_NET",
+      "AC_PROG_LIBTOOL",
+      "AC_LIBTOOL_SETUP",
+      "AC_LIBTOOL_COMPILER_OPTION",
+      "AC_LIBTOOL_LINKER_OPTION",
+      "AC_LIBTOOL_SYS_MAX_CMD_LEN",
+      "AC_LIBTOOL_DLOPEN_SELF",
+      "AC_LIBTOOL_PROG_CC_C_O"
+    ]
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "c89_gnu",
+    "strip_modern_poison_flags": [
+      "-Werror=implicit-function-declaration",
+      "-Werror=int-conversion",
+      "-Werror=incompatible-pointer-types"
+    ],
+    "inject_legacy_shims": true,
+    "compiler_aliasing": {
+      "clang-18+": "-std=gnu89 -Wno-error",
+      "gcc-14+": "-std=gnu89 -fpermissive"
+    }
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 2,
+    "shadowed_builtins": [
+      "AC_DNET_SOCKADDR_SA_LEN",
+      "AC_DNET_SOCKADDR_IN6",
+      "AC_DNET_ARPREQ_ARP_DEV",
+      "AC_DNET_ROUTE_RT_MSGHDR",
+      "AC_DNET_BSD_BPF",
+      "AC_DNET_LINUX_PROCFS",
+      "AC_DNET_LINUX_PF_PACKET",
+      "AC_DNET_STREAMS_MIB2",
+      "AC_DNET_STREAMS_ROUTE",
+      "AC_DNET_IOCTL_ARP",
+      "AC_DNET_RAWIP_HOST_OFFLEN",
+      "AC_DNET_RAWIP_COOKED",
+      "AC_LBL_LIBRARY_NET",
+      "AC_PROG_LIBTOOL",
+      "AC_LIBTOOL_SETUP"
+    ],
+    "permitted_mutations": 3,
+    "suspect_global_mutations": 0
+  },
+  "host_environment_veil": {
+    "header_injection_candidates": [
+      "sys/sysctl.h"
+    ],
+    "symbol_aliasing_candidates": []
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "arpa/inet.h",
+      "asm/types.h",
+      "dnet/addr.h",
+      "dnet/arp.h",
+      "dnet/blob.h",
+      "dnet/eth.h",
+      "dnet/fw.h",
+      "dnet/icmp.h",
+      "dnet/icmpv6.h",
+      "dnet/intf.h",
+      "dnet/ip.h",
+      "dnet/ip6.h",
+      "dnet/os.h",
+      "dnet/rand.h",
+      "dnet/route.h",
+      "dnet/sctp.h",
+      "dnet/tcp.h",
+      "dnet/tun.h",
+      "dnet/udp.h",
+      "inet/common.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "subdir-config-h-include-path",
+    "modern-compiler-strictness (no explicit C std)"
+  ],
+  "repair_hints": [
+    {
+      "id": "subdir-top-builddir",
+      "phase": "make",
+      "confidence": 0.88,
+      "evidence": [
+        "src consumes config.h below root",
+        "test/dnet consumes config.h below root",
+        "test/check consumes config.h below root"
+      ],
+      "action": "ensure ac_subst_file sets relative top_builddir per subdir (0.1.19)",
+      "expected_effect": "config.h found in subdir compiles"
+    }
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": 0,
+      "Makefile.in": 1279,
+      "aclocal.m4": 7,
+      "configure": 15,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_WITH": "system-aclocal",
+      "AC_CANONICAL_HOST": "system-aclocal",
+      "AC_CHECK_HEADERS": "system-aclocal",
+      "AC_CHECK_LIB": "system-aclocal",
+      "AC_CONFIG_AUX_DIR": "system-aclocal",
+      "AC_CONFIG_HEADERS": "system-aclocal",
+      "AC_CONFIG_MACRO_DIR": "system-aclocal",
+      "AC_CONFIG_SRCDIR": "system-aclocal",
+      "AC_CYGWIN": "system-aclocal",
+      "AC_C_CONST": "system-aclocal",
+      "AC_C_INLINE": "system-aclocal",
+      "AC_DEFINE": "system-aclocal",
+      "AC_DNET_ARPREQ_ARP_DEV": "m4/acinclude.m4",
+      "AC_DNET_BSD_BPF": "m4/acinclude.m4",
+      "AC_DNET_IOCTL_ARP": "m4/acinclude.m4",
+      "AC_DNET_LINUX_PF_PACKET": "m4/acinclude.m4",
+      "AC_DNET_LINUX_PROCFS": "m4/acinclude.m4",
+      "AC_DNET_RAWIP_COOKED": "m4/acinclude.m4",
+      "AC_DNET_RAWIP_HOST_OFFLEN": "m4/acinclude.m4",
+      "AC_DNET_ROUTE_RT_MSGHDR": "m4/acinclude.m4",
+      "AC_DNET_SOCKADDR_IN6": "m4/acinclude.m4",
+      "AC_DNET_SOCKADDR_SA_LEN": "m4/acinclude.m4",
+      "AC_DNET_STREAMS_MIB2": "m4/acinclude.m4",
+      "AC_DNET_STREAMS_ROUTE": "m4/acinclude.m4",
+      "AC_ERROR": "system-aclocal",
+      "AC_FUNC_MEMCMP": "system-aclocal",
+      "AC_HEADER_STDC": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_LBL_LIBRARY_NET": "m4/acinclude.m4",
+      "AC_LIBOBJ": "system-aclocal",
+      "AC_LIBTOOL_DLOPEN": "config/libtool.m4",
+      "AC_MSG_CHECKING": "system-aclocal",
+      "AC_MSG_ERROR": "system-aclocal",
+      "AC_MSG_RESULT": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PROG_CC": "system-aclocal",
+      "AC_PROG_GCC_TRADITIONAL": "system-aclocal",
+      "AC_PROG_INSTALL": "system-aclocal",
+      "AC_REPLACE_FUNCS": "system-aclocal",
+      "AC_SUBST": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "noinst_PROGRAMS",
+        "var": "TESTS",
+        "resolved_to": [
+          "check_addr",
+          "check_arp",
+          "check_blob",
+          "check_eth",
+          "check_fw",
+          "check_ip",
+          "check_intf",
+          "check_rand",
+          "check_route"
+        ],
+        "resolved": true
+      }
+    ],
+    "unresolved_refs": [],
+    "indirection_count": 1
   }
 }

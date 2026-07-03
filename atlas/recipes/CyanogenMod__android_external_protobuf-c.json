@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "CyanogenMod/android_external_protobuf-c",
   "source": {
     "url": "https://github.com/CyanogenMod/android_external_protobuf-c",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.14",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -48,7 +48,7 @@
   "verified": false,
   "diagnostic": "",
   "deep_expansion": {
-    "configure_lines": 2637,
+    "configure_lines": 2780,
     "leaked_macros": [],
     "heredoc_openers": 30,
     "heredoc_terminators": 30,
@@ -56,10 +56,12 @@
     "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2159: do eval test \\${$as_var+y} \\"
+      "line 2301: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
+      "BUILD_PROTOC_C_TRUE",
+      "BUILD_PROTOC_C_FALSE",
       "PACKAGE_NAME",
       "PACKAGE_TARNAME",
       "PACKAGE_VERSION",
@@ -79,7 +81,14 @@
       "CPP",
       "DEFS",
       "LIBOBJS",
-      "INSTALL"
+      "INSTALL",
+      "LD",
+      "AR",
+      "top_srcdir",
+      "top_builddir",
+      "builddir",
+      "abs_srcdir",
+      "abs_builddir"
     ],
     "failed_during_check": "checking for google/protobuf/stubs/common.h... no",
     "failure_tail": [
@@ -98,22 +107,14 @@
       "#include <$ac_hdr>"
     ]
   },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "fail",
-    "real_make": "skipped",
-    "real_configure_lines": 19653,
-    "real_first_error": "ERROR: missing google's protoc program; adjust $PATH (or use --disable-protoc)",
-    "classification": "BOTH_CONFIGURE_FAIL"
-  },
   "receipt": {
-    "court_status": "not_standalone",
+    "court_status": "failed",
     "probe_trace": [],
     "quirks_matched": [
       "uses-libtool-old",
       "vendored-aclocal"
     ],
-    "receipt_hash": "1b59d07d0a20a927a52050673c57d051c46cf0669ffc84ae54f67e19a8cf7afb",
+    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -122,6 +123,363 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "libprotobuf-c.pc",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "src/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "src/test/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      }
+    ],
+    "config_headers": [],
+    "subdirs": [
+      "src",
+      ".",
+      "test"
+    ],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [],
+        "subdirs": [
+          "src"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src",
+        "targets": [
+          "protoc-c",
+          "libprotobuf-c.la"
+        ],
+        "subdirs": [
+          ".",
+          "test"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/test",
+        "targets": [
+          "test-generated-code",
+          "test-generated-code2",
+          "test-rpc",
+          "cxx-generate-packed-data",
+          "example-server",
+          "example-client"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(srcdir)/.."
+      }
+    ],
+    "max_depth": 2,
+    "config_h_consumers_below_root": []
+  },
+  "tool_requirements": {
+    "detected": [
+      "c++"
+    ],
+    "missing": []
+  },
+  "macro_inventory": {
+    "macro_dirs": [],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [],
+    "called_macros": [
+      "AC_ARG_ENABLE",
+      "AC_ARG_WITH",
+      "AC_CHECK_HEADER",
+      "AC_CHECK_HEADERS",
+      "AC_DEFINE_UNQUOTED",
+      "AC_INIT",
+      "AC_LANG_POP",
+      "AC_LANG_PUSH",
+      "AC_MSG_CHECKING",
+      "AC_MSG_ERROR",
+      "AC_MSG_FAILURE",
+      "AC_MSG_RESULT",
+      "AC_OUTPUT",
+      "AC_PATH_PROG",
+      "AC_PROG_CC",
+      "AC_PROG_CXX",
+      "AC_PROG_LIBTOOL",
+      "AC_RUN_IFELSE",
+      "AC_TRY_COMPILE",
+      "AC_TRY_LINK",
+      "AM_CONDITIONAL",
+      "AM_INIT_AUTOMAKE"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 127,
+    "configure_fi": 123,
+    "configure_case": 63,
+    "configure_esac": 66,
+    "balanced": false,
+    "automake_conditionals": [
+      "BUILD_PROTOC_C"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": ".",
+    "present": [
+      "install-sh",
+      "missing"
+    ],
+    "missing": [
+      "depcomp",
+      "compile",
+      "ltmain.sh"
+    ]
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "c": 15,
+      "cc": 1,
+      "h": 13
+    },
+    "configure_macros": [
+      "AC_PROG_CC",
+      "AC_PROG_CXX"
+    ],
+    "needs_cxx": true,
+    "needs_fortran": false,
+    "sets_c_std": false
+  },
+  "libtool_context": {
+    "uses_libtool": true,
+    "macros": [
+      "AC_PROG_LIBTOOL"
+    ],
+    "ltmain_present": false,
+    "libtool_m4_sources": [],
+    "age": "old"
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": true,
+    "defines_sampled": []
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-libtool-old",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "vpath_analysis": {
+    "hardcoded_src_paths": 4,
+    "abs_path_leakage": 0,
+    "built_sources": [
+      "generated-code/test.pb-c.c",
+      "generated-code/test.pb-c.h",
+      "generated-code/test-full.pb-c.c",
+      "generated-code/test-full.pb-c.h",
+      "generated-code/test-full.pb.cc",
+      "generated-code/test-full.pb.h",
+      "generated-code/test-full-cxx-output.inc"
+    ],
+    "generated_source_targets": []
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "alloca.h",
+      "endian.h",
+      "google/protobuf/stubs/common.h",
+      "inttypes.h",
+      "io.h",
+      "mach/endian.h",
+      "machine/endian.h",
+      "malloc.h",
+      "sys/poll.h",
+      "sys/select.h",
+      "sys/uio.h",
+      "unistd.h",
+      "winsock.h"
+    ],
+    "headers_included_unchecked": [
+      "fcntl.h",
+      "google/protobuf-c/protobuf-c-rpc.h",
+      "google/protobuf-c/protobuf.h",
+      "gsk/gsk.h",
+      "netinet/in.h",
+      "sys/socket.h",
+      "sys/stat.h",
+      "sys/time.h",
+      "sys/types.h",
+      "sys/un.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 4,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "gnu++",
+    "strip_modern_poison_flags": [],
+    "inject_legacy_shims": false,
+    "compiler_aliasing": {}
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 0,
+    "shadowed_builtins": [],
+    "permitted_mutations": 2,
+    "suspect_global_mutations": 0
+  },
+  "parallel_build_safety": {
+    "vpath_out_of_tree_safe": false,
+    "generators": [],
+    "unordered_generated_sources": [],
+    "built_sources_declared": true
+  },
+  "host_environment_veil": {
+    "header_injection_candidates": [
+      "malloc.h"
+    ],
+    "symbol_aliasing_candidates": []
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "fcntl.h",
+      "google/protobuf-c/protobuf-c-rpc.h",
+      "google/protobuf-c/protobuf.h",
+      "gsk/gsk.h",
+      "netinet/in.h",
+      "sys/socket.h",
+      "sys/stat.h",
+      "sys/time.h",
+      "sys/types.h",
+      "sys/un.h",
+      "alloca.h",
+      "endian.h",
+      "google/protobuf/stubs/common.h",
+      "inttypes.h",
+      "io.h",
+      "mach/endian.h",
+      "machine/endian.h",
+      "malloc.h",
+      "sys/poll.h",
+      "sys/select.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "ancient-libtool",
+    "vpath-unsafe (abs-path/hardcoded-srcdir leakage)"
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": 0,
+      "Makefile.in": 1080,
+      "aclocal.m4": 8,
+      "configure": 12,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_ENABLE": "system-aclocal",
+      "AC_ARG_WITH": "system-aclocal",
+      "AC_CHECK_HEADER": "system-aclocal",
+      "AC_CHECK_HEADERS": "system-aclocal",
+      "AC_DEFINE_UNQUOTED": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_LANG_POP": "system-aclocal",
+      "AC_LANG_PUSH": "system-aclocal",
+      "AC_MSG_CHECKING": "system-aclocal",
+      "AC_MSG_ERROR": "system-aclocal",
+      "AC_MSG_FAILURE": "system-aclocal",
+      "AC_MSG_RESULT": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PATH_PROG": "system-aclocal",
+      "AC_PROG_CC": "system-aclocal",
+      "AC_PROG_CXX": "system-aclocal",
+      "AC_PROG_LIBTOOL": "system-aclocal",
+      "AC_RUN_IFELSE": "system-aclocal",
+      "AC_TRY_COMPILE": "system-aclocal",
+      "AC_TRY_LINK": "system-aclocal",
+      "AM_CONDITIONAL": "system-aclocal",
+      "AM_INIT_AUTOMAKE": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
   }
 }

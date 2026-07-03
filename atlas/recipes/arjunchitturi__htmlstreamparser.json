@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.20",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -34,7 +34,12 @@
       "status": "ok"
     }
   ],
-  "probe_results": {},
+  "probe_results": {
+    "HAVE_MALLOC": 1,
+    "HAVE_MEMSET": 1,
+    "HAVE_STDLIB_H": 1,
+    "HAVE_STRING_H": 1
+  },
   "feature_flags": {
     "configure_args": []
   },
@@ -56,7 +61,7 @@
     },
     {
       "path": "src/.libs/libhtmlstreamparser.a",
-      "sha256": "ae3bdd8d418f05d1",
+      "sha256": "d4b65bb7c4570694",
       "kind": "library"
     },
     {
@@ -66,7 +71,7 @@
     },
     {
       "path": "src/.libs/libhtmlstreamparser.so",
-      "sha256": "2e748a913db4919a",
+      "sha256": "fb99ce14e2800dfd",
       "kind": "library"
     },
     {
@@ -76,12 +81,12 @@
     },
     {
       "path": "libtool",
-      "sha256": "1c6c3d50a729eb8e",
+      "sha256": "198b20e625bdd9f5",
       "kind": "executable"
     },
     {
       "path": "configure",
-      "sha256": "4e49dd25c36ad04b",
+      "sha256": "da61d9448fd3c1e1",
       "kind": "executable"
     },
     {
@@ -94,7 +99,7 @@
   "verified": true,
   "diagnostic": "",
   "deep_expansion": {
-    "configure_lines": 2494,
+    "configure_lines": 2527,
     "leaked_macros": [],
     "heredoc_openers": 20,
     "heredoc_terminators": 20,
@@ -102,7 +107,7 @@
     "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2018: do eval test \\${$as_var+y} \\"
+      "line 2050: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
@@ -126,15 +131,15 @@
       "DEFS",
       "LIBOBJS",
       "INSTALL",
+      "LD",
+      "AR",
       "top_srcdir",
       "top_builddir",
       "builddir",
       "abs_srcdir",
       "abs_builddir",
       "abs_top_srcdir",
-      "abs_top_builddir",
-      "AR",
-      "ARFLAGS"
+      "abs_top_builddir"
     ],
     "failed_during_check": "checking for memset... yes",
     "failure_tail": [
@@ -150,36 +155,43 @@
     "conftest_programs": [
       "#include <$ac_hdr>",
       "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { size_t x; return 0; }",
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar malloc();\\nint main() { return malloc(); }",
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func();\\nint main() { return $ac_func(); }"
-    ]
-  },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "ok",
-    "real_make": "ok",
-    "real_configure_lines": 16022,
-    "real_first_error": "",
-    "classification": "BOTH_OK",
-    "internal_traces": [
-      "libtoolize: putting auxiliary files in '.'.",
-      "libtoolize: copying file './ltmain.sh'",
-      "libtoolize: Consider adding 'AC_CONFIG_MACRO_DIRS([m4])' to configure.ac,",
-      "libtoolize: and rerunning libtoolize and aclocal.",
-      "libtoolize: Consider adding '-I m4' to ACLOCAL_AMFLAGS in Makefile.am.",
-      "configure.ac:7: installing './compile'",
-      "configure.ac:6: installing './missing'",
-      "src/Makefile.am: installing './depcomp'"
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar malloc ();\\nint main() { return malloc(); }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func ();\\nint main() { return $ac_func(); }"
     ]
   },
   "receipt": {
     "court_status": "quirk_dependent",
-    "probe_trace": [],
+    "probe_trace": [
+      {
+        "name": "HAVE_MALLOC",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_MEMSET",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STDLIB_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STRING_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      }
+    ],
     "quirks_matched": [
       "uses-libtool",
       "vendored-aclocal"
     ],
-    "receipt_hash": "987e99ac5b488834f6a1a088b6a607c887f3e7a52fe1734845a87ada344c4af6",
+    "receipt_hash": "6b44fa79de9b42b90e7e0fc38ecc6639296bd757e1cebf0c1d67523f355d9247",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -258,7 +270,7 @@
         "subdirs": [
           "src"
         ],
-        "sources_include_config_h": true,
+        "sources_include_config_h": false,
         "am_cppflags": "-I$(top_srcdir)/src"
       },
       {
@@ -280,7 +292,7 @@
         "path": "Makefile",
         "has_makefile_in": true,
         "has_makefile_am": true,
-        "lines": 818,
+        "lines": 522,
         "unexpanded_vars": [],
         "unexpanded_automake_tokens": [
           "$(am__"
@@ -291,7 +303,7 @@
         "path": "src/Makefile",
         "has_makefile_in": true,
         "has_makefile_am": true,
-        "lines": 672,
+        "lines": 497,
         "unexpanded_vars": [],
         "unexpanded_automake_tokens": [
           "$(am__"
@@ -324,10 +336,10 @@
     "unresolved_macros": []
   },
   "conditional_context": {
-    "configure_if": 892,
-    "configure_fi": 811,
-    "configure_case": 338,
-    "configure_esac": 325,
+    "configure_if": 98,
+    "configure_fi": 95,
+    "configure_case": 63,
+    "configure_esac": 66,
     "balanced": false,
     "automake_conditionals": []
   },
@@ -337,10 +349,11 @@
       "install-sh",
       "missing",
       "depcomp",
-      "compile",
       "ltmain.sh"
     ],
-    "missing": []
+    "missing": [
+      "compile"
+    ]
   },
   "language_surface": {
     "source_suffixes": {
@@ -360,59 +373,59 @@
       "LT_INIT"
     ],
     "ltmain_present": true,
-    "libtool_m4_sources": [
-      "aclocal.m4"
-    ],
+    "libtool_m4_sources": [],
     "age": "modern"
   },
   "make_graph": {
     "targets": [
       "all",
-      ".SUFFIXES",
-      "am--refresh",
-      "$(srcdir)/Makefile.in",
-      "Makefile",
-      "$(top_builddir)/config.status",
-      "$(top_srcdir)/configure",
-      "$(ACLOCAL_M4)",
-      "$(am__aclocal_m4_deps)",
-      "config.h",
-      "stamp-h1",
-      "$(srcdir)/config.h.in",
-      "distclean-hdr",
-      "mostlyclean-libtool",
-      "clean-libtool",
-      "distclean-libtool",
-      "$(am__recursive_targets)",
-      "ID",
-      "tags",
-      "TAGS",
-      "tags-am",
-      "ctags",
-      "CTAGS",
-      "ctags-am",
-      "GTAGS",
-      "cscope",
-      "clean-cscope",
-      "cscope.files",
-      "cscopelist",
-      "cscopelist-am",
-      "distclean-tags",
+      "all-am",
+      "install-am",
+      "installcheck-am",
+      "install-strip",
+      "install-info",
+      "install-info-am",
+      "install-dvi",
+      "install-dvi-am",
+      "install-ps",
+      "install-ps-am",
+      "install-pdf",
+      "install-pdf-am",
+      "install-html",
+      "install-html-am",
+      "install-data-hook",
+      "install-exec-hook",
+      "installdirs-am",
+      ".PHONY",
+      "mostlyclean-am",
+      "clean-am",
+      "distclean-am",
+      "maintainer-clean-am",
       "distdir",
-      "distdir-am",
+      "dist",
+      "dist-all",
       "dist-gzip",
-      "dist-bzip2",
-      "dist-lzip",
-      "dist-xz",
-      "dist-zstd",
-      "dist-tarZ",
-      "dist-shar"
+      "distcleancheck",
+      "distcheck",
+      "check-am",
+      "TAGS",
+      "tags",
+      "TAGS-am",
+      "tags-am",
+      "cscope",
+      "cscope-am",
+      "distuninstallcheck",
+      "$(srcdir)/Makefile.in",
+      "$(am__recursive_targets)",
+      "check"
     ],
     "key_variables": {
       "AR": "ar",
-      "CC": "gcc",
+      "CC": "cc",
       "CFLAGS": "-g -O2",
       "CPPFLAGS": "",
+      "CXX": "c++",
+      "CXXFLAGS": "-g -O2",
       "DEFS": "-DHAVE_CONFIG_H",
       "LDFLAGS": "",
       "LIBS": "",
@@ -428,7 +441,10 @@
     ],
     "recursion_depth": 1,
     "top_targets": [
-      "all"
+      "all",
+      "check",
+      "dist",
+      "all-am"
     ],
     "make_diagnostics": []
   },
@@ -455,8 +471,8 @@
     }
   ],
   "verification": {
-    "vs_gnu": "identical-status",
-    "output_match": "status-match"
+    "vs_gnu": "not-compared",
+    "output_match": "ours-built"
   },
   "feature_probe_gap": {
     "headers_checked": [
@@ -503,11 +519,11 @@
   ],
   "scenario_context": {
     "temporal_map": {
-      "Makefile.am": -3,
-      "Makefile.in": 4753,
-      "aclocal.m4": 4313,
-      "config.h.in": 4602,
-      "configure": 4469,
+      "Makefile.am": -2,
+      "Makefile.in": 985,
+      "aclocal.m4": 6,
+      "config.h.in": 10,
+      "configure": 9,
       "configure.ac": 0
     },
     "m4_ancestry": {

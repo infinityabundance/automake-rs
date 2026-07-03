@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "FrodeSolheim/fs-uae",
   "source": {
     "url": "https://github.com/FrodeSolheim/fs-uae",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.14",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,11 +26,11 @@
     {
       "step": "configure",
       "tool": "./configure",
-      "status": "fail"
+      "status": "ok"
     },
     {
-      "step": "auto-quirk",
-      "tool": "quirk-engine",
+      "step": "make",
+      "tool": "make",
       "status": "fail"
     }
   ],
@@ -39,10 +39,16 @@
     "configure_args": []
   },
   "dependencies": {
-    "pkg_config": [],
+    "pkg_config": [
+      "checking for glib-2.0 >= 2.32 gthread-2.0... yes"
+    ],
     "system_libs": [],
-    "headers_needed": [],
-    "missing": []
+    "headers_needed": [
+      "SDL3/SDL.h"
+    ],
+    "missing": [
+      "SDL3/SDL.h"
+    ]
   },
   "quirks": [
     "autoconf-archive-macros",
@@ -51,142 +57,75 @@
     "subdirs"
   ],
   "outputs": [],
-  "status": "CONFIGURE_RUN_FAIL",
+  "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1650: syntax error near unexpected token `-no-pie,'",
+  "diagnostic": "./od-fs/FS/FS.h:4:10: fatal error: SDL3/SDL.h: No such file or directory",
   "deep_expansion": {
-    "configure_lines": 5795,
-    "leaked_macros": [
-      {
-        "name": "AX_CHECK_LINK_FLAG",
-        "line": 1650,
-        "context": "AX_CHECK_LINK_FLAG(-no-pie,"
-      },
-      {
-        "name": "AX_GCC_BUILTIN",
-        "line": 2186,
-        "context": "AX_GCC_BUILTIN(__builtin_bswap16)"
-      },
-      {
-        "name": "AX_GCC_BUILTIN",
-        "line": 2187,
-        "context": "AX_GCC_BUILTIN(__builtin_bswap32)"
-      },
-      {
-        "name": "AX_GCC_BUILTIN",
-        "line": 2188,
-        "context": "AX_GCC_BUILTIN(__builtin_bswap64)"
-      },
-      {
-        "name": "AX_GCC_BUILTIN",
-        "line": 2189,
-        "context": "AX_GCC_BUILTIN(__builtin_expect)"
-      },
-      {
-        "name": "AX_GCC_FUNC_ATTRIBUTE",
-        "line": 2624,
-        "context": "AX_GCC_FUNC_ATTRIBUTE(always_inline)"
-      },
-      {
-        "name": "AX_GCC_FUNC_ATTRIBUTE",
-        "line": 2625,
-        "context": "AX_GCC_FUNC_ATTRIBUTE(fastcall)"
-      },
-      {
-        "name": "AX_GCC_FUNC_ATTRIBUTE",
-        "line": 2626,
-        "context": "AX_GCC_FUNC_ATTRIBUTE(format)"
-      },
-      {
-        "name": "AX_GCC_FUNC_ATTRIBUTE",
-        "line": 2627,
-        "context": "AX_GCC_FUNC_ATTRIBUTE(noinline)"
-      },
-      {
-        "name": "AX_GCC_FUNC_ATTRIBUTE",
-        "line": 2628,
-        "context": "AX_GCC_FUNC_ATTRIBUTE(noreturn)"
-      },
-      {
-        "name": "AX_GCC_FUNC_ATTRIBUTE",
-        "line": 2629,
-        "context": "AX_GCC_FUNC_ATTRIBUTE(regparm)"
-      },
-      {
-        "name": "AX_GCC_FUNC_ATTRIBUTE",
-        "line": 2630,
-        "context": "AX_GCC_FUNC_ATTRIBUTE(unused)"
-      },
-      {
-        "name": "AX_GCC_VAR_ATTRIBUTE",
-        "line": 2632,
-        "context": "AX_GCC_VAR_ATTRIBUTE(unused)"
-      }
-    ],
-    "heredoc_openers": 165,
-    "heredoc_terminators": 165,
+    "configure_lines": 7610,
+    "leaked_macros": [],
+    "heredoc_openers": 159,
+    "heredoc_terminators": 159,
     "heredoc_imbalance": 0,
-    "syntax_errors": [
-      {
-        "line": 1650,
-        "token": "-no-pie,",
-        "source": "AX_CHECK_LINK_FLAG(-no-pie,",
-        "block": [
-          "1646: ",
-          "1647: ",
-          "1648: ",
-          "1649: ",
-          "1650: AX_CHECK_LINK_FLAG(-no-pie,",
-          "1651: no_pie=yes,",
-          "1652: no_pie=no)",
-          "1653: "
-        ]
-      }
-    ],
+    "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 5293: do eval test \\${$as_var+y} \\"
+      "line 1407: # eval \"_acrs_sv=\\${}\"; printf '%s\\n' \"s|@@|${_acrs_sv}|g\" >",
+      "line 7107: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
+      "PACKAGE_VERSION_MAJOR",
+      "PACKAGE_VERSION_MINOR",
+      "PACKAGE_VERSION_SUBMINOR",
+      "PACKAGE_SERIES",
+      "PACKAGE_MAJOR",
+      "PACKAGE_MINOR",
+      "PACKAGE_REVISION",
       "PKG_CONFIG",
       "PTHREAD_CC",
       "PTHREAD_CFLAGS",
       "PTHREAD_LIBS",
-      "PACKAGE_NAME",
-      "PACKAGE_TARNAME",
-      "PACKAGE_VERSION",
-      "PACKAGE_STRING",
-      "PACKAGE_BUGREPORT"
+      "STATIC_BUILD_TRUE",
+      "STATIC_BUILD_FALSE",
+      "PORTABLE_MODE_TRUE",
+      "PORTABLE_MODE_FALSE",
+      "SHARE_DIR_NAME",
+      "F_NO_STRICT_OVERFLOW_TRUE",
+      "F_NO_STRICT_OVERFLOW_FALSE",
+      "F_NO_STRICT_ALIASING_TRUE",
+      "F_NO_STRICT_ALIASING_FALSE",
+      "W_MISSING_DECLARATIONS_TRUE",
+      "W_MISSING_DECLARATIONS_FALSE",
+      "W_POINTER_ARITH_TRUE",
+      "W_POINTER_ARITH_FALSE",
+      "W_ERROR_MISSING_DECLARATIONS_TRUE",
+      "W_ERROR_MISSING_DECLARATIONS_FALSE",
+      "W_NO_FORMAT_TRUNCATION_TRUE",
+      "W_NO_FORMAT_TRUNCATION_FALSE",
+      "W_ADDRESS_TRUE"
     ],
-    "failed_during_check": "checking for 64-bit off_t... yes",
+    "failed_during_check": "checking size of void *... 0",
     "failure_tail": [
-      "checking for 64-bit off_t... yes",
-      "./configure: line 1650: syntax error near unexpected token `-no-pie,'",
-      "./configure: line 1650: `AX_CHECK_LINK_FLAG(-no-pie,'"
+      "checking size of void *... 0",
+      "./configure: line 4811: test: : integer expression expected",
+      "./configure: line 4822: test: : integer expression expected",
+      "configure: creating Makefile",
+      "configure: creating od-fs/macos/Info.plist"
     ],
     "conftest_corruption": [],
-    "conftest_directives_intact": 243,
+    "conftest_directives_intact": 230,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
       "#include <sys/types.h>\\nint main() { return sizeof(off_t) >= 8 ? 0 : 1; }",
-      "char ftime();\\nint main() { return ftime(); }",
-      "char dlopen();\\nint main() { return dlopen(); }",
-      "char floor();\\nint main() { return floor(); }",
-      "char Pm_Initialize();\\nint main() { return Pm_Initialize(); }",
-      "#include <$ac_hdr>"
+      "char ftime ();\\nint main() { return ftime(); }",
+      "char dlopen ();\\nint main() { return dlopen(); }",
+      "char floor ();\\nint main() { return floor(); }",
+      "\\nint main() { return main(); }",
+      "char Pm_Initialize ();\\nint main() { return Pm_Initialize(); }"
     ]
   },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "fail",
-    "real_make": "skipped",
-    "real_configure_lines": 18821,
-    "real_first_error": "configure: error: Package requirements (libmpeg2 libmpeg2convert) were not met:",
-    "classification": "BOTH_CONFIGURE_FAIL"
-  },
   "receipt": {
-    "court_status": "not_standalone",
+    "court_status": "partial",
     "probe_trace": [],
     "quirks_matched": [
       "uses-libtool-old",
@@ -197,14 +136,7 @@
       "uses-ax-archive",
       "uses-pthread-check"
     ],
-    "quirks_applied": [
-      {
-        "id": "uses-subdir-objects",
-        "action": "--disable-dependency-tracking",
-        "verified": false
-      }
-    ],
-    "receipt_hash": "1b59d07d0a20a927a52050673c57d051c46cf0669ffc84ae54f67e19a8cf7afb",
+    "receipt_hash": "fc222e24136e1c7565f3970366c0a81d4ec04fa5491250e780188ba2805c06fb",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -213,6 +145,823 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "od-fs/macos/Info.plist",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "od-fs/windows/fs-uae.rc",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      }
+    ],
+    "config_headers": [
+      "od-fs/config.h"
+    ],
+    "subdirs": [],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [
+          "fs-uae"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(srcdir)/od-fs/libudis86/include"
+      }
+    ],
+    "max_depth": 2,
+    "config_h_consumers_below_root": []
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1432,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "mame/3rdparty/utf8proc/Makefile",
+        "has_makefile_in": false,
+        "has_makefile_am": false,
+        "lines": 198,
+        "first_parse_error": {
+          "line": 4,
+          "kind": "missing-separator",
+          "text": "AR?=ar",
+          "previous_lines": [
+            "",
+            "# programs"
+          ],
+          "probable_cause": "shell-fragment-in-make"
+        },
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "mame/3rdparty/utf8proc/data/Makefile",
+        "has_makefile_in": false,
+        "has_makefile_am": false,
+        "lines": 63,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "mame/3rdparty/utf8proc/bench/Makefile",
+        "has_makefile_in": false,
+        "has_makefile_am": false,
+        "lines": 40,
+        "first_parse_error": {
+          "line": 4,
+          "kind": "missing-separator",
+          "text": "CFLAGS ?= -O2",
+          "previous_lines": [
+            "",
+            "CC = cc"
+          ],
+          "probable_cause": "shell-fragment-in-make"
+        },
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "docs/Makefile",
+        "has_makefile_in": false,
+        "has_makefile_am": false,
+        "lines": 3,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "od-fs/Makefile",
+        "has_makefile_in": false,
+        "has_makefile_am": false,
+        "lines": 108,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "od-fs/test/Makefile",
+        "has_makefile_in": false,
+        "has_makefile_am": false,
+        "lines": 2,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "od-fs/slirp/Makefile",
+        "has_makefile_in": false,
+        "has_makefile_am": false,
+        "lines": 62,
+        "first_parse_error": {
+          "line": 2,
+          "kind": "missing-separator",
+          "text": "BUILD_DIR ?= .",
+          "previous_lines": [
+            "ROOT_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))"
+          ],
+          "probable_cause": "shell-fragment-in-make"
+        },
+        "unexpanded_vars": [
+          "@SLIRP_MAJOR_VERSION@",
+          "@SLIRP_MINOR_VERSION@",
+          "@SLIRP_MICRO_VERSION@",
+          "@SLIRP_VERSION_STRING@"
+        ],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      }
+    ]
+  },
+  "tool_requirements": {
+    "detected": [
+      "python",
+      "c++",
+      "ar"
+    ],
+    "missing": []
+  },
+  "macro_inventory": {
+    "macro_dirs": [],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [],
+    "called_macros": [
+      "AC_ARG_ENABLE",
+      "AC_ARG_WITH",
+      "AC_CANONICAL_HOST",
+      "AC_CHECK_DECLS",
+      "AC_CHECK_FUNC",
+      "AC_CHECK_FUNCS",
+      "AC_CHECK_HEADERS",
+      "AC_CHECK_HEADER_STDBOOL",
+      "AC_CHECK_LIB",
+      "AC_CHECK_MEMBERS",
+      "AC_CHECK_SIZEOF",
+      "AC_CHECK_TOOL",
+      "AC_CHECK_TYPES",
+      "AC_COMPILE_IFELSE",
+      "AC_CONFIG_AUX_DIR",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_HEADERS",
+      "AC_CONFIG_MACRO_DIRS",
+      "AC_CONFIG_SRCDIR",
+      "AC_C_BIGENDIAN",
+      "AC_C_CONST",
+      "AC_C_INLINE",
+      "AC_C_RESTRICT",
+      "AC_C_VOLATILE",
+      "AC_DEFINE",
+      "AC_DEFINE_UNQUOTED",
+      "AC_DEFUN",
+      "AC_FUNC_ALLOCA",
+      "AC_FUNC_CHOWN",
+      "AC_FUNC_ERROR_AT_LINE",
+      "AC_FUNC_FORK",
+      "AC_FUNC_FSEEKO",
+      "AC_FUNC_MKTIME",
+      "AC_FUNC_MMAP",
+      "AC_FUNC_REALLOC",
+      "AC_FUNC_STRCOLL",
+      "AC_FUNC_STRTOD",
+      "AC_INIT",
+      "AC_LANG_PROGRAM",
+      "AC_LINK_IFELSE",
+      "AC_LTDL_SHLIBEXT",
+      "AC_MSG_CHECKING",
+      "AC_MSG_ERROR",
+      "AC_MSG_FAILURE",
+      "AC_MSG_NOTICE",
+      "AC_MSG_RESULT",
+      "AC_OUTPUT",
+      "AC_PATH_PROG",
+      "AC_PATH_TOOL",
+      "AC_PREREQ",
+      "AC_PROG_CC",
+      "AC_PROG_CPP",
+      "AC_PROG_CXX",
+      "AC_PROG_INSTALL",
+      "AC_PROG_LIBTOOL",
+      "AC_PROG_LN_S",
+      "AC_PROG_MAKE_SET",
+      "AC_PROG_RANLIB",
+      "AC_STRUCT_ST_BLOCKS",
+      "AC_SUBST"
+    ],
+    "unresolved_macros": [
+      "AX_CHECK_COMPILE_FLAG",
+      "AX_CHECK_LINK_FLAG",
+      "AX_GCC_BUILTIN",
+      "AX_GCC_FUNC_ATTRIBUTE",
+      "AX_GCC_VAR_ATTRIBUTE",
+      "AX_PTHREAD"
+    ]
+  },
+  "conditional_context": {
+    "configure_if": 494,
+    "configure_fi": 487,
+    "configure_case": 74,
+    "configure_esac": 77,
+    "balanced": false,
+    "automake_conditionals": [
+      "F_NO_STRICT_OVERFLOW",
+      "F_NO_STRICT_ALIASING",
+      "W_MISSING_DECLARATIONS",
+      "W_POINTER_ARITH",
+      "W_ERROR_MISSING_DECLARATIONS",
+      "W_NO_FORMAT_TRUNCATION",
+      "W_ADDRESS",
+      "W_MISSING_FORMAT_ATTRIBUTE",
+      "W_FORMAT_OVERFLOW",
+      "W_CPP11_NARROWING",
+      "FNO_PIE",
+      "FNO_PIE_CAP",
+      "NO_PIE",
+      "WL_TDATA",
+      "WITH_GLAD",
+      "WITH_LIBMPEG2",
+      "BUILTIN_MANYMOUSE",
+      "LINUX",
+      "MACOS",
+      "WINDOWS",
+      "IS_64BIT",
+      "JIT",
+      "WITH_X86"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": "od-fs/build/build-aux",
+    "present": [
+      "install-sh",
+      "missing",
+      "depcomp",
+      "compile"
+    ],
+    "missing": [
+      "ltmain.sh",
+      "config.guess",
+      "config.sub"
+    ]
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "S": 6,
+      "c": 403,
+      "cpp": 476,
+      "h": 824,
+      "s": 1
+    },
+    "configure_macros": [
+      "AC_PROG_CC",
+      "AC_PROG_CXX"
+    ],
+    "needs_cxx": true,
+    "needs_fortran": false,
+    "sets_c_std": false
+  },
+  "libtool_context": {
+    "uses_libtool": true,
+    "macros": [
+      "AC_PROG_LIBTOOL"
+    ],
+    "ltmain_present": false,
+    "libtool_m4_sources": [],
+    "age": "old"
+  },
+  "make_graph": {
+    "targets": [
+      "all",
+      "all-am",
+      "$(am__depfiles_remade)",
+      "am--depfiles",
+      "install-exec-am",
+      "uninstall-am",
+      "libuae.a",
+      "libarchivers.a",
+      "libcpuemu.a",
+      "libjit.a",
+      "libfsemu0.a",
+      "libfsemu.a",
+      "libglad.a",
+      "libpcem.a",
+      "libprowizard.a",
+      "libslirp.a",
+      "libsoftfloat.a",
+      "libudis86.a",
+      "install-data-am",
+      "install",
+      "install-am",
+      "installcheck",
+      "install-strip",
+      "install-info",
+      "install-info-am",
+      "install-dvi",
+      "install-dvi-am",
+      "install-ps",
+      "install-ps-am",
+      "install-pdf",
+      "install-pdf-am",
+      "install-html",
+      "install-html-am",
+      "install-data-hook",
+      "install-exec-hook",
+      "installdirs",
+      "installdirs-am",
+      ".PHONY",
+      "mostlyclean-am",
+      "clean-am"
+    ],
+    "key_variables": {
+      "AR": "ar",
+      "CC": "cc",
+      "CFLAGS": "-g -O2",
+      "CPPFLAGS": "-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGE_FILES",
+      "CXX": "g++",
+      "CXXFLAGS": "-g -O2",
+      "DEFAULT_INCLUDES": "-I. -I$(top_builddir)",
+      "DEFS": "-DHAVE_CONFIG_H",
+      "LDFLAGS": "",
+      "LIBS": "",
+      "RANLIB": "ranlib"
+    },
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "config.log"
+    ],
+    "recursion_depth": 2,
+    "top_targets": [
+      "all",
+      "install",
+      "all-am"
+    ],
+    "make_diagnostics": [
+      {
+        "command": "",
+        "error_type": "missing-header",
+        "message": "./od-fs/FS/FS.h:4:10: fatal error: SDL3/SDL.h: No such file or directory"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[2]: *** [Makefile:1398: od-fs/FS/FS.o] Error 1"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[2]: *** Waiting for unfinished jobs...."
+      },
+      {
+        "command": "",
+        "error_type": "missing-header",
+        "message": "od-fs/fsapp/fsapp-channel.c:4:10: fatal error: SDL3/SDL.h: No such file or directory"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[2]: *** [Makefile:1398: od-fs/fsapp/fsapp-channel.o] Error 1"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[1]: *** [Makefile:827: all-am] Error 2"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make: *** [Makefile:824: all] Error 2"
+      }
+    ]
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": true,
+    "defines_sampled": [
+      "_FILE_OFFSET_BITS=64",
+      "_LARGEFILE_SOURCE",
+      "_LARGE_FILES",
+      "HAVE_CONFIG_H",
+      "LINUX",
+      "UAE",
+      "FSUAE",
+      "FSEMU",
+      "PTR64",
+      "_7ZIP_ST",
+      "Z7_ST",
+      "UNICODE",
+      "_UNICODE"
+    ]
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-libtool-old",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-pkg-config",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-python",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-subdir-objects",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-ax-archive",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-pthread-check",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "vpath_analysis": {
+    "hardcoded_src_paths": 1,
+    "abs_path_leakage": 0,
+    "built_sources": [
+      "$(nodist__libs_libuae_a_SOURCES)"
+    ],
+    "generated_source_targets": []
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "AL/al.h",
+      "AL/alc.h",
+      "OpenAL/al.h",
+      "OpenAL/alc.h",
+      "arpa/inet.h",
+      "byteswap.h",
+      "dlfcn.h",
+      "endian.h",
+      "fcntl.h",
+      "fenv.h",
+      "float.h",
+      "inttypes.h",
+      "libkern/OSByteOrder.h",
+      "limits.h",
+      "locale.h",
+      "malloc.h",
+      "netdb.h",
+      "netinet/in.h",
+      "portmidi.h",
+      "porttime.h",
+      "stddef.h",
+      "stdint.h",
+      "stdlib.h",
+      "string.h",
+      "strings.h",
+      "sys/endian.h",
+      "sys/filsys.h",
+      "sys/fs/s5param.h",
+      "sys/ioctl.h",
+      "sys/ipc.h",
+      "sys/mman.h",
+      "sys/mount.h",
+      "sys/param.h",
+      "sys/socket.h",
+      "sys/statfs.h",
+      "sys/statvfs.h",
+      "sys/time.h",
+      "sys/timeb.h",
+      "sys/vfs.h",
+      "termios.h"
+    ],
+    "headers_included_unchecked": [
+      "FLAC/all.h",
+      "Ghostscript/iapi.h",
+      "Ghostscript/ierrors.h",
+      "SDL3/SDL.h",
+      "android/log.h",
+      "dos/dos.h",
+      "exec/types.h",
+      "fs/base.h",
+      "fs/data.h",
+      "fs/emu/render.h",
+      "fs/filesys.h",
+      "fs/glib.h",
+      "fs/inifile.h",
+      "fs/init.h",
+      "fs/lazyness.h",
+      "fs/ml/opengl.h",
+      "fs/thread.h",
+      "fs/time.h",
+      "fs/util.h",
+      "gdk/gdk.h",
+      "glad/glad.h",
+      "glib/gstdio.h",
+      "gtk/gtk.h",
+      "hw/hw.h",
+      "linux/cdrom.h"
+    ],
+    "implicit_link_libs": [
+      "-lshlwapi",
+      "-lwininet"
+    ]
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 4,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "gnu++",
+    "strip_modern_poison_flags": [],
+    "inject_legacy_shims": false,
+    "compiler_aliasing": {}
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 0,
+    "shadowed_builtins": [],
+    "permitted_mutations": 11,
+    "suspect_global_mutations": 0
+  },
+  "parallel_build_safety": {
+    "vpath_out_of_tree_safe": true,
+    "generators": [],
+    "unordered_generated_sources": [],
+    "built_sources_declared": true
+  },
+  "host_environment_veil": {
+    "header_injection_candidates": [
+      "malloc.h",
+      "sys/timeb.h"
+    ],
+    "symbol_aliasing_candidates": []
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "FLAC/all.h",
+      "Ghostscript/iapi.h",
+      "Ghostscript/ierrors.h",
+      "SDL3/SDL.h",
+      "android/log.h",
+      "dos/dos.h",
+      "exec/types.h",
+      "fs/base.h",
+      "fs/data.h",
+      "fs/emu/render.h",
+      "fs/filesys.h",
+      "fs/glib.h",
+      "fs/inifile.h",
+      "fs/init.h",
+      "fs/lazyness.h",
+      "fs/ml/opengl.h",
+      "fs/thread.h",
+      "fs/time.h",
+      "fs/util.h",
+      "gdk/gdk.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "unresolved-macros",
+    "ancient-libtool"
+  ],
+  "repair_hints": [
+    {
+      "id": "makefile-shell-fragment-in-make",
+      "phase": "make",
+      "confidence": 0.5,
+      "evidence": [
+        "mame/3rdparty/utf8proc/Makefile:4 missing-separator",
+        "AR?=ar"
+      ],
+      "action": "classify-shell-fragment-in-make",
+      "expected_effect": "partial -> FUNC_OK candidate"
+    },
+    {
+      "id": "makefile-shell-fragment-in-make",
+      "phase": "make",
+      "confidence": 0.5,
+      "evidence": [
+        "mame/3rdparty/utf8proc/bench/Makefile:4 missing-separator",
+        "CFLAGS ?= -O2"
+      ],
+      "action": "classify-shell-fragment-in-make",
+      "expected_effect": "partial -> FUNC_OK candidate"
+    },
+    {
+      "id": "makefile-shell-fragment-in-make",
+      "phase": "make",
+      "confidence": 0.5,
+      "evidence": [
+        "od-fs/slirp/Makefile:2 missing-separator",
+        "BUILD_DIR ?= ."
+      ],
+      "action": "classify-shell-fragment-in-make",
+      "expected_effect": "partial -> FUNC_OK candidate"
+    },
+    {
+      "id": "unexpanded-makefile-vars",
+      "phase": "make",
+      "confidence": 0.8,
+      "evidence": [
+        "@SLIRP_MAJOR_VERSION@",
+        "@SLIRP_MINOR_VERSION@",
+        "@SLIRP_MICRO_VERSION@",
+        "@SLIRP_VERSION_STRING@"
+      ],
+      "action": "add these to STD_VAR_SED / AC_SUBST handling",
+      "expected_effect": "removes raw @VAR@ from Makefile"
+    },
+    {
+      "id": "ship-or-neutralize-macro",
+      "phase": "autoreconf",
+      "confidence": 0.6,
+      "evidence": [
+        "AX_CHECK_COMPILE_FLAG",
+        "AX_CHECK_LINK_FLAG",
+        "AX_GCC_BUILTIN",
+        "AX_GCC_FUNC_ATTRIBUTE",
+        "AX_GCC_VAR_ATTRIBUTE"
+      ],
+      "action": "ship native impl or neutralize",
+      "expected_effect": "resolves unexpanded AX_/custom macros"
+    }
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": -12,
+      "Makefile.in": 1877,
+      "aclocal.m4": 143,
+      "configure": 161,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_ENABLE": "system-aclocal",
+      "AC_ARG_WITH": "system-aclocal",
+      "AC_CANONICAL_HOST": "system-aclocal",
+      "AC_CHECK_DECLS": "system-aclocal",
+      "AC_CHECK_FUNC": "system-aclocal",
+      "AC_CHECK_FUNCS": "system-aclocal",
+      "AC_CHECK_HEADERS": "system-aclocal",
+      "AC_CHECK_HEADER_STDBOOL": "system-aclocal",
+      "AC_CHECK_LIB": "system-aclocal",
+      "AC_CHECK_MEMBERS": "system-aclocal",
+      "AC_CHECK_SIZEOF": "system-aclocal",
+      "AC_CHECK_TOOL": "system-aclocal",
+      "AC_CHECK_TYPES": "system-aclocal",
+      "AC_COMPILE_IFELSE": "system-aclocal",
+      "AC_CONFIG_AUX_DIR": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_HEADERS": "system-aclocal",
+      "AC_CONFIG_MACRO_DIRS": "system-aclocal",
+      "AC_CONFIG_SRCDIR": "system-aclocal",
+      "AC_C_BIGENDIAN": "system-aclocal",
+      "AC_C_CONST": "system-aclocal",
+      "AC_C_INLINE": "system-aclocal",
+      "AC_C_RESTRICT": "system-aclocal",
+      "AC_C_VOLATILE": "system-aclocal",
+      "AC_DEFINE": "system-aclocal",
+      "AC_DEFINE_UNQUOTED": "system-aclocal",
+      "AC_DEFUN": "system-aclocal",
+      "AC_FUNC_ALLOCA": "system-aclocal",
+      "AC_FUNC_CHOWN": "system-aclocal",
+      "AC_FUNC_ERROR_AT_LINE": "system-aclocal",
+      "AC_FUNC_FORK": "system-aclocal",
+      "AC_FUNC_FSEEKO": "system-aclocal",
+      "AC_FUNC_MKTIME": "system-aclocal",
+      "AC_FUNC_MMAP": "system-aclocal",
+      "AC_FUNC_REALLOC": "system-aclocal",
+      "AC_FUNC_STRCOLL": "system-aclocal",
+      "AC_FUNC_STRTOD": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_LANG_PROGRAM": "system-aclocal",
+      "AC_LINK_IFELSE": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "BUILT_SOURCES",
+        "var": "nodist__libs_libuae_a_SOURCES",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "#BUILT_SOURCES",
+        "var": "nodist_src_libcpuemu_a_SOURCES",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libfsemu_a_SOURCES",
+        "var": "fsemu_data_files",
+        "resolved_to": [],
+        "resolved": true
+      },
+      {
+        "primary": "fs_uae_LDADD",
+        "var": "PTHREAD_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "#BUILT_SOURCES",
+        "var": "nodist_libdummy_a_SOURCES",
+        "resolved_to": [],
+        "resolved": false
+      }
+    ],
+    "unresolved_refs": [
+      "BUILT_SOURCES = $(nodist__libs_libuae_a_SOURCES)",
+      "#BUILT_SOURCES = $(nodist_src_libcpuemu_a_SOURCES)",
+      "fs_uae_LDADD = $(PTHREAD_LIBS)",
+      "#BUILT_SOURCES = $(nodist_libdummy_a_SOURCES)"
+    ],
+    "indirection_count": 5
   }
 }

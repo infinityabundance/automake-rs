@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "hermansr/psid64",
   "source": {
     "url": "https://github.com/hermansr/psid64",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -51,36 +51,38 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1450: AX_FUNC_MKDIR: command not found",
+  "diagnostic": "./configure: line 1478: AX_FUNC_MKDIR: command not found",
   "deep_expansion": {
-    "configure_lines": 2622,
+    "configure_lines": 2713,
     "leaked_macros": [],
     "heredoc_openers": 30,
     "heredoc_terminators": 30,
     "heredoc_imbalance": 0,
     "syntax_errors": [
       {
-        "line": 1463,
+        "line": 1496,
         "token": "SID_HAVE_STDBOOL_H",
         "source": "MY_SUBST_DEF(SID_HAVE_STDBOOL_H)",
         "block": [
-          "1459: else",
-          "1460:   printf '%s\\n' \"no\"",
-          "1461: fi; done",
-          "1462: if test \"$ac_cv_header_stdbool_h\" = yes; then",
-          "1463:     MY_SUBST_DEF(SID_HAVE_STDBOOL_H)",
-          "1464: else",
-          "1465:     MY_SUBST_UNDEF(SID_HAVE_STDBOOL_H)",
-          "1466: fi"
+          "1492:   printf '%s\\n' \"no\"",
+          "1493: fi",
+          "1494: done",
+          "1495: if test \"$ac_cv_header_stdbool_h\" = yes; then",
+          "1496:     MY_SUBST_DEF(SID_HAVE_STDBOOL_H)",
+          "1497: else",
+          "1498:     MY_SUBST_UNDEF(SID_HAVE_STDBOOL_H)",
+          "1499: fi"
         ]
       }
     ],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2146: do eval test \\${$as_var+y} \\"
+      "line 2236: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
+      "WARNINGCFLAGS",
+      "WARNINGCXXFLAGS",
       "PACKAGE_NAME",
       "PACKAGE_TARNAME",
       "PACKAGE_VERSION",
@@ -101,44 +103,31 @@
       "DEFS",
       "LIBOBJS",
       "INSTALL",
-      "WARNINGCFLAGS",
-      "WARNINGCXXFLAGS"
+      "LD",
+      "AR",
+      "top_srcdir",
+      "top_builddir",
+      "builddir",
+      "abs_srcdir",
+      "abs_builddir"
     ],
     "failed_during_check": "checking for stdbool.h... no",
     "failure_tail": [
       "checking for stdbool.h... no",
-      "./configure: line 1463: syntax error near unexpected token `SID_HAVE_STDBOOL_H'",
-      "./configure: line 1463: `    MY_SUBST_DEF(SID_HAVE_STDBOOL_H)'"
+      "./configure: line 1496: syntax error near unexpected token `SID_HAVE_STDBOOL_H'",
+      "./configure: line 1496: `    MY_SUBST_DEF(SID_HAVE_STDBOOL_H)'"
     ],
     "conftest_corruption": [],
-    "conftest_directives_intact": 27,
+    "conftest_directives_intact": 31,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
       "#include <$ac_hdr>",
       "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { size_t x; return 0; }",
       "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { uint16_t x; return 0; }",
       "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { uint8_t x; return 0; }",
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar memcmp();\\nint main() { return memcmp(); }",
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar lstat();\\nint main() { return lstat(); }"
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar memcmp ();\\nint main() { return memcmp(); }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar lstat ();\\nint main() { return lstat(); }"
     ]
-  },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "ok",
-    "real_make": "ok",
-    "real_configure_lines": 9323,
-    "real_first_error": "",
-    "classification": "OURS_BUG_CONFIGURE"
-  },
-  "divergence": {
-    "stage": "configure",
-    "ours_error": "line 1463: MY_SUBST_DEF(SID_HAVE_STDBOOL_H) (near `SID_HAVE_STDBOOL_H`)",
-    "ours_error_context": [
-      "MY_SUBST_DEF(SID_HAVE_STDBOOL_H)"
-    ],
-    "ours_configure_lines": 2622,
-    "real_configure_lines": 9323,
-    "macros_ours_left_undefined": []
   },
   "receipt": {
     "court_status": "failed",
@@ -155,7 +144,7 @@
         "verified": false
       }
     ],
-    "receipt_hash": "24e39ed3178d433d21c1340a6407fda16d8349c27724819539e8175382940e80",
+    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -164,6 +153,520 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "include/sidplay/sidconfig.h",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "psid64.spec",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "src/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "src/libpsid64/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/sidtune/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/sidutils/MD5/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/sidutils/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/sidutils/ini/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      }
+    ],
+    "config_headers": [
+      "src/config.h"
+    ],
+    "subdirs": [
+      "src",
+      "libpsid64",
+      "sidtune",
+      "sidutils",
+      "MD5",
+      "ini"
+    ],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [],
+        "subdirs": [
+          "src"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src",
+        "targets": [
+          "psid64"
+        ],
+        "subdirs": [
+          "libpsid64",
+          "sidtune",
+          "sidutils"
+        ],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/libpsid64",
+        "targets": [
+          "libpsid64.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/sidtune",
+        "targets": [
+          "libsidtune.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/sidutils",
+        "targets": [
+          "libsidutils.a"
+        ],
+        "subdirs": [
+          "MD5",
+          "ini"
+        ],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/sidutils/MD5",
+        "targets": [
+          "libMD5.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/sidutils/ini",
+        "targets": [
+          "libini.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      }
+    ],
+    "max_depth": 3,
+    "config_h_consumers_below_root": [
+      "src/sidtune",
+      "src/libpsid64",
+      "src/sidutils",
+      "src/sidutils/MD5",
+      "src/sidutils/ini"
+    ]
+  },
+  "tool_requirements": {
+    "detected": [
+      "c++"
+    ],
+    "missing": [
+      {
+        "name": "AX_FUNC_MKDIR",
+        "phase": "make",
+        "suggested_package": ""
+      }
+    ]
+  },
+  "macro_inventory": {
+    "macro_dirs": [
+      "macros"
+    ],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [
+      {
+        "name": "AX_FUNC_MKDIR",
+        "source": "macros/ax_func_mkdir.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "MY_SUBST_DEF",
+        "source": "macros/sidtune.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "MY_SUBST_UNDEF",
+        "source": "macros/sidtune.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "MY_SUBST",
+        "source": "macros/sidtune.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "MY_CHECK_BOOL",
+        "source": "macros/sidtune.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "MY_CHECK_IOS_BIN",
+        "source": "macros/sidtune.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "MY_CHECK_IOS_OPENMODE",
+        "source": "macros/sidtune.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "MY_CHECK_EXCEPTIONS",
+        "source": "macros/sidtune.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AX_CHECK_DATA_MODEL",
+        "source": "macros/ax_create_stdint_h.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AX_CHECK_HEADER_STDINT_X",
+        "source": "macros/ax_create_stdint_h.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AX_CHECK_HEADER_STDINT_O",
+        "source": "macros/ax_create_stdint_h.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AX_CHECK_HEADER_STDINT_U",
+        "source": "macros/ax_create_stdint_h.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AX_CREATE_STDINT_H",
+        "source": "macros/ax_create_stdint_h.m4",
+        "kind": "AX"
+      }
+    ],
+    "called_macros": [
+      "AC_CHECK_FUNCS",
+      "AC_CHECK_HEADER",
+      "AC_CHECK_HEADERS",
+      "AC_CHECK_HEADER_STDBOOL",
+      "AC_CHECK_SIZEOF",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_HEADERS",
+      "AC_CONFIG_MACRO_DIRS",
+      "AC_CONFIG_SRCDIR",
+      "AC_C_BIGENDIAN",
+      "AC_C_CONST",
+      "AC_C_INLINE",
+      "AC_DEFINE",
+      "AC_FUNC_LSTAT_FOLLOWS_SLASHED_SYMLINK",
+      "AC_FUNC_MEMCMP",
+      "AC_INIT",
+      "AC_LANG",
+      "AC_OUTPUT",
+      "AC_PROG_CXX",
+      "AC_PROG_INSTALL",
+      "AC_PROG_LN_S",
+      "AC_PROG_RANLIB",
+      "AC_SUBST",
+      "AC_TYPE_SIZE_T",
+      "AC_TYPE_UINT16_T",
+      "AC_TYPE_UINT8_T",
+      "AM_INIT_AUTOMAKE",
+      "AX_CREATE_STDINT_H",
+      "AX_FUNC_MKDIR"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 117,
+    "configure_fi": 114,
+    "configure_case": 63,
+    "configure_esac": 66,
+    "balanced": false,
+    "automake_conditionals": []
+  },
+  "config_aux_inventory": {
+    "aux_dir": ".",
+    "present": [
+      "install-sh",
+      "missing"
+    ],
+    "missing": [
+      "depcomp",
+      "compile"
+    ]
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "c": 8,
+      "cpp": 22,
+      "h": 41
+    },
+    "configure_macros": [
+      "AC_PROG_CXX"
+    ],
+    "needs_cxx": true,
+    "needs_fortran": false,
+    "sets_c_std": false
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": true,
+    "defines_sampled": []
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-subdir-objects",
+      "applied_at": "configure",
+      "effect": "neutral",
+      "effectiveness": "low"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-ax-archive",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "vpath_analysis": {
+    "hardcoded_src_paths": 0,
+    "abs_path_leakage": 0,
+    "built_sources": [
+      "psidboot.h",
+      "psidextboot.h",
+      "psiddrv.h",
+      "psidextdrv.h"
+    ],
+    "generated_source_targets": []
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "getopt.h",
+      "limits.h",
+      "stdbool.h",
+      "stdlib.h",
+      "string.h",
+      "unistd.h"
+    ],
+    "headers_included_unchecked": [
+      "psid64/psid64.h",
+      "sidplay/SidTune.h",
+      "sidplay/sidendian.h",
+      "sidplay/sidint.h",
+      "sidplay/utils/SidDatabase.h",
+      "sidplay/utils/SidTuneMod.h",
+      "sys/stat.h",
+      "sys/types.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 2,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "gnu++",
+    "strip_modern_poison_flags": [],
+    "inject_legacy_shims": false,
+    "compiler_aliasing": {}
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 0,
+    "shadowed_builtins": [],
+    "permitted_mutations": 0,
+    "suspect_global_mutations": 0
+  },
+  "parallel_build_safety": {
+    "vpath_out_of_tree_safe": true,
+    "generators": [],
+    "unordered_generated_sources": [],
+    "built_sources_declared": true
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "psid64/psid64.h",
+      "sidplay/SidTune.h",
+      "sidplay/sidendian.h",
+      "sidplay/sidint.h",
+      "sidplay/utils/SidDatabase.h",
+      "sidplay/utils/SidTuneMod.h",
+      "sys/stat.h",
+      "sys/types.h",
+      "getopt.h",
+      "limits.h",
+      "stdbool.h",
+      "stdlib.h",
+      "string.h",
+      "unistd.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "subdir-config-h-include-path"
+  ],
+  "repair_hints": [
+    {
+      "id": "subdir-top-builddir",
+      "phase": "make",
+      "confidence": 0.88,
+      "evidence": [
+        "src/sidtune consumes config.h below root",
+        "src/libpsid64 consumes config.h below root",
+        "src/sidutils consumes config.h below root",
+        "src/sidutils/MD5 consumes config.h below root",
+        "src/sidutils/ini consumes config.h below root"
+      ],
+      "action": "ensure ac_subst_file sets relative top_builddir per subdir (0.1.19)",
+      "expected_effect": "config.h found in subdir compiles"
+    },
+    {
+      "id": "missing-build-tool",
+      "phase": "make",
+      "confidence": 0.75,
+      "evidence": [
+        "AX_FUNC_MKDIR: command not found"
+      ],
+      "action": "provide AX_FUNC_MKDIR",
+      "expected_effect": "unblocks the build step needing this tool"
+    }
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": 0,
+      "Makefile.in": 1443,
+      "aclocal.m4": 8,
+      "configure": 11,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_CHECK_FUNCS": "system-aclocal",
+      "AC_CHECK_HEADER": "system-aclocal",
+      "AC_CHECK_HEADERS": "system-aclocal",
+      "AC_CHECK_HEADER_STDBOOL": "system-aclocal",
+      "AC_CHECK_SIZEOF": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_HEADERS": "system-aclocal",
+      "AC_CONFIG_MACRO_DIRS": "system-aclocal",
+      "AC_CONFIG_SRCDIR": "system-aclocal",
+      "AC_C_BIGENDIAN": "system-aclocal",
+      "AC_C_CONST": "system-aclocal",
+      "AC_C_INLINE": "system-aclocal",
+      "AC_DEFINE": "system-aclocal",
+      "AC_FUNC_LSTAT_FOLLOWS_SLASHED_SYMLINK": "system-aclocal",
+      "AC_FUNC_MEMCMP": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_LANG": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PROG_CXX": "system-aclocal",
+      "AC_PROG_INSTALL": "system-aclocal",
+      "AC_PROG_LN_S": "system-aclocal",
+      "AC_PROG_RANLIB": "system-aclocal",
+      "AC_SUBST": "system-aclocal",
+      "AC_TYPE_SIZE_T": "system-aclocal",
+      "AC_TYPE_UINT16_T": "system-aclocal",
+      "AC_TYPE_UINT8_T": "system-aclocal",
+      "AM_INIT_AUTOMAKE": "system-aclocal",
+      "AX_CREATE_STDINT_H": "macros/ax_create_stdint_h.m4",
+      "AX_FUNC_MKDIR": "macros/ax_func_mkdir.m4"
+    },
+    "rebuild_trigger_risk": false
   }
 }

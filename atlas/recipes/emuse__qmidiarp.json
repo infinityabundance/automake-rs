@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "emuse/qmidiarp",
   "source": {
     "url": "https://github.com/emuse/qmidiarp",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,11 +26,11 @@
     {
       "step": "configure",
       "tool": "./configure",
-      "status": "fail"
+      "status": "ok"
     },
     {
-      "step": "auto-quirk",
-      "tool": "quirk-engine",
+      "step": "make",
+      "tool": "make",
       "status": "fail"
     }
   ],
@@ -39,92 +39,93 @@
     "configure_args": []
   },
   "dependencies": {
-    "pkg_config": [],
-    "system_libs": [],
+    "pkg_config": [
+      "checking for lv2 >= 1.10... no",
+      "checking for Qt6Core Qt6Gui Qt6Widgets >= 6.0.0... yes",
+      "checking for Qt5Core Qt5Gui Qt5Widgets >= 5.0.0... yes",
+      "checking for liblo >= 0.26... yes"
+    ],
+    "system_libs": [
+      "-lm"
+    ],
     "headers_needed": [],
     "missing": []
   },
   "quirks": [
     "libtool",
     "pkg-config",
-    "subdirs"
+    "subdirs",
+    "LIBS=-lm"
   ],
   "outputs": [],
-  "status": "CONFIGURE_RUN_FAIL",
+  "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1350: syntax error near unexpected token `ON'",
+  "diagnostic": "aminclude.am:35: *** missing separator.  Stop.",
   "deep_expansion": {
-    "configure_lines": 3058,
+    "configure_lines": 4207,
     "leaked_macros": [],
     "heredoc_openers": 27,
     "heredoc_terminators": 27,
     "heredoc_imbalance": 0,
-    "syntax_errors": [
-      {
-        "line": 1350,
-        "token": "ON",
-        "source": "DX_HTML_FEATURE(ON)",
-        "block": [
-          "1346: ",
-          "1347: ",
-          "1348: ",
-          "1349: # Initialize doxygen",
-          "1350: DX_HTML_FEATURE(ON)",
-          "1351: DX_CHM_FEATURE(OFF)",
-          "1352: DX_CHI_FEATURE(OFF)",
-          "1353: DX_MAN_FEATURE(OFF)"
-        ]
-      }
-    ],
+    "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2556: do eval test \\${$as_var+y} \\"
+      "line 3704: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
-      "PACKAGE_NAME",
-      "PACKAGE_TARNAME",
-      "PACKAGE_VERSION",
-      "PACKAGE_STRING",
-      "PACKAGE_BUGREPORT"
+      "DX_PROJECT",
+      "DX_CONFIG",
+      "DX_DOCDIR",
+      "DX_ENV",
+      "DX_FLAG_doc",
+      "DX_COND_doc_TRUE",
+      "DX_COND_doc_FALSE",
+      "DX_FLAG_dot",
+      "DX_COND_dot_TRUE",
+      "DX_COND_dot_FALSE",
+      "DX_FLAG_man",
+      "DX_COND_man_TRUE",
+      "DX_COND_man_FALSE",
+      "DX_FLAG_rtf",
+      "DX_COND_rtf_TRUE",
+      "DX_COND_rtf_FALSE",
+      "DX_FLAG_xml",
+      "DX_COND_xml_TRUE",
+      "DX_COND_xml_FALSE",
+      "DX_FLAG_chm",
+      "DX_COND_chm_TRUE",
+      "DX_COND_chm_FALSE",
+      "DX_FLAG_chi",
+      "DX_COND_chi_TRUE",
+      "DX_COND_chi_FALSE",
+      "DX_FLAG_html",
+      "DX_COND_html_TRUE",
+      "DX_COND_html_FALSE",
+      "DX_FLAG_ps"
     ],
-    "failed_during_check": "",
+    "failed_during_check": "checking for strdup... yes",
     "failure_tail": [
-      "./configure: line 1350: syntax error near unexpected token `ON'",
-      "./configure: line 1350: `DX_HTML_FEATURE(ON)'"
+      "checking for strdup... yes",
+      "configure: creating Makefile",
+      "configure: creating examples/Makefile",
+      "configure: creating src/Makefile",
+      "configure: creating src/pixmaps/Makefile"
     ],
     "conftest_corruption": [],
     "conftest_directives_intact": 12,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
-      "char roundf();\\nint main() { return roundf(); }",
+      "char roundf ();\\nint main() { return roundf(); }",
       "#include <lv2/lv2plug.in/ns/ext/atom/atom.h>",
-      "char snd_pcm_open();\\nint main() { return snd_pcm_open(); }",
-      "char jack_client_open();\\nint main() { return jack_client_open(); }",
+      "char snd_pcm_open ();\\nint main() { return snd_pcm_open(); }",
+      "char jack_client_open ();\\nint main() { return jack_client_open(); }",
       "#include <lo/lo.h>",
       "#include <cairo/cairo.h>"
     ]
   },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "ok",
-    "real_make": "ok",
-    "real_configure_lines": 23982,
-    "real_first_error": "",
-    "classification": "OURS_BUG_CONFIGURE"
-  },
-  "divergence": {
-    "stage": "configure",
-    "ours_error": "line 1350: DX_HTML_FEATURE(ON) (near `ON`)",
-    "ours_error_context": [
-      "DX_HTML_FEATURE(ON)"
-    ],
-    "ours_configure_lines": 3058,
-    "real_configure_lines": 23982,
-    "macros_ours_left_undefined": []
-  },
   "receipt": {
-    "court_status": "failed",
+    "court_status": "partial",
     "probe_trace": [],
     "quirks_matched": [
       "uses-libtool",
@@ -134,14 +135,7 @@
       "has-acinclude",
       "vendored-aclocal"
     ],
-    "quirks_applied": [
-      {
-        "id": "uses-subdir-objects",
-        "action": "--disable-dependency-tracking",
-        "verified": false
-      }
-    ],
-    "receipt_hash": "24e39ed3178d433d21c1340a6407fda16d8349c27724819539e8175382940e80",
+    "receipt_hash": "fc222e24136e1c7565f3970366c0a81d4ec04fa5491250e780188ba2805c06fb",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -150,6 +144,781 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "examples/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "man/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "man/de/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "man/fr/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "src/pixmaps/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      }
+    ],
+    "config_headers": [
+      "src/config.h"
+    ],
+    "subdirs": [
+      "man",
+      "examples",
+      "src",
+      "fr",
+      "de",
+      "pixmaps",
+      "pixmaps"
+    ],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [],
+        "subdirs": [
+          "man",
+          "examples",
+          "src"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "man",
+        "targets": [],
+        "subdirs": [
+          "fr",
+          "de"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src",
+        "targets": [
+          "qmidiarp",
+          "qmidiarp_arp.la",
+          "qmidiarp_lfo.la",
+          "qmidiarp_seq.la",
+          "qmidiarp_arp_ui.la",
+          "qmidiarp_lfo_ui.la",
+          "qmidiarp_seq_ui.la",
+          "qmidiarp_arp_ui_gl.la",
+          "qmidiarp_lfo_ui_gl.la",
+          "qmidiarp_seq_ui_gl.la"
+        ],
+        "subdirs": [
+          "pixmaps",
+          "pixmaps"
+        ],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      }
+    ],
+    "max_depth": 2,
+    "config_h_consumers_below_root": []
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 584,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 973,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/pixmaps/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 436,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "examples/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 465,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "man/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 512,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "man/de/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 445,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "man/fr/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 445,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      }
+    ]
+  },
+  "tool_requirements": {
+    "detected": [
+      "c++",
+      "doxygen"
+    ],
+    "missing": []
+  },
+  "macro_inventory": {
+    "macro_dirs": [
+      "m4"
+    ],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": true,
+    "defined_macros": [
+      {
+        "name": "DX_FEATURE_doc",
+        "source": "acinclude.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "DX_FEATURE_dot",
+        "source": "acinclude.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "DX_FEATURE_man",
+        "source": "acinclude.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "DX_FEATURE_html",
+        "source": "acinclude.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "DX_FEATURE_chm",
+        "source": "acinclude.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "DX_FEATURE_chi",
+        "source": "acinclude.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "DX_FEATURE_rtf",
+        "source": "acinclude.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "DX_FEATURE_xml",
+        "source": "acinclude.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "DX_FEATURE_pdf",
+        "source": "acinclude.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "DX_FEATURE_ps",
+        "source": "acinclude.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "DX_ENV_APPEND",
+        "source": "acinclude.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "DX_DIRNAME_EXPR",
+        "source": "acinclude.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "DX_IF_FEATURE",
+        "source": "acinclude.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "DX_REQUIRE_PROG",
+        "source": "acinclude.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "DX_TEST_FEATURE",
+        "source": "acinclude.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "DX_CHECK_DEPEND",
+        "source": "acinclude.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "DX_CLEAR_DEPEND",
+        "source": "acinclude.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "DX_ARG_ABLE",
+        "source": "acinclude.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "DX_CURRENT_FEATURE",
+        "source": "acinclude.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "DX_FLAG_DX_CURRENT_FEATURE",
+        "source": "acinclude.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "DX_CURRENT_DESCRIPTION",
+        "source": "acinclude.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "DX_DOXYGEN_FEATURE",
+        "source": "acinclude.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "DX_MAN_FEATURE",
+        "source": "acinclude.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "DX_HTML_FEATURE",
+        "source": "acinclude.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "DX_CHM_FEATURE",
+        "source": "acinclude.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "DX_CHI_FEATURE",
+        "source": "acinclude.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "DX_RTF_FEATURE",
+        "source": "acinclude.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "DX_XML_FEATURE",
+        "source": "acinclude.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "DX_PDF_FEATURE",
+        "source": "acinclude.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "DX_PS_FEATURE",
+        "source": "acinclude.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "DX_INIT_DOXYGEN",
+        "source": "acinclude.m4",
+        "kind": "project-local"
+      }
+    ],
+    "called_macros": [
+      "AC_ARG_ENABLE",
+      "AC_CHECK_FUNCS",
+      "AC_CHECK_HEADER",
+      "AC_CHECK_LIB",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_HEADERS",
+      "AC_CONFIG_MACRO_DIR",
+      "AC_CONFIG_SRCDIR",
+      "AC_C_CONST",
+      "AC_C_INLINE",
+      "AC_DEFINE",
+      "AC_DISABLE_STATIC",
+      "AC_ENABLE_SHARED",
+      "AC_FUNC_STAT",
+      "AC_HEADER_STDBOOL",
+      "AC_INIT",
+      "AC_MSG_ERROR",
+      "AC_MSG_NOTICE",
+      "AC_MSG_WARN",
+      "AC_OUTPUT",
+      "AC_PATH_PROGS",
+      "AC_PREREQ",
+      "AC_PROG_CC",
+      "AC_PROG_CXX",
+      "AC_PROG_INSTALL",
+      "AC_PROG_LN_S",
+      "AC_STRUCT_TM",
+      "AC_SUBST",
+      "AC_TYPE_SSIZE_T",
+      "AM_CONDITIONAL",
+      "AM_COND_IF",
+      "AM_INIT_AUTOMAKE",
+      "LT_INIT",
+      "PKG_CHECK_MODULES",
+      "PKG_CONFIG"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 255,
+    "configure_fi": 237,
+    "configure_case": 74,
+    "configure_esac": 77,
+    "balanced": false,
+    "automake_conditionals": [
+      "BUILD_LV2",
+      "BUILD_LV2_UI",
+      "BUILD_LV2_UI_RTK",
+      "BUILD_APP",
+      "ENABLE_TRANSLATIONS",
+      "NEED_MOC",
+      "ENABLE_NSM",
+      "LIBDIR_IS_HOME"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": ".",
+    "present": [
+      "install-sh",
+      "missing"
+    ],
+    "missing": [
+      "depcomp",
+      "compile",
+      "ltmain.sh"
+    ]
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "c": 3,
+      "cpp": 35,
+      "h": 45
+    },
+    "configure_macros": [
+      "AC_PROG_CC",
+      "AC_PROG_CXX"
+    ],
+    "needs_cxx": true,
+    "needs_fortran": false,
+    "sets_c_std": false
+  },
+  "libtool_context": {
+    "uses_libtool": true,
+    "macros": [
+      "LT_INIT"
+    ],
+    "ltmain_present": false,
+    "libtool_m4_sources": [],
+    "age": "modern"
+  },
+  "make_graph": {
+    "targets": [
+      "all",
+      "all-am",
+      "install-data-am",
+      "uninstall-am",
+      "install-am",
+      "installcheck-am",
+      "install-strip",
+      "install-info",
+      "install-info-am",
+      "install-dvi",
+      "install-dvi-am",
+      "install-ps",
+      "install-ps-am",
+      "install-pdf",
+      "install-pdf-am",
+      "install-html",
+      "install-html-am",
+      "install-data-hook",
+      "install-exec-hook",
+      "installdirs-am",
+      ".PHONY",
+      "mostlyclean-am",
+      "clean-am",
+      "distclean-am",
+      "maintainer-clean-am",
+      "distdir",
+      "dist",
+      "dist-all",
+      "dist-gzip",
+      "distcleancheck",
+      "distcheck",
+      "check-am",
+      "TAGS",
+      "tags",
+      "TAGS-am",
+      "tags-am",
+      "cscope",
+      "cscope-am",
+      "distuninstallcheck",
+      "$(srcdir)/Makefile.in"
+    ],
+    "key_variables": {
+      "AR": "ar",
+      "CC": "cc",
+      "CFLAGS": "",
+      "CPPFLAGS": "",
+      "CXX": "g++",
+      "CXXFLAGS": "-g -O2",
+      "DEFS": "-DHAVE_CONFIG_H",
+      "LDFLAGS": "",
+      "LIBS": "-lm",
+      "RANLIB": "ranlib"
+    },
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "libtool",
+      "config.log"
+    ],
+    "recursion_depth": 2,
+    "top_targets": [
+      "all",
+      "dist",
+      "all-am"
+    ],
+    "make_diagnostics": [
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "aminclude.am:35: *** missing separator.  Stop."
+      }
+    ]
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": true,
+    "defines_sampled": [
+      "HAVE_CONFIG_H"
+    ]
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-libtool",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-pkg-config",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-subdir-objects",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "has-m4-macro-dir",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "has-acinclude",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "cairo/cairo.h",
+      "lo/lo.h",
+      "lv2/lv2plug.in/ns/ext/atom/atom.h"
+    ],
+    "headers_included_unchecked": [
+      "X11/Xlib.h",
+      "X11/Xutil.h",
+      "X11/keysym.h",
+      "alsa/asoundlib.h",
+      "jack/jack.h",
+      "jack/midiport.h",
+      "jack/transport.h",
+      "sys/types.h",
+      "unistd.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 3,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "gnu++",
+    "strip_modern_poison_flags": [],
+    "inject_legacy_shims": false,
+    "compiler_aliasing": {}
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 17,
+    "shadowed_builtins": [],
+    "permitted_mutations": 8,
+    "suspect_global_mutations": 0
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "X11/Xlib.h",
+      "X11/Xutil.h",
+      "X11/keysym.h",
+      "alsa/asoundlib.h",
+      "jack/jack.h",
+      "jack/midiport.h",
+      "jack/transport.h",
+      "sys/types.h",
+      "unistd.h",
+      "cairo/cairo.h",
+      "lo/lo.h",
+      "lv2/lv2plug.in/ns/ext/atom/atom.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": -1,
+      "Makefile.in": 1264,
+      "aclocal.m4": 8,
+      "configure": 19,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_ENABLE": "system-aclocal",
+      "AC_CHECK_FUNCS": "system-aclocal",
+      "AC_CHECK_HEADER": "system-aclocal",
+      "AC_CHECK_LIB": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_HEADERS": "system-aclocal",
+      "AC_CONFIG_MACRO_DIR": "system-aclocal",
+      "AC_CONFIG_SRCDIR": "system-aclocal",
+      "AC_C_CONST": "system-aclocal",
+      "AC_C_INLINE": "system-aclocal",
+      "AC_DEFINE": "system-aclocal",
+      "AC_DISABLE_STATIC": "system-aclocal",
+      "AC_ENABLE_SHARED": "system-aclocal",
+      "AC_FUNC_STAT": "system-aclocal",
+      "AC_HEADER_STDBOOL": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_MSG_ERROR": "system-aclocal",
+      "AC_MSG_NOTICE": "system-aclocal",
+      "AC_MSG_WARN": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PATH_PROGS": "system-aclocal",
+      "AC_PREREQ": "system-aclocal",
+      "AC_PROG_CC": "system-aclocal",
+      "AC_PROG_CXX": "system-aclocal",
+      "AC_PROG_INSTALL": "system-aclocal",
+      "AC_PROG_LN_S": "system-aclocal",
+      "AC_STRUCT_TM": "system-aclocal",
+      "AC_SUBST": "system-aclocal",
+      "AC_TYPE_SSIZE_T": "system-aclocal",
+      "AM_CONDITIONAL": "system-aclocal",
+      "AM_COND_IF": "system-aclocal",
+      "AM_INIT_AUTOMAKE": "system-aclocal",
+      "LT_INIT": "system-aclocal",
+      "PKG_CHECK_MODULES": "system-aclocal",
+      "PKG_CONFIG": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "qmidiarp_LDADD",
+        "var": "LIBS_APP",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "qmidiarp_LDADD",
+        "var": "QT_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "qmidiarp_lfo_ui_la_LIBADD",
+        "var": "QT_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "qmidiarp_seq_ui_la_LIBADD",
+        "var": "QT_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "qmidiarp_arp_ui_la_LIBADD",
+        "var": "QT_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "qmidiarp_seq_ui_gl_la_LIBADD",
+        "var": "LV2_UI_RTK_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "qmidiarp_lfo_ui_gl_la_LIBADD",
+        "var": "LV2_UI_RTK_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "qmidiarp_arp_ui_gl_la_LIBADD",
+        "var": "LV2_UI_RTK_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      }
+    ],
+    "unresolved_refs": [
+      "qmidiarp_LDADD = $(LIBS_APP)",
+      "qmidiarp_LDADD = $(QT_LIBS)",
+      "qmidiarp_lfo_ui_la_LIBADD = $(QT_LIBS)",
+      "qmidiarp_seq_ui_la_LIBADD = $(QT_LIBS)",
+      "qmidiarp_arp_ui_la_LIBADD = $(QT_LIBS)",
+      "qmidiarp_seq_ui_gl_la_LIBADD = $(LV2_UI_RTK_LIBS)",
+      "qmidiarp_lfo_ui_gl_la_LIBADD = $(LV2_UI_RTK_LIBS)",
+      "qmidiarp_arp_ui_gl_la_LIBADD = $(LV2_UI_RTK_LIBS)"
+    ],
+    "indirection_count": 8
   }
 }

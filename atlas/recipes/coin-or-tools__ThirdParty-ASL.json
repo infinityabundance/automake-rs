@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "coin-or-tools/ThirdParty-ASL",
   "source": {
     "url": "https://github.com/coin-or-tools/ThirdParty-ASL",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -43,9 +43,9 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1341: Copyright: command not found",
+  "diagnostic": "./configure: line 1364: AC_COIN_INITIALIZE: command not found",
   "deep_expansion": {
-    "configure_lines": 1471,
+    "configure_lines": 1511,
     "leaked_macros": [],
     "heredoc_openers": 7,
     "heredoc_terminators": 7,
@@ -55,14 +55,19 @@
       "line 58: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
-      "LIBTOOL"
+      "LIBTOOL",
+      "ASL_INT64_TRUE",
+      "ASL_INT64_FALSE",
+      "CC_IS_CL_TRUE",
+      "CC_IS_CL_FALSE",
+      "USE_ARITH_H1_TRUE",
+      "USE_ARITH_H1_FALSE"
     ],
-    "failed_during_check": "",
+    "failed_during_check": "checking for dlopen in -ldl... no",
     "failure_tail": [
-      "configure: WARNING: cannot find sources (solvers/asl.h) in .",
-      "./configure: line 1354: AC_COIN_INITIALIZE: command not found",
-      "./configure: line 1357: AC_COIN_PROG_CC: command not found",
-      "configure: error: unsupported value  for option --with-intsize"
+      "checking for dlopen in -ldl... no",
+      "./configure: line 1491: test: =: unary operator expected",
+      "./configure: line 1511: AC_COIN_FINALIZE: command not found"
     ],
     "conftest_corruption": [],
     "conftest_directives_intact": 4,
@@ -70,16 +75,8 @@
     "conftest_programs": [
       "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { long long x; return 0; }",
       "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { ssize_t x; return 0; }",
-      "char dlopen();\\nint main() { return dlopen(); }"
+      "char dlopen ();\\nint main() { return dlopen(); }"
     ]
-  },
-  "oracle": {
-    "real_autoreconf": "fail",
-    "real_configure": "skipped",
-    "real_make": "skipped",
-    "real_configure_lines": 0,
-    "real_first_error": "configure.ac:20: error: possibly undefined macro: AC_COIN_INITIALIZE",
-    "classification": "OURS_BETTER"
   },
   "receipt": {
     "court_status": "failed",
@@ -87,7 +84,7 @@
     "quirks_matched": [
       "vendored-aclocal"
     ],
-    "receipt_hash": "0c30dce6270fb3560c454d8c8d1e4e34e811f65407638476dab76fe1fd927894",
+    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -96,6 +93,275 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "coinasl.pc",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      }
+    ],
+    "config_headers": [],
+    "subdirs": [],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [
+          "libcoinasl.la",
+          "arithchk"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      }
+    ],
+    "max_depth": 0,
+    "config_h_consumers_below_root": []
+  },
+  "tool_requirements": {
+    "detected": [],
+    "missing": [
+      {
+        "name": "AC_COIN_INITIALIZE",
+        "phase": "make",
+        "suggested_package": ""
+      }
+    ]
+  },
+  "macro_inventory": {
+    "macro_dirs": [],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [],
+    "called_macros": [
+      "AC_ARG_WITH",
+      "AC_CHECK_LIB",
+      "AC_CHECK_TYPE",
+      "AC_COIN_CHK_LIBM",
+      "AC_COIN_FINALIZE",
+      "AC_COIN_FINALIZE_FLAGS",
+      "AC_COIN_INITIALIZE",
+      "AC_COIN_PROG_CC",
+      "AC_COIN_PROG_LIBTOOL",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_LINKS",
+      "AC_CONFIG_SRCDIR",
+      "AC_COPYRIGHT",
+      "AC_INIT",
+      "AC_LANG_POP",
+      "AC_LANG_PUSH",
+      "AC_MSG_ERROR",
+      "AM_CONDITIONAL"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 55,
+    "configure_fi": 55,
+    "configure_case": 39,
+    "configure_esac": 43,
+    "balanced": false,
+    "automake_conditionals": [
+      "ASL_INT64",
+      "CC_IS_CL",
+      "USE_ARITH_H1"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": ".",
+    "present": [
+      "install-sh",
+      "missing",
+      "depcomp",
+      "compile"
+    ],
+    "missing": []
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "h": 1
+    },
+    "configure_macros": [],
+    "needs_cxx": false,
+    "needs_fortran": false,
+    "sets_c_std": false
+  },
+  "libtool_context": {
+    "uses_libtool": false,
+    "macros": [],
+    "ltmain_present": true,
+    "libtool_m4_sources": [],
+    "age": "unknown"
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": true,
+    "defines_sampled": []
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "vpath_analysis": {
+    "hardcoded_src_paths": 1,
+    "abs_path_leakage": 0,
+    "built_sources": [
+      "arith.h"
+    ],
+    "generated_source_targets": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 1,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "c89_gnu",
+    "strip_modern_poison_flags": [
+      "-Werror=implicit-function-declaration",
+      "-Werror=int-conversion",
+      "-Werror=incompatible-pointer-types"
+    ],
+    "inject_legacy_shims": true,
+    "compiler_aliasing": {
+      "clang-18+": "-std=gnu89 -Wno-error",
+      "gcc-14+": "-std=gnu89 -fpermissive"
+    }
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 0,
+    "shadowed_builtins": [],
+    "permitted_mutations": 1,
+    "suspect_global_mutations": 0
+  },
+  "parallel_build_safety": {
+    "vpath_out_of_tree_safe": true,
+    "generators": [],
+    "unordered_generated_sources": [],
+    "built_sources_declared": true
+  },
+  "risk_factors": [
+    "modern-compiler-strictness (no explicit C std)"
+  ],
+  "repair_hints": [
+    {
+      "id": "missing-build-tool",
+      "phase": "make",
+      "confidence": 0.75,
+      "evidence": [
+        "AC_COIN_INITIALIZE: command not found"
+      ],
+      "action": "provide AC_COIN_INITIALIZE",
+      "expected_effect": "unblocks the build step needing this tool"
+    }
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": -2,
+      "Makefile.in": 941,
+      "aclocal.m4": 4,
+      "configure": 7,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_WITH": "system-aclocal",
+      "AC_CHECK_LIB": "system-aclocal",
+      "AC_CHECK_TYPE": "system-aclocal",
+      "AC_COIN_CHK_LIBM": "system-aclocal",
+      "AC_COIN_FINALIZE": "system-aclocal",
+      "AC_COIN_FINALIZE_FLAGS": "system-aclocal",
+      "AC_COIN_INITIALIZE": "system-aclocal",
+      "AC_COIN_PROG_CC": "system-aclocal",
+      "AC_COIN_PROG_LIBTOOL": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_LINKS": "system-aclocal",
+      "AC_CONFIG_SRCDIR": "system-aclocal",
+      "AC_COPYRIGHT": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_LANG_POP": "system-aclocal",
+      "AC_LANG_PUSH": "system-aclocal",
+      "AC_MSG_ERROR": "system-aclocal",
+      "AM_CONDITIONAL": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "libcoinasl_la_LIBADD",
+        "var": "ASL_LFLAGS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "arithchk_LDADD",
+        "var": "ASL_LFLAGS",
+        "resolved_to": [],
+        "resolved": false
+      }
+    ],
+    "unresolved_refs": [
+      "libcoinasl_la_LIBADD = $(ASL_LFLAGS)",
+      "arithchk_LDADD = $(ASL_LFLAGS)"
+    ],
+    "indirection_count": 2
   }
 }

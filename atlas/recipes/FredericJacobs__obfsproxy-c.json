@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "FredericJacobs/obfsproxy-c",
   "source": {
     "url": "https://github.com/FredericJacobs/obfsproxy-c",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -49,37 +49,30 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1502: syntax error near unexpected token `--'",
+  "diagnostic": "for library containing ntohl... rm: cannot remove 'conftest.c': No such file or directory",
   "deep_expansion": {
-    "configure_lines": 2654,
+    "configure_lines": 2732,
     "leaked_macros": [],
-    "heredoc_openers": 25,
-    "heredoc_terminators": 25,
+    "heredoc_openers": 24,
+    "heredoc_terminators": 24,
     "heredoc_imbalance": 0,
-    "syntax_errors": [
-      {
-        "line": 1502,
-        "token": "--",
-        "source": "fi -- see m4/winsock.m4 for gory details.",
-        "block": [
-          "1498:   printf '%s\\n' \"no\"",
-          "1499:   LIBS=$_acs_save_LIBS",
-          "1500:   :",
-          "1501:   ",
-          "1502: fi -- see m4/winsock.m4 for gory details.",
-          "1503: save_LIBS=\"$LIBS\"",
-          "1504: LIBS=\"$libevent_LIBS $libcrypto_LIBS\"",
-          "1505: printf %s \"for library containing ntohl... \""
-        ]
-      }
-    ],
+    "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2178: do eval test \\${$as_var+y} \\"
+      "line 2255: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
+      "HAVE_PYTHON_TRUE",
+      "HAVE_PYTHON_FALSE",
       "PKG_CONFIG",
+      "libevent_CFLAGS",
+      "libevent_LIBS",
+      "libcrypto_CFLAGS",
+      "libcrypto_LIBS",
+      "NEED_SHA256_TRUE",
+      "NEED_SHA256_FALSE",
+      "ws32_LIBS",
       "PACKAGE_NAME",
       "PACKAGE_TARNAME",
       "PACKAGE_VERSION",
@@ -98,45 +91,25 @@
       "CXXFLAGS",
       "CPP",
       "DEFS",
-      "LIBOBJS",
-      "INSTALL",
-      "ws32_LIBS"
+      "LIBOBJS"
     ],
     "failed_during_check": "checking for SHA256_Init... yes",
     "failure_tail": [
       "checking for SHA256_Init... yes",
-      "./configure: line 1502: syntax error near unexpected token `--'",
-      "./configure: line 1502: `fi -- see m4/winsock.m4 for gory details.'"
+      "for library containing ntohl... rm: cannot remove 'conftest.c': No such file or ",
+      "configure: error: could not find ntohl"
     ],
     "conftest_corruption": [],
-    "conftest_directives_intact": 15,
+    "conftest_directives_intact": 17,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
       "#include <$ac_hdr>",
       "#include <$ac_hdr>",
       "#include <$ac_hdr>",
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar SHA256_Init();\\nint main() { return SHA256_Init(); }",
-      "char  ();\\nint main() { return  (); }",
-      "\\n#ifdef _WIN32\\n#include <winsock2.h>\\n#else\\n#include <arpa/inet.h>\\n#endif\\n\\nint main() {\\nreturn (int)ntohl(42); ; return 0; }\\n"
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar SHA256_Init ();\\nint main() { return SHA256_Init(); }",
+      "\\n#ifdef _WIN32\\n#include <winsock2.h>\\n#else\\n#include <arpa/inet.h>\\n#endif\\n\\nint main() {\\nreturn (int)ntohl(42); ; return 0; }\\n",
+      ""
     ]
-  },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "ok",
-    "real_make": "fail",
-    "real_configure_lines": 7273,
-    "real_first_error": "",
-    "classification": "OURS_BUG_CONFIGURE"
-  },
-  "divergence": {
-    "stage": "configure",
-    "ours_error": "line 1502: fi -- see m4/winsock.m4 for gory details. (near `--`)",
-    "ours_error_context": [
-      "fi -- see m4/winsock.m4 for gory details."
-    ],
-    "ours_configure_lines": 2654,
-    "real_configure_lines": 7273,
-    "macros_ours_left_undefined": []
   },
   "receipt": {
     "court_status": "failed",
@@ -148,7 +121,7 @@
       "vendored-aclocal",
       "uses-ax-archive"
     ],
-    "receipt_hash": "24e39ed3178d433d21c1340a6407fda16d8349c27724819539e8175382940e80",
+    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -157,6 +130,339 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      }
+    ],
+    "config_headers": [
+      "config.h"
+    ],
+    "subdirs": [],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [
+          "obfsproxy",
+          "libobfsproxy.a",
+          "unittests"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I. -I$(srcdir)/src"
+      }
+    ],
+    "max_depth": 0,
+    "config_h_consumers_below_root": []
+  },
+  "tool_requirements": {
+    "detected": [
+      "python"
+    ],
+    "missing": []
+  },
+  "macro_inventory": {
+    "macro_dirs": [
+      "m4"
+    ],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [
+      {
+        "name": "PKG_PROG_PKG_CONFIG",
+        "source": "m4/pkg.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "PKG_CHECK_EXISTS",
+        "source": "m4/pkg.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_PKG_SHORT_ERRORS_SUPPORTED",
+        "source": "m4/pkg.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "PKG_CHECK_MODULES",
+        "source": "m4/pkg.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AX_LIB_WINSOCK2",
+        "source": "m4/winsock.m4",
+        "kind": "AX"
+      }
+    ],
+    "called_macros": [
+      "AC_CACHE_VAL",
+      "AC_CHECK_FUNC",
+      "AC_CHECK_HEADERS",
+      "AC_CHECK_SIZEOF",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_HEADERS",
+      "AC_CONFIG_SRCDIR",
+      "AC_C_INLINE",
+      "AC_DEFINE",
+      "AC_INIT",
+      "AC_MSG_CHECKING",
+      "AC_MSG_RESULT",
+      "AC_MSG_WARN",
+      "AC_OUTPUT",
+      "AC_PREREQ",
+      "AC_PROG_CC",
+      "AC_PROG_RANLIB",
+      "AC_PROG_SED",
+      "AC_SEARCH_LIBS",
+      "AC_TRY_LINK",
+      "AM_CONDITIONAL",
+      "AM_INIT_AUTOMAKE",
+      "AM_PATH_PYTHON",
+      "AX_LIB_WINSOCK2",
+      "PKG_CHECK_MODULES",
+      "PKG_PROG_PKG_CONFIG"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 113,
+    "configure_fi": 109,
+    "configure_case": 63,
+    "configure_esac": 66,
+    "balanced": false,
+    "automake_conditionals": [
+      "HAVE_PYTHON",
+      "NEED_SHA256"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": ".",
+    "present": [
+      "install-sh",
+      "missing",
+      "depcomp",
+      "compile"
+    ],
+    "missing": []
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "c": 22,
+      "h": 17
+    },
+    "configure_macros": [
+      "AC_PROG_CC"
+    ],
+    "needs_cxx": false,
+    "needs_fortran": false,
+    "sets_c_std": false
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": true,
+    "defines_sampled": []
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-pkg-config",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-python",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "has-m4-macro-dir",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-ax-archive",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "netinet/in.h",
+      "sys/socket.h",
+      "sys/types.h"
+    ],
+    "headers_included_unchecked": [
+      "arpa/inet.h",
+      "event2/buffer.h",
+      "event2/bufferevent.h",
+      "event2/bufferevent_struct.h",
+      "event2/dns.h",
+      "event2/event.h",
+      "event2/listener.h",
+      "event2/util.h",
+      "fcntl.h",
+      "openssl/aes.h",
+      "openssl/err.h",
+      "openssl/opensslv.h",
+      "openssl/rand.h",
+      "openssl/sha.h",
+      "stdint.h",
+      "sys/un.h",
+      "sys/wait.h",
+      "unistd.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 5,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "c89_gnu",
+    "strip_modern_poison_flags": [
+      "-Werror=implicit-function-declaration",
+      "-Werror=int-conversion",
+      "-Werror=incompatible-pointer-types"
+    ],
+    "inject_legacy_shims": true,
+    "compiler_aliasing": {
+      "clang-18+": "-std=gnu89 -Wno-error",
+      "gcc-14+": "-std=gnu89 -fpermissive"
+    }
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 0,
+    "shadowed_builtins": [],
+    "permitted_mutations": 0,
+    "suspect_global_mutations": 0
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "arpa/inet.h",
+      "event2/buffer.h",
+      "event2/bufferevent.h",
+      "event2/bufferevent_struct.h",
+      "event2/dns.h",
+      "event2/event.h",
+      "event2/listener.h",
+      "event2/util.h",
+      "fcntl.h",
+      "openssl/aes.h",
+      "openssl/err.h",
+      "openssl/opensslv.h",
+      "openssl/rand.h",
+      "openssl/sha.h",
+      "stdint.h",
+      "sys/un.h",
+      "sys/wait.h",
+      "unistd.h",
+      "netinet/in.h",
+      "sys/socket.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "modern-compiler-strictness (no explicit C std)"
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": 0,
+      "Makefile.in": 1010,
+      "aclocal.m4": 6,
+      "config.h.in": 11,
+      "configure": 10,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_CACHE_VAL": "system-aclocal",
+      "AC_CHECK_FUNC": "system-aclocal",
+      "AC_CHECK_HEADERS": "system-aclocal",
+      "AC_CHECK_SIZEOF": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_HEADERS": "system-aclocal",
+      "AC_CONFIG_SRCDIR": "system-aclocal",
+      "AC_C_INLINE": "system-aclocal",
+      "AC_DEFINE": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_MSG_CHECKING": "system-aclocal",
+      "AC_MSG_RESULT": "system-aclocal",
+      "AC_MSG_WARN": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PREREQ": "system-aclocal",
+      "AC_PROG_CC": "system-aclocal",
+      "AC_PROG_RANLIB": "system-aclocal",
+      "AC_PROG_SED": "system-aclocal",
+      "AC_SEARCH_LIBS": "system-aclocal",
+      "AC_TRY_LINK": "system-aclocal",
+      "AM_CONDITIONAL": "system-aclocal",
+      "AM_INIT_AUTOMAKE": "system-aclocal",
+      "AM_PATH_PYTHON": "system-aclocal",
+      "AX_LIB_WINSOCK2": "m4/winsock.m4",
+      "PKG_CHECK_MODULES": "m4/pkg.m4",
+      "PKG_PROG_PKG_CONFIG": "m4/pkg.m4"
+    },
+    "rebuild_trigger_risk": false
   }
 }

@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "ftynse/ppcg-fb",
   "source": {
     "url": "https://github.com/ftynse/ppcg-fb",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.14",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,6 +26,11 @@
     {
       "step": "configure",
       "tool": "./configure",
+      "status": "ok"
+    },
+    {
+      "step": "make",
+      "tool": "make",
       "status": "fail"
     }
   ],
@@ -36,8 +41,12 @@
   "dependencies": {
     "pkg_config": [],
     "system_libs": [],
-    "headers_needed": [],
-    "missing": []
+    "headers_needed": [
+      "pet.h"
+    ],
+    "missing": [
+      "pet.h"
+    ]
   },
   "quirks": [
     "autoconf-archive-macros",
@@ -46,68 +55,53 @@
     "subdirs"
   ],
   "outputs": [],
-  "status": "CONFIGURE_RUN_FAIL",
+  "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1394: syntax error near unexpected token `)'",
+  "diagnostic": "ppcg.h:9:10: fatal error: pet.h: No such file or directory",
   "deep_expansion": {
-    "configure_lines": 2766,
-    "leaked_macros": [
-      {
-        "name": "m4_bpatsubst",
-        "line": 1432,
-        "context": "m4_bpatsubst(isl,"
-      },
-      {
-        "name": "m4_bpatsubst",
-        "line": 1571,
-        "context": "m4_bpatsubst(pet,"
-      },
-      {
-        "name": "AC_CONFIG_COMMANDS_POST",
-        "line": 1718,
-        "context": "AC_CONFIG_COMMANDS_POST("
-      }
-    ],
+    "configure_lines": 2824,
+    "leaked_macros": [],
     "heredoc_openers": 17,
     "heredoc_terminators": 17,
     "heredoc_imbalance": 0,
-    "syntax_errors": [
-      {
-        "line": 1394,
-        "token": ")",
-        "source": "^_abcdefghijklmnopqrstuvwxyz0123456789,_)_prefix option",
-        "block": [
-          "1390: ",
-          "1391: case \"system\" in",
-          "1392: build|bundled|system)",
-          "1393: \t# Check --with-m4_bpatsubst(isl,",
-          "1394: \t\t\t^_abcdefghijklmnopqrstuvwxyz0123456789,_)_prefix option",
-          "1395: ",
-          "1396: \t# Check --with-m4_bpatsubst(isl,",
-          "1397: \t\t\t^_abcdefghijklmnopqrstuvwxyz0123456789,_)_exec_prefix option"
-        ]
-      }
-    ],
+    "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2290: do eval test \\${$as_var+y} \\"
+      "line 2347: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
       "PKG_CONFIG",
+      "HAVE_OPENMP",
+      "HAVE_OPENCL",
       "abs_srcdir",
+      "BUNDLED_ISL_TRUE",
+      "BUNDLED_ISL_FALSE",
+      "ISL_CFLAGS",
+      "ISL_LIBS",
       "abs_builddir",
+      "BUNDLED_PET_TRUE",
+      "BUNDLED_PET_FALSE",
+      "PET_CFLAGS",
+      "PET_LIBS",
+      "POLYBENCH_DIR",
+      "extra_tests",
+      "GIT_HEAD_ID",
+      "GIT_HEAD",
+      "GIT_HEAD_VERSION",
       "PACKAGE_NAME",
       "PACKAGE_TARNAME",
       "PACKAGE_VERSION",
       "PACKAGE_STRING",
       "PACKAGE_BUGREPORT"
     ],
-    "failed_during_check": "checking for OpenMP support by cc... checking for CL/opencl.h... yes",
+    "failed_during_check": "checking for pet... no",
     "failure_tail": [
-      "checking for OpenMP support by cc... checking for CL/opencl.h... yes",
-      "./configure: line 1394: syntax error near unexpected token `)'",
-      "./configure: line 1394: `\t\t\t^_abcdefghijklmnopqrstuvwxyz0123456789,_)_prefix opt"
+      "checking for pet... no",
+      "configure: creating Makefile",
+      "configure: creating polybench_test.sh",
+      "configure: creating polybench_test.sh",
+      "configure: creating opencl_test.sh"
     ],
     "conftest_corruption": [],
     "conftest_directives_intact": 1,
@@ -116,16 +110,8 @@
       "#include <CL/opencl.h>"
     ]
   },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "fail",
-    "real_make": "skipped",
-    "real_configure_lines": 15721,
-    "real_first_error": "configure: error: Package requirements (pet) were not met:",
-    "classification": "BOTH_CONFIGURE_FAIL"
-  },
   "receipt": {
-    "court_status": "not_standalone",
+    "court_status": "partial",
     "probe_trace": [],
     "quirks_matched": [
       "uses-libtool-old",
@@ -135,7 +121,7 @@
       "uses-ax-archive",
       "emits-config-commands-post"
     ],
-    "receipt_hash": "1b59d07d0a20a927a52050673c57d051c46cf0669ffc84ae54f67e19a8cf7afb",
+    "receipt_hash": "fc222e24136e1c7565f3970366c0a81d4ec04fa5491250e780188ba2805c06fb",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -144,6 +130,509 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "opencl_test.sh",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "polybench_test.sh",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      }
+    ],
+    "config_headers": [],
+    "subdirs": [
+      "$(MAYBE_ISL)",
+      "$(MAYBE_PET)",
+      "."
+    ],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [
+          "libppcg.la",
+          "ppcg"
+        ],
+        "subdirs": [
+          "$(MAYBE_ISL)",
+          "$(MAYBE_PET)",
+          "."
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": "@ISL_CFLAGS@ @PET_CFLAGS@"
+      }
+    ],
+    "max_depth": 0,
+    "config_h_consumers_below_root": []
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 952,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      }
+    ]
+  },
+  "macro_inventory": {
+    "macro_dirs": [
+      "m4"
+    ],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [
+      {
+        "name": "AX_DETECT_GIT_HEAD",
+        "source": "m4/ax_detect_git_head.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AX_CHECK_OPENMP",
+        "source": "m4/ax_check_openmp.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "_AX_SUBMODULE",
+        "source": "m4/ax_submodule.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AX_SUBMODULE",
+        "source": "m4/ax_submodule.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AX_CHECK_OPENCL",
+        "source": "m4/ax_check_opencl.m4",
+        "kind": "AX"
+      }
+    ],
+    "called_macros": [
+      "AC_ARG_WITH",
+      "AC_CONFIG_AUX_DIR",
+      "AC_CONFIG_COMMANDS_POST",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_MACRO_DIR",
+      "AC_CONFIG_SUBDIRS",
+      "AC_INIT",
+      "AC_OUTPUT",
+      "AC_PROG_CC",
+      "AC_PROG_LIBTOOL",
+      "AC_SUBST",
+      "AM_CONDITIONAL",
+      "AM_INIT_AUTOMAKE",
+      "AM_SILENT_RULES",
+      "AX_CHECK_OPENCL",
+      "AX_CHECK_OPENMP",
+      "AX_DETECT_GIT_HEAD",
+      "AX_SUBMODULE",
+      "PKG_CHECK_MODULES",
+      "PKG_PROG_PKG_CONFIG"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 140,
+    "configure_fi": 134,
+    "configure_case": 73,
+    "configure_esac": 76,
+    "balanced": false,
+    "automake_conditionals": [
+      "BUNDLED_ISL",
+      "BUNDLED_PET"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": ".",
+    "present": [
+      "install-sh",
+      "missing",
+      "depcomp",
+      "compile"
+    ],
+    "missing": [
+      "ltmain.sh"
+    ]
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "c": 36,
+      "h": 20
+    },
+    "configure_macros": [
+      "AC_PROG_CC"
+    ],
+    "needs_cxx": false,
+    "needs_fortran": false,
+    "sets_c_std": false
+  },
+  "libtool_context": {
+    "uses_libtool": true,
+    "macros": [
+      "AC_PROG_LIBTOOL"
+    ],
+    "ltmain_present": false,
+    "libtool_m4_sources": [],
+    "age": "old"
+  },
+  "make_graph": {
+    "targets": [
+      "all",
+      "all-am",
+      "$(am__depfiles_remade)",
+      "am--depfiles",
+      "install-exec-am",
+      "install-data-am",
+      "uninstall-am",
+      "install-am",
+      "installcheck-am",
+      "install-strip",
+      "install-info",
+      "install-info-am",
+      "install-dvi",
+      "install-dvi-am",
+      "install-ps",
+      "install-ps-am",
+      "install-pdf",
+      "install-pdf-am",
+      "install-html",
+      "install-html-am",
+      "install-data-hook",
+      "install-exec-hook",
+      "installdirs-am",
+      ".PHONY",
+      "mostlyclean-am",
+      "clean-am",
+      "distclean-am",
+      "maintainer-clean-am",
+      "distdir",
+      "dist",
+      "dist-all",
+      "dist-gzip",
+      "distcleancheck",
+      "distcheck",
+      "check-am",
+      "check-TESTS",
+      "recheck",
+      "test-suite.log",
+      "$(TEST_SUITE_LOG)",
+      "TAGS"
+    ],
+    "key_variables": {
+      "AR": "ar",
+      "CC": "cc",
+      "CFLAGS": "-g -O2",
+      "CPPFLAGS": "",
+      "CXX": "c++",
+      "CXXFLAGS": "-g -O2",
+      "DEFAULT_INCLUDES": "-I. -I$(top_builddir)",
+      "DEFS": "-DPACKAGE=\"ppcg\" -DVERSION=\"0.06\" -DPACKAGE_NAME=\"ppcg\" -DPACKAGE_TARNAME=\"ppcg\" -DPACKAGE_VERSION=\"0.06\" -DPACKAGE_STRING=\"ppcg 0.06\" -DPACKAGE_BUGREPORT=\"isl-",
+      "LDFLAGS": "",
+      "LIBS": "",
+      "RANLIB": "ranlib"
+    },
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "libtool",
+      "config.log"
+    ],
+    "recursion_depth": 0,
+    "top_targets": [
+      "all",
+      "dist",
+      "all-am"
+    ],
+    "make_diagnostics": [
+      {
+        "command": "",
+        "error_type": "missing-header",
+        "message": "ppcg.h:9:10: fatal error: pet.h: No such file or directory"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[2]: *** [Makefile:822: ppcg-cuda.o] Error 1"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[2]: *** Waiting for unfinished jobs...."
+      },
+      {
+        "command": "",
+        "error_type": "missing-header",
+        "message": "cpu.c:25:10: fatal error: pet.h: No such file or directory"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[2]: *** [Makefile:819: ppcg-cpu.o] Error 1"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[1]: *** [Makefile:307: all-am] Error 2"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make: *** [Makefile:885: all-recursive] Error 1"
+      }
+    ]
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": true,
+    "defines_sampled": [
+      "PACKAGE=\"ppcg\"",
+      "VERSION=\"0.06\"",
+      "PACKAGE_NAME=\"ppcg\"",
+      "PACKAGE_TARNAME=\"ppcg\"",
+      "PACKAGE_VERSION=\"0.06\"",
+      "PACKAGE_STRING=\"ppcg",
+      "PACKAGE_BUGREPORT=\"isl-development@googlegroups.com\"",
+      "HAVE_CL_OPENCL_H=1"
+    ]
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-libtool-old",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-pkg-config",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "has-m4-macro-dir",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-ax-archive",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "emits-config-commands-post",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "vpath_analysis": {
+    "hardcoded_src_paths": 0,
+    "abs_path_leakage": 0,
+    "built_sources": [],
+    "generated_source_targets": [
+      "isl/libisl.la",
+      "pet/libpet.la"
+    ]
+  },
+  "feature_probe_gap": {
+    "headers_checked": [],
+    "headers_included_unchecked": [
+      "CL/opencl.h",
+      "OpenCL/opencl.h",
+      "isl/aff.h",
+      "isl/aff_type.h",
+      "isl/arg.h",
+      "isl/ast.h",
+      "isl/ast_build.h",
+      "isl/constraint.h",
+      "isl/ctx.h",
+      "isl/flow.h",
+      "isl/id.h",
+      "isl/id_to_ast_expr.h",
+      "isl/ilp.h",
+      "isl/map.h",
+      "isl/map_type.h",
+      "isl/options.h",
+      "isl/polynomial.h",
+      "isl/schedule.h",
+      "isl/schedule_node.h",
+      "isl/set.h",
+      "isl/space.h",
+      "isl/union_map.h",
+      "isl/union_set.h",
+      "isl/val.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 7,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "c89_gnu",
+    "strip_modern_poison_flags": [
+      "-Werror=implicit-function-declaration",
+      "-Werror=int-conversion",
+      "-Werror=incompatible-pointer-types"
+    ],
+    "inject_legacy_shims": true,
+    "compiler_aliasing": {
+      "clang-18+": "-std=gnu89 -Wno-error",
+      "gcc-14+": "-std=gnu89 -fpermissive"
+    }
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 6,
+    "shadowed_builtins": [],
+    "permitted_mutations": 1,
+    "suspect_global_mutations": 0
+  },
+  "parallel_build_safety": {
+    "vpath_out_of_tree_safe": true,
+    "generators": [
+      "isl/libisl.la",
+      "pet/libpet.la"
+    ],
+    "unordered_generated_sources": [
+      "isl/libisl.la",
+      "pet/libpet.la"
+    ],
+    "built_sources_declared": false
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "CL/opencl.h",
+      "OpenCL/opencl.h",
+      "isl/aff.h",
+      "isl/aff_type.h",
+      "isl/arg.h",
+      "isl/ast.h",
+      "isl/ast_build.h",
+      "isl/constraint.h",
+      "isl/ctx.h",
+      "isl/flow.h",
+      "isl/id.h",
+      "isl/id_to_ast_expr.h",
+      "isl/ilp.h",
+      "isl/map.h",
+      "isl/map_type.h",
+      "isl/options.h",
+      "isl/polynomial.h",
+      "isl/schedule.h",
+      "isl/schedule_node.h",
+      "isl/set.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "ancient-libtool",
+    "modern-compiler-strictness (no explicit C std)",
+    "parallel-build-race (gen-source not in BUILT_SOURCES)"
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": 0,
+      "Makefile.in": 1604,
+      "aclocal.m4": 12,
+      "configure": 19,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_WITH": "system-aclocal",
+      "AC_CONFIG_AUX_DIR": "system-aclocal",
+      "AC_CONFIG_COMMANDS_POST": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_MACRO_DIR": "system-aclocal",
+      "AC_CONFIG_SUBDIRS": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PROG_CC": "system-aclocal",
+      "AC_PROG_LIBTOOL": "system-aclocal",
+      "AC_SUBST": "system-aclocal",
+      "AM_CONDITIONAL": "system-aclocal",
+      "AM_INIT_AUTOMAKE": "system-aclocal",
+      "AM_SILENT_RULES": "system-aclocal",
+      "AX_CHECK_OPENCL": "m4/ax_check_opencl.m4",
+      "AX_CHECK_OPENMP": "m4/ax_check_openmp.m4",
+      "AX_DETECT_GIT_HEAD": "m4/ax_detect_git_head.m4",
+      "AX_SUBMODULE": "m4/ax_submodule.m4",
+      "PKG_CHECK_MODULES": "system-aclocal",
+      "PKG_PROG_PKG_CONFIG": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
   }
 }

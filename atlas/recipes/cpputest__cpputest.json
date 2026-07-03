@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "cpputest/cpputest",
   "source": {
     "url": "https://github.com/cpputest/cpputest",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -51,40 +51,87 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "",
+  "diagnostic": "./configure: line 1627: pthread-config: command not found",
   "deep_expansion": {
-    "configure_lines": 0,
+    "configure_lines": 4206770,
     "leaked_macros": [],
-    "heredoc_openers": 0,
-    "heredoc_terminators": 0,
+    "heredoc_openers": 286600,
+    "heredoc_terminators": 286600,
     "heredoc_imbalance": 0,
-    "syntax_errors": [],
-    "cache_var_anomalies": [],
-    "residual_placeholders": [],
-    "failed_during_check": "",
+    "syntax_errors": [
+      {
+        "line": 1678,
+        "token": "done",
+        "source": "done",
+        "block": [
+          "1674: \tprintf %s \"checking for joinable pthread attribute... \"",
+          "1675: \tattr_name=unknown",
+          "1676: \tfor attr in PTHREAD_CREATE_JOINABLE PTHREAD_CREATE_UNDETACHED; do",
+          "1677: \t    # Try link (obsolete)",
+          "1678: \tdone",
+          "1679:         printf '%s\\n' \"$attr_name\"",
+          "1680:         if test \"$attr_name\" != PTHREAD_CREATE_JOINABLE; then",
+          "1681:             printf '%s\\n' \"#define PTHREAD_CREATE_JOINABLE $attr_name\" >> co"
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 1420: # eval \"_acrs_sv=\\${}\"; printf '%s\\n' \"s|@@|${_acrs_sv}|g\" >",
+      "line 1517: # eval \"_acrs_sv=\\${}\"; printf '%s\\n' \"s|@@|${_acrs_sv}|g\" >",
+      "line 4206257: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "CPPUTEST_ON_MACOSX",
+      "PTHREAD_LIBS",
+      "PTHREAD_CFLAGS",
+      "PTHREAD_CC",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL",
+      "srcdir",
+      "prefix",
+      "exec_prefix",
+      "CC",
+      "CFLAGS",
+      "CPPFLAGS",
+      "LDFLAGS",
+      "LIBS",
+      "CXX",
+      "CXXFLAGS",
+      "CPP",
+      "DEFS",
+      "LIBOBJS",
+      "INSTALL",
+      "INCLUDE_CPPUTEST_EXT",
+      "CPPUTEST_ADDITIONAL_CXXFLAGS",
+      "CPPUTEST_LDFLAGS",
+      "CPPUTEST_CFLAGS",
+      "CPPUTEST_CXXFLAGS"
+    ],
+    "failed_during_check": "checking whether pthreads work with -mt... no",
     "failure_tail": [
-      "timeout: failed to run command ‘./configure’: Permission denied"
+      "checking whether pthreads work with -mt... no",
+      "./configure: line 1627: pthread-config: command not found",
+      "./configure: line 1628: pthread-config: command not found",
+      "./configure: line 1628: pthread-config: command not found",
+      "no"
     ],
     "conftest_corruption": [],
-    "conftest_directives_intact": 0,
+    "conftest_directives_intact": 286586,
     "conftest_directives_mangled": 0,
-    "conftest_programs": []
-  },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "ok",
-    "real_make": "ok",
-    "real_configure_lines": 24985,
-    "real_first_error": "",
-    "classification": "OURS_BUG_CONFIGURE"
-  },
-  "divergence": {
-    "stage": "configure",
-    "ours_error": "",
-    "ours_error_context": [],
-    "ours_configure_lines": 0,
-    "real_configure_lines": 24985,
-    "macros_ours_left_undefined": []
+    "conftest_programs": [
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar pthread_join();\\nint main() { return pthread_join(); }",
+      "\\nint main() {\\n#if !($vencpp)\\nthisisanerror;\\n#endif\\n; return 0; }",
+      "\\n#include <stdio.h>\\nint main() { printf(\"%ld\", (long)(__INTEL_COMPILER/100)); return 0; }",
+      "\\n#include <stdio.h>\\nint main() { printf(\"%ld\", (long)(__INTEL_COMPILER/100)); return 0; }",
+      "\\n#include <stdio.h>\\nint main() { printf(\"%ld\", (long)(__INTEL_COMPILER/100)); return 0; }",
+      "\\n#include <stdio.h>\\nint main() { printf(\"%ld\", (long)(__INTEL_COMPILER/100)); return 0; }"
+    ]
   },
   "receipt": {
     "court_status": "failed",
@@ -104,7 +151,7 @@
         "verified": false
       }
     ],
-    "receipt_hash": "24e39ed3178d433d21c1340a6407fda16d8349c27724819539e8175382940e80",
+    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -113,6 +160,597 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "cpputest.pc",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      }
+    ],
+    "config_headers": [
+      "config.h"
+    ],
+    "subdirs": [],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [
+          "lib/libCppUTestExt.a",
+          "CppUTestExtTests",
+          "lib/libCppUTest.a",
+          "$(CPPUTEST_TESTS)"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      }
+    ],
+    "max_depth": 0,
+    "config_h_consumers_below_root": []
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "examples/Makefile",
+        "has_makefile_in": false,
+        "has_makefile_am": false,
+        "lines": 36,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "platforms/armcc/Makefile",
+        "has_makefile_in": false,
+        "has_makefile_am": false,
+        "lines": 194,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "platforms/Dos/Makefile",
+        "has_makefile_in": false,
+        "has_makefile_am": false,
+        "lines": 68,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "platforms_examples/armcc/AT91SAM7A3/Makefile",
+        "has_makefile_in": false,
+        "has_makefile_am": false,
+        "lines": 321,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      }
+    ]
+  },
+  "tool_requirements": {
+    "detected": [
+      "c++"
+    ],
+    "missing": [
+      {
+        "name": "pthread-config",
+        "phase": "make",
+        "suggested_package": ""
+      }
+    ]
+  },
+  "macro_inventory": {
+    "macro_dirs": [
+      "m4"
+    ],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [
+      {
+        "name": "AX_COMPILER_VENDOR",
+        "source": "m4/m4_ax_compiler_vendor.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "ACX_PTHREAD",
+        "source": "m4/acx_pthread.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_AX_COMPILER_VERSION_INTEL",
+        "source": "m4/m4_ax_compiler_version.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_AX_COMPILER_VERSION_IBM",
+        "source": "m4/m4_ax_compiler_version.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_AX_COMPILER_VERSION_PATHSCALE",
+        "source": "m4/m4_ax_compiler_version.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_AX_COMPILER_VERSION_CLANG",
+        "source": "m4/m4_ax_compiler_version.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_AX_COMPILER_VERSION_CRAY",
+        "source": "m4/m4_ax_compiler_version.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_AX_COMPILER_VERSION_FUJITSU",
+        "source": "m4/m4_ax_compiler_version.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_AX_COMPILER_VERSION_GNU",
+        "source": "m4/m4_ax_compiler_version.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_AX_COMPILER_VERSION_SUN",
+        "source": "m4/m4_ax_compiler_version.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_AX_COMPILER_VERSION_HP",
+        "source": "m4/m4_ax_compiler_version.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_AX_COMPILER_VERSION_DEC",
+        "source": "m4/m4_ax_compiler_version.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_AX_COMPILER_VERSION_BORLAND",
+        "source": "m4/m4_ax_compiler_version.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_AX_COMPILER_VERSION_COMEAU",
+        "source": "m4/m4_ax_compiler_version.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_AX_COMPILER_VERSION_KAI",
+        "source": "m4/m4_ax_compiler_version.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_AX_COMPILER_VERSION_SGI",
+        "source": "m4/m4_ax_compiler_version.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_AX_COMPILER_VERSION_MICROSOFT",
+        "source": "m4/m4_ax_compiler_version.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_AX_COMPILER_VERSION_METROWERKS",
+        "source": "m4/m4_ax_compiler_version.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_AX_COMPILER_VERSION_WATCOM",
+        "source": "m4/m4_ax_compiler_version.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_AX_COMPILER_VERSION_PORTLAND",
+        "source": "m4/m4_ax_compiler_version.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_AX_COMPILER_VERSION_TCC",
+        "source": "m4/m4_ax_compiler_version.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_AX_COMPILER_VERSION_SDCC",
+        "source": "m4/m4_ax_compiler_version.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AX_COMPILER_VERSION",
+        "source": "m4/m4_ax_compiler_version.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AX_PREFIX_CONFIG_H",
+        "source": "m4/m4_ax_prefix_config_h.m4",
+        "kind": "AX"
+      }
+    ],
+    "called_macros": [
+      "AC_ARG_ENABLE",
+      "AC_ARG_VAR",
+      "AC_CANONICAL_HOST",
+      "AC_CHECK_FUNCS",
+      "AC_CHECK_HEADERS",
+      "AC_CHECK_PROG",
+      "AC_COMPILE_IFELSE",
+      "AC_CONFIG_AUX_DIR",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_HEADERS",
+      "AC_CONFIG_MACRO_DIR",
+      "AC_CONFIG_SRCDIR",
+      "AC_C_INLINE",
+      "AC_DEFINE",
+      "AC_FUNC_FORK",
+      "AC_HELP_STRING",
+      "AC_INIT",
+      "AC_LANG_POP",
+      "AC_LANG_PROGRAM",
+      "AC_LANG_PUSH",
+      "AC_LIBTOOL_DLOPEN",
+      "AC_LINK_IFELSE",
+      "AC_MSG_CHECKING",
+      "AC_MSG_ERROR",
+      "AC_MSG_RESULT",
+      "AC_OUTPUT",
+      "AC_PREREQ",
+      "AC_PROG_CC",
+      "AC_PROG_CPP",
+      "AC_PROG_CXX",
+      "AC_PROG_LIBTOOL",
+      "AC_PROG_LN_S",
+      "AC_PROG_MAKE_SET",
+      "AC_SUBST",
+      "AC_TYPE_INT16_T",
+      "AC_TYPE_INT32_T",
+      "AC_TYPE_INT64_T",
+      "AC_TYPE_INT8_T",
+      "AC_TYPE_LONG_LONG_INT",
+      "AC_TYPE_PID_T",
+      "AC_TYPE_SIZE_T",
+      "AC_TYPE_UINT16_T",
+      "AC_TYPE_UINT32_T",
+      "AC_TYPE_UINT64_T",
+      "AC_TYPE_UINT8_T",
+      "AM_CONDITIONAL",
+      "AM_COND_IF",
+      "AM_INIT_AUTOMAKE",
+      "AM_PROG_CC_C_O",
+      "AM_SILENT_RULES",
+      "AX_COMPILER_VERSION",
+      "AX_PREFIX_CONFIG_H",
+      "LT_INIT"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 286724,
+    "configure_fi": 286717,
+    "configure_case": 73,
+    "configure_esac": 76,
+    "balanced": false,
+    "automake_conditionals": [
+      "TEST_COMPILER_IS_CLANG",
+      "INCLUDE_CPPUTEST_EXT",
+      "INCLUDE_GMOCKTESTS"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": ".",
+    "present": [
+      "install-sh",
+      "missing",
+      "depcomp",
+      "compile"
+    ],
+    "missing": [
+      "ltmain.sh",
+      "config.guess",
+      "config.sub"
+    ]
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "c": 19,
+      "cpp": 142,
+      "h": 80
+    },
+    "configure_macros": [
+      "AC_PROG_CC",
+      "AC_PROG_CXX"
+    ],
+    "needs_cxx": true,
+    "needs_fortran": false,
+    "sets_c_std": true
+  },
+  "libtool_context": {
+    "uses_libtool": true,
+    "macros": [
+      "LT_INIT",
+      "AC_PROG_LIBTOOL"
+    ],
+    "ltmain_present": false,
+    "libtool_m4_sources": [],
+    "age": "modern"
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": false,
+    "defines_sampled": []
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-subdir-objects",
+      "applied_at": "configure",
+      "effect": "neutral",
+      "effectiveness": "low"
+    },
+    {
+      "quirk_id": "uses-libtool",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-libtool-old",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "has-m4-macro-dir",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-ax-archive",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "vpath_analysis": {
+    "hardcoded_src_paths": 7,
+    "abs_path_leakage": 0,
+    "built_sources": [],
+    "generated_source_targets": []
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "stddef.h",
+      "stdint.h",
+      "stdlib.h",
+      "string.h",
+      "sys/time.h",
+      "unistd.h"
+    ],
+    "headers_included_unchecked": [
+      "CppUTest/PlatformSpecificFunctions.h",
+      "cppunit/config/SourcePrefix.h",
+      "cppunit/extensions/HelperMacros.h",
+      "linux/acpi.h",
+      "linux/types.h",
+      "pthread.h",
+      "sys/wait.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 5,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "gnu++",
+    "strip_modern_poison_flags": [],
+    "inject_legacy_shims": false,
+    "compiler_aliasing": {}
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 0,
+    "shadowed_builtins": [],
+    "permitted_mutations": 14,
+    "suspect_global_mutations": 0
+  },
+  "parallel_build_safety": {
+    "vpath_out_of_tree_safe": false,
+    "generators": [],
+    "unordered_generated_sources": [],
+    "built_sources_declared": false
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "CppUTest/PlatformSpecificFunctions.h",
+      "cppunit/config/SourcePrefix.h",
+      "cppunit/extensions/HelperMacros.h",
+      "linux/acpi.h",
+      "linux/types.h",
+      "pthread.h",
+      "sys/wait.h",
+      "stddef.h",
+      "stdint.h",
+      "stdlib.h",
+      "string.h",
+      "sys/time.h",
+      "unistd.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "vpath-unsafe (abs-path/hardcoded-srcdir leakage)"
+  ],
+  "repair_hints": [
+    {
+      "id": "missing-build-tool",
+      "phase": "make",
+      "confidence": 0.75,
+      "evidence": [
+        "pthread-config: command not found"
+      ],
+      "action": "provide pthread-config",
+      "expected_effect": "unblocks the build step needing this tool"
+    }
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": 0,
+      "Makefile.in": 12724,
+      "aclocal.m4": 13,
+      "config.h.in": 11486,
+      "configure": 11437,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_ENABLE": "system-aclocal",
+      "AC_ARG_VAR": "system-aclocal",
+      "AC_CANONICAL_HOST": "system-aclocal",
+      "AC_CHECK_FUNCS": "system-aclocal",
+      "AC_CHECK_HEADERS": "system-aclocal",
+      "AC_CHECK_PROG": "system-aclocal",
+      "AC_COMPILE_IFELSE": "system-aclocal",
+      "AC_CONFIG_AUX_DIR": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_HEADERS": "system-aclocal",
+      "AC_CONFIG_MACRO_DIR": "system-aclocal",
+      "AC_CONFIG_SRCDIR": "system-aclocal",
+      "AC_C_INLINE": "system-aclocal",
+      "AC_DEFINE": "system-aclocal",
+      "AC_FUNC_FORK": "system-aclocal",
+      "AC_HELP_STRING": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_LANG_POP": "system-aclocal",
+      "AC_LANG_PROGRAM": "system-aclocal",
+      "AC_LANG_PUSH": "system-aclocal",
+      "AC_LIBTOOL_DLOPEN": "system-aclocal",
+      "AC_LINK_IFELSE": "system-aclocal",
+      "AC_MSG_CHECKING": "system-aclocal",
+      "AC_MSG_ERROR": "system-aclocal",
+      "AC_MSG_RESULT": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PREREQ": "system-aclocal",
+      "AC_PROG_CC": "system-aclocal",
+      "AC_PROG_CPP": "system-aclocal",
+      "AC_PROG_CXX": "system-aclocal",
+      "AC_PROG_LIBTOOL": "system-aclocal",
+      "AC_PROG_LN_S": "system-aclocal",
+      "AC_PROG_MAKE_SET": "system-aclocal",
+      "AC_SUBST": "system-aclocal",
+      "AC_TYPE_INT16_T": "system-aclocal",
+      "AC_TYPE_INT32_T": "system-aclocal",
+      "AC_TYPE_INT64_T": "system-aclocal",
+      "AC_TYPE_INT8_T": "system-aclocal",
+      "AC_TYPE_LONG_LONG_INT": "system-aclocal",
+      "AC_TYPE_PID_T": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "check_PROGRAMS",
+        "var": "CPPUTEST_TESTS",
+        "resolved_to": [
+          "CppUTestTests"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "check_PROGRAMS",
+        "var": "CPPUTESTEXT_TESTS",
+        "resolved_to": [
+          "CppUTestExtTests"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "CppUTestTests_LDADD",
+        "var": "CPPUTEST_LDADD",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "CppUTestExtTests_LDADD",
+        "var": "CPPUTEST_LDADD",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "#GTestTests_LDADD",
+        "var": "CPPUTEST_LDADD",
+        "resolved_to": [],
+        "resolved": false
+      }
+    ],
+    "unresolved_refs": [
+      "CppUTestTests_LDADD = $(CPPUTEST_LDADD)",
+      "CppUTestExtTests_LDADD = $(CPPUTEST_LDADD)",
+      "#GTestTests_LDADD = $(CPPUTEST_LDADD)"
+    ],
+    "indirection_count": 5
   }
 }

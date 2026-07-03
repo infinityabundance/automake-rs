@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "BlockstreamResearch/secp256k1-zkp",
   "source": {
     "url": "https://github.com/BlockstreamResearch/secp256k1-zkp",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,11 +26,11 @@
     {
       "step": "configure",
       "tool": "./configure",
-      "status": "fail"
+      "status": "ok"
     },
     {
-      "step": "auto-quirk",
-      "tool": "quirk-engine",
+      "step": "make",
+      "tool": "make",
       "status": "fail"
     }
   ],
@@ -48,11 +48,11 @@
     "libtool"
   ],
   "outputs": [],
-  "status": "CONFIGURE_RUN_FAIL",
+  "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "configure: error: Set enable_dev_mode before calling SECP_SET_DEFAULT",
+  "diagnostic": "cc: error: _PKG_VERSION_MAJOR,: linker input file not found: No such file or directory",
   "deep_expansion": {
-    "configure_lines": 3581,
+    "configure_lines": 4250,
     "leaked_macros": [],
     "heredoc_openers": 41,
     "heredoc_terminators": 41,
@@ -60,43 +60,47 @@
     "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 3044: do eval test \\${$as_var+y} \\"
+      "line 1408: # eval \"_acrs_sv=\\${}\"; printf '%s\\n' \"s|@@|${_acrs_sv}|g\" >",
+      "line 3712: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
-      "PACKAGE_NAME",
-      "PACKAGE_TARNAME",
-      "PACKAGE_VERSION",
-      "PACKAGE_STRING",
-      "PACKAGE_BUGREPORT",
-      "PACKAGE_URL",
-      "srcdir",
-      "prefix",
-      "exec_prefix",
-      "CC",
       "CFLAGS",
-      "CPPFLAGS",
-      "LDFLAGS",
-      "LIBS",
-      "CXX",
-      "CXXFLAGS",
-      "CPP",
-      "DEFS",
-      "LIBOBJS",
-      "INSTALL",
-      "LIB_VERSION_AGE",
-      "LIB_VERSION_CURRENT",
-      "TEST_DEFINES",
       "SECP_CFLAGS",
+      "TEST_DEFINES",
       "SECP_CONFIG_DEFINES",
-      "host_alias",
-      "host_os",
-      "host_vendor",
-      "host_cpu"
+      "ENABLE_COVERAGE_TRUE",
+      "ENABLE_COVERAGE_FALSE",
+      "USE_TESTS_TRUE",
+      "USE_TESTS_FALSE",
+      "USE_CTIME_TESTS_TRUE",
+      "USE_CTIME_TESTS_FALSE",
+      "USE_EXHAUSTIVE_TESTS_TRUE",
+      "USE_EXHAUSTIVE_TESTS_FALSE",
+      "USE_EXAMPLES_TRUE",
+      "USE_EXAMPLES_FALSE",
+      "USE_BENCHMARK_TRUE",
+      "USE_BENCHMARK_FALSE",
+      "ENABLE_MODULE_ECDH_TRUE",
+      "ENABLE_MODULE_ECDH_FALSE",
+      "ENABLE_MODULE_RECOVERY_TRUE",
+      "ENABLE_MODULE_RECOVERY_FALSE",
+      "ENABLE_MODULE_EXTRAKEYS_TRUE",
+      "ENABLE_MODULE_EXTRAKEYS_FALSE",
+      "ENABLE_MODULE_SCHNORRSIG_TRUE",
+      "ENABLE_MODULE_SCHNORRSIG_FALSE",
+      "ENABLE_MODULE_MUSIG_TRUE",
+      "ENABLE_MODULE_MUSIG_FALSE",
+      "ENABLE_MODULE_ELLSWIFT_TRUE",
+      "ENABLE_MODULE_ELLSWIFT_FALSE",
+      "ENABLE_MODULE_GENERATOR_TRUE"
     ],
-    "failed_during_check": "",
+    "failed_during_check": "checking for unistd.h... yes",
     "failure_tail": [
-      "configure: error: Set enable_dev_mode before calling SECP_SET_DEFAULT"
+      "checking for unistd.h... yes",
+      "configure: creating Makefile",
+      "configure: creating libsecp256k1.pc",
+      "configure: creating ./config.status"
     ],
     "conftest_corruption": [],
     "conftest_directives_intact": 8,
@@ -110,38 +114,15 @@
       "char foo;"
     ]
   },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "ok",
-    "real_make": "ok",
-    "real_configure_lines": 17509,
-    "real_first_error": "",
-    "classification": "OURS_BUG_CONFIGURE"
-  },
-  "divergence": {
-    "stage": "configure",
-    "ours_error": "",
-    "ours_error_context": [],
-    "ours_configure_lines": 3581,
-    "real_configure_lines": 17509,
-    "macros_ours_left_undefined": []
-  },
   "receipt": {
-    "court_status": "failed",
+    "court_status": "partial",
     "probe_trace": [],
     "quirks_matched": [
       "uses-libtool",
       "uses-subdir-objects",
       "vendored-aclocal"
     ],
-    "quirks_applied": [
-      {
-        "id": "uses-subdir-objects",
-        "action": "--disable-dependency-tracking",
-        "verified": false
-      }
-    ],
-    "receipt_hash": "24e39ed3178d433d21c1340a6407fda16d8349c27724819539e8175382940e80",
+    "receipt_hash": "fc222e24136e1c7565f3970366c0a81d4ec04fa5491250e780188ba2805c06fb",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -150,6 +131,618 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "libsecp256k1.pc",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      }
+    ],
+    "config_headers": [],
+    "subdirs": [],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [
+          "libsecp256k1.la",
+          "$(PRECOMPUTED_LIB)",
+          "precompute_ecmult",
+          "precompute_ecmult_gen"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      }
+    ],
+    "max_depth": 0,
+    "config_h_consumers_below_root": []
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1241,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      }
+    ]
+  },
+  "tool_requirements": {
+    "detected": [
+      "ar"
+    ],
+    "missing": []
+  },
+  "macro_inventory": {
+    "macro_dirs": [],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [],
+    "called_macros": [
+      "AC_ARG_ENABLE",
+      "AC_ARG_WITH",
+      "AC_CANONICAL_HOST",
+      "AC_CHECK_HEADERS",
+      "AC_CHECK_PROG",
+      "AC_CONFIG_AUX_DIR",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_MACRO_DIR",
+      "AC_DEFUN",
+      "AC_INIT",
+      "AC_LANG_SOURCE",
+      "AC_LINK_IFELSE",
+      "AC_MSG_CHECKING",
+      "AC_MSG_ERROR",
+      "AC_MSG_RESULT",
+      "AC_OUTPUT",
+      "AC_PREREQ",
+      "AC_PROG_CC",
+      "AC_SUBST",
+      "AM_CONDITIONAL",
+      "AM_INIT_AUTOMAKE",
+      "AM_PROG_AR",
+      "AM_PROG_AS",
+      "AM_SILENT_RULES",
+      "LT_INIT",
+      "PKG_VERSION_IS_RELEASE",
+      "PKG_VERSION_MAJOR",
+      "PKG_VERSION_MINOR",
+      "PKG_VERSION_PATCH"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 303,
+    "configure_fi": 297,
+    "configure_case": 71,
+    "configure_esac": 74,
+    "balanced": false,
+    "automake_conditionals": [
+      "ENABLE_COVERAGE",
+      "USE_TESTS",
+      "USE_CTIME_TESTS",
+      "USE_EXHAUSTIVE_TESTS",
+      "USE_EXAMPLES",
+      "USE_BENCHMARK",
+      "ENABLE_MODULE_ECDH",
+      "ENABLE_MODULE_RECOVERY",
+      "ENABLE_MODULE_EXTRAKEYS",
+      "ENABLE_MODULE_SCHNORRSIG",
+      "ENABLE_MODULE_MUSIG",
+      "ENABLE_MODULE_ELLSWIFT",
+      "ENABLE_MODULE_GENERATOR",
+      "ENABLE_MODULE_RANGEPROOF",
+      "ENABLE_MODULE_SURJECTIONPROOF",
+      "ENABLE_MODULE_WHITELIST",
+      "ENABLE_MODULE_ECDSA_S2C",
+      "ENABLE_MODULE_ECDSA_ADAPTOR",
+      "ENABLE_MODULE_BPPP",
+      "ENABLE_MODULE_SCHNORRSIG_HALFAGG",
+      "USE_REDUCED_SURJECTION_PROOF_SIZE",
+      "USE_EXTERNAL_ASM",
+      "USE_ASM_ARM",
+      "BUILD_WINDOWS"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": "autotools-aux",
+    "present": [
+      "install-sh",
+      "missing",
+      "depcomp",
+      "compile"
+    ],
+    "missing": [
+      "ltmain.sh",
+      "config.guess",
+      "config.sub"
+    ]
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "c": 23,
+      "h": 141,
+      "s": 2
+    },
+    "configure_macros": [
+      "AC_PROG_CC"
+    ],
+    "needs_cxx": false,
+    "needs_fortran": false,
+    "sets_c_std": true
+  },
+  "libtool_context": {
+    "uses_libtool": true,
+    "macros": [
+      "LT_INIT"
+    ],
+    "ltmain_present": false,
+    "libtool_m4_sources": [],
+    "age": "modern"
+  },
+  "make_graph": {
+    "targets": [
+      "all",
+      "all-am",
+      "$(am__depfiles_remade)",
+      "am--depfiles",
+      "install-exec-am",
+      "install-data-am",
+      "uninstall-am",
+      "install",
+      "install-am",
+      "installcheck",
+      "install-strip",
+      "install-info",
+      "install-info-am",
+      "install-dvi",
+      "install-dvi-am",
+      "install-ps",
+      "install-ps-am",
+      "install-pdf",
+      "install-pdf-am",
+      "install-html",
+      "install-html-am",
+      "install-data-hook",
+      "install-exec-hook",
+      "installdirs",
+      "installdirs-am",
+      ".PHONY",
+      "mostlyclean-am",
+      "clean-am",
+      "distclean-am",
+      "maintainer-clean-am",
+      "clean",
+      "distdir",
+      "dist",
+      "dist-all",
+      "dist-gzip",
+      "distcleancheck",
+      "distcheck",
+      "check-am",
+      "check",
+      "check-TESTS"
+    ],
+    "key_variables": {
+      "AR": "ar",
+      "CC": "cc",
+      "CFLAGS": "-g -O2",
+      "CPPFLAGS": "",
+      "CXX": "c++",
+      "CXXFLAGS": "-g -O2",
+      "DEFAULT_INCLUDES": "-I. -I$(top_builddir)",
+      "DEFS": "-DPACKAGE=\"libsecp256k1\" -DVERSION=\"m4_join(., _PKG_VERSION_MAJOR, _PKG_VERSION_MINOR, _PKG_VERSION_PATCH)m4_if(_PKG_VERSION_IS_RELEASE, true, , -dev)\" -DPACKAG",
+      "LDFLAGS": "",
+      "LIBS": "",
+      "RANLIB": "ranlib"
+    },
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "libtool",
+      "config.log"
+    ],
+    "recursion_depth": 0,
+    "top_targets": [
+      "all",
+      "install",
+      "check",
+      "clean",
+      "dist",
+      "all-am"
+    ],
+    "make_diagnostics": [
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "cc: error: _PKG_VERSION_MAJOR,: linker input file not found: No such file or directory"
+      },
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "cc: error: _PKG_VERSION_MINOR,: linker input file not found: No such file or directory"
+      },
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "cc: error: _PKG_VERSION_PATCH)m4_if(_PKG_VERSION_IS_RELEASE,: linker input file not found: No such file or directory"
+      },
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "cc: error: true,: linker input file not found: No such file or directory"
+      },
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "cc: error: ,: linker input file not found: No such file or directory"
+      },
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "cc: error: _PKG_VERSION_MAJOR,: linker input file not found: No such file or directory"
+      },
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "cc: error: _PKG_VERSION_MINOR,: linker input file not found: No such file or directory"
+      },
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "cc: error: _PKG_VERSION_PATCH)m4_if(_PKG_VERSION_IS_RELEASE,: linker input file not found: No such file or directory"
+      },
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "cc: error: true,: linker input file not found: No such file or directory"
+      },
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "cc: error: ,: linker input file not found: No such file or directory"
+      }
+    ]
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": false,
+    "defines_sampled": [
+      "PACKAGE=\"libsecp256k1\"",
+      "VERSION=\"m4_join(.,",
+      "PACKAGE_NAME=\"libsecp256k1\"",
+      "PACKAGE_TARNAME=\"libsecp256k1\"",
+      "PACKAGE_VERSION=\"m4_join(.,",
+      "PACKAGE_STRING=\"libsecp256k1",
+      "PACKAGE_BUGREPORT=\"https://github.com/bitcoin-core/secp256k1/issues\"",
+      "HAVE_SYS_TYPES_H=1",
+      "HAVE_SYS_WAIT_H=1",
+      "HAVE_UNISTD_H=1",
+      "SECP256K1_STATIC",
+      "VERIFY"
+    ]
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-libtool",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-subdir-objects",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "vpath_analysis": {
+    "hardcoded_src_paths": 2,
+    "abs_path_leakage": 0,
+    "built_sources": [
+      "$(PRECOMP)",
+      "$(TESTVECTORS)"
+    ],
+    "generated_source_targets": []
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "sys/types.h",
+      "sys/wait.h",
+      "unistd.h"
+    ],
+    "headers_included_unchecked": [
+      "inttypes.h",
+      "stdint.h",
+      "sys/random.h"
+    ],
+    "implicit_link_libs": [
+      "-lbcrypt"
+    ]
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 2,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "explicit",
+    "strip_modern_poison_flags": [],
+    "inject_legacy_shims": false,
+    "compiler_aliasing": {}
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 6,
+    "shadowed_builtins": [],
+    "permitted_mutations": 29,
+    "suspect_global_mutations": 0
+  },
+  "parallel_build_safety": {
+    "vpath_out_of_tree_safe": true,
+    "generators": [],
+    "unordered_generated_sources": [],
+    "built_sources_declared": true
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "inttypes.h",
+      "stdint.h",
+      "sys/random.h",
+      "sys/types.h",
+      "sys/wait.h",
+      "unistd.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": 0,
+      "Makefile.in": 1079,
+      "aclocal.m4": 22,
+      "configure": 32,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_ENABLE": "system-aclocal",
+      "AC_ARG_WITH": "system-aclocal",
+      "AC_CANONICAL_HOST": "system-aclocal",
+      "AC_CHECK_HEADERS": "system-aclocal",
+      "AC_CHECK_PROG": "system-aclocal",
+      "AC_CONFIG_AUX_DIR": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_MACRO_DIR": "system-aclocal",
+      "AC_DEFUN": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_LANG_SOURCE": "system-aclocal",
+      "AC_LINK_IFELSE": "system-aclocal",
+      "AC_MSG_CHECKING": "system-aclocal",
+      "AC_MSG_ERROR": "system-aclocal",
+      "AC_MSG_RESULT": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PREREQ": "system-aclocal",
+      "AC_PROG_CC": "system-aclocal",
+      "AC_SUBST": "system-aclocal",
+      "AM_CONDITIONAL": "system-aclocal",
+      "AM_INIT_AUTOMAKE": "system-aclocal",
+      "AM_PROG_AR": "system-aclocal",
+      "AM_PROG_AS": "system-aclocal",
+      "AM_SILENT_RULES": "system-aclocal",
+      "LT_INIT": "system-aclocal",
+      "PKG_VERSION_IS_RELEASE": "system-aclocal",
+      "PKG_VERSION_MAJOR": "system-aclocal",
+      "PKG_VERSION_MINOR": "system-aclocal",
+      "PKG_VERSION_PATCH": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "noinst_LTLIBRARIES",
+        "var": "PRECOMPUTED_LIB",
+        "resolved_to": [
+          "libsecp256k1_precomputed.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "noinst_LTLIBRARIES",
+        "var": "COMMON_LIB",
+        "resolved_to": [
+          "libsecp256k1_common.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libsecp256k1_la_LIBADD",
+        "var": "COMMON_LIB",
+        "resolved_to": [
+          "libsecp256k1_common.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libsecp256k1_la_LIBADD",
+        "var": "PRECOMPUTED_LIB",
+        "resolved_to": [
+          "libsecp256k1_precomputed.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "bench_internal_LDADD",
+        "var": "COMMON_LIB",
+        "resolved_to": [
+          "libsecp256k1_common.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "bench_internal_LDADD",
+        "var": "PRECOMPUTED_LIB",
+        "resolved_to": [
+          "libsecp256k1_precomputed.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "bench_ecmult_LDADD",
+        "var": "COMMON_LIB",
+        "resolved_to": [
+          "libsecp256k1_common.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "bench_ecmult_LDADD",
+        "var": "PRECOMPUTED_LIB",
+        "resolved_to": [
+          "libsecp256k1_precomputed.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "noverify_tests_LDADD",
+        "var": "COMMON_LIB",
+        "resolved_to": [
+          "libsecp256k1_common.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "noverify_tests_LDADD",
+        "var": "PRECOMPUTED_LIB",
+        "resolved_to": [
+          "libsecp256k1_precomputed.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "tests_SOURCES",
+        "var": "noverify_tests_SOURCES",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "tests_LDADD",
+        "var": "noverify_tests_LDADD",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "exhaustive_tests_LDADD",
+        "var": "COMMON_LIB",
+        "resolved_to": [
+          "libsecp256k1_common.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "precompute_ecmult_LDADD",
+        "var": "COMMON_LIB",
+        "resolved_to": [
+          "libsecp256k1_common.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "precompute_ecmult_gen_LDADD",
+        "var": "COMMON_LIB",
+        "resolved_to": [
+          "libsecp256k1_common.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "BUILT_SOURCES",
+        "var": "PRECOMP",
+        "resolved_to": [
+          "src/precomputed_ecmult_gen.c",
+          "src/precomputed_ecmult.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "BUILT_SOURCES",
+        "var": "TESTVECTORS",
+        "resolved_to": [
+          "src/wycheproof/ecdsa_secp256k1_sha256_bitcoin_test.h",
+          "src/wycheproof/ecdh_secp256k1_test.h"
+        ],
+        "resolved": true
+      }
+    ],
+    "unresolved_refs": [
+      "tests_SOURCES = $(noverify_tests_SOURCES)",
+      "tests_LDADD = $(noverify_tests_LDADD)"
+    ],
+    "indirection_count": 17
   }
 }

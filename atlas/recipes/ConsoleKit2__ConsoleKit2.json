@@ -1,13 +1,13 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "ConsoleKit2/ConsoleKit2",
   "source": {
     "url": "https://github.com/ConsoleKit2/ConsoleKit2",
-    "git_sha": "cbaab28b42a9126448edd093a68e1f8ea6930982",
+    "git_sha": "de8afbddcb848184e370cd0bf9529e6c28accbfc",
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.14",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -21,6 +21,16 @@
     {
       "step": "autoreconf",
       "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "fail"
+    },
+    {
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
       "status": "fail"
     }
   ],
@@ -29,7 +39,13 @@
     "configure_args": []
   },
   "dependencies": {
-    "pkg_config": [],
+    "pkg_config": [
+      "checking for dbus-1 >= 0.82... 1.14.10",
+      "checking for glib-2.0 >= 2.40... 2.80.0",
+      "checking for gio-2.0 >= 2.40... 2.80.0",
+      "checking for gio-unix-2.0 >= 2.40... 2.80.0",
+      "checking for optional package polkit-gobject-1 >= 0.92... not found"
+    ],
     "system_libs": [],
     "headers_needed": [],
     "missing": []
@@ -42,19 +58,71 @@
     "subdirs"
   ],
   "outputs": [],
-  "status": "CONFIGURE_GEN_FAIL",
+  "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "",
-  "oracle": {
-    "real_autoreconf": "fail",
-    "real_configure": "skipped",
-    "real_make": "skipped",
-    "real_configure_lines": 0,
-    "real_first_error": "automake: error: cannot open < gtk-doc.make: No such file or directory",
-    "classification": "NOT_STANDALONE"
+  "diagnostic": "checking for optional package polkit-gobject-1 >= 0.92... not found",
+  "deep_expansion": {
+    "configure_lines": 4857,
+    "leaked_macros": [],
+    "heredoc_openers": 47,
+    "heredoc_terminators": 47,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 4298: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "VERSION",
+      "GETTEXT_PACKAGE",
+      "PKG_CONFIG",
+      "LIBDBUS_VERSION",
+      "LIBDBUS_CFLAGS",
+      "LIBDBUS_LIBS",
+      "LIBDBUS_REQUIRED_VERSION",
+      "GLIB_VERSION",
+      "GLIB_CFLAGS",
+      "GLIB_LIBS",
+      "GLIB_REQUIRED_VERSION",
+      "GIO_VERSION",
+      "GIO_CFLAGS",
+      "GIO_LIBS",
+      "GIO_REQUIRED_VERSION",
+      "GIO_UNIX_VERSION",
+      "GIO_UNIX_CFLAGS",
+      "GIO_UNIX_LIBS",
+      "GIO_UNIX_REQUIRED_VERSION",
+      "LIBX11_CFLAGS",
+      "LIBX11_LDFLAGS",
+      "LIBX11_LIBS",
+      "USE_LIBX11_TRUE",
+      "USE_LIBX11_FALSE",
+      "POLKIT_VERSION",
+      "POLKIT_CFLAGS",
+      "POLKIT_LIBS",
+      "POLKIT_REQUIRED_VERSION",
+      "HAVE_POLKIT_TRUE"
+    ],
+    "failed_during_check": "checking for zlib.h... yes",
+    "failure_tail": [
+      "checking for zlib.h... yes",
+      "configure: error: Unable to find libz"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 21,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "char strerror ();\\nint main() { return strerror (); }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar fork ();\\nint main() { return fork(); }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar malloc ();\\nint main() { return malloc(); }",
+      "#include <sys/mkdev.h>",
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { pid_t x; return 0; }",
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { size_t x; return 0; }"
+    ]
   },
   "receipt": {
-    "court_status": "not_standalone",
+    "court_status": "failed",
     "probe_trace": [],
     "quirks_matched": [
       "uses-libtool",
@@ -66,7 +134,14 @@
       "vendored-aclocal",
       "uses-ax-archive"
     ],
-    "receipt_hash": "a3d7e44307adb43a91c26816797c0dfb1310daab91686e9b5a7599a395209419",
+    "quirks_applied": [
+      {
+        "id": "uses-maintainer-mode",
+        "action": "--disable-maintainer-mode",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -75,6 +150,1332 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "data/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "doc/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "doc/console-kit-daemon.1m",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "doc/dbus/ConsoleKit.xml",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "doc/dbus/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "doc/libconsolekit/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "libck-connector/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "libck-connector/ck-connector.pc",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "libconsolekit/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "libconsolekit/libconsolekit.pc",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "pam-ck-connector/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "po/Makefile.in",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "src/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "tools/70-udev-acl.rules",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "tools/71-udev-seat.rules",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "tools/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "tools/freebsd/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tools/linux/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tools/netbsd/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tools/openbsd/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tools/solaris/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      }
+    ],
+    "config_headers": [
+      "config.h"
+    ],
+    "subdirs": [
+      "src",
+      "libconsolekit",
+      "libck-connector",
+      "tools",
+      "data",
+      "doc",
+      "pam-ck-connector",
+      "po",
+      "$(NULL)",
+      "dbus",
+      "libconsolekit",
+      "$(NULL)",
+      "$(NULL)",
+      "linux",
+      "freebsd",
+      "netbsd",
+      "openbsd",
+      "solaris",
+      "$(NULL)",
+      "$(NULL)",
+      "$(NULL)",
+      "$(NULL)",
+      "$(NULL)"
+    ],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [],
+        "subdirs": [
+          "src",
+          "libconsolekit",
+          "libck-connector",
+          "tools",
+          "data",
+          "doc",
+          "pam-ck-connector",
+          "po",
+          "$(NULL)"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "doc",
+        "targets": [],
+        "subdirs": [
+          "dbus",
+          "libconsolekit"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "libck-connector",
+        "targets": [
+          "libck-connector.la",
+          "$(NULL)",
+          "test-connector",
+          "$(NULL)"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "libconsolekit",
+        "targets": [
+          "libconsolekit.la",
+          "$(NULL)",
+          "test-libconsolekit",
+          "$(NULL)"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "pam-ck-connector",
+        "targets": [
+          "pam_ck_connector.la",
+          "$(NULL)",
+          "test-pam",
+          "$(NULL)"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src",
+        "targets": [
+          "libck.la",
+          "libck-event-log.la",
+          "$(NULL)",
+          "console-kit-daemon",
+          "$(NULL)",
+          "test-event-logger",
+          "test-tty-idle-monitor",
+          "test-vt-monitor",
+          "test-inhibit",
+          "test-session",
+          "test-seat",
+          "test-manager"
+        ],
+        "subdirs": [
+          "$(NULL)"
+        ],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "tools",
+        "targets": [
+          "ck-launch-session",
+          "ck-list-sessions",
+          "ck-history",
+          "$(NULL)",
+          "ck-log-system-start",
+          "ck-log-system-restart",
+          "ck-log-system-stop",
+          "$(NULL)",
+          "ck-collect-session-info",
+          "ck-remove-directory",
+          "$(NULL)"
+        ],
+        "subdirs": [
+          "$(NULL)",
+          "linux",
+          "freebsd",
+          "netbsd",
+          "openbsd",
+          "solaris"
+        ],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "tools/freebsd",
+        "targets": [],
+        "subdirs": [
+          "$(NULL)"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "tools/linux",
+        "targets": [],
+        "subdirs": [
+          "$(NULL)"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "tools/netbsd",
+        "targets": [],
+        "subdirs": [
+          "$(NULL)"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "tools/openbsd",
+        "targets": [],
+        "subdirs": [
+          "$(NULL)"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "tools/solaris",
+        "targets": [],
+        "subdirs": [
+          "$(NULL)"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      }
+    ],
+    "max_depth": 2,
+    "config_h_consumers_below_root": [
+      "tools",
+      "src",
+      "pam-ck-connector",
+      "libconsolekit"
+    ]
+  },
+  "tool_requirements": {
+    "detected": [
+      "gtkdocize",
+      "xgettext"
+    ],
+    "missing": []
+  },
+  "macro_inventory": {
+    "macro_dirs": [
+      "m4"
+    ],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": true,
+    "defined_macros": [
+      {
+        "name": "XDT_SUPPORTED_FLAGS",
+        "source": "m4/xdt-features.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "XDT_FEATURE_DEBUG",
+        "source": "m4/xdt-features.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "XDT_FEATURE_VISIBILITY",
+        "source": "m4/xdt-features.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "XDT_FEATURE_LINKER_OPTS",
+        "source": "m4/xdt-features.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "GOBJECT_INTROSPECTION_CHECK",
+        "source": "m4/introspection.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "GOBJECT_INTROSPECTION_REQUIRE",
+        "source": "m4/introspection.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "XDT_PROG_PKG_CONFIG",
+        "source": "m4/xdt-depends.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "XDT_CHECK_PACKAGE",
+        "source": "m4/xdt-depends.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "XDT_CHECK_OPTIONAL_PACKAGE",
+        "source": "m4/xdt-depends.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "XDT_CHECK_LIBX11",
+        "source": "m4/xdt-depends.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "XDT_CHECK_LIBX11_REQUIRE",
+        "source": "m4/xdt-depends.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "XDT_CHECK_LIBSM",
+        "source": "m4/xdt-depends.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "XDT_CHECK_LIBXPM",
+        "source": "m4/xdt-depends.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "XDT_CHECK_LIBXPM_REQUIRE",
+        "source": "m4/xdt-depends.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "EXTRA_COMPILE_WARNINGS",
+        "source": "acinclude.m4",
+        "kind": "project-local"
+      }
+    ],
+    "called_macros": [
+      "AC_ARG_ENABLE",
+      "AC_ARG_VAR",
+      "AC_ARG_WITH",
+      "AC_CHECK_FILE",
+      "AC_CHECK_FUNC",
+      "AC_CHECK_FUNCS",
+      "AC_CHECK_HEADER",
+      "AC_CHECK_HEADERS",
+      "AC_CHECK_LIB",
+      "AC_CHECK_MEMBERS",
+      "AC_CONFIG_AUX_DIR",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_HEADERS",
+      "AC_CONFIG_MACRO_DIR",
+      "AC_CONFIG_SRCDIR",
+      "AC_COPYRIGHT",
+      "AC_DEFINE",
+      "AC_DEFINE_UNQUOTED",
+      "AC_FUNC_FORK",
+      "AC_FUNC_MALLOC",
+      "AC_HEADER_MAJOR",
+      "AC_HEADER_STDC",
+      "AC_INIT",
+      "AC_MSG_CHECKING",
+      "AC_MSG_ERROR",
+      "AC_MSG_RESULT",
+      "AC_MSG_WARN",
+      "AC_OUTPUT",
+      "AC_PATH_PROG",
+      "AC_PATH_X",
+      "AC_PREREQ",
+      "AC_PROG_CC",
+      "AC_SEARCH_LIBS",
+      "AC_SUBST",
+      "AC_TYPE_PID_T",
+      "AC_TYPE_SIZE_T",
+      "AC_TYPE_SSIZE_T",
+      "AC_TYPE_UID_T",
+      "AC_USE_SYSTEM_EXTENSIONS",
+      "AM_CONDITIONAL",
+      "AM_GNU_GETTEXT",
+      "AM_GNU_GETTEXT_VERSION",
+      "AM_INIT_AUTOMAKE",
+      "AM_MAINTAINER_MODE",
+      "AM_NLS",
+      "AM_PROG_CC_C_O",
+      "AM_SILENT_RULES",
+      "GTK_DOC_CHECK",
+      "LT_INIT",
+      "PKG_CHECK_MODULES",
+      "PKG_CONFIG"
+    ],
+    "unresolved_macros": [
+      "GTK_DOC_CHECK"
+    ]
+  },
+  "conditional_context": {
+    "configure_if": 294,
+    "configure_fi": 278,
+    "configure_case": 69,
+    "configure_esac": 72,
+    "balanced": false,
+    "automake_conditionals": [
+      "USE_LIBX11",
+      "CK_COMPILE_LINUX",
+      "CK_COMPILE_FREEBSD",
+      "CK_COMPILE_DRAGONFLY",
+      "CK_COMPILE_NETBSD",
+      "CK_COMPILE_OPENBSD",
+      "CK_COMPILE_SOLARIS",
+      "CK_COMPILE_GNU",
+      "HAVE_PAM",
+      "ENABLE_PAM_MODULE",
+      "HAVE_LINUXPAM",
+      "ENABLE_UDEV_ACL",
+      "USE_UDEV_BACKEND",
+      "DOCBOOK_DOCS_ENABLED",
+      "ENABLE_GTK_DOC",
+      "ENABLE_INOTIFY",
+      "BUILD_TESTS",
+      "HAVE_SYSTEMD"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": "autotools",
+    "present": [
+      "install-sh",
+      "missing"
+    ],
+    "missing": [
+      "depcomp",
+      "compile",
+      "ltmain.sh"
+    ]
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "c": 54,
+      "h": 21
+    },
+    "configure_macros": [
+      "AC_PROG_CC"
+    ],
+    "needs_cxx": false,
+    "needs_fortran": false,
+    "sets_c_std": false
+  },
+  "libtool_context": {
+    "uses_libtool": true,
+    "macros": [
+      "LT_INIT"
+    ],
+    "ltmain_present": false,
+    "libtool_m4_sources": [
+      "aclocal.m4"
+    ],
+    "age": "modern"
+  },
+  "gettext_intl_context": {
+    "uses_gettext": true,
+    "uses_intltool": false,
+    "po_dir_present": true,
+    "missing_files": []
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": true,
+    "defines_sampled": []
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-maintainer-mode",
+      "applied_at": "configure",
+      "effect": "neutral",
+      "effectiveness": "low"
+    },
+    {
+      "quirk_id": "uses-libtool",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-pkg-config",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-gettext",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "has-m4-macro-dir",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "has-acinclude",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-ax-archive",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "vpath_analysis": {
+    "hardcoded_src_paths": 6,
+    "abs_path_leakage": 0,
+    "built_sources": [
+      "$(LOGROTATE_CONFS)",
+      "$(XINITRC_CONFS)",
+      "$(NULL)",
+      "ck-manager-generated.h",
+      "ck-manager-generated.c",
+      "ck-seat-generated.h",
+      "ck-seat-generated.c",
+      "ck-session-generated.h",
+      "ck-session-generated.c",
+      "ck-marshal.c",
+      "ck-marshal.h",
+      "$(NULL)"
+    ],
+    "generated_source_targets": [
+      "consolekit.logrotate",
+      "ck-marshal.c",
+      "ck-marshal.h",
+      "libconsolekit-1.0.gir"
+    ]
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "acl/libacl.h",
+      "dev/wscons/wsconsio.h",
+      "dev/wscons/wsdisplay_usl_io.h",
+      "devattr.h",
+      "fcntl.h",
+      "ftw.h",
+      "kvm.h",
+      "libintl.h",
+      "libprop/proplib.h",
+      "libudev.h",
+      "limits.h",
+      "linux/input.h",
+      "linux/kd.h",
+      "locale.h",
+      "paths.h",
+      "poll.h",
+      "security/pam_ext.h",
+      "security/pam_modutil.h",
+      "sys/consio.h",
+      "sys/event.h",
+      "sys/fcntl.h",
+      "sys/inotify.h",
+      "sys/ioctl.h",
+      "sys/kbio.h",
+      "sys/kd.h",
+      "sys/mkdev.h",
+      "sys/mount.h",
+      "sys/param.h",
+      "sys/queue.h",
+      "sys/resource.h",
+      "sys/socket.h",
+      "sys/stat.h",
+      "sys/sysctl.h",
+      "sys/sysmacros.h",
+      "sys/types.h",
+      "sys/user.h",
+      "sys/vt.h",
+      "sys/wait.h",
+      "syslog.h",
+      "unistd.h"
+    ],
+    "headers_included_unchecked": [
+      "X11/Xatom.h",
+      "X11/Xlib.h",
+      "cgmanager/cgmanager-client.h",
+      "cgmanager/cgmanager.h",
+      "dbus/dbus.h",
+      "gio/gio.h",
+      "gio/gunixfdlist.h",
+      "glib/gi18n.h",
+      "glib/gstdio.h",
+      "inttypes.h",
+      "libdrm/drm.h",
+      "linux/tty.h",
+      "nih/alloc.h",
+      "nih/error.h",
+      "nih/string.h",
+      "polkit/polkit.h",
+      "security/pam_appl.h",
+      "security/pam_misc.h",
+      "security/pam_modules.h",
+      "selinux/context.h",
+      "selinux/get_default_type.h",
+      "selinux/label.h",
+      "selinux/selinux.h",
+      "stdint.h",
+      "sys/int_types.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 6,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "c89_gnu",
+    "strip_modern_poison_flags": [
+      "-Werror=implicit-function-declaration",
+      "-Werror=int-conversion",
+      "-Werror=incompatible-pointer-types"
+    ],
+    "inject_legacy_shims": true,
+    "compiler_aliasing": {
+      "clang-18+": "-std=gnu89 -Wno-error",
+      "gcc-14+": "-std=gnu89 -fpermissive"
+    }
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 25,
+    "shadowed_builtins": [],
+    "permitted_mutations": 12,
+    "suspect_global_mutations": 0
+  },
+  "parallel_build_safety": {
+    "vpath_out_of_tree_safe": false,
+    "generators": [
+      "consolekit.logrotate",
+      "ck-marshal.c",
+      "ck-marshal.h",
+      "libconsolekit-1.0.gir"
+    ],
+    "unordered_generated_sources": [
+      "consolekit.logrotate",
+      "libconsolekit-1.0.gir"
+    ],
+    "built_sources_declared": true
+  },
+  "host_environment_veil": {
+    "header_injection_candidates": [
+      "sys/sysctl.h"
+    ],
+    "symbol_aliasing_candidates": []
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "X11/Xatom.h",
+      "X11/Xlib.h",
+      "cgmanager/cgmanager-client.h",
+      "cgmanager/cgmanager.h",
+      "dbus/dbus.h",
+      "gio/gio.h",
+      "gio/gunixfdlist.h",
+      "glib/gi18n.h",
+      "glib/gstdio.h",
+      "inttypes.h",
+      "libdrm/drm.h",
+      "linux/tty.h",
+      "nih/alloc.h",
+      "nih/error.h",
+      "nih/string.h",
+      "polkit/polkit.h",
+      "security/pam_appl.h",
+      "security/pam_misc.h",
+      "security/pam_modules.h",
+      "selinux/context.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "subdir-config-h-include-path",
+    "unresolved-macros",
+    "modern-compiler-strictness (no explicit C std)",
+    "parallel-build-race (gen-source not in BUILT_SOURCES)",
+    "vpath-unsafe (abs-path/hardcoded-srcdir leakage)"
+  ],
+  "repair_hints": [
+    {
+      "id": "subdir-top-builddir",
+      "phase": "make",
+      "confidence": 0.88,
+      "evidence": [
+        "tools consumes config.h below root",
+        "src consumes config.h below root",
+        "pam-ck-connector consumes config.h below root",
+        "libconsolekit consumes config.h below root"
+      ],
+      "action": "ensure ac_subst_file sets relative top_builddir per subdir (0.1.19)",
+      "expected_effect": "config.h found in subdir compiles"
+    },
+    {
+      "id": "load-vendored-aclocal-dir",
+      "phase": "autoreconf",
+      "confidence": 0.85,
+      "evidence": [
+        "GTK_DOC_CHECK"
+      ],
+      "action": "aclocal -I m4",
+      "expected_effect": "resolves unexpanded AX_/custom macros"
+    }
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": 0,
+      "Makefile.in": 1463,
+      "aclocal.m4": 9,
+      "config.h.in": 28,
+      "configure": 24,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_ENABLE": "system-aclocal",
+      "AC_ARG_VAR": "system-aclocal",
+      "AC_ARG_WITH": "system-aclocal",
+      "AC_CHECK_FILE": "system-aclocal",
+      "AC_CHECK_FUNC": "system-aclocal",
+      "AC_CHECK_FUNCS": "system-aclocal",
+      "AC_CHECK_HEADER": "system-aclocal",
+      "AC_CHECK_HEADERS": "system-aclocal",
+      "AC_CHECK_LIB": "system-aclocal",
+      "AC_CHECK_MEMBERS": "system-aclocal",
+      "AC_CONFIG_AUX_DIR": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_HEADERS": "system-aclocal",
+      "AC_CONFIG_MACRO_DIR": "system-aclocal",
+      "AC_CONFIG_SRCDIR": "system-aclocal",
+      "AC_COPYRIGHT": "system-aclocal",
+      "AC_DEFINE": "system-aclocal",
+      "AC_DEFINE_UNQUOTED": "system-aclocal",
+      "AC_FUNC_FORK": "system-aclocal",
+      "AC_FUNC_MALLOC": "system-aclocal",
+      "AC_HEADER_MAJOR": "system-aclocal",
+      "AC_HEADER_STDC": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_MSG_CHECKING": "system-aclocal",
+      "AC_MSG_ERROR": "system-aclocal",
+      "AC_MSG_RESULT": "system-aclocal",
+      "AC_MSG_WARN": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PATH_PROG": "system-aclocal",
+      "AC_PATH_X": "system-aclocal",
+      "AC_PREREQ": "system-aclocal",
+      "AC_PROG_CC": "system-aclocal",
+      "AC_SEARCH_LIBS": "system-aclocal",
+      "AC_SUBST": "system-aclocal",
+      "AC_TYPE_PID_T": "system-aclocal",
+      "AC_TYPE_SIZE_T": "system-aclocal",
+      "AC_TYPE_SSIZE_T": "system-aclocal",
+      "AC_TYPE_UID_T": "system-aclocal",
+      "AC_USE_SYSTEM_EXTENSIONS": "system-aclocal",
+      "AM_CONDITIONAL": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "bin_PROGRAMS",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": true
+      },
+      {
+        "primary": "sbin_PROGRAMS",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": true
+      },
+      {
+        "primary": "ck_launch_session_SOURCES",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": true
+      },
+      {
+        "primary": "ck_launch_session_LDADD",
+        "var": "CONSOLE_KIT_LIBS",
+        "resolved_to": [
+          "$(CK2_LIBS)",
+          "$(TOOLS_LIBS)",
+          "$(GLIB_LIBS)",
+          "$(GIO_LIBS)",
+          "$(GIO_UNIX_LIBS)",
+          "$(LIBDBUS_LIBS)",
+          "$(SELINUX_LIBS)",
+          "$(LIBEVDEV_LIBS)",
+          "$(POLKIT_LIBS)",
+          "$(RBAC_LIBS)",
+          "$(CGMANAGER_LIBS)",
+          "$(LIBUDEV_LIBS)",
+          "$(LIBDRM_LIBS)",
+          "$(LIBX11_LIBS)"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "ck_launch_session_LDADD",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": true
+      },
+      {
+        "primary": "ck_list_sessions_SOURCES",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": true
+      },
+      {
+        "primary": "ck_list_sessions_LDADD",
+        "var": "CONSOLE_KIT_LIBS",
+        "resolved_to": [
+          "$(CK2_LIBS)",
+          "$(TOOLS_LIBS)",
+          "$(GLIB_LIBS)",
+          "$(GIO_LIBS)",
+          "$(GIO_UNIX_LIBS)",
+          "$(LIBDBUS_LIBS)",
+          "$(SELINUX_LIBS)",
+          "$(LIBEVDEV_LIBS)",
+          "$(POLKIT_LIBS)",
+          "$(RBAC_LIBS)",
+          "$(CGMANAGER_LIBS)",
+          "$(LIBUDEV_LIBS)",
+          "$(LIBDRM_LIBS)",
+          "$(LIBX11_LIBS)"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "ck_list_sessions_LDADD",
+        "var": "XLIB_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "ck_list_sessions_LDADD",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": true
+      },
+      {
+        "primary": "ck_history_SOURCES",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": true
+      },
+      {
+        "primary": "ck_history_LDADD",
+        "var": "CONSOLE_KIT_LIBS",
+        "resolved_to": [
+          "$(CK2_LIBS)",
+          "$(TOOLS_LIBS)",
+          "$(GLIB_LIBS)",
+          "$(GIO_LIBS)",
+          "$(GIO_UNIX_LIBS)",
+          "$(LIBDBUS_LIBS)",
+          "$(SELINUX_LIBS)",
+          "$(LIBEVDEV_LIBS)",
+          "$(POLKIT_LIBS)",
+          "$(RBAC_LIBS)",
+          "$(CGMANAGER_LIBS)",
+          "$(LIBUDEV_LIBS)",
+          "$(LIBDRM_LIBS)",
+          "$(LIBX11_LIBS)"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "ck_history_LDADD",
+        "var": "Z_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "ck_history_LDADD",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": true
+      },
+      {
+        "primary": "ck_log_system_start_SOURCES",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": true
+      },
+      {
+        "primary": "ck_log_system_start_LDADD",
+        "var": "CONSOLE_KIT_LIBS",
+        "resolved_to": [
+          "$(CK2_LIBS)",
+          "$(TOOLS_LIBS)",
+          "$(GLIB_LIBS)",
+          "$(GIO_LIBS)",
+          "$(GIO_UNIX_LIBS)",
+          "$(LIBDBUS_LIBS)",
+          "$(SELINUX_LIBS)",
+          "$(LIBEVDEV_LIBS)",
+          "$(POLKIT_LIBS)",
+          "$(RBAC_LIBS)",
+          "$(CGMANAGER_LIBS)",
+          "$(LIBUDEV_LIBS)",
+          "$(LIBDRM_LIBS)",
+          "$(LIBX11_LIBS)"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "ck_log_system_start_LDADD",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": true
+      },
+      {
+        "primary": "ck_log_system_restart_SOURCES",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": true
+      },
+      {
+        "primary": "ck_log_system_restart_LDADD",
+        "var": "CONSOLE_KIT_LIBS",
+        "resolved_to": [
+          "$(CK2_LIBS)",
+          "$(TOOLS_LIBS)",
+          "$(GLIB_LIBS)",
+          "$(GIO_LIBS)",
+          "$(GIO_UNIX_LIBS)",
+          "$(LIBDBUS_LIBS)",
+          "$(SELINUX_LIBS)",
+          "$(LIBEVDEV_LIBS)",
+          "$(POLKIT_LIBS)",
+          "$(RBAC_LIBS)",
+          "$(CGMANAGER_LIBS)",
+          "$(LIBUDEV_LIBS)",
+          "$(LIBDRM_LIBS)",
+          "$(LIBX11_LIBS)"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "ck_log_system_restart_LDADD",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": true
+      },
+      {
+        "primary": "ck_log_system_stop_SOURCES",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": true
+      },
+      {
+        "primary": "ck_log_system_stop_LDADD",
+        "var": "CONSOLE_KIT_LIBS",
+        "resolved_to": [
+          "$(CK2_LIBS)",
+          "$(TOOLS_LIBS)",
+          "$(GLIB_LIBS)",
+          "$(GIO_LIBS)",
+          "$(GIO_UNIX_LIBS)",
+          "$(LIBDBUS_LIBS)",
+          "$(SELINUX_LIBS)",
+          "$(LIBEVDEV_LIBS)",
+          "$(POLKIT_LIBS)",
+          "$(RBAC_LIBS)",
+          "$(CGMANAGER_LIBS)",
+          "$(LIBUDEV_LIBS)",
+          "$(LIBDRM_LIBS)",
+          "$(LIBX11_LIBS)"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "ck_log_system_stop_LDADD",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": true
+      },
+      {
+        "primary": "libexec_PROGRAMS",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": true
+      },
+      {
+        "primary": "ck_collect_session_info_SOURCES",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": true
+      },
+      {
+        "primary": "ck_collect_session_info_LDADD",
+        "var": "CONSOLE_KIT_LIBS",
+        "resolved_to": [
+          "$(CK2_LIBS)",
+          "$(TOOLS_LIBS)",
+          "$(GLIB_LIBS)",
+          "$(GIO_LIBS)",
+          "$(GIO_UNIX_LIBS)",
+          "$(LIBDBUS_LIBS)",
+          "$(SELINUX_LIBS)",
+          "$(LIBEVDEV_LIBS)",
+          "$(POLKIT_LIBS)",
+          "$(RBAC_LIBS)",
+          "$(CGMANAGER_LIBS)",
+          "$(LIBUDEV_LIBS)",
+          "$(LIBDRM_LIBS)",
+          "$(LIBX11_LIBS)"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "ck_collect_session_info_LDADD",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": true
+      },
+      {
+        "primary": "ck_get_x11_server_pid_SOURCES",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": true
+      },
+      {
+        "primary": "ck_get_x11_server_pid_LDADD",
+        "var": "CONSOLE_KIT_LIBS",
+        "resolved_to": [
+          "$(CK2_LIBS)",
+          "$(TOOLS_LIBS)",
+          "$(GLIB_LIBS)",
+          "$(GIO_LIBS)",
+          "$(GIO_UNIX_LIBS)",
+          "$(LIBDBUS_LIBS)",
+          "$(SELINUX_LIBS)",
+          "$(LIBEVDEV_LIBS)",
+          "$(POLKIT_LIBS)",
+          "$(RBAC_LIBS)",
+          "$(CGMANAGER_LIBS)",
+          "$(LIBUDEV_LIBS)",
+          "$(LIBDRM_LIBS)",
+          "$(LIBX11_LIBS)"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "ck_get_x11_server_pid_LDADD",
+        "var": "XLIB_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "ck_get_x11_server_pid_LDADD",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": true
+      },
+      {
+        "primary": "ck_get_x11_display_device_SOURCES",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": true
+      },
+      {
+        "primary": "ck_get_x11_display_device_LDADD",
+        "var": "CONSOLE_KIT_LIBS",
+        "resolved_to": [
+          "$(CK2_LIBS)",
+          "$(TOOLS_LIBS)",
+          "$(GLIB_LIBS)",
+          "$(GIO_LIBS)",
+          "$(GIO_UNIX_LIBS)",
+          "$(LIBDBUS_LIBS)",
+          "$(SELINUX_LIBS)",
+          "$(LIBEVDEV_LIBS)",
+          "$(POLKIT_LIBS)",
+          "$(RBAC_LIBS)",
+          "$(CGMANAGER_LIBS)",
+          "$(LIBUDEV_LIBS)",
+          "$(LIBDRM_LIBS)",
+          "$(LIBX11_LIBS)"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "ck_get_x11_display_device_LDADD",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": true
+      },
+      {
+        "primary": "ck_remove_directory_SOURCES",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": true
+      },
+      {
+        "primary": "ck_remove_directory_LDADD",
+        "var": "CONSOLE_KIT_LIBS",
+        "resolved_to": [
+          "$(CK2_LIBS)",
+          "$(TOOLS_LIBS)",
+          "$(GLIB_LIBS)",
+          "$(GIO_LIBS)",
+          "$(GIO_UNIX_LIBS)",
+          "$(LIBDBUS_LIBS)",
+          "$(SELINUX_LIBS)",
+          "$(LIBEVDEV_LIBS)",
+          "$(POLKIT_LIBS)",
+          "$(RBAC_LIBS)",
+          "$(CGMANAGER_LIBS)",
+          "$(LIBUDEV_LIBS)",
+          "$(LIBDRM_LIBS)",
+          "$(LIBX11_LIBS)"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "ck_remove_directory_LDADD",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": true
+      },
+      {
+        "primary": "udev_acl_LDADD",
+        "var": "UDEV_ACL_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "lib_LTLIBRARIES",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": true
+      },
+      {
+        "primary": "libck_connector_la_SOURCES",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": true
+      },
+      {
+        "primary": "noinst_PROGRAMS",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": true
+      }
+    ],
+    "unresolved_refs": [
+      "ck_list_sessions_LDADD = $(XLIB_LIBS)",
+      "ck_history_LDADD = $(Z_LIBS)",
+      "ck_get_x11_server_pid_LDADD = $(XLIB_LIBS)",
+      "udev_acl_LDADD = $(UDEV_ACL_LIBS)",
+      "test_connector_LDADD = $(LIBDBUS_LIBS)",
+      "libck_connector_la_LIBADD = $(LIBDBUS_LIBS)",
+      "libck_la_LIBADD = $(SELINUX_LIBS)",
+      "libck_la_LIBADD = $(KVM_LIBS)",
+      "libck_la_LIBADD = $(KVM_LIBS)",
+      "libck_la_LIBADD = $(KVM_LIBS)",
+      "libck_la_LIBADD = $(KVM_LIBS)",
+      "console_kit_daemon_SOURCES = $(BUILT_SOURCES)",
+      "test_event_logger_LDADD = $(POLKIT_LIBS)",
+      "test_event_logger_LDADD = $(RBAC_LIBS)",
+      "test_vt_monitor_LDADD = $(POLKIT_LIBS)",
+      "test_tty_idle_monitor_LDADD = $(POLKIT_LIBS)",
+      "test_inhibit_LDADD = $(POLKIT_LIBS)",
+      "test_session_SOURCES = $(BUILT_SOURCES)",
+      "test_session_LDADD = $(POLKIT_LIBS)",
+      "test_seat_SOURCES = $(BUILT_SOURCES)",
+      "test_seat_LDADD = $(POLKIT_LIBS)",
+      "test_manager_SOURCES = $(BUILT_SOURCES)",
+      "test_manager_LDADD = $(POLKIT_LIBS)",
+      "ck_collect_session_info_SOURCES = $(BUILT_SOURCES)",
+      "test_session_leader_SOURCES = $(BUILT_SOURCES)",
+      "pam_ck_connector_la_LIBADD = $(PAM_LIBS)",
+      "pam_ck_connector_la_LIBADD = $(LIBDBUS_LIBS)",
+      "test_pam_LDADD = $(PAM_LIBS)",
+      "libconsolekit_la_LIBADD = $(GLIB_LIBS)",
+      "libconsolekit_la_LIBADD = $(GIO_LIBS)",
+      "libconsolekit_la_LIBADD = $(GIO_UNIX_LIBS)",
+      "test_libconsolekit_LDADD = $(GLIB_LIBS)",
+      "test_libconsolekit_LDADD = $(GIO_LIBS)",
+      "test_libconsolekit_LDADD = $(GIO_UNIX_LIBS)"
+    ],
+    "indirection_count": 137
   }
 }

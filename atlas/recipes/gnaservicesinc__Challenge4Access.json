@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "gnaservicesinc/Challenge4Access",
   "source": {
     "url": "https://github.com/gnaservicesinc/Challenge4Access",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -31,7 +31,7 @@
     {
       "step": "make",
       "tool": "make",
-      "status": "fail"
+      "status": "ok"
     }
   ],
   "probe_results": {},
@@ -47,12 +47,53 @@
   "quirks": [
     "subdirs"
   ],
-  "outputs": [],
-  "status": "MAKE_FAIL",
-  "verified": false,
-  "diagnostic": "Makefile:16: *** missing separator.  Stop.",
+  "outputs": [
+    {
+      "path": "configure~",
+      "sha256": "460a9d3c871eeaa2",
+      "kind": "executable"
+    },
+    {
+      "path": "missing",
+      "sha256": "4a4f76d45d999ca6",
+      "kind": "executable"
+    },
+    {
+      "path": "Guard/Guard/Guard",
+      "sha256": "35ff675312d541ed",
+      "kind": "executable"
+    },
+    {
+      "path": "scripts/launch_task",
+      "sha256": "b250d3d110d256a7",
+      "kind": "executable"
+    },
+    {
+      "path": "scripts/launch_c4a",
+      "sha256": "e174d4259df2c448",
+      "kind": "executable"
+    },
+    {
+      "path": "scripts/c4a_admin",
+      "sha256": "3f8ea8348aed8f6f",
+      "kind": "executable"
+    },
+    {
+      "path": "configure",
+      "sha256": "b8ded1d4fc615af4",
+      "kind": "executable"
+    },
+    {
+      "path": "install-sh",
+      "sha256": "852947c4fef9cdc1",
+      "kind": "executable"
+    }
+  ],
+  "status": "FUNC_OK",
+  "verified": true,
+  "diagnostic": "",
   "deep_expansion": {
-    "configure_lines": 2533,
+    "configure_lines": 2624,
     "leaked_macros": [],
     "heredoc_openers": 24,
     "heredoc_terminators": 24,
@@ -60,10 +101,13 @@
     "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2057: do eval test \\${$as_var+y} \\"
+      "line 2147: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
+      "abs_srcdir",
+      "abs_builddir",
+      "canonicalized_srcdir",
       "PACKAGE_NAME",
       "PACKAGE_TARNAME",
       "PACKAGE_VERSION",
@@ -84,9 +128,12 @@
       "DEFS",
       "LIBOBJS",
       "INSTALL",
-      "abs_srcdir",
-      "abs_builddir",
-      "canonicalized_srcdir"
+      "LD",
+      "AR",
+      "top_srcdir",
+      "top_builddir",
+      "builddir",
+      "abs_top_srcdir"
     ],
     "failed_during_check": "checking for sys/utsname.h... yes",
     "failure_tail": [
@@ -101,35 +148,19 @@
     "conftest_programs": [
       "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { size_t x; return 0; }",
       "#include <$ac_hdr>",
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar fork();\\nint main() { return fork(); }",
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar malloc();\\nint main() { return malloc(); }",
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func();\\nint main() { return $ac_func(); }",
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar memcmp();\\nint main() { return memcmp(); }"
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar fork ();\\nint main() { return fork(); }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar malloc ();\\nint main() { return malloc(); }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func ();\\nint main() { return $ac_func(); }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar memcmp ();\\nint main() { return memcmp(); }"
     ]
   },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "ok",
-    "real_make": "ok",
-    "real_configure_lines": 7594,
-    "real_first_error": "",
-    "classification": "OURS_BUG_MAKE"
-  },
-  "divergence": {
-    "stage": "make",
-    "ours_error": "",
-    "ours_error_context": [],
-    "ours_configure_lines": 2533,
-    "real_configure_lines": 7594,
-    "macros_ours_left_undefined": []
-  },
   "receipt": {
-    "court_status": "partial",
+    "court_status": "quirk_dependent",
     "probe_trace": [],
     "quirks_matched": [
       "vendored-aclocal"
     ],
-    "receipt_hash": "50943c81e776f99633ce47bc1c02476e04eeac1c88eab40282963440dadccda2",
+    "receipt_hash": "8b603d38f10eba4faa2107eda69e9d7e51ee0ef5ea7e39314c2b58b662788c5b",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -138,6 +169,423 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Guard/Guard/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      }
+    ],
+    "config_headers": [],
+    "subdirs": [
+      "Guard/Guard"
+    ],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [],
+        "subdirs": [
+          "Guard/Guard"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "Guard/Guard",
+        "targets": [
+          "Guard"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      }
+    ],
+    "max_depth": 2,
+    "config_h_consumers_below_root": [
+      "Guard/Guard"
+    ]
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 521,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "Guard/Guard/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 535,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      }
+    ]
+  },
+  "tool_requirements": {
+    "detected": [
+      "pkg-config"
+    ],
+    "missing": []
+  },
+  "macro_inventory": {
+    "macro_dirs": [],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [],
+    "called_macros": [
+      "AC_ARG_ENABLE",
+      "AC_CHECK_FUNCS",
+      "AC_CHECK_HEADERS",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_MACRO_DIR",
+      "AC_CONFIG_SRCDIR",
+      "AC_C_INLINE",
+      "AC_DEFINE",
+      "AC_FUNC_FORK",
+      "AC_FUNC_MALLOC",
+      "AC_FUNC_MEMCMP",
+      "AC_INIT",
+      "AC_OUTPUT",
+      "AC_PATH_PROG",
+      "AC_PROG_CC",
+      "AC_PROG_CPP",
+      "AC_PROG_INSTALL",
+      "AC_SUBST",
+      "AC_TYPE_SIZE_T",
+      "AM_INIT_AUTOMAKE",
+      "AM_SILENT_RULES",
+      "PKG_CONFIG"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 107,
+    "configure_fi": 103,
+    "configure_case": 63,
+    "configure_esac": 66,
+    "balanced": false,
+    "automake_conditionals": []
+  },
+  "config_aux_inventory": {
+    "aux_dir": ".",
+    "present": [
+      "install-sh",
+      "missing"
+    ],
+    "missing": [
+      "depcomp",
+      "compile"
+    ]
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "c": 13,
+      "h": 16,
+      "m": 1
+    },
+    "configure_macros": [
+      "AC_PROG_CC"
+    ],
+    "needs_cxx": false,
+    "needs_fortran": false,
+    "sets_c_std": false
+  },
+  "make_graph": {
+    "targets": [
+      "all",
+      "all-am",
+      "install-am",
+      "installcheck-am",
+      "install-strip",
+      "install-info",
+      "install-info-am",
+      "install-dvi",
+      "install-dvi-am",
+      "install-ps",
+      "install-ps-am",
+      "install-pdf",
+      "install-pdf-am",
+      "install-html",
+      "install-html-am",
+      "install-data-hook",
+      "install-exec-hook",
+      "installdirs-am",
+      ".PHONY",
+      "mostlyclean-am",
+      "clean-am",
+      "distclean-am",
+      "maintainer-clean-am",
+      "distdir",
+      "dist",
+      "dist-all",
+      "dist-gzip",
+      "distcleancheck",
+      "distcheck",
+      "check-am",
+      "TAGS",
+      "tags",
+      "TAGS-am",
+      "tags-am",
+      "cscope",
+      "cscope-am",
+      "distuninstallcheck",
+      "$(srcdir)/Makefile.in",
+      "$(am__recursive_targets)",
+      "check"
+    ],
+    "key_variables": {
+      "AR": "ar",
+      "CC": "cc",
+      "CFLAGS": "-g -O2",
+      "CPPFLAGS": "",
+      "CXX": "c++",
+      "CXXFLAGS": "-g -O2",
+      "DEFS": "-DPACKAGE=\"Guard\" -DVERSION=\"0.1\" -DPACKAGE_NAME=\"Guard\" -DPACKAGE_TARNAME=\"Guard\" -DPACKAGE_VERSION=\"0.1\" -DPACKAGE_STRING=\"Guard 0.1\" -DPACKAGE_BUGREPORT=\"\" -",
+      "LDFLAGS": "",
+      "LIBS": "",
+      "RANLIB": "ranlib"
+    },
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "config.log"
+    ],
+    "recursion_depth": 2,
+    "top_targets": [
+      "all",
+      "check",
+      "dist",
+      "all-am"
+    ],
+    "make_diagnostics": []
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": true,
+    "defines_sampled": [
+      "PACKAGE=\"Guard\"",
+      "VERSION=\"0.1\"",
+      "PACKAGE_NAME=\"Guard\"",
+      "PACKAGE_TARNAME=\"Guard\"",
+      "PACKAGE_VERSION=\"0.1\"",
+      "PACKAGE_STRING=\"Guard",
+      "PACKAGE_BUGREPORT=\"\"",
+      "HAVE_LIBINTL_H=1",
+      "HAVE_STDLIB_H=1",
+      "HAVE_STRING_H=1",
+      "HAVE_SYSLOG_H=1",
+      "HAVE_UNISTD_H=1",
+      "HAVE_WCHAR_H=1",
+      "HAVE_SYS_TIME_H=1",
+      "HAVE_FORK=1",
+      "HAVE_MALLOC=1",
+      "HAVE_MEMSET=1",
+      "HAVE_STRRCHR=1",
+      "HAVE_PATHCONF=1",
+      "HAVE_REALPATH=1"
+    ]
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "ours-built"
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "libintl.h",
+      "stdlib.h",
+      "string.h",
+      "sys/time.h",
+      "sys/utsname.h",
+      "syslog.h",
+      "unistd.h",
+      "wchar.h"
+    ],
+    "headers_included_unchecked": [
+      "dlfcn.h",
+      "fcntl.h",
+      "inttypes.h",
+      "pthread.h",
+      "stdint.h",
+      "sys/dir.h",
+      "sys/ipc.h",
+      "sys/random.h",
+      "sys/shm.h",
+      "sys/stat.h",
+      "sys/syscall.h",
+      "sys/syslog.h",
+      "sys/types.h",
+      "sys/wait.h",
+      "uuid/uuid.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 2,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "c89_gnu",
+    "strip_modern_poison_flags": [
+      "-Werror=implicit-function-declaration",
+      "-Werror=int-conversion",
+      "-Werror=incompatible-pointer-types"
+    ],
+    "inject_legacy_shims": true,
+    "compiler_aliasing": {
+      "clang-18+": "-std=gnu89 -Wno-error",
+      "gcc-14+": "-std=gnu89 -fpermissive"
+    }
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 0,
+    "shadowed_builtins": [],
+    "permitted_mutations": 1,
+    "suspect_global_mutations": 0
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "dlfcn.h",
+      "fcntl.h",
+      "inttypes.h",
+      "pthread.h",
+      "stdint.h",
+      "sys/dir.h",
+      "sys/ipc.h",
+      "sys/random.h",
+      "sys/shm.h",
+      "sys/stat.h",
+      "sys/syscall.h",
+      "sys/syslog.h",
+      "sys/types.h",
+      "sys/wait.h",
+      "uuid/uuid.h",
+      "libintl.h",
+      "stdlib.h",
+      "string.h",
+      "sys/time.h",
+      "sys/utsname.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "subdir-config-h-include-path",
+    "modern-compiler-strictness (no explicit C std)"
+  ],
+  "repair_hints": [
+    {
+      "id": "subdir-top-builddir",
+      "phase": "make",
+      "confidence": 0.88,
+      "evidence": [
+        "Guard/Guard consumes config.h below root"
+      ],
+      "action": "ensure ac_subst_file sets relative top_builddir per subdir (0.1.19)",
+      "expected_effect": "config.h found in subdir compiles"
+    }
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": -9,
+      "Makefile.in": 1803,
+      "aclocal.m4": 95,
+      "configure": 99,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_ENABLE": "system-aclocal",
+      "AC_CHECK_FUNCS": "system-aclocal",
+      "AC_CHECK_HEADERS": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_MACRO_DIR": "system-aclocal",
+      "AC_CONFIG_SRCDIR": "system-aclocal",
+      "AC_C_INLINE": "system-aclocal",
+      "AC_DEFINE": "system-aclocal",
+      "AC_FUNC_FORK": "system-aclocal",
+      "AC_FUNC_MALLOC": "system-aclocal",
+      "AC_FUNC_MEMCMP": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PATH_PROG": "system-aclocal",
+      "AC_PROG_CC": "system-aclocal",
+      "AC_PROG_CPP": "system-aclocal",
+      "AC_PROG_INSTALL": "system-aclocal",
+      "AC_SUBST": "system-aclocal",
+      "AC_TYPE_SIZE_T": "system-aclocal",
+      "AM_INIT_AUTOMAKE": "system-aclocal",
+      "AM_SILENT_RULES": "system-aclocal",
+      "PKG_CONFIG": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
   }
 }

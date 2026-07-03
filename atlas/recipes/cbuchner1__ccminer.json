@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "cbuchner1/ccminer",
   "source": {
     "url": "https://github.com/cbuchner1/ccminer",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.14",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -52,26 +52,37 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1413: ac_cv_have_decl_be32dec,: command not found",
+  "diagnostic": "configure: error: OpenSSL library required",
   "deep_expansion": {
-    "configure_lines": 2734,
-    "leaked_macros": [
-      {
-        "name": "AC_MSG_ERROR",
-        "line": 1657,
-        "context": "AC_MSG_ERROR([Missing required libcurl >= 7.15.2]))"
-      }
-    ],
-    "heredoc_openers": 31,
-    "heredoc_terminators": 31,
+    "configure_lines": 2935,
+    "leaked_macros": [],
+    "heredoc_openers": 34,
+    "heredoc_terminators": 34,
     "heredoc_imbalance": 0,
     "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2258: do eval test \\${$as_var+y} \\"
+      "line 2458: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
+      "WANT_JANSSON_TRUE",
+      "WANT_JANSSON_FALSE",
+      "HAVE_WINDOWS_TRUE",
+      "HAVE_WINDOWS_FALSE",
+      "ARCH_x86_TRUE",
+      "ARCH_x86_FALSE",
+      "ARCH_x86_64_TRUE",
+      "ARCH_x86_64_FALSE",
+      "JANSSON_LIBS",
+      "PTHREAD_FLAGS",
+      "PTHREAD_LIBS",
+      "WS2_LIBS",
+      "CUDA_CFLAGS",
+      "CUDA_LIBS",
+      "CUDA_LDFLAGS",
+      "NVCC",
+      "OPENMP_CFLAGS",
       "PACKAGE_NAME",
       "PACKAGE_TARNAME",
       "PACKAGE_VERSION",
@@ -83,24 +94,7 @@
       "exec_prefix",
       "CC",
       "CFLAGS",
-      "CPPFLAGS",
-      "LDFLAGS",
-      "LIBS",
-      "CXX",
-      "CXXFLAGS",
-      "CPP",
-      "DEFS",
-      "LIBOBJS",
-      "INSTALL",
-      "PTHREAD_LIBS",
-      "JANSSON_LIBS",
-      "WS2_LIBS",
-      "CUDA_LIBS",
-      "PTHREAD_FLAGS",
-      "CUDA_CFLAGS",
-      "CUDA_LDFLAGS",
-      "NVCC",
-      "OPENMP_CFLAGS"
+      "CPPFLAGS"
     ],
     "failed_during_check": "checking for SSL_library_init in -lssl... no",
     "failure_tail": [
@@ -108,27 +102,19 @@
       "configure: error: OpenSSL library required"
     ],
     "conftest_corruption": [],
-    "conftest_directives_intact": 11,
+    "conftest_directives_intact": 26,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
       "#include <$ac_hdr>",
       "#include <$ac_hdr>",
-      "AC_INCLUDES_DEFAULT\\n#ifdef HAVE_SYS_ENDIAN_H\\n#include <sys/endian.h>\\n#endif\\n\\nint main (void)\\n{\\n#ifndef be32dec, le32dec, be32enc, le32enc\\n(void) be32dec, le32dec, be32enc, le32enc;\\n#endif\\n;\\nreturn 0;",
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar alloca();\\nint main() { return alloca(); }",
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func();\\nint main() { return $ac_func(); }",
-      "\\nint main() { asm (\"vmovdqa %ymm0, %ymm1\"); ; return 0; }"
+      "AC_INCLUDES_DEFAULT\\n#ifdef HAVE_SYS_ENDIAN_H\\n#include <sys/endian.h>\\n#endif\\n\\nint main (void)\\n{\\n#ifndef be32dec\\n(void) be32dec;\\n#endif\\n;\\nreturn 0;",
+      "AC_INCLUDES_DEFAULT\\n#ifdef HAVE_SYS_ENDIAN_H\\n#include <sys/endian.h>\\n#endif\\n\\nint main (void)\\n{\\n#ifndef le32dec\\n(void) le32dec;\\n#endif\\n;\\nreturn 0;",
+      "AC_INCLUDES_DEFAULT\\n#ifdef HAVE_SYS_ENDIAN_H\\n#include <sys/endian.h>\\n#endif\\n\\nint main (void)\\n{\\n#ifndef be32enc\\n(void) be32enc;\\n#endif\\n;\\nreturn 0;",
+      "AC_INCLUDES_DEFAULT\\n#ifdef HAVE_SYS_ENDIAN_H\\n#include <sys/endian.h>\\n#endif\\n\\nint main (void)\\n{\\n#ifndef le32enc\\n(void) le32enc;\\n#endif\\n;\\nreturn 0;"
     ]
   },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "fail",
-    "real_make": "skipped",
-    "real_configure_lines": 8939,
-    "real_first_error": "configure: error: OpenSSL library required",
-    "classification": "BOTH_CONFIGURE_FAIL"
-  },
   "receipt": {
-    "court_status": "not_standalone",
+    "court_status": "failed",
     "probe_trace": [
       {
         "name": "HAVE_GETOPT_LONG",
@@ -148,7 +134,7 @@
         "verified": false
       }
     ],
-    "receipt_hash": "77841d7fe81810d211235a7c8c5eb7bad927cde40ffdc30d7205d9827b903ea8",
+    "receipt_hash": "5eeff82c4e02d0b7c223279e76c977f6a961b87ed3998ed3de08cde8d58f617f",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -157,6 +143,374 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "compat/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "compat/jansson/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      }
+    ],
+    "config_headers": [
+      "cpuminer-config.h"
+    ],
+    "subdirs": [
+      "=",
+      "compat",
+      "=",
+      "jansson",
+      "="
+    ],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [
+          "ccminer"
+        ],
+        "subdirs": [
+          "=",
+          "compat"
+        ],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "compat",
+        "targets": [],
+        "subdirs": [
+          "=",
+          "jansson",
+          "="
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "compat/jansson",
+        "targets": [
+          "libjansson.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      }
+    ],
+    "max_depth": 2,
+    "config_h_consumers_below_root": [
+      "compat/jansson"
+    ]
+  },
+  "tool_requirements": {
+    "detected": [
+      "c++"
+    ],
+    "missing": []
+  },
+  "macro_inventory": {
+    "macro_dirs": [],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [],
+    "called_macros": [
+      "AC_ARG_WITH",
+      "AC_CANONICAL_SYSTEM",
+      "AC_CHECK_DECLS",
+      "AC_CHECK_FUNCS",
+      "AC_CHECK_HEADERS",
+      "AC_CHECK_LIB",
+      "AC_COMPILE_IFELSE",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_HEADERS",
+      "AC_CONFIG_SRCDIR",
+      "AC_DEFINE",
+      "AC_FUNC_ALLOCA",
+      "AC_HEADER_STDC",
+      "AC_INCLUDES_DEFAULT",
+      "AC_INIT",
+      "AC_LANG_PROGRAM",
+      "AC_MSG_CHECKING",
+      "AC_MSG_ERROR",
+      "AC_MSG_RESULT",
+      "AC_MSG_WARN",
+      "AC_OPENMP",
+      "AC_OUTPUT",
+      "AC_PREREQ",
+      "AC_PROG_CC_C99",
+      "AC_PROG_CXX",
+      "AC_PROG_GCC_TRADITIONAL",
+      "AC_PROG_RANLIB",
+      "AC_SUBST",
+      "AM_CONDITIONAL",
+      "AM_INIT_AUTOMAKE",
+      "AM_MAINTAINER_MODE",
+      "AM_PROG_AS",
+      "AM_PROG_CC_C_O"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 121,
+    "configure_fi": 118,
+    "configure_case": 65,
+    "configure_esac": 68,
+    "balanced": false,
+    "automake_conditionals": [
+      "WANT_JANSSON",
+      "HAVE_WINDOWS",
+      "ARCH_x86",
+      "ARCH_x86_64"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": ".",
+    "present": [
+      "install-sh",
+      "missing",
+      "depcomp",
+      "compile",
+      "config.guess",
+      "config.sub"
+    ],
+    "missing": []
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "c": 28,
+      "cpp": 3,
+      "h": 231
+    },
+    "configure_macros": [
+      "AC_PROG_CC",
+      "AC_PROG_CXX",
+      "AC_PROG_CC_C99"
+    ],
+    "needs_cxx": true,
+    "needs_fortran": false,
+    "sets_c_std": true
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": false,
+    "defines_sampled": []
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-maintainer-mode",
+      "applied_at": "configure",
+      "effect": "neutral",
+      "effectiveness": "low"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "sys/endian.h",
+      "sys/param.h",
+      "sys/sysctl.h",
+      "syslog.h"
+    ],
+    "headers_included_unchecked": [
+      "curl/curl.h",
+      "inttypes.h",
+      "netinet/in.h",
+      "netinet/tcp.h",
+      "openssl/sha.h",
+      "pthread.h",
+      "stdint.h",
+      "sys/cdefs.h",
+      "sys/cpuset.h",
+      "sys/resource.h",
+      "sys/socket.h",
+      "sys/time.h",
+      "sys/types.h",
+      "thrust/detail/allocator/allocator_traits.h",
+      "thrust/detail/allocator/no_throw_allocator.h",
+      "thrust/detail/allocator/temporary_allocator.h",
+      "thrust/detail/config.h",
+      "thrust/detail/config/config.h",
+      "thrust/detail/contiguous_storage.h",
+      "thrust/detail/copy.h",
+      "thrust/detail/cstdint.h",
+      "thrust/detail/execution_policy.h",
+      "thrust/detail/function.h",
+      "thrust/detail/functional/placeholder.h",
+      "thrust/detail/integer_traits.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 1,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "c99",
+    "strip_modern_poison_flags": [],
+    "inject_legacy_shims": false,
+    "compiler_aliasing": {}
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 9,
+    "shadowed_builtins": [],
+    "permitted_mutations": 1,
+    "suspect_global_mutations": 0
+  },
+  "host_environment_veil": {
+    "header_injection_candidates": [
+      "sys/cdefs.h",
+      "sys/sysctl.h"
+    ],
+    "symbol_aliasing_candidates": []
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "curl/curl.h",
+      "inttypes.h",
+      "netinet/in.h",
+      "netinet/tcp.h",
+      "openssl/sha.h",
+      "pthread.h",
+      "stdint.h",
+      "sys/cdefs.h",
+      "sys/cpuset.h",
+      "sys/resource.h",
+      "sys/socket.h",
+      "sys/time.h",
+      "sys/types.h",
+      "thrust/detail/allocator/allocator_traits.h",
+      "thrust/detail/allocator/no_throw_allocator.h",
+      "thrust/detail/allocator/temporary_allocator.h",
+      "thrust/detail/config.h",
+      "thrust/detail/config/config.h",
+      "thrust/detail/contiguous_storage.h",
+      "thrust/detail/copy.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "subdir-config-h-include-path"
+  ],
+  "repair_hints": [
+    {
+      "id": "subdir-top-builddir",
+      "phase": "make",
+      "confidence": 0.88,
+      "evidence": [
+        "compat/jansson consumes config.h below root"
+      ],
+      "action": "ensure ac_subst_file sets relative top_builddir per subdir (0.1.19)",
+      "expected_effect": "config.h found in subdir compiles"
+    }
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": -16,
+      "Makefile.in": 1113,
+      "aclocal.m4": 12,
+      "configure": 17,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_WITH": "system-aclocal",
+      "AC_CANONICAL_SYSTEM": "system-aclocal",
+      "AC_CHECK_DECLS": "system-aclocal",
+      "AC_CHECK_FUNCS": "system-aclocal",
+      "AC_CHECK_HEADERS": "system-aclocal",
+      "AC_CHECK_LIB": "system-aclocal",
+      "AC_COMPILE_IFELSE": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_HEADERS": "system-aclocal",
+      "AC_CONFIG_SRCDIR": "system-aclocal",
+      "AC_DEFINE": "system-aclocal",
+      "AC_FUNC_ALLOCA": "system-aclocal",
+      "AC_HEADER_STDC": "system-aclocal",
+      "AC_INCLUDES_DEFAULT": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_LANG_PROGRAM": "system-aclocal",
+      "AC_MSG_CHECKING": "system-aclocal",
+      "AC_MSG_ERROR": "system-aclocal",
+      "AC_MSG_RESULT": "system-aclocal",
+      "AC_MSG_WARN": "system-aclocal",
+      "AC_OPENMP": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PREREQ": "system-aclocal",
+      "AC_PROG_CC_C99": "system-aclocal",
+      "AC_PROG_CXX": "system-aclocal",
+      "AC_PROG_GCC_TRADITIONAL": "system-aclocal",
+      "AC_PROG_RANLIB": "system-aclocal",
+      "AC_SUBST": "system-aclocal",
+      "AM_CONDITIONAL": "system-aclocal",
+      "AM_INIT_AUTOMAKE": "system-aclocal",
+      "AM_MAINTAINER_MODE": "system-aclocal",
+      "AM_PROG_AS": "system-aclocal",
+      "AM_PROG_CC_C_O": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
   }
 }

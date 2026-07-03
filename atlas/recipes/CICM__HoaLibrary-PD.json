@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "CICM/HoaLibrary-PD",
   "source": {
     "url": "https://github.com/CICM/HoaLibrary-PD",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,6 +26,11 @@
     {
       "step": "configure",
       "tool": "./configure",
+      "status": "ok"
+    },
+    {
+      "step": "make",
+      "tool": "make",
       "status": "fail"
     }
   ],
@@ -34,10 +39,16 @@
     "configure_args": []
   },
   "dependencies": {
-    "pkg_config": [],
+    "pkg_config": [
+      "no pd path given, trying with pkg-config data"
+    ],
     "system_libs": [],
-    "headers_needed": [],
-    "missing": []
+    "headers_needed": [
+      "ThirdParty/CicmWrapper/Sources/cicm_wrapper.h"
+    ],
+    "missing": [
+      "ThirdParty/CicmWrapper/Sources/cicm_wrapper.h"
+    ]
   },
   "quirks": [
     "autoconf-archive-macros",
@@ -45,70 +56,46 @@
     "subdirs"
   ],
   "outputs": [],
-  "status": "CONFIGURE_RUN_FAIL",
+  "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1360: syntax error near unexpected token `ARCH=$(uname -m)'",
+  "diagnostic": "../hoa.library.hpp:12:10: fatal error: ThirdParty/CicmWrapper/Sources/cicm_wrapper.h: No such file or directory",
   "deep_expansion": {
-    "configure_lines": 2482,
-    "leaked_macros": [
-      {
-        "name": "AX_FAT_BINARY",
-        "line": 1346,
-        "context": "AX_FAT_BINARY()"
-      }
-    ],
+    "configure_lines": 2553,
+    "leaked_macros": [],
     "heredoc_openers": 16,
     "heredoc_terminators": 16,
     "heredoc_imbalance": 0,
-    "syntax_errors": [
-      {
-        "line": 1360,
-        "token": "ARCH=$(uname -m)",
-        "source": "ARCH=$(uname -m)",
-        "block": [
-          "1356: ",
-          "1357: # Check --with-extension option",
-          "1358: ",
-          "1359: ",
-          "1360: ARCH=$(uname -m)",
-          "1361: KERN=$(uname -s)",
-          "1362: ",
-          "1363: # Check for C++ compiler"
-        ]
-      }
-    ],
+    "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2006: do eval test \\${$as_var+y} \\"
+      "line 2076: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
+      "PD_CPPFLAGS",
+      "PD_LDFLAGS",
+      "EXTENSION",
       "PACKAGE_NAME",
       "PACKAGE_TARNAME",
       "PACKAGE_VERSION",
       "PACKAGE_STRING",
       "PACKAGE_BUGREPORT"
     ],
-    "failed_during_check": "",
+    "failed_during_check": "checking extension... l_ia64",
     "failure_tail": [
-      "./configure: line 1360: syntax error near unexpected token `ARCH=$(uname -m)'",
-      "./configure: line 1360: `ARCH=$(uname -m)'"
+      "checking extension... l_ia64",
+      "configure: creating Sources/Makefile",
+      "configure: creating Package/Hoa/Makefile",
+      "configure: creating Package/Hoa/helps/Makefile",
+      "configure: creating Package/Hoa/media/Makefile"
     ],
     "conftest_corruption": [],
     "conftest_directives_intact": 0,
     "conftest_directives_mangled": 0,
     "conftest_programs": []
   },
-  "oracle": {
-    "real_autoreconf": "fail",
-    "real_configure": "skipped",
-    "real_make": "skipped",
-    "real_configure_lines": 0,
-    "real_first_error": "configure.ac:8: error: required file 'ThirdParty/CicmWrapper/Makefile.in' not found",
-    "classification": "OURS_BETTER"
-  },
   "receipt": {
-    "court_status": "failed",
+    "court_status": "partial",
     "probe_trace": [],
     "quirks_matched": [
       "uses-libtool-old",
@@ -116,7 +103,7 @@
       "vendored-aclocal",
       "uses-ax-archive"
     ],
-    "receipt_hash": "0c30dce6270fb3560c454d8c8d1e4e34e811f65407638476dab76fe1fd927894",
+    "receipt_hash": "fc222e24136e1c7565f3970366c0a81d4ec04fa5491250e780188ba2805c06fb",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -125,6 +112,557 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "Package/Hoa/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "Package/Hoa/helps/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "Package/Hoa/media/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "Package/Hoa/misc/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "Package/Hoa/patchers/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "Package/Hoa/tutorials/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "Sources/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "ThirdParty/CicmWrapper/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": false
+      },
+      {
+        "path": "ThirdParty/CicmWrapper/Sources/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": false
+      }
+    ],
+    "config_headers": [],
+    "subdirs": [
+      "Sources",
+      "ThirdParty/CicmWrapper",
+      "Package/Hoa",
+      "helps",
+      "media",
+      "misc",
+      "patchers",
+      "tutorials"
+    ],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [
+          "Hoa.la"
+        ],
+        "subdirs": [
+          "Sources",
+          "ThirdParty/CicmWrapper",
+          "Package/Hoa"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "Package/Hoa",
+        "targets": [],
+        "subdirs": [
+          "helps",
+          "media",
+          "misc",
+          "patchers",
+          "tutorials"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "Sources",
+        "targets": [
+          "libHoapd.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      }
+    ],
+    "max_depth": 3,
+    "config_h_consumers_below_root": []
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 642,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 1
+      },
+      {
+        "path": "Sources/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 599,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "Package/Hoa/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 525,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "Package/Hoa/misc/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 437,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "Package/Hoa/helps/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 437,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "Package/Hoa/media/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 437,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "Package/Hoa/patchers/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 437,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "Package/Hoa/tutorials/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 437,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      }
+    ]
+  },
+  "tool_requirements": {
+    "detected": [
+      "c++"
+    ],
+    "missing": []
+  },
+  "macro_inventory": {
+    "macro_dirs": [
+      "m4",
+      "config"
+    ],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [],
+    "called_macros": [
+      "AC_ARG_WITH",
+      "AC_CONFIG_AUX_DIR",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_MACRO_DIR",
+      "AC_INIT",
+      "AC_MSG_CHECKING",
+      "AC_MSG_RESULT",
+      "AC_OUTPUT",
+      "AC_PROG_CXX",
+      "AC_PROG_LIBTOOL",
+      "AC_SUBST",
+      "AM_INIT_AUTOMAKE",
+      "AX_FAT_BINARY"
+    ],
+    "unresolved_macros": [
+      "AX_FAT_BINARY"
+    ]
+  },
+  "conditional_context": {
+    "configure_if": 110,
+    "configure_fi": 107,
+    "configure_case": 64,
+    "configure_esac": 67,
+    "balanced": false,
+    "automake_conditionals": []
+  },
+  "config_aux_inventory": {
+    "aux_dir": "config",
+    "present": [
+      "install-sh",
+      "missing",
+      "depcomp",
+      "compile"
+    ],
+    "missing": [
+      "ltmain.sh"
+    ]
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "cpp": 17,
+      "hpp": 1
+    },
+    "configure_macros": [
+      "AC_PROG_CXX"
+    ],
+    "needs_cxx": true,
+    "needs_fortran": false,
+    "sets_c_std": false
+  },
+  "libtool_context": {
+    "uses_libtool": true,
+    "macros": [
+      "AC_PROG_LIBTOOL"
+    ],
+    "ltmain_present": false,
+    "libtool_m4_sources": [],
+    "age": "old"
+  },
+  "make_graph": {
+    "targets": [
+      "all",
+      "all-am",
+      "$(am__depfiles_remade)",
+      "am--depfiles",
+      "install-data-am",
+      "uninstall-am",
+      "install-am",
+      "installcheck-am",
+      "install-strip",
+      "install-info",
+      "install-info-am",
+      "install-dvi",
+      "install-dvi-am",
+      "install-ps",
+      "install-ps-am",
+      "install-pdf",
+      "install-pdf-am",
+      "install-html",
+      "install-html-am",
+      "install-data-hook",
+      "install-exec-hook",
+      "installdirs-am",
+      ".PHONY",
+      "mostlyclean-am",
+      "clean-am",
+      "distclean-am",
+      "maintainer-clean-am",
+      "distdir",
+      "dist",
+      "dist-all",
+      "dist-gzip",
+      "distcleancheck",
+      "distcheck",
+      "check-am",
+      "TAGS",
+      "tags",
+      "TAGS-am",
+      "tags-am",
+      "cscope",
+      "cscope-am"
+    ],
+    "key_variables": {
+      "AR": "ar",
+      "CC": "cc",
+      "CFLAGS": "-g -O2",
+      "CPPFLAGS": "",
+      "CXX": "g++",
+      "CXXFLAGS": "-g -O2",
+      "DEFAULT_INCLUDES": "-I. -I$(top_builddir)",
+      "DEFS": "-DPACKAGE=\"Hoa\" -DVERSION=\"2.2-git\" -DPACKAGE_NAME=\"Hoa\" -DPACKAGE_TARNAME=\"Hoa\" -DPACKAGE_VERSION=\"2.2-git\" -DPACKAGE_STRING=\"Hoa 2.2-git\" -DPACKAGE_BUGREPORT=",
+      "LDFLAGS": "",
+      "LIBS": "",
+      "RANLIB": "ranlib"
+    },
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "libtool",
+      "config.log"
+    ],
+    "recursion_depth": 3,
+    "top_targets": [
+      "all",
+      "dist",
+      "all-am"
+    ],
+    "make_diagnostics": [
+      {
+        "command": "",
+        "error_type": "missing-header",
+        "message": "../hoa.library.hpp:12:10: fatal error: ThirdParty/CicmWrapper/Sources/cicm_wrapper.h: No such file or directory"
+      },
+      {
+        "command": "",
+        "error_type": "missing-header",
+        "message": "../hoa.library.hpp:12:10: fatal error: ThirdParty/CicmWrapper/Sources/cicm_wrapper.h: No such file or directory"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[2]: *** [Makefile:508: libHoapd_la-hoa.decoder_tilde.lo] Error 1"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[2]: *** Waiting for unfinished jobs...."
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[2]: *** [Makefile:511: libHoapd_la-hoa.encoder_tilde.lo] Error 1"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[1]: *** [Makefile:260: all-am] Error 2"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make: *** [Makefile:575: all-recursive] Error 1"
+      }
+    ]
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": true,
+    "defines_sampled": [
+      "PACKAGE=\"Hoa\"",
+      "VERSION=\"2.2-git\"",
+      "PACKAGE_NAME=\"Hoa\"",
+      "PACKAGE_TARNAME=\"Hoa\"",
+      "PACKAGE_VERSION=\"2.2-git\"",
+      "PACKAGE_STRING=\"Hoa",
+      "PACKAGE_BUGREPORT=\"musique@univ-paris8.fr\"",
+      "PD"
+    ]
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-libtool-old",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "has-m4-macro-dir",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-ax-archive",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "vpath_analysis": {
+    "hardcoded_src_paths": 0,
+    "abs_path_leakage": 0,
+    "built_sources": [],
+    "generated_source_targets": [
+      "$(abs_builddir)/.libs/Hoa.@EXTENSION@",
+      "$(top_builddir)/Hoa.@EXTENSION@"
+    ]
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 2,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "gnu++",
+    "strip_modern_poison_flags": [],
+    "inject_legacy_shims": false,
+    "compiler_aliasing": {}
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 0,
+    "shadowed_builtins": [],
+    "permitted_mutations": 2,
+    "suspect_global_mutations": 0
+  },
+  "parallel_build_safety": {
+    "vpath_out_of_tree_safe": true,
+    "generators": [
+      "$(abs_builddir)/.libs/Hoa.@EXTENSION@",
+      "$(top_builddir)/Hoa.@EXTENSION@"
+    ],
+    "unordered_generated_sources": [
+      "$(abs_builddir)/.libs/Hoa.@EXTENSION@",
+      "$(top_builddir)/Hoa.@EXTENSION@"
+    ],
+    "built_sources_declared": false
+  },
+  "risk_factors": [
+    "unresolved-macros",
+    "ancient-libtool",
+    "parallel-build-race (gen-source not in BUILT_SOURCES)"
+  ],
+  "repair_hints": [
+    {
+      "id": "load-vendored-aclocal-dir",
+      "phase": "autoreconf",
+      "confidence": 0.85,
+      "evidence": [
+        "AX_FAT_BINARY"
+      ],
+      "action": "aclocal -I m4 -I config",
+      "expected_effect": "resolves unexpanded AX_/custom macros"
+    }
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": -6,
+      "Makefile.in": 1032,
+      "aclocal.m4": 5,
+      "configure": 8,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_WITH": "system-aclocal",
+      "AC_CONFIG_AUX_DIR": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_MACRO_DIR": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_MSG_CHECKING": "system-aclocal",
+      "AC_MSG_RESULT": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PROG_CXX": "system-aclocal",
+      "AC_PROG_LIBTOOL": "system-aclocal",
+      "AC_SUBST": "system-aclocal",
+      "AM_INIT_AUTOMAKE": "system-aclocal",
+      "AX_FAT_BINARY": "unresolved"
+    },
+    "rebuild_trigger_risk": false
   }
 }

@@ -1,13 +1,13 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "cforall/cforall",
   "source": {
     "url": "https://github.com/cforall/cforall",
-    "git_sha": "8615e592baeb8f51335b55a7a4247a2a39c43f53",
+    "git_sha": "311276dd396a6da2fe6d2b46de494f4ec1921495",
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,11 +26,11 @@
     {
       "step": "configure",
       "tool": "./configure",
-      "status": "fail"
+      "status": "ok"
     },
     {
-      "step": "auto-quirk",
-      "tool": "quirk-engine",
+      "step": "make",
+      "tool": "make",
       "status": "fail"
     }
   ],
@@ -49,11 +49,11 @@
     "subdirs"
   ],
   "outputs": [],
-  "status": "CONFIGURE_RUN_FAIL",
+  "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "",
+  "diagnostic": "make: *** No targets.  Stop.",
   "deep_expansion": {
-    "configure_lines": 2964,
+    "configure_lines": 3116,
     "leaked_macros": [],
     "heredoc_openers": 22,
     "heredoc_terminators": 22,
@@ -61,58 +61,70 @@
     "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2485: do eval test \\${$as_var+y} \\"
+      "line 1637: # eval \"_acrs_sv=\\${}\"; printf '%s\\n' \"s|@@|${_acrs_sv}|g\" >",
+      "line 2636: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
-      "PACKAGE_NAME",
-      "PACKAGE_TARNAME",
-      "PACKAGE_VERSION",
-      "PACKAGE_STRING",
-      "PACKAGE_BUGREPORT"
+      "CFA_NAME",
+      "DOifskipcompile",
+      "DOendif",
+      "ENABLE_DISTCC_TRUE",
+      "ENABLE_DISTCC_FALSE",
+      "CXX",
+      "LD",
+      "HAS_DISTCC",
+      "CFA_PREFIX",
+      "CFA_INCDIR",
+      "CFA_BINDIR",
+      "CFA_LIBDIR",
+      "DRIVER_DIR",
+      "CFACC",
+      "CFACC_INSTALL",
+      "CFACPP",
+      "BUILD_IN_TREE_FLAGS",
+      "HOST_FLAGS",
+      "TARGET_HOSTS",
+      "LIBCFA_TARGET_DIRS",
+      "LIBCFA_1TARGET_DIR",
+      "LIBCFA_TARGET_MAKEFILES",
+      "CFA_FLAGS",
+      "WITH_LIBFIBRE_TRUE",
+      "WITH_LIBFIBRE_FALSE",
+      "WITH_LIBPROFILER_TRUE",
+      "WITH_LIBPROFILER_FALSE",
+      "WITH_LIBTCMALLOC_TRUE",
+      "WITH_LIBTCMALLOC_FALSE"
     ],
-    "failed_during_check": "",
+    "failed_during_check": "checking for _Float32... yes",
     "failure_tail": [
-      "readlink: missing operand",
-      "Try 'readlink --help' for more information.",
-      "Unknown architecture  x86_64-pc-linux-gnu"
+      "checking for _Float32... yes",
+      "whether C compiler accepts -Wcast-function-type... configure: linking tests/test",
+      "configure: creating Makefile",
+      "sed: -e expression #39, char 45: unterminated `s' command",
+      "configure: creating driver/Makefile"
     ],
     "conftest_corruption": [],
     "conftest_directives_intact": 3,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
-      "char Fibre::yield();\\nint main() { return Fibre::yield(); }",
-      "char ProfilingIsEnabledForAllThreads();\\nint main() { return ProfilingIsEnabledForAllThreads(); }",
-      "char malloc();\\nint main() { return malloc(); }",
+      "char Fibre::yield ();\\nint main() { return Fibre::yield(); }",
+      "char ProfilingIsEnabledForAllThreads ();\\nint main() { return ProfilingIsEnabledForAllThreads(); }",
+      "char malloc ();\\nint main() { return malloc(); }",
       "#include <$ac_hdr>",
       "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { $ac_type x; return 0; }",
       "\\nint main() {  ; return 0; }"
     ]
   },
-  "oracle": {
-    "real_autoreconf": "fail",
-    "real_configure": "skipped",
-    "real_make": "skipped",
-    "real_configure_lines": 0,
-    "real_first_error": "configure.ac:280: error: required file 'longrun_tests/Makefile.in' not found",
-    "classification": "OURS_BETTER"
-  },
   "receipt": {
-    "court_status": "failed",
+    "court_status": "partial",
     "probe_trace": [],
     "quirks_matched": [
       "uses-libtool",
       "uses-subdir-objects",
       "vendored-aclocal"
     ],
-    "quirks_applied": [
-      {
-        "id": "uses-subdir-objects",
-        "action": "--disable-dependency-tracking",
-        "verified": false
-      }
-    ],
-    "receipt_hash": "0c30dce6270fb3560c454d8c8d1e4e34e811f65407638476dab76fe1fd927894",
+    "receipt_hash": "fc222e24136e1c7565f3970366c0a81d4ec04fa5491250e780188ba2805c06fb",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -121,6 +133,719 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "benchmark/Cargo.toml",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": false
+      },
+      {
+        "path": "benchmark/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": false
+      },
+      {
+        "path": "benchmark/io/http/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": false
+      },
+      {
+        "path": "driver/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "libcfa/Makefile:libcfa/Makefile.dist.in",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": false
+      },
+      {
+        "path": "longrun_tests/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": false
+      },
+      {
+        "path": "src/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "tests/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "tests/config.py",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "tools/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": false
+      },
+      {
+        "path": "tools/prettyprinter/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      }
+    ],
+    "config_headers": [
+      "config.h:src/config.h.in"
+    ],
+    "subdirs": [
+      "driver",
+      "src",
+      ".",
+      "@LIBCFA_TARGET_DIRS@",
+      "prelude",
+      "src",
+      "#",
+      "order",
+      "important"
+    ],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [],
+        "subdirs": [
+          "driver",
+          "src",
+          ".",
+          "@LIBCFA_TARGET_DIRS@"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "driver",
+        "targets": [
+          "cfa",
+          "as",
+          "cc1"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "libcfa",
+        "targets": [],
+        "subdirs": [
+          "prelude",
+          "src",
+          "#",
+          "order",
+          "important"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "libcfa/src",
+        "targets": [
+          "libcfa.la",
+          "libcfathread.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src",
+        "targets": [
+          "../driver/cfa-cpp",
+          "../driver/demangler",
+          "$(LIBDEMANGLE)",
+          "libdemangle.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "tests",
+        "targets": [
+          "array-collections/boxed",
+          "avl_test",
+          "linkonce",
+          "linking/mangling/anon",
+          ".dummy_hack",
+          "#",
+          "build",
+          "but",
+          "do",
+          "not",
+          "install"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "tools/prettyprinter",
+        "targets": [
+          "pretty"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      }
+    ],
+    "max_depth": 3,
+    "config_h_consumers_below_root": [
+      "driver",
+      "src"
+    ]
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 0,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "driver/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 0,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "tests/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 0,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "tools/prettyprinter/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 0,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 0,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "libcfa/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 0,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      }
+    ]
+  },
+  "tool_requirements": {
+    "detected": [
+      "yacc",
+      "lex",
+      "c++"
+    ],
+    "missing": []
+  },
+  "macro_inventory": {
+    "macro_dirs": [],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [],
+    "called_macros": [
+      "AC_ARG_ENABLE",
+      "AC_ARG_PROGRAM",
+      "AC_ARG_WITH",
+      "AC_CANONICAL_BUILD",
+      "AC_CANONICAL_HOST",
+      "AC_CHECK_HEADERS",
+      "AC_CHECK_LIB",
+      "AC_CHECK_TYPES",
+      "AC_CONFIG_AUX_DIR",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_HEADERS",
+      "AC_CONFIG_LINKS",
+      "AC_CONFIG_MACRO_DIRS",
+      "AC_DEFINE",
+      "AC_DEFINE_UNQUOTED",
+      "AC_INIT",
+      "AC_MSG_RESULT",
+      "AC_OUTPUT",
+      "AC_PREREQ",
+      "AC_PROG_CC",
+      "AC_PROG_CXX",
+      "AC_PROG_INSTALL",
+      "AC_PROG_LEX",
+      "AC_PROG_YACC",
+      "AC_SUBST",
+      "AM_CONDITIONAL",
+      "AM_COND_IF",
+      "AM_INIT_AUTOMAKE",
+      "AM_PROG_AS",
+      "AM_SILENT_RULES",
+      "AM_SUBST_NOTMAKE",
+      "LT_INIT"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 143,
+    "configure_fi": 140,
+    "configure_case": 72,
+    "configure_esac": 75,
+    "balanced": false,
+    "automake_conditionals": [
+      "ENABLE_DISTCC",
+      "WITH_LIBFIBRE",
+      "WITH_LIBPROFILER",
+      "WITH_LIBTCMALLOC",
+      "CFORALL_DISTRIBUTE"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": "automake",
+    "present": [
+      "install-sh",
+      "missing",
+      "depcomp",
+      "compile",
+      "ltmain.sh",
+      "config.guess",
+      "config.sub"
+    ],
+    "missing": []
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "S": 1,
+      "c": 8,
+      "cc": 11,
+      "cpp": 130,
+      "h": 48,
+      "hpp": 155
+    },
+    "configure_macros": [
+      "AC_PROG_CC",
+      "AC_PROG_CXX"
+    ],
+    "needs_cxx": true,
+    "needs_fortran": false,
+    "sets_c_std": false
+  },
+  "libtool_context": {
+    "uses_libtool": true,
+    "macros": [
+      "LT_INIT"
+    ],
+    "ltmain_present": false,
+    "libtool_m4_sources": [],
+    "age": "modern"
+  },
+  "make_graph": {
+    "targets": [],
+    "key_variables": {},
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "libtool",
+      "config.log"
+    ],
+    "recursion_depth": 3,
+    "top_targets": [],
+    "make_diagnostics": [
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make: *** No targets.  Stop."
+      }
+    ]
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": true,
+    "defines_sampled": []
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-libtool",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-subdir-objects",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "vpath_analysis": {
+    "hardcoded_src_paths": 6,
+    "abs_path_leakage": 0,
+    "built_sources": [
+      "parser.hh"
+    ],
+    "generated_source_targets": [
+      "libdeps = $(join  \t$(addsuffix $(DEPDIR)/ , $(dir $(libobjs) ) ),  \t$(notdir ${libobjs",
+      "thread_libdeps = $(join  \t$(addsuffix $(DEPDIR)/ , $(dir $(thread_libobjs) ) ),  \t$(notdir ${thread_libobjs",
+      "prelude.o prelude.lo $(libobjs) $(thread_libobjs)",
+      "prelude.lo"
+    ]
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "libintl.h",
+      "malloc.h",
+      "unistd.h"
+    ],
+    "headers_included_unchecked": [
+      "clib/cfathread.h",
+      "dlfcn.h",
+      "ext/alloc_traits.h",
+      "fcntl.h",
+      "inttypes.h",
+      "stdint.h",
+      "sys/mman.h",
+      "sys/stat.h",
+      "sys/types.h",
+      "sys/wait.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 2,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "gnu++",
+    "strip_modern_poison_flags": [],
+    "inject_legacy_shims": false,
+    "compiler_aliasing": {}
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 15,
+    "shadowed_builtins": [],
+    "permitted_mutations": 5,
+    "suspect_global_mutations": 0
+  },
+  "parallel_build_safety": {
+    "vpath_out_of_tree_safe": false,
+    "generators": [
+      "libdeps = $(join  \t$(addsuffix $(DEPDIR)/ , $(dir $(libobjs) ) ),  \t$(notdir ${libobjs",
+      "thread_libdeps = $(join  \t$(addsuffix $(DEPDIR)/ , $(dir $(thread_libobjs) ) ),  \t$(notdir ${thread_libobjs",
+      "prelude.o prelude.lo $(libobjs) $(thread_libobjs)",
+      "prelude.lo"
+    ],
+    "unordered_generated_sources": [
+      "libdeps = $(join  \t$(addsuffix $(DEPDIR)/ , $(dir $(libobjs) ) ),  \t$(notdir ${libobjs",
+      "thread_libdeps = $(join  \t$(addsuffix $(DEPDIR)/ , $(dir $(thread_libobjs) ) ),  \t$(notdir ${thread_libobjs",
+      "prelude.o prelude.lo $(libobjs) $(thread_libobjs)",
+      "prelude.lo"
+    ],
+    "built_sources_declared": true
+  },
+  "host_environment_veil": {
+    "header_injection_candidates": [
+      "malloc.h"
+    ],
+    "symbol_aliasing_candidates": []
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "clib/cfathread.h",
+      "dlfcn.h",
+      "ext/alloc_traits.h",
+      "fcntl.h",
+      "inttypes.h",
+      "stdint.h",
+      "sys/mman.h",
+      "sys/stat.h",
+      "sys/types.h",
+      "sys/wait.h",
+      "libintl.h",
+      "malloc.h",
+      "unistd.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "subdir-config-h-include-path",
+    "parallel-build-race (gen-source not in BUILT_SOURCES)",
+    "vpath-unsafe (abs-path/hardcoded-srcdir leakage)"
+  ],
+  "repair_hints": [
+    {
+      "id": "subdir-top-builddir",
+      "phase": "make",
+      "confidence": 0.88,
+      "evidence": [
+        "driver consumes config.h below root",
+        "src consumes config.h below root"
+      ],
+      "action": "ensure ac_subst_file sets relative top_builddir per subdir (0.1.19)",
+      "expected_effect": "config.h found in subdir compiles"
+    }
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": -4,
+      "Makefile.in": 1171,
+      "aclocal.m4": 38,
+      "configure": 43,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_ENABLE": "system-aclocal",
+      "AC_ARG_PROGRAM": "system-aclocal",
+      "AC_ARG_WITH": "system-aclocal",
+      "AC_CANONICAL_BUILD": "system-aclocal",
+      "AC_CANONICAL_HOST": "system-aclocal",
+      "AC_CHECK_HEADERS": "system-aclocal",
+      "AC_CHECK_LIB": "system-aclocal",
+      "AC_CHECK_TYPES": "system-aclocal",
+      "AC_CONFIG_AUX_DIR": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_HEADERS": "system-aclocal",
+      "AC_CONFIG_LINKS": "system-aclocal",
+      "AC_CONFIG_MACRO_DIRS": "system-aclocal",
+      "AC_DEFINE": "system-aclocal",
+      "AC_DEFINE_UNQUOTED": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_MSG_RESULT": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PREREQ": "system-aclocal",
+      "AC_PROG_CC": "system-aclocal",
+      "AC_PROG_CXX": "system-aclocal",
+      "AC_PROG_INSTALL": "system-aclocal",
+      "AC_PROG_LEX": "system-aclocal",
+      "AC_PROG_YACC": "system-aclocal",
+      "AC_SUBST": "system-aclocal",
+      "AM_CONDITIONAL": "system-aclocal",
+      "AM_COND_IF": "system-aclocal",
+      "AM_INIT_AUTOMAKE": "system-aclocal",
+      "AM_PROG_AS": "system-aclocal",
+      "AM_SILENT_RULES": "system-aclocal",
+      "AM_SUBST_NOTMAKE": "system-aclocal",
+      "LT_INIT": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "pretty_SOURCES",
+        "var": "SRC",
+        "resolved_to": [
+          "ParserTypes.h",
+          "filter.cc",
+          "filter.h",
+          "lex.ll",
+          "main.cc",
+          "parser.yy",
+          "token.cc",
+          "token.h"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "pretty_LDADD",
+        "var": "LEXLIB",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "___driver_cfa_cpp_SOURCES",
+        "var": "SRC",
+        "resolved_to": [
+          "main.cpp",
+          "CompilationState.cpp",
+          "CompilationState.hpp",
+          "MakeLibCfa.cpp",
+          "MakeLibCfa.hpp"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "___driver_cfa_cpp_LDADD",
+        "var": "LIBPROFILER",
+        "resolved_to": [
+          "-lprofiler"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "___driver_cfa_cpp_LDADD",
+        "var": "LIBTCMALLOC",
+        "resolved_to": [
+          "-ltcmalloc"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "cfa_cpplib_PROGRAMS",
+        "var": "DEMANGLER",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "noinst_LIBRARIES",
+        "var": "LIBDEMANGLE",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libdemangle_a_SOURCES",
+        "var": "SRCDEMANGLE",
+        "resolved_to": [
+          "CompilationState.cpp"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libcfa_la_SOURCES",
+        "var": "libsrc",
+        "resolved_to": [
+          "${inst_headers_src}",
+          "${inst_headers_src:.hfa=.cfa}",
+          "assert.cfa",
+          "bits/debug.cfa",
+          "exception.c",
+          "interpose.cfa",
+          "lsda.h",
+          "prelude-inline.cfa",
+          "startup.cfa",
+          "startup.hfa",
+          "virtual.c",
+          "virtual.h"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libcfathread_la_SOURCES",
+        "var": "thread_libsrc",
+        "resolved_to": [
+          "${inst_thread_headers_src}",
+          "${inst_thread_headers_src:.hfa=.cfa}",
+          "interpose_thread.cfa",
+          "bits/signal.hfa",
+          "concurrency/clib/cfathread.cfa",
+          "concurrency/CtxSwitch-@ARCHITECTURE@.S",
+          "concurrency/invoke.c",
+          "concurrency/io.cfa",
+          "concurrency/io/setup.cfa",
+          "concurrency/io/types.hfa",
+          "concurrency/io/call.cfa",
+          "concurrency/iofwd.hfa",
+          "concurrency/kernel/private.hfa",
+          "concurrency/kernel/startup.cfa",
+          "concurrency/preemption.cfa",
+          "concurrency/preemption.hfa",
+          "concurrency/ready_queue.cfa",
+          "concurrency/ready_subqueue.hfa",
+          "concurrency/snzi.hfa",
+          "concurrency/stats.cfa",
+          "concurrency/stats.hfa",
+          "concurrency/stats.hfa",
+          "concurrency/pthread.cfa"
+        ],
+        "resolved": true
+      }
+    ],
+    "unresolved_refs": [
+      "pretty_LDADD = $(LEXLIB)",
+      "cfa_cpplib_PROGRAMS = $(DEMANGLER)",
+      "noinst_LIBRARIES = $(LIBDEMANGLE)"
+    ],
+    "indirection_count": 10
   }
 }

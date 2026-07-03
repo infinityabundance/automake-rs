@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "bsc-performance-tools/paraver-kernel",
   "source": {
     "url": "https://github.com/bsc-performance-tools/paraver-kernel",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -34,15 +34,27 @@
       "status": "fail"
     }
   ],
-  "probe_results": {},
+  "probe_results": {
+    "HAVE_BOOST": 1,
+    "HAVE_BOOST_DATE_TIME": 1,
+    "HAVE_BOOST_SERIALIZATION": 1
+  },
   "feature_flags": {
     "configure_args": []
   },
   "dependencies": {
-    "pkg_config": [],
+    "pkg_config": [
+      "checking for boostlib >= 1.36... yes"
+    ],
     "system_libs": [],
-    "headers_needed": [],
-    "missing": []
+    "headers_needed": [
+      "kfilter.h",
+      "histogramexception.h"
+    ],
+    "missing": [
+      "kfilter.h",
+      "histogramexception.h"
+    ]
   },
   "quirks": [
     "autoconf-archive-macros",
@@ -51,9 +63,9 @@
   "outputs": [],
   "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "Makefile:16: *** missing separator.  Stop.",
+  "diagnostic": "filtermanagement.cpp:26:10: fatal error: kfilter.h: No such file or directory",
   "deep_expansion": {
-    "configure_lines": 3105,
+    "configure_lines": 3359,
     "leaked_macros": [],
     "heredoc_openers": 33,
     "heredoc_terminators": 33,
@@ -61,10 +73,26 @@
     "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2629: do eval test \\${$as_var+y} \\"
+      "line 2882: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
+      "BOOST_CPPFLAGS",
+      "BOOST_LDFLAGS",
+      "BOOST_SERIALIZATION_LIB",
+      "BOOST_DATE_TIME_LIB",
+      "ENABLE_DEPENDENCIES_AWARE_INSTALL_TRUE",
+      "ENABLE_DEPENDENCIES_AWARE_INSTALL_FALSE",
+      "OPENMP_CXXFLAGS",
+      "OPENMP_LDFLAGS",
+      "MINGW_ENABLED_TRUE",
+      "MINGW_ENABLED_FALSE",
+      "WANT_OTF2PRV_TRUE",
+      "WANT_OTF2PRV_FALSE",
+      "OTF2_DIR",
+      "AM_CFLAGS",
+      "AM_CXXFLAGS",
+      "AM_LDFLAGS",
       "PACKAGE_NAME",
       "PACKAGE_TARNAME",
       "PACKAGE_VERSION",
@@ -80,35 +108,46 @@
       "configure: creating include/Makefile"
     ],
     "conftest_corruption": [],
-    "conftest_directives_intact": 23,
+    "conftest_directives_intact": 34,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
-      "\\n@%:@include <boost/version.hpp>\\n\\nint main() {\\n#if BOOST_VERSION >= $WANT_BOOST_VERSION\\n// Everything is okay\\n#else\\n#  error Boost version is too old\\n#endif\\n; return 0; }",
-      "\\n@%:@include <boost/version.hpp>\\n\\nint main() {\\n#if BOOST_VERSION >= $WANT_BOOST_VERSION\\n// Everything is okay\\n#else\\n#  error Boost version is too old\\n#endif\\n; return 0; }",
-      "@%:@include <fstream>\\n@%:@include <boost/archive/text_oarchive.hpp>\\n@%:@include <boost/archive/text_iarchive.hpp>\\n\\nint main() { std::ofstream ofs(\"filename\");\\nboost::archive::text_oarchive oa(ofs);\\nreturn 0;\\n; return 0; }",
-      "char exit();\\nint main() { return exit(); }",
-      "char exit();\\nint main() { return exit(); }",
-      "char main();\\nint main() { return main(); }"
+      "\\n#include <boost/version.hpp>\\n\\nint main() {\\n#if BOOST_VERSION >= $WANT_BOOST_VERSION\\n// Everything is okay\\n#else\\n#  error Boost version is too old\\n#endif\\n; return 0; }",
+      "\\n#include <boost/version.hpp>\\n\\nint main() {\\n#if BOOST_VERSION >= $WANT_BOOST_VERSION\\n// Everything is okay\\n#else\\n#  error Boost version is too old\\n#endif\\n; return 0; }",
+      "#include <fstream>\\n#include <boost/archive/text_oarchive.hpp>\\n#include <boost/archive/text_iarchive.hpp>\\n\\nint main() { std::ofstream ofs(\"filename\");\\nboost::archive::text_oarchive oa(ofs);\\nreturn 0;\\n; return 0; }",
+      "char exit ();\\nint main() { return exit(); }",
+      "char exit ();\\nint main() { return exit(); }",
+      "\\nint main() { return main(); }"
     ]
-  },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "fail",
-    "real_make": "skipped",
-    "real_configure_lines": 22560,
-    "real_first_error": "configure: error: Could not find a version of the library!",
-    "classification": "OURS_BETTER"
   },
   "receipt": {
     "court_status": "partial",
-    "probe_trace": [],
+    "probe_trace": [
+      {
+        "name": "HAVE_BOOST",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_BOOST_DATE_TIME",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_BOOST_SERIALIZATION",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      }
+    ],
     "quirks_matched": [
       "uses-subdir-objects",
       "has-m4-macro-dir",
       "vendored-aclocal",
       "uses-ax-archive"
     ],
-    "receipt_hash": "bdbfb6907bfdbc8bdb7cf566a26793b38411d77e6f0819ae26c725daf919e509",
+    "receipt_hash": "c5a8ad98ee6bbe941f98ee47ebba8c8bba80ac2539f6ec9e566868a49e0dad7c",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -117,6 +156,679 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "api/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "include/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "src/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "utils/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "utils/include/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "utils/src/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      }
+    ],
+    "config_headers": [
+      "config.h",
+      "config_traits.h",
+      "config_types.h"
+    ],
+    "subdirs": [
+      "include",
+      "src",
+      "api",
+      "utils",
+      "include",
+      "src"
+    ],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [
+          "paramedir.bin"
+        ],
+        "subdirs": [
+          "include",
+          "src",
+          "api",
+          "utils"
+        ],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "api",
+        "targets": [
+          "libparaver-api.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "include",
+        "targets": [],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src",
+        "targets": [
+          "libparaver-kernel.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "utils",
+        "targets": [],
+        "subdirs": [
+          "include",
+          "src"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "utils/include",
+        "targets": [],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      }
+    ],
+    "max_depth": 2,
+    "config_h_consumers_below_root": [
+      "api",
+      "src",
+      "include",
+      "utils/include"
+    ]
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 707,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "api/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 840,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 587,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "include/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 434,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "utils/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 524,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "utils/src/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 438,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "utils/include/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 438,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      }
+    ]
+  },
+  "tool_requirements": {
+    "detected": [
+      "c++"
+    ],
+    "missing": []
+  },
+  "macro_inventory": {
+    "macro_dirs": [
+      "m4"
+    ],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [
+      {
+        "name": "AX_BOOST_SERIALIZATION",
+        "source": "m4/m4_ax_boost_serialization.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AX_BOOST_BASE",
+        "source": "m4/m4_ax_boost_base.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AX_PROG_ENABLE_DEPENDENCIES_AWARE_INSTALL",
+        "source": "m4/macros.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AX_PROG_ENABLE_EXTENDED_OBJECTS",
+        "source": "m4/macros.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AX_PROG_ENABLE_OMPSS",
+        "source": "m4/macros.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AX_PROG_ENABLE_OPENMP",
+        "source": "m4/macros.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AX_PROG_WITH_EXTRAE",
+        "source": "m4/macros.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AX_PROG_WITH_OTF2",
+        "source": "m4/macros.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AX_PROG_WITH_DEBUG_LEVEL",
+        "source": "m4/macros.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AX_PROG_ENABLE_MINGW",
+        "source": "m4/macros.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AX_BOOST_DATE_TIME",
+        "source": "m4/m4_ax_boost_date_time.m4",
+        "kind": "AX"
+      }
+    ],
+    "called_macros": [
+      "AC_CHECK_SIZEOF",
+      "AC_CHECK_TYPES",
+      "AC_CONFIG_HEADERS",
+      "AC_CONFIG_MACRO_DIR",
+      "AC_CONFIG_SRCDIR",
+      "AC_INIT",
+      "AC_LIBTOOL_WIN32_DLL",
+      "AC_OUTPUT",
+      "AC_PROG_CC",
+      "AC_PROG_CPP",
+      "AC_PROG_CXX",
+      "AC_PROG_CXXCPP",
+      "AC_PROG_SED",
+      "AC_SUBST",
+      "AM_CFLAGS",
+      "AM_CXXFLAGS",
+      "AM_INIT_AUTOMAKE",
+      "AM_LDFLAGS",
+      "AM_PATH_XML2",
+      "AM_PROG_LIBTOOL",
+      "AX_BOOST_BASE",
+      "AX_BOOST_DATE_TIME",
+      "AX_BOOST_SERIALIZATION",
+      "AX_PROG_ENABLE_DEPENDENCIES_AWARE_INSTALL",
+      "AX_PROG_ENABLE_EXTENDED_OBJECTS",
+      "AX_PROG_ENABLE_MINGW",
+      "AX_PROG_ENABLE_OMPSS",
+      "AX_PROG_ENABLE_OPENMP",
+      "AX_PROG_WITH_DEBUG",
+      "AX_PROG_WITH_DEBUG_LEVEL",
+      "AX_PROG_WITH_EXTRAE",
+      "AX_PROG_WITH_OTF2"
+    ],
+    "unresolved_macros": [
+      "AX_PROG_WITH_DEBUG"
+    ]
+  },
+  "conditional_context": {
+    "configure_if": 192,
+    "configure_fi": 182,
+    "configure_case": 63,
+    "configure_esac": 66,
+    "balanced": false,
+    "automake_conditionals": []
+  },
+  "config_aux_inventory": {
+    "aux_dir": ".",
+    "present": [
+      "install-sh",
+      "missing",
+      "depcomp",
+      "compile"
+    ],
+    "missing": []
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "cpp": 95,
+      "h": 159
+    },
+    "configure_macros": [
+      "AC_PROG_CC",
+      "AC_PROG_CXX"
+    ],
+    "needs_cxx": true,
+    "needs_fortran": false,
+    "sets_c_std": false
+  },
+  "libtool_context": {
+    "uses_libtool": true,
+    "macros": [
+      "AM_PROG_LIBTOOL"
+    ],
+    "ltmain_present": false,
+    "libtool_m4_sources": [],
+    "age": "unknown"
+  },
+  "make_graph": {
+    "targets": [
+      "all",
+      "all-am",
+      "$(am__depfiles_remade)",
+      "am--depfiles",
+      "install-exec-am",
+      "install-data-am",
+      "uninstall-am",
+      "install-am",
+      "installcheck-am",
+      "install-strip",
+      "install-info",
+      "install-info-am",
+      "install-dvi",
+      "install-dvi-am",
+      "install-ps",
+      "install-ps-am",
+      "install-pdf",
+      "install-pdf-am",
+      "install-html",
+      "install-html-am",
+      "install-data-hook",
+      "install-exec-hook",
+      "installdirs-am",
+      ".PHONY",
+      "mostlyclean-am",
+      "clean-am",
+      "distclean-am",
+      "maintainer-clean-am",
+      "distdir",
+      "dist",
+      "dist-all",
+      "dist-gzip",
+      "distcleancheck",
+      "distcheck",
+      "check-am",
+      "TAGS",
+      "tags",
+      "TAGS-am",
+      "tags-am",
+      "cscope"
+    ],
+    "key_variables": {
+      "AR": "ar",
+      "CC": "cc",
+      "CFLAGS": "",
+      "CPPFLAGS": "",
+      "CXX": "g++",
+      "CXXFLAGS": "",
+      "DEFAULT_INCLUDES": "-I. -I$(top_builddir)",
+      "DEFS": "-DHAVE_CONFIG_H",
+      "LDFLAGS": "",
+      "LIBS": "",
+      "RANLIB": "ranlib"
+    },
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "config.h",
+      "libtool",
+      "config.log"
+    ],
+    "recursion_depth": 2,
+    "top_targets": [
+      "all",
+      "dist",
+      "all-am"
+    ],
+    "make_diagnostics": [
+      {
+        "command": "",
+        "error_type": "missing-header",
+        "message": "filtermanagement.cpp:26:10: fatal error: kfilter.h: No such file or directory"
+      },
+      {
+        "command": "",
+        "error_type": "missing-header",
+        "message": "histogramexception.cpp:26:10: fatal error: histogramexception.h: No such file or directory"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[2]: *** [Makefile:565: filtermanagement.lo] Error 1"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[2]: *** Waiting for unfinished jobs...."
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[2]: *** [Makefile:565: histogramexception.lo] Error 1"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[1]: *** [Makefile:292: all-am] Error 2"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make: *** [Makefile:635: all-recursive] Error 1"
+      }
+    ]
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": true,
+    "defines_sampled": [
+      "HAVE_CONFIG_H"
+    ]
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-subdir-objects",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "has-m4-macro-dir",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-ax-archive",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "vpath_analysis": {
+    "hardcoded_src_paths": 6,
+    "abs_path_leakage": 0,
+    "built_sources": [],
+    "generated_source_targets": []
+  },
+  "feature_probe_gap": {
+    "headers_checked": [],
+    "headers_included_unchecked": [
+      "inttypes.h",
+      "libxml/encoding.h",
+      "libxml/parser.h",
+      "libxml/xmlmemory.h",
+      "libxml/xmlwriter.h",
+      "stdint.h",
+      "sys/stat.h",
+      "sys/types.h",
+      "unistd.h"
+    ],
+    "implicit_link_libs": [
+      "-lz"
+    ]
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 5,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "gnu++",
+    "strip_modern_poison_flags": [],
+    "inject_legacy_shims": false,
+    "compiler_aliasing": {}
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 0,
+    "shadowed_builtins": [],
+    "permitted_mutations": 0,
+    "suspect_global_mutations": 0
+  },
+  "parallel_build_safety": {
+    "vpath_out_of_tree_safe": false,
+    "generators": [],
+    "unordered_generated_sources": [],
+    "built_sources_declared": false
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "inttypes.h",
+      "libxml/encoding.h",
+      "libxml/parser.h",
+      "libxml/xmlmemory.h",
+      "libxml/xmlwriter.h",
+      "stdint.h",
+      "sys/stat.h",
+      "sys/types.h",
+      "unistd.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "subdir-config-h-include-path",
+    "unresolved-macros",
+    "vpath-unsafe (abs-path/hardcoded-srcdir leakage)"
+  ],
+  "repair_hints": [
+    {
+      "id": "subdir-top-builddir",
+      "phase": "make",
+      "confidence": 0.88,
+      "evidence": [
+        "api consumes config.h below root",
+        "src consumes config.h below root",
+        "include consumes config.h below root",
+        "utils/include consumes config.h below root"
+      ],
+      "action": "ensure ac_subst_file sets relative top_builddir per subdir (0.1.19)",
+      "expected_effect": "config.h found in subdir compiles"
+    },
+    {
+      "id": "load-vendored-aclocal-dir",
+      "phase": "autoreconf",
+      "confidence": 0.85,
+      "evidence": [
+        "AX_PROG_WITH_DEBUG"
+      ],
+      "action": "aclocal -I m4",
+      "expected_effect": "resolves unexpanded AX_/custom macros"
+    }
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": -4,
+      "Makefile.in": 1145,
+      "aclocal.m4": 9,
+      "config.h.in": 19,
+      "configure": 17,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_CHECK_SIZEOF": "system-aclocal",
+      "AC_CHECK_TYPES": "system-aclocal",
+      "AC_CONFIG_HEADERS": "system-aclocal",
+      "AC_CONFIG_MACRO_DIR": "system-aclocal",
+      "AC_CONFIG_SRCDIR": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_LIBTOOL_WIN32_DLL": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PROG_CC": "system-aclocal",
+      "AC_PROG_CPP": "system-aclocal",
+      "AC_PROG_CXX": "system-aclocal",
+      "AC_PROG_CXXCPP": "system-aclocal",
+      "AC_PROG_SED": "system-aclocal",
+      "AC_SUBST": "system-aclocal",
+      "AM_CFLAGS": "system-aclocal",
+      "AM_CXXFLAGS": "system-aclocal",
+      "AM_INIT_AUTOMAKE": "system-aclocal",
+      "AM_LDFLAGS": "system-aclocal",
+      "AM_PATH_XML2": "system-aclocal",
+      "AM_PROG_LIBTOOL": "system-aclocal",
+      "AX_BOOST_BASE": "m4/m4_ax_boost_base.m4",
+      "AX_BOOST_DATE_TIME": "m4/m4_ax_boost_date_time.m4",
+      "AX_BOOST_SERIALIZATION": "m4/m4_ax_boost_serialization.m4",
+      "AX_PROG_ENABLE_DEPENDENCIES_AWARE_INSTALL": "m4/macros.m4",
+      "AX_PROG_ENABLE_EXTENDED_OBJECTS": "m4/macros.m4",
+      "AX_PROG_ENABLE_MINGW": "m4/macros.m4",
+      "AX_PROG_ENABLE_OMPSS": "m4/macros.m4",
+      "AX_PROG_ENABLE_OPENMP": "m4/macros.m4",
+      "AX_PROG_WITH_DEBUG": "unresolved",
+      "AX_PROG_WITH_DEBUG_LEVEL": "m4/macros.m4",
+      "AX_PROG_WITH_EXTRAE": "m4/macros.m4",
+      "AX_PROG_WITH_OTF2": "m4/macros.m4"
+    },
+    "rebuild_trigger_risk": false
   }
 }

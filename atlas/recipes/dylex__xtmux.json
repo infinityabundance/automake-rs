@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "dylex/xtmux",
   "source": {
     "url": "https://github.com/dylex/xtmux",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,11 +26,11 @@
     {
       "step": "configure",
       "tool": "./configure",
-      "status": "fail"
+      "status": "ok"
     },
     {
-      "step": "auto-quirk",
-      "tool": "quirk-engine",
+      "step": "make",
+      "tool": "make",
       "status": "fail"
     }
   ],
@@ -39,131 +39,93 @@
     "configure_args": []
   },
   "dependencies": {
-    "pkg_config": [
-      "./configure: line 1720: syntax error near unexpected token `$'doesn\\'t give us a",
-      "./configure: line 1720: `\t# pkg-config didn't work, try ncurses.'"
+    "pkg_config": [],
+    "system_libs": [
+      "-ltinfo",
+      "-levent"
     ],
-    "system_libs": [],
     "headers_needed": [],
     "missing": []
   },
   "quirks": [
-    "pkg-config"
+    "pkg-config",
+    "LIBS=-ltinfo -levent"
   ],
   "outputs": [],
-  "status": "CONFIGURE_RUN_FAIL",
+  "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1720: syntax error near unexpected token `$'doesn\\'t give us any other way to update the include\\n# paths. But for Makefil",
+  "diagnostic": "<command-line>: error: invalid suffix \"ax\" on floating constant",
   "deep_expansion": {
-    "configure_lines": 3725,
+    "configure_lines": 4152,
     "leaked_macros": [],
-    "heredoc_openers": 59,
-    "heredoc_terminators": 59,
+    "heredoc_openers": 66,
+    "heredoc_terminators": 66,
     "heredoc_imbalance": 0,
-    "syntax_errors": [
-      {
-        "line": 1720,
-        "token": "$'doesn\\'t give us any o",
-        "source": "# pkg-config didn't work, try ncurses.",
-        "block": [
-          "1716: \tAM_CFLAGS=\"$LIBNCURSES_CFLAGS $LIBTINFO_CFLAGS $AM_CFLAGS\"",
-          "1717: \tCFLAGS=\"$LIBNCURSES_CFLAGS $LIBTINFO_CFLAGS $CFLAGS\"",
-          "1718: \tLIBS=\"$LIBNCURSES_LIBS $LIBTINFO_LIBS $LIBS\"",
-          "1719: else",
-          "1720: \t# pkg-config didn't work, try ncurses.",
-          "1721: \tprintf %s \"checking for setupterm in -ltinfo... \"",
-          "1722: _acl_save_LIBS=$LIBS",
-          "1723: LIBS=\"-ltinfo  $LIBS\""
-        ]
-      }
-    ],
+    "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 3249: do eval test \\${$as_var+y} \\"
+      "line 1411: # eval \"_acrs_sv=\\${}\"; printf '%s\\n' \"s|@@|${_acrs_sv}|g\" >",
+      "line 3675: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
       "PKG_CONFIG",
-      "PACKAGE_NAME",
-      "PACKAGE_TARNAME",
-      "PACKAGE_VERSION",
-      "PACKAGE_STRING",
-      "PACKAGE_BUGREPORT",
-      "PACKAGE_URL",
-      "srcdir",
-      "prefix",
-      "exec_prefix",
-      "CC",
-      "CFLAGS",
-      "CPPFLAGS",
-      "LDFLAGS",
-      "LIBS",
-      "CXX",
-      "CXXFLAGS",
-      "CPP",
-      "DEFS",
-      "LIBOBJS",
-      "INSTALL",
-      "host_cpu",
-      "MANFORMAT",
+      "IS_DEBUG_TRUE",
+      "IS_DEBUG_FALSE",
+      "IS_GCC_TRUE",
+      "IS_GCC_FALSE",
+      "IS_SUNCC_TRUE",
+      "IS_SUNCC_FALSE",
+      "LIBEVENT_CFLAGS",
+      "LIBEVENT_LIBS",
+      "LIBTINFO_CFLAGS",
+      "LIBTINFO_LIBS",
+      "LIBNCURSES_CFLAGS",
+      "LIBNCURSES_LIBS",
+      "HAVE_UTF8PROC_TRUE",
+      "HAVE_UTF8PROC_FALSE",
       "XOPEN_DEFINES",
-      "AM_CPPFLAGS",
-      "host_os",
+      "NEED_FORKPTY_TRUE",
+      "NEED_FORKPTY_FALSE",
+      "MANFORMAT",
       "PLATFORM",
-      "host_alias",
-      "AM_LDFLAGS"
+      "IS_AIX_TRUE",
+      "IS_AIX_FALSE",
+      "IS_DARWIN_TRUE",
+      "IS_DARWIN_FALSE",
+      "IS_DRAGONFLY_TRUE",
+      "IS_DRAGONFLY_FALSE",
+      "IS_LINUX_TRUE",
+      "IS_LINUX_FALSE",
+      "IS_FREEBSD_TRUE"
     ],
-    "failed_during_check": "checking for C compiler... \"\\n  printf \\'%s\\\\n\\' \"$CC\"\\nelse\\n  for ac_prog in c",
+    "failed_during_check": "checking platform... linux",
     "failure_tail": [
-      "./configure: line 1720: syntax error near unexpected token `$'doesn\\'t give us a",
-      "./configure: line 1720: `\t# pkg-config didn't work, try ncurses.'"
+      "checking platform... linux",
+      "configure: creating Makefile",
+      "configure: creating ./config.status"
     ],
     "conftest_corruption": [],
-    "conftest_directives_intact": 57,
+    "conftest_directives_intact": 78,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
-      "#include <>",
       "#include <$ac_hdr>",
       "char flock ();\\nint main() { return flock (); }",
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func();\\nint main() { return $ac_func(); }",
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar strnlen();\\nint main() { return strnlen(); }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func ();\\nint main() { return $ac_func(); }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func ();\\nint main() { return $ac_func(); }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar strnlen ();\\nint main() { return strnlen(); }",
       "char clock_gettime ();\\nint main() { return clock_gettime (); }"
     ]
   },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "ok",
-    "real_make": "ok",
-    "real_configure_lines": 10107,
-    "real_first_error": "",
-    "classification": "OURS_BUG_CONFIGURE"
-  },
-  "divergence": {
-    "stage": "configure",
-    "ours_error": "line 1720: # pkg-config didn't work, try ncurses. (near `$'doesn\\'t give us any o`)",
-    "ours_error_context": [
-      "# pkg-config didn't work, try ncurses."
-    ],
-    "ours_configure_lines": 3725,
-    "real_configure_lines": 10107,
-    "macros_ours_left_undefined": []
-  },
   "receipt": {
-    "court_status": "failed",
+    "court_status": "partial",
     "probe_trace": [],
     "quirks_matched": [
       "uses-pkg-config",
       "uses-subdir-objects",
       "vendored-aclocal"
     ],
-    "quirks_applied": [
-      {
-        "id": "uses-subdir-objects",
-        "action": "--disable-dependency-tracking",
-        "verified": false
-      }
-    ],
-    "receipt_hash": "24e39ed3178d433d21c1340a6407fda16d8349c27724819539e8175382940e80",
+    "receipt_hash": "fc222e24136e1c7565f3970366c0a81d4ec04fa5491250e780188ba2805c06fb",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -172,6 +134,518 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      }
+    ],
+    "config_headers": [],
+    "subdirs": [],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [
+          "tmux"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-D_OPENBSD_SOURCE"
+      }
+    ],
+    "max_depth": 0,
+    "config_h_consumers_below_root": []
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 504,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "regress/Makefile",
+        "has_makefile_in": false,
+        "has_makefile_am": false,
+        "lines": 10,
+        "first_parse_error": {
+          "line": 1,
+          "kind": "missing-separator",
+          "text": "TESTS!= echo *.sh",
+          "previous_lines": [],
+          "probable_cause": "shell-fragment-in-make"
+        },
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      }
+    ]
+  },
+  "tool_requirements": {
+    "detected": [
+      "yacc"
+    ],
+    "missing": []
+  },
+  "macro_inventory": {
+    "macro_dirs": [],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [],
+    "called_macros": [
+      "AC_ARG_ENABLE",
+      "AC_CANONICAL_HOST",
+      "AC_CHECK_DECL",
+      "AC_CHECK_DECLS",
+      "AC_CHECK_FUNC",
+      "AC_CHECK_FUNCS",
+      "AC_CHECK_HEADER",
+      "AC_CHECK_HEADERS",
+      "AC_CHECK_LIB",
+      "AC_CONFIG_AUX_DIR",
+      "AC_CONFIG_LIBOBJ_DIR",
+      "AC_DEFINE",
+      "AC_EGREP_CPP",
+      "AC_EGREP_HEADER",
+      "AC_FUNC_STRNLEN",
+      "AC_HELP_STRING",
+      "AC_INIT",
+      "AC_LANG_SOURCE",
+      "AC_LIBOBJ",
+      "AC_LINK_IFELSE",
+      "AC_MSG_CHECKING",
+      "AC_MSG_ERROR",
+      "AC_MSG_RESULT",
+      "AC_OUTPUT",
+      "AC_PATH_XTRA",
+      "AC_PREREQ",
+      "AC_PROG_CC",
+      "AC_PROG_CC_C99",
+      "AC_PROG_CPP",
+      "AC_PROG_EGREP",
+      "AC_PROG_INSTALL",
+      "AC_PROG_YACC",
+      "AC_REPLACE_FUNCS",
+      "AC_SEARCH_LIBS",
+      "AC_SUBST",
+      "AC_TRY_LINK",
+      "AC_USE_SYSTEM_EXTENSIONS",
+      "AM_CFLAGS",
+      "AM_CONDITIONAL",
+      "AM_CPPFLAGS",
+      "AM_INIT_AUTOMAKE",
+      "AM_LDFLAGS",
+      "AM_PROG_CC_C_O",
+      "PKG_CHECK_MODULES",
+      "PKG_CONFIG",
+      "PKG_PROG_PKG_CONFIG"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 244,
+    "configure_fi": 241,
+    "configure_case": 68,
+    "configure_esac": 70,
+    "balanced": false,
+    "automake_conditionals": [
+      "IS_DEBUG",
+      "IS_GCC",
+      "IS_SUNCC",
+      "HAVE_UTF8PROC",
+      "NEED_FORKPTY",
+      "IS_AIX",
+      "IS_DARWIN",
+      "IS_DRAGONFLY",
+      "IS_LINUX",
+      "IS_FREEBSD",
+      "IS_NETBSD",
+      "IS_OPENBSD",
+      "IS_SUNOS",
+      "IS_HPUX",
+      "IS_UNKNOWN",
+      "XTMUX"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": "etc",
+    "present": [
+      "install-sh",
+      "missing",
+      "depcomp",
+      "compile"
+    ],
+    "missing": [
+      "config.guess",
+      "config.sub"
+    ]
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "c": 165,
+      "h": 8
+    },
+    "configure_macros": [
+      "AC_PROG_CC",
+      "AC_PROG_CC_C99"
+    ],
+    "needs_cxx": false,
+    "needs_fortran": false,
+    "sets_c_std": true
+  },
+  "make_graph": {
+    "targets": [
+      "all",
+      "all-am",
+      "install-exec-am",
+      "uninstall-am",
+      "install",
+      "install-am",
+      "installcheck",
+      "install-strip",
+      "install-info",
+      "install-info-am",
+      "install-dvi",
+      "install-dvi-am",
+      "install-ps",
+      "install-ps-am",
+      "install-pdf",
+      "install-pdf-am",
+      "install-html",
+      "install-html-am",
+      "install-data-hook",
+      "install-exec-hook",
+      "installdirs",
+      "installdirs-am",
+      ".PHONY",
+      "mostlyclean-am",
+      "clean-am",
+      "distclean-am",
+      "maintainer-clean-am",
+      "clean",
+      "distdir",
+      "dist",
+      "dist-all",
+      "dist-gzip",
+      "distcleancheck",
+      "distcheck",
+      "check-am",
+      "check",
+      "TAGS",
+      "tags",
+      "TAGS-am",
+      "tags-am"
+    ],
+    "key_variables": {
+      "AR": "ar",
+      "CC": "cc",
+      "CFLAGS": "",
+      "CPPFLAGS": "",
+      "CXX": "c++",
+      "CXXFLAGS": "-g -O2",
+      "DEFAULT_INCLUDES": "-I. -I$(top_builddir)",
+      "DEFS": "-DPACKAGE=\"tmux\" -DVERSION=\"3.0ax\" -DPACKAGE_NAME=\"tmux\" -DPACKAGE_TARNAME=\"tmux\" -DPACKAGE_VERSION=\"3.0ax\" -DPACKAGE_STRING=\"tmux 3.0ax\" -DPACKAGE_BUGREPORT=\"\"",
+      "LDFLAGS": "",
+      "LIBS": "-ltinfo  -levent",
+      "RANLIB": "ranlib"
+    },
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "config.log"
+    ],
+    "recursion_depth": 0,
+    "top_targets": [
+      "all",
+      "install",
+      "check",
+      "clean",
+      "dist",
+      "all-am"
+    ],
+    "make_diagnostics": [
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "<command-line>: error: invalid suffix \"ax\" on floating constant"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[1]: *** [Makefile:488: tmux.o] Error 1"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make: *** [Makefile:235: all-am] Error 2"
+      }
+    ]
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": false,
+    "defines_sampled": [
+      "PACKAGE=\"tmux\"",
+      "VERSION=\"3.0ax\"",
+      "PACKAGE_NAME=\"tmux\"",
+      "PACKAGE_TARNAME=\"tmux\"",
+      "PACKAGE_VERSION=\"3.0ax\"",
+      "PACKAGE_STRING=\"tmux",
+      "PACKAGE_BUGREPORT=\"\"",
+      "_GNU_SOURCE=1",
+      "__EXTENSIONS__=1",
+      "_ALL_SOURCE=1",
+      "_POSIX_PTHREAD_SEMANTICS=1",
+      "_DARWIN_C_SOURCE=1",
+      "_TANDEM_SOURCE=1",
+      "HAVE_DIRENT_H=1",
+      "HAVE_FCNTL_H=1",
+      "HAVE_INTTYPES_H=1",
+      "HAVE_PATHS_H=1",
+      "HAVE_PTY_H=1",
+      "HAVE_STDINT_H=1",
+      "HAVE_SYS_DIR_H=1"
+    ]
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-pkg-config",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-subdir-objects",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "bitstring.h",
+      "curses.h",
+      "dirent.h",
+      "err.h",
+      "event.h",
+      "fcntl.h",
+      "inttypes.h",
+      "libutil.h",
+      "ncurses.h",
+      "ndir.h",
+      "paths.h",
+      "pty.h",
+      "stdint.h",
+      "sys/dir.h",
+      "sys/ndir.h",
+      "sys/tree.h",
+      "utempter.h",
+      "utf8proc.h",
+      "util.h"
+    ],
+    "headers_included_unchecked": [
+      "X11/Xatom.h",
+      "X11/Xlib.h",
+      "X11/Xutil.h",
+      "X11/cursorfont.h",
+      "arpa/inet.h",
+      "arpa/nameser.h",
+      "mach/mach.h",
+      "netinet/in.h",
+      "sys/file.h",
+      "sys/filio.h",
+      "sys/ioctl.h",
+      "sys/param.h",
+      "sys/prctl.h",
+      "sys/proc.h",
+      "sys/procfs.h",
+      "sys/queue.h",
+      "sys/socket.h",
+      "sys/stat.h",
+      "sys/sysctl.h",
+      "sys/time.h",
+      "sys/types.h",
+      "sys/uio.h",
+      "sys/un.h",
+      "sys/user.h",
+      "sys/utsname.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 2,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "c99",
+    "strip_modern_poison_flags": [],
+    "inject_legacy_shims": false,
+    "compiler_aliasing": {}
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 4,
+    "shadowed_builtins": [],
+    "permitted_mutations": 5,
+    "suspect_global_mutations": 0
+  },
+  "host_environment_veil": {
+    "header_injection_candidates": [
+      "sys/sysctl.h"
+    ],
+    "symbol_aliasing_candidates": []
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "X11/Xatom.h",
+      "X11/Xlib.h",
+      "X11/Xutil.h",
+      "X11/cursorfont.h",
+      "arpa/inet.h",
+      "arpa/nameser.h",
+      "mach/mach.h",
+      "netinet/in.h",
+      "sys/file.h",
+      "sys/filio.h",
+      "sys/ioctl.h",
+      "sys/param.h",
+      "sys/prctl.h",
+      "sys/proc.h",
+      "sys/procfs.h",
+      "sys/queue.h",
+      "sys/socket.h",
+      "sys/stat.h",
+      "sys/sysctl.h",
+      "sys/time.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "repair_hints": [
+    {
+      "id": "makefile-shell-fragment-in-make",
+      "phase": "make",
+      "confidence": 0.5,
+      "evidence": [
+        "regress/Makefile:1 missing-separator",
+        "TESTS!= echo *.sh"
+      ],
+      "action": "classify-shell-fragment-in-make",
+      "expected_effect": "partial -> FUNC_OK candidate"
+    }
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": -3,
+      "Makefile.in": 1261,
+      "aclocal.m4": 11,
+      "configure": 18,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_ENABLE": "system-aclocal",
+      "AC_CANONICAL_HOST": "system-aclocal",
+      "AC_CHECK_DECL": "system-aclocal",
+      "AC_CHECK_DECLS": "system-aclocal",
+      "AC_CHECK_FUNC": "system-aclocal",
+      "AC_CHECK_FUNCS": "system-aclocal",
+      "AC_CHECK_HEADER": "system-aclocal",
+      "AC_CHECK_HEADERS": "system-aclocal",
+      "AC_CHECK_LIB": "system-aclocal",
+      "AC_CONFIG_AUX_DIR": "system-aclocal",
+      "AC_CONFIG_LIBOBJ_DIR": "system-aclocal",
+      "AC_DEFINE": "system-aclocal",
+      "AC_EGREP_CPP": "system-aclocal",
+      "AC_EGREP_HEADER": "system-aclocal",
+      "AC_FUNC_STRNLEN": "system-aclocal",
+      "AC_HELP_STRING": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_LANG_SOURCE": "system-aclocal",
+      "AC_LIBOBJ": "system-aclocal",
+      "AC_LINK_IFELSE": "system-aclocal",
+      "AC_MSG_CHECKING": "system-aclocal",
+      "AC_MSG_ERROR": "system-aclocal",
+      "AC_MSG_RESULT": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PATH_XTRA": "system-aclocal",
+      "AC_PREREQ": "system-aclocal",
+      "AC_PROG_CC": "system-aclocal",
+      "AC_PROG_CC_C99": "system-aclocal",
+      "AC_PROG_CPP": "system-aclocal",
+      "AC_PROG_EGREP": "system-aclocal",
+      "AC_PROG_INSTALL": "system-aclocal",
+      "AC_PROG_YACC": "system-aclocal",
+      "AC_REPLACE_FUNCS": "system-aclocal",
+      "AC_SEARCH_LIBS": "system-aclocal",
+      "AC_SUBST": "system-aclocal",
+      "AC_TRY_LINK": "system-aclocal",
+      "AC_USE_SYSTEM_EXTENSIONS": "system-aclocal",
+      "AM_CFLAGS": "system-aclocal",
+      "AM_CONDITIONAL": "system-aclocal",
+      "AM_CPPFLAGS": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
   }
 }

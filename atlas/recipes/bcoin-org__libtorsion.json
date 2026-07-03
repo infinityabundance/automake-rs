@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "bcoin-org/libtorsion",
   "source": {
     "url": "https://github.com/bcoin-org/libtorsion",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -51,20 +51,57 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "configure: error: language C required",
+  "diagnostic": "./configure: line 3495: syntax error near unexpected token `;'",
   "deep_expansion": {
-    "configure_lines": 4496,
+    "configure_lines": 4641,
     "leaked_macros": [],
-    "heredoc_openers": 63,
-    "heredoc_terminators": 63,
+    "heredoc_openers": 64,
+    "heredoc_terminators": 64,
     "heredoc_imbalance": 0,
-    "syntax_errors": [],
+    "syntax_errors": [
+      {
+        "line": 3495,
+        "token": ";",
+        "source": "; then",
+        "block": [
+          "3491: if case $host_os in",
+          "3492:   mingw*) true ;;",
+          "3493:   *) false ;;",
+          "3494: esac",
+          "3495: ; then",
+          "3496:   MINGW_TRUE=",
+          "3497:   MINGW_FALSE='#'",
+          "3498: else"
+        ]
+      }
+    ],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 3989: do eval test \\${$as_var+y} \\"
+      "line 1412: # eval \"_acrs_sv=\\${}\"; printf '%s\\n' \"s|@@|${_acrs_sv}|g\" >",
+      "line 4133: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
+      "TLS_CFLAGS",
+      "ABI_VERSION",
+      "EMSCRIPTEN_TRUE",
+      "EMSCRIPTEN_FALSE",
+      "ENABLE_CTGRIND_TRUE",
+      "ENABLE_CTGRIND_FALSE",
+      "ENABLE_RNG_TRUE",
+      "ENABLE_RNG_FALSE",
+      "ENABLE_SHARED_TRUE",
+      "ENABLE_SHARED_FALSE",
+      "ENABLE_TESTS_TRUE",
+      "ENABLE_TESTS_FALSE",
+      "ENABLE_ZLIB_TRUE",
+      "ENABLE_ZLIB_FALSE",
+      "MINGW_TRUE",
+      "MINGW_FALSE",
+      "NATIVE_TRUE",
+      "NATIVE_FALSE",
+      "WASI_TRUE",
+      "WASI_FALSE",
       "PACKAGE_NAME",
       "PACKAGE_TARNAME",
       "PACKAGE_VERSION",
@@ -73,28 +110,15 @@
       "PACKAGE_URL",
       "srcdir",
       "prefix",
-      "exec_prefix",
-      "CC",
-      "CFLAGS",
-      "CPPFLAGS",
-      "LDFLAGS",
-      "LIBS",
-      "CXX",
-      "CXXFLAGS",
-      "CPP",
-      "DEFS",
-      "LIBOBJS",
-      "INSTALL",
-      "host_vendor",
-      "TLS_CFLAGS",
-      "ABI_VERSION",
-      "host_os",
-      "host_alias",
-      "host_cpu"
+      "exec_prefix"
     ],
-    "failed_during_check": "",
+    "failed_during_check": "checking for zlib.h... yes",
     "failure_tail": [
-      "configure: error: language C required"
+      "checking for zlib.h... yes",
+      "whether C compiler accepts -Werror=unknown-warning-option... whether C compiler ",
+      "./configure: line 3134: test: too many arguments",
+      "./configure: line 3495: syntax error near unexpected token `;'",
+      "./configure: line 3495: `; then'"
     ],
     "conftest_corruption": [],
     "conftest_directives_intact": 27,
@@ -102,27 +126,11 @@
     "conftest_programs": [
       "\\nint main() {\\n#ifdef __wasi__\\nint ok;\\n(void)ok;\\n#else\\nchoke me\\n#endif\\n; return 0; }",
       "\\nint main() {\\n#ifdef __EMSCRIPTEN__\\nint ok;\\n(void)ok;\\n#else\\nchoke me\\n#endif\\n; return 0; }",
-      "\\n\\nint main() {\\n#   if !defined(__GNUC__) || __GNUC__ < 4\\nchoke me\\n#   endif\\n; return 0; }\\n",
+      "\\n\\nint main() {\\n#[   if !defined(__GNUC__) || __GNUC__ < 4]\\nchoke me\\n#[   endif]\\n; return 0; }\\n",
       "\\nint main() {  ; return 0; }",
       "\\nint main() {  ; return 0; }",
-      "\\n\\nint main() {\\n#   if defined(__xlC__) && defined(_AIX) && !defined(_THREAD_SAFE)\\nchoke me\\n#   endif\\n; return 0; }\\n"
+      "\\n\\nint main() {\\n#[   if defined(__xlC__) && defined(_AIX) && !defined(_THREAD_SAFE)]\\nchoke me\\n#[   endif]\\n; return 0; }\\n"
     ]
-  },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "ok",
-    "real_make": "ok",
-    "real_configure_lines": 17539,
-    "real_first_error": "",
-    "classification": "OURS_BUG_CONFIGURE"
-  },
-  "divergence": {
-    "stage": "configure",
-    "ours_error": "",
-    "ours_error_context": [],
-    "ours_configure_lines": 4496,
-    "real_configure_lines": 17539,
-    "macros_ours_left_undefined": []
   },
   "receipt": {
     "court_status": "failed",
@@ -141,7 +149,7 @@
         "verified": false
       }
     ],
-    "receipt_hash": "24e39ed3178d433d21c1340a6407fda16d8349c27724819539e8175382940e80",
+    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -150,6 +158,724 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "libtorsion.pc",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      }
+    ],
+    "config_headers": [],
+    "subdirs": [],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [
+          "$(libtorsion_la_NAME)",
+          "$(torsion_bench_NAME)",
+          "$(torsion_test_NAME)",
+          "$(torsion_test_static_NAME)",
+          "$(torsion_ctgrind_NAME)",
+          "$(libtorsion_a_NAME)",
+          "$(torsion_wasm_NAME)",
+          "$(torsion_bench_wasm_NAME)",
+          "$(torsion_test_wasm_NAME)",
+          "$(torsion_js_NAME)",
+          "$(torsion_bench_js_NAME)",
+          "$(torsion_test_js_NAME)"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      }
+    ],
+    "max_depth": 0,
+    "config_h_consumers_below_root": []
+  },
+  "tool_requirements": {
+    "detected": [
+      "ar"
+    ],
+    "missing": []
+  },
+  "macro_inventory": {
+    "macro_dirs": [
+      "m4"
+    ],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [
+      {
+        "name": "AC_CHECK_DEFINE",
+        "source": "m4/ax_check_define.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AX_CHECK_DEFINE",
+        "source": "m4/ax_check_define.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AX_CHECK_FUNC",
+        "source": "m4/ax_check_define.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AX_TLS",
+        "source": "m4/ax_tls.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AX_CHECK_COMPILE_FLAG",
+        "source": "m4/ax_check_compile_flag.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AX_CHECK_CC_E",
+        "source": "m4/ax_check_cc_e.m4",
+        "kind": "AX"
+      }
+    ],
+    "called_macros": [
+      "AC_ARG_ENABLE",
+      "AC_CANONICAL_HOST",
+      "AC_CHECK_DEFINE",
+      "AC_CHECK_HEADER",
+      "AC_CHECK_LIB",
+      "AC_CHECK_TYPE",
+      "AC_COMPILE_IFELSE",
+      "AC_CONFIG_AUX_DIR",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_MACRO_DIR",
+      "AC_CONFIG_SRCDIR",
+      "AC_DEFINE",
+      "AC_DEFINE_UNQUOTED",
+      "AC_INIT",
+      "AC_LANG_ASSERT",
+      "AC_LANG_PROGRAM",
+      "AC_LANG_SOURCE",
+      "AC_LINK_IFELSE",
+      "AC_MSG_CHECKING",
+      "AC_MSG_ERROR",
+      "AC_MSG_NOTICE",
+      "AC_MSG_RESULT",
+      "AC_MSG_WARN",
+      "AC_OUTPUT",
+      "AC_PREREQ",
+      "AC_PROG_CC",
+      "AC_SUBST",
+      "AM_CONDITIONAL",
+      "AM_INIT_AUTOMAKE",
+      "AM_PROG_AR",
+      "AM_PROG_CC_C_O",
+      "AM_SILENT_RULES",
+      "AX_CHECK_CC_E",
+      "AX_CHECK_COMPILE_FLAG",
+      "AX_CHECK_DEFINE",
+      "AX_TLS",
+      "LT_INIT",
+      "LT_PREREQ"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 272,
+    "configure_fi": 268,
+    "configure_case": 71,
+    "configure_esac": 75,
+    "balanced": false,
+    "automake_conditionals": [
+      "EMSCRIPTEN",
+      "ENABLE_CTGRIND",
+      "ENABLE_RNG",
+      "ENABLE_SHARED",
+      "ENABLE_TESTS",
+      "ENABLE_ZLIB",
+      "MINGW",
+      "NATIVE",
+      "WASI"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": "build-aux",
+    "present": [
+      "install-sh",
+      "missing",
+      "depcomp",
+      "compile"
+    ],
+    "missing": [
+      "ltmain.sh",
+      "config.guess",
+      "config.sub"
+    ]
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "c": 24,
+      "h": 78
+    },
+    "configure_macros": [
+      "AC_PROG_CC"
+    ],
+    "needs_cxx": false,
+    "needs_fortran": false,
+    "sets_c_std": false
+  },
+  "libtool_context": {
+    "uses_libtool": true,
+    "macros": [
+      "LT_INIT"
+    ],
+    "ltmain_present": false,
+    "libtool_m4_sources": [],
+    "age": "modern"
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": true,
+    "defines_sampled": []
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-subdir-objects",
+      "applied_at": "configure",
+      "effect": "neutral",
+      "effectiveness": "low"
+    },
+    {
+      "quirk_id": "uses-libtool",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "has-m4-macro-dir",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-ax-archive",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "vpath_analysis": {
+    "hardcoded_src_paths": 2,
+    "abs_path_leakage": 0,
+    "built_sources": [],
+    "generated_source_targets": [
+      "libtorsion.lib",
+      "torsion.def",
+      "torsion.dll",
+      "torsion.lib",
+      "all-local"
+    ]
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "valgrind/memcheck.h",
+      "zlib.h"
+    ],
+    "headers_included_unchecked": [
+      "stdint.h",
+      "sys/types.h",
+      "sys/wait.h",
+      "torsion/aead.h",
+      "torsion/cipher.h",
+      "torsion/drbg.h",
+      "torsion/dsa.h",
+      "torsion/ecc.h",
+      "torsion/encoding.h",
+      "torsion/hash.h",
+      "torsion/ies.h",
+      "torsion/kdf.h",
+      "torsion/mac.h",
+      "torsion/mpi.h",
+      "torsion/rand.h",
+      "torsion/rsa.h",
+      "torsion/stream.h",
+      "torsion/util.h",
+      "unistd.h"
+    ],
+    "implicit_link_libs": [
+      "-lz"
+    ]
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 6,
+    "shadowed_macros": [
+      "AC_CHECK_DEFINE"
+    ]
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "c89_gnu",
+    "strip_modern_poison_flags": [
+      "-Werror=implicit-function-declaration",
+      "-Werror=int-conversion",
+      "-Werror=incompatible-pointer-types"
+    ],
+    "inject_legacy_shims": true,
+    "compiler_aliasing": {
+      "clang-18+": "-std=gnu89 -Wno-error",
+      "gcc-14+": "-std=gnu89 -fpermissive"
+    }
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 0,
+    "shadowed_builtins": [
+      "AC_CHECK_DEFINE"
+    ],
+    "permitted_mutations": 10,
+    "suspect_global_mutations": 0
+  },
+  "parallel_build_safety": {
+    "vpath_out_of_tree_safe": true,
+    "generators": [
+      "libtorsion.lib",
+      "torsion.def",
+      "torsion.dll",
+      "torsion.lib",
+      "all-local"
+    ],
+    "unordered_generated_sources": [
+      "libtorsion.lib",
+      "torsion.def",
+      "torsion.dll",
+      "torsion.lib",
+      "all-local"
+    ],
+    "built_sources_declared": false
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "stdint.h",
+      "sys/types.h",
+      "sys/wait.h",
+      "torsion/aead.h",
+      "torsion/cipher.h",
+      "torsion/drbg.h",
+      "torsion/dsa.h",
+      "torsion/ecc.h",
+      "torsion/encoding.h",
+      "torsion/hash.h",
+      "torsion/ies.h",
+      "torsion/kdf.h",
+      "torsion/mac.h",
+      "torsion/mpi.h",
+      "torsion/rand.h",
+      "torsion/rsa.h",
+      "torsion/stream.h",
+      "torsion/util.h",
+      "unistd.h",
+      "valgrind/memcheck.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "modern-compiler-strictness (no explicit C std)",
+    "parallel-build-race (gen-source not in BUILT_SOURCES)"
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": 0,
+      "Makefile.in": 1194,
+      "aclocal.m4": 25,
+      "configure": 38,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_ENABLE": "system-aclocal",
+      "AC_CANONICAL_HOST": "system-aclocal",
+      "AC_CHECK_DEFINE": "m4/ax_check_define.m4",
+      "AC_CHECK_HEADER": "system-aclocal",
+      "AC_CHECK_LIB": "system-aclocal",
+      "AC_CHECK_TYPE": "system-aclocal",
+      "AC_COMPILE_IFELSE": "system-aclocal",
+      "AC_CONFIG_AUX_DIR": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_MACRO_DIR": "system-aclocal",
+      "AC_CONFIG_SRCDIR": "system-aclocal",
+      "AC_DEFINE": "system-aclocal",
+      "AC_DEFINE_UNQUOTED": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_LANG_ASSERT": "system-aclocal",
+      "AC_LANG_PROGRAM": "system-aclocal",
+      "AC_LANG_SOURCE": "system-aclocal",
+      "AC_LINK_IFELSE": "system-aclocal",
+      "AC_MSG_CHECKING": "system-aclocal",
+      "AC_MSG_ERROR": "system-aclocal",
+      "AC_MSG_NOTICE": "system-aclocal",
+      "AC_MSG_RESULT": "system-aclocal",
+      "AC_MSG_WARN": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PREREQ": "system-aclocal",
+      "AC_PROG_CC": "system-aclocal",
+      "AC_SUBST": "system-aclocal",
+      "AM_CONDITIONAL": "system-aclocal",
+      "AM_INIT_AUTOMAKE": "system-aclocal",
+      "AM_PROG_AR": "system-aclocal",
+      "AM_PROG_CC_C_O": "system-aclocal",
+      "AM_SILENT_RULES": "system-aclocal",
+      "AX_CHECK_CC_E": "m4/ax_check_cc_e.m4",
+      "AX_CHECK_COMPILE_FLAG": "m4/ax_check_compile_flag.m4",
+      "AX_CHECK_DEFINE": "m4/ax_check_define.m4",
+      "AX_TLS": "m4/ax_tls.m4",
+      "LT_INIT": "system-aclocal",
+      "LT_PREREQ": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "libtorsion_la_SOURCES",
+        "var": "torsion_sources",
+        "resolved_to": [
+          "src/aead.c",
+          "src/asn1.c",
+          "src/cipher.c",
+          "src/ecc.c",
+          "src/encoding.c",
+          "src/drbg.c",
+          "src/dsa.c",
+          "src/hash.c",
+          "src/ies.c",
+          "src/internal.c",
+          "src/kdf.c",
+          "src/mac.c",
+          "src/mpi.c",
+          "src/rsa.c",
+          "src/stream.c",
+          "src/util.c",
+          "$(rng_sources)"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "torsion_bench_SOURCES",
+        "var": "bench_sources",
+        "resolved_to": [
+          "test/bench.c",
+          "test/hrtime.c",
+          "test/utils.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "torsion_test_SOURCES",
+        "var": "test_sources",
+        "resolved_to": [
+          "test/test.c",
+          "test/utils.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "torsion_test_LDADD",
+        "var": "torsion_libs",
+        "resolved_to": [
+          "-lz"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "torsion_test_static_SOURCES",
+        "var": "torsion_test_SOURCES",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "torsion_test_static_LDADD",
+        "var": "torsion_test_LDADD",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "torsion_ctgrind_SOURCES",
+        "var": "ctgrind_sources",
+        "resolved_to": [
+          "test/ctgrind.c",
+          "test/utils.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "lib_LTLIBRARIES",
+        "var": "libtorsion_la_NAME",
+        "resolved_to": [
+          "libtorsion.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "noinst_PROGRAMS",
+        "var": "torsion_bench_NAME",
+        "resolved_to": [
+          "torsion_bench"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "noinst_PROGRAMS",
+        "var": "torsion_test_NAME",
+        "resolved_to": [
+          "torsion_test"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "noinst_PROGRAMS",
+        "var": "torsion_test_static_NAME",
+        "resolved_to": [
+          "torsion_test_static"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "noinst_PROGRAMS",
+        "var": "torsion_ctgrind_NAME",
+        "resolved_to": [
+          "torsion_ctgrind"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libtorsion_a_SOURCES",
+        "var": "torsion_sources",
+        "resolved_to": [
+          "src/aead.c",
+          "src/asn1.c",
+          "src/cipher.c",
+          "src/ecc.c",
+          "src/encoding.c",
+          "src/drbg.c",
+          "src/dsa.c",
+          "src/hash.c",
+          "src/ies.c",
+          "src/internal.c",
+          "src/kdf.c",
+          "src/mac.c",
+          "src/mpi.c",
+          "src/rsa.c",
+          "src/stream.c",
+          "src/util.c",
+          "$(rng_sources)"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "lib_LIBRARIES",
+        "var": "libtorsion_a_NAME",
+        "resolved_to": [
+          "libtorsion.a"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "torsion_wasm_SOURCES",
+        "var": "torsion_sources",
+        "resolved_to": [
+          "src/aead.c",
+          "src/asn1.c",
+          "src/cipher.c",
+          "src/ecc.c",
+          "src/encoding.c",
+          "src/drbg.c",
+          "src/dsa.c",
+          "src/hash.c",
+          "src/ies.c",
+          "src/internal.c",
+          "src/kdf.c",
+          "src/mac.c",
+          "src/mpi.c",
+          "src/rsa.c",
+          "src/stream.c",
+          "src/util.c",
+          "$(rng_sources)"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "torsion_bench_wasm_SOURCES",
+        "var": "bench_sources",
+        "resolved_to": [
+          "test/bench.c",
+          "test/hrtime.c",
+          "test/utils.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "torsion_test_wasm_SOURCES",
+        "var": "test_sources",
+        "resolved_to": [
+          "test/test.c",
+          "test/utils.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "bin_PROGRAMS",
+        "var": "torsion_wasm_NAME",
+        "resolved_to": [
+          "torsion.wasm"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "noinst_PROGRAMS",
+        "var": "torsion_bench_wasm_NAME",
+        "resolved_to": [
+          "torsion_bench.wasm"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "noinst_PROGRAMS",
+        "var": "torsion_test_wasm_NAME",
+        "resolved_to": [
+          "torsion_test.wasm"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "torsion_js_SOURCES",
+        "var": "torsion_sources",
+        "resolved_to": [
+          "src/aead.c",
+          "src/asn1.c",
+          "src/cipher.c",
+          "src/ecc.c",
+          "src/encoding.c",
+          "src/drbg.c",
+          "src/dsa.c",
+          "src/hash.c",
+          "src/ies.c",
+          "src/internal.c",
+          "src/kdf.c",
+          "src/mac.c",
+          "src/mpi.c",
+          "src/rsa.c",
+          "src/stream.c",
+          "src/util.c",
+          "$(rng_sources)"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "torsion_bench_js_SOURCES",
+        "var": "bench_sources",
+        "resolved_to": [
+          "test/bench.c",
+          "test/hrtime.c",
+          "test/utils.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "torsion_test_js_SOURCES",
+        "var": "test_sources",
+        "resolved_to": [
+          "test/test.c",
+          "test/utils.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "bin_PROGRAMS",
+        "var": "torsion_js_NAME",
+        "resolved_to": [
+          "torsion.js"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "noinst_PROGRAMS",
+        "var": "torsion_bench_js_NAME",
+        "resolved_to": [
+          "torsion_bench.js"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "noinst_PROGRAMS",
+        "var": "torsion_test_js_NAME",
+        "resolved_to": [
+          "torsion_test.js"
+        ],
+        "resolved": true
+      }
+    ],
+    "unresolved_refs": [
+      "torsion_test_static_SOURCES = $(torsion_test_SOURCES)",
+      "torsion_test_static_LDADD = $(torsion_test_LDADD)"
+    ],
+    "indirection_count": 26
   }
 }

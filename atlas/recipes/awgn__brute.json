@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "awgn/brute",
   "source": {
     "url": "https://github.com/awgn/brute",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -50,20 +50,38 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "configure: error: x86_64-unknown-linux-gnu not supported",
+  "diagnostic": "./configure: line 1573: syntax error near unexpected token `string.h'",
   "deep_expansion": {
-    "configure_lines": 2596,
+    "configure_lines": 2729,
     "leaked_macros": [],
-    "heredoc_openers": 21,
-    "heredoc_terminators": 21,
+    "heredoc_openers": 23,
+    "heredoc_terminators": 23,
     "heredoc_imbalance": 0,
-    "syntax_errors": [],
+    "syntax_errors": [
+      {
+        "line": 1573,
+        "token": "string.h",
+        "source": "string.h sys/ioctl.h sys/socket.h sys/time.h unistd.h",
+        "block": [
+          "1569: ",
+          "1570: # Checks for header files.",
+          "1571: printf '%s\\n' \"yes\"",
+          "1572: for ac_hdr in arpa/inet.h fcntl.h netdb.h netinet/in.h stdlib.h \\ ",
+          "1573: \t\t  string.h sys/ioctl.h sys/socket.h sys/time.h unistd.h",
+          "1574: do :",
+          "1575: printf %s \"checking for $ac_hdr... \"",
+          "1576: cat confdefs.h 2>/dev/null - <<_ACEOF >conftest.$ac_ext"
+        ]
+      }
+    ],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2097: do eval test \\${$as_var+y} \\"
+      "line 1415: # eval \"_acrs_sv=\\${}\"; printf '%s\\n' \"s|@@|${_acrs_sv}|g\" >",
+      "line 2229: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
+      "opt_options",
       "PACKAGE_NAME",
       "PACKAGE_TARNAME",
       "PACKAGE_VERSION",
@@ -84,42 +102,33 @@
       "DEFS",
       "LIBOBJS",
       "INSTALL",
-      "host_os",
+      "AR",
       "host_alias",
+      "host_os",
       "host_vendor",
-      "opt_options",
-      "host_cpu"
+      "host_cpu",
+      "LD",
+      "top_srcdir",
+      "top_builddir"
     ],
-    "failed_during_check": "",
+    "failed_during_check": "checking for strlcat... yes",
     "failure_tail": [
-      "configure: error: x86_64-unknown-linux-gnu not supported"
+      "checking for strlcat... yes",
+      "yes",
+      "./configure: line 1573: syntax error near unexpected token `string.h'",
+      "./configure: line 1573: `\t\t  string.h sys/ioctl.h sys/socket.h sys/time.h unistd"
     ],
     "conftest_corruption": [],
-    "conftest_directives_intact": 5,
+    "conftest_directives_intact": 9,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
-      "char dlopen();\\nint main() { return dlopen(); }",
-      "char log();\\nint main() { return log(); }",
+      "char dlopen ();\\nint main() { return dlopen(); }",
+      "char log ();\\nint main() { return log(); }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func ();\\nint main() { return $ac_func(); }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func ();\\nint main() { return $ac_func(); }",
       "#include <$ac_hdr>",
-      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { sig_atomic_t x; return 0; }",
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func();\\nint main() { return $ac_func(); }"
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { sig_atomic_t x; return 0; }"
     ]
-  },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "ok",
-    "real_make": "fail",
-    "real_configure_lines": 6785,
-    "real_first_error": "",
-    "classification": "OURS_BUG_CONFIGURE"
-  },
-  "divergence": {
-    "stage": "configure",
-    "ours_error": "",
-    "ours_error_context": [],
-    "ours_configure_lines": 2596,
-    "real_configure_lines": 6785,
-    "macros_ours_left_undefined": []
   },
   "receipt": {
     "court_status": "failed",
@@ -135,7 +144,7 @@
         "verified": false
       }
     ],
-    "receipt_hash": "24e39ed3178d433d21c1340a6407fda16d8349c27724819539e8175382940e80",
+    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -144,6 +153,339 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "include/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "src/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      }
+    ],
+    "config_headers": [
+      "include/config.h"
+    ],
+    "subdirs": [
+      "src",
+      "include"
+    ],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [],
+        "subdirs": [
+          "src",
+          "include"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "include",
+        "targets": [],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src",
+        "targets": [
+          "brute"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-D_GNU_SOURCE -DPLG_PATH=\\\"$(datadir)/brute/\\\" @CPPFLAGS@"
+      }
+    ],
+    "max_depth": 1,
+    "config_h_consumers_below_root": [
+      "src"
+    ]
+  },
+  "macro_inventory": {
+    "macro_dirs": [],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [],
+    "called_macros": [
+      "AC_ARG_ENABLE",
+      "AC_CANONICAL_HOST",
+      "AC_CHECK_FILE",
+      "AC_CHECK_FUNCS",
+      "AC_CHECK_HEADERS",
+      "AC_CHECK_LIB",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_SRCDIR",
+      "AC_C_CONST",
+      "AC_DEFINE",
+      "AC_HEADER_STDC",
+      "AC_INIT",
+      "AC_MSG_CHECKING",
+      "AC_MSG_ERROR",
+      "AC_MSG_RESULT",
+      "AC_OUTPUT",
+      "AC_PREREQ",
+      "AC_PROG_CC",
+      "AC_PROG_GCC_TRADITIONAL",
+      "AC_PROG_INSTALL",
+      "AC_PROG_MAKE_SET",
+      "AC_REPLACE_FUNCS",
+      "AC_SUBST",
+      "AC_TYPE_SIGNAL",
+      "AM_CONFIG_HEADER",
+      "AM_INIT_AUTOMAKE",
+      "AM_MAINTAINER_MODE"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 107,
+    "configure_fi": 104,
+    "configure_case": 67,
+    "configure_esac": 70,
+    "balanced": false,
+    "automake_conditionals": []
+  },
+  "config_aux_inventory": {
+    "aux_dir": ".",
+    "present": [
+      "install-sh",
+      "missing",
+      "depcomp",
+      "compile",
+      "config.guess",
+      "config.sub"
+    ],
+    "missing": []
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "c": 36,
+      "h": 9
+    },
+    "configure_macros": [
+      "AC_PROG_CC"
+    ],
+    "needs_cxx": false,
+    "needs_fortran": false,
+    "sets_c_std": false
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": true,
+    "defines_sampled": []
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-maintainer-mode",
+      "applied_at": "configure",
+      "effect": "neutral",
+      "effectiveness": "low"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "arpa/inet.h",
+      "fcntl.h",
+      "netdb.h",
+      "netinet/in.h",
+      "stdlib.h",
+      "string.h",
+      "sys/ioctl.h",
+      "sys/socket.h",
+      "sys/time.h",
+      "unistd.h"
+    ],
+    "headers_included_unchecked": [
+      "asm/types.h",
+      "linux/ethtool.h",
+      "linux/if_ether.h",
+      "linux/if_packet.h",
+      "linux/sockios.h",
+      "net/ethernet.h",
+      "net/if.h",
+      "netinet/ether.h",
+      "netinet/ip.h",
+      "netinet/ip6.h",
+      "netinet/udp.h",
+      "netpacket/packet.h",
+      "stdint.h",
+      "sys/mman.h",
+      "sys/queue.h",
+      "sys/resource.h",
+      "sys/stat.h",
+      "sys/types.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 1,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "c89_gnu",
+    "strip_modern_poison_flags": [
+      "-Werror=implicit-function-declaration",
+      "-Werror=int-conversion",
+      "-Werror=incompatible-pointer-types"
+    ],
+    "inject_legacy_shims": true,
+    "compiler_aliasing": {
+      "clang-18+": "-std=gnu89 -Wno-error",
+      "gcc-14+": "-std=gnu89 -fpermissive"
+    }
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 0,
+    "shadowed_builtins": [],
+    "permitted_mutations": 1,
+    "suspect_global_mutations": 0
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "asm/types.h",
+      "linux/ethtool.h",
+      "linux/if_ether.h",
+      "linux/if_packet.h",
+      "linux/sockios.h",
+      "net/ethernet.h",
+      "net/if.h",
+      "netinet/ether.h",
+      "netinet/ip.h",
+      "netinet/ip6.h",
+      "netinet/udp.h",
+      "netpacket/packet.h",
+      "stdint.h",
+      "sys/mman.h",
+      "sys/queue.h",
+      "sys/resource.h",
+      "sys/stat.h",
+      "sys/types.h",
+      "arpa/inet.h",
+      "fcntl.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "subdir-config-h-include-path",
+    "modern-compiler-strictness (no explicit C std)"
+  ],
+  "repair_hints": [
+    {
+      "id": "subdir-top-builddir",
+      "phase": "make",
+      "confidence": 0.88,
+      "evidence": [
+        "src consumes config.h below root"
+      ],
+      "action": "ensure ac_subst_file sets relative top_builddir per subdir (0.1.19)",
+      "expected_effect": "config.h found in subdir compiles"
+    }
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": -1,
+      "Makefile.in": 1098,
+      "aclocal.m4": 8,
+      "configure": 11,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_ENABLE": "system-aclocal",
+      "AC_CANONICAL_HOST": "system-aclocal",
+      "AC_CHECK_FILE": "system-aclocal",
+      "AC_CHECK_FUNCS": "system-aclocal",
+      "AC_CHECK_HEADERS": "system-aclocal",
+      "AC_CHECK_LIB": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_SRCDIR": "system-aclocal",
+      "AC_C_CONST": "system-aclocal",
+      "AC_DEFINE": "system-aclocal",
+      "AC_HEADER_STDC": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_MSG_CHECKING": "system-aclocal",
+      "AC_MSG_ERROR": "system-aclocal",
+      "AC_MSG_RESULT": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PREREQ": "system-aclocal",
+      "AC_PROG_CC": "system-aclocal",
+      "AC_PROG_GCC_TRADITIONAL": "system-aclocal",
+      "AC_PROG_INSTALL": "system-aclocal",
+      "AC_PROG_MAKE_SET": "system-aclocal",
+      "AC_REPLACE_FUNCS": "system-aclocal",
+      "AC_SUBST": "system-aclocal",
+      "AC_TYPE_SIGNAL": "system-aclocal",
+      "AM_CONFIG_HEADER": "system-aclocal",
+      "AM_INIT_AUTOMAKE": "system-aclocal",
+      "AM_MAINTAINER_MODE": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
   }
 }

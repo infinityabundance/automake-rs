@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "ASPLes/libaxl",
   "source": {
     "url": "https://github.com/ASPLes/libaxl",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,11 +26,11 @@
     {
       "step": "configure",
       "tool": "./configure",
-      "status": "ok"
+      "status": "fail"
     },
     {
-      "step": "make",
-      "tool": "make",
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
       "status": "fail"
     }
   ],
@@ -48,11 +48,11 @@
     "subdirs"
   ],
   "outputs": [],
-  "status": "MAKE_FAIL",
+  "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "Makefile:16: *** missing separator.  Stop.",
+  "diagnostic": "./configure: line 1521: python: command not found",
   "deep_expansion": {
-    "configure_lines": 2683,
+    "configure_lines": 2856,
     "leaked_macros": [],
     "heredoc_openers": 19,
     "heredoc_terminators": 19,
@@ -60,74 +60,73 @@
     "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2180: do eval test \\${$as_var+y} \\"
+      "line 2352: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
+      "AXL_VERSION",
+      "compiler_options",
+      "ENABLE_PY_AXL_SUPPORT_TRUE",
+      "ENABLE_PY_AXL_SUPPORT_FALSE",
+      "PYTHON_INCLUDES",
+      "PYTHON_CFLAGS",
+      "PYTHON_LIBS",
+      "ENABLE_PY_AXL_TRUE",
+      "ENABLE_PY_AXL_FALSE",
+      "ENABLE_AF_ARCH_DOC_TRUE",
+      "ENABLE_AF_ARCH_DOC_FALSE",
+      "ENABLE_AXL_TESTS_TRUE",
+      "ENABLE_AXL_TESTS_FALSE",
+      "ENABLE_AXL_NS_TRUE",
+      "ENABLE_AXL_NS_FALSE",
+      "ENABLE_AXL_LOG_TRUE",
+      "ENABLE_AXL_LOG_FALSE",
+      "ENABLE_AXL_KNIFE_TRUE",
+      "ENABLE_AXL_KNIFE_FALSE",
+      "ENABLE_AXL_BABEL_TRUE",
+      "ENABLE_AXL_BABEL_FALSE",
+      "EXARG_FLAGS",
+      "SHARED_EXTENSION",
       "PACKAGE_NAME",
       "PACKAGE_TARNAME",
       "PACKAGE_VERSION",
       "PACKAGE_STRING",
       "PACKAGE_BUGREPORT",
-      "PACKAGE_URL",
-      "srcdir",
-      "prefix",
-      "exec_prefix",
-      "CC",
-      "CFLAGS",
-      "CPPFLAGS",
-      "LDFLAGS",
-      "LIBS",
-      "CXX",
-      "CXXFLAGS",
-      "CPP",
-      "DEFS",
-      "LIBOBJS",
-      "INSTALL",
-      "AXL_VERSION",
-      "PYTHON_LIBS",
-      "PYTHON_INCLUDES",
-      "compiler_options",
-      "python_dir_check",
-      "PYTHON_CONFIG",
-      "PYTHON_CFLAGS",
-      "SHARED_EXTENSION",
-      "EXARG_FLAGS"
+      "PACKAGE_URL"
     ],
     "failed_during_check": "checking for python... /usr/bin/python3",
     "failure_tail": [
       "checking for python... /usr/bin/python3",
-      "Checking vasprintf support:",
-      "platform found:",
-      "configure: creating Makefile",
-      "configure: creating src/Makefile"
+      "Python pythondir is: NONE/lib/python/site-packages",
+      "Python found: /usr/bin/python3",
+      "./configure: line 1521: python: command not found",
+      "Python includes:"
     ],
     "conftest_corruption": [],
-    "conftest_directives_intact": 9,
+    "conftest_directives_intact": 12,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
-      "#include <sys/types.h>\\n#include <stdint.h>\\n#include <stddef.h>\\nint main() { static int 1 - 2 * !((long int) (sizeof (long)) <= 0)test_array",
-      "#include <sys/types.h>\\n#include <stdint.h>\\n#include <stddef.h>\\nint main() { static int 1 - 2 * !((long int) (sizeof (int)) <= 0)test_array;",
-      "#include <sys/types.h>\\n#include <stdint.h>\\n#include <stddef.h>\\nint main() { static int 1 - 2 * !((long int) (sizeof (void *)) <= 0)test_arr"
+      "#include <stdio.h>\\n#include <sys/types.h>\\n#include <stdint.h>\\n#include <stddef.h>\\nint main() { printf(\"%d\", (int)sizeof(long)); return 0; }",
+      "#include <stdio.h>\\n#include <sys/types.h>\\n#include <stdint.h>\\n#include <stddef.h>\\nint main() { printf(\"%d\", (int)sizeof(int)); return 0; }",
+      "#include <stdio.h>\\n#include <sys/types.h>\\n#include <stdint.h>\\n#include <stddef.h>\\nint main() { printf(\"%d\", (int)sizeof(void *)); return 0; }"
     ]
   },
-  "oracle": {
-    "real_autoreconf": "fail",
-    "real_configure": "skipped",
-    "real_make": "skipped",
-    "real_configure_lines": 0,
-    "real_first_error": "configure.ac:130: error: possibly undefined macro: _AM_PATH_PYTHON_",
-    "classification": "OURS_BETTER"
-  },
   "receipt": {
-    "court_status": "partial",
+    "court_status": "failed",
     "probe_trace": [],
     "quirks_matched": [
       "uses-python",
       "uses-maintainer-mode",
       "vendored-aclocal"
     ],
-    "receipt_hash": "bdbfb6907bfdbc8bdb7cf566a26793b38411d77e6f0819ae26c725daf919e509",
+    "quirks_applied": [
+      {
+        "id": "uses-maintainer-mode",
+        "action": "--disable-maintainer-mode",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -136,6 +135,514 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "axl-babel.pc",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "axl-ns.pc",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "axl.pc",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "babel/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "doc/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "doc/axl-doc.doxygen",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "knife/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "ns/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "py-axl/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "py-axl/__init__.py",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "py-axl/doc/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "py-axl/doc/conf.py",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "test/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      }
+    ],
+    "config_headers": [
+      "config.h"
+    ],
+    "subdirs": [
+      "src",
+      "$(AXL_NS_DIR)",
+      "$(AXL_KNIFE_DIR)",
+      "$(AXL_BABEL_DIR)",
+      "$(PY_AXL_DIR)",
+      "$(AXL_DOC_DIR)",
+      "$(AXL_TEST_DIR)",
+      "doc"
+    ],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [],
+        "subdirs": [
+          "src",
+          "$(AXL_NS_DIR)",
+          "$(AXL_KNIFE_DIR)",
+          "$(AXL_BABEL_DIR)",
+          "$(PY_AXL_DIR)",
+          "$(AXL_DOC_DIR)",
+          "$(AXL_TEST_DIR)"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "babel",
+        "targets": [
+          "libaxl-babel.la",
+          "gen-codes",
+          "gen-table",
+          "read-codes"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "$(compiler_options) -g -I../src -I$(top_srcdir)/src -I$(top_srcdir) $(LIBRARIES_CFLAGS) -DVERSION=\\\"\"$(AXL_VERSION)\"\\\"  "
+      },
+      {
+        "dir": "knife",
+        "targets": [
+          "axl-knife"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)/src/ -I$(top_srcdir)/ns $(compiler_options) $(LOG) $(NS) -DVERSION=\\\"$(AXL_VERSION)\\\" -D__COMPILING_AXL_"
+      },
+      {
+        "dir": "ns",
+        "targets": [
+          "libaxl-ns.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "$(compiler_options) -g -I$(top_srcdir)/src -I$(top_srcdir) $(LIBRARIES_CFLAGS) -DVERSION=\\\"\"$(AXL_VERSION)\"\\\"  \t-DPACKAG"
+      },
+      {
+        "dir": "py-axl",
+        "targets": [
+          "libpy_axl.la"
+        ],
+        "subdirs": [
+          "doc"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": "$(compiler_options) -g -I$(top_srcdir) $(LIBRARIES_CFLAGS) -DVERSION=\\\"\"$(AXL_VERSION)\"\\\"  \t-DPACKAGE_DTD_DIR=\\\"\"$(datad"
+      },
+      {
+        "dir": "src",
+        "targets": [
+          "libaxl.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "$(compiler_options) -g -I$(top_srcdir) $(LIBRARIES_CFLAGS) -DVERSION=\\\"\"$(AXL_VERSION)\"\\\"  \t-DPACKAGE_DTD_DIR=\\\"\"$(datad"
+      },
+      {
+        "dir": "test",
+        "targets": [
+          "test_01",
+          "test_01a",
+          "test_02a",
+          "test_03a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-DTEST_DIR=$(top_srcdir)/test -I$(top_srcdir)/src/ -I$(top_srcdir)/ns -I$(top_srcdir)/babel $(compiler_options) $(LOG) $"
+      }
+    ],
+    "max_depth": 2,
+    "config_h_consumers_below_root": [
+      "src"
+    ]
+  },
+  "tool_requirements": {
+    "detected": [
+      "python"
+    ],
+    "missing": [
+      {
+        "name": "python",
+        "phase": "make",
+        "suggested_package": "python3"
+      }
+    ]
+  },
+  "macro_inventory": {
+    "macro_dirs": [],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [],
+    "called_macros": [
+      "AC_ARG_ENABLE",
+      "AC_CHECK_PROG",
+      "AC_CHECK_SIZEOF",
+      "AC_CONFIG_AUX_DIR",
+      "AC_CONFIG_COMMANDS",
+      "AC_HEADER_STDC",
+      "AC_INIT",
+      "AC_ISC_POSIX",
+      "AC_MSG_ERROR",
+      "AC_MSG_NOTICE",
+      "AC_MSG_RESULT",
+      "AC_MSG_WARN",
+      "AC_OUTPUT",
+      "AC_PROG_CC",
+      "AC_SUBST",
+      "AC_TRY_COMPILE",
+      "AC_TRY_LINK",
+      "AM_CONDITIONAL",
+      "AM_CONFIG_HEADER",
+      "AM_INIT_AUTOMAKE",
+      "AM_MAINTAINER_MODE",
+      "AM_PATH_PYTHON",
+      "AM_PATH_PYTHON_",
+      "AM_PROG_LIBTOOL",
+      "PKG_CONFIG"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 143,
+    "configure_fi": 137,
+    "configure_case": 65,
+    "configure_esac": 68,
+    "balanced": false,
+    "automake_conditionals": [
+      "ENABLE_PY_AXL_SUPPORT",
+      "ENABLE_PY_AXL",
+      "ENABLE_AF_ARCH_DOC",
+      "ENABLE_AXL_TESTS",
+      "ENABLE_AXL_NS",
+      "ENABLE_AXL_LOG",
+      "ENABLE_AXL_KNIFE",
+      "ENABLE_AXL_BABEL"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": ".",
+    "present": [
+      "install-sh",
+      "missing"
+    ],
+    "missing": [
+      "depcomp",
+      "compile"
+    ]
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "c": 51,
+      "h": 45
+    },
+    "configure_macros": [
+      "AC_PROG_CC"
+    ],
+    "needs_cxx": false,
+    "needs_fortran": false,
+    "sets_c_std": false
+  },
+  "libtool_context": {
+    "uses_libtool": true,
+    "macros": [
+      "AM_PROG_LIBTOOL"
+    ],
+    "ltmain_present": false,
+    "libtool_m4_sources": [],
+    "age": "unknown"
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": true,
+    "defines_sampled": []
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-maintainer-mode",
+      "applied_at": "configure",
+      "effect": "neutral",
+      "effectiveness": "low"
+    },
+    {
+      "quirk_id": "uses-python",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "vpath_analysis": {
+    "hardcoded_src_paths": 6,
+    "abs_path_leakage": 0,
+    "built_sources": [],
+    "generated_source_targets": []
+  },
+  "feature_probe_gap": {
+    "headers_checked": [],
+    "headers_included_unchecked": [
+      "fcntl.h",
+      "libxml/parser.h",
+      "libxml/xmlmemory.h",
+      "sys/stat.h",
+      "sys/types.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 4,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "c89_gnu",
+    "strip_modern_poison_flags": [
+      "-Werror=implicit-function-declaration",
+      "-Werror=int-conversion",
+      "-Werror=incompatible-pointer-types"
+    ],
+    "inject_legacy_shims": true,
+    "compiler_aliasing": {
+      "clang-18+": "-std=gnu89 -Wno-error",
+      "gcc-14+": "-std=gnu89 -fpermissive"
+    }
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 8,
+    "shadowed_builtins": [],
+    "permitted_mutations": 7,
+    "suspect_global_mutations": 0
+  },
+  "parallel_build_safety": {
+    "vpath_out_of_tree_safe": false,
+    "generators": [],
+    "unordered_generated_sources": [],
+    "built_sources_declared": false
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "fcntl.h",
+      "libxml/parser.h",
+      "libxml/xmlmemory.h",
+      "sys/stat.h",
+      "sys/types.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "subdir-config-h-include-path",
+    "modern-compiler-strictness (no explicit C std)",
+    "vpath-unsafe (abs-path/hardcoded-srcdir leakage)"
+  ],
+  "repair_hints": [
+    {
+      "id": "subdir-top-builddir",
+      "phase": "make",
+      "confidence": 0.88,
+      "evidence": [
+        "src consumes config.h below root"
+      ],
+      "action": "ensure ac_subst_file sets relative top_builddir per subdir (0.1.19)",
+      "expected_effect": "config.h found in subdir compiles"
+    },
+    {
+      "id": "missing-build-tool",
+      "phase": "make",
+      "confidence": 0.75,
+      "evidence": [
+        "python: command not found"
+      ],
+      "action": "install python3",
+      "expected_effect": "unblocks the build step needing this tool"
+    }
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": -1,
+      "Makefile.in": 1073,
+      "aclocal.m4": 28,
+      "config.h.in": 36,
+      "configure": 33,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_ENABLE": "system-aclocal",
+      "AC_CHECK_PROG": "system-aclocal",
+      "AC_CHECK_SIZEOF": "system-aclocal",
+      "AC_CONFIG_AUX_DIR": "system-aclocal",
+      "AC_CONFIG_COMMANDS": "system-aclocal",
+      "AC_HEADER_STDC": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_ISC_POSIX": "system-aclocal",
+      "AC_MSG_ERROR": "system-aclocal",
+      "AC_MSG_NOTICE": "system-aclocal",
+      "AC_MSG_RESULT": "system-aclocal",
+      "AC_MSG_WARN": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PROG_CC": "system-aclocal",
+      "AC_SUBST": "system-aclocal",
+      "AC_TRY_COMPILE": "system-aclocal",
+      "AC_TRY_LINK": "system-aclocal",
+      "AM_CONDITIONAL": "system-aclocal",
+      "AM_CONFIG_HEADER": "system-aclocal",
+      "AM_INIT_AUTOMAKE": "system-aclocal",
+      "AM_MAINTAINER_MODE": "system-aclocal",
+      "AM_PATH_PYTHON": "system-aclocal",
+      "AM_PATH_PYTHON_": "system-aclocal",
+      "AM_PROG_LIBTOOL": "system-aclocal",
+      "PKG_CONFIG": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "axl_knife_LDADD",
+        "var": "NS_LIB",
+        "resolved_to": [
+          "$(top_builddir)/ns/libaxl-ns.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "test_01_LDADD",
+        "var": "NS_LIB",
+        "resolved_to": [
+          "$(top_builddir)/ns/libaxl-ns.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "test_01_LDADD",
+        "var": "BABEL_LIB",
+        "resolved_to": [
+          "$(top_builddir)/babel/libaxl-babel.la"
+        ],
+        "resolved": true
+      }
+    ],
+    "unresolved_refs": [],
+    "indirection_count": 3
   }
 }

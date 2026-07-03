@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "GalliumOS/lxdm",
   "source": {
     "url": "https://github.com/GalliumOS/lxdm",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -34,7 +34,22 @@
       "status": "fail"
     }
   ],
-  "probe_results": {},
+  "probe_results": {
+    "HAVE_ATEXIT": 1,
+    "HAVE_ENDPWENT": 1,
+    "HAVE_FORK": 1,
+    "HAVE_GETSPNAM": 1,
+    "HAVE_GETUSERSHELL": 1,
+    "HAVE_MEMSET": 1,
+    "HAVE_PAM_OPEN_SESSION": 1,
+    "HAVE_PUTENV": 1,
+    "HAVE_SHADOW_H": 1,
+    "HAVE_STDLIB_H": 1,
+    "HAVE_STRING_H": 1,
+    "HAVE_STRSTR": 1,
+    "HAVE_UNISTD_H": 1,
+    "HAVE_UTMPX_H": 1
+  },
   "feature_flags": {
     "configure_args": []
   },
@@ -57,9 +72,9 @@
   "outputs": [],
   "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "Makefile:16: *** missing separator.  Stop.",
+  "diagnostic": "../config.h:15:26: error: expected expression before '/' token",
   "deep_expansion": {
-    "configure_lines": 2757,
+    "configure_lines": 2985,
     "leaked_macros": [],
     "heredoc_openers": 24,
     "heredoc_terminators": 24,
@@ -67,10 +82,29 @@
     "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2276: do eval test \\${$as_var+y} \\"
+      "line 2503: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
+      "HAVE_PAM_TRUE",
+      "HAVE_PAM_FALSE",
+      "XLIB_CFLAGS",
+      "XLIB_LIBS",
+      "GLIB_CFLAGS",
+      "GLIB_LIBS",
+      "GDK_CFLAGS",
+      "GDK_LIBS",
+      "GTK_CFLAGS",
+      "GTK_LIBS",
+      "CONSOLEKIT_CFLAGS",
+      "CONSOLEKIT_LIBS",
+      "XCONN_CFLAGS",
+      "XCONN_LIBS",
+      "systemdsystemunitdir",
+      "HAVE_SYSTEMD_TRUE",
+      "HAVE_SYSTEMD_FALSE",
+      "GETTEXT_PACKAGE",
+      "FULL_LIBEXECDIR",
       "PACKAGE_NAME",
       "PACKAGE_TARNAME",
       "PACKAGE_VERSION",
@@ -80,30 +114,11 @@
       "srcdir",
       "prefix",
       "exec_prefix",
-      "CC",
-      "CFLAGS",
-      "CPPFLAGS",
-      "LDFLAGS",
-      "LIBS",
-      "CXX",
-      "CXXFLAGS",
-      "CPP",
-      "DEFS",
-      "LIBOBJS",
-      "INSTALL",
-      "GDK_CFLAGS",
-      "XCONN_CFLAGS",
-      "XLIB_LIBS",
-      "GETTEXT_PACKAGE",
-      "GDK_LIBS",
-      "GLIB_CFLAGS",
-      "GTK_CFLAGS",
-      "systemdsystemunitdir",
-      "GLIB_LIBS"
+      "CC"
     ],
-    "failed_during_check": "checking for gtk+-2.0 >= 2.12.0... yes",
+    "failed_during_check": "checking for xcb... yes",
     "failure_tail": [
-      "checking for gtk+-2.0 >= 2.12.0... yes",
+      "checking for xcb... yes",
       "configure: creating Makefile",
       "configure: creating lxdm.spec",
       "configure: creating src/Makefile",
@@ -113,32 +128,109 @@
     "conftest_directives_intact": 9,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
-      "char crypt();\\nint main() { return crypt(); }",
+      "char crypt ();\\nint main() { return crypt(); }",
       "char pam_open_session ();\\nint main() { return pam_open_session (); }",
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar pam_open_session();\\nint main() { return pam_open_session(); }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar pam_open_session ();\\nint main() { return pam_open_session(); }",
       "#include <$ac_hdr>",
       "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { pid_t x; return 0; }",
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar fork();\\nint main() { return fork(); }"
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar fork ();\\nint main() { return fork(); }"
     ]
-  },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "fail",
-    "real_make": "skipped",
-    "real_configure_lines": 7977,
-    "real_first_error": "./configure: line 5435: syntax error near unexpected token `0.40.0'",
-    "classification": "OURS_BETTER"
   },
   "receipt": {
     "court_status": "partial",
-    "probe_trace": [],
+    "probe_trace": [
+      {
+        "name": "HAVE_ATEXIT",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_ENDPWENT",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_FORK",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_GETSPNAM",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_GETUSERSHELL",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_MEMSET",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_PAM_OPEN_SESSION",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_PUTENV",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SHADOW_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STDLIB_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STRING_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STRSTR",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_UNISTD_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_UTMPX_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      }
+    ],
     "quirks_matched": [
       "uses-pkg-config",
       "uses-intltool",
       "uses-subdir-objects",
       "vendored-aclocal"
     ],
-    "receipt_hash": "bdbfb6907bfdbc8bdb7cf566a26793b38411d77e6f0819ae26c725daf919e509",
+    "receipt_hash": "8d4ae860a8a482774ec3f0f49613116ab97480abdc67675a54bc5b3ba0f9a6c7",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -147,6 +239,767 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "data/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "data/lxdm.conf",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "lxdm.spec",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "pam/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "po/Makefile.in",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "src/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "systemd/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      }
+    ],
+    "config_headers": [
+      "config.h"
+    ],
+    "subdirs": [
+      "src",
+      "po",
+      "data",
+      "$(NULL)",
+      "systemd",
+      "pam"
+    ],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [],
+        "subdirs": [
+          "src",
+          "po",
+          "data",
+          "$(NULL)",
+          "systemd",
+          "pam"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src",
+        "targets": [
+          "lxdm-binary",
+          "lxdm-greeter-gdk",
+          "lxdm-numlock",
+          "lxdm-greeter-gtk",
+          "lxdm-session",
+          "lxdm-config"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      }
+    ],
+    "max_depth": 1,
+    "config_h_consumers_below_root": [
+      "src"
+    ]
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 535,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "data/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 569,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 640,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "systemd/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 448,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "pam/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 448,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      }
+    ]
+  },
+  "tool_requirements": {
+    "detected": [
+      "intltoolize"
+    ],
+    "missing": []
+  },
+  "macro_inventory": {
+    "macro_dirs": [],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [],
+    "called_macros": [
+      "AC_ARG_ENABLE",
+      "AC_ARG_WITH",
+      "AC_CHECK_FUNC",
+      "AC_CHECK_FUNCS",
+      "AC_CHECK_HEADERS",
+      "AC_CHECK_LIB",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_HEADERS",
+      "AC_CONFIG_SRCDIR",
+      "AC_DEFINE",
+      "AC_DEFINE_UNQUOTED",
+      "AC_DEFUN",
+      "AC_FUNC_FORK",
+      "AC_HELP_STRING",
+      "AC_INIT",
+      "AC_MSG_CHECKING",
+      "AC_MSG_ERROR",
+      "AC_MSG_RESULT",
+      "AC_MSG_WARN",
+      "AC_OUTPUT",
+      "AC_PATH_X",
+      "AC_PREREQ",
+      "AC_PROG_CC",
+      "AC_PROG_INSTALL",
+      "AC_SEARCH_LIBS",
+      "AC_SUBST",
+      "AC_TYPE_PID_T",
+      "AM_CONDITIONAL",
+      "AM_INIT_AUTOMAKE",
+      "AM_PROG_CC_C_O",
+      "GTK_CFLAGS",
+      "GTK_LIBS",
+      "IT_PROG_INTLTOOL",
+      "PKG_CHECK_MODULES",
+      "PKG_CONFIG"
+    ],
+    "unresolved_macros": [
+      "GTK_CFLAGS",
+      "GTK_LIBS",
+      "IT_PROG_INTLTOOL"
+    ]
+  },
+  "conditional_context": {
+    "configure_if": 153,
+    "configure_fi": 150,
+    "configure_case": 65,
+    "configure_esac": 68,
+    "balanced": false,
+    "automake_conditionals": [
+      "HAVE_PAM",
+      "HAVE_SYSTEMD"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": ".",
+    "present": [
+      "install-sh",
+      "missing",
+      "depcomp",
+      "compile"
+    ],
+    "missing": []
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "c": 13,
+      "h": 10
+    },
+    "configure_macros": [
+      "AC_PROG_CC"
+    ],
+    "needs_cxx": false,
+    "needs_fortran": false,
+    "sets_c_std": false
+  },
+  "libtool_context": {
+    "uses_libtool": false,
+    "macros": [],
+    "ltmain_present": true,
+    "libtool_m4_sources": [],
+    "age": "unknown"
+  },
+  "gettext_intl_context": {
+    "uses_gettext": false,
+    "uses_intltool": true,
+    "po_dir_present": true,
+    "missing_files": []
+  },
+  "make_graph": {
+    "targets": [
+      "all",
+      "all-am",
+      "install-am",
+      "installcheck-am",
+      "install-strip",
+      "install-info",
+      "install-info-am",
+      "install-dvi",
+      "install-dvi-am",
+      "install-ps",
+      "install-ps-am",
+      "install-pdf",
+      "install-pdf-am",
+      "install-html",
+      "install-html-am",
+      "install-data-hook",
+      "install-exec-hook",
+      "installdirs-am",
+      ".PHONY",
+      "mostlyclean-am",
+      "clean-am",
+      "distclean-am",
+      "maintainer-clean-am",
+      "distdir",
+      "dist",
+      "dist-all",
+      "dist-gzip",
+      "distcleancheck",
+      "distcheck",
+      "check-am",
+      "TAGS",
+      "tags",
+      "TAGS-am",
+      "tags-am",
+      "cscope",
+      "cscope-am",
+      "distuninstallcheck",
+      "$(srcdir)/Makefile.in",
+      "$(am__recursive_targets)",
+      "check"
+    ],
+    "key_variables": {
+      "AR": "ar",
+      "CC": "cc",
+      "CFLAGS": "-DLXDM_XCONN_XCB",
+      "CPPFLAGS": "",
+      "CXX": "c++",
+      "CXXFLAGS": "-g -O2",
+      "DEFS": "-DHAVE_CONFIG_H",
+      "LDFLAGS": "",
+      "LIBS": "-lpam  -lcrypt",
+      "RANLIB": "ranlib"
+    },
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "config.h",
+      "config.log"
+    ],
+    "recursion_depth": 1,
+    "top_targets": [
+      "all",
+      "check",
+      "dist",
+      "all-am"
+    ],
+    "make_diagnostics": [
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "../config.h:15:26: error: expected expression before '/' token"
+      },
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "gdm/gdm-languages.c:507:20: error: too few arguments to function 'scandir'"
+      },
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "../config.h:15:26: error: expected expression before '/' token"
+      },
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "../config.h:15:26: error: expected expression before '/' token"
+      },
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "gdm/gdm-languages.c:855:15: error: too few arguments to function 'g_file_get_contents'"
+      },
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "../config.h:15:26: error: expected expression before '/' token"
+      },
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "../config.h:15:26: error: expected expression before '/' token"
+      },
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "../config.h:15:26: error: expected expression before '/' token"
+      },
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "../config.h:15:26: error: expected expression before '/' token"
+      },
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "gdm/gdm-languages.c:899:15: error: too few arguments to function 'g_file_get_contents'"
+      }
+    ]
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": true,
+    "defines_sampled": [
+      "LXDM_XCONN_XCB",
+      "HAVE_CONFIG_H"
+    ]
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-pkg-config",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-intltool",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-subdir-objects",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "shadow.h",
+      "stdlib.h",
+      "string.h",
+      "unistd.h",
+      "utmpx.h"
+    ],
+    "headers_included_unchecked": [
+      "X11/XKBlib.h",
+      "X11/Xlib.h",
+      "fcntl.h",
+      "gdk/gdk.h",
+      "gdk/gdkkeysyms-compat.h",
+      "gdk/gdkkeysyms.h",
+      "gdk/gdkx.h",
+      "glib/gi18n.h",
+      "glib/gstdio.h",
+      "gtk/gtk.h",
+      "security/pam_appl.h",
+      "stdint.h",
+      "sys/filio.h",
+      "sys/ioctl.h",
+      "sys/socket.h",
+      "sys/stat.h",
+      "sys/types.h",
+      "sys/ucred.h",
+      "sys/un.h",
+      "sys/vt.h",
+      "sys/wait.h",
+      "xcb/xcb.h",
+      "xcb/xproto.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 2,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "c89_gnu",
+    "strip_modern_poison_flags": [
+      "-Werror=implicit-function-declaration",
+      "-Werror=int-conversion",
+      "-Werror=incompatible-pointer-types"
+    ],
+    "inject_legacy_shims": true,
+    "compiler_aliasing": {
+      "clang-18+": "-std=gnu89 -Wno-error",
+      "gcc-14+": "-std=gnu89 -fpermissive"
+    }
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 11,
+    "shadowed_builtins": [],
+    "permitted_mutations": 8,
+    "suspect_global_mutations": 0
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "X11/XKBlib.h",
+      "X11/Xlib.h",
+      "fcntl.h",
+      "gdk/gdk.h",
+      "gdk/gdkkeysyms-compat.h",
+      "gdk/gdkkeysyms.h",
+      "gdk/gdkx.h",
+      "glib/gi18n.h",
+      "glib/gstdio.h",
+      "gtk/gtk.h",
+      "security/pam_appl.h",
+      "stdint.h",
+      "sys/filio.h",
+      "sys/ioctl.h",
+      "sys/socket.h",
+      "sys/stat.h",
+      "sys/types.h",
+      "sys/ucred.h",
+      "sys/un.h",
+      "sys/vt.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "subdir-config-h-include-path",
+    "unresolved-macros",
+    "modern-compiler-strictness (no explicit C std)"
+  ],
+  "repair_hints": [
+    {
+      "id": "subdir-top-builddir",
+      "phase": "make",
+      "confidence": 0.88,
+      "evidence": [
+        "src consumes config.h below root"
+      ],
+      "action": "ensure ac_subst_file sets relative top_builddir per subdir (0.1.19)",
+      "expected_effect": "config.h found in subdir compiles"
+    },
+    {
+      "id": "ship-or-neutralize-macro",
+      "phase": "autoreconf",
+      "confidence": 0.6,
+      "evidence": [
+        "GTK_CFLAGS",
+        "GTK_LIBS",
+        "IT_PROG_INTLTOOL"
+      ],
+      "action": "ship native impl or neutralize",
+      "expected_effect": "resolves unexpanded AX_/custom macros"
+    }
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": -1,
+      "Makefile.in": 1080,
+      "aclocal.m4": 8,
+      "config.h.in": 15,
+      "configure": 13,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_ENABLE": "system-aclocal",
+      "AC_ARG_WITH": "system-aclocal",
+      "AC_CHECK_FUNC": "system-aclocal",
+      "AC_CHECK_FUNCS": "system-aclocal",
+      "AC_CHECK_HEADERS": "system-aclocal",
+      "AC_CHECK_LIB": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_HEADERS": "system-aclocal",
+      "AC_CONFIG_SRCDIR": "system-aclocal",
+      "AC_DEFINE": "system-aclocal",
+      "AC_DEFINE_UNQUOTED": "system-aclocal",
+      "AC_DEFUN": "system-aclocal",
+      "AC_FUNC_FORK": "system-aclocal",
+      "AC_HELP_STRING": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_MSG_CHECKING": "system-aclocal",
+      "AC_MSG_ERROR": "system-aclocal",
+      "AC_MSG_RESULT": "system-aclocal",
+      "AC_MSG_WARN": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PATH_X": "system-aclocal",
+      "AC_PREREQ": "system-aclocal",
+      "AC_PROG_CC": "system-aclocal",
+      "AC_PROG_INSTALL": "system-aclocal",
+      "AC_SEARCH_LIBS": "system-aclocal",
+      "AC_SUBST": "system-aclocal",
+      "AC_TYPE_PID_T": "system-aclocal",
+      "AM_CONDITIONAL": "system-aclocal",
+      "AM_INIT_AUTOMAKE": "system-aclocal",
+      "AM_PROG_CC_C_O": "system-aclocal",
+      "GTK_CFLAGS": "unresolved",
+      "GTK_LIBS": "unresolved",
+      "IT_PROG_INTLTOOL": "unresolved",
+      "PKG_CHECK_MODULES": "system-aclocal",
+      "PKG_CONFIG": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "lxdm_binary_LDADD",
+        "var": "GLIB_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "lxdm_binary_LDADD",
+        "var": "XCONN_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "lxdm_binary_LDADD",
+        "var": "CONSOLEKIT_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "lxdm_binary_LDADD",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": true
+      },
+      {
+        "primary": "lxdm_binary_SOURCES",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": true
+      },
+      {
+        "primary": "lxdm_greeter_gtk_LDADD",
+        "var": "XLIB_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "lxdm_greeter_gtk_LDADD",
+        "var": "GTK_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "lxdm_greeter_gtk_LDADD",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": true
+      },
+      {
+        "primary": "lxdm_greeter_gtk_SOURCES",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": true
+      },
+      {
+        "primary": "lxdm_greeter_gdk_LDADD",
+        "var": "XLIB_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "lxdm_greeter_gdk_LDADD",
+        "var": "GDK_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "lxdm_greeter_gdk_LDADD",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": true
+      },
+      {
+        "primary": "lxdm_numlock_SOURCES",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": true
+      },
+      {
+        "primary": "lxdm_numlock_LDADD",
+        "var": "XLIB_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "lxdm_numlock_LDADD",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": true
+      },
+      {
+        "primary": "lxdm_session_SOURCES",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": true
+      },
+      {
+        "primary": "lxdm_session_LDADD",
+        "var": "GLIB_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "lxdm_session_LDADD",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": true
+      },
+      {
+        "primary": "lxdm_config_LDADD",
+        "var": "GTK_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "lxdm_config_LDADD",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": true
+      },
+      {
+        "primary": "lxdm_config_SOURCES",
+        "var": "NULL",
+        "resolved_to": [],
+        "resolved": true
+      }
+    ],
+    "unresolved_refs": [
+      "lxdm_binary_LDADD = $(GLIB_LIBS)",
+      "lxdm_binary_LDADD = $(XCONN_LIBS)",
+      "lxdm_binary_LDADD = $(CONSOLEKIT_LIBS)",
+      "lxdm_greeter_gtk_LDADD = $(XLIB_LIBS)",
+      "lxdm_greeter_gtk_LDADD = $(GTK_LIBS)",
+      "lxdm_greeter_gdk_LDADD = $(XLIB_LIBS)",
+      "lxdm_greeter_gdk_LDADD = $(GDK_LIBS)",
+      "lxdm_numlock_LDADD = $(XLIB_LIBS)",
+      "lxdm_session_LDADD = $(GLIB_LIBS)",
+      "lxdm_config_LDADD = $(GTK_LIBS)"
+    ],
+    "indirection_count": 21
   }
 }

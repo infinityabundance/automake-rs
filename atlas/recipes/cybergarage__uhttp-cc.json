@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "cybergarage/uhttp-cc",
   "source": {
     "url": "https://github.com/cybergarage/uhttp-cc",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -31,45 +31,141 @@
     {
       "step": "make",
       "tool": "make",
-      "status": "fail"
+      "status": "ok"
     }
   ],
   "probe_results": {
+    "HAVE_ARPA_INET_H": 1,
     "HAVE_BOOST_SHRAEDPTR": 1,
+    "HAVE_FOPEN": 1,
+    "HAVE_GETIFADDRS": 1,
+    "HAVE_GMTIME_R": 1,
+    "HAVE_ICONV": 1,
+    "HAVE_ICONV_H": 1,
+    "HAVE_IFADDRS_H": 1,
+    "HAVE_INET_NTOA": 1,
+    "HAVE_LIMITS_H": 1,
+    "HAVE_LOCALTIME_R": 1,
+    "HAVE_MEMSET": 1,
+    "HAVE_NETDB_H": 1,
+    "HAVE_NETINET_IN_H": 1,
+    "HAVE_PTHREAD_H": 1,
+    "HAVE_REALPATH": 1,
+    "HAVE_SNPRINTF": 1,
+    "HAVE_SOCKET": 1,
     "HAVE_SOCKLEN_T": 1,
     "HAVE_SO_NOSIGPIPE": 1,
+    "HAVE_STDLIB_H": 1,
     "HAVE_STD_COUT": 1,
-    "HAVE_STD_SHRAEDPTR": 1
+    "HAVE_STD_SHRAEDPTR": 1,
+    "HAVE_STRCHR": 1,
+    "HAVE_STRING_H": 1,
+    "HAVE_SYS_PARAM_H": 1,
+    "HAVE_SYS_RESOURCE_H": 1,
+    "HAVE_SYS_SOCKET_H": 1,
+    "HAVE_ULIMIT_H": 1,
+    "HAVE_UNAME": 1,
+    "HAVE_UNISTD_H": 1
   },
   "feature_flags": {
     "configure_args": []
   },
   "dependencies": {
     "pkg_config": [],
-    "system_libs": [],
+    "system_libs": [
+      "-lpthread"
+    ],
     "headers_needed": [],
     "missing": []
   },
   "quirks": [
-    "subdirs"
+    "subdirs",
+    "LIBS=-lpthread"
   ],
-  "outputs": [],
-  "status": "MAKE_FAIL",
-  "verified": false,
-  "diagnostic": "Makefile:16: *** missing separator.  Stop.",
+  "outputs": [
+    {
+      "path": "clang-format",
+      "sha256": "dc5ed4fe8de8a270",
+      "kind": "executable"
+    },
+    {
+      "path": "missing",
+      "sha256": "4a4f76d45d999ca6",
+      "kind": "executable"
+    },
+    {
+      "path": "bootstrap",
+      "sha256": "025aeafac5630c14",
+      "kind": "executable"
+    },
+    {
+      "path": "configure",
+      "sha256": "40229f0af79c96d6",
+      "kind": "executable"
+    },
+    {
+      "path": "cpplint",
+      "sha256": "e5d058e980f49e41",
+      "kind": "executable"
+    },
+    {
+      "path": "configure_macosx",
+      "sha256": "55290dcefed71dd6",
+      "kind": "executable"
+    },
+    {
+      "path": "lib/unix/libuhttp++.a",
+      "sha256": "f0a17a43c74d2fe5",
+      "kind": "library"
+    },
+    {
+      "path": "install-sh",
+      "sha256": "852947c4fef9cdc1",
+      "kind": "executable"
+    },
+    {
+      "path": "config/test-driver",
+      "sha256": "08ff8986c3a0ce8b",
+      "kind": "executable"
+    },
+    {
+      "path": "config/depcomp",
+      "sha256": "e44b49f71b265788",
+      "kind": "executable"
+    },
+    {
+      "path": "config/missing",
+      "sha256": "a9865db4f39574ff",
+      "kind": "executable"
+    },
+    {
+      "path": "config/compile",
+      "sha256": "c207b390aac63230",
+      "kind": "executable"
+    }
+  ],
+  "status": "FUNC_OK",
+  "verified": true,
+  "diagnostic": "",
   "deep_expansion": {
-    "configure_lines": 3076,
+    "configure_lines": 3269,
     "leaked_macros": [],
-    "heredoc_openers": 55,
-    "heredoc_terminators": 55,
+    "heredoc_openers": 54,
+    "heredoc_terminators": 54,
     "heredoc_imbalance": 0,
     "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2600: do eval test \\${$as_var+y} \\"
+      "line 2792: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
+      "UHTTP_ENABLE_EXAMPLES_TRUE",
+      "UHTTP_ENABLE_EXAMPLES_FALSE",
+      "DEBUG_TRUE",
+      "DEBUG_FALSE",
+      "UHTTP_ENABLE_TEST_TRUE",
+      "UHTTP_ENABLE_TEST_FALSE",
       "PACKAGE_NAME",
       "PACKAGE_TARNAME",
       "PACKAGE_VERSION",
@@ -89,7 +185,10 @@
       "CPP",
       "DEFS",
       "LIBOBJS",
-      "INSTALL"
+      "INSTALL",
+      "AR",
+      "LD",
+      "top_srcdir"
     ],
     "failed_during_check": "checking for uname... yes",
     "failure_tail": [
@@ -100,30 +199,124 @@
       "configure: creating lib/unix/Makefile"
     ],
     "conftest_corruption": [],
-    "conftest_directives_intact": 42,
+    "conftest_directives_intact": 34,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
       "#include <$ac_hdr>",
       "#include <$ac_hdr>",
       "#include <$ac_hdr>",
       "#include <$ac_hdr>",
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func();\\nint main() { return $ac_func(); }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func ();\\nint main() { return $ac_func(); }",
       "#include <$ac_hdr>"
     ]
   },
-  "oracle": {
-    "real_autoreconf": "fail",
-    "real_configure": "skipped",
-    "real_make": "skipped",
-    "real_configure_lines": 0,
-    "real_first_error": "Makefile.am: error: required file './NEWS' not found",
-    "classification": "OURS_BETTER"
-  },
   "receipt": {
-    "court_status": "partial",
+    "court_status": "quirk_dependent",
     "probe_trace": [
       {
+        "name": "HAVE_ARPA_INET_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
         "name": "HAVE_BOOST_SHRAEDPTR",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_FOPEN",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_GETIFADDRS",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_GMTIME_R",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_ICONV",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_ICONV_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_IFADDRS_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_INET_NTOA",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_LIMITS_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_LOCALTIME_R",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_MEMSET",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_NETDB_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_NETINET_IN_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_PTHREAD_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_REALPATH",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SNPRINTF",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SOCKET",
         "kind": "func",
         "result": "yes",
         "reason": "ok"
@@ -141,6 +334,12 @@
         "reason": "ok"
       },
       {
+        "name": "HAVE_STDLIB_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
         "name": "HAVE_STD_COUT",
         "kind": "func",
         "result": "yes",
@@ -151,13 +350,61 @@
         "kind": "func",
         "result": "yes",
         "reason": "ok"
+      },
+      {
+        "name": "HAVE_STRCHR",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STRING_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SYS_PARAM_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SYS_RESOURCE_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SYS_SOCKET_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_ULIMIT_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_UNAME",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_UNISTD_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
       }
     ],
     "quirks_matched": [
       "uses-subdir-objects",
       "vendored-aclocal"
     ],
-    "receipt_hash": "941696c5ce0690888af67fa685cf8b10182e983acb70dbb1fdc688bbf5de61cb",
+    "receipt_hash": "eef649b4f2517c78bb8ea2fdd5dfc350b9866bbfddf082cf270cffe84c75e184",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -166,6 +413,755 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "examples/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "examples/fsserver/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "examples/fsserver/unix/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "examples/httpget/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "examples/httpget/unix/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "include/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "lib/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "lib/unix/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "test/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "test/unix/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      }
+    ],
+    "config_headers": [
+      "config.h"
+    ],
+    "subdirs": [
+      "include",
+      "lib",
+      "examples",
+      "test",
+      "httpget",
+      "fsserver",
+      "unix",
+      "unix",
+      "unix",
+      "unix"
+    ],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [],
+        "subdirs": [
+          "include",
+          "lib",
+          "examples",
+          "test"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "examples",
+        "targets": [],
+        "subdirs": [
+          "httpget",
+          "fsserver"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "examples/fsserver",
+        "targets": [],
+        "subdirs": [
+          "unix"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "examples/fsserver/unix",
+        "targets": [
+          "fsserver"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)/include -I../"
+      },
+      {
+        "dir": "examples/httpget",
+        "targets": [],
+        "subdirs": [
+          "unix"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "examples/httpget/unix",
+        "targets": [
+          "httpget"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)/include -I../"
+      },
+      {
+        "dir": "lib",
+        "targets": [],
+        "subdirs": [
+          "unix"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "lib/unix",
+        "targets": [
+          "libuhttp++.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)/include"
+      },
+      {
+        "dir": "test",
+        "targets": [],
+        "subdirs": [
+          "unix"
+        ],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "test/unix",
+        "targets": [
+          "uhttpcctest"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)/include -I../"
+      }
+    ],
+    "max_depth": 3,
+    "config_h_consumers_below_root": [
+      "test"
+    ]
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 523,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "include/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 740,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "examples/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 521,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "examples/fsserver/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 521,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "examples/fsserver/unix/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 511,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "examples/httpget/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 521,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "examples/httpget/unix/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 510,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "test/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 521,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "test/unix/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 688,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "lib/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 521,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "lib/unix/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 481,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      }
+    ]
+  },
+  "tool_requirements": {
+    "detected": [
+      "c++"
+    ],
+    "missing": []
+  },
+  "macro_inventory": {
+    "macro_dirs": [
+      "config"
+    ],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [],
+    "called_macros": [
+      "AC_ARG_ENABLE",
+      "AC_CHECK_DECL",
+      "AC_CHECK_FUNCS",
+      "AC_CHECK_HEADERS",
+      "AC_CHECK_INCLUDES_DEFAULT",
+      "AC_CHECK_LIB",
+      "AC_COMPILE_IFELSE",
+      "AC_CONFIG_AUX_DIR",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_HEADERS",
+      "AC_CONFIG_SRCDIR",
+      "AC_C_CONST",
+      "AC_C_INLINE",
+      "AC_DEFINE",
+      "AC_HEADER_STDBOOL",
+      "AC_INIT",
+      "AC_LANG",
+      "AC_LANG_PROGRAM",
+      "AC_MSG_CHECKING",
+      "AC_MSG_ERROR",
+      "AC_MSG_RESULT",
+      "AC_OUTPUT",
+      "AC_PROG_AWK",
+      "AC_PROG_CC",
+      "AC_PROG_CPP",
+      "AC_PROG_CXX",
+      "AC_PROG_EGREP",
+      "AC_PROG_INSTALL",
+      "AC_PROG_RANLIB",
+      "AC_STRUCT_TM",
+      "AM_CONDITIONAL",
+      "AM_INIT_AUTOMAKE"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 151,
+    "configure_fi": 148,
+    "configure_case": 63,
+    "configure_esac": 66,
+    "balanced": false,
+    "automake_conditionals": [
+      "UHTTP_ENABLE_EXAMPLES",
+      "DEBUG",
+      "UHTTP_ENABLE_TEST"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": "config",
+    "present": [
+      "install-sh",
+      "missing",
+      "depcomp",
+      "compile"
+    ],
+    "missing": []
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "cpp": 66,
+      "h": 62
+    },
+    "configure_macros": [
+      "AC_PROG_CC",
+      "AC_PROG_CXX"
+    ],
+    "needs_cxx": true,
+    "needs_fortran": false,
+    "sets_c_std": false
+  },
+  "make_graph": {
+    "targets": [
+      "all",
+      "all-am",
+      "install-am",
+      "installcheck-am",
+      "install-strip",
+      "install-info",
+      "install-info-am",
+      "install-dvi",
+      "install-dvi-am",
+      "install-ps",
+      "install-ps-am",
+      "install-pdf",
+      "install-pdf-am",
+      "install-html",
+      "install-html-am",
+      "install-data-hook",
+      "install-exec-hook",
+      "installdirs-am",
+      ".PHONY",
+      "mostlyclean-am",
+      "clean-am",
+      "distclean-am",
+      "maintainer-clean-am",
+      "distdir",
+      "dist",
+      "dist-all",
+      "dist-gzip",
+      "distcleancheck",
+      "distcheck",
+      "check-am",
+      "TAGS",
+      "tags",
+      "TAGS-am",
+      "tags-am",
+      "cscope",
+      "cscope-am",
+      "distuninstallcheck",
+      "$(srcdir)/Makefile.in",
+      "$(am__recursive_targets)",
+      "check"
+    ],
+    "key_variables": {
+      "AR": "ar",
+      "CC": "cc",
+      "CFLAGS": "-g -O2",
+      "CPPFLAGS": "",
+      "CXX": "g++",
+      "CXXFLAGS": "-g -O2",
+      "DEFS": "-DHAVE_CONFIG_H",
+      "LDFLAGS": "",
+      "LIBS": "-lpthread",
+      "RANLIB": "ranlib"
+    },
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "config.h",
+      "config.log"
+    ],
+    "recursion_depth": 3,
+    "top_targets": [
+      "all",
+      "check",
+      "dist",
+      "all-am"
+    ],
+    "make_diagnostics": []
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": true,
+    "defines_sampled": [
+      "HAVE_CONFIG_H"
+    ]
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-subdir-objects",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "ours-built"
+  },
+  "vpath_analysis": {
+    "hardcoded_src_paths": 3,
+    "abs_path_leakage": 0,
+    "built_sources": [],
+    "generated_source_targets": []
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "arpa/inet.h",
+      "iconv.h",
+      "ifaddrs.h",
+      "limits.h",
+      "netdb.h",
+      "netinet/in.h",
+      "pthread.h",
+      "stdlib.h",
+      "string.h",
+      "sys/param.h",
+      "sys/resource.h",
+      "sys/socket.h",
+      "ulimit.h",
+      "unistd.h"
+    ],
+    "headers_included_unchecked": [
+      "bsys/unixemu.h",
+      "btron/bsocket.h",
+      "btron/clk.h",
+      "btron/kasago.h",
+      "btron/proctask.h",
+      "btron/taskcomm.h",
+      "fcntl.h",
+      "mach/mach.h",
+      "mach/semaphore.h",
+      "net/if.h",
+      "net/sock_com.h",
+      "sys/dirent.h",
+      "sys/ioctl.h",
+      "sys/msg.h",
+      "sys/stat.h",
+      "sys/svc/ifkasago.h",
+      "sys/types.h",
+      "sys/utsname.h",
+      "tk/tkernel.h",
+      "uhttp/HTTP.h",
+      "uhttp/http/HTML.h",
+      "uhttp/http/HTTP.h",
+      "uhttp/http/HTTPDate.h",
+      "uhttp/http/HTTPHeader.h",
+      "uhttp/http/HTTPMessageQueue.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 4,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "gnu++",
+    "strip_modern_poison_flags": [],
+    "inject_legacy_shims": false,
+    "compiler_aliasing": {}
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 0,
+    "shadowed_builtins": [],
+    "permitted_mutations": 3,
+    "suspect_global_mutations": 0
+  },
+  "parallel_build_safety": {
+    "vpath_out_of_tree_safe": false,
+    "generators": [],
+    "unordered_generated_sources": [],
+    "built_sources_declared": false
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "bsys/unixemu.h",
+      "btron/bsocket.h",
+      "btron/clk.h",
+      "btron/kasago.h",
+      "btron/proctask.h",
+      "btron/taskcomm.h",
+      "fcntl.h",
+      "mach/mach.h",
+      "mach/semaphore.h",
+      "net/if.h",
+      "net/sock_com.h",
+      "sys/dirent.h",
+      "sys/ioctl.h",
+      "sys/msg.h",
+      "sys/stat.h",
+      "sys/svc/ifkasago.h",
+      "sys/types.h",
+      "sys/utsname.h",
+      "tk/tkernel.h",
+      "uhttp/HTTP.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "subdir-config-h-include-path",
+    "vpath-unsafe (abs-path/hardcoded-srcdir leakage)"
+  ],
+  "repair_hints": [
+    {
+      "id": "subdir-top-builddir",
+      "phase": "make",
+      "confidence": 0.88,
+      "evidence": [
+        "test consumes config.h below root"
+      ],
+      "action": "ensure ac_subst_file sets relative top_builddir per subdir (0.1.19)",
+      "expected_effect": "config.h found in subdir compiles"
+    }
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": -1,
+      "Makefile.in": 1149,
+      "aclocal.m4": 7,
+      "config.h.in": 14,
+      "configure": 11,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_ENABLE": "system-aclocal",
+      "AC_CHECK_DECL": "system-aclocal",
+      "AC_CHECK_FUNCS": "system-aclocal",
+      "AC_CHECK_HEADERS": "system-aclocal",
+      "AC_CHECK_INCLUDES_DEFAULT": "system-aclocal",
+      "AC_CHECK_LIB": "system-aclocal",
+      "AC_COMPILE_IFELSE": "system-aclocal",
+      "AC_CONFIG_AUX_DIR": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_HEADERS": "system-aclocal",
+      "AC_CONFIG_SRCDIR": "system-aclocal",
+      "AC_C_CONST": "system-aclocal",
+      "AC_C_INLINE": "system-aclocal",
+      "AC_DEFINE": "system-aclocal",
+      "AC_HEADER_STDBOOL": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_LANG": "system-aclocal",
+      "AC_LANG_PROGRAM": "system-aclocal",
+      "AC_MSG_CHECKING": "system-aclocal",
+      "AC_MSG_ERROR": "system-aclocal",
+      "AC_MSG_RESULT": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PROG_AWK": "system-aclocal",
+      "AC_PROG_CC": "system-aclocal",
+      "AC_PROG_CPP": "system-aclocal",
+      "AC_PROG_CXX": "system-aclocal",
+      "AC_PROG_EGREP": "system-aclocal",
+      "AC_PROG_INSTALL": "system-aclocal",
+      "AC_PROG_RANLIB": "system-aclocal",
+      "AC_STRUCT_TM": "system-aclocal",
+      "AM_CONDITIONAL": "system-aclocal",
+      "AM_INIT_AUTOMAKE": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "libuhttp___a_SOURCES",
+        "var": "uhttpcc_sources",
+        "resolved_to": [
+          "../../src/uhttp/net/SocketCore.cpp",
+          "../../src/uhttp/net/DatagramSocket.cpp",
+          "../../src/uhttp/net/MulticastSocket.cpp",
+          "../../src/uhttp/net/SocketUtil.cpp",
+          "../../src/uhttp/net/Socket.cpp",
+          "../../src/uhttp/net/URL.cpp",
+          "../../src/uhttp/net/HostInterface.cpp",
+          "../../src/uhttp/net/URI.cpp",
+          "../../src/uhttp/net/SocketInputStream.cpp",
+          "../../src/uhttp/net/ServerSocket.cpp",
+          "../../src/uhttp/util/Mutex.cpp",
+          "../../src/uhttp/util/Thread.cpp",
+          "../../src/uhttp/util/Log.cpp",
+          "../../src/uhttp/util/Message.cpp",
+          "../../src/uhttp/util/Date.cpp",
+          "../../src/uhttp/util/Random.cpp",
+          "../../src/uhttp/util/LoggerTarget.cpp",
+          "../../src/uhttp/util/MessageQueue.cpp",
+          "../../src/uhttp/util/TimeUtil.cpp",
+          "../../src/uhttp/util/LoggerFileTarget.cpp",
+          "../../src/uhttp/util/StringTokenizer.cpp",
+          "../../src/uhttp/util/LoggerTargetList.cpp",
+          "../../src/uhttp/util/Debug.cpp",
+          "../../src/uhttp/util/Logger.cpp",
+          "../../src/uhttp/util/StringUtil.cpp",
+          "../../src/uhttp/util/Semaphore.cpp",
+          "../../src/uhttp/util/ThreadList.cpp",
+          "../../src/uhttp/io/BufferedReader.cpp",
+          "../../src/uhttp/io/FileInputStream.cpp",
+          "../../src/uhttp/io/File.cpp",
+          "../../src/uhttp/io/StringReader.cpp",
+          "../../src/uhttp/io/StringBufferInputStream.cpp",
+          "../../src/uhttp/http/HTTPServerList.cpp",
+          "../../src/uhttp/http/HTTPServer.cpp",
+          "../../src/uhttp/http/HTTPResponse.cpp",
+          "../../src/uhttp/http/HTTPMessageQueue.cpp",
+          "../../src/uhttp/http/HTTP.cpp",
+          "../../src/uhttp/http/HTTPWorkerThread.cpp",
+          "../../src/uhttp/http/HTTPDate.cpp",
+          "../../src/uhttp/http/HTTPSocket.cpp",
+          "../../src/uhttp/http/HTTPStatus.cpp",
+          "../../src/uhttp/http/HTTPHeader.cpp",
+          "../../src/uhttp/http/HTTPPacket.cpp",
+          "../../src/uhttp/http/HTTPRequest.cpp"
+        ],
+        "resolved": true
+      }
+    ],
+    "unresolved_refs": [],
+    "indirection_count": 1
   }
 }

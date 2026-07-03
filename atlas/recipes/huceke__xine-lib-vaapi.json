@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "huceke/xine-lib-vaapi",
   "source": {
     "url": "https://github.com/huceke/xine-lib-vaapi",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.14",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -21,6 +21,16 @@
     {
       "step": "autoreconf",
       "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "fail"
+    },
+    {
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
       "status": "fail"
     }
   ],
@@ -42,19 +52,93 @@
     "subdirs"
   ],
   "outputs": [],
-  "status": "CONFIGURE_GEN_FAIL",
+  "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "",
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "fail",
-    "real_make": "skipped",
-    "real_configure_lines": 36045,
-    "real_first_error": "checking for FFMPEG_POSTPROC... configure: error: Package requirements (libpostproc) were not met:",
-    "classification": "BOTH_CONFIGURE_FAIL"
+  "diagnostic": "./configure: line 1663: LT_AC_PROG_SED: command not found",
+  "deep_expansion": {
+    "configure_lines": 12936,
+    "leaked_macros": [],
+    "heredoc_openers": 234,
+    "heredoc_terminators": 234,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 1565: # eval \"_acrs_sv=\\${}\"; printf '%s\\n' \"s|@@|${_acrs_sv}|g\" >",
+      "line 1727: # eval \"_acrs_sv=\\${}\"; printf '%s\\n' \"s|@@|${_acrs_sv}|g\" >",
+      "line 12094: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "datarootdir",
+      "docdir",
+      "htmldir",
+      "XINE_MAJOR",
+      "XINE_MINOR",
+      "XINE_SUB",
+      "XINE_PATCH",
+      "XINE_SERIES",
+      "XINE_LT_CURRENT",
+      "XINE_LT_REVISION",
+      "XINE_LT_AGE",
+      "LIBNAME",
+      "DEBUG_BUILD_TRUE",
+      "DEBUG_BUILD_FALSE",
+      "PROFILING_BUILD_TRUE",
+      "PROFILING_BUILD_FALSE",
+      "UNIVERSAL_ARCHES",
+      "MACOSX_UNIVERSAL_BINARY_TRUE",
+      "MACOSX_UNIVERSAL_BINARY_FALSE",
+      "PERL",
+      "PKG_CONFIG",
+      "DYNAMIC_LD_LIBS",
+      "XDG_BASEDIR_CFLAGS",
+      "XDG_BASEDIR_LIBS",
+      "XDG_BASEDIR_REQUIRES",
+      "XDG_BASEDIR_CPPFLAGS",
+      "XDG_BASEDIR_DEPS",
+      "EXTERNAL_LIBXDG_BASEDIR_TRUE",
+      "EXTERNAL_LIBXDG_BASEDIR_FALSE"
+    ],
+    "failed_during_check": "checking for as used by ... /usr/bin/as",
+    "failure_tail": [
+      "whether  is a GNU compiler... checking for as used by ... /usr/bin/as"
+    ],
+    "conftest_corruption": [
+      "line 2059: # <dlfcn.h>]] (include eaten)",
+      "line 2575: # <sys/socket.h>]] (include eaten)",
+      "line 2588: # <sys/socket.h>]] (include eaten)",
+      "line 3159: # <pthread.h> (include eaten)",
+      "line 6428: # <stdio.h> (include eaten)",
+      "line 6429: # <stdlib.h> (include eaten)",
+      "line 6430: # <getopt.h> (include eaten)",
+      "line 7076: # <sys/audioio.h>]] (include eaten)",
+      "line 7469: # <windows.h> (include eaten)",
+      "line 7470: # <ddraw.h> (include eaten)",
+      "line 7471: # <dsound.h>]] (include eaten)",
+      "line 7538: # <$ac_hdr> (include eaten)",
+      "line 7639: # <$ac_hdr> (include eaten)",
+      "line 7888: # <$ac_hdr> (include eaten)",
+      "line 7912: # <GL/gl.h> (include eaten)",
+      "line 7913: # <GL/glext.h> (include eaten)",
+      "line 7914: # <GL/glx.h> (include eaten)",
+      "line 7961: # <$ac_hdr> (include eaten)",
+      "line 8088: # <[dga/dga.h]> (include eaten)",
+      "line 8912: # <$ac_hdr> (include eaten)"
+    ],
+    "conftest_directives_intact": 88,
+    "conftest_directives_mangled": 28,
+    "conftest_programs": [
+      "\\nint main() { #ifndef __GNUC__\\nchoke me\\n#endif ; return 0; }",
+      "msgid \"channel\"\\nmsgid_plural \"channels\"\\nmsgstr0 \"canal\"\\nmsgstr1 \"canal\"\\n",
+      "[char dlopen ();]\\nint main() { return dlopen(); }",
+      "[char [dlopen] ();]\\nint main() { return [dlopen](); }",
+      "[[[# <stddef.h>\\n# <dlfcn.h>]]\\nint main() { [[dlopen(NULL, 0)]] ; return 0; }]",
+      "[char socket ();]\\nint main() { return socket(); }"
+    ]
   },
   "receipt": {
-    "court_status": "not_standalone",
+    "court_status": "failed",
     "probe_trace": [],
     "quirks_matched": [
       "uses-libtool-old",
@@ -66,7 +150,14 @@
       "uses-ax-archive",
       "perl-in-configure"
     ],
-    "receipt_hash": "1b59d07d0a20a927a52050673c57d051c46cf0669ffc84ae54f67e19a8cf7afb",
+    "quirks_applied": [
+      {
+        "id": "uses-maintainer-mode",
+        "action": "--disable-maintainer-mode",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -75,6 +166,2590 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "contrib/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "contrib/a52dec/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "contrib/gsm610/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "contrib/libdca/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "contrib/libdha/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "contrib/libdha/bin/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "contrib/libdha/kernelhelper/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "contrib/libdha/oth/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "contrib/libdha/sysdep/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "contrib/libfaad/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "contrib/libmad/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "contrib/libmpcdec/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "contrib/libxdg-basedir/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "contrib/nosefart/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "contrib/vidix/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "contrib/vidix/drivers/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "doc/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "doc/faq/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "doc/hackersguide/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "doc/man/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "doc/man/en/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "include/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "include/xine/version.h",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "lib/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "m4/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "misc/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "misc/Makefile.plugins",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "misc/build_rpms.sh",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "misc/libxine.pc",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "misc/relchk.sh",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "misc/xine-lib.spec",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "po/Makefile.in",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "po/Makevars.extra",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "src/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "src/audio_dec/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/audio_out/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/combined/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/combined/ffmpeg/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/demuxers/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/dxr3/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/input/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/input/libdvdnav/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/input/libreal/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/input/librtsp/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/input/vcd/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/libreal/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/libw32dll/DirectShow/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/libw32dll/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/libw32dll/dmo/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/libw32dll/qtx/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/libw32dll/qtx/qtxsdk/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/libw32dll/wine/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/post/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/post/audio/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/post/deinterlace/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/post/deinterlace/plugins/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/post/goom/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/post/mosaico/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/post/planar/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/post/visualizations/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/spu_dec/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/vdr/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/video_dec/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/video_dec/libmpeg2/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/video_dec/libmpeg2new/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/video_dec/libmpeg2new/include/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/video_dec/libmpeg2new/libmpeg2/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/video_dec/libvdpau/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/video_out/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/video_out/macosx/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/xine-engine/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/xine-utils/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "win32/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      }
+    ],
+    "config_headers": [
+      "include/configure.h"
+    ],
+    "subdirs": [
+      "doc",
+      "m4",
+      "po",
+      "misc",
+      "include",
+      "lib",
+      "src",
+      "win32",
+      "contrib",
+      "libmpcdec",
+      "libxdg-basedir",
+      "libdca",
+      "nosefart",
+      "gsm610",
+      "libmad",
+      "a52dec",
+      "libfaad",
+      "libdha",
+      "libdha",
+      "vidix",
+      "xine-utils",
+      "xine-engine",
+      "audio_out",
+      "audio_dec",
+      "video_out",
+      "video_dec",
+      "spu_dec",
+      "dxr3",
+      "input",
+      "demuxers",
+      "libw32dll",
+      "libreal",
+      "post",
+      "combined",
+      "vdr",
+      "ffmpeg",
+      "libreal",
+      "librtsp",
+      "vcd",
+      "libdvdnav",
+      "wine",
+      "DirectShow",
+      "dmo",
+      "qtx",
+      "qtxsdk",
+      "planar",
+      "goom",
+      "visualizations",
+      "mosaico",
+      "deinterlace",
+      "audio",
+      "plugins",
+      "libmpeg2",
+      "libmpeg2new",
+      "libvdpau",
+      "include",
+      "libmpeg2",
+      "macosx"
+    ],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [],
+        "subdirs": [
+          "doc",
+          "m4",
+          "po",
+          "misc",
+          "include",
+          "lib",
+          "src",
+          "win32",
+          "contrib"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "contrib",
+        "targets": [],
+        "subdirs": [
+          "libmpcdec",
+          "libxdg-basedir",
+          "libdca",
+          "nosefart",
+          "gsm610",
+          "libmad",
+          "a52dec",
+          "libfaad",
+          "libdha",
+          "libdha",
+          "vidix"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "misc",
+        "targets": [
+          "xine-list-@XINE_SERIES@",
+          "xine-fontconv",
+          "cdda_server"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src",
+        "targets": [],
+        "subdirs": [
+          "xine-utils",
+          "xine-engine",
+          "audio_out",
+          "audio_dec",
+          "video_out",
+          "video_dec",
+          "spu_dec",
+          "dxr3",
+          "input",
+          "demuxers",
+          "libw32dll",
+          "libreal",
+          "post",
+          "combined",
+          "vdr"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/audio_dec",
+        "targets": [
+          "xineplug_decode_gsm610.la",
+          "xineplug_decode_lpcm.la",
+          "xineplug_decode_dvaudio.la",
+          "$(musepack_module)",
+          "$(dts_module)",
+          "$(mad_module)",
+          "$(a52_module)",
+          "$(faad_module)"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/audio_out",
+        "targets": [
+          "xineplug_ao_out_none.la",
+          "xineplug_ao_out_file.la",
+          "$(oss_module)",
+          "$(alsa_module)",
+          "$(sun_module)",
+          "$(esd_module)",
+          "$(directx_module)",
+          "$(coreaudio_module)",
+          "$(pulseaudio_module)",
+          "$(directx2_module)",
+          "$(fusionsound_module)",
+          "$(jack_module)"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/combined",
+        "targets": [
+          "$(xineplug_wavpack)",
+          "$(xineplug_flac)",
+          "$(xineplug_nsf)"
+        ],
+        "subdirs": [
+          "ffmpeg"
+        ],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/combined/ffmpeg",
+        "targets": [
+          "xineplug_decode_ff.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "$(ZLIB_CPPFLAGS)"
+      },
+      {
+        "dir": "src/demuxers",
+        "targets": [
+          "$(asf_module)",
+          "$(mng_module)",
+          "$(image_module)",
+          "$(modplug_module)",
+          "xineplug_dmx_games.la",
+          "xineplug_dmx_audio.la",
+          "xineplug_dmx_mpeg_ts.la",
+          "xineplug_dmx_avi.la",
+          "xineplug_dmx_mpeg_block.la",
+          "xineplug_dmx_mpeg.la",
+          "xineplug_dmx_mpeg_elem.la",
+          "xineplug_dmx_mpeg_pes.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/dxr3",
+        "targets": [
+          "xineplug_decode_dxr3_video.la",
+          "xineplug_decode_dxr3_spu.la",
+          "xineplug_vo_out_dxr3.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/input",
+        "targets": [
+          "xineplug_inp_file.la",
+          "xineplug_inp_test.la",
+          "xineplug_inp_http.la",
+          "xineplug_inp_dvd.la",
+          "$(in_vcd)",
+          "$(in_v4l)",
+          "$(in_v4l2)",
+          "$(in_gnome_vfs)",
+          "$(in_smb)",
+          "xineplug_inp_mms.la",
+          "xineplug_inp_stdin_fifo.la",
+          "xineplug_inp_pnm.la"
+        ],
+        "subdirs": [
+          "libreal",
+          "librtsp",
+          "vcd",
+          "libdvdnav"
+        ],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/input/libdvdnav",
+        "targets": [
+          "libdvdnav.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-DDVDNAV_COMPILE -DHAVE_DLFCN_H"
+      },
+      {
+        "dir": "src/input/libreal",
+        "targets": [
+          "libreal.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)/src/input/librtsp $(AVUTIL_CFLAGS)"
+      },
+      {
+        "dir": "src/input/librtsp",
+        "targets": [
+          "librtsp.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)/src/input/libreal"
+      },
+      {
+        "dir": "src/input/vcd",
+        "targets": [
+          "xineplug_inp_vcd.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/libreal",
+        "targets": [
+          "xineplug_decode_real.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/libw32dll",
+        "targets": [
+          "xineplug_decode_w32dll.la",
+          "xineplug_decode_qt.la"
+        ],
+        "subdirs": [
+          "wine",
+          "DirectShow",
+          "dmo",
+          "qtx"
+        ],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(srcdir)/wine -DWIN32_PATH=\\\"$(w32_path)\\\""
+      },
+      {
+        "dir": "src/libw32dll/DirectShow",
+        "targets": [
+          "libds_filter.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-DWIN32_PATH=\\\"$(w32_path)\\\" -DNOAVIFILE_HEADERS  \t-I$(srcdir)/.. -I$(srcdir)/../wine"
+      },
+      {
+        "dir": "src/libw32dll/dmo",
+        "targets": [
+          "libdmo_filter.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-DWIN32_PATH=\\\"$(w32_path)\\\" -DNOAVIFILE_HEADERS -I$(srcdir)/.. -I$(srcdir)/../wine"
+      },
+      {
+        "dir": "src/libw32dll/qtx",
+        "targets": [],
+        "subdirs": [
+          "qtxsdk"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/libw32dll/wine",
+        "targets": [
+          "libwine.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-DWIN32_PATH=\\\"$(w32_path)\\\" -I$(srcdir)/.. -D__WINE__  \t-Ddbg_printf=__vprintf -DTRACE=__vprintf          -I$(top_srcdi"
+      },
+      {
+        "dir": "src/post",
+        "targets": [],
+        "subdirs": [
+          "planar",
+          "goom",
+          "visualizations",
+          "mosaico",
+          "deinterlace",
+          "audio"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/post/audio",
+        "targets": [
+          "xineplug_post_audio_filters.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/post/deinterlace",
+        "targets": [
+          "xineplug_post_tvtime.la"
+        ],
+        "subdirs": [
+          "plugins"
+        ],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/post/deinterlace/plugins",
+        "targets": [
+          "libdeinterlacepluginsO1.la",
+          "libdeinterlaceplugins.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)/src/post/deinterlace                -I$(top_srcdir)/src/xine-utils"
+      },
+      {
+        "dir": "src/post/goom",
+        "targets": [
+          "libpost_goom_asm.la",
+          "xineplug_post_goom.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/post/mosaico",
+        "targets": [
+          "xineplug_post_mosaico.la",
+          "xineplug_post_switch.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/post/planar",
+        "targets": [
+          "libpost_planar_asm.la",
+          "xineplug_post_planar.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/post/visualizations",
+        "targets": [
+          "xineplug_post_visualizations.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/spu_dec",
+        "targets": [
+          "xineplug_decode_spucc.la",
+          "xineplug_decode_spucmml.la",
+          "xineplug_decode_spu.la",
+          "xineplug_decode_spudvb.la",
+          "xineplug_decode_spuhdmv.la",
+          "xineplug_sputext.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/vdr",
+        "targets": [
+          "xineplug_vdr.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/video_dec",
+        "targets": [
+          "$(image_module)",
+          "$(gdkpixbuf_module)",
+          "$(libjpeg_module)",
+          "$(theora_module)",
+          "xineplug_decode_bitplane.la",
+          "xineplug_decode_rgb.la",
+          "xineplug_decode_yuv.la"
+        ],
+        "subdirs": [
+          "libmpeg2",
+          "libmpeg2new",
+          "libvdpau"
+        ],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/video_dec/libmpeg2",
+        "targets": [
+          "xineplug_decode_mpeg2.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/video_dec/libmpeg2new",
+        "targets": [
+          "$(mpeg2new_module)"
+        ],
+        "subdirs": [
+          "include",
+          "libmpeg2"
+        ],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/video_dec/libmpeg2new/libmpeg2",
+        "targets": [
+          "$(mpeg2new_libs)"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(srcdir)/../include"
+      },
+      {
+        "dir": "src/video_dec/libvdpau",
+        "targets": [
+          "$(vdpau_h264_module)",
+          "$(vdpau_h264_alter_module)",
+          "$(vdpau_mpeg12_module)",
+          "$(vdpau_vc1_module)",
+          "$(vdpau_mpeg4_module)"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/video_out",
+        "targets": [
+          "libyuv2rgb.la",
+          "$(xshm_module)",
+          "$(xv_module)",
+          "$(xvmc_module)",
+          "$(opengl_module)",
+          "$(opengl2_module)",
+          "$(pgx64_module)",
+          "$(pgx32_module)",
+          "$(vidix_module)",
+          "$(aa_module)",
+          "$(fb_module)",
+          "$(directfb_module)"
+        ],
+        "subdirs": [
+          "macosx"
+        ],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/video_out/macosx",
+        "targets": [
+          "libxineMacOSXVideo.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/xine-engine",
+        "targets": [
+          "libxine.la",
+          "libxine-interface.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "$(XDG_BASEDIR_CPPFLAGS) $(ZLIB_CPPFLAGS) -DXINE_LIBRARY_COMPILE"
+      },
+      {
+        "dir": "src/xine-utils",
+        "targets": [
+          "libxineutils.la",
+          "xmltest"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-DXINE_LIBRARY_COMPILE"
+      }
+    ],
+    "max_depth": 4,
+    "config_h_consumers_below_root": [
+      "src/dxr3",
+      "src/audio_out",
+      "src/audio_dec",
+      "src/demuxers",
+      "src/video_out",
+      "src/spu_dec",
+      "src/xine-engine",
+      "src/xine-utils",
+      "src/input",
+      "src/input/libdvdnav",
+      "src/input/vcd",
+      "src/input/libreal",
+      "src/input/librtsp",
+      "src/libw32dll",
+      "src/libw32dll/wine",
+      "src/video_dec",
+      "src/video_dec/libmpeg2",
+      "src/video_dec/libvdpau",
+      "src/video_dec/libmpeg2new",
+      "src/video_dec/libmpeg2new/libmpeg2",
+      "src/libreal",
+      "src/combined",
+      "src/combined/ffmpeg",
+      "src/vdr",
+      "src/post/audio",
+      "src/post/goom",
+      "src/post/mosaico",
+      "src/post/visualizations",
+      "src/post/planar",
+      "src/post/deinterlace",
+      "src/post/deinterlace/plugins"
+    ]
+  },
+  "tool_requirements": {
+    "detected": [
+      "xgettext",
+      "perl"
+    ],
+    "missing": [
+      {
+        "name": "LT_AC_PROG_SED",
+        "phase": "make",
+        "suggested_package": ""
+      }
+    ]
+  },
+  "macro_inventory": {
+    "macro_dirs": [
+      "m4"
+    ],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [
+      {
+        "name": "AC_GETOPT_LONG",
+        "source": "m4/getopt_long.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "XINE_LIB_SUMMARY",
+        "source": "m4/summary.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AC_PROG_GMSGFMT_PLURAL",
+        "source": "m4/programs.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_PROG_LIBTOOL_SANITYCHECK",
+        "source": "m4/programs.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AM_PATH_DIRECTX",
+        "source": "m4/directx.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AC_COMPILE_CHECK_SIZEOF",
+        "source": "m4/types.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_CHECK_LIRC",
+        "source": "m4/types.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_CHECK_GENERATE_INTTYPES",
+        "source": "m4/types.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_CHECK_SOCKLEN_T",
+        "source": "m4/types.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "_XINE_VERSION_PARSE",
+        "source": "m4/xine.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_XINE_VERSION_CHECK",
+        "source": "m4/xine.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AM_PATH_XINE",
+        "source": "m4/xine.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "XINE_ARG_WITH",
+        "source": "m4/xine.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "XINE_ARG_ENABLE",
+        "source": "m4/xine.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "PKG_PROG_PKG_CONFIG",
+        "source": "m4/pkg.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "PKG_CHECK_EXISTS",
+        "source": "m4/pkg.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_PKG_SHORT_ERRORS_SUPPORTED",
+        "source": "m4/pkg.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "PKG_CHECK_MODULES",
+        "source": "m4/pkg.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "CC_CHECK_CFLAGS_SILENT",
+        "source": "m4/attributes.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "CC_CHECK_CFLAGS",
+        "source": "m4/attributes.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "CC_CHECK_CFLAG_APPEND",
+        "source": "m4/attributes.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "CC_CHECK_CFLAGS_APPEND",
+        "source": "m4/attributes.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "CC_CHECK_LDFLAGS",
+        "source": "m4/attributes.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "CC_NOUNDEFINED",
+        "source": "m4/attributes.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "CC_CHECK_WERROR",
+        "source": "m4/attributes.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "CC_CHECK_ATTRIBUTE",
+        "source": "m4/attributes.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "CC_ATTRIBUTE_CONSTRUCTOR",
+        "source": "m4/attributes.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "CC_ATTRIBUTE_FORMAT",
+        "source": "m4/attributes.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "CC_ATTRIBUTE_FORMAT_ARG",
+        "source": "m4/attributes.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "CC_ATTRIBUTE_VISIBILITY",
+        "source": "m4/attributes.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "CC_ATTRIBUTE_NONNULL",
+        "source": "m4/attributes.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "CC_ATTRIBUTE_UNUSED",
+        "source": "m4/attributes.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "CC_ATTRIBUTE_SENTINEL",
+        "source": "m4/attributes.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "CC_ATTRIBUTE_WEAK",
+        "source": "m4/attributes.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "CC_ATTRIBUTE_DEPRECATED",
+        "source": "m4/attributes.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "CC_ATTRIBUTE_ALIAS",
+        "source": "m4/attributes.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "CC_ATTRIBUTE_MALLOC",
+        "source": "m4/attributes.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "CC_ATTRIBUTE_PACKED",
+        "source": "m4/attributes.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "CC_ATTRIBUTE_CONST",
+        "source": "m4/attributes.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "CC_FLAG_VISIBILITY",
+        "source": "m4/attributes.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "CC_FUNC_EXPECT",
+        "source": "m4/attributes.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "CC_ATTRIBUTE_ALIGNED",
+        "source": "m4/attributes.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "CC_PTHREAD_FLAGS",
+        "source": "m4/pthreads.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "CC_PTHREAD_RECURSIVE_MUTEX",
+        "source": "m4/pthreads.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "XINE_DECODER_PLUGINS",
+        "source": "m4/decoders.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AC_CHECK_SYMBOL",
+        "source": "m4/symbol.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_CHECK_SYMBOLS",
+        "source": "m4/symbol.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "XINE_INPUT_PLUGINS",
+        "source": "m4/input.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AC_LANG_PREPROC",
+        "source": "m4/objc.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_PROG_OBJCPP",
+        "source": "m4/objc.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_LANG_COMPILER",
+        "source": "m4/objc.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_PROG_OBJC",
+        "source": "m4/objc.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "XINE_CHECK_MINMAX",
+        "source": "m4/misc.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_ACX_VERSION_PARSE",
+        "source": "m4/package.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "ACX_VERSION_CHECK",
+        "source": "m4/package.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "ASX_TR_LOWER",
+        "source": "m4/package.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "ACX_PACKAGE_CHECK",
+        "source": "m4/package.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "MACOSX_UNIVERSAL_BINARIES",
+        "source": "m4/macosx.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "CC_PROG_AS",
+        "source": "m4/gas.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AM_PATH_LIBFLAC",
+        "source": "m4/libFLAC.m4",
+        "kind": "AM"
+      }
+    ],
+    "called_macros": [
+      "AC_ARG_ENABLE",
+      "AC_ARG_WITH",
+      "AC_CACHE_CHECK",
+      "AC_CANONICAL_BUILD",
+      "AC_CANONICAL_HOST",
+      "AC_CHECK_DECL",
+      "AC_CHECK_FUNC",
+      "AC_CHECK_FUNCS",
+      "AC_CHECK_GENERATE_INTTYPES",
+      "AC_CHECK_HEADER",
+      "AC_CHECK_HEADERS",
+      "AC_CHECK_LIB",
+      "AC_CHECK_MEMBER",
+      "AC_CHECK_PROG",
+      "AC_CHECK_SIZEOF",
+      "AC_CHECK_SOCKLEN_T",
+      "AC_CHECK_TOOL",
+      "AC_CHECK_TYPE",
+      "AC_COMPILE_IFELSE",
+      "AC_CONFIG_COMMANDS",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_HEADERS",
+      "AC_CONFIG_LIBOBJ_DIR",
+      "AC_CONFIG_MACRO_DIR",
+      "AC_CONFIG_SRCDIR",
+      "AC_C_ALWAYS_INLINE",
+      "AC_C_BIGENDIAN",
+      "AC_C_CONST",
+      "AC_C_INLINE",
+      "AC_C_RESTRICT",
+      "AC_DEFINE",
+      "AC_DEFINE_UNQUOTED",
+      "AC_DISABLE_STATIC",
+      "AC_EGREP_CPP",
+      "AC_FUNC_FSEEKO",
+      "AC_FUNC_SEEKO",
+      "AC_GETOPT_LONG",
+      "AC_GNU_SOURCE",
+      "AC_HEADER_STDC",
+      "AC_INIT",
+      "AC_ISC_POSIX",
+      "AC_LANG_POP",
+      "AC_LANG_PROGRAM",
+      "AC_LANG_PUSH",
+      "AC_LIBOBJ",
+      "AC_LIBSOURCE",
+      "AC_LIBTOOL_DLOPEN",
+      "AC_LIBTOOL_WIN32_DLL",
+      "AC_LINK_IFELSE",
+      "AC_MSG_CHECKING",
+      "AC_MSG_ERROR",
+      "AC_MSG_RESULT",
+      "AC_MSG_WARN",
+      "AC_OUTPUT",
+      "AC_PATH_MAGIC",
+      "AC_PATH_PROG",
+      "AC_PATH_X",
+      "AC_PATH_XTRA",
+      "AC_PREREQ",
+      "AC_PROG_AWK"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 1206,
+    "configure_fi": 1161,
+    "configure_case": 106,
+    "configure_esac": 110,
+    "balanced": false,
+    "automake_conditionals": [
+      "DEBUG_BUILD",
+      "PROFILING_BUILD",
+      "EXTERNAL_LIBXDG_BASEDIR",
+      "GENERATED_INTTYPES_H",
+      "WIN32",
+      "ENABLE_VIS",
+      "DISABLE_OPTIMIZATIONS",
+      "ARCH_PPC",
+      "ARCH_X86",
+      "ARCH_X86_32",
+      "ARCH_X86_64",
+      "HAVE_MMX",
+      "HOST_OS_DARWIN",
+      "HAVE_X11",
+      "INSTALL_M4",
+      "HAVE_XMLTO",
+      "HAVE_RSVG_CONVERT",
+      "HAVE_RSVG",
+      "HAVE_OPTIPNG"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": ".",
+    "present": [
+      "install-sh",
+      "missing",
+      "depcomp",
+      "compile"
+    ],
+    "missing": [
+      "ltmain.sh",
+      "config.guess",
+      "config.sub"
+    ]
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "S": 2,
+      "c": 553,
+      "h": 399,
+      "m": 3,
+      "s": 3
+    },
+    "configure_macros": [
+      "AC_PROG_CC",
+      "AC_PROG_OBJC"
+    ],
+    "needs_cxx": false,
+    "needs_fortran": false,
+    "sets_c_std": false
+  },
+  "libtool_context": {
+    "uses_libtool": true,
+    "macros": [
+      "AC_PROG_LIBTOOL"
+    ],
+    "ltmain_present": false,
+    "libtool_m4_sources": [
+      "aclocal.m4"
+    ],
+    "age": "old"
+  },
+  "gettext_intl_context": {
+    "uses_gettext": true,
+    "uses_intltool": false,
+    "po_dir_present": true,
+    "missing_files": [
+      "config.rpath"
+    ]
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": true,
+    "defines_sampled": []
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-maintainer-mode",
+      "applied_at": "configure",
+      "effect": "neutral",
+      "effectiveness": "low"
+    },
+    {
+      "quirk_id": "uses-libtool-old",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-pkg-config",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-gettext",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "has-m4-macro-dir",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-ax-archive",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "perl-in-configure",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "vpath_analysis": {
+    "hardcoded_src_paths": 4,
+    "abs_path_leakage": 0,
+    "built_sources": [
+      "$(ff_generated)",
+      "$(top_builddir)/contrib/libdha/pci_ids.h",
+      "$(top_builddir)/contrib/libdha/pci_names.h",
+      "$(DYNAMICMANS)"
+    ],
+    "generated_source_targets": [
+      "$(top_builddir)/contrib/a52dec/liba52.la",
+      "$(top_builddir)/contrib/libfaad/libfaad.la",
+      "$(top_builddir)/contrib/libmad/libmad.la",
+      "$(top_builddir)/contrib/libmpcdec/libmpcdec.la",
+      "$(top_builddir)/contrib/libdca/libdca.la",
+      "$(top_builddir)/contrib/gsm610/libgsm610.la",
+      "$(top_builddir)/contrib/vidix/libvidix.la",
+      "libxine_la_LDFLAGS = $(LDFLAGS_NOUNDEFINED) $(AM_LDFLAGS) $(def_ldflags) $(GCSECTIONS)  \t-weak libxine-interface.la  \t-version-info $(XINE_LT_CURRENT)",
+      "install-exec-hook",
+      "$(top_builddir)/contrib/nosefart/libnosefart.la",
+      "avcodec_audio.list",
+      "avcodec_video.list",
+      "avcodec_audio.list avcodec_video.list",
+      "ff_%_list.h",
+      "report",
+      "$(top_builddir)/contrib/libdha/libdha.la",
+      "pci_names.lo"
+    ]
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "X11/extensions/XShm.h",
+      "alloca.h",
+      "altivec.h",
+      "assert.h",
+      "byteswap.h",
+      "dirent.h",
+      "errno.h",
+      "execinfo.h",
+      "fcntl.h",
+      "glob.h",
+      "libgen.h",
+      "linux/cdrom.h",
+      "malloc.h",
+      "netdb.h",
+      "stdbool.h",
+      "stdio.h",
+      "sys/cdio.h",
+      "sys/dvdio.h",
+      "sys/ioctl.h",
+      "sys/mixer.h",
+      "sys/mman.h",
+      "sys/param.h",
+      "sys/scsiio.h",
+      "sys/times.h",
+      "sys/wait.h",
+      "ucontext.h",
+      "zlib.h"
+    ],
+    "headers_included_unchecked": [
+      "AudioUnit/AUComponent.h",
+      "AudioUnit/AudioOutputUnit.h",
+      "AudioUnit/AudioUnitParameters.h",
+      "AudioUnit/AudioUnitProperties.h",
+      "CoreAudio/CoreAudio.h",
+      "CoreAudio/CoreAudioTypes.h",
+      "GL/gl.h",
+      "GL/glext.h",
+      "GL/glx.h",
+      "X11/Xatom.h",
+      "X11/Xlib.h",
+      "X11/Xutil.h",
+      "X11/cursorfont.h",
+      "X11/extensions/Xv.h",
+      "X11/extensions/XvMC.h",
+      "X11/extensions/XvMClib.h",
+      "X11/extensions/Xvlib.h",
+      "X11/extensions/shape.h",
+      "X11/extensions/vldXvMC.h",
+      "alsa/asoundlib.h",
+      "arpa/inet.h",
+      "asm/ldt.h",
+      "asm/unistd.h",
+      "cdio/cd_types.h",
+      "cdio/iso9660.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 7,
+    "shadowed_macros": [
+      "AC_GETOPT_LONG",
+      "AC_PROG_GMSGFMT_PLURAL",
+      "AC_PROG_LIBTOOL_SANITYCHECK",
+      "AM_PATH_DIRECTX",
+      "AC_COMPILE_CHECK_SIZEOF",
+      "AC_CHECK_LIRC",
+      "AC_CHECK_GENERATE_INTTYPES",
+      "AC_CHECK_SOCKLEN_T",
+      "AM_PATH_XINE",
+      "AC_CHECK_SYMBOL",
+      "AC_CHECK_SYMBOLS",
+      "AC_LANG_PREPROC",
+      "AC_PROG_OBJCPP",
+      "AC_LANG_COMPILER",
+      "AC_PROG_OBJC",
+      "AM_PATH_LIBFLAC"
+    ]
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "c89_gnu",
+    "strip_modern_poison_flags": [
+      "-Werror=implicit-function-declaration",
+      "-Werror=int-conversion",
+      "-Werror=incompatible-pointer-types"
+    ],
+    "inject_legacy_shims": true,
+    "compiler_aliasing": {
+      "clang-18+": "-std=gnu89 -Wno-error",
+      "gcc-14+": "-std=gnu89 -fpermissive"
+    }
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 35,
+    "shadowed_builtins": [
+      "AC_GETOPT_LONG",
+      "AC_PROG_GMSGFMT_PLURAL",
+      "AC_PROG_LIBTOOL_SANITYCHECK",
+      "AM_PATH_DIRECTX",
+      "AC_COMPILE_CHECK_SIZEOF",
+      "AC_CHECK_LIRC",
+      "AC_CHECK_GENERATE_INTTYPES",
+      "AC_CHECK_SOCKLEN_T",
+      "AM_PATH_XINE",
+      "AC_CHECK_SYMBOL",
+      "AC_CHECK_SYMBOLS",
+      "AC_LANG_PREPROC",
+      "AC_PROG_OBJCPP",
+      "AC_LANG_COMPILER",
+      "AC_PROG_OBJC"
+    ],
+    "permitted_mutations": 13,
+    "suspect_global_mutations": 0
+  },
+  "parallel_build_safety": {
+    "vpath_out_of_tree_safe": false,
+    "generators": [
+      "$(top_builddir)/contrib/a52dec/liba52.la",
+      "$(top_builddir)/contrib/libfaad/libfaad.la",
+      "$(top_builddir)/contrib/libmad/libmad.la",
+      "$(top_builddir)/contrib/libmpcdec/libmpcdec.la",
+      "$(top_builddir)/contrib/libdca/libdca.la",
+      "$(top_builddir)/contrib/gsm610/libgsm610.la",
+      "$(top_builddir)/contrib/vidix/libvidix.la",
+      "libxine_la_LDFLAGS = $(LDFLAGS_NOUNDEFINED) $(AM_LDFLAGS) $(def_ldflags) $(GCSECTIONS)  \t-weak libxine-interface.la  \t-version-info $(XINE_LT_CURRENT)",
+      "install-exec-hook",
+      "$(top_builddir)/contrib/nosefart/libnosefart.la",
+      "avcodec_audio.list",
+      "avcodec_video.list",
+      "avcodec_audio.list avcodec_video.list",
+      "ff_%_list.h",
+      "report"
+    ],
+    "unordered_generated_sources": [
+      "$(top_builddir)/contrib/a52dec/liba52.la",
+      "$(top_builddir)/contrib/libfaad/libfaad.la",
+      "$(top_builddir)/contrib/libmad/libmad.la",
+      "$(top_builddir)/contrib/libmpcdec/libmpcdec.la",
+      "$(top_builddir)/contrib/libdca/libdca.la",
+      "$(top_builddir)/contrib/gsm610/libgsm610.la",
+      "$(top_builddir)/contrib/vidix/libvidix.la",
+      "libxine_la_LDFLAGS = $(LDFLAGS_NOUNDEFINED) $(AM_LDFLAGS) $(def_ldflags) $(GCSECTIONS)  \t-weak libxine-interface.la  \t-version-info $(XINE_LT_CURRENT)",
+      "install-exec-hook",
+      "$(top_builddir)/contrib/nosefart/libnosefart.la",
+      "avcodec_audio.list",
+      "avcodec_video.list",
+      "avcodec_audio.list avcodec_video.list",
+      "ff_%_list.h",
+      "report"
+    ],
+    "built_sources_declared": true
+  },
+  "host_environment_veil": {
+    "header_injection_candidates": [
+      "malloc.h"
+    ],
+    "symbol_aliasing_candidates": []
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "AudioUnit/AUComponent.h",
+      "AudioUnit/AudioOutputUnit.h",
+      "AudioUnit/AudioUnitParameters.h",
+      "AudioUnit/AudioUnitProperties.h",
+      "CoreAudio/CoreAudio.h",
+      "CoreAudio/CoreAudioTypes.h",
+      "GL/gl.h",
+      "GL/glext.h",
+      "GL/glx.h",
+      "X11/Xatom.h",
+      "X11/Xlib.h",
+      "X11/Xutil.h",
+      "X11/cursorfont.h",
+      "X11/extensions/Xv.h",
+      "X11/extensions/XvMC.h",
+      "X11/extensions/XvMClib.h",
+      "X11/extensions/Xvlib.h",
+      "X11/extensions/shape.h",
+      "X11/extensions/vldXvMC.h",
+      "alsa/asoundlib.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "subdir-config-h-include-path",
+    "ancient-libtool",
+    "gettext-support-files-missing",
+    "modern-compiler-strictness (no explicit C std)",
+    "parallel-build-race (gen-source not in BUILT_SOURCES)",
+    "vpath-unsafe (abs-path/hardcoded-srcdir leakage)"
+  ],
+  "repair_hints": [
+    {
+      "id": "subdir-top-builddir",
+      "phase": "make",
+      "confidence": 0.88,
+      "evidence": [
+        "src/dxr3 consumes config.h below root",
+        "src/audio_out consumes config.h below root",
+        "src/audio_dec consumes config.h below root",
+        "src/demuxers consumes config.h below root",
+        "src/video_out consumes config.h below root"
+      ],
+      "action": "ensure ac_subst_file sets relative top_builddir per subdir (0.1.19)",
+      "expected_effect": "config.h found in subdir compiles"
+    },
+    {
+      "id": "missing-build-tool",
+      "phase": "make",
+      "confidence": 0.75,
+      "evidence": [
+        "LT_AC_PROG_SED: command not found"
+      ],
+      "action": "provide LT_AC_PROG_SED",
+      "expected_effect": "unblocks the build step needing this tool"
+    }
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": -1,
+      "Makefile.in": 2221,
+      "aclocal.m4": 61,
+      "configure": 139,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_ENABLE": "system-aclocal",
+      "AC_ARG_WITH": "system-aclocal",
+      "AC_CACHE_CHECK": "system-aclocal",
+      "AC_CANONICAL_BUILD": "system-aclocal",
+      "AC_CANONICAL_HOST": "system-aclocal",
+      "AC_CHECK_DECL": "system-aclocal",
+      "AC_CHECK_FUNC": "system-aclocal",
+      "AC_CHECK_FUNCS": "system-aclocal",
+      "AC_CHECK_GENERATE_INTTYPES": "m4/types.m4",
+      "AC_CHECK_HEADER": "system-aclocal",
+      "AC_CHECK_HEADERS": "system-aclocal",
+      "AC_CHECK_LIB": "system-aclocal",
+      "AC_CHECK_MEMBER": "system-aclocal",
+      "AC_CHECK_PROG": "system-aclocal",
+      "AC_CHECK_SIZEOF": "system-aclocal",
+      "AC_CHECK_SOCKLEN_T": "m4/types.m4",
+      "AC_CHECK_TOOL": "system-aclocal",
+      "AC_CHECK_TYPE": "system-aclocal",
+      "AC_COMPILE_IFELSE": "system-aclocal",
+      "AC_CONFIG_COMMANDS": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_HEADERS": "system-aclocal",
+      "AC_CONFIG_LIBOBJ_DIR": "system-aclocal",
+      "AC_CONFIG_MACRO_DIR": "system-aclocal",
+      "AC_CONFIG_SRCDIR": "system-aclocal",
+      "AC_C_ALWAYS_INLINE": "system-aclocal",
+      "AC_C_BIGENDIAN": "system-aclocal",
+      "AC_C_CONST": "system-aclocal",
+      "AC_C_INLINE": "system-aclocal",
+      "AC_C_RESTRICT": "system-aclocal",
+      "AC_DEFINE": "system-aclocal",
+      "AC_DEFINE_UNQUOTED": "system-aclocal",
+      "AC_DISABLE_STATIC": "system-aclocal",
+      "AC_EGREP_CPP": "system-aclocal",
+      "AC_FUNC_FSEEKO": "system-aclocal",
+      "AC_FUNC_SEEKO": "system-aclocal",
+      "AC_GETOPT_LONG": "m4/getopt_long.m4",
+      "AC_GNU_SOURCE": "system-aclocal",
+      "AC_HEADER_STDC": "system-aclocal",
+      "AC_INIT": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "xine_list_@XINE_SERIES@_LDADD",
+        "var": "XINE_LIB",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "xine_fontconv_LDADD",
+        "var": "FT2_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "cdda_server_LDADD",
+        "var": "DYNAMIC_LD_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "xineplug_decode_dxr3_video_la_LIBADD",
+        "var": "XINE_LIB",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "xineplug_decode_dxr3_video_la_LIBADD",
+        "var": "LTLIBINTL",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "xineplug_decode_dxr3_spu_la_LIBADD",
+        "var": "XINE_LIB",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "xineplug_decode_dxr3_spu_la_LIBADD",
+        "var": "LTLIBINTL",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "xineplug_decode_dxr3_spu_la_LIBADD",
+        "var": "DVDNAV_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "xineplug_decode_dxr3_spu_la_LIBADD",
+        "var": "XINE_LIB",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "xineplug_decode_dxr3_spu_la_LIBADD",
+        "var": "LTLIBINTL",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "xineplug_vo_out_dxr3_la_LIBADD",
+        "var": "XINE_LIB",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "xineplug_vo_out_dxr3_la_LIBADD",
+        "var": "link_fame",
+        "resolved_to": [
+          "$(LIBFAME_LIBS)"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "xineplug_vo_out_dxr3_la_LIBADD",
+        "var": "link_rte",
+        "resolved_to": [
+          "-lrte"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "xineplug_vo_out_dxr3_la_LIBADD",
+        "var": "link_x_libs",
+        "resolved_to": [
+          "$(X_LIBS)",
+          "-lXext"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "xineplug_vo_out_dxr3_la_LIBADD",
+        "var": "LTLIBINTL",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "xineplug_vo_out_dxr3_la_LIBADD",
+        "var": "AVUTIL_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "xineplug_vo_out_dxr3_la_LIBADD",
+        "var": "FFMPEG_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "xineplug_LTLIBRARIES",
+        "var": "oss_module",
+        "resolved_to": [
+          "xineplug_ao_out_oss.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "xineplug_LTLIBRARIES",
+        "var": "alsa_module",
+        "resolved_to": [
+          "xineplug_ao_out_alsa.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "xineplug_LTLIBRARIES",
+        "var": "sun_module",
+        "resolved_to": [
+          "xineplug_ao_out_sun.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "xineplug_LTLIBRARIES",
+        "var": "esd_module",
+        "resolved_to": [
+          "xineplug_ao_out_esd.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "xineplug_LTLIBRARIES",
+        "var": "directx_module",
+        "resolved_to": [
+          "xineplug_ao_out_directx.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "xineplug_LTLIBRARIES",
+        "var": "coreaudio_module",
+        "resolved_to": [
+          "xineplug_ao_out_coreaudio.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "xineplug_LTLIBRARIES",
+        "var": "pulseaudio_module",
+        "resolved_to": [
+          "xineplug_ao_out_pulseaudio.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "xineplug_LTLIBRARIES",
+        "var": "directx2_module",
+        "resolved_to": [
+          "xineplug_ao_out_directx2.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "xineplug_LTLIBRARIES",
+        "var": "fusionsound_module",
+        "resolved_to": [
+          "xineplug_ao_out_fusionsound.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "xineplug_LTLIBRARIES",
+        "var": "jack_module",
+        "resolved_to": [
+          "xineplug_ao_out_jack.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "xineplug_LTLIBRARIES",
+        "var": "sndio_module",
+        "resolved_to": [
+          "xineplug_ao_out_sndio.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "xineplug_ao_out_none_la_LIBADD",
+        "var": "XINE_LIB",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "xineplug_ao_out_none_la_LIBADD",
+        "var": "LTLIBINTL",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "xineplug_ao_out_file_la_LIBADD",
+        "var": "XINE_LIB",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "xineplug_ao_out_file_la_LIBADD",
+        "var": "LTLIBINTL",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "xineplug_ao_out_oss_la_LIBADD",
+        "var": "XINE_LIB",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "xineplug_ao_out_oss_la_LIBADD",
+        "var": "LTLIBINTL",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "xineplug_ao_out_alsa_la_LIBADD",
+        "var": "XINE_LIB",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "xineplug_ao_out_alsa_la_LIBADD",
+        "var": "ALSA_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "xineplug_ao_out_alsa_la_LIBADD",
+        "var": "PTHREAD_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "xineplug_ao_out_alsa_la_LIBADD",
+        "var": "LTLIBINTL",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "xineplug_ao_out_esd_la_LIBADD",
+        "var": "XINE_LIB",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "xineplug_ao_out_esd_la_LIBADD",
+        "var": "ESD_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      }
+    ],
+    "unresolved_refs": [
+      "xine_list_@XINE_SERIES@_LDADD = $(XINE_LIB)",
+      "xine_fontconv_LDADD = $(FT2_LIBS)",
+      "cdda_server_LDADD = $(DYNAMIC_LD_LIBS)",
+      "xineplug_decode_dxr3_video_la_LIBADD = $(XINE_LIB)",
+      "xineplug_decode_dxr3_video_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_decode_dxr3_spu_la_LIBADD = $(XINE_LIB)",
+      "xineplug_decode_dxr3_spu_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_decode_dxr3_spu_la_LIBADD = $(DVDNAV_LIBS)",
+      "xineplug_decode_dxr3_spu_la_LIBADD = $(XINE_LIB)",
+      "xineplug_decode_dxr3_spu_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_vo_out_dxr3_la_LIBADD = $(XINE_LIB)",
+      "xineplug_vo_out_dxr3_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_vo_out_dxr3_la_LIBADD = $(AVUTIL_LIBS)",
+      "xineplug_vo_out_dxr3_la_LIBADD = $(FFMPEG_LIBS)",
+      "xineplug_ao_out_none_la_LIBADD = $(XINE_LIB)",
+      "xineplug_ao_out_none_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_ao_out_file_la_LIBADD = $(XINE_LIB)",
+      "xineplug_ao_out_file_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_ao_out_oss_la_LIBADD = $(XINE_LIB)",
+      "xineplug_ao_out_oss_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_ao_out_alsa_la_LIBADD = $(XINE_LIB)",
+      "xineplug_ao_out_alsa_la_LIBADD = $(ALSA_LIBS)",
+      "xineplug_ao_out_alsa_la_LIBADD = $(PTHREAD_LIBS)",
+      "xineplug_ao_out_alsa_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_ao_out_esd_la_LIBADD = $(XINE_LIB)",
+      "xineplug_ao_out_esd_la_LIBADD = $(ESD_LIBS)",
+      "xineplug_ao_out_esd_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_ao_out_sun_la_LIBADD = $(XINE_LIB)",
+      "#xineplug_ao_out_irixal_la_LIBADD = $(IRIXAL_LIBS)",
+      "xineplug_ao_out_directx_la_LIBADD = $(XINE_LIB)",
+      "xineplug_ao_out_directx_la_LIBADD = $(DIRECTX_AUDIO_LIBS)",
+      "xineplug_ao_out_directx_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_ao_out_coreaudio_la_LIBADD = $(XINE_LIB)",
+      "xineplug_ao_out_pulseaudio_la_LIBADD = $(XINE_LIB)",
+      "xineplug_ao_out_pulseaudio_la_LIBADD = $(PULSEAUDIO_LIBS)",
+      "xineplug_ao_out_pulseaudio_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_ao_out_directx2_la_LIBADD = $(XINE_LIB)",
+      "xineplug_ao_out_directx2_la_LIBADD = $(DIRECTX_AUDIO_LIBS)",
+      "xineplug_ao_out_directx2_la_LIBADD = $(PTHREAD_LIBS)",
+      "xineplug_ao_out_fusionsound_la_LIBADD = $(XINE_LIB)",
+      "xineplug_ao_out_fusionsound_la_LIBADD = $(FUSIONSOUND_LIBS)",
+      "xineplug_ao_out_jack_la_LIBADD = $(XINE_LIB)",
+      "xineplug_ao_out_jack_la_LIBADD = $(JACK_LIBS)",
+      "xineplug_ao_out_jack_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_ao_out_sndio_la_LIBADD = $(XINE_LIB)",
+      "xineplug_ao_out_sndio_la_LIBADD = $(SNDIO_LIBS)",
+      "xineplug_decode_gsm610_la_LIBADD = $(XINE_LIB)",
+      "xineplug_decode_lpcm_la_LIBADD = $(XINE_LIB)",
+      "xineplug_decode_mpc_la_LIBADD = $(XINE_LIB)",
+      "xineplug_decode_mpc_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_decode_mpc_la_LIBADD = $(MPCDEC_LIBS)",
+      "xineplug_decode_dts_la_LIBADD = $(XINE_LIB)",
+      "xineplug_decode_dts_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_decode_dts_la_LIBADD = $(LIBDTS_LIBS)",
+      "xineplug_decode_mad_la_LIBADD = $(XINE_LIB)",
+      "xineplug_decode_mad_la_LIBADD = $(LIBMAD_LIBS)",
+      "xineplug_decode_a52_la_LIBADD = $(XINE_LIB)",
+      "xineplug_decode_a52_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_decode_a52_la_LIBADD = $(A52DEC_LIBS)",
+      "xineplug_decode_a52_la_LIBADD = $(AVUTIL_LIBS)",
+      "xineplug_decode_faad_la_LIBADD = $(XINE_LIB)",
+      "xineplug_decode_faad_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_decode_faad_la_LIBADD = $(FAAD_LIBS)",
+      "xineplug_decode_dvaudio_la_LIBADD = $(XINE_LIB)",
+      "xineplug_decode_dvaudio_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_dmx_avi_la_LIBADD = $(XINE_LIB)",
+      "xineplug_dmx_avi_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_dmx_mpeg_block_la_LIBADD = $(XINE_LIB)",
+      "xineplug_dmx_mpeg_block_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_dmx_mpeg_block_la_LIBADD = $(AVUTIL_LIBS)",
+      "xineplug_dmx_mpeg_la_LIBADD = $(XINE_LIB)",
+      "xineplug_dmx_mpeg_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_dmx_mpeg_elem_la_LIBADD = $(XINE_LIB)",
+      "xineplug_dmx_vc1_es_la_LIBADD = $(XINE_LIB)",
+      "xineplug_dmx_mpeg_pes_la_LIBADD = $(XINE_LIB)",
+      "xineplug_dmx_mpeg_pes_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_dmx_mpeg_pes_la_LIBADD = $(AVUTIL_LIBS)",
+      "xineplug_dmx_mpeg_ts_la_LIBADD = $(XINE_LIB)",
+      "xineplug_dmx_mpeg_ts_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_dmx_mpeg_ts_la_LIBADD = $(AVUTIL_LIBS)",
+      "xineplug_dmx_qt_la_LIBADD = $(XINE_LIB)",
+      "xineplug_dmx_qt_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_dmx_qt_la_LIBADD = $(ZLIB_LIBS)",
+      "xineplug_dmx_asf_la_LIBADD = $(XINE_LIB)",
+      "xineplug_dmx_asf_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_dmx_asf_la_LIBADD = $(LTLIBICONV)",
+      "xineplug_dmx_fli_la_LIBADD = $(XINE_LIB)",
+      "xineplug_dmx_yuv4mpeg2_la_LIBADD = $(XINE_LIB)",
+      "xineplug_dmx_real_la_LIBADD = $(XINE_LIB)",
+      "xineplug_dmx_rawdv_la_LIBADD = $(XINE_LIB)",
+      "xineplug_dmx_mng_la_LIBADD = $(XINE_LIB)",
+      "xineplug_dmx_mng_la_LIBADD = $(ZLIB_LIBS)",
+      "xineplug_dmx_mng_la_LIBADD = $(MNG_LIBS)",
+      "xineplug_dmx_pva_la_LIBADD = $(XINE_LIB)",
+      "xineplug_dmx_games_la_LIBADD = $(XINE_LIB)",
+      "xineplug_dmx_games_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_dmx_audio_la_LIBADD = $(XINE_LIB)",
+      "xineplug_dmx_modplug_la_LIBADD = $(XINE_LIB)",
+      "xineplug_dmx_modplug_la_LIBADD = $(LIBMODPLUG_LIBS)",
+      "xineplug_dmx_yuv_frames_la_LIBADD = $(XINE_LIB)",
+      "xineplug_dmx_slave_la_LIBADD = $(XINE_LIB)",
+      "xineplug_dmx_image_la_LIBADD = $(XINE_LIB)",
+      "xineplug_dmx_nsv_la_LIBADD = $(XINE_LIB)",
+      "xineplug_dmx_matroska_la_LIBADD = $(XINE_LIB)",
+      "xineplug_dmx_matroska_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_dmx_matroska_la_LIBADD = $(ZLIB_LIBS)",
+      "xineplug_dmx_iff_la_LIBADD = $(XINE_LIB)",
+      "xineplug_dmx_iff_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_dmx_flv_la_LIBADD = $(XINE_LIB)",
+      "xineplug_dmx_flv_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_dmx_playlist_la_LIBADD = $(XINE_LIB)",
+      "xineplug_dmx_playlist_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_vo_out_vdpau_la_LIBADD = $(XINE_LIB)",
+      "xineplug_vo_out_vdpau_la_LIBADD = $(MLIB_LIBS)",
+      "xineplug_vo_out_vdpau_la_LIBADD = $(AVUTIL_LIBS)",
+      "xineplug_vo_out_vdpau_la_LIBADD = $(PTHREAD_LIBS)",
+      "xineplug_vo_out_vdpau_la_LIBADD = $(X_LIBS)",
+      "xineplug_vo_out_vdpau_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_vo_out_vdpau_la_LIBADD = $(VDPAU_LIBS)",
+      "xineplug_vo_out_xcbshm_la_LIBADD = $(PTHREAD_LIBS)",
+      "xineplug_vo_out_xcbshm_la_LIBADD = $(XCB_LIBS)",
+      "xineplug_vo_out_xcbshm_la_LIBADD = $(XCBSHM_LIBS)",
+      "xineplug_vo_out_xcbshm_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_vo_out_xcbxv_la_LIBADD = $(XINE_LIB)",
+      "xineplug_vo_out_xcbxv_la_LIBADD = $(PTHREAD_LIBS)",
+      "xineplug_vo_out_xcbxv_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_vo_out_xcbxv_la_LIBADD = $(XCBXV_LIBS)",
+      "xineplug_vo_out_xcbxv_la_LIBADD = $(XCB_LIBS)",
+      "xineplug_vo_out_xshm_la_LIBADD = $(X_LIBS)",
+      "xineplug_vo_out_xshm_la_LIBADD = $(PTHREAD_LIBS)",
+      "xineplug_vo_out_xshm_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_vo_out_xv_la_LIBADD = $(XINE_LIB)",
+      "xineplug_vo_out_xv_la_LIBADD = $(XV_LIBS)",
+      "xineplug_vo_out_xv_la_LIBADD = $(X_LIBS)",
+      "xineplug_vo_out_xv_la_LIBADD = $(PTHREAD_LIBS)",
+      "xineplug_vo_out_xv_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_vo_out_xvmc_la_LIBADD = $(XINE_LIB)",
+      "xineplug_vo_out_xvmc_la_LIBADD = $(XVMC_LIBS)",
+      "xineplug_vo_out_xvmc_la_LIBADD = $(XV_LIBS)",
+      "xineplug_vo_out_xvmc_la_LIBADD = $(X_LIBS)",
+      "xineplug_vo_out_xvmc_la_LIBADD = $(PTHREAD_LIBS)",
+      "xineplug_vo_out_xvmc_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_vo_out_xxmc_la_LIBADD = $(XINE_LIB)",
+      "xineplug_vo_out_xxmc_la_LIBADD = $(XXMC_LIBS)",
+      "xineplug_vo_out_xxmc_la_LIBADD = $(XV_LIBS)",
+      "xineplug_vo_out_xxmc_la_LIBADD = $(X_LIBS)",
+      "xineplug_vo_out_xxmc_la_LIBADD = $(PTHREAD_LIBS)",
+      "xineplug_vo_out_xxmc_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_vo_out_opengl_la_LIBADD = $(OPENGL_LIBS)",
+      "xineplug_vo_out_opengl_la_LIBADD = $(GLUT_LIBS)",
+      "xineplug_vo_out_opengl_la_LIBADD = $(GLUT_LIBS)",
+      "xineplug_vo_out_opengl_la_LIBADD = $(GLU_LIBS)",
+      "xineplug_vo_out_opengl_la_LIBADD = $(X_LIBS)",
+      "xineplug_vo_out_opengl_la_LIBADD = $(PTHREAD_LIBS)",
+      "xineplug_vo_out_opengl_la_LIBADD = $(DYNAMIC_LD_LIBS)",
+      "xineplug_vo_out_opengl_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_vo_out_opengl2_la_LIBADD = $(OPENGL_LIBS)",
+      "xineplug_vo_out_opengl2_la_LIBADD = $(X_LIBS)",
+      "xineplug_vo_out_opengl2_la_LIBADD = $(PTHREAD_LIBS)",
+      "xineplug_vo_out_opengl2_la_LIBADD = $(DYNAMIC_LD_LIBS)",
+      "xineplug_vo_out_opengl2_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_vo_out_pgx64_la_LIBADD = $(XINE_LIB)",
+      "xineplug_vo_out_pgx64_la_LIBADD = $(X_LIBS)",
+      "xineplug_vo_out_pgx64_la_LIBADD = $(SUNDGA_LIBS)",
+      "xineplug_vo_out_pgx64_la_LIBADD = $(PTHREAD_LIBS)",
+      "xineplug_vo_out_pgx64_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_vo_out_pgx32_la_LIBADD = $(XINE_LIB)",
+      "xineplug_vo_out_pgx32_la_LIBADD = $(X_LIBS)",
+      "xineplug_vo_out_pgx32_la_LIBADD = $(SUNDGA_LIBS)",
+      "xineplug_vo_out_pgx32_la_LIBADD = $(PTHREAD_LIBS)",
+      "xineplug_vo_out_pgx32_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_vo_out_vidix_la_LIBADD = $(XINE_LIB)",
+      "xineplug_vo_out_vidix_la_LIBADD = $(X_LIBS)",
+      "xineplug_vo_out_vidix_la_LIBADD = $(PTHREAD_LIBS)",
+      "xineplug_vo_out_vidix_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_vo_out_aa_la_LIBADD = $(XINE_LIB)",
+      "xineplug_vo_out_aa_la_LIBADD = $(AALIB_LIBS)",
+      "xineplug_vo_out_aa_la_LIBADD = $(PTHREAD_LIBS)",
+      "xineplug_vo_out_aa_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_vo_out_aa_la_LIBADD = $(AVUTIL_LIBS)",
+      "xineplug_vo_out_caca_la_LIBADD = $(CACA_LIBS)",
+      "xineplug_vo_out_caca_la_LIBADD = $(PTHREAD_LIBS)",
+      "xineplug_vo_out_caca_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_vo_out_fb_la_LIBADD = $(PTHREAD_LIBS)",
+      "xineplug_vo_out_fb_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_vo_out_directfb_la_LIBADD = $(XINE_LIB)",
+      "xineplug_vo_out_directfb_la_LIBADD = $(DIRECTFB_LIBS)",
+      "xineplug_vo_out_directfb_la_LIBADD = $(PTHREAD_LIBS)",
+      "xineplug_vo_out_directfb_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_vo_out_xdirectfb_la_LIBADD = $(XINE_LIB)",
+      "xineplug_vo_out_xdirectfb_la_LIBADD = $(DIRECTFB_LIBS)",
+      "xineplug_vo_out_xdirectfb_la_LIBADD = $(X_LIBS)",
+      "xineplug_vo_out_xdirectfb_la_LIBADD = $(PTHREAD_LIBS)",
+      "xineplug_vo_out_xdirectfb_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_vo_out_sdl_la_LIBADD = $(XINE_LIB)",
+      "xineplug_vo_out_sdl_la_LIBADD = $(SDL_LIBS)",
+      "xineplug_vo_out_sdl_la_LIBADD = $(X_LIBS)",
+      "xineplug_vo_out_sdl_la_LIBADD = $(PTHREAD_LIBS)",
+      "xineplug_vo_out_sdl_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_vo_out_stk_la_LIBADD = $(XINE_LIB)",
+      "xineplug_vo_out_stk_la_LIBADD = $(LIBSTK_LIBS)",
+      "xineplug_vo_out_stk_la_LIBADD = $(PTHREAD_LIBS)",
+      "xineplug_vo_out_directx_la_LIBADD = $(DIRECTX_VIDEO_LIBS)",
+      "xineplug_vo_out_directx_la_LIBADD = $(PTHREAD_LIBS)",
+      "xineplug_vo_out_directx_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_vo_out_none_la_LIBADD = $(XINE_LIB)",
+      "xineplug_vo_out_none_la_LIBADD = $(PTHREAD_LIBS)",
+      "xineplug_vo_out_none_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_vo_out_raw_la_LIBADD = $(PTHREAD_LIBS)",
+      "xineplug_vo_out_raw_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_vo_out_macosx_la_LIBADD = $(XINE_LIB)",
+      "xineplug_vo_out_macosx_la_LIBADD = $(PTHREAD_LIBS)",
+      "xineplug_decode_spucc_la_LIBADD = $(XINE_LIB)",
+      "xineplug_decode_spucmml_la_LIBADD = $(XINE_LIB)",
+      "xineplug_decode_spucmml_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_decode_spu_la_LIBADD = $(XINE_LIB)",
+      "xineplug_decode_spu_la_LIBADD = $(PTHREAD_LIBS)",
+      "xineplug_decode_spu_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_decode_spudvb_la_LIBADD = $(XINE_LIB)",
+      "xineplug_decode_spudvb_la_LIBADD = $(PTHREAD_LIBS)",
+      "xineplug_decode_spudvb_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_decode_spuhdmv_la_LIBADD = $(XINE_LIB)",
+      "xineplug_decode_spuhdmv_la_LIBADD = $(PTHREAD_LIBS)",
+      "xineplug_decode_spuhdmv_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_sputext_la_LIBADD = $(XINE_LIB)",
+      "xineplug_sputext_la_LIBADD = $(LTLIBINTL)",
+      "libxine_la_LIBADD = $(PTHREAD_LIBS)",
+      "libxine_la_LIBADD = $(DYNAMIC_LD_LIBS)",
+      "libxine_la_LIBADD = $(LTLIBINTL)",
+      "libxine_la_LIBADD = $(ZLIB_LIBS)",
+      "libxine_la_LIBADD = $(LTLIBICONV)",
+      "libxine_la_LIBADD = $(FT2_LIBS)",
+      "libxine_la_LIBADD = $(FONTCONFIG_LIBS)",
+      "libxine_la_LIBADD = $(LIBXINEPOSIX)",
+      "libxine_la_LIBADD = $(RT_LIBS)",
+      "libxine_la_LIBADD = $(NET_LIBS)",
+      "libxine_la_LIBADD = $(XDG_BASEDIR_LIBS)",
+      "libxine_la_LIBADD = $(AVUTIL_LIBS)",
+      "xineplug_inp_file_la_LIBADD = $(XINE_LIB)",
+      "xineplug_inp_file_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_inp_test_la_LIBADD = $(XINE_LIB)",
+      "xineplug_inp_test_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_inp_dvd_la_LIBADD = $(XINE_LIB)",
+      "xineplug_inp_dvd_la_LIBADD = $(PTHREAD_LIBS)",
+      "xineplug_inp_dvd_la_LIBADD = $(DYNAMIC_LD_LIBS)",
+      "xineplug_inp_net_la_LIBADD = $(XINE_LIB)",
+      "xineplug_inp_net_la_LIBADD = $(NET_LIBS)",
+      "xineplug_inp_net_la_LIBADD = $(PTHREAD_LIBS)",
+      "xineplug_inp_net_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_inp_mms_la_LIBADD = $(XINE_LIB)",
+      "xineplug_inp_mms_la_LIBADD = $(LTLIBICONV)",
+      "xineplug_inp_mms_la_LIBADD = $(PTHREAD_LIBS)",
+      "xineplug_inp_mms_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_inp_vcdo_la_LIBADD = $(XINE_LIB)",
+      "xineplug_inp_vcdo_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_inp_stdin_fifo_la_LIBADD = $(XINE_LIB)",
+      "xineplug_inp_stdin_fifo_la_LIBADD = $(PTHREAD_LIBS)",
+      "xineplug_inp_stdin_fifo_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_inp_rtp_la_LIBADD = $(XINE_LIB)",
+      "xineplug_inp_rtp_la_LIBADD = $(NET_LIBS)",
+      "xineplug_inp_rtp_la_LIBADD = $(PTHREAD_LIBS)",
+      "xineplug_inp_rtp_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_inp_http_la_LIBADD = $(XINE_LIB)",
+      "xineplug_inp_http_la_LIBADD = $(NET_LIBS)",
+      "xineplug_inp_http_la_LIBADD = $(PTHREAD_LIBS)",
+      "xineplug_inp_http_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_inp_http_la_LIBADD = $(AVUTIL_LIBS)",
+      "xineplug_inp_pnm_la_LIBADD = $(XINE_LIB)",
+      "xineplug_inp_pnm_la_LIBADD = $(PTHREAD_LIBS)",
+      "xineplug_inp_pnm_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_inp_dvb_la_LIBADD = $(XINE_LIB)",
+      "xineplug_inp_dvb_la_LIBADD = $(PTHREAD_LIBS)",
+      "xineplug_inp_dvb_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_inp_dvb_la_LIBADD = $(XDG_BASEDIR_LIBS)",
+      "xineplug_inp_dvb_la_LIBADD = $(AVUTIL_LIBS)",
+      "xineplug_inp_rtsp_la_LIBADD = $(XINE_LIB)",
+      "xineplug_inp_rtsp_la_LIBADD = $(PTHREAD_LIBS)",
+      "xineplug_inp_rtsp_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_inp_cdda_la_LIBADD = $(XINE_LIB)",
+      "xineplug_inp_cdda_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_inp_cdda_la_LIBADD = $(XDG_BASEDIR_LIBS)",
+      "xineplug_inp_cdda_la_LIBADD = $(AVUTIL_LIBS)",
+      "xineplug_inp_v4l_la_LIBADD = $(XINE_LIB)",
+      "xineplug_inp_v4l_la_LIBADD = $(ALSA_LIBS)",
+      "xineplug_inp_v4l_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_inp_v4l2_la_LIBADD = $(XINE_LIB)",
+      "xineplug_inp_v4l2_la_LIBADD = $(ALSA_LIBS)",
+      "xineplug_inp_v4l2_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_inp_v4l2_la_LIBADD = $(V4L2_LIBS)",
+      "xineplug_inp_gnome_vfs_la_LIBADD = $(XINE_LIB)",
+      "xineplug_inp_gnome_vfs_la_LIBADD = $(GNOME_VFS_LIBS)",
+      "xineplug_inp_gnome_vfs_la_LIBADD = $(PTHREAD_LIBS)",
+      "xineplug_inp_gnome_vfs_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_inp_smb_la_LIBADD = $(XINE_LIB)",
+      "xineplug_inp_smb_la_LIBADD = $(LIBSMBCLIENT_LIBS)",
+      "xineplug_inp_smb_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_inp_pvr_la_LIBADD = $(XINE_LIB)",
+      "xineplug_inp_pvr_la_LIBADD = $(PTHREAD_LIBS)",
+      "xineplug_inp_pvr_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_inp_bluray_la_LIBADD = $(XINE_LIB)",
+      "xineplug_inp_bluray_la_LIBADD = $(LIBBLURAY_LIBS)",
+      "xineplug_inp_bluray_la_LIBADD = $(PTHREAD_LIBS)",
+      "xineplug_inp_bluray_la_LIBADD = $(LTLIBINTL)",
+      "libdvdnav_la_LIBADD = $(PTHREAD_LIBS)",
+      "xineplug_inp_vcd_la_LIBADD = $(XINE_LIB)",
+      "xineplug_inp_vcd_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_inp_vcd_la_LIBADD = $(LIBCDIO_LIBS)",
+      "xineplug_inp_vcd_la_LIBADD = $(LIBVCD_LIBS)",
+      "xineplug_inp_vcd_la_LIBADD = $(LIBVCDINFO_LIBS)",
+      "xineplug_inp_vcd_la_LIBADD = $(LIBISO9660_LIBS)",
+      "libreal_la_LIBADD = $(AVUTIL_LIBS)",
+      "xineplug_decode_w32dll_la_LIBADD = $(XINE_LIB)",
+      "xineplug_decode_w32dll_la_LIBADD = $(PTHREAD_LIBS)",
+      "xineplug_decode_w32dll_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_decode_w32dll_la_LIBADD = $(KSTAT_LIBS)",
+      "xineplug_decode_w32dll_la_LIBADD = $(XDG_BASEDIR_LIBS)",
+      "xineplug_decode_qt_la_LIBADD = $(XINE_LIB)",
+      "xineplug_decode_qt_la_LIBADD = $(PTHREAD_LIBS)",
+      "xineplug_decode_qt_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_decode_qt_la_LIBADD = $(KSTAT_LIBS)",
+      "xineplug_decode_qt_la_LIBADD = $(XDG_BASEDIR_LIBS)",
+      "xineplug_LTLIBRARIES = $(theora_module)",
+      "xineplug_decode_bitplane_la_LIBADD = $(XINE_LIB)",
+      "xineplug_decode_bitplane_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_decode_rgb_la_LIBADD = $(XINE_LIB)",
+      "xineplug_decode_yuv_la_LIBADD = $(XINE_LIB)",
+      "xineplug_decode_image_la_LIBADD = $(XINE_LIB)",
+      "xineplug_decode_image_la_LIBADD = $(DYNAMIC_LD_LIBS)",
+      "xineplug_decode_image_la_LIBADD = $(WAND_LIBS)",
+      "xineplug_decode_gdk_pixbuf_la_LIBADD = $(XINE_LIB)",
+      "xineplug_decode_gdk_pixbuf_la_LIBADD = $(DYNAMIC_LD_LIBS)",
+      "xineplug_decode_gdk_pixbuf_la_LIBADD = $(GDK_PIXBUF_LIBS)",
+      "xineplug_decode_libjpeg_la_LIBADD = $(XINE_LIB)",
+      "xineplug_decode_libjpeg_la_LIBADD = $(JPEG_LIBS)",
+      "xineplug_decode_mpeg2_la_LIBADD = $(XINE_LIB)",
+      "xineplug_decode_mpeg2_la_LIBADD = $(MLIB_LIBS)",
+      "xineplug_decode_mpeg2_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_decode_mpeg2_la_LIBADD = $(AVUTIL_LIBS)",
+      "xineplug_decode_vdpau_h264_alter_la_LIBADD = $(XINE_LIB)",
+      "xineplug_decode_vdpau_h264_alter_la_LIBADD = $(DYNAMIC_LD_LIBS)",
+      "xineplug_decode_vdpau_h264_la_LIBADD = $(XINE_LIB)",
+      "xineplug_decode_vdpau_h264_la_LIBADD = $(DYNAMIC_LD_LIBS)",
+      "xineplug_decode_vdpau_mpeg12_la_LIBADD = $(XINE_LIB)",
+      "xineplug_decode_vdpau_mpeg12_la_LIBADD = $(DYNAMIC_LD_LIBS)",
+      "xineplug_decode_vdpau_vc1_la_LIBADD = $(XINE_LIB)",
+      "xineplug_decode_vdpau_vc1_la_LIBADD = $(DYNAMIC_LD_LIBS)",
+      "xineplug_decode_vdpau_mpeg4_la_LIBADD = $(XINE_LIB)",
+      "xineplug_decode_vdpau_mpeg4_la_LIBADD = $(DYNAMIC_LD_LIBS)",
+      "xineplug_decode_mpeg2new_la_LIBADD = $(XINE_LIB)",
+      "xineplug_decode_real_la_LIBADD = $(XINE_LIB)",
+      "xineplug_decode_real_la_LIBADD = $(DYNAMIC_LD_LIBS)",
+      "xineplug_decode_real_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_wavpack_la_LIBADD = $(XINE_LIB)",
+      "xineplug_wavpack_la_LIBADD = $(WAVPACK_LIBS)",
+      "xineplug_flac_la_LIBADD = $(XINE_LIB)",
+      "xineplug_flac_la_LIBADD = $(LIBFLAC_LIBS)",
+      "xineplug_nsf_la_LIBADD = $(XINE_LIB)",
+      "xineplug_xiph_la_LIBADD = $(XINE_LIB)",
+      "xineplug_xiph_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_xiph_la_LIBADD = $(VORBIS_LIBS)",
+      "xineplug_xiph_la_LIBADD = $(THEORA_LIBS)",
+      "xineplug_xiph_la_LIBADD = $(SPEEX_LIBS)",
+      "xineplug_decode_ff_la_LIBADD = $(XINE_LIB)",
+      "xineplug_decode_ff_la_LIBADD = $(MLIB_LIBS)",
+      "xineplug_decode_ff_la_LIBADD = $(ZLIB_LIBS)",
+      "xineplug_decode_ff_la_LIBADD = $(FFMPEG_LIBS)",
+      "xineplug_decode_ff_la_LIBADD = $(AVUTIL_LIBS)",
+      "xineplug_decode_ff_la_LIBADD = $(FFMPEG_POSTPROC_LIBS)",
+      "xineplug_decode_ff_la_LIBADD = $(PTHREAD_LIBS)",
+      "xineplug_decode_ff_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_vdr_la_LIBADD = $(XINE_LIB)",
+      "xineplug_vdr_la_LIBADD = $(PTHREAD_LIBS)",
+      "xineplug_post_audio_filters_la_LIBADD = $(XINE_LIB)",
+      "xineplug_post_audio_filters_la_LIBADD = $(PTHREAD_LIBS)",
+      "xineplug_post_goom_la_LIBADD = $(XINE_LIB)",
+      "xineplug_post_goom_la_LIBADD = $(GOOM_LIBS)",
+      "xineplug_post_goom_la_LIBADD = $(PTHREAD_LIBS)",
+      "xineplug_post_goom_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_post_goom_la_LIBADD = $(noinst_LTLIBRARIES)",
+      "xineplug_post_mosaico_la_LIBADD = $(XINE_LIB)",
+      "xineplug_post_mosaico_la_LIBADD = $(PTHREAD_LIBS)",
+      "xineplug_post_mosaico_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_post_switch_la_LIBADD = $(XINE_LIB)",
+      "xineplug_post_switch_la_LIBADD = $(PTHREAD_LIBS)",
+      "xineplug_post_switch_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_post_visualizations_la_LIBADD = $(XINE_LIB)",
+      "xineplug_post_visualizations_la_LIBADD = $(PTHREAD_LIBS)",
+      "libpost_planar_asm_la_LIBADD = $(AVUTIL_LIBS)",
+      "xineplug_post_planar_la_LIBADD = $(XINE_LIB)",
+      "xineplug_post_planar_la_LIBADD = $(FFMPEG_POSTPROC_LIBS)",
+      "xineplug_post_planar_la_LIBADD = $(PTHREAD_LIBS)",
+      "xineplug_post_planar_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_post_planar_la_LIBADD = $(noinst_LTLIBRARIES)",
+      "xineplug_post_tvtime_la_LIBADD = $(XINE_LIB)",
+      "xineplug_post_tvtime_la_LIBADD = $(LTLIBINTL)",
+      "xineplug_post_tvtime_la_LIBADD = $(PTHREAD_LIBS)",
+      "libdeinterlaceplugins_la_LIBADD = $(XINE_LIB)",
+      "libvidix_la_LIBADD = $(DYNAMIC_LD_LIBS)",
+      "liba52_la_LIBADD = $(AVUTIL_LIBS)"
+    ],
+    "indirection_count": 492
   }
 }

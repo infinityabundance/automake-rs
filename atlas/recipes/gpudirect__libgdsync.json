@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "gpudirect/libgdsync",
   "source": {
     "url": "https://github.com/gpudirect/libgdsync",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.14",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -51,72 +51,63 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1387: syntax error near unexpected token `else'",
+  "diagnostic": "configure: error: cuStreamBatchMemOp() not found.  libgdsync requires CUDA 8.0 or later.",
   "deep_expansion": {
-    "configure_lines": 3156,
+    "configure_lines": 3212,
     "leaked_macros": [],
-    "heredoc_openers": 40,
-    "heredoc_terminators": 40,
+    "heredoc_openers": 36,
+    "heredoc_terminators": 36,
     "heredoc_imbalance": 0,
-    "syntax_errors": [
-      {
-        "line": 1387,
-        "token": "else",
-        "source": "else",
-        "block": [
-          "1383: # SYNOPSIS",
-          "1384: #",
-          "1385: #   # Requires Autoconf >= 2.64  :",
-          "1386:   ",
-          "1387: else",
-          "1388:   :",
-          "1389:   ",
-          "1390: fi"
-        ]
-      }
-    ],
+    "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2680: do eval test \\${$as_var+y} \\"
+      "line 2735: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
+      "VERSION_INFO",
       "PTHREAD_CC",
       "PTHREAD_CFLAGS",
       "PTHREAD_LIBS",
+      "TEST_ENABLE_TRUE",
+      "TEST_ENABLE_FALSE",
+      "EXT_MEMOPS_TRUE",
+      "EXT_MEMOPS_FALSE",
+      "LIBGDSTOOLS",
+      "LIBNVTX",
+      "CUDA_PATH",
+      "CUDA_DRV_PATH",
+      "GPU_ARCH",
+      "MPI_PATH",
+      "MPICC",
+      "MPICXX",
+      "NVCC",
+      "NVCCFLAGS",
       "PACKAGE_NAME",
       "PACKAGE_TARNAME",
       "PACKAGE_VERSION",
       "PACKAGE_STRING",
       "PACKAGE_BUGREPORT"
     ],
-    "failed_during_check": "",
+    "failed_during_check": "checking for cuStreamBatchMemOp in -lcuda... no",
     "failure_tail": [
-      "./configure: line 1387: syntax error near unexpected token `else'",
-      "./configure: line 1387: `else'"
+      "checking for cuStreamBatchMemOp in -lcuda... no",
+      "configure: error: cuStreamBatchMemOp() not found.  libgdsync requires CUDA 8.0 o"
     ],
     "conftest_corruption": [],
-    "conftest_directives_intact": 46,
+    "conftest_directives_intact": 47,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
-      "INPUT",
-      "",
       "\\nint main() {  ; return 0; }",
-      "char ibv_get_device_list();\\nint main() { return ibv_get_device_list(); }",
-      "char ibv_exp_create_qp();\\nint main() { return ibv_exp_create_qp(); }",
-      "#include <infiniband/peer_ops.h>"
+      "char ibv_get_device_list ();\\nint main() { return ibv_get_device_list(); }",
+      "char ibv_exp_create_qp ();\\nint main() { return ibv_exp_create_qp(); }",
+      "#include <infiniband/peer_ops.h>",
+      "#include <stdio.h>\\n#include <sys/types.h>\\n#include <stdint.h>\\n#include <stddef.h>\\nint main() { printf(\"%d\", (int)sizeof(long)); return 0; }",
+      "char cuStreamBatchMemOp ();\\nint main() { return cuStreamBatchMemOp(); }"
     ]
   },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "fail",
-    "real_make": "skipped",
-    "real_configure_lines": 22759,
-    "real_first_error": "configure: error: <infiniband/peer_ops.h> not found.  libgdsync requires verbs peer-direct support.",
-    "classification": "BOTH_CONFIGURE_FAIL"
-  },
   "receipt": {
-    "court_status": "not_standalone",
+    "court_status": "failed",
     "probe_trace": [],
     "quirks_matched": [
       "uses-libtool",
@@ -134,7 +125,7 @@
         "verified": false
       }
     ],
-    "receipt_hash": "1b59d07d0a20a927a52050673c57d051c46cf0669ffc84ae54f67e19a8cf7afb",
+    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -143,6 +134,482 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "libgdsync.spec",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      }
+    ],
+    "config_headers": [],
+    "subdirs": [],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [
+          "src/libgdsync.la",
+          "tests/gds_kernel_latency",
+          "tests/gds_poll_lat",
+          "tests/gds_kernel_loopback_latency",
+          "tests/gds_sanity",
+          "tests/rstest",
+          "tests/wqtest"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-D__STDC_FORMAT_MACROS"
+      }
+    ],
+    "max_depth": 0,
+    "config_h_consumers_below_root": []
+  },
+  "tool_requirements": {
+    "detected": [
+      "c++"
+    ],
+    "missing": []
+  },
+  "macro_inventory": {
+    "macro_dirs": [
+      "m4"
+    ],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [
+      {
+        "name": "AX_CHECK_COMPILE_FLAG",
+        "source": "m4/ax_check_compile_flag.m4",
+        "kind": "AX"
+      }
+    ],
+    "called_macros": [
+      "AC_ARG_ENABLE",
+      "AC_ARG_WITH",
+      "AC_CHECK_DECLS",
+      "AC_CHECK_HEADER",
+      "AC_CHECK_LIB",
+      "AC_CHECK_MEMBER",
+      "AC_CHECK_SIZEOF",
+      "AC_CONFIG_AUX_DIR",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_HEADER",
+      "AC_CONFIG_SRCDIR",
+      "AC_C_CONST",
+      "AC_GNU_SOURCE",
+      "AC_HEADER_STDC",
+      "AC_HELP_STRING",
+      "AC_INIT",
+      "AC_MSG_ERROR",
+      "AC_MSG_NOTICE",
+      "AC_OUTPUT",
+      "AC_PREREQ",
+      "AC_PROG_CC",
+      "AC_PROG_CXX",
+      "AC_PROG_LIBTOOL",
+      "AC_PROG_LN_S",
+      "AC_SUBST",
+      "AM_CONDITIONAL",
+      "AM_INIT_AUTOMAKE",
+      "AM_SILENT_RULES",
+      "AX_CHECK_COMPILE_FLAG",
+      "AX_PTHREAD",
+      "LT_INIT"
+    ],
+    "unresolved_macros": [
+      "AX_PTHREAD"
+    ]
+  },
+  "conditional_context": {
+    "configure_if": 143,
+    "configure_fi": 140,
+    "configure_case": 64,
+    "configure_esac": 67,
+    "balanced": false,
+    "automake_conditionals": [
+      "TEST_ENABLE",
+      "EXT_MEMOPS"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": "config",
+    "present": [
+      "install-sh",
+      "missing",
+      "depcomp",
+      "compile"
+    ],
+    "missing": [
+      "ltmain.sh"
+    ]
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "c": 4,
+      "cpp": 11,
+      "h": 10,
+      "hpp": 6
+    },
+    "configure_macros": [
+      "AC_PROG_CC",
+      "AC_PROG_CXX"
+    ],
+    "needs_cxx": true,
+    "needs_fortran": false,
+    "sets_c_std": true
+  },
+  "libtool_context": {
+    "uses_libtool": true,
+    "macros": [
+      "LT_INIT",
+      "AC_PROG_LIBTOOL"
+    ],
+    "ltmain_present": false,
+    "libtool_m4_sources": [],
+    "age": "modern"
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": false,
+    "defines_sampled": []
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-subdir-objects",
+      "applied_at": "configure",
+      "effect": "neutral",
+      "effectiveness": "low"
+    },
+    {
+      "quirk_id": "uses-libtool",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-libtool-old",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "has-m4-macro-dir",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-ax-archive",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-pthread-check",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "vpath_analysis": {
+    "hardcoded_src_paths": 0,
+    "abs_path_leakage": 0,
+    "built_sources": [],
+    "generated_source_targets": [
+      ".cu.lo"
+    ]
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "infiniband/peer_ops.h"
+    ],
+    "headers_included_unchecked": [
+      "arpa/inet.h",
+      "gdsync/core.h",
+      "gdsync/tools.h",
+      "infiniband/verbs.h",
+      "infiniband/verbs_exp.h",
+      "inttypes.h",
+      "sys/socket.h",
+      "sys/time.h",
+      "sys/types.h",
+      "unistd.h"
+    ],
+    "implicit_link_libs": [
+      "-lcuda",
+      "-lcudart",
+      "-lgdrapi",
+      "-lmpi"
+    ]
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 5,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "gnu++",
+    "strip_modern_poison_flags": [],
+    "inject_legacy_shims": false,
+    "compiler_aliasing": {}
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 11,
+    "shadowed_builtins": [],
+    "permitted_mutations": 10,
+    "suspect_global_mutations": 0
+  },
+  "parallel_build_safety": {
+    "vpath_out_of_tree_safe": true,
+    "generators": [
+      ".cu.lo"
+    ],
+    "unordered_generated_sources": [
+      ".cu.lo"
+    ],
+    "built_sources_declared": false
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "arpa/inet.h",
+      "gdsync/core.h",
+      "gdsync/tools.h",
+      "infiniband/verbs.h",
+      "infiniband/verbs_exp.h",
+      "inttypes.h",
+      "sys/socket.h",
+      "sys/time.h",
+      "sys/types.h",
+      "unistd.h",
+      "infiniband/peer_ops.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "unresolved-macros",
+    "parallel-build-race (gen-source not in BUILT_SOURCES)"
+  ],
+  "repair_hints": [
+    {
+      "id": "load-vendored-aclocal-dir",
+      "phase": "autoreconf",
+      "confidence": 0.85,
+      "evidence": [
+        "AX_PTHREAD"
+      ],
+      "action": "aclocal -I m4",
+      "expected_effect": "resolves unexpanded AX_/custom macros"
+    }
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": 0,
+      "Makefile.in": 1266,
+      "aclocal.m4": 5,
+      "config.h.in": 19,
+      "configure": 13,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_ENABLE": "system-aclocal",
+      "AC_ARG_WITH": "system-aclocal",
+      "AC_CHECK_DECLS": "system-aclocal",
+      "AC_CHECK_HEADER": "system-aclocal",
+      "AC_CHECK_LIB": "system-aclocal",
+      "AC_CHECK_MEMBER": "system-aclocal",
+      "AC_CHECK_SIZEOF": "system-aclocal",
+      "AC_CONFIG_AUX_DIR": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_HEADER": "system-aclocal",
+      "AC_CONFIG_SRCDIR": "system-aclocal",
+      "AC_C_CONST": "system-aclocal",
+      "AC_GNU_SOURCE": "system-aclocal",
+      "AC_HEADER_STDC": "system-aclocal",
+      "AC_HELP_STRING": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_MSG_ERROR": "system-aclocal",
+      "AC_MSG_NOTICE": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PREREQ": "system-aclocal",
+      "AC_PROG_CC": "system-aclocal",
+      "AC_PROG_CXX": "system-aclocal",
+      "AC_PROG_LIBTOOL": "system-aclocal",
+      "AC_PROG_LN_S": "system-aclocal",
+      "AC_SUBST": "system-aclocal",
+      "AM_CONDITIONAL": "system-aclocal",
+      "AM_INIT_AUTOMAKE": "system-aclocal",
+      "AM_SILENT_RULES": "system-aclocal",
+      "AX_CHECK_COMPILE_FLAG": "m4/ax_check_compile_flag.m4",
+      "AX_PTHREAD": "unresolved",
+      "LT_INIT": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "tests_gds_kernel_latency_LDADD",
+        "var": "LIBGDSTOOLS",
+        "resolved_to": [
+          "@LIBGDSTOOLS@"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "tests_gds_kernel_latency_LDADD",
+        "var": "LIBNVTX",
+        "resolved_to": [
+          "@LIBNVTX@"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "tests_gds_kernel_latency_LDADD",
+        "var": "PTHREAD_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "tests_wqtest_LDADD",
+        "var": "PTHREAD_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "tests_gds_poll_lat_LDADD",
+        "var": "LIBGDSTOOLS",
+        "resolved_to": [
+          "@LIBGDSTOOLS@"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "tests_gds_poll_lat_LDADD",
+        "var": "LIBNVTX",
+        "resolved_to": [
+          "@LIBNVTX@"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "tests_gds_poll_lat_LDADD",
+        "var": "PTHREAD_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "tests_gds_sanity_LDADD",
+        "var": "LIBGDSTOOLS",
+        "resolved_to": [
+          "@LIBGDSTOOLS@"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "tests_gds_sanity_LDADD",
+        "var": "LIBNVTX",
+        "resolved_to": [
+          "@LIBNVTX@"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "tests_gds_sanity_LDADD",
+        "var": "PTHREAD_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "tests_gds_kernel_loopback_latency_LDADD",
+        "var": "LIBGDSTOOLS",
+        "resolved_to": [
+          "@LIBGDSTOOLS@"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "tests_gds_kernel_loopback_latency_LDADD",
+        "var": "LIBNVTX",
+        "resolved_to": [
+          "@LIBNVTX@"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "tests_gds_kernel_loopback_latency_LDADD",
+        "var": "PTHREAD_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      }
+    ],
+    "unresolved_refs": [
+      "tests_gds_kernel_latency_LDADD = $(PTHREAD_LIBS)",
+      "tests_wqtest_LDADD = $(PTHREAD_LIBS)",
+      "tests_gds_poll_lat_LDADD = $(PTHREAD_LIBS)",
+      "tests_gds_sanity_LDADD = $(PTHREAD_LIBS)",
+      "tests_gds_kernel_loopback_latency_LDADD = $(PTHREAD_LIBS)"
+    ],
+    "indirection_count": 13
   }
 }

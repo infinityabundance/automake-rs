@@ -1,13 +1,13 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "dmalhotra/pvfmm",
   "source": {
     "url": "https://github.com/dmalhotra/pvfmm",
-    "git_sha": "07a67a6a51187ff0aeff37b3e621e80d63a6bc78",
+    "git_sha": "5bb9e612b9f269f09dba6ebe0c583867920da22d",
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -41,90 +41,100 @@
   },
   "quirks": [
     "autoconf-archive-macros",
-    "libtool",
-    "subdirs"
+    "libtool"
   ],
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1506: syntax error near unexpected token `and'",
+  "diagnostic": "./configure: line 1431: syntax error near unexpected token `here,'",
   "deep_expansion": {
-    "configure_lines": 4910,
+    "configure_lines": 4993,
     "leaked_macros": [],
-    "heredoc_openers": 99,
-    "heredoc_terminators": 99,
+    "heredoc_openers": 90,
+    "heredoc_terminators": 90,
     "heredoc_imbalance": 0,
     "syntax_errors": [
       {
-        "line": 1506,
-        "token": "and",
-        "source": "done and will replace the",
+        "line": 1431,
+        "token": "here,",
+        "source": "fi here, as it caches its outcome and",
         "block": [
-          "1502:   if command -v \"$ac_prog\" >/dev/null 2>&1; then",
-          "1503:     CXX=$ac_prog",
-          "1504:     break",
-          "1505:   fi",
-          "1506: done and will replace the",
-          "1507: #   standard variable CXX with the found compiler.",
-          "1508: #",
-          "1509: #   MPI-WANTED-TEST is used to test whether MPI is actually wanted by the"
+          "1427:   printf '%s\\n' \"no\"",
+          "1428:   LIBS=$_acs_save_LIBS",
+          "1429:   :",
+          "1430:   ",
+          "1431: fi here, as it caches its outcome and",
+          "1432:     # thus disallows corresponding calls in the other AX_PROG_*_MPI",
+          "1433:     # macros.",
+          "1434:     for lib in NONE mpi mpich; do"
         ]
       }
     ],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2994: if test \"${$cachevar+set}\" = set; then"
+      "line 1981: if test \"${$cachevar+set}\" = set; then",
+      "line 3075: # eval \"_acrs_sv=\\${}\"; printf '%s\\n' \"s|@@|${_acrs_sv}|g\" >",
+      "line 4487: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
-      "LIBTOOL"
+      "LIBTOOL",
+      "MPILIBS",
+      "MPICC",
+      "MPIFC",
+      "NVCC",
+      "NVCCFLAGS",
+      "CUDA_CFLAGS",
+      "CUDA_LDLIBS",
+      "NVCC_OK_TRUE",
+      "NVCC_OK_FALSE",
+      "HAVE_DOXYGEN_TRUE",
+      "HAVE_DOXYGEN_FALSE",
+      "OPENMP_LIB",
+      "FFTW_LIB",
+      "FFTW_INCLUDE",
+      "acx_fftw_ok",
+      "FFTWF_LIB",
+      "acx_fftwf_ok",
+      "FFTWL_LIB",
+      "BLAS_LIBS",
+      "LAPACK_LIBS",
+      "FLIBS",
+      "SCTL_DEFS",
+      "PVFMM_OPT_FLAGS",
+      "LIBMVEC_LIB",
+      "PVFMM_DEFS",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING"
     ],
     "failed_during_check": "",
     "failure_tail": [
-      "./configure: line 1506: syntax error near unexpected token `and'",
-      "./configure: line 1506: `done and will replace the'"
+      "./configure: line 1431: syntax error near unexpected token `here,'",
+      "./configure: line 1431: `fi here, as it caches its outcome and'"
     ],
     "conftest_corruption": [],
-    "conftest_directives_intact": 74,
+    "conftest_directives_intact": 49,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
-      "inline int foo() { return 0; }\\nint main() { return foo(); }",
-      "int main() { const int x = 1; return x-1; }",
-      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { off_t x; return 0; }",
       "char  ();\\nint main() { return  (); }",
       "\\n\\nnamespace MPI {\\nchar Init();\\n};\\nusing MPI::Init;\\nint main() { MPI::Init; ; return 0; }",
-      "#include <mpi.h>\\nint main() {  ; return 0; }"
+      "#include <mpi.h>\\nint main() {  ; return 0; }",
+      "char MPI_Init ();\\nint main() { return MPI_Init(); }",
+      "char MPI_Init ();\\nint main() { return MPI_Init(); }",
+      "\\nint main() {\\n#if !($vencpp)\\nthisisanerror;\\n#endif\\n; return 0; }"
     ]
-  },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "ok",
-    "real_make": "fail",
-    "real_configure_lines": 31650,
-    "real_first_error": "",
-    "classification": "OURS_BUG_CONFIGURE"
-  },
-  "divergence": {
-    "stage": "configure",
-    "ours_error": "line 1506: done and will replace the (near `and`)",
-    "ours_error_context": [
-      "done and will replace the"
-    ],
-    "ours_configure_lines": 4910,
-    "real_configure_lines": 31650,
-    "macros_ours_left_undefined": []
   },
   "receipt": {
     "court_status": "failed",
     "probe_trace": [],
     "quirks_matched": [
       "uses-libtool",
-      "uses-libtool-old",
       "has-m4-macro-dir",
       "vendored-aclocal",
-      "uses-ax-archive",
-      "perl-in-configure"
+      "uses-ax-archive"
     ],
-    "receipt_hash": "24e39ed3178d433d21c1340a6407fda16d8349c27724819539e8175382940e80",
+    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -133,6 +143,459 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      }
+    ],
+    "config_headers": [],
+    "subdirs": [],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [
+          "lib/libpvfmm.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      }
+    ],
+    "max_depth": 0,
+    "config_h_consumers_below_root": []
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "examples/Makefile",
+        "has_makefile_in": false,
+        "has_makefile_am": false,
+        "lines": 64,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      }
+    ]
+  },
+  "tool_requirements": {
+    "detected": [
+      "ar",
+      "f77"
+    ],
+    "missing": []
+  },
+  "macro_inventory": {
+    "macro_dirs": [
+      "m4"
+    ],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [
+      {
+        "name": "AX_BLAS",
+        "source": "m4/ax_blas.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AX_COMPILER_VENDOR",
+        "source": "m4/ax_compiler_vendor.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AX_NORMALIZE_PATH",
+        "source": "m4/ax_normalize_path.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AC_CHECK_FFTWL",
+        "source": "m4/ac_check_fftwl.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AX_CHECK_SVML",
+        "source": "m4/ax_check_svml.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AC_CHECK_FFTWF",
+        "source": "m4/ac_check_fftwf.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AX_MPI",
+        "source": "m4/ax_mpi.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AC_CHECK_FFTW",
+        "source": "m4/ac_check_fftw.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AX_LAPACK",
+        "source": "m4/ax_lapack.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "CHECK_OPENMP",
+        "source": "m4/ac_check_openmp.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AX_CHECK_CUDA",
+        "source": "m4/ax_check_cuda.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "CHECK_QUAD_PRECISION",
+        "source": "m4/ax_check_quad_precision.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AX_CHECK_LIBMVEC",
+        "source": "m4/ax_check_libmvec.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AC_LANG_WERROR",
+        "source": "m4/ac_lang_werror.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AX_CXX_DEF_TEMPLATE_ARG",
+        "source": "m4/ax_cxx_def_template_arg.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AX_PROG_CXX_MPI",
+        "source": "m4/ax_prog_cxx_mpi.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "_AX_PROG_CXX_MPI",
+        "source": "m4/ax_prog_cxx_mpi.m4",
+        "kind": "project-local"
+      }
+    ],
+    "called_macros": [
+      "AC_ARG_VAR",
+      "AC_ARG_WITH",
+      "AC_CHECK_FFTW",
+      "AC_CHECK_FFTWF",
+      "AC_CHECK_FFTWL",
+      "AC_CHECK_LIB",
+      "AC_CHECK_PROG",
+      "AC_CHECK_PROGS",
+      "AC_CONFIG_AUX_DIR",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_MACRO_DIR",
+      "AC_CONFIG_SRCDIR",
+      "AC_INIT",
+      "AC_LANG",
+      "AC_LANG_PROGRAM",
+      "AC_LANG_WERROR",
+      "AC_LINK_IFELSE",
+      "AC_MSG_CHECKING",
+      "AC_MSG_ERROR",
+      "AC_MSG_RESULT",
+      "AC_OUTPUT",
+      "AC_PREREQ",
+      "AC_PROG_AWK",
+      "AC_PROG_F77",
+      "AC_PROG_INSTALL",
+      "AC_PROG_LN_S",
+      "AC_PROG_MAKE_SET",
+      "AC_PROG_MKDIR_P",
+      "AC_SUBST",
+      "AM_CONDITIONAL",
+      "AM_INIT_AUTOMAKE",
+      "AM_PROG_AR",
+      "AX_BLAS",
+      "AX_CHECK_CUDA",
+      "AX_CHECK_LIBMVEC",
+      "AX_CHECK_SVML",
+      "AX_COMPILER_VENDOR",
+      "AX_CXX_DEF_TEMPLATE_ARG",
+      "AX_LAPACK",
+      "AX_MPI",
+      "AX_NORMALIZE_PATH",
+      "AX_PROG_CXX_MPI",
+      "LT_INIT"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 302,
+    "configure_fi": 285,
+    "configure_case": 75,
+    "configure_esac": 79,
+    "balanced": false,
+    "automake_conditionals": [
+      "HAVE_DOXYGEN"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": "build-aux",
+    "present": [
+      "install-sh",
+      "missing",
+      "depcomp",
+      "compile"
+    ],
+    "missing": [
+      "ltmain.sh"
+    ]
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "c": 2,
+      "cpp": 6,
+      "f90": 3,
+      "h": 2,
+      "hpp": 19
+    },
+    "configure_macros": [
+      "AC_PROG_F77"
+    ],
+    "needs_cxx": true,
+    "needs_fortran": true,
+    "sets_c_std": true
+  },
+  "libtool_context": {
+    "uses_libtool": true,
+    "macros": [
+      "LT_INIT"
+    ],
+    "ltmain_present": false,
+    "libtool_m4_sources": [],
+    "age": "modern"
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": false,
+    "defines_sampled": []
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-libtool",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "has-m4-macro-dir",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-ax-archive",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "vpath_analysis": {
+    "hardcoded_src_paths": 1,
+    "abs_path_leakage": 0,
+    "built_sources": [],
+    "generated_source_targets": [
+      ".cu.lo"
+    ]
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 5,
+    "shadowed_macros": [
+      "AC_CHECK_FFTWL",
+      "AC_CHECK_FFTWF",
+      "AC_CHECK_FFTW",
+      "AC_LANG_WERROR"
+    ]
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "gnu++",
+    "strip_modern_poison_flags": [],
+    "inject_legacy_shims": false,
+    "compiler_aliasing": {}
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 10,
+    "shadowed_builtins": [
+      "AC_CHECK_FFTWL",
+      "AC_CHECK_FFTWF",
+      "AC_CHECK_FFTW",
+      "AC_LANG_WERROR"
+    ],
+    "permitted_mutations": 2,
+    "suspect_global_mutations": 0
+  },
+  "parallel_build_safety": {
+    "vpath_out_of_tree_safe": true,
+    "generators": [
+      ".cu.lo"
+    ],
+    "unordered_generated_sources": [
+      ".cu.lo"
+    ],
+    "built_sources_declared": false
+  },
+  "risk_factors": [
+    "parallel-build-race (gen-source not in BUILT_SOURCES)"
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": 0,
+      "Makefile.in": 1298,
+      "aclocal.m4": 8,
+      "configure": 21,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_VAR": "system-aclocal",
+      "AC_ARG_WITH": "system-aclocal",
+      "AC_CHECK_FFTW": "m4/ac_check_fftw.m4",
+      "AC_CHECK_FFTWF": "m4/ac_check_fftwf.m4",
+      "AC_CHECK_FFTWL": "m4/ac_check_fftwl.m4",
+      "AC_CHECK_LIB": "system-aclocal",
+      "AC_CHECK_PROG": "system-aclocal",
+      "AC_CHECK_PROGS": "system-aclocal",
+      "AC_CONFIG_AUX_DIR": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_MACRO_DIR": "system-aclocal",
+      "AC_CONFIG_SRCDIR": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_LANG": "system-aclocal",
+      "AC_LANG_PROGRAM": "system-aclocal",
+      "AC_LANG_WERROR": "m4/ac_lang_werror.m4",
+      "AC_LINK_IFELSE": "system-aclocal",
+      "AC_MSG_CHECKING": "system-aclocal",
+      "AC_MSG_ERROR": "system-aclocal",
+      "AC_MSG_RESULT": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PREREQ": "system-aclocal",
+      "AC_PROG_AWK": "system-aclocal",
+      "AC_PROG_F77": "system-aclocal",
+      "AC_PROG_INSTALL": "system-aclocal",
+      "AC_PROG_LN_S": "system-aclocal",
+      "AC_PROG_MAKE_SET": "system-aclocal",
+      "AC_PROG_MKDIR_P": "system-aclocal",
+      "AC_SUBST": "system-aclocal",
+      "AM_CONDITIONAL": "system-aclocal",
+      "AM_INIT_AUTOMAKE": "system-aclocal",
+      "AM_PROG_AR": "system-aclocal",
+      "AX_BLAS": "m4/ax_blas.m4",
+      "AX_CHECK_CUDA": "m4/ax_check_cuda.m4",
+      "AX_CHECK_LIBMVEC": "m4/ax_check_libmvec.m4",
+      "AX_CHECK_SVML": "m4/ax_check_svml.m4",
+      "AX_COMPILER_VENDOR": "m4/ax_compiler_vendor.m4",
+      "AX_CXX_DEF_TEMPLATE_ARG": "m4/ax_cxx_def_template_arg.m4",
+      "AX_LAPACK": "m4/ax_lapack.m4",
+      "AX_MPI": "m4/ax_mpi.m4"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "lib_libpvfmm_la_SOURCES",
+        "var": "pvfmm_cpp_header_files",
+        "resolved_to": [
+          "include/pvfmm_common.hpp",
+          "include/pvfmm.hpp",
+          "include/pvfmm.txx",
+          "include/cheb_node.hpp",
+          "include/cheb_utils.hpp",
+          "include/device_wrapper.hpp",
+          "include/fmm_cheb.hpp",
+          "include/fmm_node.hpp",
+          "include/fmm_pts.hpp",
+          "include/fmm_pts_gpu.hpp",
+          "include/fmm_tree.hpp",
+          "include/interac_list.hpp",
+          "include/kernel.hpp",
+          "include/mat_utils.hpp",
+          "include/mpi_node.hpp",
+          "include/mpi_tree.hpp",
+          "include/precomp_mat.hpp",
+          "include/tree.hpp",
+          "include/tree_node.hpp",
+          "include/cheb_node.txx",
+          "include/cheb_utils.txx",
+          "include/device_wrapper.txx",
+          "include/fmm_cheb.txx",
+          "include/fmm_node.txx",
+          "include/fmm_pts.txx",
+          "include/fmm_tree.txx",
+          "include/interac_list.txx",
+          "include/kernel.txx",
+          "include/mpi_node.txx",
+          "include/mpi_tree.txx",
+          "include/precomp_mat.txx",
+          "include/tree.txx",
+          "SCTL/include/sctl.hpp"
+        ],
+        "resolved": true
+      }
+    ],
+    "unresolved_refs": [],
+    "indirection_count": 1
   }
 }

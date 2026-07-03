@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "afrab/WSim",
   "source": {
     "url": "https://github.com/afrab/WSim",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,127 +26,172 @@
     {
       "step": "configure",
       "tool": "./configure",
+      "status": "ok"
+    },
+    {
+      "step": "make",
+      "tool": "make",
       "status": "fail"
     }
   ],
-  "probe_results": {},
+  "probe_results": {
+    "HAVE_BZERO": 1,
+    "HAVE_FCNTL_H": 1,
+    "HAVE_GETRUSAGE": 1,
+    "HAVE_MEMCMP": 1,
+    "HAVE_MEMSET": 1,
+    "HAVE_STRCASESTR": 1,
+    "HAVE_STRSIGNAL": 1,
+    "HAVE_STRTOK_R": 1,
+    "HAVE_UNISTD_H": 1
+  },
   "feature_flags": {
     "configure_args": []
   },
   "dependencies": {
     "pkg_config": [],
-    "system_libs": [],
+    "system_libs": [
+      "-lm",
+      "-lz",
+      "-lX11"
+    ],
     "headers_needed": [],
     "missing": []
   },
   "quirks": [
-    "subdirs"
+    "subdirs",
+    "LIBS=-lm -lz -lX11"
   ],
   "outputs": [],
-  "status": "CONFIGURE_RUN_FAIL",
+  "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 2183: syntax error near unexpected token `)'",
+  "diagnostic": "../../arch/common/wsim_stdint.h:19:19: error: two or more data types in declaration specifiers",
   "deep_expansion": {
-    "configure_lines": 3331,
+    "configure_lines": 3788,
     "leaked_macros": [],
-    "heredoc_openers": 37,
-    "heredoc_terminators": 37,
+    "heredoc_openers": 30,
+    "heredoc_terminators": 30,
     "heredoc_imbalance": 0,
-    "syntax_errors": [
-      {
-        "line": 2183,
-        "token": ")",
-        "source": "exit 1\t)",
-        "block": [
-          "2179: #if test \"${zlib_sum}\" = \"system\" ; then ",
-          "2180: #   EXTRALIBS=\"$EXTRALIBS -lz\"",
-          "2181: #fi",
-          "2182: ",
-          "2183: exit 1\t)",
-          "2184: ",
-          "2185: CFLAGS_save=\"${CFLAGS}\"",
-          "2186: # Check --enable-waou option"
-        ]
-      }
-    ],
+    "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2830: do eval test \\${$as_var+y} \\"
+      "line 1410: # eval \"_acrs_sv=\\${}\"; printf '%s\\n' \"s|@@|${_acrs_sv}|g\" >",
+      "line 3286: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
-      "PACKAGE_NAME",
-      "PACKAGE_TARNAME",
-      "PACKAGE_VERSION",
-      "PACKAGE_STRING",
-      "PACKAGE_BUGREPORT",
-      "PACKAGE_URL",
-      "srcdir",
-      "prefix",
-      "exec_prefix",
-      "CC",
-      "CFLAGS",
-      "CPPFLAGS",
-      "LDFLAGS",
-      "LIBS",
-      "CXX",
-      "CXXFLAGS",
-      "CPP",
-      "DEFS",
-      "LIBOBJS",
-      "INSTALL",
-      "host_cpu",
-      "EXTRAOBJS",
-      "host_alias",
       "INDENT",
-      "host_os",
-      "EXTRALIBS",
-      "host_vendor"
+      "HAS_INDENT_TRUE",
+      "HAS_INDENT_FALSE",
+      "BUILD_DEBUG_TRUE",
+      "BUILD_DEBUG_FALSE",
+      "BUILD_XCODE_DEBUG_TRUE",
+      "BUILD_XCODE_DEBUG_FALSE",
+      "BUILD_ETRACE_TRUE",
+      "BUILD_ETRACE_FALSE",
+      "BUILD_GUI_TRUE",
+      "BUILD_GUI_FALSE",
+      "BUILD_GUI_SDL_TRUE",
+      "BUILD_GUI_SDL_FALSE",
+      "BUILD_PTTY_TRUE",
+      "BUILD_PTTY_FALSE",
+      "BUILD_WSN430_TRUE",
+      "BUILD_WSN430_FALSE",
+      "BUILD_SENSLAB_TRUE",
+      "BUILD_SENSLAB_FALSE",
+      "BUILD_OT2006_TRUE",
+      "BUILD_OT2006_FALSE",
+      "BUILD_OTSETRE_TRUE",
+      "BUILD_OTSETRE_FALSE",
+      "BUILD_EZ430_TRUE",
+      "BUILD_EZ430_FALSE",
+      "BUILD_TESTS_TRUE",
+      "BUILD_TESTS_FALSE",
+      "BUILD_TELOSB_TRUE",
+      "BUILD_TELOSB_FALSE"
     ],
     "failed_during_check": "checking for strtok_r... yes",
     "failure_tail": [
       "checking for strtok_r... yes",
-      "no",
-      "./configure: line 2183: syntax error near unexpected token `)'",
-      "./configure: line 2183: `exit 1\t)'"
+      "configure: EXTRALIBS=-lm -lz -lX11",
+      "configure: EXTRAOBJS=",
+      "configure: creating arch/Makefile",
+      "configure: creating arch/common/Makefile"
     ],
     "conftest_corruption": [],
-    "conftest_directives_intact": 38,
+    "conftest_directives_intact": 18,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
       "\\nint main() {  ; return 0; }",
       "\\nint main() {  ; return 0; }",
       "\\nint main() {  ; return 0; }",
-      "char compress();\\nint main() { return compress(); }",
+      "char compress ();\\nint main() { return compress(); }",
       "#include <$ac_hdr>",
       "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { size_t x; return 0; }"
     ]
   },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "ok",
-    "real_make": "fail",
-    "real_configure_lines": 8287,
-    "real_first_error": "",
-    "classification": "OURS_BUG_CONFIGURE"
-  },
-  "divergence": {
-    "stage": "configure",
-    "ours_error": "line 2183: exit 1\t) (near `)`)",
-    "ours_error_context": [
-      "exit 1\t)"
-    ],
-    "ours_configure_lines": 3331,
-    "real_configure_lines": 8287,
-    "macros_ours_left_undefined": []
-  },
   "receipt": {
-    "court_status": "failed",
-    "probe_trace": [],
+    "court_status": "partial",
+    "probe_trace": [
+      {
+        "name": "HAVE_BZERO",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_FCNTL_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_GETRUSAGE",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_MEMCMP",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_MEMSET",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STRCASESTR",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STRSIGNAL",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STRTOK_R",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_UNISTD_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      }
+    ],
     "quirks_matched": [
       "vendored-aclocal"
     ],
-    "receipt_hash": "24e39ed3178d433d21c1340a6407fda16d8349c27724819539e8175382940e80",
+    "receipt_hash": "d7206069deeb7d98f2880ff6d840415f8d4c53eabd91901064f5c04743fe6bd4",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -155,6 +200,2602 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "arch/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "arch/atmega/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "arch/common/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "arch/mcugen/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "arch/msp430/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "devices/7seg/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "devices/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "devices/at45db/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "devices/bargraph/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "devices/cc1100_2500/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "devices/cc2420/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "devices/cma3000_spi/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "devices/ds1722/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "devices/ds2411/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "devices/ez430_lcd/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "devices/gdm1602a/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "devices/hd44780/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "devices/led/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "devices/m25p80/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "devices/ptty/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "devices/scp1000_i2c/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "devices/spidev/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "devices/spidev_dsp/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "devices/spidev_master/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "devices/uigfx/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "doc/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "libconsole/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "libelf/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "libetrace/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "libgdb/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "libgui/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "liblogger/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "liblogpkt/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "libselect/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "libtracer/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "libwsnet/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "machine/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "platforms/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "platforms/ez430/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "platforms/ez430chronos/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "platforms/ez430rf/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "platforms/iclbsn/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "platforms/mcugen/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "platforms/mica2/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": false
+      },
+      {
+        "path": "platforms/micaz/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": false
+      },
+      {
+        "path": "platforms/mosar/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "platforms/ot2006/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "platforms/otsetre/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "platforms/powwow/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "platforms/senslab/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "platforms/telosb/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "platforms/tests/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "platforms/wasp/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "platforms/wisenode/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "platforms/wsn430/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      }
+    ],
+    "config_headers": [
+      "config.h"
+    ],
+    "subdirs": [
+      "arch",
+      "devices",
+      "libconsole",
+      "libelf",
+      "libetrace",
+      "libgdb",
+      "libgui",
+      "libtracer",
+      "liblogger",
+      "liblogpkt",
+      "libselect",
+      "libwsnet",
+      "machine",
+      "src",
+      "platforms",
+      "doc",
+      "common",
+      "msp430",
+      "atmega",
+      "mcugen",
+      "7seg",
+      "at45db",
+      "bargraph",
+      "cc1100_2500",
+      "cc2420",
+      "ds1722",
+      "ds2411",
+      "gdm1602a",
+      "hd44780",
+      "led",
+      "m25p80",
+      "ptty",
+      "uigfx",
+      "spidev",
+      "spidev_master",
+      "spidev_dsp",
+      "cma3000_spi",
+      "scp1000_i2c",
+      "ez430_lcd",
+      "archinfo",
+      "crctools",
+      "src",
+      "src"
+    ],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [],
+        "subdirs": [
+          "arch",
+          "devices",
+          "libconsole",
+          "libelf",
+          "libetrace",
+          "libgdb",
+          "libgui",
+          "libtracer",
+          "liblogger",
+          "liblogpkt",
+          "libselect",
+          "libwsnet",
+          "machine",
+          "src",
+          "platforms",
+          "doc"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "arch",
+        "targets": [],
+        "subdirs": [
+          "common",
+          "msp430",
+          "atmega",
+          "mcugen"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "arch/atmega",
+        "targets": [
+          "libatmega128.a",
+          "libatmega128l.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)"
+      },
+      {
+        "dir": "arch/common",
+        "targets": [
+          "libmcucommon.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)"
+      },
+      {
+        "dir": "arch/mcugen",
+        "targets": [
+          "libmcugen.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)"
+      },
+      {
+        "dir": "arch/msp430",
+        "targets": [
+          "libmsp430f135.a",
+          "libmsp430f149.a",
+          "libmsp430f449.a",
+          "libmsp430f1611.a",
+          "libmsp430f1612.a",
+          "libmsp430f2012.a",
+          "libmsp430f2013.a",
+          "libmsp430f2274.a",
+          "libcc430f6137.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)"
+      },
+      {
+        "dir": "devices",
+        "targets": [
+          "libdevices.a"
+        ],
+        "subdirs": [
+          "7seg",
+          "at45db",
+          "bargraph",
+          "cc1100_2500",
+          "cc2420",
+          "ds1722",
+          "ds2411",
+          "gdm1602a",
+          "hd44780",
+          "led",
+          "m25p80",
+          "ptty",
+          "uigfx",
+          "spidev",
+          "spidev_master",
+          "spidev_dsp",
+          "cma3000_spi",
+          "scp1000_i2c",
+          "ez430_lcd"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)"
+      },
+      {
+        "dir": "devices/7seg",
+        "targets": [
+          "lib7seg.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)"
+      },
+      {
+        "dir": "devices/at45db",
+        "targets": [
+          "libat45db041b.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)"
+      },
+      {
+        "dir": "devices/bargraph",
+        "targets": [
+          "libbargraph.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)"
+      },
+      {
+        "dir": "devices/cc1100_2500",
+        "targets": [
+          "libcc1100.a",
+          "libcc2500.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)"
+      },
+      {
+        "dir": "devices/cc2420",
+        "targets": [
+          "libcc2420.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)"
+      },
+      {
+        "dir": "devices/cma3000_spi",
+        "targets": [
+          "libcma3000_spi.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)"
+      },
+      {
+        "dir": "devices/ds1722",
+        "targets": [
+          "libds1722.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)"
+      },
+      {
+        "dir": "devices/ds2411",
+        "targets": [
+          "libds2411.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)"
+      },
+      {
+        "dir": "devices/ez430_lcd",
+        "targets": [
+          "libez430_lcd.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)"
+      },
+      {
+        "dir": "devices/gdm1602a",
+        "targets": [
+          "libgdm1602a.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)"
+      },
+      {
+        "dir": "devices/hd44780",
+        "targets": [
+          "libhd44780.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)"
+      },
+      {
+        "dir": "devices/led",
+        "targets": [
+          "libled.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)"
+      },
+      {
+        "dir": "devices/m25p80",
+        "targets": [
+          "libm25p80.a",
+          "libm25p10.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)"
+      },
+      {
+        "dir": "devices/ptty",
+        "targets": [
+          "libptty.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)"
+      },
+      {
+        "dir": "devices/scp1000_i2c",
+        "targets": [
+          "libscp1000_i2c.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)"
+      },
+      {
+        "dir": "devices/spidev",
+        "targets": [
+          "libspidev.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)"
+      },
+      {
+        "dir": "devices/spidev_dsp",
+        "targets": [
+          "libspidsp.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)"
+      },
+      {
+        "dir": "devices/spidev_master",
+        "targets": [
+          "libspidevmast.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)"
+      },
+      {
+        "dir": "devices/uigfx",
+        "targets": [
+          "libuigfx.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)"
+      },
+      {
+        "dir": "libconsole",
+        "targets": [
+          "libconsole.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)"
+      },
+      {
+        "dir": "libetrace",
+        "targets": [
+          "libetrace.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)"
+      },
+      {
+        "dir": "libgdb",
+        "targets": [
+          "libgdb.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)"
+      },
+      {
+        "dir": "libgui",
+        "targets": [
+          "libgui.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)"
+      },
+      {
+        "dir": "liblogger",
+        "targets": [
+          "liblogger.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)"
+      },
+      {
+        "dir": "libselect",
+        "targets": [
+          "libselect.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)"
+      },
+      {
+        "dir": "libtracer",
+        "targets": [
+          "libtracer.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)"
+      },
+      {
+        "dir": "src",
+        "targets": [
+          "libwsim.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)"
+      },
+      {
+        "dir": "utils",
+        "targets": [],
+        "subdirs": [
+          "archinfo",
+          "crctools"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "utils/archinfo",
+        "targets": [
+          "archinfo"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "utils/console",
+        "targets": [],
+        "subdirs": [
+          "src"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "utils/console/src",
+        "targets": [
+          "wconsole"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)"
+      },
+      {
+        "dir": "utils/wtracer",
+        "targets": [],
+        "subdirs": [
+          "src"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "utils/wtracer/src",
+        "targets": [
+          "wtracer"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)"
+      }
+    ],
+    "max_depth": 2,
+    "config_h_consumers_below_root": [
+      "libtracer",
+      "devices/hd44780",
+      "devices/uigfx",
+      "src",
+      "arch/common",
+      "libetrace",
+      "libselect",
+      "libconsole",
+      "utils/wtracer/src",
+      "utils/console/src"
+    ]
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 532,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "libtracer/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 491,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "liblogger/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 479,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "devices/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 543,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "devices/ds1722/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 479,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "devices/hd44780/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 479,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "devices/spidev_master/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 483,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "devices/ez430_lcd/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 480,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "devices/led/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 480,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "devices/ds2411/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 479,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "devices/cc2420/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 472,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "devices/uigfx/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 480,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "devices/scp1000_i2c/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 483,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "devices/cma3000_spi/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 483,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "devices/ptty/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 473,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "devices/m25p80/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 497,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "devices/cc1100_2500/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 483,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "devices/bargraph/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 480,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "devices/7seg/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 480,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "devices/at45db/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 472,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "devices/gdm1602a/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 479,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "devices/spidev/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 483,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "devices/spidev_dsp/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 487,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "libgdb/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 481,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 481,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "arch/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 521,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "arch/mcugen/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 472,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "arch/common/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 473,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "arch/msp430/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 560,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "arch/atmega/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 483,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      }
+    ]
+  },
+  "macro_inventory": {
+    "macro_dirs": [],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [],
+    "called_macros": [
+      "AC_ARG_ENABLE",
+      "AC_ARG_WITH",
+      "AC_CACHE_CHECK",
+      "AC_CANONICAL_HOST",
+      "AC_CHECK_FUNC",
+      "AC_CHECK_HEADERS",
+      "AC_CHECK_LIB",
+      "AC_CHECK_SIZEOF",
+      "AC_COMPILE_IFELSE",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_HEADERS",
+      "AC_CONFIG_SRCDIR",
+      "AC_C_BIGENDIAN",
+      "AC_C_CONST",
+      "AC_C_INLINE",
+      "AC_DEFINE",
+      "AC_DEFINE_UNQUOTED",
+      "AC_FUNC_MEMCMP",
+      "AC_HEADER_STDC",
+      "AC_INIT",
+      "AC_LANG_PROGRAM",
+      "AC_MSG_ERROR",
+      "AC_MSG_NOTICE",
+      "AC_OUTPUT",
+      "AC_PATH_PROG",
+      "AC_PROG_CC",
+      "AC_PROG_INSTALL",
+      "AC_PROG_MAKE_SET",
+      "AC_PROG_RANLIB",
+      "AC_SUBST",
+      "AC_TYPE_SIZE_T",
+      "AM_CONDITIONAL",
+      "AM_INIT_AUTOMAKE",
+      "AM_PATH_SDL",
+      "AM_PROG_CC_C_O"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 294,
+    "configure_fi": 288,
+    "configure_case": 67,
+    "configure_esac": 70,
+    "balanced": false,
+    "automake_conditionals": [
+      "HAS_INDENT",
+      "BUILD_DEBUG",
+      "BUILD_XCODE_DEBUG",
+      "BUILD_ETRACE",
+      "BUILD_GUI",
+      "BUILD_GUI_SDL",
+      "BUILD_TRACER",
+      "BUILD_PTTY",
+      "BUILD_WSN430",
+      "BUILD_SENSLAB",
+      "BUILD_OT2006",
+      "BUILD_OTSETRE",
+      "BUILD_EZ430",
+      "BUILD_TESTS",
+      "BUILD_TELOSB",
+      "BUILD_WASP",
+      "BUILD_WISENODE",
+      "BUILD_ICLBSN",
+      "BUILD_EZ430RF",
+      "BUILD_MCUGENP",
+      "BUILD_MOSAR",
+      "BUILD_MICA2",
+      "BUILD_MICAZ",
+      "BUILD_POWWOW",
+      "BUILD_EZ430CHRONOS",
+      "BUILD_MSP430",
+      "BUILD_ATMEGA",
+      "BUILD_MCUGEN",
+      "BUILD_GNUBFD",
+      "BUILD_LINUX"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": ".",
+    "present": [
+      "install-sh",
+      "missing"
+    ],
+    "missing": [
+      "depcomp",
+      "compile",
+      "config.guess",
+      "config.sub"
+    ]
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "S": 2,
+      "c": 231,
+      "cpp": 2,
+      "h": 213
+    },
+    "configure_macros": [
+      "AC_PROG_CC"
+    ],
+    "needs_cxx": true,
+    "needs_fortran": false,
+    "sets_c_std": false
+  },
+  "make_graph": {
+    "targets": [
+      "all",
+      "all-am",
+      "install-am",
+      "installcheck-am",
+      "install-strip",
+      "install-info",
+      "install-info-am",
+      "install-dvi",
+      "install-dvi-am",
+      "install-ps",
+      "install-ps-am",
+      "install-pdf",
+      "install-pdf-am",
+      "install-html",
+      "install-html-am",
+      "install-data-hook",
+      "install-exec-hook",
+      "installdirs-am",
+      ".PHONY",
+      "mostlyclean-am",
+      "clean-am",
+      "distclean-am",
+      "maintainer-clean-am",
+      "distdir",
+      "dist",
+      "dist-all",
+      "dist-gzip",
+      "distcleancheck",
+      "distcheck",
+      "check-am",
+      "TAGS",
+      "tags",
+      "TAGS-am",
+      "tags-am",
+      "cscope",
+      "cscope-am",
+      "distuninstallcheck",
+      "$(srcdir)/Makefile.in",
+      "$(am__recursive_targets)",
+      "check"
+    ],
+    "key_variables": {
+      "AR": "ar",
+      "CC": "cc",
+      "CFLAGS": "-pipe -Wall  -g -DLINUX",
+      "CPPFLAGS": "",
+      "CXX": "c++",
+      "CXXFLAGS": "-g -O2",
+      "DEFS": "-DHAVE_CONFIG_H",
+      "LDFLAGS": "",
+      "LIBS": "-lm -lz -lX11",
+      "RANLIB": "ranlib"
+    },
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "config.h",
+      "config.log"
+    ],
+    "recursion_depth": 2,
+    "top_targets": [
+      "all",
+      "check",
+      "dist",
+      "all-am"
+    ],
+    "make_diagnostics": [
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "../../arch/common/wsim_stdint.h:19:19: error: two or more data types in declaration specifiers"
+      },
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "../../arch/common/wsim_stdint.h:19:28: error: two or more data types in declaration specifiers"
+      },
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "../../arch/common/wsim_stdint.h:20:19: error: two or more data types in declaration specifiers"
+      },
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "../../arch/common/wsim_stdint.h:20:28: error: two or more data types in declaration specifiers"
+      },
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "../../arch/common/wsim_stdint.h:19:19: error: two or more data types in declaration specifiers"
+      },
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "../../arch/common/wsim_stdint.h:21:19: error: two or more data types in declaration specifiers"
+      },
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "../../arch/common/wsim_stdint.h:21:28: error: two or more data types in declaration specifiers"
+      },
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "../../arch/common/wsim_stdint.h:19:28: error: two or more data types in declaration specifiers"
+      },
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "../../arch/common/wsim_stdint.h:22:19: error: two or more data types in declaration specifiers"
+      },
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "../../arch/common/wsim_stdint.h:20:19: error: two or more data types in declaration specifiers"
+      }
+    ]
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": true,
+    "defines_sampled": [
+      "LINUX",
+      "HAVE_CONFIG_H"
+    ]
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "vpath_analysis": {
+    "hardcoded_src_paths": 3,
+    "abs_path_leakage": 0,
+    "built_sources": [],
+    "generated_source_targets": []
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "fcntl.h",
+      "unistd.h"
+    ],
+    "headers_included_unchecked": [
+      "X11/Xatom.h",
+      "X11/Xlib.h",
+      "X11/Xutil.h",
+      "X11/keysym.h",
+      "arpa/inet.h",
+      "include/worldsens_pkt.h",
+      "inttypes.h",
+      "netinet/in.h",
+      "netinet/tcp.h",
+      "private/command_line.h",
+      "private/core_private.h",
+      "private/log_private.h",
+      "private/nodes_private.h",
+      "private/packets_private.h",
+      "private/sim_conf.h",
+      "private/simulation_private.h",
+      "public/packets.h",
+      "public/simulation.h",
+      "public/types.h",
+      "stdint.h",
+      "sys/ioctl.h",
+      "sys/resource.h",
+      "sys/select.h",
+      "sys/signal.h",
+      "sys/socket.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 3,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "gnu++",
+    "strip_modern_poison_flags": [],
+    "inject_legacy_shims": false,
+    "compiler_aliasing": {}
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 2,
+    "shadowed_builtins": [],
+    "permitted_mutations": 32,
+    "suspect_global_mutations": 0
+  },
+  "parallel_build_safety": {
+    "vpath_out_of_tree_safe": false,
+    "generators": [],
+    "unordered_generated_sources": [],
+    "built_sources_declared": false
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "X11/Xatom.h",
+      "X11/Xlib.h",
+      "X11/Xutil.h",
+      "X11/keysym.h",
+      "arpa/inet.h",
+      "include/worldsens_pkt.h",
+      "inttypes.h",
+      "netinet/in.h",
+      "netinet/tcp.h",
+      "private/command_line.h",
+      "private/core_private.h",
+      "private/log_private.h",
+      "private/nodes_private.h",
+      "private/packets_private.h",
+      "private/sim_conf.h",
+      "private/simulation_private.h",
+      "public/packets.h",
+      "public/simulation.h",
+      "public/types.h",
+      "stdint.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "subdir-config-h-include-path",
+    "vpath-unsafe (abs-path/hardcoded-srcdir leakage)"
+  ],
+  "repair_hints": [
+    {
+      "id": "subdir-top-builddir",
+      "phase": "make",
+      "confidence": 0.88,
+      "evidence": [
+        "libtracer consumes config.h below root",
+        "devices/hd44780 consumes config.h below root",
+        "devices/uigfx consumes config.h below root",
+        "src consumes config.h below root",
+        "arch/common consumes config.h below root"
+      ],
+      "action": "ensure ac_subst_file sets relative top_builddir per subdir (0.1.19)",
+      "expected_effect": "config.h found in subdir compiles"
+    }
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": -3,
+      "Makefile.in": 1166,
+      "aclocal.m4": 71,
+      "config.h.in": 84,
+      "configure": 78,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_ENABLE": "system-aclocal",
+      "AC_ARG_WITH": "system-aclocal",
+      "AC_CACHE_CHECK": "system-aclocal",
+      "AC_CANONICAL_HOST": "system-aclocal",
+      "AC_CHECK_FUNC": "system-aclocal",
+      "AC_CHECK_HEADERS": "system-aclocal",
+      "AC_CHECK_LIB": "system-aclocal",
+      "AC_CHECK_SIZEOF": "system-aclocal",
+      "AC_COMPILE_IFELSE": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_HEADERS": "system-aclocal",
+      "AC_CONFIG_SRCDIR": "system-aclocal",
+      "AC_C_BIGENDIAN": "system-aclocal",
+      "AC_C_CONST": "system-aclocal",
+      "AC_C_INLINE": "system-aclocal",
+      "AC_DEFINE": "system-aclocal",
+      "AC_DEFINE_UNQUOTED": "system-aclocal",
+      "AC_FUNC_MEMCMP": "system-aclocal",
+      "AC_HEADER_STDC": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_LANG_PROGRAM": "system-aclocal",
+      "AC_MSG_ERROR": "system-aclocal",
+      "AC_MSG_NOTICE": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PATH_PROG": "system-aclocal",
+      "AC_PROG_CC": "system-aclocal",
+      "AC_PROG_INSTALL": "system-aclocal",
+      "AC_PROG_MAKE_SET": "system-aclocal",
+      "AC_PROG_RANLIB": "system-aclocal",
+      "AC_SUBST": "system-aclocal",
+      "AC_TYPE_SIZE_T": "system-aclocal",
+      "AM_CONDITIONAL": "system-aclocal",
+      "AM_INIT_AUTOMAKE": "system-aclocal",
+      "AM_PATH_SDL": "system-aclocal",
+      "AM_PROG_CC_C_O": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "libcc2420_a_SOURCES",
+        "var": "CC2420",
+        "resolved_to": [
+          "cc2420_dev.c",
+          "cc2420_state.c",
+          "cc2420_rx.c",
+          "cc2420_tx.c",
+          "cc2420_registers.c",
+          "cc2420_strobes.c",
+          "cc2420_spi.c",
+          "cc2420_fifo.c",
+          "cc2420_ram.c",
+          "cc2420_crc_ccitt.c",
+          "cc2420_mux.c",
+          "cc2420_state.h",
+          "cc2420_dev.h",
+          "cc2420.h",
+          "cc2420_internals.h",
+          "cc2420_registers.h",
+          "cc2420_rx.h",
+          "cc2420_spi.h",
+          "cc2420_fifo.h",
+          "cc2420_ram.h",
+          "cc2420_crc_ccitt.h",
+          "cc2420_strobes.h",
+          "cc2420_mux.h",
+          "cc2420_debug.h"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libptty_a_SOURCES",
+        "var": "PTTY",
+        "resolved_to": [
+          "ptty_dev.h",
+          "ptty_dev.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libcc1100_a_SOURCES",
+        "var": "CC1100_2500",
+        "resolved_to": [
+          "cc1100_2500_dev.c",
+          "cc1100_2500_dev.h",
+          "cc1100_2500_globals.h",
+          "cc1100_2500_internals.h",
+          "cc1100_2500_registers.c",
+          "cc1100_2500_rx.c",
+          "cc1100_2500_state.c",
+          "cc1100_2500_strobe.c",
+          "cc1100_2500_tx.c",
+          "cc1100_2500_gdo.c",
+          "cc1100_2500_fifo.c",
+          "cc1100_2500_debug.c",
+          "cc1100_2500_wor.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libcc2500_a_SOURCES",
+        "var": "CC1100_2500",
+        "resolved_to": [
+          "cc1100_2500_dev.c",
+          "cc1100_2500_dev.h",
+          "cc1100_2500_globals.h",
+          "cc1100_2500_internals.h",
+          "cc1100_2500_registers.c",
+          "cc1100_2500_rx.c",
+          "cc1100_2500_state.c",
+          "cc1100_2500_strobe.c",
+          "cc1100_2500_tx.c",
+          "cc1100_2500_gdo.c",
+          "cc1100_2500_fifo.c",
+          "cc1100_2500_debug.c",
+          "cc1100_2500_wor.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libat45db041b_a_SOURCES",
+        "var": "AT45DB",
+        "resolved_to": [
+          "at45db_dev.h",
+          "at45db_dev.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libmcugen_a_SOURCES",
+        "var": "MCUGEN",
+        "resolved_to": [
+          "mcugen.h",
+          "mcugen.c",
+          "mcugen_mac.c",
+          "mcugen_jtag.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libmcucommon_a_SOURCES",
+        "var": "COMMON_HEADER",
+        "resolved_to": [
+          "debug.h",
+          "mcu.h",
+          "hardware.h",
+          "wsim_stdint.h"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libmcucommon_a_SOURCES",
+        "var": "COMMON_SRC",
+        "resolved_to": [
+          "debug.c",
+          "ihex.c",
+          "missing.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libmsp430f135_a_SOURCES",
+        "var": "MSPSRC",
+        "resolved_to": [
+          "msp430.h",
+          "msp430.c",
+          "msp430_debug.h",
+          "msp430_debug.c",
+          "msp430_alu.h",
+          "msp430_alu.c",
+          "msp430_hwmul.h",
+          "msp430_hwmul.c",
+          "msp430_intr.h",
+          "msp430_intr.c",
+          "msp430_io.h",
+          "msp430_io.c",
+          "msp430_basic_clock.h",
+          "msp430_basic_clock.c",
+          "msp430_basic_clock_plus.h",
+          "msp430_basic_clock_plus.c",
+          "msp430_fll_clock.h",
+          "msp430_fll_clock.c",
+          "msp430_basic_timer.h",
+          "msp430_basic_timer.c",
+          "msp430_timer.h",
+          "msp430_timer.c",
+          "msp430_digiIO.h",
+          "msp430_digiIO.c",
+          "msp430_lcd.h",
+          "msp430_lcd.c",
+          "msp430_sfr.h",
+          "msp430_sfr.c",
+          "msp430_uscia.h",
+          "msp430_uscia.c",
+          "msp430_uscib.h",
+          "msp430_uscib.c",
+          "msp430_usart.h",
+          "msp430_usart.c",
+          "msp430_watchdog.h",
+          "msp430_watchdog.c",
+          "msp430_dma.h",
+          "msp430_dma.c",
+          "msp430_flash.h",
+          "msp430_flash.c",
+          "msp430_svs.h",
+          "msp430_svs.c",
+          "msp430_cmpa.h",
+          "msp430_cmpa.c",
+          "msp430_adc12.h",
+          "msp430_adc12.c",
+          "msp430_adc10.h",
+          "msp430_adc10.c",
+          "msp430_dac12.h",
+          "msp430_dac12.c",
+          "msp430_ucs.h",
+          "msp430_ucs.c",
+          "msp430_lcdb.h",
+          "msp430_lcdb.c",
+          "msp430_adc.h",
+          "msp430_adc.c",
+          "msp430_rtc.h",
+          "msp430_rtc.c",
+          "msp430_pmm.h",
+          "msp430_pmm.c",
+          "msp430_portmap.h",
+          "msp430_portmap.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libmsp430f149_a_SOURCES",
+        "var": "MSPSRC",
+        "resolved_to": [
+          "msp430.h",
+          "msp430.c",
+          "msp430_debug.h",
+          "msp430_debug.c",
+          "msp430_alu.h",
+          "msp430_alu.c",
+          "msp430_hwmul.h",
+          "msp430_hwmul.c",
+          "msp430_intr.h",
+          "msp430_intr.c",
+          "msp430_io.h",
+          "msp430_io.c",
+          "msp430_basic_clock.h",
+          "msp430_basic_clock.c",
+          "msp430_basic_clock_plus.h",
+          "msp430_basic_clock_plus.c",
+          "msp430_fll_clock.h",
+          "msp430_fll_clock.c",
+          "msp430_basic_timer.h",
+          "msp430_basic_timer.c",
+          "msp430_timer.h",
+          "msp430_timer.c",
+          "msp430_digiIO.h",
+          "msp430_digiIO.c",
+          "msp430_lcd.h",
+          "msp430_lcd.c",
+          "msp430_sfr.h",
+          "msp430_sfr.c",
+          "msp430_uscia.h",
+          "msp430_uscia.c",
+          "msp430_uscib.h",
+          "msp430_uscib.c",
+          "msp430_usart.h",
+          "msp430_usart.c",
+          "msp430_watchdog.h",
+          "msp430_watchdog.c",
+          "msp430_dma.h",
+          "msp430_dma.c",
+          "msp430_flash.h",
+          "msp430_flash.c",
+          "msp430_svs.h",
+          "msp430_svs.c",
+          "msp430_cmpa.h",
+          "msp430_cmpa.c",
+          "msp430_adc12.h",
+          "msp430_adc12.c",
+          "msp430_adc10.h",
+          "msp430_adc10.c",
+          "msp430_dac12.h",
+          "msp430_dac12.c",
+          "msp430_ucs.h",
+          "msp430_ucs.c",
+          "msp430_lcdb.h",
+          "msp430_lcdb.c",
+          "msp430_adc.h",
+          "msp430_adc.c",
+          "msp430_rtc.h",
+          "msp430_rtc.c",
+          "msp430_pmm.h",
+          "msp430_pmm.c",
+          "msp430_portmap.h",
+          "msp430_portmap.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libmsp430f449_a_SOURCES",
+        "var": "MSPSRC",
+        "resolved_to": [
+          "msp430.h",
+          "msp430.c",
+          "msp430_debug.h",
+          "msp430_debug.c",
+          "msp430_alu.h",
+          "msp430_alu.c",
+          "msp430_hwmul.h",
+          "msp430_hwmul.c",
+          "msp430_intr.h",
+          "msp430_intr.c",
+          "msp430_io.h",
+          "msp430_io.c",
+          "msp430_basic_clock.h",
+          "msp430_basic_clock.c",
+          "msp430_basic_clock_plus.h",
+          "msp430_basic_clock_plus.c",
+          "msp430_fll_clock.h",
+          "msp430_fll_clock.c",
+          "msp430_basic_timer.h",
+          "msp430_basic_timer.c",
+          "msp430_timer.h",
+          "msp430_timer.c",
+          "msp430_digiIO.h",
+          "msp430_digiIO.c",
+          "msp430_lcd.h",
+          "msp430_lcd.c",
+          "msp430_sfr.h",
+          "msp430_sfr.c",
+          "msp430_uscia.h",
+          "msp430_uscia.c",
+          "msp430_uscib.h",
+          "msp430_uscib.c",
+          "msp430_usart.h",
+          "msp430_usart.c",
+          "msp430_watchdog.h",
+          "msp430_watchdog.c",
+          "msp430_dma.h",
+          "msp430_dma.c",
+          "msp430_flash.h",
+          "msp430_flash.c",
+          "msp430_svs.h",
+          "msp430_svs.c",
+          "msp430_cmpa.h",
+          "msp430_cmpa.c",
+          "msp430_adc12.h",
+          "msp430_adc12.c",
+          "msp430_adc10.h",
+          "msp430_adc10.c",
+          "msp430_dac12.h",
+          "msp430_dac12.c",
+          "msp430_ucs.h",
+          "msp430_ucs.c",
+          "msp430_lcdb.h",
+          "msp430_lcdb.c",
+          "msp430_adc.h",
+          "msp430_adc.c",
+          "msp430_rtc.h",
+          "msp430_rtc.c",
+          "msp430_pmm.h",
+          "msp430_pmm.c",
+          "msp430_portmap.h",
+          "msp430_portmap.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libmsp430f1611_a_SOURCES",
+        "var": "MSPSRC",
+        "resolved_to": [
+          "msp430.h",
+          "msp430.c",
+          "msp430_debug.h",
+          "msp430_debug.c",
+          "msp430_alu.h",
+          "msp430_alu.c",
+          "msp430_hwmul.h",
+          "msp430_hwmul.c",
+          "msp430_intr.h",
+          "msp430_intr.c",
+          "msp430_io.h",
+          "msp430_io.c",
+          "msp430_basic_clock.h",
+          "msp430_basic_clock.c",
+          "msp430_basic_clock_plus.h",
+          "msp430_basic_clock_plus.c",
+          "msp430_fll_clock.h",
+          "msp430_fll_clock.c",
+          "msp430_basic_timer.h",
+          "msp430_basic_timer.c",
+          "msp430_timer.h",
+          "msp430_timer.c",
+          "msp430_digiIO.h",
+          "msp430_digiIO.c",
+          "msp430_lcd.h",
+          "msp430_lcd.c",
+          "msp430_sfr.h",
+          "msp430_sfr.c",
+          "msp430_uscia.h",
+          "msp430_uscia.c",
+          "msp430_uscib.h",
+          "msp430_uscib.c",
+          "msp430_usart.h",
+          "msp430_usart.c",
+          "msp430_watchdog.h",
+          "msp430_watchdog.c",
+          "msp430_dma.h",
+          "msp430_dma.c",
+          "msp430_flash.h",
+          "msp430_flash.c",
+          "msp430_svs.h",
+          "msp430_svs.c",
+          "msp430_cmpa.h",
+          "msp430_cmpa.c",
+          "msp430_adc12.h",
+          "msp430_adc12.c",
+          "msp430_adc10.h",
+          "msp430_adc10.c",
+          "msp430_dac12.h",
+          "msp430_dac12.c",
+          "msp430_ucs.h",
+          "msp430_ucs.c",
+          "msp430_lcdb.h",
+          "msp430_lcdb.c",
+          "msp430_adc.h",
+          "msp430_adc.c",
+          "msp430_rtc.h",
+          "msp430_rtc.c",
+          "msp430_pmm.h",
+          "msp430_pmm.c",
+          "msp430_portmap.h",
+          "msp430_portmap.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libmsp430f1612_a_SOURCES",
+        "var": "MSPSRC",
+        "resolved_to": [
+          "msp430.h",
+          "msp430.c",
+          "msp430_debug.h",
+          "msp430_debug.c",
+          "msp430_alu.h",
+          "msp430_alu.c",
+          "msp430_hwmul.h",
+          "msp430_hwmul.c",
+          "msp430_intr.h",
+          "msp430_intr.c",
+          "msp430_io.h",
+          "msp430_io.c",
+          "msp430_basic_clock.h",
+          "msp430_basic_clock.c",
+          "msp430_basic_clock_plus.h",
+          "msp430_basic_clock_plus.c",
+          "msp430_fll_clock.h",
+          "msp430_fll_clock.c",
+          "msp430_basic_timer.h",
+          "msp430_basic_timer.c",
+          "msp430_timer.h",
+          "msp430_timer.c",
+          "msp430_digiIO.h",
+          "msp430_digiIO.c",
+          "msp430_lcd.h",
+          "msp430_lcd.c",
+          "msp430_sfr.h",
+          "msp430_sfr.c",
+          "msp430_uscia.h",
+          "msp430_uscia.c",
+          "msp430_uscib.h",
+          "msp430_uscib.c",
+          "msp430_usart.h",
+          "msp430_usart.c",
+          "msp430_watchdog.h",
+          "msp430_watchdog.c",
+          "msp430_dma.h",
+          "msp430_dma.c",
+          "msp430_flash.h",
+          "msp430_flash.c",
+          "msp430_svs.h",
+          "msp430_svs.c",
+          "msp430_cmpa.h",
+          "msp430_cmpa.c",
+          "msp430_adc12.h",
+          "msp430_adc12.c",
+          "msp430_adc10.h",
+          "msp430_adc10.c",
+          "msp430_dac12.h",
+          "msp430_dac12.c",
+          "msp430_ucs.h",
+          "msp430_ucs.c",
+          "msp430_lcdb.h",
+          "msp430_lcdb.c",
+          "msp430_adc.h",
+          "msp430_adc.c",
+          "msp430_rtc.h",
+          "msp430_rtc.c",
+          "msp430_pmm.h",
+          "msp430_pmm.c",
+          "msp430_portmap.h",
+          "msp430_portmap.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libmsp430f2012_a_SOURCES",
+        "var": "MSPSRC",
+        "resolved_to": [
+          "msp430.h",
+          "msp430.c",
+          "msp430_debug.h",
+          "msp430_debug.c",
+          "msp430_alu.h",
+          "msp430_alu.c",
+          "msp430_hwmul.h",
+          "msp430_hwmul.c",
+          "msp430_intr.h",
+          "msp430_intr.c",
+          "msp430_io.h",
+          "msp430_io.c",
+          "msp430_basic_clock.h",
+          "msp430_basic_clock.c",
+          "msp430_basic_clock_plus.h",
+          "msp430_basic_clock_plus.c",
+          "msp430_fll_clock.h",
+          "msp430_fll_clock.c",
+          "msp430_basic_timer.h",
+          "msp430_basic_timer.c",
+          "msp430_timer.h",
+          "msp430_timer.c",
+          "msp430_digiIO.h",
+          "msp430_digiIO.c",
+          "msp430_lcd.h",
+          "msp430_lcd.c",
+          "msp430_sfr.h",
+          "msp430_sfr.c",
+          "msp430_uscia.h",
+          "msp430_uscia.c",
+          "msp430_uscib.h",
+          "msp430_uscib.c",
+          "msp430_usart.h",
+          "msp430_usart.c",
+          "msp430_watchdog.h",
+          "msp430_watchdog.c",
+          "msp430_dma.h",
+          "msp430_dma.c",
+          "msp430_flash.h",
+          "msp430_flash.c",
+          "msp430_svs.h",
+          "msp430_svs.c",
+          "msp430_cmpa.h",
+          "msp430_cmpa.c",
+          "msp430_adc12.h",
+          "msp430_adc12.c",
+          "msp430_adc10.h",
+          "msp430_adc10.c",
+          "msp430_dac12.h",
+          "msp430_dac12.c",
+          "msp430_ucs.h",
+          "msp430_ucs.c",
+          "msp430_lcdb.h",
+          "msp430_lcdb.c",
+          "msp430_adc.h",
+          "msp430_adc.c",
+          "msp430_rtc.h",
+          "msp430_rtc.c",
+          "msp430_pmm.h",
+          "msp430_pmm.c",
+          "msp430_portmap.h",
+          "msp430_portmap.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libmsp430f2013_a_SOURCES",
+        "var": "MSPSRC",
+        "resolved_to": [
+          "msp430.h",
+          "msp430.c",
+          "msp430_debug.h",
+          "msp430_debug.c",
+          "msp430_alu.h",
+          "msp430_alu.c",
+          "msp430_hwmul.h",
+          "msp430_hwmul.c",
+          "msp430_intr.h",
+          "msp430_intr.c",
+          "msp430_io.h",
+          "msp430_io.c",
+          "msp430_basic_clock.h",
+          "msp430_basic_clock.c",
+          "msp430_basic_clock_plus.h",
+          "msp430_basic_clock_plus.c",
+          "msp430_fll_clock.h",
+          "msp430_fll_clock.c",
+          "msp430_basic_timer.h",
+          "msp430_basic_timer.c",
+          "msp430_timer.h",
+          "msp430_timer.c",
+          "msp430_digiIO.h",
+          "msp430_digiIO.c",
+          "msp430_lcd.h",
+          "msp430_lcd.c",
+          "msp430_sfr.h",
+          "msp430_sfr.c",
+          "msp430_uscia.h",
+          "msp430_uscia.c",
+          "msp430_uscib.h",
+          "msp430_uscib.c",
+          "msp430_usart.h",
+          "msp430_usart.c",
+          "msp430_watchdog.h",
+          "msp430_watchdog.c",
+          "msp430_dma.h",
+          "msp430_dma.c",
+          "msp430_flash.h",
+          "msp430_flash.c",
+          "msp430_svs.h",
+          "msp430_svs.c",
+          "msp430_cmpa.h",
+          "msp430_cmpa.c",
+          "msp430_adc12.h",
+          "msp430_adc12.c",
+          "msp430_adc10.h",
+          "msp430_adc10.c",
+          "msp430_dac12.h",
+          "msp430_dac12.c",
+          "msp430_ucs.h",
+          "msp430_ucs.c",
+          "msp430_lcdb.h",
+          "msp430_lcdb.c",
+          "msp430_adc.h",
+          "msp430_adc.c",
+          "msp430_rtc.h",
+          "msp430_rtc.c",
+          "msp430_pmm.h",
+          "msp430_pmm.c",
+          "msp430_portmap.h",
+          "msp430_portmap.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libmsp430f2274_a_SOURCES",
+        "var": "MSPSRC",
+        "resolved_to": [
+          "msp430.h",
+          "msp430.c",
+          "msp430_debug.h",
+          "msp430_debug.c",
+          "msp430_alu.h",
+          "msp430_alu.c",
+          "msp430_hwmul.h",
+          "msp430_hwmul.c",
+          "msp430_intr.h",
+          "msp430_intr.c",
+          "msp430_io.h",
+          "msp430_io.c",
+          "msp430_basic_clock.h",
+          "msp430_basic_clock.c",
+          "msp430_basic_clock_plus.h",
+          "msp430_basic_clock_plus.c",
+          "msp430_fll_clock.h",
+          "msp430_fll_clock.c",
+          "msp430_basic_timer.h",
+          "msp430_basic_timer.c",
+          "msp430_timer.h",
+          "msp430_timer.c",
+          "msp430_digiIO.h",
+          "msp430_digiIO.c",
+          "msp430_lcd.h",
+          "msp430_lcd.c",
+          "msp430_sfr.h",
+          "msp430_sfr.c",
+          "msp430_uscia.h",
+          "msp430_uscia.c",
+          "msp430_uscib.h",
+          "msp430_uscib.c",
+          "msp430_usart.h",
+          "msp430_usart.c",
+          "msp430_watchdog.h",
+          "msp430_watchdog.c",
+          "msp430_dma.h",
+          "msp430_dma.c",
+          "msp430_flash.h",
+          "msp430_flash.c",
+          "msp430_svs.h",
+          "msp430_svs.c",
+          "msp430_cmpa.h",
+          "msp430_cmpa.c",
+          "msp430_adc12.h",
+          "msp430_adc12.c",
+          "msp430_adc10.h",
+          "msp430_adc10.c",
+          "msp430_dac12.h",
+          "msp430_dac12.c",
+          "msp430_ucs.h",
+          "msp430_ucs.c",
+          "msp430_lcdb.h",
+          "msp430_lcdb.c",
+          "msp430_adc.h",
+          "msp430_adc.c",
+          "msp430_rtc.h",
+          "msp430_rtc.c",
+          "msp430_pmm.h",
+          "msp430_pmm.c",
+          "msp430_portmap.h",
+          "msp430_portmap.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libcc430f6137_a_SOURCES",
+        "var": "MSPSRC",
+        "resolved_to": [
+          "msp430.h",
+          "msp430.c",
+          "msp430_debug.h",
+          "msp430_debug.c",
+          "msp430_alu.h",
+          "msp430_alu.c",
+          "msp430_hwmul.h",
+          "msp430_hwmul.c",
+          "msp430_intr.h",
+          "msp430_intr.c",
+          "msp430_io.h",
+          "msp430_io.c",
+          "msp430_basic_clock.h",
+          "msp430_basic_clock.c",
+          "msp430_basic_clock_plus.h",
+          "msp430_basic_clock_plus.c",
+          "msp430_fll_clock.h",
+          "msp430_fll_clock.c",
+          "msp430_basic_timer.h",
+          "msp430_basic_timer.c",
+          "msp430_timer.h",
+          "msp430_timer.c",
+          "msp430_digiIO.h",
+          "msp430_digiIO.c",
+          "msp430_lcd.h",
+          "msp430_lcd.c",
+          "msp430_sfr.h",
+          "msp430_sfr.c",
+          "msp430_uscia.h",
+          "msp430_uscia.c",
+          "msp430_uscib.h",
+          "msp430_uscib.c",
+          "msp430_usart.h",
+          "msp430_usart.c",
+          "msp430_watchdog.h",
+          "msp430_watchdog.c",
+          "msp430_dma.h",
+          "msp430_dma.c",
+          "msp430_flash.h",
+          "msp430_flash.c",
+          "msp430_svs.h",
+          "msp430_svs.c",
+          "msp430_cmpa.h",
+          "msp430_cmpa.c",
+          "msp430_adc12.h",
+          "msp430_adc12.c",
+          "msp430_adc10.h",
+          "msp430_adc10.c",
+          "msp430_dac12.h",
+          "msp430_dac12.c",
+          "msp430_ucs.h",
+          "msp430_ucs.c",
+          "msp430_lcdb.h",
+          "msp430_lcdb.c",
+          "msp430_adc.h",
+          "msp430_adc.c",
+          "msp430_rtc.h",
+          "msp430_rtc.c",
+          "msp430_pmm.h",
+          "msp430_pmm.c",
+          "msp430_portmap.h",
+          "msp430_portmap.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libatmega128_a_SOURCES",
+        "var": "ATMEGA",
+        "resolved_to": [
+          "atmega128_models.h",
+          "atmega128.h",
+          "atmega128.c",
+          "atmega128_debug.h",
+          "atmega128_debug.c",
+          "atmega128_alu.h",
+          "atmega128_alu.c",
+          "atmega128_io.h",
+          "atmega128_io.c",
+          "atmega128_io_reserved.h",
+          "atmega128_io_reserved.c",
+          "atmega128_digiIO.h",
+          "atmega128_digiIO.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libatmega128l_a_SOURCES",
+        "var": "ATMEGA",
+        "resolved_to": [
+          "atmega128_models.h",
+          "atmega128.h",
+          "atmega128.c",
+          "atmega128_debug.h",
+          "atmega128_debug.c",
+          "atmega128_alu.h",
+          "atmega128_alu.c",
+          "atmega128_io.h",
+          "atmega128_io.c",
+          "atmega128_io_reserved.h",
+          "atmega128_io_reserved.c",
+          "atmega128_digiIO.h",
+          "atmega128_digiIO.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libgui_a_SOURCES",
+        "var": "GUI_SRCADD",
+        "resolved_to": [
+          "sdl/sdl_bkend.c",
+          "x11/x11_bkend.c",
+          "win/win_bkend.c",
+          "none/none_bkend.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "wsnet1_SOURCES",
+        "var": "TRACER",
+        "resolved_to": [
+          "$(top_srcdir)/../../libtracer/tracer.c",
+          "$(top_srcdir)/../../libtracer/tracer_vcd.c",
+          "$(top_srcdir)/../../libtracer/tracer_bin.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "wsnet1_SOURCES",
+        "var": "LOGGER",
+        "resolved_to": [
+          "$(top_srcdir)/../../liblogger/logger.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "wsim_wsn430_LDADD",
+        "var": "WSN430_DEV",
+        "resolved_to": [
+          "../../devices/led/libled.a",
+          "../../devices/ds2411/libds2411.a",
+          "../../devices/m25p80/libm25p80.a",
+          "../../devices/ptty/libptty.a",
+          "../../devices/cc1100_2500/libcc1100.a",
+          "../../devices/uigfx/libuigfx.a"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "wsim_wsn430_LDADD",
+        "var": "WSIMADD",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "wsim_wsn430_LDADD",
+        "var": "WSN430_MCU",
+        "resolved_to": [
+          "../../arch/msp430/libmsp430f1611.a"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "wsim_msp135_LDADD",
+        "var": "TEST_DEV",
+        "resolved_to": [
+          "../../devices/led/libled.a",
+          "../../devices/ptty/libptty.a",
+          "../../devices/spidev/libspidev.a",
+          "../../devices/uigfx/libuigfx.a"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "wsim_msp135_LDADD",
+        "var": "WSIMADD",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "wsim_msp135_LDADD",
+        "var": "MCU_135",
+        "resolved_to": [
+          "../../arch/msp430/libmsp430f135.a"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "wsim_msp1611_LDADD",
+        "var": "TEST_DEV",
+        "resolved_to": [
+          "../../devices/led/libled.a",
+          "../../devices/ptty/libptty.a",
+          "../../devices/spidev/libspidev.a",
+          "../../devices/uigfx/libuigfx.a"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "wsim_msp1611_LDADD",
+        "var": "WSIMADD",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "wsim_msp1611_LDADD",
+        "var": "MCU_1611",
+        "resolved_to": [
+          "../../arch/msp430/libmsp430f1611.a"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "wsim_msp1611_2_LDADD",
+        "var": "TEST_DEV",
+        "resolved_to": [
+          "../../devices/led/libled.a",
+          "../../devices/ptty/libptty.a",
+          "../../devices/spidev/libspidev.a",
+          "../../devices/uigfx/libuigfx.a"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "wsim_msp1611_2_LDADD",
+        "var": "WSIMADD",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "wsim_msp1611_2_LDADD",
+        "var": "MCU_1611",
+        "resolved_to": [
+          "../../arch/msp430/libmsp430f1611.a"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "wsim_msp1611_3_LDADD",
+        "var": "TEST_DEV_MAST",
+        "resolved_to": [
+          "../../devices/led/libled.a",
+          "../../devices/ptty/libptty.a",
+          "../../devices/spidev_master/libspidevmast.a",
+          "../../devices/uigfx/libuigfx.a"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "wsim_msp1611_3_LDADD",
+        "var": "WSIMADD",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "wsim_msp1611_3_LDADD",
+        "var": "MCU_1611",
+        "resolved_to": [
+          "../../arch/msp430/libmsp430f1611.a"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "wsim_telosb_LDADD",
+        "var": "TELOSB_DEV",
+        "resolved_to": [
+          "../../devices/led/libled.a",
+          "../../devices/ds2411/libds2411.a",
+          "../../devices/m25p80/libm25p80.a",
+          "../../devices/ptty/libptty.a",
+          "../../devices/cc2420/libcc2420.a",
+          "../../devices/uigfx/libuigfx.a"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "wsim_telosb_LDADD",
+        "var": "WSIMADD",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "wsim_telosb_LDADD",
+        "var": "TELOSB_MCU",
+        "resolved_to": [
+          "../../arch/msp430/libmsp430f1611.a"
+        ],
+        "resolved": true
+      }
+    ],
+    "unresolved_refs": [
+      "wsim_wsn430_LDADD = $(WSIMADD)",
+      "wsim_msp135_LDADD = $(WSIMADD)",
+      "wsim_msp1611_LDADD = $(WSIMADD)",
+      "wsim_msp1611_2_LDADD = $(WSIMADD)",
+      "wsim_msp1611_3_LDADD = $(WSIMADD)",
+      "wsim_telosb_LDADD = $(WSIMADD)",
+      "wsim_iclbsn_LDADD = $(WSIMADD)",
+      "wsim_iclbsn2_LDADD = $(WSIMADD)",
+      "wsim_iclbsn3_LDADD = $(WSIMADD)",
+      "wsim_powwow_LDADD = $(WSIMADD)",
+      "wsim_mcugen_LDADD = $(WSIMADD)",
+      "wsim_ot2006_LDADD = $(WSIMADD)",
+      "wsim_wisenode_LDADD = $(WSIMADD)",
+      "wsim_ez430rf_LDADD = $(WSIMADD)",
+      "wsim_ez430_LDADD = $(WSIMADD)",
+      "wsim_senslabv13b_LDADD = $(WSIMADD)",
+      "wsim_senslabv14_LDADD = $(WSIMADD)",
+      "wsim_mosar_LDADD = $(WSIMADD)",
+      "wsim_wasp_LDADD = $(WSIMADD)",
+      "wsim_waspx_LDADD = $(WSIMADD)",
+      "wsim_otsetre_LDADD = $(WSIMADD)",
+      "wsim_ez430chronos_LDADD = $(WSIMADD)"
+    ],
+    "indirection_count": 89
   }
 }

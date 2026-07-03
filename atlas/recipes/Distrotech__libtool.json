@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "Distrotech/libtool",
   "source": {
     "url": "https://github.com/Distrotech/libtool",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,352 +26,131 @@
     {
       "step": "configure",
       "tool": "./configure",
-      "status": "ok"
+      "status": "fail"
     },
     {
-      "step": "make",
-      "tool": "make",
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
       "status": "fail"
     }
   ],
-  "probe_results": {
-    "HAVE_ARGZ_ADD": 1,
-    "HAVE_ARGZ_APPEND": 1,
-    "HAVE_ARGZ_COUNT": 1,
-    "HAVE_ARGZ_CREATE_SEP": 1,
-    "HAVE_ARGZ_H": 1,
-    "HAVE_ARGZ_INSERT": 1,
-    "HAVE_ARGZ_NEXT": 1,
-    "HAVE_ARGZ_STRINGIFY": 1,
-    "HAVE_CLOSEDIR": 1,
-    "HAVE_DIRENT_H": 1,
-    "HAVE_DLERROR": 1,
-    "HAVE_DLFCN_H": 1,
-    "HAVE_ERROR_T": 1,
-    "HAVE_INTTYPES_H": 1,
-    "HAVE_LIBDL": 1,
-    "HAVE_LIBDLLOADER": 1,
-    "HAVE_MEMORY_H": 1,
-    "HAVE_OPENDIR": 1,
-    "HAVE_PRELOADED_SYMBOLS": 1,
-    "HAVE_READDIR": 1,
-    "HAVE_STDINT_H": 1,
-    "HAVE_STDLIB_H": 1,
-    "HAVE_STRINGS_H": 1,
-    "HAVE_STRING_H": 1,
-    "HAVE_STRLCAT": 1,
-    "HAVE_STRLCPY": 1,
-    "HAVE_SYS_STAT_H": 1,
-    "HAVE_SYS_TYPES_H": 1,
-    "HAVE_UNISTD_H": 1,
-    "HAVE_WORKING_ARGZ": 1
-  },
+  "probe_results": {},
   "feature_flags": {
     "configure_args": []
   },
   "dependencies": {
     "pkg_config": [],
-    "system_libs": [],
+    "system_libs": [
+      "-ldl"
+    ],
     "headers_needed": [],
     "missing": []
   },
   "quirks": [
     "libtool",
-    "subdirs"
+    "subdirs",
+    "LIBS=-ldl"
   ],
   "outputs": [],
-  "status": "MAKE_FAIL",
+  "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "/tmp/atlasx_Distrotech__libtool/s/libltdl/config/missing: line 81: automake-1.13: command not found",
+  "diagnostic": "./configure: line 1644: syntax error near unexpected token `_LT_SYS_DYNAMIC_LINKER'",
   "deep_expansion": {
-    "configure_lines": 31230,
-    "leaked_macros": [
+    "configure_lines": 3576,
+    "leaked_macros": [],
+    "heredoc_openers": 30,
+    "heredoc_terminators": 30,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
       {
-        "name": "AM_INIT_AUTOMAKE",
-        "line": 3275,
-        "context": "AM_INIT_AUTOMAKE(1.11.1 gnu subdir-objects dist-xz color-tests parallel-"
-      },
-      {
-        "name": "AM_CONDITIONAL",
-        "line": 27491,
-        "context": "AM_CONDITIONAL(HAVE_CXX,test -n \"[$]_LT_TAGVAR(compiler, CXX)\")"
-      },
-      {
-        "name": "AM_CONDITIONAL",
-        "line": 27492,
-        "context": "AM_CONDITIONAL(HAVE_F77,test -n \"[$]_LT_TAGVAR(compiler, F77)\")"
-      },
-      {
-        "name": "AM_CONDITIONAL",
-        "line": 27493,
-        "context": "AM_CONDITIONAL(HAVE_FC,test -n \"[$]_LT_TAGVAR(compiler, FC)\")"
-      },
-      {
-        "name": "AM_CONDITIONAL",
-        "line": 27494,
-        "context": "AM_CONDITIONAL(HAVE_GCJ, test -n \"[$]_LT_TAGVAR(compiler, GCJ)\")"
-      },
-      {
-        "name": "AM_CONDITIONAL",
-        "line": 27495,
-        "context": "AM_CONDITIONAL(HAVE_RC, test -n \"[$]_LT_TAGVAR(compiler, RC)\")"
-      },
-      {
-        "name": "AM_MISSING_PROG",
-        "line": 27535,
-        "context": "AM_MISSING_PROG(HELP2MAN, help2man)"
+        "line": 1644,
+        "token": "_LT_SYS_DYNAMIC_LINKER",
+        "source": "fim4_require(_LT_SYS_DYNAMIC_LINKER)printf %s \"which extension is used f",
+        "block": [
+          "1640:       CC=$ac_prog",
+          "1641:       break",
+          "1642:     fi",
+          "1643:   done",
+          "1644: fim4_require(_LT_SYS_DYNAMIC_LINKER)printf %s \"which extension is used for r",
+          "1645: if test \"${libltdl_cv_shlibext+set}\" = set; then",
+          "1646:   printf '%s\\n' \"(cached) \\$libltdl_cv_shlibext\"",
+          "1647: else"
+        ]
       }
     ],
-    "heredoc_openers": 99,
-    "heredoc_terminators": 98,
-    "heredoc_imbalance": -1,
-    "syntax_errors": [],
     "cache_var_anomalies": [
-      "line 68: do eval test \\${$as_var+y} \\",
-      "line 1687: if eval test \\${$3+y}",
-      "line 1719: if eval test \\${$3+y}",
-      "line 1783: if eval test \\${$3+y}",
-      "line 1834: if eval test \\${$3+y}",
-      "line 27729: do eval test \\${$as_var+y} \\"
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 1535: # eval \"_acrs_sv=\\${}\"; printf '%s\\n' \"s|@@|${_acrs_sv}|g\" >",
+      "line 2089: # eval \"_acrs_sv=\\${}\"; printf '%s\\n' \"s|@@|${_acrs_sv}|g\" >",
+      "line 3099: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
-      "PROGRAM",
-      "OUTPUT",
-      "TOOL_OUTPUT",
-      "srcdir",
-      "datadir",
-      "docdir",
-      "infodir",
-      "localedir",
-      "mandir",
-      "configure_input",
-      "top_builddir",
-      "top_build_prefix",
-      "abs_srcdir",
-      "top_srcdir",
-      "abs_top_srcdir",
-      "builddir",
-      "abs_builddir",
-      "abs_top_builddir"
+      "LIBTOOL",
+      "PACKAGE_URL",
+      "AUTOM4TE",
+      "AUTOTEST",
+      "LASTRELEASE",
+      "TIMESTAMP",
+      "package_revision",
+      "M4SH",
+      "CONFIG_STATUS_DEPENDENCIES",
+      "aclocaldir",
+      "pkgdatadir",
+      "CONF_SUBDIRS",
+      "DIST_MAKEFILE_LIST",
+      "LT_DLLOADERS",
+      "LIBADD_DLOPEN",
+      "LIBADD_SHL_LOAD",
+      "LIBADD_DLD_LINK",
+      "LT_DLPREOPEN",
+      "LIBADD_DL",
+      "sys_symbol_underscore",
+      "ARGZ_H",
+      "INSTALL_LTDL_TRUE",
+      "INSTALL_LTDL_FALSE",
+      "CONVENIENCE_LTDL_TRUE",
+      "CONVENIENCE_LTDL_FALSE",
+      "LT_CONFIG_H",
+      "LTDLOPEN",
+      "to_host_file_cmd",
+      "to_tool_file_cmd",
+      "HAVE_CXX_TRUE"
     ],
-    "failed_during_check": "checking that generated files are newer than configure... done",
+    "failed_during_check": "",
     "failure_tail": [
-      "checking that generated files are newer than configure... done",
-      "configure: creating ./config.status",
-      "config.status: creating Makefile",
-      "config.status: creating config.h",
-      "config.status: executing tests/atconfig commands"
+      "configure: autobuild mode... default",
+      "configure: autobuild timestamp... 20260703T142612Z",
+      "./configure: line 1644: syntax error near unexpected token `_LT_SYS_DYNAMIC_LINK",
+      "./configure: line 1644: `fim4_require(_LT_SYS_DYNAMIC_LINKER)printf %s \"which ex"
     ],
     "conftest_corruption": [],
-    "conftest_directives_intact": 129,
+    "conftest_directives_intact": 32,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
-      "/* end confdefs.h.  */\\n$4\\n#include <$2>",
-      "/* end confdefs.h.  */\\n/* Define $2 to an innocuous variant, in case <limits.h> declares $2.\\nFor example, HP-UX 11i <limits.h> declares gettimeofday.  */\\n#define $2 innocuous_$2\\n\\n/* System header to define __stub macros and hopefully few prototypes,\\nwhich can conflict with char $2 (); below.  */\\n\\n#include <limits.h>\\n#undef $2\\n\\n/* Override any GCC internal prototype to avoid an error.",
-      "/* end confdefs.h.  */\\n$4\\nint\\nmain (void)\\n{\\n#ifndef $as_decl_name\\n#ifdef __cplusplus\\n(void) $as_decl_use;\\n#else\\n(void) $as_decl_name;\\n#endif\\n#endif",
-      "/* end confdefs.h.  */\\n$4\\nint\\nmain (void)\\n{\\nif (sizeof ($2))\\nreturn 0;\\n;\\nreturn 0;\\n}",
-      "/* end confdefs.h.  */\\n$4\\nint\\nmain (void)\\n{\\nif (sizeof (($2)))\\nreturn 0;\\n;\\nreturn 0;\\n}",
-      "/* end confdefs.h.  */\\n\\nint\\nmain (void)\\n{\\n\\n;\\nreturn 0;\\n}"
+      "char dlopen ();\\nint main() { return dlopen (); }",
+      "#if HAVE_DLFCN_H\\n#  include <dlfcn.h>\\n#endif\\n\\nint main() { dlopen(0, 0); ; return 0; }",
+      "char dlopen ();\\nint main() { return dlopen(); }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func ();\\nint main() { return $ac_func(); }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar shl_load ();\\nint main() { return shl_load(); }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar _dyld_func_lookup ();\\nint main() { return _dyld_func_lookup(); }"
     ]
   },
-  "oracle": {
-    "real_autoreconf": "fail",
-    "real_configure": "skipped",
-    "real_make": "skipped",
-    "real_configure_lines": 0,
-    "real_first_error": "automake: error: cannot open < libltdl/Makefile.inc: No such file or directory",
-    "classification": "OURS_BETTER"
-  },
   "receipt": {
-    "court_status": "partial",
-    "probe_trace": [
-      {
-        "name": "HAVE_ARGZ_ADD",
-        "kind": "func",
-        "result": "yes",
-        "reason": "ok"
-      },
-      {
-        "name": "HAVE_ARGZ_APPEND",
-        "kind": "func",
-        "result": "yes",
-        "reason": "ok"
-      },
-      {
-        "name": "HAVE_ARGZ_COUNT",
-        "kind": "func",
-        "result": "yes",
-        "reason": "ok"
-      },
-      {
-        "name": "HAVE_ARGZ_CREATE_SEP",
-        "kind": "func",
-        "result": "yes",
-        "reason": "ok"
-      },
-      {
-        "name": "HAVE_ARGZ_H",
-        "kind": "header",
-        "result": "yes",
-        "reason": "ok"
-      },
-      {
-        "name": "HAVE_ARGZ_INSERT",
-        "kind": "func",
-        "result": "yes",
-        "reason": "ok"
-      },
-      {
-        "name": "HAVE_ARGZ_NEXT",
-        "kind": "func",
-        "result": "yes",
-        "reason": "ok"
-      },
-      {
-        "name": "HAVE_ARGZ_STRINGIFY",
-        "kind": "func",
-        "result": "yes",
-        "reason": "ok"
-      },
-      {
-        "name": "HAVE_CLOSEDIR",
-        "kind": "func",
-        "result": "yes",
-        "reason": "ok"
-      },
-      {
-        "name": "HAVE_DIRENT_H",
-        "kind": "header",
-        "result": "yes",
-        "reason": "ok"
-      },
-      {
-        "name": "HAVE_DLERROR",
-        "kind": "func",
-        "result": "yes",
-        "reason": "ok"
-      },
-      {
-        "name": "HAVE_DLFCN_H",
-        "kind": "header",
-        "result": "yes",
-        "reason": "ok"
-      },
-      {
-        "name": "HAVE_ERROR_T",
-        "kind": "func",
-        "result": "yes",
-        "reason": "ok"
-      },
-      {
-        "name": "HAVE_INTTYPES_H",
-        "kind": "header",
-        "result": "yes",
-        "reason": "ok"
-      },
-      {
-        "name": "HAVE_LIBDL",
-        "kind": "lib",
-        "result": "yes",
-        "reason": "ok"
-      },
-      {
-        "name": "HAVE_LIBDLLOADER",
-        "kind": "lib",
-        "result": "yes",
-        "reason": "ok"
-      },
-      {
-        "name": "HAVE_MEMORY_H",
-        "kind": "header",
-        "result": "yes",
-        "reason": "ok"
-      },
-      {
-        "name": "HAVE_OPENDIR",
-        "kind": "func",
-        "result": "yes",
-        "reason": "ok"
-      },
-      {
-        "name": "HAVE_PRELOADED_SYMBOLS",
-        "kind": "func",
-        "result": "yes",
-        "reason": "ok"
-      },
-      {
-        "name": "HAVE_READDIR",
-        "kind": "func",
-        "result": "yes",
-        "reason": "ok"
-      },
-      {
-        "name": "HAVE_STDINT_H",
-        "kind": "header",
-        "result": "yes",
-        "reason": "ok"
-      },
-      {
-        "name": "HAVE_STDLIB_H",
-        "kind": "header",
-        "result": "yes",
-        "reason": "ok"
-      },
-      {
-        "name": "HAVE_STRINGS_H",
-        "kind": "header",
-        "result": "yes",
-        "reason": "ok"
-      },
-      {
-        "name": "HAVE_STRING_H",
-        "kind": "header",
-        "result": "yes",
-        "reason": "ok"
-      },
-      {
-        "name": "HAVE_STRLCAT",
-        "kind": "func",
-        "result": "yes",
-        "reason": "ok"
-      },
-      {
-        "name": "HAVE_STRLCPY",
-        "kind": "func",
-        "result": "yes",
-        "reason": "ok"
-      },
-      {
-        "name": "HAVE_SYS_STAT_H",
-        "kind": "header",
-        "result": "yes",
-        "reason": "ok"
-      },
-      {
-        "name": "HAVE_SYS_TYPES_H",
-        "kind": "header",
-        "result": "yes",
-        "reason": "ok"
-      },
-      {
-        "name": "HAVE_UNISTD_H",
-        "kind": "header",
-        "result": "yes",
-        "reason": "ok"
-      },
-      {
-        "name": "HAVE_WORKING_ARGZ",
-        "kind": "func",
-        "result": "yes",
-        "reason": "ok"
-      }
-    ],
+    "court_status": "failed",
+    "probe_trace": [],
     "quirks_matched": [
       "uses-libtool",
       "uses-subdir-objects",
       "vendored-aclocal"
     ],
-    "receipt_hash": "9ec7188e42a7e857e9e56751ca30f34ed8f3bde31be43ecbacc8f332ac34aa71",
+    "quirks_applied": [
+      {
+        "id": "uses-subdir-objects",
+        "action": "--disable-dependency-tracking",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -380,6 +159,804 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      }
+    ],
+    "config_headers": [
+      "config.h:config-h.in"
+    ],
+    "subdirs": [
+      "l1",
+      "l2",
+      "l3",
+      "l4"
+    ],
+    "build_dirs": [
+      {
+        "dir": "libltdl",
+        "targets": [],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-DLT_CONFIG_H='<$(LT_CONFIG_H)>'  \t\t\t  -DLTDL -I. -I$(srcdir) -Ilibltdl  \t\t\t  -I$(srcdir)/libltdl -I$(srcdir)/libltdl"
+      },
+      {
+        "dir": "tests/cdemo",
+        "targets": [
+          "libfoo.la",
+          "cdemo"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)/../.."
+      },
+      {
+        "dir": "tests/demo",
+        "targets": [
+          "libhello.la",
+          "hell",
+          "hell_static",
+          "$(BUILD_helldl)",
+          "libhell0.a",
+          "libhell1.la",
+          "libhell2.la",
+          "hell0"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)/../.."
+      },
+      {
+        "dir": "tests/depdemo",
+        "targets": [
+          "depdemo",
+          "depdemo_static"
+        ],
+        "subdirs": [
+          "l1",
+          "l2",
+          "l3",
+          "l4"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)/../.."
+      },
+      {
+        "dir": "tests/depdemo/l1",
+        "targets": [
+          "libl1.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir) -DBUILDING_LIBL1"
+      },
+      {
+        "dir": "tests/depdemo/l2",
+        "targets": [
+          "libl2.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir) -DBUILDING_LIBL2"
+      },
+      {
+        "dir": "tests/depdemo/l3",
+        "targets": [
+          "libl3.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir) -DBUILDING_LIBL3"
+      },
+      {
+        "dir": "tests/depdemo/l4",
+        "targets": [
+          "libl4.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir) -DBUILDING_LIBL4"
+      },
+      {
+        "dir": "tests/f77demo",
+        "targets": [
+          "libfoo.la",
+          "libmix.la",
+          "libfoo2.la",
+          "libfoo3.la",
+          "fprogram",
+          "cprogram"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)/../.."
+      },
+      {
+        "dir": "tests/fcdemo",
+        "targets": [
+          "libfoo.la",
+          "libmix.la",
+          "libfoo2.la",
+          "libfoo3.la",
+          "fprogram",
+          "cprogram"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)/../.."
+      },
+      {
+        "dir": "tests/mdemo",
+        "targets": [
+          "libsub.la",
+          "foo1.la",
+          "libfoo2.la",
+          "libmlib.la",
+          "mdemo",
+          "mdemo_static"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)/../.. $(INCLTDL)"
+      },
+      {
+        "dir": "tests/mdemo2",
+        "targets": [
+          "mdemo2",
+          "mdemo2_static"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)/../.. -I$(top_srcdir)/../../libltdl"
+      },
+      {
+        "dir": "tests/pdemo",
+        "targets": [
+          "libhello.la",
+          "hell",
+          "hell_static",
+          "$(BUILD_helldl)",
+          "libhell0.a",
+          "libhell1.la",
+          "libhell2.la",
+          "hell0"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)/../.."
+      },
+      {
+        "dir": "tests/tagdemo",
+        "targets": [
+          "libconv.la",
+          "libfoo.la",
+          "libbaz.la",
+          "tagdemo"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)/../.."
+      }
+    ],
+    "max_depth": 0,
+    "config_h_consumers_below_root": [
+      "tests/fcdemo",
+      "tests/f77demo",
+      "libltdl"
+    ]
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 2929,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      }
+    ]
+  },
+  "macro_inventory": {
+    "macro_dirs": [],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [],
+    "called_macros": [
+      "AC_ARG_ENABLE",
+      "AC_CACHE_CHECK",
+      "AC_CONFIG_AUX_DIR",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_HEADERS",
+      "AC_CONFIG_LIBOBJ_DIR",
+      "AC_CONFIG_MACRO_DIR",
+      "AC_CONFIG_SRCDIR",
+      "AC_CONFIG_TESTDIR",
+      "AC_INIT",
+      "AC_OUTPUT",
+      "AC_PACKAGE_TARNAME",
+      "AC_PACKAGE_URL",
+      "AC_PACKAGE_VERSION",
+      "AC_PREREQ",
+      "AC_PROG_CC",
+      "AC_PROG_CPP",
+      "AC_SUBST",
+      "AM_CONDITIONAL",
+      "AM_INIT_AUTOMAKE",
+      "AM_MISSING_PROG",
+      "AM_PROG_CC_C_O",
+      "LT_CONFIG_LTDL_DIR",
+      "LT_INIT",
+      "LT_LANG",
+      "LT_SET_OPTION",
+      "LT_TAGVAR"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 173,
+    "configure_fi": 165,
+    "configure_case": 77,
+    "configure_esac": 80,
+    "balanced": false,
+    "automake_conditionals": [
+      "HAVE_CXX",
+      "HAVE_F77",
+      "HAVE_FC",
+      "HAVE_GCJ",
+      "HAVE_RC"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": "libltdl/config",
+    "present": [
+      "install-sh",
+      "missing",
+      "depcomp",
+      "compile",
+      "ltmain.sh"
+    ],
+    "missing": []
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "c": 46,
+      "cpp": 4,
+      "f": 4,
+      "f90": 4,
+      "h": 26
+    },
+    "configure_macros": [
+      "AC_PROG_CC"
+    ],
+    "needs_cxx": true,
+    "needs_fortran": true,
+    "sets_c_std": false
+  },
+  "libtool_context": {
+    "uses_libtool": true,
+    "macros": [
+      "LT_INIT",
+      "LT_LANG"
+    ],
+    "ltmain_present": false,
+    "libtool_m4_sources": [
+      "aclocal.m4"
+    ],
+    "age": "modern"
+  },
+  "make_graph": {
+    "targets": [
+      "all",
+      ".SUFFIXES",
+      "am--refresh",
+      "$(srcdir)/Makefile.in",
+      ".PRECIOUS",
+      "Makefile",
+      "$(srcdir)/libltdl/Makefile.inc",
+      "$(top_builddir)/config.status",
+      "$(top_srcdir)/configure",
+      "$(ACLOCAL_M4)",
+      "$(am__aclocal_m4_deps)",
+      "config.h",
+      "stamp-h1",
+      "$(srcdir)/config-h.in",
+      "distclean-hdr",
+      "install-libLTLIBRARIES",
+      "uninstall-libLTLIBRARIES",
+      "clean-libLTLIBRARIES",
+      "clean-noinstLTLIBRARIES",
+      "libltdl/loaders/$(am__dirstamp)",
+      "libltdl/loaders/$(DEPDIR)/$(am__dirstamp)",
+      "libltdl/loaders/dld_link.lo",
+      "libltdl/$(am__dirstamp)",
+      "libltdl/dld_link.la",
+      "libltdl/loaders/dlopen.lo",
+      "libltdl/dlopen.la",
+      "libltdl/loaders/dyld.lo",
+      "libltdl/dyld.la",
+      "libltdl/loaders/libltdl_libltdl_la-preopen.lo",
+      "libltdl/$(DEPDIR)/$(am__dirstamp)",
+      "libltdl/libltdl_libltdl_la-lt__alloc.lo",
+      "libltdl/libltdl_libltdl_la-lt_dlloader.lo",
+      "libltdl/libltdl_libltdl_la-lt_error.lo",
+      "libltdl/libltdl_libltdl_la-ltdl.lo",
+      "libltdl/libltdl_libltdl_la-slist.lo",
+      "libltdl/libltdl.la",
+      "libltdl/loaders/libltdl_libltdlc_la-preopen.lo",
+      "libltdl/libltdl_libltdlc_la-lt__alloc.lo",
+      "libltdl/libltdl_libltdlc_la-lt_dlloader.lo",
+      "libltdl/libltdl_libltdlc_la-lt_error.lo"
+    ],
+    "key_variables": {
+      "AR": "ar",
+      "CC": "gcc",
+      "CFLAGS": "-g -O2",
+      "CPPFLAGS": "",
+      "CXX": "g++",
+      "CXXFLAGS": "-g -O2",
+      "DEFAULT_INCLUDES": "-I.",
+      "DEFS": "-DHAVE_CONFIG_H",
+      "LDFLAGS": "",
+      "LIBS": "-ldl",
+      "RANLIB": "ranlib"
+    },
+    "generated_files": [
+      "Makefile",
+      "libtool",
+      "config.log"
+    ],
+    "recursion_depth": 0,
+    "top_targets": [
+      "all"
+    ],
+    "make_diagnostics": []
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": true,
+    "defines_sampled": [
+      "HAVE_CONFIG_H",
+      "LT_CONFIG_H='<$(LT_CONFIG_H)>'",
+      "LTDL",
+      "LTDLOPEN=$(LTDLOPEN)",
+      "LTDLOPEN=$(LTDLOPEN)c"
+    ]
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-subdir-objects",
+      "applied_at": "configure",
+      "effect": "neutral",
+      "effectiveness": "low"
+    },
+    {
+      "quirk_id": "uses-libtool",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "vpath_analysis": {
+    "hardcoded_src_paths": 28,
+    "abs_path_leakage": 0,
+    "built_sources": [
+      "=",
+      "libtool",
+      "libtoolize",
+      "+=",
+      "$(ARGZ_H)"
+    ],
+    "generated_source_targets": [
+      "tests/tagdemo-undef-exec.log",
+      "tests/tagdemo-undef-make.log",
+      "tests/tagdemo-undef.log",
+      "tests/tagdemo-shared-exec.log",
+      "tests/tagdemo-shared-make.log",
+      "tests/tagdemo-shared.log",
+      "tests/tagdemo-exec.log",
+      "tests/tagdemo-make.log",
+      "tests/tagdemo-conf.log",
+      "tests/tagdemo-static-exec.log",
+      "tests/tagdemo-static-make.log",
+      "tests/f77demo-shared-exec.log",
+      "tests/f77demo-shared-make.log",
+      "tests/f77demo-shared.log",
+      "tests/f77demo-exec.log",
+      "tests/f77demo-make.log",
+      "tests/f77demo-conf.log",
+      "tests/f77demo-static-exec.log",
+      "tests/f77demo-static-make.log",
+      "tests/fcdemo-shared-exec.log"
+    ]
+  },
+  "feature_probe_gap": {
+    "headers_checked": [],
+    "headers_included_unchecked": [
+      "kernel/image.h",
+      "libltdl/lt_dlloader.h",
+      "libltdl/lt_error.h",
+      "libltdl/lt_system.h",
+      "mach-o/getsect.h",
+      "sys/types.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 2,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "gnu++",
+    "strip_modern_poison_flags": [],
+    "inject_legacy_shims": false,
+    "compiler_aliasing": {}
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 0,
+    "shadowed_builtins": [],
+    "permitted_mutations": 1,
+    "suspect_global_mutations": 0
+  },
+  "parallel_build_safety": {
+    "vpath_out_of_tree_safe": false,
+    "generators": [
+      "tests/tagdemo-undef-exec.log",
+      "tests/tagdemo-undef-make.log",
+      "tests/tagdemo-undef.log",
+      "tests/tagdemo-shared-exec.log",
+      "tests/tagdemo-shared-make.log",
+      "tests/tagdemo-shared.log",
+      "tests/tagdemo-exec.log",
+      "tests/tagdemo-make.log",
+      "tests/tagdemo-conf.log",
+      "tests/tagdemo-static-exec.log",
+      "tests/tagdemo-static-make.log",
+      "tests/f77demo-shared-exec.log",
+      "tests/f77demo-shared-make.log",
+      "tests/f77demo-shared.log",
+      "tests/f77demo-exec.log"
+    ],
+    "unordered_generated_sources": [
+      "tests/tagdemo-undef-exec.log",
+      "tests/tagdemo-undef-make.log",
+      "tests/tagdemo-undef.log",
+      "tests/tagdemo-shared-exec.log",
+      "tests/tagdemo-shared-make.log",
+      "tests/tagdemo-shared.log",
+      "tests/tagdemo-exec.log",
+      "tests/tagdemo-make.log",
+      "tests/tagdemo-conf.log",
+      "tests/tagdemo-static-exec.log",
+      "tests/tagdemo-static-make.log",
+      "tests/f77demo-shared-exec.log",
+      "tests/f77demo-shared-make.log",
+      "tests/f77demo-shared.log",
+      "tests/f77demo-exec.log"
+    ],
+    "built_sources_declared": true
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "kernel/image.h",
+      "libltdl/lt_dlloader.h",
+      "libltdl/lt_error.h",
+      "libltdl/lt_system.h",
+      "mach-o/getsect.h",
+      "sys/types.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "subdir-config-h-include-path",
+    "parallel-build-race (gen-source not in BUILT_SOURCES)",
+    "vpath-unsafe (abs-path/hardcoded-srcdir leakage)"
+  ],
+  "repair_hints": [
+    {
+      "id": "subdir-top-builddir",
+      "phase": "make",
+      "confidence": 0.88,
+      "evidence": [
+        "tests/fcdemo consumes config.h below root",
+        "tests/f77demo consumes config.h below root",
+        "libltdl consumes config.h below root"
+      ],
+      "action": "ensure ac_subst_file sets relative top_builddir per subdir (0.1.19)",
+      "expected_effect": "config.h found in subdir compiles"
+    }
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": -3,
+      "Makefile.in": 1972,
+      "aclocal.m4": 72,
+      "configure": 108,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_ENABLE": "system-aclocal",
+      "AC_CACHE_CHECK": "system-aclocal",
+      "AC_CONFIG_AUX_DIR": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_HEADERS": "system-aclocal",
+      "AC_CONFIG_LIBOBJ_DIR": "system-aclocal",
+      "AC_CONFIG_MACRO_DIR": "system-aclocal",
+      "AC_CONFIG_SRCDIR": "system-aclocal",
+      "AC_CONFIG_TESTDIR": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PACKAGE_TARNAME": "system-aclocal",
+      "AC_PACKAGE_URL": "system-aclocal",
+      "AC_PACKAGE_VERSION": "system-aclocal",
+      "AC_PREREQ": "system-aclocal",
+      "AC_PROG_CC": "system-aclocal",
+      "AC_PROG_CPP": "system-aclocal",
+      "AC_SUBST": "system-aclocal",
+      "AM_CONDITIONAL": "system-aclocal",
+      "AM_INIT_AUTOMAKE": "system-aclocal",
+      "AM_MISSING_PROG": "system-aclocal",
+      "AM_PROG_CC_C_O": "system-aclocal",
+      "LT_CONFIG_LTDL_DIR": "system-aclocal",
+      "LT_INIT": "system-aclocal",
+      "LT_LANG": "system-aclocal",
+      "LT_SET_OPTION": "system-aclocal",
+      "LT_TAGVAR": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "libhello_la_LIBADD",
+        "var": "LIBM",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "bin_PROGRAMS",
+        "var": "BUILD_helldl",
+        "resolved_to": [
+          "helldl"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "hell0_LDADD",
+        "var": "LIBM",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "mdemo2_static_SOURCES",
+        "var": "mdemo2_SOURCES",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "mdemo2_static_LDADD",
+        "var": "mdemo2_LDADD",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "cprogram_LDADD",
+        "var": "FCLIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libfoo_la_LIBADD",
+        "var": "LIBM",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libfoo_la_LIBADD",
+        "var": "LIBM",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libhello_la_LIBADD",
+        "var": "LIBM",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "bin_PROGRAMS",
+        "var": "BUILD_helldl",
+        "resolved_to": [
+          "helldl"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "hell0_LDADD",
+        "var": "LIBM",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "foo1_la_LIBADD",
+        "var": "LIBM",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libfoo2_la_LIBADD",
+        "var": "LIBM",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "mdemo_static_SOURCES",
+        "var": "mdemo_SOURCES",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "mdemo_static_LDADD",
+        "var": "mdemo_LDADD",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "cprogram_LDADD",
+        "var": "FLIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "depdemo_static_SOURCES",
+        "var": "depdemo_SOURCES",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "depdemo_static_LDADD",
+        "var": "depdemo_LDADD",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libl4_la_LIBADD",
+        "var": "LIBM",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "noinst_LTLIBRARIES",
+        "var": "LT_DLLOADERS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libltdl_la_LIBADD",
+        "var": "LTLIBOBJS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libltdlc_la_SOURCES",
+        "var": "libltdl_la_SOURCES",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libltdlc_la_LIBADD",
+        "var": "libltdl_la_LIBADD",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "dlopen_la_LIBADD",
+        "var": "LIBADD_DLOPEN",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "shl_load_la_LIBADD",
+        "var": "LIBADD_SHL_LOAD",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "BUILT_SOURCES",
+        "var": "ARGZ_H",
+        "resolved_to": [],
+        "resolved": false
+      }
+    ],
+    "unresolved_refs": [
+      "libhello_la_LIBADD = $(LIBM)",
+      "hell0_LDADD = $(LIBM)",
+      "mdemo2_static_SOURCES = $(mdemo2_SOURCES)",
+      "mdemo2_static_LDADD = $(mdemo2_LDADD)",
+      "cprogram_LDADD = $(FCLIBS)",
+      "libfoo_la_LIBADD = $(LIBM)",
+      "libfoo_la_LIBADD = $(LIBM)",
+      "libhello_la_LIBADD = $(LIBM)",
+      "hell0_LDADD = $(LIBM)",
+      "foo1_la_LIBADD = $(LIBM)",
+      "libfoo2_la_LIBADD = $(LIBM)",
+      "mdemo_static_SOURCES = $(mdemo_SOURCES)",
+      "mdemo_static_LDADD = $(mdemo_LDADD)",
+      "cprogram_LDADD = $(FLIBS)",
+      "depdemo_static_SOURCES = $(depdemo_SOURCES)",
+      "depdemo_static_LDADD = $(depdemo_LDADD)",
+      "libl4_la_LIBADD = $(LIBM)",
+      "noinst_LTLIBRARIES = $(LT_DLLOADERS)",
+      "libltdl_la_LIBADD = $(LTLIBOBJS)",
+      "libltdlc_la_SOURCES = $(libltdl_la_SOURCES)",
+      "libltdlc_la_LIBADD = $(libltdl_la_LIBADD)",
+      "dlopen_la_LIBADD = $(LIBADD_DLOPEN)",
+      "shl_load_la_LIBADD = $(LIBADD_SHL_LOAD)",
+      "BUILT_SOURCES = $(ARGZ_H)"
+    ],
+    "indirection_count": 26
   }
 }

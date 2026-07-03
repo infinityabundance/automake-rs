@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "hharte/tn5250",
   "source": {
     "url": "https://github.com/hharte/tn5250",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -45,77 +45,47 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "whether to build curses terminal... whether to use old key handler... ./configure: line 1583: syntax error near unexpected token `this'",
+  "diagnostic": "configure: error: ** You need a curses-compatible library installed.",
   "deep_expansion": {
-    "configure_lines": 2935,
+    "configure_lines": 2998,
     "leaked_macros": [],
-    "heredoc_openers": 40,
-    "heredoc_terminators": 40,
+    "heredoc_openers": 35,
+    "heredoc_terminators": 35,
     "heredoc_imbalance": 0,
-    "syntax_errors": [
-      {
-        "line": 1583,
-        "token": "this",
-        "source": "fi this way to avoid linking curses into every executable",
-        "block": [
-          "1579:   printf '%s\\n' \"no\"",
-          "1580:   LIBS=$_acl_save_LIBS",
-          "1581:   :",
-          "1582:   ",
-          "1583: fi this way to avoid linking curses into every executable",
-          "1584: \tprintf %s \"checking for initscr in -lncurses... \"",
-          "1585: _acl_save_LIBS=$LIBS",
-          "1586: LIBS=\"-lncurses  $LIBS\""
-        ]
-      }
-    ],
+    "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2459: do eval test \\${$as_var+y} \\"
+      "line 2521: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
+      "CURSES_LIB",
+      "sslincludedir",
+      "krb5includedir",
+      "MAYBE_CURSES",
+      "MAYBE_PYTHON",
       "PACKAGE_NAME",
       "PACKAGE_TARNAME",
       "PACKAGE_VERSION",
       "PACKAGE_STRING",
       "PACKAGE_BUGREPORT"
     ],
-    "failed_during_check": "checking size of long... 0 (type not found)",
+    "failed_during_check": "checking for initscr in -lcurses... yes",
     "failure_tail": [
-      "checking size of long... 0 (type not found)",
-      "whether to build curses terminal... whether to use old key handler... ./configur",
-      "./configure: line 1583: `fi this way to avoid linking curses into every executab"
+      "checking for initscr in -lcurses... yes",
+      "configure: error: ** You need a curses-compatible library installed."
     ],
     "conftest_corruption": [],
-    "conftest_directives_intact": 40,
+    "conftest_directives_intact": 33,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
       "#include <sys/wait.h>",
       "#include <$ac_hdr>",
       "#include <time.h>",
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar fork();\\nint main() { return fork(); }",
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar malloc();\\nint main() { return malloc(); }",
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar memcmp();\\nint main() { return memcmp(); }"
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar fork ();\\nint main() { return fork(); }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar malloc ();\\nint main() { return malloc(); }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar memcmp ();\\nint main() { return memcmp(); }"
     ]
-  },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "ok",
-    "real_make": "ok",
-    "real_configure_lines": 16690,
-    "real_first_error": "",
-    "classification": "OURS_BUG_CONFIGURE"
-  },
-  "divergence": {
-    "stage": "configure",
-    "ours_error": "line 1583: fi this way to avoid linking curses into every executable (near `this`)",
-    "ours_error_context": [
-      "fi this way to avoid linking curses into every executable"
-    ],
-    "ours_configure_lines": 2935,
-    "real_configure_lines": 16690,
-    "macros_ours_left_undefined": []
   },
   "receipt": {
     "court_status": "failed",
@@ -123,7 +93,7 @@
     "quirks_matched": [
       "vendored-aclocal"
     ],
-    "receipt_hash": "24e39ed3178d433d21c1340a6407fda16d8349c27724819539e8175382940e80",
+    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -132,6 +102,503 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "curses/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "doc/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "freebsd/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "lib5250/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "linux/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "lp5250d/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "python/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "slang/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "sun/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "win32/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      }
+    ],
+    "config_headers": [
+      "config.h"
+    ],
+    "subdirs": [
+      "lib5250",
+      "lp5250d",
+      "$(MAYBE_CURSES)",
+      "$(MAYBE_SLANG)",
+      "$(MAYBE_PYTHON)",
+      "doc",
+      "freebsd",
+      "linux",
+      "sun",
+      "win32"
+    ],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [],
+        "subdirs": [
+          "lib5250",
+          "lp5250d",
+          "$(MAYBE_CURSES)",
+          "$(MAYBE_SLANG)",
+          "$(MAYBE_PYTHON)",
+          "doc",
+          "freebsd",
+          "linux",
+          "sun",
+          "win32"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "curses",
+        "targets": [
+          "tn5250"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-DSYSCONFDIR=\\\"$(sysconfdir)\\\" -I$(top_srcdir)/lib5250"
+      },
+      {
+        "dir": "lib5250",
+        "targets": [
+          "lib5250.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-DSYSCONFDIR=\\\"$(sysconfdir)\\\""
+      },
+      {
+        "dir": "lp5250d",
+        "targets": [
+          "scs2ascii",
+          "scs2pdf",
+          "scs2ps",
+          "lp5250d"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-DSYSCONFDIR=\\\"$(sysconfdir)\\\" -I$(top_srcdir)/lib5250"
+      },
+      {
+        "dir": "python",
+        "targets": [
+          "libtn5250module.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "@PYTHON_CFLAGS@  \t-DSYSCONFDIR=\\\"$(sysconfdir)\\\""
+      },
+      {
+        "dir": "slang",
+        "targets": [
+          "tn5250-slang"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "win32",
+        "targets": [],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      }
+    ],
+    "max_depth": 1,
+    "config_h_consumers_below_root": [
+      "lib5250",
+      "win32"
+    ]
+  },
+  "macro_inventory": {
+    "macro_dirs": [],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [],
+    "called_macros": [
+      "AC_ARG_WITH",
+      "AC_CACHE_CHECK",
+      "AC_CHECK_FUNCS",
+      "AC_CHECK_HEADERS",
+      "AC_CHECK_LIB",
+      "AC_CHECK_SIZEOF",
+      "AC_COMPILE_IFELSE",
+      "AC_CONFIG_FILES",
+      "AC_C_CONST",
+      "AC_DEFINE_UNQUOTED",
+      "AC_FUNC_FORK",
+      "AC_FUNC_MALLOC",
+      "AC_FUNC_MEMCMP",
+      "AC_FUNC_REALLOC",
+      "AC_FUNC_SELECT_ARGTYPES",
+      "AC_FUNC_VPRINTF",
+      "AC_HEADER_STDC",
+      "AC_HEADER_SYS_WAIT",
+      "AC_HEADER_TIME",
+      "AC_INIT",
+      "AC_LANG_PROGRAM",
+      "AC_MSG_CHECKING",
+      "AC_MSG_ERROR",
+      "AC_MSG_RESULT",
+      "AC_OUTPUT",
+      "AC_PREREQ",
+      "AC_PROG_CC",
+      "AC_PROG_INSTALL",
+      "AC_PROG_RANLIB",
+      "AC_STRUCT_TM",
+      "AC_SUBST",
+      "AM_CONDITIONAL",
+      "AM_CONFIG_HEADER",
+      "AM_INIT_AUTOMAKE",
+      "AM_PROG_LIBTOOL"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 149,
+    "configure_fi": 146,
+    "configure_case": 63,
+    "configure_esac": 66,
+    "balanced": false,
+    "automake_conditionals": [
+      "COND_CURSES",
+      "COND_SLANG",
+      "COND_PYTHON"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": ".",
+    "present": [
+      "install-sh",
+      "missing",
+      "depcomp",
+      "compile"
+    ],
+    "missing": []
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "c": 34,
+      "h": 26
+    },
+    "configure_macros": [
+      "AC_PROG_CC"
+    ],
+    "needs_cxx": false,
+    "needs_fortran": false,
+    "sets_c_std": false
+  },
+  "libtool_context": {
+    "uses_libtool": true,
+    "macros": [
+      "AM_PROG_LIBTOOL"
+    ],
+    "ltmain_present": true,
+    "libtool_m4_sources": [],
+    "age": "unknown"
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": true,
+    "defines_sampled": []
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "vpath_analysis": {
+    "hardcoded_src_paths": 1,
+    "abs_path_leakage": 0,
+    "built_sources": [],
+    "generated_source_targets": []
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "arpa/inet.h",
+      "fcntl.h",
+      "locale.h",
+      "netdb.h",
+      "netinet/in.h",
+      "openssl/crypto.h",
+      "openssl/ssl.h",
+      "pwd.h",
+      "stdlib.h",
+      "string.h",
+      "sys/ioctl.h",
+      "sys/socket.h",
+      "sys/time.h",
+      "syslog.h",
+      "unistd.h"
+    ],
+    "headers_included_unchecked": [
+      "openssl/err.h",
+      "openssl/opensslv.h",
+      "slang/slang.h",
+      "sys/filio.h",
+      "sys/stat.h",
+      "sys/types.h",
+      "sys/wait.h",
+      "tn5250/buffer.h",
+      "tn5250/codes5250.h",
+      "tn5250/conf.h",
+      "tn5250/dbuffer.h",
+      "tn5250/debug.h",
+      "tn5250/display.h",
+      "tn5250/field.h",
+      "tn5250/macro.h",
+      "tn5250/menu.h",
+      "tn5250/printsession.h",
+      "tn5250/record.h",
+      "tn5250/scrollbar.h",
+      "tn5250/session.h",
+      "tn5250/stream.h",
+      "tn5250/terminal.h",
+      "tn5250/utility.h",
+      "tn5250/window.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 3,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "c89_gnu",
+    "strip_modern_poison_flags": [
+      "-Werror=implicit-function-declaration",
+      "-Werror=int-conversion",
+      "-Werror=incompatible-pointer-types"
+    ],
+    "inject_legacy_shims": true,
+    "compiler_aliasing": {
+      "clang-18+": "-std=gnu89 -Wno-error",
+      "gcc-14+": "-std=gnu89 -fpermissive"
+    }
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 1,
+    "shadowed_builtins": [],
+    "permitted_mutations": 6,
+    "suspect_global_mutations": 0
+  },
+  "parallel_build_safety": {
+    "vpath_out_of_tree_safe": true,
+    "generators": [],
+    "unordered_generated_sources": [],
+    "built_sources_declared": false
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "openssl/err.h",
+      "openssl/opensslv.h",
+      "slang/slang.h",
+      "sys/filio.h",
+      "sys/stat.h",
+      "sys/types.h",
+      "sys/wait.h",
+      "tn5250/buffer.h",
+      "tn5250/codes5250.h",
+      "tn5250/conf.h",
+      "tn5250/dbuffer.h",
+      "tn5250/debug.h",
+      "tn5250/display.h",
+      "tn5250/field.h",
+      "tn5250/macro.h",
+      "tn5250/menu.h",
+      "tn5250/printsession.h",
+      "tn5250/record.h",
+      "tn5250/scrollbar.h",
+      "tn5250/session.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "subdir-config-h-include-path",
+    "modern-compiler-strictness (no explicit C std)"
+  ],
+  "repair_hints": [
+    {
+      "id": "subdir-top-builddir",
+      "phase": "make",
+      "confidence": 0.88,
+      "evidence": [
+        "lib5250 consumes config.h below root",
+        "win32 consumes config.h below root"
+      ],
+      "action": "ensure ac_subst_file sets relative top_builddir per subdir (0.1.19)",
+      "expected_effect": "config.h found in subdir compiles"
+    }
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": -3,
+      "Makefile.in": 1142,
+      "aclocal.m4": 9,
+      "config.h.in": 16,
+      "configure": 13,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_WITH": "system-aclocal",
+      "AC_CACHE_CHECK": "system-aclocal",
+      "AC_CHECK_FUNCS": "system-aclocal",
+      "AC_CHECK_HEADERS": "system-aclocal",
+      "AC_CHECK_LIB": "system-aclocal",
+      "AC_CHECK_SIZEOF": "system-aclocal",
+      "AC_COMPILE_IFELSE": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_C_CONST": "system-aclocal",
+      "AC_DEFINE_UNQUOTED": "system-aclocal",
+      "AC_FUNC_FORK": "system-aclocal",
+      "AC_FUNC_MALLOC": "system-aclocal",
+      "AC_FUNC_MEMCMP": "system-aclocal",
+      "AC_FUNC_REALLOC": "system-aclocal",
+      "AC_FUNC_SELECT_ARGTYPES": "system-aclocal",
+      "AC_FUNC_VPRINTF": "system-aclocal",
+      "AC_HEADER_STDC": "system-aclocal",
+      "AC_HEADER_SYS_WAIT": "system-aclocal",
+      "AC_HEADER_TIME": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_LANG_PROGRAM": "system-aclocal",
+      "AC_MSG_CHECKING": "system-aclocal",
+      "AC_MSG_ERROR": "system-aclocal",
+      "AC_MSG_RESULT": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PREREQ": "system-aclocal",
+      "AC_PROG_CC": "system-aclocal",
+      "AC_PROG_INSTALL": "system-aclocal",
+      "AC_PROG_RANLIB": "system-aclocal",
+      "AC_STRUCT_TM": "system-aclocal",
+      "AC_SUBST": "system-aclocal",
+      "AM_CONDITIONAL": "system-aclocal",
+      "AM_CONFIG_HEADER": "system-aclocal",
+      "AM_INIT_AUTOMAKE": "system-aclocal",
+      "AM_PROG_LIBTOOL": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "libtn5250module_la_SOURCES",
+        "var": "lib5250_la_SOURCES",
+        "resolved_to": [],
+        "resolved": false
+      }
+    ],
+    "unresolved_refs": [
+      "libtn5250module_la_SOURCES = $(lib5250_la_SOURCES)"
+    ],
+    "indirection_count": 1
   }
 }

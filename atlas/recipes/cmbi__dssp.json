@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "cmbi/dssp",
   "source": {
     "url": "https://github.com/cmbi/dssp",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -34,12 +34,35 @@
       "status": "fail"
     }
   ],
-  "probe_results": {},
+  "probe_results": {
+    "HAVE_$1": 1,
+    "HAVE_BOOST": 1,
+    "HAVE_BOOST_DATE_TIME": 1,
+    "HAVE_BOOST_FILESYSTEM": 1,
+    "HAVE_BOOST_IOSTREAMS": 1,
+    "HAVE_BOOST_PROGRAM_OPTIONS": 1,
+    "HAVE_BOOST_REGEX": 1,
+    "HAVE_BOOST_SYSTEM": 1,
+    "HAVE_BOOST_THREAD": 1,
+    "HAVE_BOOST_UNIT_TEST_FRAMEWORK": 1,
+    "HAVE_BZLIB_H": 1,
+    "HAVE_DUP2": 1,
+    "HAVE_ERROR_AT_LINE": 1,
+    "HAVE_FORK": 1,
+    "HAVE_SOCKET": 1,
+    "HAVE_STRCHR": 1,
+    "HAVE_STRERROR": 1,
+    "HAVE_SYS_IOCTL_H": 1,
+    "HAVE_TERMIOS_H": 1,
+    "HAVE_ZLIB_H": 1
+  },
   "feature_flags": {
     "configure_args": []
   },
   "dependencies": {
-    "pkg_config": [],
+    "pkg_config": [
+      "checking for boostlib >= 1.54... yes"
+    ],
     "system_libs": [],
     "headers_needed": [],
     "missing": []
@@ -50,9 +73,9 @@
   "outputs": [],
   "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "Makefile:16: *** missing separator.  Stop.",
+  "diagnostic": "/usr/include/boost/math/tools/config.hpp:23:6: error: #warning \"The minimum language standard to use Boost.Math will be C++14 starting in Ju",
   "deep_expansion": {
-    "configure_lines": 3765,
+    "configure_lines": 4176,
     "leaked_macros": [],
     "heredoc_openers": 59,
     "heredoc_terminators": 59,
@@ -60,10 +83,22 @@
     "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 3289: do eval test \\${$as_var+y} \\"
+      "line 1507: # eval \"_acrs_sv=\\${}\"; printf '%s\\n' \"s|@@|${_acrs_sv}|g\" >",
+      "line 3699: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
+      "BOOST_CPPFLAGS",
+      "BOOST_LDFLAGS",
+      "BOOST_DATE_TIME_LIB",
+      "BOOST_SYSTEM_LIB",
+      "BOOST_FILESYSTEM_LIB",
+      "BOOST_IOSTREAMS_LIB",
+      "BOOST_PROGRAM_OPTIONS_LIB",
+      "BOOST_THREAD_LIB",
+      "BOOST_UNIT_TEST_FRAMEWORK_LIB",
+      "HAVE_CPPCHECK_TRUE",
+      "HAVE_CPPCHECK_FALSE",
       "PACKAGE_NAME",
       "PACKAGE_TARNAME",
       "PACKAGE_VERSION",
@@ -78,28 +113,141 @@
       "configure: creating ./config.status"
     ],
     "conftest_corruption": [],
-    "conftest_directives_intact": 31,
+    "conftest_directives_intact": 41,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
-      "\\n@%:@include <boost/version.hpp>\\n\\nint main() {\\n#if BOOST_VERSION >= $WANT_BOOST_VERSION\\n// Everything is okay\\n#else\\n#  error Boost version is too old\\n#endif\\n; return 0; }",
-      "\\n@%:@include <boost/version.hpp>\\n\\nint main() {\\n#if BOOST_VERSION >= $WANT_BOOST_VERSION\\n// Everything is okay\\n#else\\n#  error Boost version is too old\\n#endif\\n; return 0; }",
-      "@%:@include <boost/date_time/gregorian/gregorian_types.hpp>\\nint main() { using namespace boost::gregorian; date d(2002,Jan,10);\\nreturn 0;\\n; return 0; }",
-      "char exit();\\nint main() { return exit(); }",
-      "char exit();\\nint main() { return exit(); }",
-      "char main();\\nint main() { return main(); }"
+      "\\n#include <boost/version.hpp>\\n\\nint main() {\\n#if BOOST_VERSION >= $WANT_BOOST_VERSION\\n// Everything is okay\\n#else\\n#  error Boost version is too old\\n#endif\\n; return 0; }",
+      "\\n#include <boost/version.hpp>\\n\\nint main() {\\n#if BOOST_VERSION >= $WANT_BOOST_VERSION\\n// Everything is okay\\n#else\\n#  error Boost version is too old\\n#endif\\n; return 0; }",
+      "#include <boost/date_time/gregorian/gregorian_types.hpp>\\nint main() { using namespace boost::gregorian; date d(2002,Jan,10);\\nreturn 0;\\n; return 0; }",
+      "char exit ();\\nint main() { return exit(); }",
+      "char exit ();\\nint main() { return exit(); }",
+      "\\nint main() { return main(); }"
     ]
-  },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "fail",
-    "real_make": "skipped",
-    "real_configure_lines": 9832,
-    "real_first_error": "configure: error: Could not link against boost_filesystem !",
-    "classification": "OURS_BETTER"
   },
   "receipt": {
     "court_status": "partial",
-    "probe_trace": [],
+    "probe_trace": [
+      {
+        "name": "HAVE_$1",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_BOOST",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_BOOST_DATE_TIME",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_BOOST_FILESYSTEM",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_BOOST_IOSTREAMS",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_BOOST_PROGRAM_OPTIONS",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_BOOST_REGEX",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_BOOST_SYSTEM",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_BOOST_THREAD",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_BOOST_UNIT_TEST_FRAMEWORK",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_BZLIB_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_DUP2",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_ERROR_AT_LINE",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_FORK",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SOCKET",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STRCHR",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STRERROR",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SYS_IOCTL_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_TERMIOS_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_ZLIB_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      }
+    ],
     "quirks_matched": [
       "uses-subdir-objects",
       "has-m4-macro-dir",
@@ -107,7 +255,7 @@
       "uses-ax-archive",
       "perl-in-configure"
     ],
-    "receipt_hash": "bdbfb6907bfdbc8bdb7cf566a26793b38411d77e6f0819ae26c725daf919e509",
+    "receipt_hash": "730e1113506f86b6a27bf4170b7f187bf0c2f04c50dbb7d75c03de6ff310677b",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -116,6 +264,531 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      }
+    ],
+    "config_headers": [
+      "config.h"
+    ],
+    "subdirs": [],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [
+          "mkdssp",
+          "test_readpdb"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-std=c++11  \t\t\t\t\t\t\t-pedantic  \t\t\t\t\t\t\t-Wall  \t\t\t\t\t\t\t-Werror  \t\t\t\t\t\t\t-Wno-reorder  \t\t\t\t\t\t\t$(BOOST_CPPFLAGS)  \t\t\t\t\t\t\t$(BZ2L"
+      }
+    ],
+    "max_depth": 0,
+    "config_h_consumers_below_root": []
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 545,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      }
+    ]
+  },
+  "tool_requirements": {
+    "detected": [
+      "c++"
+    ],
+    "missing": []
+  },
+  "macro_inventory": {
+    "macro_dirs": [
+      "m4"
+    ],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [
+      {
+        "name": "AX_CHECK_LIBRARY",
+        "source": "m4/ax_check_library.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AX_BOOST_BASE",
+        "source": "m4/ax_boost_base.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AX_BOOST_REGEX",
+        "source": "m4/ax_boost_regex.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AX_BOOST_THREAD",
+        "source": "m4/ax_boost_thread.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AX_BOOST_SYSTEM",
+        "source": "m4/ax_boost_system.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AX_BOOST_FILESYSTEM",
+        "source": "m4/ax_boost_filesystem.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AX_BOOST_IOSTREAMS",
+        "source": "m4/ax_boost_iostreams.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AX_BOOST_PROGRAM_OPTIONS",
+        "source": "m4/ax_boost_program_options.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AX_BOOST_DATE_TIME",
+        "source": "m4/ax_boost_date_time.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AX_BOOST_UNIT_TEST_FRAMEWORK",
+        "source": "m4/ax_boost_unit_test_framework.m4",
+        "kind": "AX"
+      }
+    ],
+    "called_macros": [
+      "AC_CHECK_FUNCS",
+      "AC_CHECK_HEADERS",
+      "AC_CHECK_HEADER_STDBOOL",
+      "AC_CHECK_PROGS",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_HEADERS",
+      "AC_CONFIG_MACRO_DIR",
+      "AC_CONFIG_SRCDIR",
+      "AC_C_INLINE",
+      "AC_FUNC_ERROR_AT_LINE",
+      "AC_FUNC_FORK",
+      "AC_INIT",
+      "AC_MSG_ERROR",
+      "AC_MSG_WARN",
+      "AC_OUTPUT",
+      "AC_PREREQ",
+      "AC_PROG_CC",
+      "AC_PROG_CXX",
+      "AC_PROG_INSTALL",
+      "AC_TYPE_INT16_T",
+      "AC_TYPE_INT32_T",
+      "AC_TYPE_INT64_T",
+      "AC_TYPE_INT8_T",
+      "AC_TYPE_SIZE_T",
+      "AC_TYPE_UINT16_T",
+      "AC_TYPE_UINT32_T",
+      "AC_TYPE_UINT64_T",
+      "AC_TYPE_UINT8_T",
+      "AM_CONDITIONAL",
+      "AM_INIT_AUTOMAKE",
+      "AX_BOOST_BASE",
+      "AX_BOOST_DATE_TIME",
+      "AX_BOOST_FILESYSTEM",
+      "AX_BOOST_IOSTREAMS",
+      "AX_BOOST_PROGRAM_OPTIONS",
+      "AX_BOOST_SYSTEM",
+      "AX_BOOST_THREAD",
+      "AX_BOOST_UNIT_TEST_FRAMEWORK",
+      "AX_CHECK_LIBRARY"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 277,
+    "configure_fi": 261,
+    "configure_case": 69,
+    "configure_esac": 72,
+    "balanced": false,
+    "automake_conditionals": [
+      "HAVE_CPPCHECK"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": ".",
+    "present": [
+      "install-sh",
+      "missing",
+      "depcomp",
+      "compile"
+    ],
+    "missing": []
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "cpp": 9,
+      "h": 10
+    },
+    "configure_macros": [
+      "AC_PROG_CC",
+      "AC_PROG_CXX"
+    ],
+    "needs_cxx": true,
+    "needs_fortran": false,
+    "sets_c_std": false
+  },
+  "make_graph": {
+    "targets": [
+      "all",
+      "all-am",
+      "$(am__depfiles_remade)",
+      "am--depfiles",
+      "install-exec-am",
+      "uninstall-am",
+      "install",
+      "install-am",
+      "installcheck",
+      "install-strip",
+      "install-info",
+      "install-info-am",
+      "install-dvi",
+      "install-dvi-am",
+      "install-ps",
+      "install-ps-am",
+      "install-pdf",
+      "install-pdf-am",
+      "install-html",
+      "install-html-am",
+      "install-data-hook",
+      "install-exec-hook",
+      "installdirs",
+      "installdirs-am",
+      ".PHONY",
+      "mostlyclean-am",
+      "clean-am",
+      "distclean-am",
+      "maintainer-clean-am",
+      "clean",
+      "distdir",
+      "dist",
+      "dist-all",
+      "dist-gzip",
+      "distcleancheck",
+      "distcheck",
+      "check-am",
+      "check",
+      "TAGS",
+      "tags"
+    ],
+    "key_variables": {
+      "AR": "ar",
+      "CC": "cc",
+      "CFLAGS": "-g -O2",
+      "CPPFLAGS": "",
+      "CXX": "g++",
+      "CXXFLAGS": "",
+      "DEFAULT_INCLUDES": "-I. -I$(top_builddir)",
+      "DEFS": "-DHAVE_CONFIG_H",
+      "LDFLAGS": "",
+      "LIBS": "",
+      "RANLIB": "ranlib"
+    },
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "config.h",
+      "config.log"
+    ],
+    "recursion_depth": 0,
+    "top_targets": [
+      "all",
+      "install",
+      "check",
+      "clean",
+      "dist",
+      "all-am"
+    ],
+    "make_diagnostics": [
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "/usr/include/boost/math/tools/config.hpp:23:6: error: #warning \"The minimum language standard to use Boost.Math will be "
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[1]: *** [Makefile:527: src/dssp.o] Error 1"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[1]: *** Waiting for unfinished jobs...."
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make: *** [Makefile:246: all-am] Error 2"
+      }
+    ]
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": true,
+    "defines_sampled": [
+      "HAVE_CONFIG_H"
+    ]
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-subdir-objects",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "has-m4-macro-dir",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-ax-archive",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "perl-in-configure",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "sys/ioctl.h",
+      "termios.h"
+    ],
+    "headers_included_unchecked": [],
+    "implicit_link_libs": [
+      "-lpthread"
+    ]
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 6,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "gnu++",
+    "strip_modern_poison_flags": [],
+    "inject_legacy_shims": false,
+    "compiler_aliasing": {}
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 0,
+    "shadowed_builtins": [],
+    "permitted_mutations": 0,
+    "suspect_global_mutations": 0
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "sys/ioctl.h",
+      "termios.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": 0,
+      "Makefile.in": 1224,
+      "aclocal.m4": 5,
+      "config.h.in": 18,
+      "configure": 17,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_CHECK_FUNCS": "system-aclocal",
+      "AC_CHECK_HEADERS": "system-aclocal",
+      "AC_CHECK_HEADER_STDBOOL": "system-aclocal",
+      "AC_CHECK_PROGS": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_HEADERS": "system-aclocal",
+      "AC_CONFIG_MACRO_DIR": "system-aclocal",
+      "AC_CONFIG_SRCDIR": "system-aclocal",
+      "AC_C_INLINE": "system-aclocal",
+      "AC_FUNC_ERROR_AT_LINE": "system-aclocal",
+      "AC_FUNC_FORK": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_MSG_ERROR": "system-aclocal",
+      "AC_MSG_WARN": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PREREQ": "system-aclocal",
+      "AC_PROG_CC": "system-aclocal",
+      "AC_PROG_CXX": "system-aclocal",
+      "AC_PROG_INSTALL": "system-aclocal",
+      "AC_TYPE_INT16_T": "system-aclocal",
+      "AC_TYPE_INT32_T": "system-aclocal",
+      "AC_TYPE_INT64_T": "system-aclocal",
+      "AC_TYPE_INT8_T": "system-aclocal",
+      "AC_TYPE_SIZE_T": "system-aclocal",
+      "AC_TYPE_UINT16_T": "system-aclocal",
+      "AC_TYPE_UINT32_T": "system-aclocal",
+      "AC_TYPE_UINT64_T": "system-aclocal",
+      "AC_TYPE_UINT8_T": "system-aclocal",
+      "AM_CONDITIONAL": "system-aclocal",
+      "AM_INIT_AUTOMAKE": "system-aclocal",
+      "AX_BOOST_BASE": "m4/ax_boost_base.m4",
+      "AX_BOOST_DATE_TIME": "m4/ax_boost_date_time.m4",
+      "AX_BOOST_FILESYSTEM": "m4/ax_boost_filesystem.m4",
+      "AX_BOOST_IOSTREAMS": "m4/ax_boost_iostreams.m4",
+      "AX_BOOST_PROGRAM_OPTIONS": "m4/ax_boost_program_options.m4",
+      "AX_BOOST_SYSTEM": "m4/ax_boost_system.m4",
+      "AX_BOOST_THREAD": "m4/ax_boost_thread.m4",
+      "AX_BOOST_UNIT_TEST_FRAMEWORK": "m4/ax_boost_unit_test_framework.m4",
+      "AX_CHECK_LIBRARY": "m4/ax_check_library.m4"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "shared_LDADD",
+        "var": "BOOST_DATE_TIME_LIB",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "shared_LDADD",
+        "var": "BOOST_FILESYSTEM_LIB",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "shared_LDADD",
+        "var": "BOOST_IOSTREAMS_LIB",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "shared_LDADD",
+        "var": "BOOST_PROGRAM_OPTIONS_LIB",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "shared_LDADD",
+        "var": "BOOST_REGEX_LIB",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "shared_LDADD",
+        "var": "BOOST_SYSTEM_LIB",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "shared_LDADD",
+        "var": "BOOST_THREAD_LIB",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "mkdssp_LDADD",
+        "var": "shared_LDADD",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "test_readpdb_LDADD",
+        "var": "shared_LDADD",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "test_readpdb_LDADD",
+        "var": "BOOST_UNIT_TEST_FRAMEWORK_LIB",
+        "resolved_to": [],
+        "resolved": false
+      }
+    ],
+    "unresolved_refs": [
+      "shared_LDADD = $(BOOST_DATE_TIME_LIB)",
+      "shared_LDADD = $(BOOST_FILESYSTEM_LIB)",
+      "shared_LDADD = $(BOOST_IOSTREAMS_LIB)",
+      "shared_LDADD = $(BOOST_PROGRAM_OPTIONS_LIB)",
+      "shared_LDADD = $(BOOST_REGEX_LIB)",
+      "shared_LDADD = $(BOOST_SYSTEM_LIB)",
+      "shared_LDADD = $(BOOST_THREAD_LIB)",
+      "mkdssp_LDADD = $(shared_LDADD)",
+      "test_readpdb_LDADD = $(shared_LDADD)",
+      "test_readpdb_LDADD = $(BOOST_UNIT_TEST_FRAMEWORK_LIB)"
+    ],
+    "indirection_count": 10
   }
 }

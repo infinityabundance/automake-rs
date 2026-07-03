@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "dahlem/lz-prediction",
   "source": {
     "url": "https://github.com/dahlem/lz-prediction",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -34,12 +34,27 @@
       "status": "fail"
     }
   ],
-  "probe_results": {},
+  "probe_results": {
+    "HAVE_BOOL": 1,
+    "HAVE_BOOST": 1,
+    "HAVE_BOOST_FILESYSTEM": 1,
+    "HAVE_BOOST_PROGRAM_OPTIONS": 1,
+    "HAVE_BOOST_SYSTEM": 1,
+    "HAVE_CONST_CAST": 1,
+    "HAVE_CXX11": 1,
+    "HAVE_NAMESPACES": 1,
+    "HAVE_NUMERIC_LIMITS": 1,
+    "HAVE_STD": 1,
+    "HAVE_STL": 1,
+    "HAVE_TEMPLATES": 1
+  },
   "feature_flags": {
     "configure_args": []
   },
   "dependencies": {
-    "pkg_config": [],
+    "pkg_config": [
+      "checking for boostlib >= 1.40... configure: We could not detect the boost librar"
+    ],
     "system_libs": [],
     "headers_needed": [],
     "missing": []
@@ -52,58 +67,153 @@
   "outputs": [],
   "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "make: *** No targets specified and no makefile found.  Stop.",
+  "diagnostic": "/tmp/atlasx_dahlem__lz-prediction/s/src/CL.cc:47:(.text+0x4c): undefined reference to `boost::program_options::options_description::m_defaul",
   "deep_expansion": {
-    "configure_lines": 2444,
+    "configure_lines": 4179,
     "leaked_macros": [],
-    "heredoc_openers": 19,
-    "heredoc_terminators": 19,
+    "heredoc_openers": 31,
+    "heredoc_terminators": 31,
     "heredoc_imbalance": 0,
     "syntax_errors": [],
     "cache_var_anomalies": [
-      "line 58: do eval test \\${$as_var+y} \\"
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 3690: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
+      "LIBTOOL_DEPS",
       "CXX",
-      "CXXFLAGS"
+      "CXXFLAGS",
+      "BOOST_CPPFLAGS",
+      "BOOST_LDFLAGS",
+      "BOOST_PROGRAM_OPTIONS_LIB",
+      "BOOST_FILESYSTEM_LIB",
+      "BOOST_SYSTEM_LIB",
+      "DX_PROJECT",
+      "DX_CONFIG",
+      "DX_DOCDIR",
+      "DX_ENV",
+      "DX_FLAG_doc",
+      "DX_COND_doc_TRUE",
+      "DX_COND_doc_FALSE",
+      "DX_FLAG_dot",
+      "DX_COND_dot_TRUE",
+      "DX_COND_dot_FALSE",
+      "DX_FLAG_man",
+      "DX_COND_man_TRUE",
+      "DX_COND_man_FALSE",
+      "DX_FLAG_rtf",
+      "DX_COND_rtf_TRUE",
+      "DX_COND_rtf_FALSE",
+      "DX_FLAG_xml",
+      "DX_COND_xml_TRUE",
+      "DX_COND_xml_FALSE",
+      "DX_FLAG_chm",
+      "DX_COND_chm_TRUE"
     ],
-    "failed_during_check": "checking for size_t... no",
+    "failed_during_check": "checking for C compiler... cc",
     "failure_tail": [
-      "checking for size_t... no",
-      "whether the compiler recognizes bool as a built-in type... whether the compiler ",
-      ": Automatic configuration OK."
+      "whether the Boost::Filesystem library is available... checking for C compiler...",
+      "whether the Boost::System library is available... configure: creating Makefile",
+      "configure: creating m4/Makefile",
+      "configure: creating src/Makefile",
+      "configure: creating config.h"
     ],
     "conftest_corruption": [],
-    "conftest_directives_intact": 6,
+    "conftest_directives_intact": 11,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
       "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { size_t x; return 0; }",
-      "\\n@%:@include <boost/version.hpp>\\n\\nint main() {\\n#if BOOST_VERSION >= $WANT_BOOST_VERSION\\n// Everything is okay\\n#else\\n#  error Boost version is too old\\n#endif\\n; return 0; }",
-      "\\n@%:@include <boost/version.hpp>\\n\\nint main() {\\n#if BOOST_VERSION >= $WANT_BOOST_VERSION\\n// Everything is okay\\n#else\\n#  error Boost version is too old\\n#endif\\n; return 0; }",
-      "@%:@include <boost/program_options.hpp>\\n\\nint main() { boost::program_options::options_description generic(\"Generic op\\nreturn 0; ; return 0; }",
-      "char exit();\\nint main() { return exit(); }",
-      "char exit();\\nint main() { return exit(); }"
+      "\\n#include <boost/version.hpp>\\n\\nint main() {\\n#if BOOST_VERSION >= $WANT_BOOST_VERSION\\n// Everything is okay\\n#else\\n#  error Boost version is too old\\n#endif\\n; return 0; }",
+      "\\n#include <boost/version.hpp>\\n\\nint main() {\\n#if BOOST_VERSION >= $WANT_BOOST_VERSION\\n// Everything is okay\\n#else\\n#  error Boost version is too old\\n#endif\\n; return 0; }",
+      "#include <boost/program_options.hpp>\\n\\nint main() { boost::program_options::options_description generic(\"Generic op\\nreturn 0; ; return 0; }",
+      "char exit ();\\nint main() { return exit(); }",
+      "char exit ();\\nint main() { return exit(); }"
     ]
-  },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "fail",
-    "real_make": "skipped",
-    "real_configure_lines": 23416,
-    "real_first_error": "./configure: line 17210: [ext],[mandatory]: command not found",
-    "classification": "OURS_BETTER"
   },
   "receipt": {
     "court_status": "partial",
-    "probe_trace": [],
+    "probe_trace": [
+      {
+        "name": "HAVE_BOOL",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_BOOST",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_BOOST_FILESYSTEM",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_BOOST_PROGRAM_OPTIONS",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_BOOST_SYSTEM",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_CONST_CAST",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_CXX11",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_NAMESPACES",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_NUMERIC_LIMITS",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STD",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STL",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_TEMPLATES",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      }
+    ],
     "quirks_matched": [
       "uses-libtool-old",
       "has-m4-macro-dir",
       "vendored-aclocal",
       "uses-ax-archive"
     ],
-    "receipt_hash": "bdbfb6907bfdbc8bdb7cf566a26793b38411d77e6f0819ae26c725daf919e509",
+    "receipt_hash": "f446fb4e7480be65ac86f44a109fc1d8c31a8e697a8dd1b8bcd79e6ba9a7e016",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -112,6 +222,864 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "m4/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "src/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      }
+    ],
+    "config_headers": [],
+    "subdirs": [
+      "m4",
+      "src"
+    ],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [],
+        "subdirs": [
+          "m4",
+          "src"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src",
+        "targets": [
+          "lzp"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      }
+    ],
+    "max_depth": 1,
+    "config_h_consumers_below_root": [
+      "src"
+    ]
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 544,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "m4/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 443,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 534,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      }
+    ]
+  },
+  "tool_requirements": {
+    "detected": [
+      "c++"
+    ],
+    "missing": []
+  },
+  "macro_inventory": {
+    "macro_dirs": [
+      "m4"
+    ],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [
+      {
+        "name": "LT_INIT",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LTOPTIONS_VERSION",
+        "source": "m4/libtool.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AC_PROG_LIBTOOL",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AM_PROG_LIBTOOL",
+        "source": "m4/libtool.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "LT_OUTPUT",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_SUPPORTED_TAG",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_LANG",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_CXX",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_F77",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_FC",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_GCJ",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_RC",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "_LT_WITH_SYSROOT",
+        "source": "m4/libtool.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_LT_COMPILER_OPTION",
+        "source": "m4/libtool.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AC_LIBTOOL_COMPILER_OPTION",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "_LT_LINKER_OPTION",
+        "source": "m4/libtool.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AC_LIBTOOL_LINKER_OPTION",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_CMD_MAX_LEN",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_SYS_MAX_CMD_LEN",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_SYS_DLOPEN_SELF",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_DLOPEN_SELF",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "_LT_PATH_TOOL_PREFIX",
+        "source": "m4/libtool.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AC_PATH_TOOL_PREFIX",
+        "source": "m4/libtool.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "LT_PATH_LD",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AM_PROG_LD",
+        "source": "m4/libtool.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AC_PROG_LD",
+        "source": "m4/libtool.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "LT_PATH_NM",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AM_PROG_NM",
+        "source": "m4/libtool.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AC_PROG_NM",
+        "source": "m4/libtool.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "LT_LIB_M",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_CHECK_LIBM",
+        "source": "m4/libtool.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "LT_PROG_GCJ",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_AC_PROG_GCJ",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_PROG_GO",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_PROG_RC",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_AC_PROG_RC",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_AC_PROG_SED",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AX_CXX_COMPILE_STDCXX_11",
+        "source": "m4/ax_cxx_compile_stdcxx_11.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AX_BOOST_BASE",
+        "source": "m4/ax_boost_base.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AC_CXX_NAMESPACES",
+        "source": "m4/ac_cxx_namespaces.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_CXX_CONST_CAST",
+        "source": "m4/ac_cxx_const_cast.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "LTVERSION_VERSION",
+        "source": "m4/ltversion.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AX_BOOST_SYSTEM",
+        "source": "m4/ax_boost_system.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AX_BOOST_FILESYSTEM",
+        "source": "m4/ax_boost_filesystem.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "DX_FEATURE_doc",
+        "source": "m4/ax_prog_doxygen.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "DX_FEATURE_dot",
+        "source": "m4/ax_prog_doxygen.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "DX_FEATURE_man",
+        "source": "m4/ax_prog_doxygen.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "DX_FEATURE_html",
+        "source": "m4/ax_prog_doxygen.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "DX_FEATURE_chm",
+        "source": "m4/ax_prog_doxygen.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "DX_FEATURE_chi",
+        "source": "m4/ax_prog_doxygen.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "DX_FEATURE_rtf",
+        "source": "m4/ax_prog_doxygen.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "DX_FEATURE_xml",
+        "source": "m4/ax_prog_doxygen.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "DX_FEATURE_pdf",
+        "source": "m4/ax_prog_doxygen.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "DX_FEATURE_ps",
+        "source": "m4/ax_prog_doxygen.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "DX_ENV_APPEND",
+        "source": "m4/ax_prog_doxygen.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "DX_DIRNAME_EXPR",
+        "source": "m4/ax_prog_doxygen.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "DX_IF_FEATURE",
+        "source": "m4/ax_prog_doxygen.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "DX_REQUIRE_PROG",
+        "source": "m4/ax_prog_doxygen.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "DX_TEST_FEATURE",
+        "source": "m4/ax_prog_doxygen.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "DX_CHECK_DEPEND",
+        "source": "m4/ax_prog_doxygen.m4",
+        "kind": "project-local"
+      }
+    ],
+    "called_macros": [
+      "AC_ARG_ENABLE",
+      "AC_CONFIG_AUX_DIR",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_HEADER",
+      "AC_CONFIG_MACRO_DIR",
+      "AC_CONFIG_SRCDIR",
+      "AC_CXX_BOOL",
+      "AC_CXX_HAVE_STD",
+      "AC_CXX_HAVE_STL",
+      "AC_CXX_NAMESPACES",
+      "AC_CXX_TEMPLATES",
+      "AC_C_CONST",
+      "AC_DEFINE",
+      "AC_HEADER_STDC",
+      "AC_INIT",
+      "AC_LANG",
+      "AC_LIBTOOL_LANG_CXX_CONFIG",
+      "AC_LIBTOOL_LANG_F77_CONFIG",
+      "AC_MSG_RESULT",
+      "AC_OUTPUT",
+      "AC_PREREQ",
+      "AC_PROG_CXX",
+      "AC_PROG_LIBTOOL",
+      "AC_SUBST",
+      "AC_TYPE_SIZE_T",
+      "AC_VALGRIND",
+      "AM_INIT_AUTOMAKE",
+      "AX_BOOST_BASE",
+      "AX_BOOST_FILESYSTEM",
+      "AX_BOOST_PROGRAM_OPTIONS",
+      "AX_BOOST_SYSTEM",
+      "AX_CXX_COMPILE_STDCXX_11"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 267,
+    "configure_fi": 248,
+    "configure_case": 74,
+    "configure_esac": 77,
+    "balanced": false,
+    "automake_conditionals": []
+  },
+  "config_aux_inventory": {
+    "aux_dir": "config",
+    "present": [
+      "install-sh",
+      "missing",
+      "depcomp",
+      "compile"
+    ],
+    "missing": [
+      "ltmain.sh"
+    ]
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "cc": 2,
+      "h": 1
+    },
+    "configure_macros": [
+      "AC_PROG_CXX"
+    ],
+    "needs_cxx": true,
+    "needs_fortran": false,
+    "sets_c_std": true
+  },
+  "libtool_context": {
+    "uses_libtool": true,
+    "macros": [
+      "AC_PROG_LIBTOOL"
+    ],
+    "ltmain_present": false,
+    "libtool_m4_sources": [
+      "m4/libtool.m4",
+      "aclocal.m4"
+    ],
+    "age": "old"
+  },
+  "make_graph": {
+    "targets": [
+      "all",
+      "all-am",
+      "install-am",
+      "installcheck-am",
+      "install-strip",
+      "install-info",
+      "install-info-am",
+      "install-dvi",
+      "install-dvi-am",
+      "install-ps",
+      "install-ps-am",
+      "install-pdf",
+      "install-pdf-am",
+      "install-html",
+      "install-html-am",
+      "install-data-hook",
+      "install-exec-hook",
+      "installdirs-am",
+      ".PHONY",
+      "mostlyclean-am",
+      "clean-am",
+      "distclean-am",
+      "maintainer-clean-am",
+      "distdir",
+      "dist",
+      "dist-all",
+      "dist-gzip",
+      "distcleancheck",
+      "distcheck",
+      "check-am",
+      "TAGS",
+      "tags",
+      "TAGS-am",
+      "tags-am",
+      "cscope",
+      "cscope-am",
+      "distuninstallcheck",
+      "$(srcdir)/Makefile.in",
+      "$(am__recursive_targets)",
+      "check"
+    ],
+    "key_variables": {
+      "AR": "ar",
+      "CC": "cc",
+      "CFLAGS": "-W -Wall -Wno-long-long -pedantic -g",
+      "CPPFLAGS": "-W -Wall -Wno-long-long -pedantic -g",
+      "CXX": "g++",
+      "CXXFLAGS": "-W -Wall -Wno-long-long -pedantic -g  -std=c++11",
+      "DEFS": "-DHAVE_CONFIG_H",
+      "LDFLAGS": "",
+      "LIBS": "",
+      "RANLIB": "ranlib"
+    },
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "config.h",
+      "libtool",
+      "config.log"
+    ],
+    "recursion_depth": 1,
+    "top_targets": [
+      "all",
+      "check",
+      "dist",
+      "all-am"
+    ],
+    "make_diagnostics": [
+      {
+        "command": "",
+        "error_type": "linker-error",
+        "message": "/usr/bin/ld: lzp-CL.o: warning: relocation against `_ZTVN5boost15program_options29value_semantic_codecvt_helperIcEE' in "
+      },
+      {
+        "command": "",
+        "error_type": "linker-error",
+        "message": "/usr/bin/ld: lzp-CL.o: in function `lz::main::CL::CL()':"
+      },
+      {
+        "command": "",
+        "error_type": "linker-error",
+        "message": "/tmp/atlasx_dahlem__lz-prediction/s/src/CL.cc:47:(.text+0x4c): undefined reference to `boost::program_options::options_d"
+      },
+      {
+        "command": "",
+        "error_type": "linker-error",
+        "message": "/usr/bin/ld: /tmp/atlasx_dahlem__lz-prediction/s/src/CL.cc:47:(.text+0x59): undefined reference to `boost::program_optio"
+      },
+      {
+        "command": "",
+        "error_type": "linker-error",
+        "message": "/usr/bin/ld: /tmp/atlasx_dahlem__lz-prediction/s/src/CL.cc:47:(.text+0xa5): undefined reference to `boost::program_optio"
+      },
+      {
+        "command": "",
+        "error_type": "linker-error",
+        "message": "/usr/bin/ld: /tmp/atlasx_dahlem__lz-prediction/s/src/CL.cc:50:(.text+0xd9): undefined reference to `boost::program_optio"
+      },
+      {
+        "command": "",
+        "error_type": "linker-error",
+        "message": "/usr/bin/ld: /tmp/atlasx_dahlem__lz-prediction/s/src/CL.cc:50:(.text+0xe4): undefined reference to `boost::program_optio"
+      },
+      {
+        "command": "",
+        "error_type": "linker-error",
+        "message": "/usr/bin/ld: /tmp/atlasx_dahlem__lz-prediction/s/src/CL.cc:50:(.text+0x12f): undefined reference to `boost::program_opti"
+      },
+      {
+        "command": "",
+        "error_type": "linker-error",
+        "message": "/usr/bin/ld: /tmp/atlasx_dahlem__lz-prediction/s/src/CL.cc:51:(.text+0x15d): undefined reference to `boost::program_opti"
+      },
+      {
+        "command": "",
+        "error_type": "linker-error",
+        "message": "/usr/bin/ld: /tmp/atlasx_dahlem__lz-prediction/s/src/CL.cc:52:(.text+0x18f): undefined reference to `boost::program_opti"
+      }
+    ]
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": false,
+    "defines_sampled": [
+      "HAVE_CONFIG_H"
+    ]
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-libtool-old",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "has-m4-macro-dir",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-ax-archive",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "vpath_analysis": {
+    "hardcoded_src_paths": 1,
+    "abs_path_leakage": 0,
+    "built_sources": [],
+    "generated_source_targets": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 9,
+    "shadowed_macros": [
+      "AC_PROG_LIBTOOL",
+      "AM_PROG_LIBTOOL",
+      "AC_LIBTOOL_CXX",
+      "AC_LIBTOOL_F77",
+      "AC_LIBTOOL_FC",
+      "AC_LIBTOOL_GCJ",
+      "AC_LIBTOOL_RC",
+      "AC_LIBTOOL_COMPILER_OPTION",
+      "AC_LIBTOOL_LINKER_OPTION",
+      "AC_LIBTOOL_SYS_MAX_CMD_LEN",
+      "AC_LIBTOOL_DLOPEN_SELF",
+      "AC_PATH_TOOL_PREFIX",
+      "AM_PROG_LD",
+      "AC_PROG_LD",
+      "AM_PROG_NM",
+      "AC_PROG_NM",
+      "AC_CHECK_LIBM",
+      "AC_CXX_NAMESPACES",
+      "AC_CXX_CONST_CAST"
+    ]
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "gnu++",
+    "strip_modern_poison_flags": [],
+    "inject_legacy_shims": false,
+    "compiler_aliasing": {}
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 0,
+    "shadowed_builtins": [
+      "AC_PROG_LIBTOOL",
+      "AM_PROG_LIBTOOL",
+      "AC_LIBTOOL_CXX",
+      "AC_LIBTOOL_F77",
+      "AC_LIBTOOL_FC",
+      "AC_LIBTOOL_GCJ",
+      "AC_LIBTOOL_RC",
+      "AC_LIBTOOL_COMPILER_OPTION",
+      "AC_LIBTOOL_LINKER_OPTION",
+      "AC_LIBTOOL_SYS_MAX_CMD_LEN",
+      "AC_LIBTOOL_DLOPEN_SELF",
+      "AC_PATH_TOOL_PREFIX",
+      "AM_PROG_LD",
+      "AC_PROG_LD",
+      "AM_PROG_NM"
+    ],
+    "permitted_mutations": 1,
+    "suspect_global_mutations": 0
+  },
+  "parallel_build_safety": {
+    "vpath_out_of_tree_safe": true,
+    "generators": [],
+    "unordered_generated_sources": [],
+    "built_sources_declared": false
+  },
+  "semantic_context": {
+    "included_headers_sample": [],
+    "undefined_symbols": [
+      "boost::program_options::options_description::m_default_line_",
+      "boost::program_options::options_description::options_descrip",
+      "boost::program_options::options_description::add_options()",
+      "boost::program_options::options_description_easy_init::opera",
+      "boost::program_options::options_description::add(boost::prog",
+      "boost::program_options::variables_map::variables_map()",
+      "boost::program_options::store(boost::program_options::basic_",
+      "boost::program_options::notify(boost::program_options::varia",
+      "boost::program_options::operator<<(std::ostream&, boost::pro",
+      "vtable for boost::program_options::error_with_option_name",
+      "boost::program_options::validation_error::get_template[abi:c",
+      "boost::program_options::error_with_option_name::error_with_o",
+      "vtable for boost::program_options::value_semantic_codecvt_he",
+      "boost::program_options::abstract_variables_map::operator[](s",
+      "vtable for boost::program_options::variables_map"
+    ],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "subdir-config-h-include-path",
+    "ancient-libtool"
+  ],
+  "repair_hints": [
+    {
+      "id": "subdir-top-builddir",
+      "phase": "make",
+      "confidence": 0.88,
+      "evidence": [
+        "src consumes config.h below root"
+      ],
+      "action": "ensure ac_subst_file sets relative top_builddir per subdir (0.1.19)",
+      "expected_effect": "config.h found in subdir compiles"
+    }
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": 0,
+      "Makefile.in": 1620,
+      "aclocal.m4": 6,
+      "config.h.in": 45,
+      "configure": 44,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_ENABLE": "system-aclocal",
+      "AC_CONFIG_AUX_DIR": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_HEADER": "system-aclocal",
+      "AC_CONFIG_MACRO_DIR": "system-aclocal",
+      "AC_CONFIG_SRCDIR": "system-aclocal",
+      "AC_CXX_BOOL": "system-aclocal",
+      "AC_CXX_HAVE_STD": "system-aclocal",
+      "AC_CXX_HAVE_STL": "system-aclocal",
+      "AC_CXX_NAMESPACES": "m4/ac_cxx_namespaces.m4",
+      "AC_CXX_TEMPLATES": "system-aclocal",
+      "AC_C_CONST": "system-aclocal",
+      "AC_DEFINE": "system-aclocal",
+      "AC_HEADER_STDC": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_LANG": "system-aclocal",
+      "AC_LIBTOOL_LANG_CXX_CONFIG": "system-aclocal",
+      "AC_LIBTOOL_LANG_F77_CONFIG": "system-aclocal",
+      "AC_MSG_RESULT": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PREREQ": "system-aclocal",
+      "AC_PROG_CXX": "system-aclocal",
+      "AC_PROG_LIBTOOL": "m4/libtool.m4",
+      "AC_SUBST": "system-aclocal",
+      "AC_TYPE_SIZE_T": "system-aclocal",
+      "AC_VALGRIND": "system-aclocal",
+      "AM_INIT_AUTOMAKE": "system-aclocal",
+      "AX_BOOST_BASE": "m4/ax_boost_base.m4",
+      "AX_BOOST_FILESYSTEM": "m4/ax_boost_filesystem.m4",
+      "AX_BOOST_PROGRAM_OPTIONS": "system-aclocal",
+      "AX_BOOST_SYSTEM": "m4/ax_boost_system.m4",
+      "AX_CXX_COMPILE_STDCXX_11": "m4/ax_cxx_compile_stdcxx_11.m4"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "lzp_LDADD",
+        "var": "BOOST_FILESYSTEM_LIB",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "lzp_LDADD",
+        "var": "BOOST_PROGRAM_OPTIONS_LIB",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "lzp_LDADD",
+        "var": "BOOST_SYSTEM_LIB",
+        "resolved_to": [],
+        "resolved": false
+      }
+    ],
+    "unresolved_refs": [
+      "lzp_LDADD = $(BOOST_FILESYSTEM_LIB)",
+      "lzp_LDADD = $(BOOST_PROGRAM_OPTIONS_LIB)",
+      "lzp_LDADD = $(BOOST_SYSTEM_LIB)"
+    ],
+    "indirection_count": 3
   }
 }

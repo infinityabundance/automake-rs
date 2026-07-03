@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "digitalocean/libguestfs",
   "source": {
     "url": "https://github.com/digitalocean/libguestfs",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,11 +26,11 @@
     {
       "step": "configure",
       "tool": "./configure",
-      "status": "ok"
+      "status": "fail"
     },
     {
-      "step": "make",
-      "tool": "make",
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
       "status": "fail"
     }
   ],
@@ -39,7 +39,9 @@
     "configure_args": []
   },
   "dependencies": {
-    "pkg_config": [],
+    "pkg_config": [
+      "if  is usable... how to print strings... for sysroot... the maximum length of co"
+    ],
     "system_libs": [],
     "headers_needed": [],
     "missing": []
@@ -49,35 +51,89 @@
     "subdirs"
   ],
   "outputs": [],
-  "status": "MAKE_FAIL",
+  "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "make: *** [GNUmakefile:108: abort-due-to-no-makefile] Error 1",
+  "diagnostic": "not found",
   "deep_expansion": {
-    "configure_lines": 0,
+    "configure_lines": 10790,
     "leaked_macros": [],
-    "heredoc_openers": 0,
-    "heredoc_terminators": 0,
+    "heredoc_openers": 418,
+    "heredoc_terminators": 418,
     "heredoc_imbalance": 0,
-    "syntax_errors": [],
-    "cache_var_anomalies": [],
-    "residual_placeholders": [],
-    "failed_during_check": "",
-    "failure_tail": [],
+    "syntax_errors": [
+      {
+        "line": 2382,
+        "token": "(",
+        "source": "printf '%s\\n' \"$DISTRO (manually specified)\"",
+        "block": [
+          "2378: printf '%s\\n' \"not set\"",
+          "2379: printf '%s\\n' \"$SUPERMIN_EXTRA_OPTIONS\"",
+          "2380: printf '%s\\n' \"not set\"",
+          "2381: printf '%s\\n' \"$supermin_major.$supermin_minor\"",
+          "2382: printf '%s\\n' \"$DISTRO (manually specified)\"",
+          "2383: printf '%s\\n' \"$DISTRO (from /etc/os-release)\"",
+          "2384: printf '%s\\n' \"$enable_daemon\"",
+          "2385: printf '%s\\n' \"$enable_install_daemon\""
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 66: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "PACKAGE_NAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_TARNAME",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL",
+      "srcdir",
+      "prefix",
+      "exec_prefix",
+      "HAVE_UTIMENSAT",
+      "REPLACE_PTSNAME_R",
+      "GNULIB_POSIX_SPAWN_FILE_ACTIONS_ADDOPEN",
+      "GNULIB_PUTS",
+      "GNULIB_USLEEP",
+      "HAVE_DECL_FREEADDRINFO",
+      "GNULIB_OPEN",
+      "host_cpu",
+      "GNULIB_GETHOSTNAME",
+      "DLLTOOL",
+      "GNULIB_FPUTC",
+      "YARA_CFLAGS",
+      "HAVE_REWINDDIR",
+      "REPLACE_SETENV",
+      "REPLACE_FNMATCH",
+      "LIBLZMA_CFLAGS",
+      "AR",
+      "SYSCONFDIR",
+      "gl_LIBOBJS",
+      "GNULIB_FGETS",
+      "REPLACE_VPRINTF"
+    ],
+    "failed_during_check": "checking for C++ compiler... c++",
+    "failure_tail": [
+      "checking for C++ compiler... c++",
+      "if  is usable... how to print strings... for sysroot... the maximum length of co",
+      "no",
+      "printf",
+      "print -r"
+    ],
     "conftest_corruption": [],
-    "conftest_directives_intact": 0,
+    "conftest_directives_intact": 608,
     "conftest_directives_mangled": 0,
-    "conftest_programs": []
-  },
-  "oracle": {
-    "real_autoreconf": "fail",
-    "real_configure": "skipped",
-    "real_make": "skipped",
-    "real_configure_lines": 0,
-    "real_first_error": "autom4te: error: /usr/bin/m4 failed with exit status: 1",
-    "classification": "OURS_BETTER"
+    "conftest_programs": [
+      "/* end confdefs.h */\\nint main() { return 0; }",
+      "/* end confdefs.h */\\n#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar sigprocmask();\\nint main() { return sigprocmask(); }",
+      "/* end confdefs.h */\\n#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar shl_load();\\nint main() { return shl_load(); }",
+      "/* end confdefs.h */\\n#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar register_printf_specifier();\\nint main() { return register_printf_specifier(); }",
+      "/* end confdefs.h */\\n#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar register_printf_function();\\nint main() { return register_printf_function(); }",
+      "/* end confdefs.h */\\n#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar getline();\\nint main() { return getline(); }"
+    ]
   },
   "receipt": {
-    "court_status": "partial",
+    "court_status": "failed",
     "probe_trace": [],
     "quirks_matched": [
       "uses-libtool",
@@ -86,7 +142,14 @@
       "vendored-aclocal",
       "perl-in-configure"
     ],
-    "receipt_hash": "bdbfb6907bfdbc8bdb7cf566a26793b38411d77e6f0819ae26c725daf919e509",
+    "quirks_applied": [
+      {
+        "id": "uses-subdir-objects",
+        "action": "--disable-dependency-tracking",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -95,6 +158,2722 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "align/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "appliance/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "bash/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "builder/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "builder/libguestfs.conf",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "builder/opensuse.conf",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "builder/templates/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "builder/test-config/virt-builder/repos.d/test-index.conf",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "builder/test-simplestreams/virt-builder/repos.d/cirros.conf",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "builder/test-website/virt-builder/repos.d/libguestfs.conf",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "cat/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "common/edit/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "common/errnostring/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "common/miniexpect/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "common/mlaugeas/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "common/mlgettext/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "common/mlpcre/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "common/mlprogress/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "common/mlstdutils/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "common/mlstdutils/guestfs_config.ml",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "common/mltools/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "common/mlutils/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "common/mlvisit/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "common/mlxml/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "common/options/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "common/parallel/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "common/progress/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "common/protocol/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "common/qemuopts/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "common/structs/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "common/utils/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "common/visit/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "common/windows/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "csharp/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "customize/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "daemon/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "daemon/daemon_config.ml",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "df/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "dib/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "diff/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "docs/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "edit/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "erlang/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "erlang/examples/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "examples/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "fish/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "format/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "fuse/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "generator/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "get-kernel/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "gnulib/lib/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "gnulib/tests/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "gobject/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "gobject/libguestfs-gobject-1.0.pc",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "golang/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "golang/examples/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "haskell/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "inspector/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "inspector/test-virt-inspector-luks.sh",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "inspector/test-virt-inspector.sh",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "inspector/test-xmllint.sh",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "installcheck.sh",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "java/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "java/examples/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "lib/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "lib/libguestfs.pc",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "lua/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "lua/examples/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "make-fs/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "ocaml-dep.sh",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "ocaml-link.sh",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "ocaml/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "ocaml/examples/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "p2v/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "perl/Build.PL",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "perl/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "perl/examples/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "php/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "php/extension/php-for-tests.sh",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "pick-guests.pl",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "po-docs/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "po-docs/ja/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "po-docs/uk/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "po/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "podwrapper.pl",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "python/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "python/examples/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "python/setup.py",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "python/t/tests_helper.py",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "rescue/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "resize/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "ruby/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "ruby/examples/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "ruby/ext/guestfs/extconf.rb",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "sparsify/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "sysprep/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "test-data/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "test-data/binaries/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "test-data/blank-disks/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "test-data/fake-virt-tools/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "test-data/fake-virtio-win/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "test-data/files/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "test-data/phony-guests/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "test-data/phony-guests/guests.xml",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "test-tool/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "tests/9p/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tests/bigdirs/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tests/btrfs/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tests/c-api/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tests/charsets/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tests/create/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tests/daemon/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tests/daemon/captive-daemon.pm",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tests/discard/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tests/disk-labels/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tests/disks/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tests/disks/test-qemu-drive-libvirt.xml",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tests/events/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tests/gdisk/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tests/hotplug/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tests/http/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tests/journal/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tests/luks/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tests/lvm/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tests/md/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tests/mount-local/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tests/mountable/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tests/nbd/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tests/network/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tests/ntfs/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tests/parallel/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tests/protocol/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tests/qemu/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tests/regressions/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tests/relabel/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tests/relative-paths/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tests/rsync/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tests/selinux/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tests/syslinux/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tests/tmpdirs/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tests/tsk/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tests/xfs/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tests/xml/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tests/yara/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tools/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "utils/boot-analysis/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "utils/boot-benchmark/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "utils/max-disks/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "utils/qemu-boot/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "utils/qemu-speed-test/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "v2v/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "v2v/config.ml",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "v2v/test-harness/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "website/index.html",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      }
+    ],
+    "config_headers": [
+      "config.h"
+    ],
+    "subdirs": [
+      "common/mlstdutils",
+      "generator",
+      "tests/qemu",
+      "test-data",
+      "gnulib/lib",
+      "gnulib/tests",
+      "common/errnostring",
+      "common/protocol",
+      "common/qemuopts",
+      "common/utils",
+      "common/structs",
+      "lib",
+      "docs",
+      "examples",
+      "po",
+      "common/mlutils",
+      "common/mlaugeas",
+      "common/mlpcre",
+      "daemon",
+      "tests/daemon",
+      "appliance",
+      "tests/c-api",
+      "tests/tmpdirs",
+      "tests/protocol",
+      "tests/events",
+      "tests/parallel",
+      "tests/create",
+      "tests/disks",
+      "tests/discard",
+      "tests/mountable",
+      "tests/network",
+      "tests/lvm",
+      "tests/luks",
+      "tests/md",
+      "tests/selinux",
+      "tests/relabel",
+      "tests/ntfs",
+      "tests/btrfs",
+      "tests/xfs",
+      "tests/charsets",
+      "tests/xml",
+      "tests/mount-local",
+      "tests/9p",
+      "tests/rsync",
+      "tests/bigdirs",
+      "tests/disk-labels",
+      "tests/hotplug",
+      "tests/nbd",
+      "tests/http",
+      "tests/syslinux",
+      "tests/journal",
+      "tests/relative-paths",
+      "tests/gdisk",
+      "tests/regressions",
+      "tests/tsk",
+      "tests/yara",
+      "common/edit",
+      "common/options",
+      "common/parallel",
+      "common/progress",
+      "common/visit",
+      "common/windows",
+      "test-tool",
+      "fish",
+      "align",
+      "cat",
+      "diff",
+      "df",
+      "edit",
+      "format",
+      "inspector",
+      "make-fs",
+      "rescue",
+      "common/miniexpect",
+      "p2v",
+      "bash",
+      "perl",
+      "perl/examples",
+      "ocaml",
+      "ocaml/examples",
+      "python",
+      "python/examples",
+      "ruby",
+      "ruby/examples",
+      "java",
+      "java/examples",
+      "haskell",
+      "php",
+      "erlang",
+      "erlang/examples",
+      "lua",
+      "lua/examples",
+      "gobject",
+      "golang",
+      "golang/examples",
+      "csharp",
+      "common/mlgettext",
+      "common/mlprogress",
+      "common/mlvisit",
+      "common/mlxml",
+      "common/mltools",
+      "customize",
+      "builder",
+      "builder/templates",
+      "get-kernel",
+      "resize",
+      "sparsify",
+      "sysprep",
+      "v2v",
+      "v2v/test-harness",
+      "dib",
+      "tools",
+      "fuse",
+      "utils/boot-analysis",
+      "utils/boot-benchmark",
+      "utils/max-disks",
+      "utils/qemu-boot",
+      "utils/qemu-speed-test",
+      "po-docs"
+    ],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [],
+        "subdirs": [
+          "common/mlstdutils",
+          "generator",
+          "tests/qemu",
+          "test-data",
+          "gnulib/lib",
+          "gnulib/tests",
+          "common/errnostring",
+          "common/protocol",
+          "common/qemuopts",
+          "common/utils",
+          "common/structs",
+          "lib",
+          "docs",
+          "examples",
+          "po",
+          "common/mlutils",
+          "common/mlaugeas",
+          "common/mlpcre",
+          "daemon",
+          "tests/daemon",
+          "appliance",
+          "tests/c-api",
+          "tests/tmpdirs",
+          "tests/protocol",
+          "tests/events",
+          "tests/parallel",
+          "tests/create",
+          "tests/disks",
+          "tests/discard",
+          "tests/mountable",
+          "tests/network",
+          "tests/lvm",
+          "tests/luks",
+          "tests/md",
+          "tests/selinux",
+          "tests/relabel",
+          "tests/ntfs",
+          "tests/btrfs",
+          "tests/xfs",
+          "tests/charsets",
+          "tests/xml",
+          "tests/mount-local",
+          "tests/9p",
+          "tests/rsync",
+          "tests/bigdirs",
+          "tests/disk-labels",
+          "tests/hotplug",
+          "tests/nbd",
+          "tests/http",
+          "tests/syslinux",
+          "tests/journal",
+          "tests/relative-paths",
+          "tests/gdisk",
+          "tests/regressions",
+          "tests/tsk",
+          "tests/yara",
+          "common/edit",
+          "common/options",
+          "common/parallel",
+          "common/progress",
+          "common/visit",
+          "common/windows",
+          "test-tool",
+          "fish",
+          "align",
+          "cat",
+          "diff",
+          "df",
+          "edit",
+          "format",
+          "inspector",
+          "make-fs",
+          "rescue",
+          "common/miniexpect",
+          "p2v",
+          "bash",
+          "perl",
+          "perl/examples",
+          "ocaml",
+          "ocaml/examples",
+          "python",
+          "python/examples",
+          "ruby",
+          "ruby/examples",
+          "java",
+          "java/examples",
+          "haskell",
+          "php",
+          "erlang",
+          "erlang/examples",
+          "lua",
+          "lua/examples",
+          "gobject",
+          "golang",
+          "golang/examples",
+          "csharp",
+          "common/mlgettext",
+          "common/mlprogress",
+          "common/mlvisit",
+          "common/mlxml",
+          "common/mltools",
+          "customize",
+          "builder",
+          "builder/templates",
+          "get-kernel",
+          "resize",
+          "sparsify",
+          "sysprep",
+          "v2v",
+          "v2v/test-harness",
+          "dib",
+          "tools",
+          "fuse",
+          "utils/boot-analysis",
+          "utils/boot-benchmark",
+          "utils/max-disks",
+          "utils/qemu-boot",
+          "utils/qemu-speed-test",
+          "po-docs"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "builder",
+        "targets": [],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "common/edit",
+        "targets": [
+          "libedit.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "common/errnostring",
+        "targets": [
+          "liberrnostring.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "common/miniexpect",
+        "targets": [
+          "libminiexpect.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "common/mlaugeas",
+        "targets": [
+          "libmlaugeas.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "common/mlgettext",
+        "targets": [
+          "libmlgettext.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "common/mlpcre",
+        "targets": [
+          "libmlpcre.a",
+          "pcre_tests"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "common/mlprogress",
+        "targets": [
+          "libmlprogress.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "common/mltools",
+        "targets": [
+          "libmltools.a",
+          "getopt_tests",
+          "machine_readable_tests"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "common/mlutils",
+        "targets": [
+          "libmlcutils.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "common/mlvisit",
+        "targets": [
+          "libmlvisit.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "common/mlxml",
+        "targets": [
+          "libmlxml.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "common/options",
+        "targets": [
+          "liboptions.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "common/parallel",
+        "targets": [
+          "libparallel.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "common/progress",
+        "targets": [
+          "libprogress.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "common/protocol",
+        "targets": [
+          "libprotocol.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "common/qemuopts",
+        "targets": [
+          "libqemuopts.la",
+          "qemuopts-tests"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "common/utils",
+        "targets": [
+          "libutils.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "common/visit",
+        "targets": [
+          "libvisit.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "common/windows",
+        "targets": [
+          "libwindows.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "df",
+        "targets": [
+          "virt-df"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "diff",
+        "targets": [
+          "virt-diff"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "erlang",
+        "targets": [
+          "erl-guestfs"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "fuse",
+        "targets": [
+          "guestmount",
+          "guestunmount",
+          "test-fuse",
+          "test-guestmount-fd",
+          "test-guestunmount-fd"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "inspector",
+        "targets": [
+          "virt-inspector"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "java",
+        "targets": [
+          "libguestfs_jni.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "python",
+        "targets": [
+          "libguestfsmod.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "rescue",
+        "targets": [
+          "virt-rescue"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "sparsify",
+        "targets": [
+          "virt-sparsify"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "tests/c-api",
+        "targets": [
+          "tests",
+          "test-command",
+          "test-just-header",
+          "test-create-handle",
+          "test-config",
+          "test-add-drive-opts",
+          "test-last-errno",
+          "test-backend-settings",
+          "test-private-data",
+          "test-user-cancel",
+          "test-debug-to-file",
+          "test-environment"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "tests/charsets",
+        "targets": [
+          "$(TESTS)"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "tests/disks",
+        "targets": [
+          "test-add-disks"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "tests/events",
+        "targets": [],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "tests/mount-local",
+        "targets": [
+          "$(TESTS)"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "tests/mountable",
+        "targets": [
+          "test-internal-parse-mountable"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "tests/parallel",
+        "targets": [
+          "test-parallel"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "tests/protocol",
+        "targets": [
+          "test-error-messages"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "tests/regressions",
+        "targets": [
+          "rhbz501893",
+          "rhbz790721",
+          "rhbz914931",
+          "rhbz1055452",
+          "test-big-heap"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "tests/xml",
+        "targets": [
+          "libfakevirtxml.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      }
+    ],
+    "max_depth": 4,
+    "config_h_consumers_below_root": [
+      "fuse",
+      "java",
+      "tests/charsets",
+      "tests/mount-local",
+      "tests/mountable",
+      "tests/xml",
+      "tests/disks",
+      "tests/events",
+      "tests/regressions",
+      "tests/c-api",
+      "tests/protocol",
+      "tests/parallel",
+      "diff",
+      "python",
+      "df",
+      "inspector",
+      "builder",
+      "rescue",
+      "erlang",
+      "common/windows",
+      "common/errnostring",
+      "common/mlxml",
+      "common/mlvisit",
+      "common/edit",
+      "common/mlpcre",
+      "common/progress",
+      "common/qemuopts",
+      "common/mltools",
+      "common/utils",
+      "common/mlaugeas",
+      "common/mlutils",
+      "common/mlprogress",
+      "common/miniexpect",
+      "common/visit",
+      "common/options",
+      "common/protocol",
+      "common/parallel"
+    ]
+  },
+  "macro_inventory": {
+    "macro_dirs": [
+      "m4"
+    ],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [
+      {
+        "name": "gl_FUNC_UTIMES",
+        "source": "m4/utimes.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_NONBLOCKING_IO",
+        "source": "m4/nonblocking.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_NONBLOCKING_IO_BODY",
+        "source": "m4/nonblocking.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_SOCKETLIB",
+        "source": "m4/socketlib.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_COMMON",
+        "source": "m4/gnulib-common.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_COMMON_BODY",
+        "source": "m4/gnulib-common.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_MODULE_INDICATOR_SET_VARIABLE",
+        "source": "m4/gnulib-common.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_MODULE_INDICATOR_SET_VARIABLE_AUX",
+        "source": "m4/gnulib-common.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_MODULE_INDICATOR_SET_VARIABLE_AUX_OR",
+        "source": "m4/gnulib-common.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_MODULE_INDICATOR",
+        "source": "m4/gnulib-common.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_MODULE_INDICATOR_FOR_TESTS",
+        "source": "m4/gnulib-common.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_ASSERT_NO_GNULIB_POSIXCHECK",
+        "source": "m4/gnulib-common.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_W",
+        "source": "m4/gnulib-common.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_ASSERT_NO_GNULIB_TESTS",
+        "source": "m4/gnulib-common.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_FEATURES_H",
+        "source": "m4/gnulib-common.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_PROG_CC_C99",
+        "source": "m4/gnulib-common.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_PROG_AR_RANLIB",
+        "source": "m4/gnulib-common.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AC_C_RESTRICT",
+        "source": "m4/gnulib-common.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "gl_BIGENDIAN",
+        "source": "m4/gnulib-common.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_CACHE_VAL_SILENT",
+        "source": "m4/gnulib-common.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_FUNC_READDIR",
+        "source": "m4/readdir.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_STDLIB_H",
+        "source": "m4/stdlib_h.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_STDLIB_MODULE_INDICATOR",
+        "source": "m4/stdlib_h.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_STDLIB_H_DEFAULTS",
+        "source": "m4/stdlib_h.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_EARLY",
+        "source": "m4/gnulib-comp.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_INIT",
+        "source": "m4/gnulib-comp.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_LIBOBJ",
+        "source": "m4/gnulib-comp.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_REPLACE_FUNCS",
+        "source": "m4/gnulib-comp.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_LIBSOURCES",
+        "source": "m4/gnulib-comp.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gltests_LIBOBJ",
+        "source": "m4/gnulib-comp.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gltests_REPLACE_FUNCS",
+        "source": "m4/gnulib-comp.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gltests_LIBSOURCES",
+        "source": "m4/gnulib-comp.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_FILE_LIST",
+        "source": "m4/gnulib-comp.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AC_C_FLEXIBLE_ARRAY_MEMBER",
+        "source": "m4/flexmember.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "gl___INLINE",
+        "source": "m4/__inline.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_FUNC_PUTENV",
+        "source": "m4/putenv.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_PREREQ_PUTENV",
+        "source": "m4/putenv.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_WAIT_PROCESS",
+        "source": "m4/wait-process.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_FUNC_MBTOWC",
+        "source": "m4/mbtowc.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_PREREQ_MBTOWC",
+        "source": "m4/mbtowc.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_BYTESWAP",
+        "source": "m4/byteswap.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_FUNC_MKDTEMP",
+        "source": "m4/mkdtemp.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_PREREQ_MKDTEMP",
+        "source": "m4/mkdtemp.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_HOSTENT",
+        "source": "m4/hostent.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_AC_HEADER_INTTYPES_H",
+        "source": "m4/inttypes_h.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gt_LOCALE_ZH_CN",
+        "source": "m4/locale-zh.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AC_TYPE_LONG_LONG_INT",
+        "source": "m4/longlong.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_TYPE_UNSIGNED_LONG_LONG_INT",
+        "source": "m4/longlong.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "_AC_TYPE_LONG_LONG_SNIPPET",
+        "source": "m4/longlong.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gt_INTTYPES_PRI",
+        "source": "m4/inttypes-pri.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_FUNC_SLEEP",
+        "source": "m4/sleep.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_SIGNALBLOCKING",
+        "source": "m4/signalblocking.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_PREREQ_SIGPROCMASK",
+        "source": "m4/signalblocking.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_ABSOLUTE_HEADER",
+        "source": "m4/absolute-header.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_ABSOLUTE_HEADER_ONE",
+        "source": "m4/absolute-header.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_STDINT_H",
+        "source": "m4/stdint.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_STDINT_BITSIZEOF",
+        "source": "m4/stdint.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_CHECK_TYPES_SIGNED",
+        "source": "m4/stdint.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_INTEGER_TYPE_SUFFIX",
+        "source": "m4/stdint.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_STDINT_INCLUDES",
+        "source": "m4/stdint.m4",
+        "kind": "project-local"
+      }
+    ],
+    "called_macros": [
+      "AC_ARG_WITH",
+      "AC_CONFIG_AUX_DIR",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_HEADERS",
+      "AC_CONFIG_MACRO_DIR",
+      "AC_DEFINE",
+      "AC_DEFINE_UNQUOTED",
+      "AC_INIT",
+      "AC_MSG_CHECKING",
+      "AC_MSG_FAILURE",
+      "AC_MSG_NOTICE",
+      "AC_MSG_RESULT",
+      "AC_OUTPUT",
+      "AC_REQUIRE_AUX_FILE",
+      "AC_SUBST",
+      "AC_USE_SYSTEM_EXTENSIONS",
+      "AM_INIT_AUTOMAKE",
+      "AM_SILENT_RULES",
+      "LT_INIT"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 726,
+    "configure_fi": 716,
+    "configure_case": 51,
+    "configure_esac": 55,
+    "balanced": false,
+    "automake_conditionals": []
+  },
+  "config_aux_inventory": {
+    "aux_dir": "build-aux",
+    "present": [
+      "install-sh",
+      "missing",
+      "depcomp",
+      "compile",
+      "ltmain.sh"
+    ],
+    "missing": []
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "c": 964,
+      "cpp": 1,
+      "go": 14,
+      "h": 344
+    },
+    "configure_macros": [],
+    "needs_cxx": true,
+    "needs_fortran": false,
+    "sets_c_std": false
+  },
+  "libtool_context": {
+    "uses_libtool": true,
+    "macros": [
+      "LT_INIT"
+    ],
+    "ltmain_present": true,
+    "libtool_m4_sources": [
+      "m4/libtool.m4",
+      "aclocal.m4"
+    ],
+    "age": "modern"
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": true,
+    "defines_sampled": []
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-subdir-objects",
+      "applied_at": "configure",
+      "effect": "neutral",
+      "effectiveness": "low"
+    },
+    {
+      "quirk_id": "uses-libtool",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "has-m4-macro-dir",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "perl-in-configure",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "vpath_analysis": {
+    "hardcoded_src_paths": 108,
+    "abs_path_leakage": 0,
+    "built_sources": [
+      "com_redhat_et_libguestfs_GuestFS.h",
+      "$(generator_built)",
+      "index-parse.h",
+      "$(generator_built)",
+      "errnostring-gperf.c",
+      "$(generator_built)",
+      "guestfs_protocol.c",
+      "guestfs_protocol.h",
+      "$(generator_built)",
+      "actions.h",
+      "caml-stubs.c",
+      "dispatch.c",
+      "names.c",
+      "lvm-tokenization.c",
+      "structs-cleanups.c",
+      "structs-cleanups.h",
+      "stubs-0.c",
+      "stubs-1.c",
+      "stubs-2.c",
+      "stubs-3.c"
+    ],
+    "generated_source_targets": [
+      "$(JAVAH) -classpath $(srcdir)",
+      "make.sh",
+      "$(all_targets)",
+      "errnostring-gperf.c",
+      "guestfs.so",
+      "stamp-guestfs-lua.pod",
+      "$(PODWRAPPER)  \t  --section 3  \t  --man guestfs-lua.3  \t  --html $(top_builddir)/website/guestfs-lua.3.html  \t  --verbatim $(srcdir)/create_disk.lua",
+      "cmds-gperf.c"
+    ]
+  },
+  "feature_probe_gap": {
+    "headers_checked": [],
+    "headers_included_unchecked": [
+      "acl/libacl.h",
+      "arpa/inet.h",
+      "caml/alloc.h",
+      "caml/callback.h",
+      "caml/config.h",
+      "caml/custom.h",
+      "caml/fail.h",
+      "caml/memory.h",
+      "caml/mlvalues.h",
+      "caml/printexc.h",
+      "caml/signals.h",
+      "caml/unixsupport.h",
+      "dbus/dbus.h",
+      "dlfcn.h",
+      "fcntl.h",
+      "gio/gio.h",
+      "gtk/gtk.h",
+      "guestfs-gobject/optargs-add_domain.h",
+      "guestfs-gobject/optargs-add_drive.h",
+      "guestfs-gobject/optargs-add_drive_scratch.h",
+      "guestfs-gobject/optargs-add_libvirt_dom.h",
+      "guestfs-gobject/optargs-aug_transform.h",
+      "guestfs-gobject/optargs-btrfs_filesystem_defragment.h",
+      "guestfs-gobject/optargs-btrfs_filesystem_resize.h",
+      "guestfs-gobject/optargs-btrfs_fsck.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 11,
+    "shadowed_macros": [
+      "AC_C_RESTRICT",
+      "AC_C_FLEXIBLE_ARRAY_MEMBER",
+      "AC_TYPE_LONG_LONG_INT",
+      "AC_TYPE_UNSIGNED_LONG_LONG_INT"
+    ]
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "gnu++",
+    "strip_modern_poison_flags": [],
+    "inject_legacy_shims": false,
+    "compiler_aliasing": {}
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 0,
+    "shadowed_builtins": [
+      "AC_C_RESTRICT",
+      "AC_C_FLEXIBLE_ARRAY_MEMBER",
+      "AC_TYPE_LONG_LONG_INT",
+      "AC_TYPE_UNSIGNED_LONG_LONG_INT"
+    ],
+    "permitted_mutations": 1,
+    "suspect_global_mutations": 0
+  },
+  "parallel_build_safety": {
+    "vpath_out_of_tree_safe": false,
+    "generators": [
+      "$(JAVAH) -classpath $(srcdir)",
+      "make.sh",
+      "$(all_targets)",
+      "errnostring-gperf.c",
+      "guestfs.so",
+      "stamp-guestfs-lua.pod",
+      "$(PODWRAPPER)  \t  --section 3  \t  --man guestfs-lua.3  \t  --html $(top_builddir)/website/guestfs-lua.3.html  \t  --verbatim $(srcdir)/create_disk.lua",
+      "cmds-gperf.c"
+    ],
+    "unordered_generated_sources": [
+      "$(JAVAH) -classpath $(srcdir)",
+      "make.sh",
+      "$(all_targets)",
+      "guestfs.so",
+      "stamp-guestfs-lua.pod",
+      "$(PODWRAPPER)  \t  --section 3  \t  --man guestfs-lua.3  \t  --html $(top_builddir)/website/guestfs-lua.3.html  \t  --verbatim $(srcdir)/create_disk.lua",
+      "cmds-gperf.c"
+    ],
+    "built_sources_declared": true
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "acl/libacl.h",
+      "arpa/inet.h",
+      "caml/alloc.h",
+      "caml/callback.h",
+      "caml/config.h",
+      "caml/custom.h",
+      "caml/fail.h",
+      "caml/memory.h",
+      "caml/mlvalues.h",
+      "caml/printexc.h",
+      "caml/signals.h",
+      "caml/unixsupport.h",
+      "dbus/dbus.h",
+      "dlfcn.h",
+      "fcntl.h",
+      "gio/gio.h",
+      "gtk/gtk.h",
+      "guestfs-gobject/optargs-add_domain.h",
+      "guestfs-gobject/optargs-add_drive.h",
+      "guestfs-gobject/optargs-add_drive_scratch.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "subdir-config-h-include-path",
+    "parallel-build-race (gen-source not in BUILT_SOURCES)",
+    "vpath-unsafe (abs-path/hardcoded-srcdir leakage)"
+  ],
+  "repair_hints": [
+    {
+      "id": "subdir-top-builddir",
+      "phase": "make",
+      "confidence": 0.88,
+      "evidence": [
+        "fuse consumes config.h below root",
+        "java consumes config.h below root",
+        "tests/charsets consumes config.h below root",
+        "tests/mount-local consumes config.h below root",
+        "tests/mountable consumes config.h below root"
+      ],
+      "action": "ensure ac_subst_file sets relative top_builddir per subdir (0.1.19)",
+      "expected_effect": "config.h found in subdir compiles"
+    }
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": -25,
+      "Makefile.in": 2234,
+      "aclocal.m4": 735,
+      "config.h.in": 1312,
+      "configure": 1296,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_WITH": "system-aclocal",
+      "AC_CONFIG_AUX_DIR": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_HEADERS": "system-aclocal",
+      "AC_CONFIG_MACRO_DIR": "system-aclocal",
+      "AC_DEFINE": "system-aclocal",
+      "AC_DEFINE_UNQUOTED": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_MSG_CHECKING": "system-aclocal",
+      "AC_MSG_FAILURE": "system-aclocal",
+      "AC_MSG_NOTICE": "system-aclocal",
+      "AC_MSG_RESULT": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_REQUIRE_AUX_FILE": "system-aclocal",
+      "AC_SUBST": "system-aclocal",
+      "AC_USE_SYSTEM_EXTENSIONS": "system-aclocal",
+      "AM_INIT_AUTOMAKE": "system-aclocal",
+      "AM_SILENT_RULES": "system-aclocal",
+      "LT_INIT": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "guestmount_LDADD",
+        "var": "FUSE_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "guestmount_LDADD",
+        "var": "LIBCONFIG_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "guestmount_LDADD",
+        "var": "LIBXML2_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "guestmount_LDADD",
+        "var": "LIBVIRT_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "guestmount_LDADD",
+        "var": "LTLIBINTL",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "guestunmount_LDADD",
+        "var": "LIBXML2_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "guestunmount_LDADD",
+        "var": "LIBVIRT_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "guestunmount_LDADD",
+        "var": "LTLIBINTL",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "test_fuse_LDADD",
+        "var": "LIBXML2_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "test_fuse_LDADD",
+        "var": "LIBVIRT_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "test_fuse_LDADD",
+        "var": "ACL_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "test_guestmount_fd_LDADD",
+        "var": "LIBXML2_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "test_guestmount_fd_LDADD",
+        "var": "LIBVIRT_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "test_guestmount_fd_LDADD",
+        "var": "LTLIBINTL",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "test_guestunmount_fd_LDADD",
+        "var": "LIBXML2_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "test_guestunmount_fd_LDADD",
+        "var": "LIBVIRT_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "test_guestunmount_fd_LDADD",
+        "var": "LTLIBINTL",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "check_PROGRAMS",
+        "var": "TESTS",
+        "resolved_to": [
+          "test-charset-fidelity"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "test_charset_fidelity_LDADD",
+        "var": "LIBXML2_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "test_charset_fidelity_LDADD",
+        "var": "LIBVIRT_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "test_charset_fidelity_LDADD",
+        "var": "LTLIBINTL",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "check_PROGRAMS",
+        "var": "TESTS",
+        "resolved_to": [
+          "test-parallel-mount-local"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "test_parallel_mount_local_LDADD",
+        "var": "FUSE_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "test_parallel_mount_local_LDADD",
+        "var": "LIBXML2_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "test_parallel_mount_local_LDADD",
+        "var": "LIBVIRT_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "test_parallel_mount_local_LDADD",
+        "var": "LTLIBINTL",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "test_add_disks_LDADD",
+        "var": "LIBXML2_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "test_libvirt_auth_callbacks_LDADD",
+        "var": "LIBVIRT_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "test_libvirt_auth_callbacks_LDADD",
+        "var": "LIBXML2_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "test_libvirt_auth_callbacks_LDADD",
+        "var": "LTLIBINTL",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "rhbz914931_LDADD",
+        "var": "LTLIBINTL",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "BUILT_SOURCES",
+        "var": "generator_built",
+        "resolved_to": [
+          "tests.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "tests_LDADD",
+        "var": "PCRE_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "tests_LDADD",
+        "var": "LIBXML2_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "tests_LDADD",
+        "var": "LIBVIRT_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "tests_LDADD",
+        "var": "LTLIBINTL",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "test_backend_settings_LDADD",
+        "var": "LTLIBINTL",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "test_environment_LDADD",
+        "var": "LTLIBINTL",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "test_event_string_LDADD",
+        "var": "LTLIBINTL",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "test_threads_LDADD",
+        "var": "LTLIBTHREAD",
+        "resolved_to": [],
+        "resolved": false
+      }
+    ],
+    "unresolved_refs": [
+      "guestmount_LDADD = $(FUSE_LIBS)",
+      "guestmount_LDADD = $(LIBCONFIG_LIBS)",
+      "guestmount_LDADD = $(LIBXML2_LIBS)",
+      "guestmount_LDADD = $(LIBVIRT_LIBS)",
+      "guestmount_LDADD = $(LTLIBINTL)",
+      "guestunmount_LDADD = $(LIBXML2_LIBS)",
+      "guestunmount_LDADD = $(LIBVIRT_LIBS)",
+      "guestunmount_LDADD = $(LTLIBINTL)",
+      "test_fuse_LDADD = $(LIBXML2_LIBS)",
+      "test_fuse_LDADD = $(LIBVIRT_LIBS)",
+      "test_fuse_LDADD = $(ACL_LIBS)",
+      "test_guestmount_fd_LDADD = $(LIBXML2_LIBS)",
+      "test_guestmount_fd_LDADD = $(LIBVIRT_LIBS)",
+      "test_guestmount_fd_LDADD = $(LTLIBINTL)",
+      "test_guestunmount_fd_LDADD = $(LIBXML2_LIBS)",
+      "test_guestunmount_fd_LDADD = $(LIBVIRT_LIBS)",
+      "test_guestunmount_fd_LDADD = $(LTLIBINTL)",
+      "test_charset_fidelity_LDADD = $(LIBXML2_LIBS)",
+      "test_charset_fidelity_LDADD = $(LIBVIRT_LIBS)",
+      "test_charset_fidelity_LDADD = $(LTLIBINTL)",
+      "test_parallel_mount_local_LDADD = $(FUSE_LIBS)",
+      "test_parallel_mount_local_LDADD = $(LIBXML2_LIBS)",
+      "test_parallel_mount_local_LDADD = $(LIBVIRT_LIBS)",
+      "test_parallel_mount_local_LDADD = $(LTLIBINTL)",
+      "test_add_disks_LDADD = $(LIBXML2_LIBS)",
+      "test_libvirt_auth_callbacks_LDADD = $(LIBVIRT_LIBS)",
+      "test_libvirt_auth_callbacks_LDADD = $(LIBXML2_LIBS)",
+      "test_libvirt_auth_callbacks_LDADD = $(LTLIBINTL)",
+      "rhbz914931_LDADD = $(LTLIBINTL)",
+      "tests_LDADD = $(PCRE_LIBS)",
+      "tests_LDADD = $(LIBXML2_LIBS)",
+      "tests_LDADD = $(LIBVIRT_LIBS)",
+      "tests_LDADD = $(LTLIBINTL)",
+      "test_backend_settings_LDADD = $(LTLIBINTL)",
+      "test_environment_LDADD = $(LTLIBINTL)",
+      "test_event_string_LDADD = $(LTLIBINTL)",
+      "test_threads_LDADD = $(LTLIBTHREAD)",
+      "test_threads_LDADD = $(LTLIBINTL)",
+      "test_add_libvirt_dom_LDADD = $(LIBVIRT_LIBS)",
+      "test_add_libvirt_dom_LDADD = $(LTLIBINTL)",
+      "test_add_libvirt_dom_LDADD = $(LTLIBTHREAD)",
+      "test_error_messages_LDADD = $(LIBXML2_LIBS)",
+      "test_error_messages_LDADD = $(LIBVIRT_LIBS)",
+      "test_parallel_LDADD = $(LTLIBINTL)",
+      "virt_diff_LDADD = $(LIBXML2_LIBS)",
+      "virt_diff_LDADD = $(LIBVIRT_LIBS)",
+      "virt_diff_LDADD = $(LTLIBINTL)",
+      "virt_df_LDADD = $(LIBXML2_LIBS)",
+      "virt_df_LDADD = $(LIBVIRT_LIBS)",
+      "virt_df_LDADD = $(LTLIBINTL)",
+      "virt_inspector_LDADD = $(LIBXML2_LIBS)",
+      "virt_inspector_LDADD = $(LIBVIRT_LIBS)",
+      "virt_inspector_LDADD = $(LTLIBINTL)",
+      "virt_index_validate_LDADD = $(LTLIBINTL)",
+      "virt_rescue_LDADD = $(LIBCONFIG_LIBS)",
+      "virt_rescue_LDADD = $(LIBXML2_LIBS)",
+      "virt_rescue_LDADD = $(LIBVIRT_LIBS)",
+      "virt_rescue_LDADD = $(LTLIBINTL)",
+      "erl_guestfs_LDADD = $(LIBXML2_LIBS)",
+      "erl_guestfs_LDADD = $(LIBVIRT_LIBS)",
+      "erl_guestfs_LDADD = $(LTLIBINTL)",
+      "libwindows_la_LIBADD = $(LTLIBINTL)",
+      "libprogress_la_LIBADD = $(LIBTINFO_LIBS)",
+      "libminiexpect_la_LIBADD = $(PCRE_LIBS)",
+      "liboptions_la_LIBADD = $(LIBCONFIG_LIBS)",
+      "liboptions_la_LIBADD = $(LIBXML2_LIBS)",
+      "liboptions_la_LIBADD = $(LTLIBINTL)",
+      "libparallel_la_LIBADD = $(LIBXML2_LIBS)",
+      "libparallel_la_LIBADD = $(LIBVIRT_LIBS)",
+      "libparallel_la_LIBADD = $(LTLIBINTL)",
+      "libstructs_la_SOURCES = $(BUILT_SOURCES)",
+      "libluaguestfs_la_LIBADD = $(LIBXML2_LIBS)",
+      "libluaguestfs_la_LIBADD = $(LIBVIRT_LIBS)",
+      "virt_edit_LDADD = $(LIBXML2_LIBS)",
+      "virt_edit_LDADD = $(LIBVIRT_LIBS)",
+      "virt_edit_LDADD = $(LTLIBINTL)",
+      "guestfsd_LDADD = $(ACL_LIBS)",
+      "guestfsd_LDADD = $(CAP_LIBS)",
+      "guestfsd_LDADD = $(JANSSON_LIBS)",
+      "guestfsd_LDADD = $(SELINUX_LIBS)",
+      "guestfsd_LDADD = $(AUGEAS_LIBS)",
+      "guestfsd_LDADD = $(HIVEX_LIBS)",
+      "guestfsd_LDADD = $(SD_JOURNAL_LIBS)",
+      "guestfsd_LDADD = $(GETADDRINFO_LIB)",
+      "guestfsd_LDADD = $(HOSTENT_LIB)",
+      "guestfsd_LDADD = $(INET_NTOP_LIB)",
+      "guestfsd_LDADD = $(LIBSOCKET)",
+      "guestfsd_LDADD = $(LIB_CLOCK_GETTIME)",
+      "guestfsd_LDADD = $(LIBINTL)",
+      "guestfsd_LDADD = $(SERVENT_LIB)",
+      "guestfsd_LDADD = $(PCRE_LIBS)",
+      "guestfsd_LDADD = $(TSK_LIBS)",
+      "guestfsd_LDADD = $(RPC_LIBS)",
+      "guestfsd_LDADD = $(YARA_LIBS)",
+      "virt_make_fs_LDADD = $(LIBXML2_LIBS)",
+      "virt_make_fs_LDADD = $(LTLIBINTL)",
+      "copy_over_LDADD = $(LIBVIRT_LIBS)",
+      "libvirt_auth_LDADD = $(LIBVIRT_LIBS)",
+      "mount_local_LDADD = $(FUSE_LIBS)",
+      "virt_p2v_LDADD = $(PCRE_LIBS)",
+      "virt_p2v_LDADD = $(LIBXML2_LIBS)",
+      "virt_p2v_LDADD = $(GTK_LIBS)",
+      "virt_p2v_LDADD = $(DBUS_LIBS)",
+      "v2v_unit_tests_SOURCES = $(virt_v2v_SOURCES)",
+      "qemu_boot_LDADD = $(LIBXML2_LIBS)",
+      "qemu_boot_LDADD = $(LIBVIRT_LIBS)",
+      "qemu_boot_LDADD = $(LTLIBINTL)",
+      "boot_analysis_LDADD = $(PCRE_LIBS)",
+      "boot_analysis_LDADD = $(LIBXML2_LIBS)",
+      "boot_analysis_LDADD = $(LIBVIRT_LIBS)",
+      "boot_analysis_LDADD = $(LTLIBINTL)",
+      "boot_benchmark_LDADD = $(LIBXML2_LIBS)",
+      "boot_benchmark_LDADD = $(LTLIBINTL)",
+      "qemu_speed_test_LDADD = $(LIBXML2_LIBS)",
+      "qemu_speed_test_LDADD = $(LIBVIRT_LIBS)",
+      "qemu_speed_test_LDADD = $(LTLIBINTL)",
+      "virt_format_LDADD = $(LIBXML2_LIBS)",
+      "virt_format_LDADD = $(LIBVIRT_LIBS)",
+      "virt_format_LDADD = $(LTLIBINTL)",
+      "libcmds_la_LIBADD = $(LTLIBINTL)",
+      "guestfish_LDADD = $(LIBXML2_LIBS)",
+      "guestfish_LDADD = $(LIBCONFIG_LIBS)",
+      "guestfish_LDADD = $(LIBREADLINE)",
+      "guestfish_LDADD = $(LIBTINFO_LIBS)",
+      "guestfish_LDADD = $(LTLIBINTL)",
+      "guestfish_LDADD = $(RPC_LIBS)",
+      "libtests_a_LIBADD = $(gltests_LIBOBJS)",
+      "test_bind_LDADD = $(INET_PTON_LIB)",
+      "test_connect_LDADD = $(INET_PTON_LIB)",
+      "test_fchdir_LDADD = $(LIBINTL)",
+      "test_futimens_LDADD = $(LIB_CLOCK_GETTIME)",
+      "test_futimens_LDADD = $(LIB_NANOSLEEP)",
+      "test_getcwd_lgpl_LDADD = $(LIBINTL)",
+      "test_getopt_gnu_LDADD = $(LIBINTL)",
+      "test_getopt_posix_LDADD = $(LIBINTL)",
+      "test_getsockname_LDADD = $(INET_PTON_LIB)",
+      "test_localename_LDADD = $(LIBTHREAD)",
+      "test_nanosleep_LDADD = $(LIB_NANOSLEEP)",
+      "test_nonblocking_socket_main_LDADD = $(LIBSOCKET)",
+      "test_nonblocking_socket_child_LDADD = $(LIBSOCKET)",
+      "test_nonblocking_LDADD = $(LIBSOCKET)",
+      "test_pipe2_LDADD = $(LIBSOCKET)",
+      "BUILT_SOURCES = $(SCHED_H)",
+      "test_select_LDADD = $(INET_PTON_LIB)",
+      "test_stat_LDADD = $(LIBINTL)",
+      "test_stat_time_LDADD = $(LIB_NANOSLEEP)",
+      "test_utime_LDADD = $(LIB_CLOCK_GETTIME)",
+      "test_utime_LDADD = $(LIB_NANOSLEEP)",
+      "test_utimens_LDADD = $(LIB_CLOCK_GETTIME)",
+      "test_utimens_LDADD = $(LIB_NANOSLEEP)",
+      "test_utimensat_LDADD = $(LIB_CLOCK_GETTIME)",
+      "test_utimensat_LDADD = $(LIB_NANOSLEEP)",
+      "test_xstrtoll_LDADD = $(LIBINTL)",
+      "test_xstrtoull_LDADD = $(LIBINTL)",
+      "libgnu_la_LIBADD = $(gl_LTLIBOBJS)",
+      "BUILT_SOURCES = $(ALLOCA_H)",
+      "BUILT_SOURCES = $(BYTESWAP_H)",
+      "BUILT_SOURCES = $(ERRNO_H)",
+      "BUILT_SOURCES = $(FLOAT_H)",
+      "BUILT_SOURCES = $(FNMATCH_H)",
+      "BUILT_SOURCES = $(GETOPT_H)",
+      "BUILT_SOURCES = $(GETOPT_CDEFS_H)",
+      "BUILT_SOURCES = $(GLOB_H)",
+      "BUILT_SOURCES = $(LIMITS_H)",
+      "BUILT_SOURCES = $(NETINET_IN_H)",
+      "BUILT_SOURCES = $(STDALIGN_H)",
+      "BUILT_SOURCES = $(STDARG_H)",
+      "BUILT_SOURCES = $(STDBOOL_H)",
+      "BUILT_SOURCES = $(STDDEF_H)",
+      "BUILT_SOURCES = $(STDINT_H)",
+      "BUILT_SOURCES = $(UTIME_H)",
+      "libguestfs_test_tool_LDADD = $(LIBXML2_LIBS)",
+      "libguestfs_test_tool_LDADD = $(LTLIBINTL)",
+      "libguestfs_gobject_1_0_la_SOURCES = $(guestfs_gobject_sources)",
+      "libguestfs_gobject_1_0_la_LIBADD = $(GOBJECT_LIBS)",
+      "libguestfs_gobject_1_0_la_LIBADD = $(GIO_LIBS)",
+      "virt_cat_LDADD = $(LIBXML2_LIBS)",
+      "virt_cat_LDADD = $(LIBVIRT_LIBS)",
+      "virt_cat_LDADD = $(LTLIBINTL)",
+      "virt_filesystems_LDADD = $(LIBXML2_LIBS)",
+      "virt_filesystems_LDADD = $(LIBVIRT_LIBS)",
+      "virt_filesystems_LDADD = $(LTLIBINTL)",
+      "virt_log_LDADD = $(LIBXML2_LIBS)",
+      "virt_log_LDADD = $(LIBVIRT_LIBS)",
+      "virt_log_LDADD = $(LTLIBINTL)",
+      "virt_ls_LDADD = $(LIBXML2_LIBS)",
+      "virt_ls_LDADD = $(LIBVIRT_LIBS)",
+      "virt_ls_LDADD = $(LTLIBINTL)",
+      "virt_tail_LDADD = $(LIBXML2_LIBS)",
+      "virt_tail_LDADD = $(LIBVIRT_LIBS)",
+      "virt_tail_LDADD = $(LTLIBINTL)",
+      "libguestfs_la_LIBADD = $(PCRE_LIBS)",
+      "libguestfs_la_LIBADD = $(LIBVIRT_LIBS)",
+      "libguestfs_la_LIBADD = $(LIBXML2_LIBS)",
+      "libguestfs_la_LIBADD = $(SELINUX_LIBS)",
+      "libguestfs_la_LIBADD = $(JANSSON_LIBS)",
+      "libguestfs_la_LIBADD = $(GETADDRINFO_LIB)",
+      "libguestfs_la_LIBADD = $(HOSTENT_LIB)",
+      "libguestfs_la_LIBADD = $(INET_NTOP_LIB)",
+      "libguestfs_la_LIBADD = $(LIBSOCKET)",
+      "libguestfs_la_LIBADD = $(LIB_CLOCK_GETTIME)",
+      "libguestfs_la_LIBADD = $(LTLIBINTL)",
+      "libguestfs_la_LIBADD = $(LTLIBTHREAD)",
+      "libguestfs_la_LIBADD = $(LTLIBICONV)",
+      "libguestfs_la_LIBADD = $(SERVENT_LIB)",
+      "libguestfs_la_LIBADD = $(RPC_LIBS)",
+      "libguestfs_la_LIBADD = $(FUSE_LIBS)",
+      "libvirt_is_version_LDADD = $(LIBVIRT_LIBS)",
+      "libvirt_is_version_LDADD = $(LTLIBINTL)",
+      "unit_tests_LDADD = $(libguestfs_la_OBJECTS)",
+      "unit_tests_LDADD = $(libguestfs_la_LIBADD)",
+      "virt_alignment_scan_LDADD = $(LIBXML2_LIBS)",
+      "virt_alignment_scan_LDADD = $(LIBVIRT_LIBS)",
+      "virt_alignment_scan_LDADD = $(LTLIBINTL)"
+    ],
+    "indirection_count": 306
   }
 }

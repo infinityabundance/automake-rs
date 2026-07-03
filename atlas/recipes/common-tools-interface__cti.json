@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "common-tools-interface/cti",
   "source": {
     "url": "https://github.com/common-tools-interface/cti",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.14",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -48,34 +48,71 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "mkdir: cannot create directory '': No such file or directory",
+  "diagnostic": "./configure: line 1432: syntax error near unexpected token `('",
   "deep_expansion": {
-    "configure_lines": 3367,
+    "configure_lines": 3615,
     "leaked_macros": [],
-    "heredoc_openers": 55,
-    "heredoc_terminators": 55,
+    "heredoc_openers": 54,
+    "heredoc_terminators": 54,
     "heredoc_imbalance": 0,
-    "syntax_errors": [],
+    "syntax_errors": [
+      {
+        "line": 1432,
+        "token": "(",
+        "source": "printf '%s\\n' \"#define CTI_BE_VERSION \"m4_eval( COMMONTOOL_BE_CURRENT - ",
+        "block": [
+          "1428: ",
+          "1429:     eval \"_acrs_sv=\\${COMMONTOOL_BE_VERSION}\"; printf '%s\\n' \"s|@COMMONTOOL_",
+          "1430:     eval \"_acrs_sv=\\${COMMONTOOL_FE_VERSION}\"; printf '%s\\n' \"s|@COMMONTOOL_",
+          "1431:         ",
+          "1432:     printf '%s\\n' \"#define CTI_BE_VERSION \"m4_eval( COMMONTOOL_BE_CURRENT - ",
+          "1433:     printf '%s\\n' \"#define CTI_FE_VERSION \"m4_eval( COMMONTOOL_FE_CURRENT - ",
+          "1434: ",
+          "1435:     printf '%s\\n' \"#define CTI_PACKAGE_MAJOR \" >> confdefs.h 2>/dev/null"
+        ]
+      }
+    ],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2891: do eval test \\${$as_var+y} \\"
+      "line 3138: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
+      "CODE_COVERAGE_ENABLED_TRUE",
+      "CODE_COVERAGE_ENABLED_FALSE",
+      "COMMONTOOL_DIR",
+      "TESTS_DIR_NAME",
+      "BUILD_NUMBER",
+      "COMMONTOOL_RELEASE_VERSION",
+      "COMMONTOOL_BE_VERSION",
+      "COMMONTOOL_FE_VERSION",
+      "COMMONTOOL_EXTERNAL",
+      "COMMONTOOL_EXTERNAL_INSTALL",
       "CXX",
       "CXXFLAGS",
-      "PACKAGE_NAME",
-      "PACKAGE_TARNAME",
-      "PACKAGE_VERSION",
-      "PACKAGE_STRING",
-      "PACKAGE_BUGREPORT",
-      "BUILD_NUMBER"
+      "LIBARCHIVE_CFLAGS",
+      "LIBARCHIVE_LIBS",
+      "LIBSSH2_CFLAGS",
+      "LIBSSH2_LIBS",
+      "BOOST_INSTALL_DIR",
+      "BOOST_CFLAGS",
+      "DYNINST_CFLAGS",
+      "DYNINST_LIBS",
+      "ENABLE_ALPS_TRUE",
+      "ENABLE_ALPS_FALSE",
+      "LIBALPS_CPPFLAGS",
+      "ENABLE_PALS_TRUE",
+      "ENABLE_PALS_FALSE",
+      "LIBPALS_CPPFLAGS",
+      "LIBFLUX_CPPFLAGS",
+      "ENABLE_FLUX_TRUE",
+      "ENABLE_FLUX_FALSE"
     ],
-    "failed_during_check": "checking for ... no",
+    "failed_during_check": "checking for build status - Building from release branch",
     "failure_tail": [
-      "checking for ... no",
-      "configure: BOOST_CFLAGS -I/include",
-      "configure: error: Use --with-dyninst to specify the path to dyninst"
+      "configure: checking for build status - Building from release branch",
+      "./configure: line 1432: syntax error near unexpected token `('",
+      "./configure: line 1432: `    printf '%s\\n' \"#define CTI_BE_VERSION \"m4_eval( COM"
     ],
     "conftest_corruption": [],
     "conftest_directives_intact": 40,
@@ -84,21 +121,13 @@
       "#include <$ac_hdr>",
       "#include <$ac_hdr>",
       "#include <$ac_hdr>",
-      "char free();\\nint main() { return free(); }",
-      "char clock_gettime();\\nint main() { return clock_gettime(); }",
-      "char archive_read_new();\\nint main() { return archive_read_new(); }"
+      "char free ();\\nint main() { return free(); }",
+      "char clock_gettime ();\\nint main() { return clock_gettime(); }",
+      "char archive_read_new ();\\nint main() { return archive_read_new(); }"
     ]
   },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "fail",
-    "real_make": "skipped",
-    "real_configure_lines": 25136,
-    "real_first_error": "configure: error: Use --with-libarchive-pc=<path> to specify the libarchive pkg-config script path",
-    "classification": "BOTH_CONFIGURE_FAIL"
-  },
   "receipt": {
-    "court_status": "not_standalone",
+    "court_status": "failed",
     "probe_trace": [],
     "quirks_matched": [
       "uses-libtool",
@@ -108,7 +137,7 @@
       "vendored-aclocal",
       "uses-ax-archive"
     ],
-    "receipt_hash": "1b59d07d0a20a927a52050673c57d051c46cf0669ffc84ae54f67e19a8cf7afb",
+    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -117,6 +146,1162 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "doc/man/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "pkgconfig/common_tools_be.pc",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "pkgconfig/common_tools_fe.pc",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "src/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "src/SSHSession/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/backend/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/backend/daemon/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/frontend/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/frontend/daemon/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/frontend/frontend_impl/ALPS/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/frontend/frontend_impl/Flux/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/frontend/frontend_impl/GenericSSH/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/frontend/frontend_impl/Localhost/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/frontend/frontend_impl/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/frontend/frontend_impl/PALS/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/frontend/frontend_impl/SLURM/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/frontend/mpir_iface/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/frontend/transfer/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/useful/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/useful/ld_val/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/utilities/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tests/mock/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tests/unit/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      }
+    ],
+    "config_headers": [
+      "config.h",
+      "include/common_tools_version.h"
+    ],
+    "subdirs": [
+      "src",
+      "tests/mock",
+      "tests/unit",
+      "doc/man",
+      "=",
+      "useful",
+      "SSHSession",
+      "backend",
+      "frontend",
+      "utilities",
+      "daemon",
+      "=",
+      "checksum",
+      "transfer",
+      "frontend_impl",
+      "mpir_iface",
+      "daemon",
+      "=",
+      "SLURM",
+      "GenericSSH",
+      "Localhost",
+      "ALPS",
+      "PALS",
+      "Flux",
+      "=",
+      "ld_val"
+    ],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [],
+        "subdirs": [
+          "src",
+          "tests/mock",
+          "tests/unit",
+          "doc/man"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src",
+        "targets": [],
+        "subdirs": [
+          "=",
+          "useful",
+          "SSHSession",
+          "backend",
+          "frontend",
+          "utilities"
+        ],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/SSHSession",
+        "targets": [
+          "libsshsession.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/backend",
+        "targets": [
+          "libcommontools_be.la"
+        ],
+        "subdirs": [
+          "daemon"
+        ],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/backend/daemon",
+        "targets": [
+          "cti_be_daemon@COMMONTOOL_RELEASE_VERSION@"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/frontend",
+        "targets": [
+          "libcommontools_fe.la"
+        ],
+        "subdirs": [
+          "=",
+          "checksum",
+          "transfer",
+          "frontend_impl",
+          "mpir_iface",
+          "daemon"
+        ],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/frontend/checksum",
+        "targets": [
+          "libchecksum.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/frontend/daemon",
+        "targets": [
+          "libfe_daemon_iface.la",
+          "cti_fe_daemon@COMMONTOOL_RELEASE_VERSION@",
+          "mpir_shim@COMMONTOOL_RELEASE_VERSION@",
+          "cti_slurm_stop@COMMONTOOL_RELEASE_VERSION@",
+          "libctistop.la",
+          "libctipreloadpals.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/frontend/frontend_impl",
+        "targets": [
+          "libfrontend_impl.la"
+        ],
+        "subdirs": [
+          "=",
+          "SLURM",
+          "GenericSSH",
+          "Localhost",
+          "ALPS",
+          "PALS",
+          "Flux"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/frontend/frontend_impl/ALPS",
+        "targets": [
+          "libalps.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/frontend/frontend_impl/Flux",
+        "targets": [
+          "libflux.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/frontend/frontend_impl/GenericSSH",
+        "targets": [
+          "libgenericssh.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/frontend/frontend_impl/Localhost",
+        "targets": [
+          "liblocalhost.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/frontend/frontend_impl/PALS",
+        "targets": [
+          "libpals.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/frontend/frontend_impl/SLURM",
+        "targets": [
+          "libslurm.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/frontend/mpir_iface",
+        "targets": [
+          "libmpir_iface.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/frontend/transfer",
+        "targets": [
+          "libtransfer.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/useful",
+        "targets": [
+          "libuseful.la"
+        ],
+        "subdirs": [
+          "=",
+          "ld_val"
+        ],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/useful/ld_val",
+        "targets": [
+          "libld_val.la",
+          "libctiaudit.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/utilities",
+        "targets": [
+          "cti_diagnostics",
+          "cti_diagnostics_backend",
+          "cti_diagnostics_target",
+          "cti_first_subprocess@COMMONTOOL_RELEASE_VERSION@",
+          "cti_send_signal_backend"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "tests/mock",
+        "targets": [
+          "libmock.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "tests/unit",
+        "targets": [
+          "unit_tests",
+          "flux_api_parse_tests"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      }
+    ],
+    "max_depth": 4,
+    "config_h_consumers_below_root": [
+      "src",
+      "src/backend",
+      "src/backend/daemon",
+      "src/useful",
+      "src/useful/ld_val",
+      "src/SSHSession",
+      "src/frontend",
+      "src/frontend/checksum",
+      "src/frontend/daemon",
+      "src/frontend/mpir_iface",
+      "src/frontend/transfer",
+      "src/frontend/frontend_impl/SLURM",
+      "src/frontend/frontend_impl/PALS",
+      "src/frontend/frontend_impl/GenericSSH",
+      "src/frontend/frontend_impl/Flux",
+      "src/frontend/frontend_impl/ALPS"
+    ]
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "tests/coverage/Makefile",
+        "has_makefile_in": false,
+        "has_makefile_am": false,
+        "lines": 24,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "tests/test_support/Makefile",
+        "has_makefile_in": false,
+        "has_makefile_am": false,
+        "lines": 28,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "tests/function/Makefile",
+        "has_makefile_in": false,
+        "has_makefile_am": false,
+        "lines": 5,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "tests/function/src/Makefile",
+        "has_makefile_in": false,
+        "has_makefile_am": false,
+        "lines": 132,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "tests/function/src/support/Makefile",
+        "has_makefile_in": false,
+        "has_makefile_am": false,
+        "lines": 49,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      }
+    ]
+  },
+  "tool_requirements": {
+    "detected": [
+      "c++",
+      "ar"
+    ],
+    "missing": []
+  },
+  "macro_inventory": {
+    "macro_dirs": [
+      "m4"
+    ],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [
+      {
+        "name": "AX_CXX_COMPILE_STDCXX",
+        "source": "m4/ax_cxx_compile_stdcxx.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "cray_INIT",
+        "source": "m4/cray_extensions.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "cray_INIT_CHECKSUM",
+        "source": "m4/cray_extensions.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "cray_ADD_CHECKSUM",
+        "source": "m4/cray_extensions.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AX_CXX_COMPILE_STDCXX_17",
+        "source": "m4/ax_cxx_compile_stdcxx_17.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AX_CXX_CHECK_LIB",
+        "source": "m4/ax_cxx_check_lib.m4",
+        "kind": "AX"
+      }
+    ],
+    "called_macros": [
+      "AC_ARG_ENABLE",
+      "AC_ARG_WITH",
+      "AC_CHECK_FUNCS",
+      "AC_CHECK_HEADER",
+      "AC_CHECK_HEADERS",
+      "AC_CHECK_LIB",
+      "AC_CONFIG_AUX_DIR",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_HEADERS",
+      "AC_CONFIG_MACRO_DIR",
+      "AC_CONFIG_SRCDIR",
+      "AC_COPYRIGHT",
+      "AC_C_INLINE",
+      "AC_DEFINE",
+      "AC_DEFINE_UNQUOTED",
+      "AC_FUNC_FORK",
+      "AC_FUNC_GETGROUPS",
+      "AC_FUNC_MALLOC",
+      "AC_FUNC_REALLOC",
+      "AC_HEADER_STDBOOL",
+      "AC_INCLUDES_DEFAULT",
+      "AC_INIT",
+      "AC_LANG_POP",
+      "AC_LANG_PUSH",
+      "AC_LIBTOOL_DLOPEN",
+      "AC_MSG_ERROR",
+      "AC_MSG_FAILURE",
+      "AC_MSG_NOTICE",
+      "AC_OUTPUT",
+      "AC_PREREQ",
+      "AC_PROG_AWK",
+      "AC_PROG_CC",
+      "AC_PROG_CC_C99",
+      "AC_PROG_CPP",
+      "AC_PROG_CXX",
+      "AC_PROG_INSTALL",
+      "AC_PROG_LIBTOOL",
+      "AC_PROG_LN_S",
+      "AC_PROG_MAKE_SET",
+      "AC_PROG_SED",
+      "AC_SUBST",
+      "AC_TYPE_INT32_T",
+      "AC_TYPE_INT64_T",
+      "AC_TYPE_OFF_T",
+      "AC_TYPE_PID_T",
+      "AC_TYPE_SIZE_T",
+      "AC_TYPE_SSIZE_T",
+      "AC_TYPE_UID_T",
+      "AC_TYPE_UINT16_T",
+      "AC_TYPE_UINT32_T",
+      "AC_TYPE_UINT64_T",
+      "AC_TYPE_UINT8_T",
+      "AC_USE_SYSTEM_EXTENSIONS",
+      "AM_CONDITIONAL",
+      "AM_COND_IF",
+      "AM_INIT_AUTOMAKE",
+      "AM_PROG_AR",
+      "AM_PROG_CC_C_O",
+      "AM_SILENT_RULES",
+      "AX_CODE_COVERAGE"
+    ],
+    "unresolved_macros": [
+      "AX_CODE_COVERAGE"
+    ]
+  },
+  "conditional_context": {
+    "configure_if": 196,
+    "configure_fi": 192,
+    "configure_case": 68,
+    "configure_esac": 71,
+    "balanced": false,
+    "automake_conditionals": [
+      "CODE_COVERAGE_ENABLED",
+      "ENABLE_ALPS",
+      "ENABLE_PALS",
+      "ENABLE_FLUX"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": "config",
+    "present": [
+      "install-sh",
+      "missing"
+    ],
+    "missing": [
+      "depcomp",
+      "compile",
+      "ltmain.sh"
+    ]
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "c": 53,
+      "cpp": 50,
+      "h": 19,
+      "hpp": 33
+    },
+    "configure_macros": [
+      "AC_PROG_CC",
+      "AC_PROG_CXX",
+      "AC_PROG_CC_C99"
+    ],
+    "needs_cxx": true,
+    "needs_fortran": false,
+    "sets_c_std": true
+  },
+  "libtool_context": {
+    "uses_libtool": true,
+    "macros": [
+      "LT_INIT",
+      "AC_PROG_LIBTOOL"
+    ],
+    "ltmain_present": false,
+    "libtool_m4_sources": [],
+    "age": "modern"
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": false,
+    "defines_sampled": []
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-libtool",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-libtool-old",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-pkg-config",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "has-m4-macro-dir",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-ax-archive",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "vpath_analysis": {
+    "hardcoded_src_paths": 3,
+    "abs_path_leakage": 0,
+    "built_sources": [
+      "LibFlux.hpp",
+      "LibFluxCompat.hpp"
+    ],
+    "generated_source_targets": []
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "alps/alps.h",
+      "archive.h",
+      "arpa/inet.h",
+      "fcntl.h",
+      "flux/core.h",
+      "inttypes.h",
+      "libssh2.h",
+      "limits.h",
+      "netdb.h",
+      "netinet/in.h",
+      "pals.h",
+      "stddef.h",
+      "stdint.h",
+      "stdlib.h",
+      "string.h",
+      "strings.h",
+      "sys/ioctl.h",
+      "sys/param.h",
+      "sys/socket.h",
+      "sys/time.h",
+      "unistd.h"
+    ],
+    "headers_included_unchecked": [
+      "dlfcn.h",
+      "linux/limits.h",
+      "net/if.h",
+      "pthread.h",
+      "sys/mount.h",
+      "sys/prctl.h",
+      "sys/resource.h",
+      "sys/stat.h",
+      "sys/statvfs.h",
+      "sys/types.h",
+      "sys/wait.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 12,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "c99",
+    "strip_modern_poison_flags": [],
+    "inject_legacy_shims": false,
+    "compiler_aliasing": {}
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 0,
+    "shadowed_builtins": [],
+    "permitted_mutations": 9,
+    "suspect_global_mutations": 0
+  },
+  "parallel_build_safety": {
+    "vpath_out_of_tree_safe": false,
+    "generators": [],
+    "unordered_generated_sources": [],
+    "built_sources_declared": true
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "dlfcn.h",
+      "linux/limits.h",
+      "net/if.h",
+      "pthread.h",
+      "sys/mount.h",
+      "sys/prctl.h",
+      "sys/resource.h",
+      "sys/stat.h",
+      "sys/statvfs.h",
+      "sys/types.h",
+      "sys/wait.h",
+      "alps/alps.h",
+      "archive.h",
+      "arpa/inet.h",
+      "fcntl.h",
+      "flux/core.h",
+      "inttypes.h",
+      "libssh2.h",
+      "limits.h",
+      "netdb.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "subdir-config-h-include-path",
+    "unresolved-macros",
+    "vpath-unsafe (abs-path/hardcoded-srcdir leakage)"
+  ],
+  "repair_hints": [
+    {
+      "id": "subdir-top-builddir",
+      "phase": "make",
+      "confidence": 0.88,
+      "evidence": [
+        "src consumes config.h below root",
+        "src/backend consumes config.h below root",
+        "src/backend/daemon consumes config.h below root",
+        "src/useful consumes config.h below root",
+        "src/useful/ld_val consumes config.h below root"
+      ],
+      "action": "ensure ac_subst_file sets relative top_builddir per subdir (0.1.19)",
+      "expected_effect": "config.h found in subdir compiles"
+    },
+    {
+      "id": "load-vendored-aclocal-dir",
+      "phase": "autoreconf",
+      "confidence": 0.85,
+      "evidence": [
+        "AX_CODE_COVERAGE"
+      ],
+      "action": "aclocal -I m4",
+      "expected_effect": "resolves unexpanded AX_/custom macros"
+    }
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": 0,
+      "Makefile.in": 1500,
+      "aclocal.m4": 11,
+      "config.h.in": 26,
+      "configure": 22,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_ENABLE": "system-aclocal",
+      "AC_ARG_WITH": "system-aclocal",
+      "AC_CHECK_FUNCS": "system-aclocal",
+      "AC_CHECK_HEADER": "system-aclocal",
+      "AC_CHECK_HEADERS": "system-aclocal",
+      "AC_CHECK_LIB": "system-aclocal",
+      "AC_CONFIG_AUX_DIR": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_HEADERS": "system-aclocal",
+      "AC_CONFIG_MACRO_DIR": "system-aclocal",
+      "AC_CONFIG_SRCDIR": "system-aclocal",
+      "AC_COPYRIGHT": "system-aclocal",
+      "AC_C_INLINE": "system-aclocal",
+      "AC_DEFINE": "system-aclocal",
+      "AC_DEFINE_UNQUOTED": "system-aclocal",
+      "AC_FUNC_FORK": "system-aclocal",
+      "AC_FUNC_GETGROUPS": "system-aclocal",
+      "AC_FUNC_MALLOC": "system-aclocal",
+      "AC_FUNC_REALLOC": "system-aclocal",
+      "AC_HEADER_STDBOOL": "system-aclocal",
+      "AC_INCLUDES_DEFAULT": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_LANG_POP": "system-aclocal",
+      "AC_LANG_PUSH": "system-aclocal",
+      "AC_LIBTOOL_DLOPEN": "system-aclocal",
+      "AC_MSG_ERROR": "system-aclocal",
+      "AC_MSG_FAILURE": "system-aclocal",
+      "AC_MSG_NOTICE": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PREREQ": "system-aclocal",
+      "AC_PROG_AWK": "system-aclocal",
+      "AC_PROG_CC": "system-aclocal",
+      "AC_PROG_CC_C99": "system-aclocal",
+      "AC_PROG_CPP": "system-aclocal",
+      "AC_PROG_CXX": "system-aclocal",
+      "AC_PROG_INSTALL": "system-aclocal",
+      "AC_PROG_LIBTOOL": "system-aclocal",
+      "AC_PROG_LN_S": "system-aclocal",
+      "AC_PROG_MAKE_SET": "system-aclocal",
+      "AC_PROG_SED": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "unit_tests_LDADD",
+        "var": "LIBSSH2_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "unit_tests_LDADD",
+        "var": "LIBARCHIVE_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "unit_tests_LDADD",
+        "var": "MPIR_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "unit_tests_LDADD",
+        "var": "CODE_COVERAGE_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "flux_api_parse_tests_LDADD",
+        "var": "LIBARCHIVE_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "flux_api_parse_tests_LDADD",
+        "var": "CODE_COVERAGE_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libcommontools_be_la_LIBADD",
+        "var": "CODE_COVERAGE_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "cti_be_daemon@COMMONTOOL_RELEASE_VERSION@_LDADD",
+        "var": "CODE_COVERAGE_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libuseful_la_LIBADD",
+        "var": "CODE_COVERAGE_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libld_val_la_LIBADD",
+        "var": "CODE_COVERAGE_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libctiaudit_la_LIBADD",
+        "var": "CODE_COVERAGE_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libsshsession_la_LIBADD",
+        "var": "LIBSSH2_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libsshsession_la_LIBADD",
+        "var": "CODE_COVERAGE_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libcommontools_fe_la_LIBADD",
+        "var": "CODE_COVERAGE_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libfe_daemon_iface_la_LIBADD",
+        "var": "CODE_COVERAGE_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "cti_fe_daemon@COMMONTOOL_RELEASE_VERSION@_LDADD",
+        "var": "CODE_COVERAGE_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "mpir_shim@COMMONTOOL_RELEASE_VERSION@_LDADD",
+        "var": "MPIR_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libmpir_iface_la_LIBADD",
+        "var": "MPIR_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libmpir_iface_la_LIBADD",
+        "var": "CODE_COVERAGE_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libtransfer_la_LIBADD",
+        "var": "LIBARCHIVE_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libtransfer_la_LIBADD",
+        "var": "CODE_COVERAGE_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libfrontend_impl_la_LIBADD",
+        "var": "CODE_COVERAGE_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libslurm_la_LIBADD",
+        "var": "CODE_COVERAGE_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libpals_la_LIBADD",
+        "var": "CODE_COVERAGE_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libpals_la_LIBADD",
+        "var": "BOOST_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "liblocalhost_la_LIBADD",
+        "var": "LIBSSH2_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "liblocalhost_la_LIBADD",
+        "var": "CODE_COVERAGE_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libgenericssh_la_LIBADD",
+        "var": "LIBSSH2_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libgenericssh_la_LIBADD",
+        "var": "CODE_COVERAGE_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libflux_la_LIBADD",
+        "var": "CODE_COVERAGE_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libflux_la_LIBADD",
+        "var": "BOOST_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libflux_la_LIBADD",
+        "var": "LIBARCHIVE_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libalps_la_LIBADD",
+        "var": "CODE_COVERAGE_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      }
+    ],
+    "unresolved_refs": [
+      "unit_tests_LDADD = $(LIBSSH2_LIBS)",
+      "unit_tests_LDADD = $(LIBARCHIVE_LIBS)",
+      "unit_tests_LDADD = $(MPIR_LIBS)",
+      "unit_tests_LDADD = $(CODE_COVERAGE_LIBS)",
+      "flux_api_parse_tests_LDADD = $(LIBARCHIVE_LIBS)",
+      "flux_api_parse_tests_LDADD = $(CODE_COVERAGE_LIBS)",
+      "libcommontools_be_la_LIBADD = $(CODE_COVERAGE_LIBS)",
+      "cti_be_daemon@COMMONTOOL_RELEASE_VERSION@_LDADD = $(CODE_COVERAGE_LIBS)",
+      "libuseful_la_LIBADD = $(CODE_COVERAGE_LIBS)",
+      "libld_val_la_LIBADD = $(CODE_COVERAGE_LIBS)",
+      "libctiaudit_la_LIBADD = $(CODE_COVERAGE_LIBS)",
+      "libsshsession_la_LIBADD = $(LIBSSH2_LIBS)",
+      "libsshsession_la_LIBADD = $(CODE_COVERAGE_LIBS)",
+      "libcommontools_fe_la_LIBADD = $(CODE_COVERAGE_LIBS)",
+      "libfe_daemon_iface_la_LIBADD = $(CODE_COVERAGE_LIBS)",
+      "cti_fe_daemon@COMMONTOOL_RELEASE_VERSION@_LDADD = $(CODE_COVERAGE_LIBS)",
+      "mpir_shim@COMMONTOOL_RELEASE_VERSION@_LDADD = $(MPIR_LIBS)",
+      "libmpir_iface_la_LIBADD = $(MPIR_LIBS)",
+      "libmpir_iface_la_LIBADD = $(CODE_COVERAGE_LIBS)",
+      "libtransfer_la_LIBADD = $(LIBARCHIVE_LIBS)",
+      "libtransfer_la_LIBADD = $(CODE_COVERAGE_LIBS)",
+      "libfrontend_impl_la_LIBADD = $(CODE_COVERAGE_LIBS)",
+      "libslurm_la_LIBADD = $(CODE_COVERAGE_LIBS)",
+      "libpals_la_LIBADD = $(CODE_COVERAGE_LIBS)",
+      "libpals_la_LIBADD = $(BOOST_LIBS)",
+      "liblocalhost_la_LIBADD = $(LIBSSH2_LIBS)",
+      "liblocalhost_la_LIBADD = $(CODE_COVERAGE_LIBS)",
+      "libgenericssh_la_LIBADD = $(LIBSSH2_LIBS)",
+      "libgenericssh_la_LIBADD = $(CODE_COVERAGE_LIBS)",
+      "libflux_la_LIBADD = $(CODE_COVERAGE_LIBS)",
+      "libflux_la_LIBADD = $(BOOST_LIBS)",
+      "libflux_la_LIBADD = $(LIBARCHIVE_LIBS)",
+      "libalps_la_LIBADD = $(CODE_COVERAGE_LIBS)"
+    ],
+    "indirection_count": 33
   }
 }

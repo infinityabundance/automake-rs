@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "bkearney/augeas",
   "source": {
     "url": "https://github.com/bkearney/augeas",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -29,7 +29,13 @@
       "status": "fail"
     }
   ],
-  "probe_results": {},
+  "probe_results": {
+    "HAVE_FSYNC": 1,
+    "HAVE_OPEN_MEMSTREAM": 1,
+    "HAVE_READLINE_READLINE_H": 1,
+    "HAVE_RL_COMPLETION_MATCHES": 1,
+    "HAVE_STRERROR_R": 1
+  },
   "feature_flags": {
     "configure_args": []
   },
@@ -46,36 +52,34 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1423: syntax error near unexpected token `maximum'",
+  "diagnostic": "",
   "deep_expansion": {
-    "configure_lines": 2515,
+    "configure_lines": 2845,
     "leaked_macros": [],
-    "heredoc_openers": 19,
-    "heredoc_terminators": 19,
+    "heredoc_openers": 24,
+    "heredoc_terminators": 24,
     "heredoc_imbalance": 0,
-    "syntax_errors": [
-      {
-        "line": 1423,
-        "token": "maximum",
-        "source": "AUGEAS_COMPILE_WARNINGS(maximum)",
-        "block": [
-          "1419:     break",
-          "1420:   fi",
-          "1421: done",
-          "1422: ",
-          "1423: AUGEAS_COMPILE_WARNINGS(maximum)",
-          "1424: ",
-          "1425: ## Compiler flags to be used everywhere",
-          "1426: AUGEAS_CFLAGS=-std=gnu99"
-        ]
-      }
-    ],
+    "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2039: do eval test \\${$as_var+y} \\"
+      "line 2368: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
+      "ND_PROG",
+      "ND_ENABLED_TRUE",
+      "ND_ENABLED_FALSE",
+      "ND_FORMAT",
+      "PDFLATEX",
+      "PDFDOCS",
+      "LIBAUGEAS_VERSION_INFO",
+      "LIBFA_VERSION_INFO",
+      "WARN_CFLAGS",
+      "AUGEAS_CFLAGS",
+      "READLINE_LIBS",
+      "VERSION_SCRIPT_FLAGS",
+      "USE_VERSION_SCRIPT_TRUE",
+      "USE_VERSION_SCRIPT_FALSE",
       "PACKAGE_NAME",
       "PACKAGE_TARNAME",
       "PACKAGE_VERSION",
@@ -90,52 +94,68 @@
       "CPPFLAGS",
       "LDFLAGS",
       "LIBS",
-      "CXX",
-      "CXXFLAGS",
-      "CPP",
-      "DEFS",
-      "LIBOBJS",
-      "INSTALL",
-      "VERSION_SCRIPT_FLAGS",
-      "LIBAUGEAS_VERSION_INFO",
-      "PDFLATEX",
-      "PDFDOCS",
-      "ND_FORMAT",
-      "AUGEAS_CFLAGS",
-      "LIBFA_VERSION_INFO"
+      "CXX"
     ],
-    "failed_during_check": "checking for 64-bit off_t... yes",
+    "failed_during_check": "checking for fsync... yes",
     "failure_tail": [
-      "checking for 64-bit off_t... yes",
-      "./configure: line 1423: syntax error near unexpected token `maximum'",
-      "./configure: line 1423: `AUGEAS_COMPILE_WARNINGS(maximum)'"
+      "checking for fsync... yes",
+      "configure: creating Makefile",
+      "configure: creating src/Makefile",
+      "configure: creating man/Makefile",
+      "configure: creating tests/Makefile"
     ],
     "conftest_corruption": [],
-    "conftest_directives_intact": 5,
+    "conftest_directives_intact": 8,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
       "#include <sys/types.h>\\nint main() { return sizeof(off_t) >= 8 ? 0 : 1; }",
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func();\\nint main() { return $ac_func(); }",
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func();\\nint main() { return $ac_func(); }"
+      "#include <$ac_hdr>",
+      "char readline ();\\nint main() { return readline(); }",
+      "char tgetent ();\\nint main() { return tgetent (); }",
+      "char rl_initialize ();\\nint main() { return rl_initialize(); }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func ();\\nint main() { return $ac_func(); }"
     ]
-  },
-  "oracle": {
-    "real_autoreconf": "fail",
-    "real_configure": "skipped",
-    "real_make": "skipped",
-    "real_configure_lines": 0,
-    "real_first_error": "aclocal: warning: couldn't open directory 'gnulib/m4': No such file or directory",
-    "classification": "OURS_BETTER"
   },
   "receipt": {
     "court_status": "failed",
-    "probe_trace": [],
+    "probe_trace": [
+      {
+        "name": "HAVE_FSYNC",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_OPEN_MEMSTREAM",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_READLINE_READLINE_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_RL_COMPLETION_MATCHES",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STRERROR_R",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      }
+    ],
     "quirks_matched": [
       "uses-libtool-old",
       "has-acinclude",
       "vendored-aclocal"
     ],
-    "receipt_hash": "0c30dce6270fb3560c454d8c8d1e4e34e811f65407638476dab76fe1fd927894",
+    "receipt_hash": "3fa4d257a1bab62319bc2ae4279a7dd1a418b7c8aa628a948b0d9352c4bea71f",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -144,6 +164,668 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "augeas.pc",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "augeas.spec",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "doc/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "doc/naturaldocs/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "examples/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "gnulib/lib/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": false
+      },
+      {
+        "path": "gnulib/tests/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": false
+      },
+      {
+        "path": "man/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "src/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "tests/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      }
+    ],
+    "config_headers": [
+      "config.h"
+    ],
+    "subdirs": [
+      "gnulib/lib",
+      "src",
+      "gnulib/tests",
+      "tests",
+      "man",
+      "doc",
+      "examples",
+      "naturaldocs"
+    ],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [],
+        "subdirs": [
+          "gnulib/lib",
+          "src",
+          "gnulib/tests",
+          "tests",
+          "man",
+          "doc",
+          "examples"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "doc",
+        "targets": [],
+        "subdirs": [
+          "naturaldocs"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "examples",
+        "targets": [
+          "fadot"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src",
+        "targets": [
+          "libfa.la",
+          "libaugeas.la",
+          "liblexer.la",
+          "augtool",
+          "augparse"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "tests",
+        "targets": [
+          "fatest",
+          "test-xpath",
+          "test-load",
+          "test-save"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)/src"
+      }
+    ],
+    "max_depth": 2,
+    "config_h_consumers_below_root": [
+      "tests",
+      "src"
+    ]
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 548,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "tests/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 716,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 613,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "examples/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 494,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "doc/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 534,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "doc/naturaldocs/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 475,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "man/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 458,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      }
+    ]
+  },
+  "tool_requirements": {
+    "detected": [
+      "yacc",
+      "lex"
+    ],
+    "missing": []
+  },
+  "macro_inventory": {
+    "macro_dirs": [],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": true,
+    "defined_macros": [
+      {
+        "name": "AUGEAS_COMPILE_WARNINGS",
+        "source": "acinclude.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AUGEAS_CHECK_READLINE",
+        "source": "acinclude.m4",
+        "kind": "project-local"
+      }
+    ],
+    "called_macros": [
+      "AC_ARG_WITH",
+      "AC_CHECK_FUNCS",
+      "AC_CONFIG_AUX_DIR",
+      "AC_CONFIG_SRCDIR",
+      "AC_GNU_SOURCE",
+      "AC_INIT",
+      "AC_MSG_ERROR",
+      "AC_OUTPUT",
+      "AC_PATH_PROG",
+      "AC_PATH_PROGS",
+      "AC_PROG_CC",
+      "AC_PROG_LEX",
+      "AC_PROG_LIBTOOL",
+      "AC_PROG_YACC",
+      "AC_SUBST",
+      "AC_SYS_LARGEFILE",
+      "AM_CONDITIONAL",
+      "AM_CONFIG_HEADER",
+      "AM_INIT_AUTOMAKE",
+      "AM_SILENT_RULES"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 135,
+    "configure_fi": 130,
+    "configure_case": 68,
+    "configure_esac": 71,
+    "balanced": false,
+    "automake_conditionals": [
+      "ND_ENABLED",
+      "USE_VERSION_SCRIPT"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": "build/aux",
+    "present": [
+      "install-sh",
+      "missing"
+    ],
+    "missing": [
+      "depcomp",
+      "compile",
+      "ltmain.sh"
+    ]
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "c": 22,
+      "h": 12
+    },
+    "configure_macros": [
+      "AC_PROG_CC"
+    ],
+    "needs_cxx": false,
+    "needs_fortran": false,
+    "sets_c_std": true
+  },
+  "libtool_context": {
+    "uses_libtool": true,
+    "macros": [
+      "AC_PROG_LIBTOOL"
+    ],
+    "ltmain_present": false,
+    "libtool_m4_sources": [],
+    "age": "old"
+  },
+  "make_graph": {
+    "targets": [
+      "all",
+      "all-am",
+      "install-data-am",
+      "uninstall-am",
+      "install-am",
+      "installcheck-am",
+      "install-strip",
+      "install-info",
+      "install-info-am",
+      "install-dvi",
+      "install-dvi-am",
+      "install-ps",
+      "install-ps-am",
+      "install-pdf",
+      "install-pdf-am",
+      "install-html",
+      "install-html-am",
+      "install-data-hook",
+      "install-exec-hook",
+      "installdirs-am",
+      ".PHONY",
+      "mostlyclean-am",
+      "clean-am",
+      "distclean-am",
+      "maintainer-clean-am",
+      "distdir",
+      "dist",
+      "dist-all",
+      "dist-gzip",
+      "distcleancheck",
+      "distcheck",
+      "check-am",
+      "TAGS",
+      "tags",
+      "TAGS-am",
+      "tags-am",
+      "cscope",
+      "cscope-am",
+      "distuninstallcheck",
+      "$(srcdir)/Makefile.in"
+    ],
+    "key_variables": {
+      "AR": "ar",
+      "CC": "cc",
+      "CFLAGS": "",
+      "CPPFLAGS": "",
+      "CXX": "c++",
+      "CXXFLAGS": "-g -O2",
+      "DEFS": "-DHAVE_CONFIG_H",
+      "LDFLAGS": "",
+      "LIBS": "",
+      "RANLIB": "ranlib"
+    },
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "config.h",
+      "libtool",
+      "config.log"
+    ],
+    "recursion_depth": 2,
+    "top_targets": [
+      "all",
+      "dist",
+      "all-am"
+    ],
+    "make_diagnostics": []
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": false,
+    "defines_sampled": [
+      "HAVE_CONFIG_H"
+    ]
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-libtool-old",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "has-acinclude",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "vpath_analysis": {
+    "hardcoded_src_paths": 1,
+    "abs_path_leakage": 0,
+    "built_sources": [
+      "datadir.h"
+    ],
+    "generated_source_targets": []
+  },
+  "feature_probe_gap": {
+    "headers_checked": [],
+    "headers_included_unchecked": [
+      "readline/history.h",
+      "readline/readline.h",
+      "selinux/selinux.h",
+      "stdint.h",
+      "sys/stat.h",
+      "sys/types.h",
+      "unistd.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 3,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "explicit",
+    "strip_modern_poison_flags": [],
+    "inject_legacy_shims": false,
+    "compiler_aliasing": {}
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 0,
+    "shadowed_builtins": [],
+    "permitted_mutations": 2,
+    "suspect_global_mutations": 0
+  },
+  "parallel_build_safety": {
+    "vpath_out_of_tree_safe": true,
+    "generators": [],
+    "unordered_generated_sources": [],
+    "built_sources_declared": true
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "readline/history.h",
+      "readline/readline.h",
+      "selinux/selinux.h",
+      "stdint.h",
+      "sys/stat.h",
+      "sys/types.h",
+      "unistd.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "subdir-config-h-include-path",
+    "ancient-libtool"
+  ],
+  "repair_hints": [
+    {
+      "id": "subdir-top-builddir",
+      "phase": "make",
+      "confidence": 0.88,
+      "evidence": [
+        "tests consumes config.h below root",
+        "src consumes config.h below root"
+      ],
+      "action": "ensure ac_subst_file sets relative top_builddir per subdir (0.1.19)",
+      "expected_effect": "config.h found in subdir compiles"
+    }
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": 0,
+      "Makefile.in": 1693,
+      "aclocal.m4": 27,
+      "config.h.in": 36,
+      "configure": 33,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_WITH": "system-aclocal",
+      "AC_CHECK_FUNCS": "system-aclocal",
+      "AC_CONFIG_AUX_DIR": "system-aclocal",
+      "AC_CONFIG_SRCDIR": "system-aclocal",
+      "AC_GNU_SOURCE": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_MSG_ERROR": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PATH_PROG": "system-aclocal",
+      "AC_PATH_PROGS": "system-aclocal",
+      "AC_PROG_CC": "system-aclocal",
+      "AC_PROG_LEX": "system-aclocal",
+      "AC_PROG_LIBTOOL": "system-aclocal",
+      "AC_PROG_YACC": "system-aclocal",
+      "AC_SUBST": "system-aclocal",
+      "AC_SYS_LARGEFILE": "system-aclocal",
+      "AM_CONDITIONAL": "system-aclocal",
+      "AM_CONFIG_HEADER": "system-aclocal",
+      "AM_INIT_AUTOMAKE": "system-aclocal",
+      "AM_SILENT_RULES": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "fatest_LDADD",
+        "var": "GNULIB",
+        "resolved_to": [
+          "../gnulib/lib/libgnu.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "test_xpath_LDADD",
+        "var": "GNULIB",
+        "resolved_to": [
+          "../gnulib/lib/libgnu.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "test_load_LDADD",
+        "var": "GNULIB",
+        "resolved_to": [
+          "../gnulib/lib/libgnu.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "test_save_LDADD",
+        "var": "GNULIB",
+        "resolved_to": [
+          "../gnulib/lib/libgnu.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libaugeas_la_LIBADD",
+        "var": "LIB_SELINUX",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libaugeas_la_LIBADD",
+        "var": "GNULIB",
+        "resolved_to": [
+          "../gnulib/lib/libgnu.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "augtool_LDADD",
+        "var": "READLINE_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "augtool_LDADD",
+        "var": "GNULIB",
+        "resolved_to": [
+          "../gnulib/lib/libgnu.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "augparse_LDADD",
+        "var": "GNULIB",
+        "resolved_to": [
+          "../gnulib/lib/libgnu.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libfa_la_LIBADD",
+        "var": "GNULIB",
+        "resolved_to": [
+          "../gnulib/lib/libgnu.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "fadot_LDADD",
+        "var": "GNULIB",
+        "resolved_to": [
+          "../gnulib/lib/libgnu.la"
+        ],
+        "resolved": true
+      }
+    ],
+    "unresolved_refs": [
+      "libaugeas_la_LIBADD = $(LIB_SELINUX)",
+      "augtool_LDADD = $(READLINE_LIBS)"
+    ],
+    "indirection_count": 11
   }
 }

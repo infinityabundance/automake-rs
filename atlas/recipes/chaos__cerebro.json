@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "chaos/cerebro",
   "source": {
     "url": "https://github.com/chaos/cerebro",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,11 +26,11 @@
     {
       "step": "configure",
       "tool": "./configure",
-      "status": "fail"
+      "status": "ok"
     },
     {
-      "step": "auto-quirk",
-      "tool": "quirk-engine",
+      "step": "make",
+      "tool": "make",
       "status": "fail"
     }
   ],
@@ -49,68 +49,62 @@
     "subdirs"
   ],
   "outputs": [],
-  "status": "CONFIGURE_RUN_FAIL",
+  "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1400: AC_LIB_LTDL: command not found",
+  "diagnostic": "make[1]: *** No rule to make target 'all'.  Stop.",
   "deep_expansion": {
-    "configure_lines": 2737,
+    "configure_lines": 2966,
     "leaked_macros": [],
     "heredoc_openers": 23,
     "heredoc_terminators": 23,
     "heredoc_imbalance": 0,
-    "syntax_errors": [
-      {
-        "line": 1591,
-        "token": ";",
-        "source": "; do printf %s \"checking for $ac_func... \"",
-        "block": [
-          "1587:   strtok_r \\",
-          "1588:   getopt_long \\",
-          "1589:   gethostbyname \\",
-          "1590:   gethostbyname_r",
-          "1591: ; do printf %s \"checking for $ac_func... \"",
-          "1592: cat confdefs.h 2>/dev/null - <<_ACEOF >conftest.$ac_ext",
-          "1593: #ifdef __cplusplus",
-          "1594: extern \"C\""
-        ]
-      }
-    ],
+    "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2260: do eval test \\${$as_var+y} \\"
+      "line 2488: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
-      "PACKAGE_NAME",
-      "PACKAGE_TARNAME",
-      "PACKAGE_VERSION",
-      "PACKAGE_STRING",
-      "PACKAGE_BUGREPORT",
-      "PACKAGE_URL",
-      "srcdir",
-      "prefix",
-      "exec_prefix",
-      "CC",
-      "CFLAGS",
-      "CPPFLAGS",
-      "LDFLAGS",
-      "LIBS",
-      "CXX",
-      "CXXFLAGS",
-      "CPP",
-      "DEFS",
-      "LIBOBJS",
-      "INSTALL",
       "LIBCEREBRO_VERSION_INFO",
       "LIBCEREBRO_ERROR_VERSION_INFO",
-      "target_alias"
+      "WITH_GNU_LD_TRUE",
+      "WITH_GNU_LD_FALSE",
+      "WITH_STATIC_MODULES_TRUE",
+      "WITH_STATIC_MODULES_FALSE",
+      "WITH_CEREBROD_SPEAKER_ONLY_TRUE",
+      "WITH_CEREBROD_SPEAKER_ONLY_FALSE",
+      "WITH_CEREBROD_NO_THREADS_TRUE",
+      "WITH_CEREBROD_NO_THREADS_FALSE",
+      "WITH_GENDERS_TRUE",
+      "WITH_GENDERS_FALSE",
+      "WITH_HOSTSFILE_TRUE",
+      "WITH_HOSTSFILE_FALSE",
+      "WITH_BOOTTIME_TRUE",
+      "WITH_BOOTTIME_FALSE",
+      "WITH_LOADAVG_TRUE",
+      "WITH_LOADAVG_FALSE",
+      "WITH_MEMORY_TRUE",
+      "WITH_MEMORY_FALSE",
+      "WITH_NETWORK_TRUE",
+      "WITH_NETWORK_FALSE",
+      "WITH_SLURM_STATE_TRUE",
+      "WITH_SLURM_STATE_FALSE",
+      "WITH_SHUTDOWN_TRUE",
+      "WITH_SHUTDOWN_FALSE",
+      "WITH_UPDOWN_TRUE",
+      "WITH_UPDOWN_FALSE",
+      "WITH_CLUSTERLIST_STATIC_MODULES_TRUE"
     ],
-    "failed_during_check": "checking for $ac_func... \"'",
+    "failed_during_check": "checking size of long... 8",
     "failure_tail": [
-      "./configure: line 1591: `; do printf %s \"checking for $ac_func... \"'"
+      "checking size of long... 8",
+      "configure: creating cerebro.spec",
+      "configure: creating Makefile",
+      "configure: creating etc/Makefile",
+      "configure: creating man/Makefile"
     ],
     "conftest_corruption": [],
-    "conftest_directives_intact": 10,
+    "conftest_directives_intact": 11,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
       "#include <time.h>",
@@ -118,19 +112,11 @@
       "#include <$ac_hdr>",
       "int main() { int x = 1; return *(char*)&x; }",
       "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { uid_t x; return 0; }",
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func();\\nint main() { return $ac_func(); }"
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func ();\\nint main() { return $ac_func(); }"
     ]
   },
-  "oracle": {
-    "real_autoreconf": "fail",
-    "real_configure": "skipped",
-    "real_make": "skipped",
-    "real_configure_lines": 0,
-    "real_first_error": "configure.ac:69: error: possibly undefined macro: AC_DEBUG",
-    "classification": "OURS_BETTER"
-  },
   "receipt": {
-    "court_status": "failed",
+    "court_status": "partial",
     "probe_trace": [],
     "quirks_matched": [
       "uses-libtool",
@@ -138,19 +124,7 @@
       "uses-maintainer-mode",
       "vendored-aclocal"
     ],
-    "quirks_applied": [
-      {
-        "id": "uses-subdir-objects",
-        "action": "--disable-dependency-tracking",
-        "verified": false
-      },
-      {
-        "id": "uses-maintainer-mode",
-        "action": "--disable-maintainer-mode",
-        "verified": false
-      }
-    ],
-    "receipt_hash": "0c30dce6270fb3560c454d8c8d1e4e34e811f65407638476dab76fe1fd927894",
+    "receipt_hash": "fc222e24136e1c7565f3970366c0a81d4ec04fa5491250e780188ba2805c06fb",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -159,6 +133,1885 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "cerebro.spec",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "etc/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "man/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "man/cerebro-admin.8",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "man/cerebro-stat.8",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "man/cerebro.7",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "man/cerebro.conf.5",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "man/cerebro_module.3",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "man/cerebro_module_devel.3",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "man/cerebrod.8",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "src/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "src/cerebro-admin/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/cerebro-stat/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/cerebrod/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/libs/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/libs/cerebro/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/libs/cerebro_error/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/libs/common/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/libs/debug/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/libs/include/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/libs/include/cerebro/cerebro_metric_control_protocol.h",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/libs/modules/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/libs/util/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/libs/wrappers/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/modules/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/modules/clusterlist/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/modules/config/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/modules/event/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/modules/metric/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/modules/monitor/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      }
+    ],
+    "config_headers": [
+      "config/config.h"
+    ],
+    "subdirs": [
+      "$(LTDL_DIRS)",
+      "etc",
+      "man",
+      "src",
+      "cerebro-admin",
+      "cerebro-stat",
+      "cerebrod",
+      "libs",
+      "modules",
+      "cerebro_error",
+      "cerebro",
+      "common",
+      "debug",
+      "modules",
+      "include",
+      "util",
+      "wrappers",
+      "clusterlist",
+      "config",
+      "event",
+      "metric",
+      "monitor"
+    ],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [],
+        "subdirs": [
+          "$(LTDL_DIRS)",
+          "etc",
+          "man",
+          "src"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "libltdl",
+        "targets": [],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-DLT_CONFIG_H='<$(LT_CONFIG_H)>'  \t\t\t  -DLTDL -I. -I$(srcdir) -Ilibltdl  \t\t\t  -I$(srcdir)/libltdl"
+      },
+      {
+        "dir": "src",
+        "targets": [],
+        "subdirs": [
+          "cerebro-admin",
+          "cerebro-stat",
+          "cerebrod",
+          "libs",
+          "modules"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/cerebro-admin",
+        "targets": [
+          "cerebro-admin"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/cerebro-stat",
+        "targets": [
+          "cerebro-stat"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/cerebrod",
+        "targets": [
+          "cerebrod"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/libs",
+        "targets": [],
+        "subdirs": [
+          "cerebro_error",
+          "cerebro",
+          "common",
+          "debug",
+          "modules",
+          "include",
+          "util",
+          "wrappers"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/libs/cerebro",
+        "targets": [
+          "libcerebro.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/libs/cerebro_error",
+        "targets": [
+          "libcerebro_error.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/libs/common",
+        "targets": [
+          "libconffile.la",
+          "liberror.la",
+          "libfd.la",
+          "libhash.la",
+          "libhostlist.la",
+          "liblist.la",
+          "libmarshall.la",
+          "libvector.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/libs/debug",
+        "targets": [
+          "libdebug.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/libs/modules",
+        "targets": [
+          "libclusterlistmodules.la",
+          "libconfigmodules.la",
+          "libeventmodules.la",
+          "libmetricmodules.la",
+          "libmonitormodules.la",
+          "libmodules.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/libs/util",
+        "targets": [
+          "libutil_config.la",
+          "libutil_data.la",
+          "libutil_network.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/libs/wrappers",
+        "targets": [
+          "libwrappers.la",
+          "libwrappers_hash.la",
+          "libwrappers_hostlist.la",
+          "libwrappers_list.la",
+          "libwrappers_marshall.la",
+          "libwrappers_pthread.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/modules",
+        "targets": [],
+        "subdirs": [
+          "clusterlist",
+          "config",
+          "event",
+          "metric",
+          "monitor"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/modules/clusterlist",
+        "targets": [
+          "libstaticclusterlistmodules.la",
+          "$(GENDERS_CLUSTERLIST_MODULE)",
+          "$(HOSTSFILE_CLUSTERLIST_MODULE)"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/modules/config",
+        "targets": [
+          "libstaticconfigmodules.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/modules/event",
+        "targets": [
+          "libstaticeventmodules.la",
+          "$(UPDOWN_MODULE)"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/modules/metric",
+        "targets": [
+          "libstaticmetricmodules.la",
+          "$(BOOTTIME_METRIC_MODULE)",
+          "$(LOADAVG1_METRIC_MODULE)",
+          "$(LOADAVG5_METRIC_MODULE)",
+          "$(LOADAVG15_METRIC_MODULE)",
+          "$(MEMTOTAL_METRIC_MODULE)",
+          "$(MEMUSED_METRIC_MODULE)",
+          "$(MEMFREE_METRIC_MODULE)",
+          "$(SWAPTOTAL_METRIC_MODULE)",
+          "$(SWAPUSED_METRIC_MODULE)",
+          "$(SWAPFREE_METRIC_MODULE)",
+          "$(BYTESIN_METRIC_MODULE)"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/modules/monitor",
+        "targets": [
+          "libstaticmonitormodules.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      }
+    ],
+    "max_depth": 4,
+    "config_h_consumers_below_root": [
+      "src/cerebro-stat",
+      "src/libs/cerebro_error",
+      "src/libs/modules",
+      "src/libs/cerebro",
+      "src/libs/common",
+      "src/libs/util",
+      "src/libs/debug",
+      "src/libs/wrappers",
+      "src/modules/clusterlist",
+      "src/modules/metric",
+      "src/modules/event",
+      "src/cerebro-admin",
+      "src/cerebrod",
+      "libltdl"
+    ]
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 530,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 521,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/cerebro-stat/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 525,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/libs/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 521,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/libs/cerebro_error/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 502,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/libs/modules/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 588,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/libs/cerebro/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 583,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/libs/common/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 551,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/libs/util/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 517,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/libs/debug/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 493,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/libs/wrappers/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 560,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/libs/include/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 505,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/modules/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 521,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/modules/clusterlist/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 561,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/modules/metric/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 927,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/modules/event/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 525,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/modules/monitor/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 488,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/modules/config/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 490,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/cerebro-admin/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 501,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/cerebrod/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 634,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "etc/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 457,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "man/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 718,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      }
+    ]
+  },
+  "macro_inventory": {
+    "macro_dirs": [
+      "config"
+    ],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [
+      {
+        "name": "RRA_WITH_SYSTEMD_UNITDIR",
+        "source": "config/systemd.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "RRA_LIB_SYSTEMD_DAEMON_OPTIONAL",
+        "source": "config/systemd.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AC_GENDERS",
+        "source": "config/ac_genders.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_UPDOWN",
+        "source": "config/ac_updown_event.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_PROG_LIBTOOL",
+        "source": "config/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_SETUP",
+        "source": "config/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_HEADER_ASSERT",
+        "source": "config/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "_LT_AC_CHECK_DLFCN",
+        "source": "config/libtool.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AC_LIBTOOL_SYS_GLOBAL_SYMBOL_PIPE",
+        "source": "config/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "_LT_AC_LIBTOOL_SYS_PATH_SEPARATOR",
+        "source": "config/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "_LT_AC_PROG_ECHO_BACKSLASH",
+        "source": "config/libtool.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_LT_AC_TRY_DLOPEN_SELF",
+        "source": "config/libtool.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AC_LIBTOOL_DLOPEN_SELF",
+        "source": "config/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "_LT_AC_LTCONFIG_HACK",
+        "source": "config/libtool.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AC_LIBTOOL_DLOPEN",
+        "source": "config/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_WIN32_DLL",
+        "source": "config/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_ENABLE_SHARED",
+        "source": "config/libtool.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_DISABLE_SHARED",
+        "source": "config/libtool.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_ENABLE_STATIC",
+        "source": "config/libtool.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_DISABLE_STATIC",
+        "source": "config/libtool.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_ENABLE_FAST_INSTALL",
+        "source": "config/libtool.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_DISABLE_FAST_INSTALL",
+        "source": "config/libtool.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_LIBTOOL_PICMODE",
+        "source": "config/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_PATH_TOOL_PREFIX",
+        "source": "config/libtool.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_PATH_MAGIC",
+        "source": "config/libtool.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_PROG_LD",
+        "source": "config/libtool.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_PROG_LD_GNU",
+        "source": "config/libtool.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_PROG_LD_RELOAD_FLAG",
+        "source": "config/libtool.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_DEPLIBS_CHECK_METHOD",
+        "source": "config/libtool.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_PROG_NM",
+        "source": "config/libtool.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_CHECK_LIBM",
+        "source": "config/libtool.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_LIBLTDL_CONVENIENCE",
+        "source": "config/libtool.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_LIBLTDL_INSTALLABLE",
+        "source": "config/libtool.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AM_PROG_LIBTOOL",
+        "source": "config/libtool.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AM_ENABLE_SHARED",
+        "source": "config/libtool.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AM_ENABLE_STATIC",
+        "source": "config/libtool.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AM_DISABLE_SHARED",
+        "source": "config/libtool.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AM_DISABLE_STATIC",
+        "source": "config/libtool.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AM_PROG_LD",
+        "source": "config/libtool.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AM_PROG_NM",
+        "source": "config/libtool.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "LT_AC_PROG_SED",
+        "source": "config/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_STRUCT_SA_LEN",
+        "source": "config/ac_struct_sa_len.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_HOSTSFILE",
+        "source": "config/ac_hostsfile.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_HOSTSFILE_PATH",
+        "source": "config/ac_hostsfile.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_LOADAVG",
+        "source": "config/ac_loadavg.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_NETWORK",
+        "source": "config/ac_network.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_IPV6",
+        "source": "config/ac_ipv6.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_CEREBRO_METRIC_CONTROL_PATH",
+        "source": "config/ac_cerebro_metric_control_path.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_CEREBROD_SPEAKER_ONLY",
+        "source": "config/ac_cerebrod_speaker_only.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_CEREBROD_NO_THREADS",
+        "source": "config/ac_cerebrod_speaker_only.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_SLURM_STATE",
+        "source": "config/ac_slurm_state.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_SLURM_STATE_CONTROL_PATH",
+        "source": "config/ac_slurm_state.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_STATIC_MODULES",
+        "source": "config/ac_static_modules.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_SHUTDOWN",
+        "source": "config/ac_shutdown.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_CEREBRO_CONFIG_FILE",
+        "source": "config/ac_cerebro_config_file.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_caolan_FUNC_WHICH_GETHOSTBYNAME_R",
+        "source": "config/ac_gethostbyname_r.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_DEBUG",
+        "source": "config/ac_debug.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_CEREBRO_MODULE_DIR",
+        "source": "config/ac_cerebro_module_dir.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "ACX_PTHREAD",
+        "source": "config/acx_pthread.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AC_MEMORY",
+        "source": "config/ac_memory.m4",
+        "kind": "AC"
+      }
+    ],
+    "called_macros": [
+      "AC_BOOTTIME",
+      "AC_CANONICAL_TARGET",
+      "AC_CEREBROD_NO_THREADS",
+      "AC_CEREBROD_SPEAKER_ONLY",
+      "AC_CEREBRO_CONFIG_FILE",
+      "AC_CEREBRO_METRIC_CONTROL_PATH",
+      "AC_CEREBRO_MODULE_DIR",
+      "AC_CHECK_FUNCS",
+      "AC_CHECK_HEADERS",
+      "AC_CHECK_SIZEOF",
+      "AC_CONFIG_AUX_DIR",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_HEADERS",
+      "AC_CONFIG_SRCDIR",
+      "AC_C_BIGENDIAN",
+      "AC_C_CONST",
+      "AC_DEBUG",
+      "AC_DEFINE",
+      "AC_GENDERS",
+      "AC_HEADER_STDC",
+      "AC_HEADER_SYS_WAIT",
+      "AC_HEADER_TIME",
+      "AC_HOSTSFILE",
+      "AC_HOSTSFILE_PATH",
+      "AC_INIT",
+      "AC_IPV6",
+      "AC_LIB_LTDL",
+      "AC_LOADAVG",
+      "AC_MEMORY",
+      "AC_MSG_ERROR",
+      "AC_NETWORK",
+      "AC_OUTPUT",
+      "AC_PROG_CC",
+      "AC_PROG_MAKE_SET",
+      "AC_SHUTDOWN",
+      "AC_SLURM_STATE",
+      "AC_SLURM_STATE_CONTROL_PATH",
+      "AC_STATIC_MODULES",
+      "AC_STRUCT_SA_LEN",
+      "AC_SUBST",
+      "AC_TYPE_UID_T",
+      "AC_UPDOWN",
+      "AC_caolan_FUNC_WHICH_GETHOSTBYNAME_R",
+      "AM_CONDITIONAL",
+      "AM_INIT_AUTOMAKE",
+      "AM_MAINTAINER_MODE",
+      "LT_INIT"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 185,
+    "configure_fi": 177,
+    "configure_case": 63,
+    "configure_esac": 66,
+    "balanced": false,
+    "automake_conditionals": [
+      "WITH_GNU_LD",
+      "WITH_STATIC_MODULES",
+      "WITH_CEREBROD_SPEAKER_ONLY",
+      "WITH_CEREBROD_NO_THREADS",
+      "WITH_GENDERS",
+      "WITH_HOSTSFILE",
+      "WITH_BOOTTIME",
+      "WITH_LOADAVG",
+      "WITH_MEMORY",
+      "WITH_NETWORK",
+      "WITH_SLURM_STATE",
+      "WITH_SHUTDOWN",
+      "WITH_UPDOWN",
+      "WITH_CLUSTERLIST_STATIC_MODULES",
+      "WITH_CONFIG_STATIC_MODULES",
+      "WITH_EVENT_STATIC_MODULES",
+      "WITH_METRIC_STATIC_MODULES",
+      "WITH_MONITOR_STATIC_MODULES"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": "config",
+    "present": [
+      "install-sh",
+      "missing",
+      "depcomp",
+      "compile",
+      "ltmain.sh",
+      "config.guess",
+      "config.sub"
+    ],
+    "missing": []
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "c": 97,
+      "h": 73
+    },
+    "configure_macros": [
+      "AC_PROG_CC"
+    ],
+    "needs_cxx": false,
+    "needs_fortran": false,
+    "sets_c_std": false
+  },
+  "libtool_context": {
+    "uses_libtool": true,
+    "macros": [
+      "LT_INIT"
+    ],
+    "ltmain_present": false,
+    "libtool_m4_sources": [],
+    "age": "modern"
+  },
+  "make_graph": {
+    "targets": [
+      "all",
+      "all-am",
+      "install-am",
+      "installcheck-am",
+      "install-strip",
+      "install-info",
+      "install-info-am",
+      "install-dvi",
+      "install-dvi-am",
+      "install-ps",
+      "install-ps-am",
+      "install-pdf",
+      "install-pdf-am",
+      "install-html",
+      "install-html-am",
+      "install-data-hook",
+      "install-exec-hook",
+      "installdirs-am",
+      ".PHONY",
+      "mostlyclean-am",
+      "clean-am",
+      "distclean-am",
+      "maintainer-clean-am",
+      "distdir",
+      "dist",
+      "dist-all",
+      "dist-gzip",
+      "distcleancheck",
+      "distcheck",
+      "check-am",
+      "TAGS",
+      "tags",
+      "TAGS-am",
+      "tags-am",
+      "cscope",
+      "cscope-am",
+      "distuninstallcheck",
+      "$(srcdir)/Makefile.in",
+      "$(am__recursive_targets)",
+      "check"
+    ],
+    "key_variables": {
+      "AR": "ar",
+      "CC": "cc",
+      "CFLAGS": "-g -O2",
+      "CPPFLAGS": "",
+      "CXX": "c++",
+      "CXXFLAGS": "-g -O2",
+      "DEFS": "-DHAVE_CONFIG_H",
+      "LDFLAGS": "",
+      "LIBS": "",
+      "RANLIB": "ranlib"
+    },
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "libtool",
+      "config.log"
+    ],
+    "recursion_depth": 4,
+    "top_targets": [
+      "all",
+      "check",
+      "dist",
+      "all-am"
+    ],
+    "make_diagnostics": [
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[1]: *** No rule to make target 'all'.  Stop."
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make: *** [Makefile:447: all-recursive] Error 1"
+      }
+    ]
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": true,
+    "defines_sampled": [
+      "HAVE_CONFIG_H"
+    ]
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-libtool",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-subdir-objects",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-maintainer-mode",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "vpath_analysis": {
+    "hardcoded_src_paths": 49,
+    "abs_path_leakage": 0,
+    "built_sources": [
+      "+=",
+      "libltdl/$(LT_ARGZ_H)"
+    ],
+    "generated_source_targets": [
+      "../libs/cerebro/libcerebro.la",
+      "../libs/cerebro_error/libcerebro_error.la",
+      "../libs/common/liberror.la",
+      "../libs/common/libhash.la",
+      "../libs/common/libhostlist.la",
+      "../libs/common/liblist.la",
+      "../libs/wrappers/libwrappers.la",
+      "../libs/wrappers/libwrappers_hash.la",
+      "../libs/wrappers/libwrappers_hostlist.la",
+      "../libs/wrappers/libwrappers_list.la",
+      "../common/liberror.la",
+      "../../modules/clusterlist/libstaticclusterlistmodules.la",
+      "../../modules/config/libstaticconfigmodules.la",
+      "../../modules/event/libstaticeventmodules.la",
+      "../../modules/metric/libstaticmetricmodules.la",
+      "../../modules/monitor/libstaticmonitormodules.la",
+      "../../../libltdl/libltdlc.la",
+      "../cerebro_error/libcerebro_error.la",
+      "../common/libconffile.la",
+      "../common/libfd.la"
+    ]
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "fcntl.h",
+      "getopt.h",
+      "pthread.h",
+      "signal.h",
+      "unistd.h"
+    ],
+    "headers_included_unchecked": [
+      "arpa/inet.h",
+      "kernel/image.h",
+      "libltdl/lt_dlloader.h",
+      "libltdl/lt_error.h",
+      "libltdl/lt_system.h",
+      "mach-o/getsect.h",
+      "net/if.h",
+      "netinet/in.h",
+      "stdint.h",
+      "sys/ioctl.h",
+      "sys/param.h",
+      "sys/poll.h",
+      "sys/select.h",
+      "sys/socket.h",
+      "sys/stat.h",
+      "sys/types.h",
+      "sys/un.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 1,
+    "shadowed_macros": [
+      "AC_GENDERS",
+      "AC_UPDOWN",
+      "AC_PROG_LIBTOOL",
+      "AC_LIBTOOL_SETUP",
+      "AC_LIBTOOL_HEADER_ASSERT",
+      "AC_LIBTOOL_SYS_GLOBAL_SYMBOL_PIPE",
+      "AC_LIBTOOL_DLOPEN_SELF",
+      "AC_LIBTOOL_DLOPEN",
+      "AC_LIBTOOL_WIN32_DLL",
+      "AC_ENABLE_SHARED",
+      "AC_DISABLE_SHARED",
+      "AC_ENABLE_STATIC",
+      "AC_DISABLE_STATIC",
+      "AC_ENABLE_FAST_INSTALL",
+      "AC_DISABLE_FAST_INSTALL",
+      "AC_LIBTOOL_PICMODE",
+      "AC_PATH_TOOL_PREFIX",
+      "AC_PATH_MAGIC",
+      "AC_PROG_LD",
+      "AC_PROG_LD_GNU"
+    ]
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "c89_gnu",
+    "strip_modern_poison_flags": [
+      "-Werror=implicit-function-declaration",
+      "-Werror=int-conversion",
+      "-Werror=incompatible-pointer-types"
+    ],
+    "inject_legacy_shims": true,
+    "compiler_aliasing": {
+      "clang-18+": "-std=gnu89 -Wno-error",
+      "gcc-14+": "-std=gnu89 -fpermissive"
+    }
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 0,
+    "shadowed_builtins": [
+      "AC_GENDERS",
+      "AC_UPDOWN",
+      "AC_PROG_LIBTOOL",
+      "AC_LIBTOOL_SETUP",
+      "AC_LIBTOOL_HEADER_ASSERT",
+      "AC_LIBTOOL_SYS_GLOBAL_SYMBOL_PIPE",
+      "AC_LIBTOOL_DLOPEN_SELF",
+      "AC_LIBTOOL_DLOPEN",
+      "AC_LIBTOOL_WIN32_DLL",
+      "AC_ENABLE_SHARED",
+      "AC_DISABLE_SHARED",
+      "AC_ENABLE_STATIC",
+      "AC_DISABLE_STATIC",
+      "AC_ENABLE_FAST_INSTALL",
+      "AC_DISABLE_FAST_INSTALL"
+    ],
+    "permitted_mutations": 0,
+    "suspect_global_mutations": 0
+  },
+  "parallel_build_safety": {
+    "vpath_out_of_tree_safe": false,
+    "generators": [
+      "../libs/cerebro/libcerebro.la",
+      "../libs/cerebro_error/libcerebro_error.la",
+      "../libs/common/liberror.la",
+      "../libs/common/libhash.la",
+      "../libs/common/libhostlist.la",
+      "../libs/common/liblist.la",
+      "../libs/wrappers/libwrappers.la",
+      "../libs/wrappers/libwrappers_hash.la",
+      "../libs/wrappers/libwrappers_hostlist.la",
+      "../libs/wrappers/libwrappers_list.la",
+      "../common/liberror.la",
+      "../../modules/clusterlist/libstaticclusterlistmodules.la",
+      "../../modules/config/libstaticconfigmodules.la",
+      "../../modules/event/libstaticeventmodules.la",
+      "../../modules/metric/libstaticmetricmodules.la"
+    ],
+    "unordered_generated_sources": [
+      "../libs/cerebro/libcerebro.la",
+      "../libs/cerebro_error/libcerebro_error.la",
+      "../libs/common/liberror.la",
+      "../libs/common/libhash.la",
+      "../libs/common/libhostlist.la",
+      "../libs/common/liblist.la",
+      "../libs/wrappers/libwrappers.la",
+      "../libs/wrappers/libwrappers_hash.la",
+      "../libs/wrappers/libwrappers_hostlist.la",
+      "../libs/wrappers/libwrappers_list.la",
+      "../common/liberror.la",
+      "../../modules/clusterlist/libstaticclusterlistmodules.la",
+      "../../modules/config/libstaticconfigmodules.la",
+      "../../modules/event/libstaticeventmodules.la",
+      "../../modules/metric/libstaticmetricmodules.la"
+    ],
+    "built_sources_declared": true
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "arpa/inet.h",
+      "kernel/image.h",
+      "libltdl/lt_dlloader.h",
+      "libltdl/lt_error.h",
+      "libltdl/lt_system.h",
+      "mach-o/getsect.h",
+      "net/if.h",
+      "netinet/in.h",
+      "stdint.h",
+      "sys/ioctl.h",
+      "sys/param.h",
+      "sys/poll.h",
+      "sys/select.h",
+      "sys/socket.h",
+      "sys/stat.h",
+      "sys/types.h",
+      "sys/un.h",
+      "fcntl.h",
+      "getopt.h",
+      "pthread.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "subdir-config-h-include-path",
+    "modern-compiler-strictness (no explicit C std)",
+    "parallel-build-race (gen-source not in BUILT_SOURCES)",
+    "vpath-unsafe (abs-path/hardcoded-srcdir leakage)"
+  ],
+  "repair_hints": [
+    {
+      "id": "subdir-top-builddir",
+      "phase": "make",
+      "confidence": 0.88,
+      "evidence": [
+        "src/cerebro-stat consumes config.h below root",
+        "src/libs/cerebro_error consumes config.h below root",
+        "src/libs/modules consumes config.h below root",
+        "src/libs/cerebro consumes config.h below root",
+        "src/libs/common consumes config.h below root"
+      ],
+      "action": "ensure ac_subst_file sets relative top_builddir per subdir (0.1.19)",
+      "expected_effect": "config.h found in subdir compiles"
+    }
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": -5,
+      "Makefile.in": 1074,
+      "aclocal.m4": 13,
+      "configure": 17,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_BOOTTIME": "system-aclocal",
+      "AC_CANONICAL_TARGET": "system-aclocal",
+      "AC_CEREBROD_NO_THREADS": "config/ac_cerebrod_speaker_only.m4",
+      "AC_CEREBROD_SPEAKER_ONLY": "config/ac_cerebrod_speaker_only.m4",
+      "AC_CEREBRO_CONFIG_FILE": "config/ac_cerebro_config_file.m4",
+      "AC_CEREBRO_METRIC_CONTROL_PATH": "config/ac_cerebro_metric_control_path.m4",
+      "AC_CEREBRO_MODULE_DIR": "config/ac_cerebro_module_dir.m4",
+      "AC_CHECK_FUNCS": "system-aclocal",
+      "AC_CHECK_HEADERS": "system-aclocal",
+      "AC_CHECK_SIZEOF": "system-aclocal",
+      "AC_CONFIG_AUX_DIR": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_HEADERS": "system-aclocal",
+      "AC_CONFIG_SRCDIR": "system-aclocal",
+      "AC_C_BIGENDIAN": "system-aclocal",
+      "AC_C_CONST": "system-aclocal",
+      "AC_DEBUG": "config/ac_debug.m4",
+      "AC_DEFINE": "system-aclocal",
+      "AC_GENDERS": "config/ac_genders.m4",
+      "AC_HEADER_STDC": "system-aclocal",
+      "AC_HEADER_SYS_WAIT": "system-aclocal",
+      "AC_HEADER_TIME": "system-aclocal",
+      "AC_HOSTSFILE": "config/ac_hostsfile.m4",
+      "AC_HOSTSFILE_PATH": "config/ac_hostsfile.m4",
+      "AC_INIT": "system-aclocal",
+      "AC_IPV6": "config/ac_ipv6.m4",
+      "AC_LIB_LTDL": "system-aclocal",
+      "AC_LOADAVG": "config/ac_loadavg.m4",
+      "AC_MEMORY": "config/ac_memory.m4",
+      "AC_MSG_ERROR": "system-aclocal",
+      "AC_NETWORK": "config/ac_network.m4",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PROG_CC": "system-aclocal",
+      "AC_PROG_MAKE_SET": "system-aclocal",
+      "AC_SHUTDOWN": "config/ac_shutdown.m4",
+      "AC_SLURM_STATE": "config/ac_slurm_state.m4",
+      "AC_SLURM_STATE_CONTROL_PATH": "config/ac_slurm_state.m4",
+      "AC_STATIC_MODULES": "config/ac_static_modules.m4",
+      "AC_STRUCT_SA_LEN": "config/ac_struct_sa_len.m4",
+      "AC_SUBST": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "libclusterlistmodules_la_LIBADD",
+        "var": "CLUSTERLIST_STATIC_LIB",
+        "resolved_to": [
+          "../../modules/clusterlist/libstaticclusterlistmodules.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libconfigmodules_la_LIBADD",
+        "var": "CONFIG_STATIC_LIB",
+        "resolved_to": [
+          "../../modules/config/libstaticconfigmodules.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libeventmodules_la_LIBADD",
+        "var": "EVENT_STATIC_LIB",
+        "resolved_to": [
+          "../../modules/event/libstaticeventmodules.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libmetricmodules_la_LIBADD",
+        "var": "METRIC_STATIC_LIB",
+        "resolved_to": [
+          "../../modules/metric/libstaticmetricmodules.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libmonitormodules_la_LIBADD",
+        "var": "MONITOR_STATIC_LIB",
+        "resolved_to": [
+          "../../modules/monitor/libstaticmonitormodules.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libcerebro_la_LIBADD",
+        "var": "LTDL_LIBS",
+        "resolved_to": [
+          "../../../libltdl/libltdlc.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "modulelib_LTLIBRARIES",
+        "var": "GENDERS_CLUSTERLIST_MODULE",
+        "resolved_to": [
+          "cerebro_clusterlist_genders.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "modulelib_LTLIBRARIES",
+        "var": "HOSTSFILE_CLUSTERLIST_MODULE",
+        "resolved_to": [
+          "cerebro_clusterlist_hostsfile.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libstaticclusterlistmodules_la_SOURCES",
+        "var": "GENDERS_STATIC_SOURCES",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libstaticclusterlistmodules_la_SOURCES",
+        "var": "GENDERS_STATIC_UTIL_SOURCES",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libstaticclusterlistmodules_la_SOURCES",
+        "var": "HOSTSFILE_STATIC_SOURCES",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libstaticclusterlistmodules_la_SOURCES",
+        "var": "CLUSTERLIST_UTIL_SOURCES",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "modulelib_LTLIBRARIES",
+        "var": "BOOTTIME_METRIC_MODULE",
+        "resolved_to": [
+          "cerebro_metric_boottime.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "modulelib_LTLIBRARIES",
+        "var": "LOADAVG1_METRIC_MODULE",
+        "resolved_to": [
+          "cerebro_metric_loadavg1.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "modulelib_LTLIBRARIES",
+        "var": "LOADAVG5_METRIC_MODULE",
+        "resolved_to": [
+          "cerebro_metric_loadavg5.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "modulelib_LTLIBRARIES",
+        "var": "LOADAVG15_METRIC_MODULE",
+        "resolved_to": [
+          "cerebro_metric_loadavg15.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "modulelib_LTLIBRARIES",
+        "var": "MEMTOTAL_METRIC_MODULE",
+        "resolved_to": [
+          "cerebro_metric_memtotal.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "modulelib_LTLIBRARIES",
+        "var": "MEMUSED_METRIC_MODULE",
+        "resolved_to": [
+          "cerebro_metric_memused.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "modulelib_LTLIBRARIES",
+        "var": "MEMFREE_METRIC_MODULE",
+        "resolved_to": [
+          "cerebro_metric_memfree.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "modulelib_LTLIBRARIES",
+        "var": "SWAPTOTAL_METRIC_MODULE",
+        "resolved_to": [
+          "cerebro_metric_swaptotal.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "modulelib_LTLIBRARIES",
+        "var": "SWAPUSED_METRIC_MODULE",
+        "resolved_to": [
+          "cerebro_metric_swapused.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "modulelib_LTLIBRARIES",
+        "var": "SWAPFREE_METRIC_MODULE",
+        "resolved_to": [
+          "cerebro_metric_swapfree.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "modulelib_LTLIBRARIES",
+        "var": "BYTESIN_METRIC_MODULE",
+        "resolved_to": [
+          "cerebro_metric_bytesin.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "modulelib_LTLIBRARIES",
+        "var": "BYTESOUT_METRIC_MODULE",
+        "resolved_to": [
+          "cerebro_metric_bytesout.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "modulelib_LTLIBRARIES",
+        "var": "PACKETSIN_METRIC_MODULE",
+        "resolved_to": [
+          "cerebro_metric_packetsin.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "modulelib_LTLIBRARIES",
+        "var": "PACKETSOUT_METRIC_MODULE",
+        "resolved_to": [
+          "cerebro_metric_packetsout.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "modulelib_LTLIBRARIES",
+        "var": "RXERRS_METRIC_MODULE",
+        "resolved_to": [
+          "cerebro_metric_rxerrs.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "modulelib_LTLIBRARIES",
+        "var": "TXERRS_METRIC_MODULE",
+        "resolved_to": [
+          "cerebro_metric_txerrs.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "modulelib_LTLIBRARIES",
+        "var": "SLURM_STATE_METRIC_MODULE",
+        "resolved_to": [
+          "cerebro_metric_slurm_state.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "modulelib_LTLIBRARIES",
+        "var": "SHUTDOWN_METRIC_MODULE",
+        "resolved_to": [
+          "cerebro_metric_shutdown.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libstaticmetricmodules_la_SOURCES",
+        "var": "BOOTTIME_STATIC_SOURCES",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libstaticmetricmodules_la_SOURCES",
+        "var": "LOADAVG_STATIC_SOURCES",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libstaticmetricmodules_la_SOURCES",
+        "var": "LOADAVG1_STATIC_SOURCES",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libstaticmetricmodules_la_SOURCES",
+        "var": "LOADAVG5_STATIC_SOURCES",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libstaticmetricmodules_la_SOURCES",
+        "var": "LOADAVG15_STATIC_SOURCES",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libstaticmetricmodules_la_SOURCES",
+        "var": "MEMORY_STATIC_SOURCES",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libstaticmetricmodules_la_SOURCES",
+        "var": "MEMTOTAL_STATIC_SOURCES",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libstaticmetricmodules_la_SOURCES",
+        "var": "MEMUSED_STATIC_SOURCES",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libstaticmetricmodules_la_SOURCES",
+        "var": "MEMFREE_STATIC_SOURCES",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libstaticmetricmodules_la_SOURCES",
+        "var": "SWAPTOTAL_STATIC_SOURCES",
+        "resolved_to": [],
+        "resolved": false
+      }
+    ],
+    "unresolved_refs": [
+      "libstaticclusterlistmodules_la_SOURCES = $(GENDERS_STATIC_SOURCES)",
+      "libstaticclusterlistmodules_la_SOURCES = $(GENDERS_STATIC_UTIL_SOURCES)",
+      "libstaticclusterlistmodules_la_SOURCES = $(HOSTSFILE_STATIC_SOURCES)",
+      "libstaticclusterlistmodules_la_SOURCES = $(CLUSTERLIST_UTIL_SOURCES)",
+      "libstaticmetricmodules_la_SOURCES = $(BOOTTIME_STATIC_SOURCES)",
+      "libstaticmetricmodules_la_SOURCES = $(LOADAVG_STATIC_SOURCES)",
+      "libstaticmetricmodules_la_SOURCES = $(LOADAVG1_STATIC_SOURCES)",
+      "libstaticmetricmodules_la_SOURCES = $(LOADAVG5_STATIC_SOURCES)",
+      "libstaticmetricmodules_la_SOURCES = $(LOADAVG15_STATIC_SOURCES)",
+      "libstaticmetricmodules_la_SOURCES = $(MEMORY_STATIC_SOURCES)",
+      "libstaticmetricmodules_la_SOURCES = $(MEMTOTAL_STATIC_SOURCES)",
+      "libstaticmetricmodules_la_SOURCES = $(MEMUSED_STATIC_SOURCES)",
+      "libstaticmetricmodules_la_SOURCES = $(MEMFREE_STATIC_SOURCES)",
+      "libstaticmetricmodules_la_SOURCES = $(SWAPTOTAL_STATIC_SOURCES)",
+      "libstaticmetricmodules_la_SOURCES = $(SWAPUSED_STATIC_SOURCES)",
+      "libstaticmetricmodules_la_SOURCES = $(SWAPFREE_STATIC_SOURCES)",
+      "libstaticmetricmodules_la_SOURCES = $(NETWORK_STATIC_SOURCES)",
+      "libstaticmetricmodules_la_SOURCES = $(BYTESIN_STATIC_SOURCES)",
+      "libstaticmetricmodules_la_SOURCES = $(BYTESOUT_STATIC_SOURCES)",
+      "libstaticmetricmodules_la_SOURCES = $(PACKETSIN_STATIC_SOURCES)",
+      "libstaticmetricmodules_la_SOURCES = $(PACKETSOUT_STATIC_SOURCES)",
+      "libstaticmetricmodules_la_SOURCES = $(RXERRS_STATIC_SOURCES)",
+      "libstaticmetricmodules_la_SOURCES = $(TXERRS_STATIC_SOURCES)",
+      "libstaticmetricmodules_la_SOURCES = $(SLURM_STATE_STATIC_SOURCES)",
+      "libstaticmetricmodules_la_SOURCES = $(SHUTDOWN_STATIC_SOURCES)",
+      "libstaticeventmodules_la_SOURCES = $(UPDOWN_STATIC_SOURCES)",
+      "noinst_LTLIBRARIES = $(LT_DLLOADERS)",
+      "libltdl_la_LIBADD = $(LTLIBOBJS)",
+      "libltdlc_la_SOURCES = $(libltdl_la_SOURCES)",
+      "libltdlc_la_LIBADD = $(libltdl_la_LIBADD)",
+      "dlopen_la_LIBADD = $(LIBADD_DLOPEN)",
+      "shl_load_la_LIBADD = $(LIBADD_SHL_LOAD)"
+    ],
+    "indirection_count": 62
   }
 }

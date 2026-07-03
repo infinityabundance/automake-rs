@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "boysetsfrog/vimpc",
   "source": {
     "url": "https://github.com/boysetsfrog/vimpc",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -34,7 +34,9 @@
     "configure_args": []
   },
   "dependencies": {
-    "pkg_config": [],
+    "pkg_config": [
+      "checking for boostlib >= 1.20.0... configure: We could not detect the boost libr"
+    ],
     "system_libs": [],
     "headers_needed": [],
     "missing": []
@@ -46,29 +48,17 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 3511: syntax error: unexpected end of file",
+  "diagnostic": "configure: error: vimpc requires boost library",
   "deep_expansion": {
-    "configure_lines": 3510,
+    "configure_lines": 3856,
     "leaked_macros": [],
     "heredoc_openers": 45,
     "heredoc_terminators": 45,
     "heredoc_imbalance": 0,
-    "syntax_errors": [
-      {
-        "line": 3511,
-        "token": "",
-        "source": "",
-        "block": [
-          "3507: printf '%s\\n' \"$as_me: WARNING: unrecognized options: $ac_unrecognized_opts\"",
-          "3508: fi",
-          "3509: ",
-          "3510: "
-        ]
-      }
-    ],
+    "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 3034: do eval test \\${$as_var+y} \\"
+      "line 3379: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
@@ -77,65 +67,47 @@
       "PTHREAD_LIBS",
       "CXX",
       "CXXFLAGS",
+      "BOOST_CPPFLAGS",
+      "BOOST_LDFLAGS",
+      "BOOST_CHRONO_LIB",
+      "BOOST_SYSTEM_LIB",
+      "BOOST_THREAD_LIB",
+      "pcre_CFLAGS",
+      "pcre_LIBS",
+      "LYRICS_SUPPORT_TRUE",
+      "LYRICS_SUPPORT_FALSE",
+      "curl_CFLAGS",
+      "curl_LIBS",
+      "taglib_CFLAGS",
+      "taglib_LIBS",
+      "BUILD_TEST_TRUE",
+      "BUILD_TEST_FALSE",
+      "cppunit_CFLAGS",
+      "cppunit_LIBS",
+      "BUILD_PROFILER_TRUE",
+      "BUILD_PROFILER_FALSE",
+      "mpdclient_CFLAGS",
+      "mpdclient_LIBS",
       "PACKAGE_NAME",
       "PACKAGE_TARNAME",
-      "PACKAGE_VERSION",
-      "PACKAGE_STRING",
-      "PACKAGE_BUGREPORT",
-      "PACKAGE_URL",
-      "srcdir",
-      "prefix",
-      "exec_prefix",
-      "CC",
-      "CFLAGS",
-      "CPPFLAGS",
-      "LDFLAGS",
-      "LIBS",
-      "CPP",
-      "DEFS",
-      "LIBOBJS",
-      "INSTALL",
-      "cppunit_CFLAGS",
-      "taglib_LIBS",
-      "pcre_CFLAGS",
-      "curl_CFLAGS",
-      "cppunit_LIBS",
-      "host_vendor"
+      "PACKAGE_VERSION"
     ],
-    "failed_during_check": "checking whether to enable boost automatically... yes",
+    "failed_during_check": "checking for boostlib >= 1.20.0... configure: We could not detect the boost libr",
     "failure_tail": [
-      "checking whether to enable boost automatically... yes",
-      "./configure: line 3511: syntax error: unexpected end of file"
+      "checking for boostlib >= 1.20.0... configure: We could not detect the boost libr",
+      "configure: error: vimpc requires boost library"
     ],
     "conftest_corruption": [],
-    "conftest_directives_intact": 20,
+    "conftest_directives_intact": 25,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
       "#include <$ac_hdr>",
       "#include <functional>\\n#include <atomic>\\n#include <thread>\\nint main() { std::thread thread; std::function<void()> function; std::atomic",
-      "\\n@%:@include <boost/version.hpp>\\n\\nint main() {\\n#if BOOST_VERSION >= $WANT_BOOST_VERSION\\n// Everything is okay\\n#else\\n#  error Boost version is too old\\n#endif\\n; return 0; }",
-      "\\n@%:@include <boost/version.hpp>\\n\\nint main() {\\n#if BOOST_VERSION >= $WANT_BOOST_VERSION\\n// Everything is okay\\n#else\\n#  error Boost version is too old\\n#endif\\n; return 0; }",
-      "@%:@include <boost/chrono.hpp>\\nint main() { boost::chrono::system_clock::time_point* time = new boost::chro",
-      "char exit();\\nint main() { return exit(); }"
+      "\\n#include <boost/version.hpp>\\n\\nint main() {\\n#if BOOST_VERSION >= $WANT_BOOST_VERSION\\n// Everything is okay\\n#else\\n#  error Boost version is too old\\n#endif\\n; return 0; }",
+      "\\n#include <boost/version.hpp>\\n\\nint main() {\\n#if BOOST_VERSION >= $WANT_BOOST_VERSION\\n// Everything is okay\\n#else\\n#  error Boost version is too old\\n#endif\\n; return 0; }",
+      "#include <boost/chrono.hpp>\\nint main() { boost::chrono::system_clock::time_point* time = new boost::chro",
+      "char exit ();\\nint main() { return exit(); }"
     ]
-  },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "ok",
-    "real_make": "ok",
-    "real_configure_lines": 9544,
-    "real_first_error": "",
-    "classification": "OURS_BUG_CONFIGURE"
-  },
-  "divergence": {
-    "stage": "configure",
-    "ours_error": "line 3511:  (near ``)",
-    "ours_error_context": [
-      ""
-    ],
-    "ours_configure_lines": 3510,
-    "real_configure_lines": 9544,
-    "macros_ours_left_undefined": []
   },
   "receipt": {
     "court_status": "failed",
@@ -147,7 +119,7 @@
       "uses-ax-archive",
       "uses-pthread-check"
     ],
-    "receipt_hash": "24e39ed3178d433d21c1340a6407fda16d8349c27724819539e8175382940e80",
+    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -156,6 +128,383 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      }
+    ],
+    "config_headers": [
+      "src/config.h"
+    ],
+    "subdirs": [],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [
+          "vimpc"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      }
+    ],
+    "max_depth": 0,
+    "config_h_consumers_below_root": []
+  },
+  "tool_requirements": {
+    "detected": [
+      "c++"
+    ],
+    "missing": []
+  },
+  "macro_inventory": {
+    "macro_dirs": [
+      "m4"
+    ],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [
+      {
+        "name": "AX_BOOST_SYSTEM",
+        "source": "m4/m4_ax_boost_system.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AX_CXX_COMPILE_STDCXX_11",
+        "source": "m4/m4_ax_cxx_compile_stdcxx_11.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AX_BOOST_THREAD",
+        "source": "m4/m4_ax_boost_thread.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "MP_WITH_CURSES",
+        "source": "m4/ncurses.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AX_PTHREAD",
+        "source": "m4/m4_ax_pthread.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AX_BOOST_BASE",
+        "source": "m4/m4_ax_boost_base.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AX_BOOST_CHRONO",
+        "source": "m4/m4_ax_boost_chrono.m4",
+        "kind": "AX"
+      }
+    ],
+    "called_macros": [
+      "AC_ARG_ENABLE",
+      "AC_CHECK_HEADER",
+      "AC_CHECK_HEADERS",
+      "AC_COMPILE_IFELSE",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_HEADERS",
+      "AC_DEFINE",
+      "AC_DEFINE_UNQUOTED",
+      "AC_INIT",
+      "AC_LANG_PROGRAM",
+      "AC_LANG_PUSH",
+      "AC_MSG_CHECKING",
+      "AC_MSG_ERROR",
+      "AC_MSG_RESULT",
+      "AC_OUTPUT",
+      "AC_PREREQ",
+      "AC_PROG_CXX",
+      "AC_SEARCH_LIBS",
+      "AC_SUBST",
+      "AM_CONDITIONAL",
+      "AM_INIT_AUTOMAKE",
+      "AX_BOOST_BASE",
+      "AX_BOOST_CHRONO",
+      "AX_BOOST_SYSTEM",
+      "AX_BOOST_THREAD",
+      "AX_CXX_COMPILE_STDCXX_11",
+      "AX_PTHREAD",
+      "PKG_CHECK_MODULES"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 238,
+    "configure_fi": 228,
+    "configure_case": 67,
+    "configure_esac": 70,
+    "balanced": false,
+    "automake_conditionals": [
+      "LYRICS_SUPPORT",
+      "BUILD_TEST",
+      "BUILD_PROFILER"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": ".",
+    "present": [
+      "install-sh",
+      "missing",
+      "depcomp",
+      "compile"
+    ],
+    "missing": []
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "cpp": 49,
+      "h": 2,
+      "hpp": 56
+    },
+    "configure_macros": [
+      "AC_PROG_CXX"
+    ],
+    "needs_cxx": true,
+    "needs_fortran": false,
+    "sets_c_std": true
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": false,
+    "defines_sampled": []
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-pkg-config",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "has-m4-macro-dir",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-ax-archive",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-pthread-check",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "cppunit/Test.h",
+      "curl/curl.h",
+      "execinfo.h",
+      "mpd/client.h",
+      "pcre.h",
+      "sys/ioctl.h",
+      "taglib/taglib.h",
+      "termios.h"
+    ],
+    "headers_included_unchecked": [
+      "cppunit/TestResult.h",
+      "cppunit/TestResultCollector.h",
+      "cppunit/TestRunner.h",
+      "cppunit/TextOutputter.h",
+      "cppunit/extensions/HelperMacros.h",
+      "cppunit/extensions/TestFactoryRegistry.h",
+      "ncursesw/ncurses.h",
+      "sys/time.h",
+      "sys/types.h",
+      "taglib/fileref.h",
+      "taglib/tag.h",
+      "unistd.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 5,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "gnu++",
+    "strip_modern_poison_flags": [],
+    "inject_legacy_shims": false,
+    "compiler_aliasing": {}
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 8,
+    "shadowed_builtins": [],
+    "permitted_mutations": 7,
+    "suspect_global_mutations": 0
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "cppunit/TestResult.h",
+      "cppunit/TestResultCollector.h",
+      "cppunit/TestRunner.h",
+      "cppunit/TextOutputter.h",
+      "cppunit/extensions/HelperMacros.h",
+      "cppunit/extensions/TestFactoryRegistry.h",
+      "ncursesw/ncurses.h",
+      "sys/time.h",
+      "sys/types.h",
+      "taglib/fileref.h",
+      "taglib/tag.h",
+      "unistd.h",
+      "cppunit/Test.h",
+      "curl/curl.h",
+      "execinfo.h",
+      "mpd/client.h",
+      "pcre.h",
+      "sys/ioctl.h",
+      "taglib/taglib.h",
+      "termios.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": 0,
+      "Makefile.in": 1667,
+      "aclocal.m4": 11,
+      "configure": 22,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_ENABLE": "system-aclocal",
+      "AC_CHECK_HEADER": "system-aclocal",
+      "AC_CHECK_HEADERS": "system-aclocal",
+      "AC_COMPILE_IFELSE": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_HEADERS": "system-aclocal",
+      "AC_DEFINE": "system-aclocal",
+      "AC_DEFINE_UNQUOTED": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_LANG_PROGRAM": "system-aclocal",
+      "AC_LANG_PUSH": "system-aclocal",
+      "AC_MSG_CHECKING": "system-aclocal",
+      "AC_MSG_ERROR": "system-aclocal",
+      "AC_MSG_RESULT": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PREREQ": "system-aclocal",
+      "AC_PROG_CXX": "system-aclocal",
+      "AC_SEARCH_LIBS": "system-aclocal",
+      "AC_SUBST": "system-aclocal",
+      "AM_CONDITIONAL": "system-aclocal",
+      "AM_INIT_AUTOMAKE": "system-aclocal",
+      "AX_BOOST_BASE": "m4/m4_ax_boost_base.m4",
+      "AX_BOOST_CHRONO": "m4/m4_ax_boost_chrono.m4",
+      "AX_BOOST_SYSTEM": "m4/m4_ax_boost_system.m4",
+      "AX_BOOST_THREAD": "m4/m4_ax_boost_thread.m4",
+      "AX_CXX_COMPILE_STDCXX_11": "m4/m4_ax_cxx_compile_stdcxx_11.m4",
+      "AX_PTHREAD": "m4/m4_ax_pthread.m4",
+      "PKG_CHECK_MODULES": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "vimpc_LDADD",
+        "var": "taglib_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "vimpc_LDADD",
+        "var": "pcre_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "vimpc_LDADD",
+        "var": "mpdclient_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "vimpc_LDADD",
+        "var": "curl_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "vimpc_LDADD",
+        "var": "cppunit_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      }
+    ],
+    "unresolved_refs": [
+      "vimpc_LDADD = $(taglib_LIBS)",
+      "vimpc_LDADD = $(pcre_LIBS)",
+      "vimpc_LDADD = $(mpdclient_LIBS)",
+      "vimpc_LDADD = $(curl_LIBS)",
+      "vimpc_LDADD = $(cppunit_LIBS)"
+    ],
+    "indirection_count": 5
   }
 }

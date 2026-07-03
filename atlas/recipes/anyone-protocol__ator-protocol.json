@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "anyone-protocol/ator-protocol",
   "source": {
     "url": "https://github.com/anyone-protocol/ator-protocol",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.14",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -21,6 +21,16 @@
     {
       "step": "autoreconf",
       "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "fail"
+    },
+    {
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
       "status": "fail"
     }
   ],
@@ -29,7 +39,9 @@
     "configure_args": []
   },
   "dependencies": {
-    "pkg_config": [],
+    "pkg_config": [
+      "checking for libsystemd >= 209... yes"
+    ],
     "system_libs": [],
     "headers_needed": [],
     "missing": []
@@ -39,19 +51,89 @@
     "pkg-config"
   ],
   "outputs": [],
-  "status": "CONFIGURE_GEN_FAIL",
+  "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "",
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "fail",
-    "real_make": "skipped",
-    "real_configure_lines": 38034,
-    "real_first_error": "",
-    "classification": "BOTH_CONFIGURE_FAIL"
+  "diagnostic": "./configure: line 2285: dirauth: command not found",
+  "deep_expansion": {
+    "configure_lines": 4205925,
+    "leaked_macros": [],
+    "heredoc_openers": 286573,
+    "heredoc_terminators": 286573,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 2571,
+        "token": "(",
+        "source": "_ax_c_compiler_version_major=printf '%s\\n' \"configure: error: m4_define(",
+        "block": [
+          "2567: _ACEOF",
+          "2568: if ac_fn_c_try_run >/dev/null 2>&1 && test -x ./conftest$ac_exeext; then",
+          "2569:   _ax_c_compiler_version_major=`./conftest$ac_exeext 2>/dev/null`",
+          "2570: else",
+          "2571:   _ax_c_compiler_version_major=printf '%s\\n' \"configure: error: m4_define([_",
+          "2572: :",
+          "2573: :",
+          "2574: :"
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 1443: # eval \"_acrs_sv=\\${}\"; printf '%s\\n' \"s|@@|${_acrs_sv}|g\" >"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "PKG_CONFIG",
+      "DOXYGEN_FATAL_WARNINGS",
+      "DOXYGEN_WARN_ON_MISSING",
+      "UNITTESTS_ENABLED_TRUE",
+      "UNITTESTS_ENABLED_FALSE",
+      "COVERAGE_ENABLED_TRUE",
+      "COVERAGE_ENABLED_FALSE",
+      "DISABLE_ASSERTS_IN_UNIT_TESTS_TRUE",
+      "DISABLE_ASSERTS_IN_UNIT_TESTS_FALSE",
+      "LIBFUZZER_ENABLED_TRUE",
+      "LIBFUZZER_ENABLED_FALSE",
+      "OSS_FUZZ_ENABLED_TRUE",
+      "OSS_FUZZ_ENABLED_FALSE",
+      "USE_NSS_TRUE",
+      "USE_NSS_FALSE",
+      "USE_OPENSSL_TRUE",
+      "USE_OPENSSL_FALSE",
+      "TOR_STATIC_LDFLAGS",
+      "SYSTEMD_CFLAGS",
+      "SYSTEMD_LIBS",
+      "LIBSYSTEMD209_CFLAGS",
+      "LIBSYSTEMD209_LIBS",
+      "TOR_SYSTEMD_CFLAGS",
+      "TOR_SYSTEMD_LIBS",
+      "USE_TRACING_INSTRUMENTATION_LTTNG_TRUE",
+      "USE_TRACING_INSTRUMENTATION_LTTNG_FALSE",
+      "USE_TRACING_INSTRUMENTATION_USDT_TRUE",
+      "USE_TRACING_INSTRUMENTATION_USDT_FALSE",
+      "USE_TRACING_INSTRUMENTATION_LOG_DEBUG_TRUE"
+    ],
+    "failed_during_check": "checking for libsystemd >= 209... yes",
+    "failure_tail": [
+      "checking for libsystemd >= 209... yes",
+      "./configure: line 2285: dirauth: command not found",
+      "for C compiler vendor... for C compiler version... ./configure: line 2571: synta",
+      "./configure: line 2571: `  _ax_c_compiler_version_major=printf '%s\\n' \"configure"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 286570,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "#include <$ac_hdr>",
+      "#include <$ac_hdr>",
+      "\\n#[define SDT_USE_VARIADIC]\\n#[include <sys/sdt.h>]\\nvoid test(void)\\n{\\nSTAP_PROBEV(p, n, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);\\n}\\n",
+      "\\nint main() {\\n#if !($vencpp)\\nthisisanerror;\\n#endif\\n; return 0; }",
+      "\\n#include <stdio.h>\\nint main() { printf(\"%ld\", (long)(__INTEL_COMPILER/100)); return 0; }",
+      "\\n#include <stdio.h>\\nint main() { printf(\"%ld\", (long)(__INTEL_COMPILER/100)); return 0; }"
+    ]
   },
   "receipt": {
-    "court_status": "not_standalone",
+    "court_status": "failed",
     "probe_trace": [],
     "quirks_matched": [
       "uses-pkg-config",
@@ -62,7 +144,14 @@
       "uses-ax-archive",
       "perl-in-configure"
     ],
-    "receipt_hash": "1b59d07d0a20a927a52050673c57d051c46cf0669ffc84ae54f67e19a8cf7afb",
+    "quirks_applied": [
+      {
+        "id": "uses-subdir-objects",
+        "action": "--disable-dependency-tracking",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -71,6 +160,789 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "contrib/operator-tools/tor.logrotate",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "scripts/maint/checkOptionDocs.pl",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/config/anonrc.minimal",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/config/anonrc.sample",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      }
+    ],
+    "config_headers": [
+      "orconfig.h"
+    ],
+    "subdirs": [],
+    "build_dirs": [],
+    "max_depth": 2,
+    "config_h_consumers_below_root": []
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "src/ext/ed25519/ref10/Makefile",
+        "has_makefile_in": false,
+        "has_makefile_am": false,
+        "lines": 41,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/ext/timeouts/Makefile",
+        "has_makefile_in": false,
+        "has_makefile_am": false,
+        "lines": 68,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      }
+    ]
+  },
+  "tool_requirements": {
+    "detected": [
+      "ar",
+      "perl",
+      "python",
+      "flex",
+      "pkg-config",
+      "doxygen"
+    ],
+    "missing": [
+      {
+        "name": "dirauth",
+        "phase": "make",
+        "suggested_package": ""
+      }
+    ]
+  },
+  "macro_inventory": {
+    "macro_dirs": [
+      "m4"
+    ],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": true,
+    "defined_macros": [
+      {
+        "name": "AX_JNI_INCLUDE_DIR",
+        "source": "m4/ax_jni_include_dir.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "_ACJNI_FOLLOW_SYMLINKS",
+        "source": "m4/ax_jni_include_dir.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AX_COMPILER_VENDOR",
+        "source": "m4/ax_compiler_vendor.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "PKG_PROG_PKG_CONFIG",
+        "source": "m4/pkg.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "PKG_CHECK_EXISTS",
+        "source": "m4/pkg.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_PKG_SHORT_ERRORS_SUPPORTED",
+        "source": "m4/pkg.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "PKG_CHECK_MODULES",
+        "source": "m4/pkg.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "PKG_INSTALLDIR",
+        "source": "m4/pkg.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "PKG_NOARCH_INSTALLDIR",
+        "source": "m4/pkg.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "PKG_CHECK_VAR",
+        "source": "m4/pkg.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AX_CHECK_COMPILE_FLAG",
+        "source": "m4/ax_check_compile_flag.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "PPRINT_INIT",
+        "source": "m4/pprint.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "PPRINT_SET_INDENT",
+        "source": "m4/pprint.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "PPRINT_SET_TS",
+        "source": "m4/pprint.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "PPRINT_SUBTITLE",
+        "source": "m4/pprint.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_PPRINT_INDENT",
+        "source": "m4/pprint.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "PPRINT_PROP_STRING",
+        "source": "m4/pprint.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "PPRINT_PROP_BOOL",
+        "source": "m4/pprint.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "PPRINT_PROP_BOOL_CUSTOM",
+        "source": "m4/pprint.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "PPRINT_WARN",
+        "source": "m4/pprint.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "PPRINT_ERROR",
+        "source": "m4/pprint.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AC_PC_FROM_UCONTEXT",
+        "source": "m4/pc_from_ucontext.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AX_CHECK_SIGN",
+        "source": "m4/ax_check_sign.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "_AX_COMPILER_VERSION_INTEL",
+        "source": "m4/ax_compiler_version.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_AX_COMPILER_VERSION_IBM",
+        "source": "m4/ax_compiler_version.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_AX_COMPILER_VERSION_PATHSCALE",
+        "source": "m4/ax_compiler_version.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_AX_COMPILER_VERSION_CLANG",
+        "source": "m4/ax_compiler_version.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_AX_COMPILER_VERSION_CRAY",
+        "source": "m4/ax_compiler_version.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_AX_COMPILER_VERSION_FUJITSU",
+        "source": "m4/ax_compiler_version.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_AX_COMPILER_VERSION_GNU",
+        "source": "m4/ax_compiler_version.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_AX_COMPILER_VERSION_SUN",
+        "source": "m4/ax_compiler_version.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_AX_COMPILER_VERSION_HP",
+        "source": "m4/ax_compiler_version.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_AX_COMPILER_VERSION_DEC",
+        "source": "m4/ax_compiler_version.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_AX_COMPILER_VERSION_BORLAND",
+        "source": "m4/ax_compiler_version.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_AX_COMPILER_VERSION_COMEAU",
+        "source": "m4/ax_compiler_version.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_AX_COMPILER_VERSION_KAI",
+        "source": "m4/ax_compiler_version.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_AX_COMPILER_VERSION_SGI",
+        "source": "m4/ax_compiler_version.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_AX_COMPILER_VERSION_MICROSOFT",
+        "source": "m4/ax_compiler_version.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_AX_COMPILER_VERSION_METROWERKS",
+        "source": "m4/ax_compiler_version.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_AX_COMPILER_VERSION_WATCOM",
+        "source": "m4/ax_compiler_version.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_AX_COMPILER_VERSION_PORTLAND",
+        "source": "m4/ax_compiler_version.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_AX_COMPILER_VERSION_TCC",
+        "source": "m4/ax_compiler_version.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_AX_COMPILER_VERSION_SDCC",
+        "source": "m4/ax_compiler_version.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AX_COMPILER_VERSION",
+        "source": "m4/ax_compiler_version.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "TOR_EXTEND_CODEPATH",
+        "source": "acinclude.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "TOR_DEFINE_CODEPATH",
+        "source": "acinclude.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "TOR_TRY_COMPILE_WITH_CFLAGS",
+        "source": "acinclude.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "TOR_CHECK_CFLAGS",
+        "source": "acinclude.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "TOR_CHECK_LDFLAGS",
+        "source": "acinclude.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "TOR_WARN_MISSING_LIB",
+        "source": "acinclude.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "TOR_SEARCH_LIBRARY",
+        "source": "acinclude.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "TOR_CHECK_PROTOTYPE",
+        "source": "acinclude.m4",
+        "kind": "project-local"
+      }
+    ],
+    "called_macros": [
+      "AC_ARG_ENABLE",
+      "AC_ARG_VAR",
+      "AC_ARG_WITH",
+      "AC_CACHE_CHECK",
+      "AC_CANONICAL_HOST",
+      "AC_CHECK_DECLS",
+      "AC_CHECK_FUNC",
+      "AC_CHECK_FUNCS",
+      "AC_CHECK_HEADERS",
+      "AC_CHECK_LIB",
+      "AC_CHECK_MEMBERS",
+      "AC_CHECK_PROGS",
+      "AC_CHECK_SIZEOF",
+      "AC_CHECK_TOOL",
+      "AC_CHECK_TYPES",
+      "AC_COMPILE_IFELSE",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_HEADERS",
+      "AC_CONFIG_MACRO_DIR",
+      "AC_CONFIG_SRCDIR",
+      "AC_C_BIGENDIAN",
+      "AC_C_FLEXIBLE_ARRAY_MEMBER",
+      "AC_DEFINE",
+      "AC_DEFINE_UNQUOTED",
+      "AC_DEFUN",
+      "AC_INCLUDES_DEFAULT",
+      "AC_INIT",
+      "AC_LANG_PROGRAM",
+      "AC_LANG_SOURCE",
+      "AC_LINK_IFELSE",
+      "AC_MSG_CHECKING",
+      "AC_MSG_ERROR",
+      "AC_MSG_NOTICE",
+      "AC_MSG_RESULT",
+      "AC_MSG_WARN",
+      "AC_OUTPUT",
+      "AC_PATH_PROG",
+      "AC_PATH_PROGS",
+      "AC_PATH_PROGS_FEATURE_CHECK",
+      "AC_PC_FROM_UCONTEXT",
+      "AC_PREREQ",
+      "AC_PROG_AR",
+      "AC_PROG_CC",
+      "AC_PROG_CC_C99",
+      "AC_PROG_CPP",
+      "AC_PROG_MAKE_SET",
+      "AC_PROG_RANLIB",
+      "AC_PROG_SED",
+      "AC_RUN_IFELSE",
+      "AC_SEARCH_LIBS",
+      "AC_SUBST",
+      "AC_SYS_LARGEFILE",
+      "AC_USE_SYSTEM_EXTENSIONS",
+      "AM_CONDITIONAL",
+      "AM_COND_IF",
+      "AM_INIT_AUTOMAKE",
+      "AM_PROG_AR",
+      "AM_PROG_CC_C_O",
+      "AM_SILENT_RULES",
+      "AX_CHECK_COMPILE_FLAG"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 286746,
+    "configure_fi": 286743,
+    "configure_case": 40,
+    "configure_esac": 44,
+    "balanced": false,
+    "automake_conditionals": [
+      "UNITTESTS_ENABLED",
+      "COVERAGE_ENABLED",
+      "DISABLE_ASSERTS_IN_UNIT_TESTS",
+      "LIBFUZZER_ENABLED",
+      "OSS_FUZZ_ENABLED",
+      "USE_NSS",
+      "USE_OPENSSL",
+      "USE_TRACING_INSTRUMENTATION_LTTNG",
+      "USE_TRACING_INSTRUMENTATION_USDT",
+      "USE_TRACING_INSTRUMENTATION_LOG_DEBUG",
+      "USE_TRACING",
+      "USE_ANDROID",
+      "BUILD_MODULE_RELAY",
+      "BUILD_MODULE_DIRCACHE",
+      "BUILD_MODULE_DIRAUTH",
+      "BUILD_MODULE_POW",
+      "USE_PERL",
+      "USE_ASCIIDOC",
+      "BUILD_MANPAGE",
+      "BUILD_HTML_DOCS",
+      "USEPYTHON",
+      "WIN32",
+      "BUILD_NT_SERVICES",
+      "BUILD_LIBANONRUNNER",
+      "THREADS_WIN32",
+      "THREADS_PTHREADS",
+      "BUILD_READPASSPHRASE_C",
+      "BUILD_KECCAK_TINY",
+      "ADD_MULODI4",
+      "BUILD_CURVE25519_DONNA"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": ".",
+    "present": [
+      "install-sh",
+      "missing",
+      "depcomp",
+      "compile"
+    ],
+    "missing": [
+      "config.guess",
+      "config.sub"
+    ]
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "c": 626,
+      "h": 555,
+      "rs": 2
+    },
+    "configure_macros": [
+      "AC_PROG_CC",
+      "AC_PROG_CC_C99"
+    ],
+    "needs_cxx": false,
+    "needs_fortran": false,
+    "sets_c_std": true
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": false,
+    "defines_sampled": []
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-subdir-objects",
+      "applied_at": "configure",
+      "effect": "neutral",
+      "effectiveness": "low"
+    },
+    {
+      "quirk_id": "uses-pkg-config",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "has-m4-macro-dir",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "has-acinclude",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-ax-archive",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "perl-in-configure",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "vpath_analysis": {
+    "hardcoded_src_paths": 2,
+    "abs_path_leakage": 1,
+    "built_sources": [],
+    "generated_source_targets": [
+      "@flavors=\"\";  \tskip_flavors=\"\";  \tif test -n \"$(ipv4_flavors)\"; then  \t\techo \"Running IPv4 flavors"
+    ]
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "arpa/inet.h",
+      "crt_externs.h",
+      "crypto_scalarmult_curve25519.h",
+      "errno.h",
+      "event2/bufferevent_ssl.h",
+      "event2/dns.h",
+      "event2/event.h",
+      "execinfo.h",
+      "fcntl.h",
+      "glob.h",
+      "gnu/libc-version.h",
+      "grp.h",
+      "ifaddrs.h",
+      "inttypes.h",
+      "libscrypt.h",
+      "limits.h",
+      "linux/if.h",
+      "linux/netfilter_ipv4.h",
+      "linux/netfilter_ipv6/ip6_tables.h",
+      "linux/types.h",
+      "lttng/tracepoint.h",
+      "mach/vm_inherit.h",
+      "machine/limits.h",
+      "malloc.h",
+      "nacl/crypto_scalarmult_curve25519.h",
+      "net/if.h",
+      "net/pfvar.h",
+      "netdb.h",
+      "netinet/in.h",
+      "netinet/in6.h",
+      "pthread.h",
+      "pwd.h",
+      "readpassphrase.h",
+      "seccomp.h",
+      "signal.h",
+      "stdatomic.h",
+      "string.h",
+      "sys/capability.h",
+      "sys/eventfd.h",
+      "sys/fcntl.h"
+    ],
+    "headers_included_unchecked": [
+      "android/log.h",
+      "cygwin/signal.h",
+      "event2/dns_compat.h",
+      "event2/dns_struct.h",
+      "event2/thread.h",
+      "lib/cc/torint.h",
+      "linux/futex.h",
+      "linux/sockios.h",
+      "mach/mach_time.h",
+      "netinet/tcp.h",
+      "openssl/aes.h",
+      "openssl/asn1.h",
+      "openssl/asn1t.h",
+      "openssl/bio.h",
+      "openssl/bn.h",
+      "openssl/conf.h",
+      "openssl/crypto.h",
+      "openssl/dh.h",
+      "openssl/ec.h",
+      "openssl/ecdh.h",
+      "openssl/engine.h",
+      "openssl/err.h",
+      "openssl/evp.h",
+      "openssl/hmac.h",
+      "openssl/kdf.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 7,
+    "shadowed_macros": [
+      "AC_PC_FROM_UCONTEXT"
+    ]
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "c99",
+    "strip_modern_poison_flags": [],
+    "inject_legacy_shims": false,
+    "compiler_aliasing": {}
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 33,
+    "shadowed_builtins": [
+      "AC_PC_FROM_UCONTEXT"
+    ],
+    "permitted_mutations": 50,
+    "suspect_global_mutations": 0
+  },
+  "parallel_build_safety": {
+    "vpath_out_of_tree_safe": false,
+    "generators": [
+      "@flavors=\"\";  \tskip_flavors=\"\";  \tif test -n \"$(ipv4_flavors)\"; then  \t\techo \"Running IPv4 flavors"
+    ],
+    "unordered_generated_sources": [
+      "@flavors=\"\";  \tskip_flavors=\"\";  \tif test -n \"$(ipv4_flavors)\"; then  \t\techo \"Running IPv4 flavors"
+    ],
+    "built_sources_declared": false
+  },
+  "host_environment_veil": {
+    "header_injection_candidates": [
+      "malloc.h"
+    ],
+    "symbol_aliasing_candidates": []
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "android/log.h",
+      "cygwin/signal.h",
+      "event2/dns_compat.h",
+      "event2/dns_struct.h",
+      "event2/thread.h",
+      "lib/cc/torint.h",
+      "linux/futex.h",
+      "linux/sockios.h",
+      "mach/mach_time.h",
+      "netinet/tcp.h",
+      "openssl/aes.h",
+      "openssl/asn1.h",
+      "openssl/asn1t.h",
+      "openssl/bio.h",
+      "openssl/bn.h",
+      "openssl/conf.h",
+      "openssl/crypto.h",
+      "openssl/dh.h",
+      "openssl/ec.h",
+      "openssl/ecdh.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "parallel-build-race (gen-source not in BUILT_SOURCES)",
+    "vpath-unsafe (abs-path/hardcoded-srcdir leakage)"
+  ],
+  "repair_hints": [
+    {
+      "id": "missing-build-tool",
+      "phase": "make",
+      "confidence": 0.75,
+      "evidence": [
+        "dirauth: command not found"
+      ],
+      "action": "provide dirauth",
+      "expected_effect": "unblocks the build step needing this tool"
+    }
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": -4,
+      "Makefile.in": 21221,
+      "aclocal.m4": 118,
+      "configure": 18846,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_ENABLE": "system-aclocal",
+      "AC_ARG_VAR": "system-aclocal",
+      "AC_ARG_WITH": "system-aclocal",
+      "AC_CACHE_CHECK": "system-aclocal",
+      "AC_CANONICAL_HOST": "system-aclocal",
+      "AC_CHECK_DECLS": "system-aclocal",
+      "AC_CHECK_FUNC": "system-aclocal",
+      "AC_CHECK_FUNCS": "system-aclocal",
+      "AC_CHECK_HEADERS": "system-aclocal",
+      "AC_CHECK_LIB": "system-aclocal",
+      "AC_CHECK_MEMBERS": "system-aclocal",
+      "AC_CHECK_PROGS": "system-aclocal",
+      "AC_CHECK_SIZEOF": "system-aclocal",
+      "AC_CHECK_TOOL": "system-aclocal",
+      "AC_CHECK_TYPES": "system-aclocal",
+      "AC_COMPILE_IFELSE": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_HEADERS": "system-aclocal",
+      "AC_CONFIG_MACRO_DIR": "system-aclocal",
+      "AC_CONFIG_SRCDIR": "system-aclocal",
+      "AC_C_BIGENDIAN": "system-aclocal",
+      "AC_C_FLEXIBLE_ARRAY_MEMBER": "system-aclocal",
+      "AC_DEFINE": "system-aclocal",
+      "AC_DEFINE_UNQUOTED": "system-aclocal",
+      "AC_DEFUN": "system-aclocal",
+      "AC_INCLUDES_DEFAULT": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_LANG_PROGRAM": "system-aclocal",
+      "AC_LANG_SOURCE": "system-aclocal",
+      "AC_LINK_IFELSE": "system-aclocal",
+      "AC_MSG_CHECKING": "system-aclocal",
+      "AC_MSG_ERROR": "system-aclocal",
+      "AC_MSG_NOTICE": "system-aclocal",
+      "AC_MSG_RESULT": "system-aclocal",
+      "AC_MSG_WARN": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PATH_PROG": "system-aclocal",
+      "AC_PATH_PROGS": "system-aclocal",
+      "AC_PATH_PROGS_FEATURE_CHECK": "system-aclocal",
+      "AC_PC_FROM_UCONTEXT": "m4/pc_from_ucontext.m4"
+    },
+    "rebuild_trigger_risk": false
   }
 }

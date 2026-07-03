@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "dyne/Freecoin",
   "source": {
     "url": "https://github.com/dyne/Freecoin",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.14",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -40,7 +40,9 @@
   },
   "dependencies": {
     "pkg_config": [
-      "checking for libssl >= 0.9... yes"
+      "checking for boostlib >= 1.20.0... configure: We could not detect the boost libr",
+      "whether the Boost::Thread library is available... checking for libssl >= 0.9... ",
+      "./configure: line 2934: `      printf %s \"checking for wxWidgets version >= $min"
     ],
     "system_libs": [],
     "headers_needed": [],
@@ -54,69 +56,85 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "checking which GUI is selected... ./configure: line 2638: syntax error near unexpected token `fi'",
+  "diagnostic": "./configure: line 2520: 0: command not found",
   "deep_expansion": {
-    "configure_lines": 3974,
+    "configure_lines": 4233,
     "leaked_macros": [],
     "heredoc_openers": 37,
     "heredoc_terminators": 37,
     "heredoc_imbalance": 0,
     "syntax_errors": [
       {
-        "line": 2638,
-        "token": "fi",
-        "source": "fi",
+        "line": 2934,
+        "token": "(",
+        "source": "printf %s \"checking for wxWidgets version >= $min_wx_version ()... \"",
         "block": [
-          "2634: ",
-          "2635: \tif test x$have_mswin = xyes; then",
-          "2636: \t   # TODO",
-          "2637: \t   \t",
-          "2638: \tfi",
-          "2639: ",
-          "2640: \tif test x$have_mingw = xyes; then",
-          "2641: \t   "
+          "2930:     min_wx_version=2.9.1",
+          "2931:     if test -z \"\" ; then",
+          "2932:       printf %s \"checking for wxWidgets version >= $min_wx_version... \"",
+          "2933:     else",
+          "2934:       printf %s \"checking for wxWidgets version >= $min_wx_version ()... \"",
+          "2935:     fi",
+          "2936: ",
+          "2937:             WX_CONFIG_WITH_ARGS=\"$WX_CONFIG_PATH $wx_config_args \""
         ]
       }
     ],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 3497: do eval test \\${$as_var+y} \\"
+      "line 1406: # eval \"_acrs_sv=\\${}\"; printf '%s\\n' \"s|@@|${_acrs_sv}|g\" >",
+      "line 3755: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
-      "PACKAGE_NAME",
-      "PACKAGE_TARNAME",
-      "PACKAGE_VERSION",
-      "PACKAGE_STRING",
-      "PACKAGE_BUGREPORT"
+      "PACKAGE_URL",
+      "HOST_LIBS",
+      "HOST_CPPFLAGS",
+      "HOST_CXXFLAGS",
+      "DEFAULT_INCLUDES",
+      "BOOST_CPPFLAGS",
+      "BOOST_LDFLAGS",
+      "BOOST_SYSTEM_LIB",
+      "BOOST_FILESYSTEM_LIB",
+      "BOOST_PROGRAM_OPTIONS_LIB",
+      "BOOST_THREAD_LIB",
+      "BOOST_LIBS",
+      "SSL_CFLAGS",
+      "SSL_LIBS",
+      "CRYPTO_CFLAGS",
+      "CRYPTO_LIBS",
+      "GTHREAD2_CFLAGS",
+      "GTHREAD2_LIBS",
+      "COMMON_LIBS",
+      "UPNP_LIBS",
+      "ASSUAN_LIBS",
+      "GUI_LIBS",
+      "GUI_CXXFLAGS",
+      "GUI_CPPFLAGS",
+      "GUI_SUBDIRS",
+      "BUILD_WX_TRUE",
+      "BUILD_WX_FALSE",
+      "PROFILING_LIBS",
+      "CXXFLAGS"
     ],
-    "failed_during_check": "checking which GUI is selected... ./configure: line 2638: syntax error near unex",
+    "failed_during_check": "checking for wxWidgets version >= $min_wx_version ()... \"'",
     "failure_tail": [
-      "checking which GUI is selected... ./configure: line 2638: syntax error near unex",
-      "./configure: line 2638: `\tfi'"
+      "./configure: line 2934: `      printf %s \"checking for wxWidgets version >= $min"
     ],
     "conftest_corruption": [],
-    "conftest_directives_intact": 7,
+    "conftest_directives_intact": 13,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
       "#include <$ac_hdr>",
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func();\\nint main() { return $ac_func(); }",
-      "char MD5_Init();\\nint main() { return MD5_Init(); }",
-      "\\n@%:@include <boost/version.hpp>\\n\\nint main() {\\n#if BOOST_VERSION >= $WANT_BOOST_VERSION\\n// Everything is okay\\n#else\\n#  error Boost version is too old\\n#endif\\n; return 0; }",
-      "\\n@%:@include <boost/version.hpp>\\n\\nint main() {\\n#if BOOST_VERSION >= $WANT_BOOST_VERSION\\n// Everything is okay\\n#else\\n#  error Boost version is too old\\n#endif\\n; return 0; }",
-      "@%:@include <boost/system/error_code.hpp>\\nint main() { boost::system::system_category ; return 0; }"
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func ();\\nint main() { return $ac_func(); }",
+      "char MD5_Init ();\\nint main() { return MD5_Init(); }",
+      "\\n#include <boost/version.hpp>\\n\\nint main() {\\n#if BOOST_VERSION >= $WANT_BOOST_VERSION\\n// Everything is okay\\n#else\\n#  error Boost version is too old\\n#endif\\n; return 0; }",
+      "\\n#include <boost/version.hpp>\\n\\nint main() {\\n#if BOOST_VERSION >= $WANT_BOOST_VERSION\\n// Everything is okay\\n#else\\n#  error Boost version is too old\\n#endif\\n; return 0; }",
+      "#include <boost/system/error_code.hpp>\\nint main() { boost::system::system_category ; return 0; }"
     ]
   },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "fail",
-    "real_make": "skipped",
-    "real_configure_lines": 9977,
-    "real_first_error": "configure: error: Could not find a version of the library!",
-    "classification": "BOTH_CONFIGURE_FAIL"
-  },
   "receipt": {
-    "court_status": "not_standalone",
+    "court_status": "failed",
     "probe_trace": [],
     "quirks_matched": [
       "uses-pkg-config",
@@ -138,7 +156,7 @@
         "verified": false
       }
     ],
-    "receipt_hash": "1b59d07d0a20a927a52050673c57d051c46cf0669ffc84ae54f67e19a8cf7afb",
+    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -147,6 +165,731 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "src/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "src/cryptopp/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/json/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/upnp/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/wx/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/xpm/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      }
+    ],
+    "config_headers": [
+      "auto-config.h"
+    ],
+    "subdirs": [
+      "src",
+      "cryptopp",
+      "upnp",
+      "wx",
+      "xpm",
+      "json"
+    ],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [],
+        "subdirs": [
+          "src"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src",
+        "targets": [
+          "bitcoind"
+        ],
+        "subdirs": [
+          "cryptopp",
+          "upnp",
+          "wx",
+          "xpm",
+          "json"
+        ],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/cryptopp",
+        "targets": [
+          "libcryptopp.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/json",
+        "targets": [],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/upnp",
+        "targets": [
+          "libupnpc.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/wx",
+        "targets": [
+          "libbtcwxgui.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      }
+    ],
+    "max_depth": 2,
+    "config_h_consumers_below_root": [
+      "src",
+      "src/json",
+      "src/cryptopp",
+      "src/upnp"
+    ]
+  },
+  "tool_requirements": {
+    "detected": [
+      "c++"
+    ],
+    "missing": [
+      {
+        "name": "0",
+        "phase": "make",
+        "suggested_package": ""
+      }
+    ]
+  },
+  "macro_inventory": {
+    "macro_dirs": [
+      "m4"
+    ],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [
+      {
+        "name": "AX_BOOST_BASE",
+        "source": "m4/ax_boost_base.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AX_BOOST_THREAD",
+        "source": "m4/ax_boost_thread.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AX_BOOST_SYSTEM",
+        "source": "m4/ax_boost_system.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AX_BOOST_FILESYSTEM",
+        "source": "m4/ax_boost_filesystem.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AX_BOOST_PROGRAM_OPTIONS",
+        "source": "m4/ax_boost_program_options.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "WX_CONFIG_OPTIONS",
+        "source": "m4/wxwin.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_WX_PRIVATE_CHECK_VERSION",
+        "source": "m4/wxwin.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "WX_CONFIG_CHECK",
+        "source": "m4/wxwin.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "WXRC_CHECK",
+        "source": "m4/wxwin.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "WX_LIKE_LIBNAME",
+        "source": "m4/wxwin.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "WX_ARG_ENABLE_YESNOAUTO",
+        "source": "m4/wxwin.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "WX_ARG_WITH_YESNOAUTO",
+        "source": "m4/wxwin.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "WX_STANDARD_OPTIONS",
+        "source": "m4/wxwin.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "WX_CONVERT_STANDARD_OPTIONS_TO_WXCONFIG_FLAGS",
+        "source": "m4/wxwin.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_WX_SELECTEDCONFIG_CHECKFOR",
+        "source": "m4/wxwin.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "WX_DETECT_STANDARD_OPTION_VALUES",
+        "source": "m4/wxwin.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "WX_BOOLOPT_SUMMARY",
+        "source": "m4/wxwin.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "WX_STANDARD_OPTIONS_SUMMARY_MSG",
+        "source": "m4/wxwin.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "WX_STANDARD_OPTIONS_SUMMARY_MSG_BEGIN",
+        "source": "m4/wxwin.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "WX_STANDARD_OPTIONS_SUMMARY_MSG_END",
+        "source": "m4/wxwin.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AM_OPTIONS_WXCONFIG",
+        "source": "m4/wxwin.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AM_PATH_WXCONFIG",
+        "source": "m4/wxwin.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AM_PATH_WXRC",
+        "source": "m4/wxwin.m4",
+        "kind": "AM"
+      }
+    ],
+    "called_macros": [
+      "AC_ARG_ENABLE",
+      "AC_CANONICAL_HOST",
+      "AC_CHECK_FUNCS",
+      "AC_CHECK_HEADERS",
+      "AC_CHECK_LIB",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_HEADERS",
+      "AC_CONFIG_MACRO_DIR",
+      "AC_CONFIG_SRCDIR",
+      "AC_DEFINE",
+      "AC_INIT",
+      "AC_MSG_CHECKING",
+      "AC_MSG_ERROR",
+      "AC_MSG_RESULT",
+      "AC_MSG_WARN",
+      "AC_OUTPUT",
+      "AC_PACKAGE_URL",
+      "AC_PREREQ",
+      "AC_PROG_CPP",
+      "AC_PROG_CXX",
+      "AC_PROG_INSTALL",
+      "AC_PROG_LN_S",
+      "AC_PROG_MAKE_SET",
+      "AC_PROG_RANLIB",
+      "AC_SUBST",
+      "AM_CONDITIONAL",
+      "AM_INIT_AUTOMAKE",
+      "AM_MAINTAINER_MODE",
+      "AM_OPTIONS_WXCONFIG",
+      "AM_PATH_WXCONFIG",
+      "AM_PROG_AS",
+      "AM_SILENT_RULES",
+      "AX_BOOST_BASE",
+      "AX_BOOST_FILESYSTEM",
+      "AX_BOOST_PROGRAM_OPTIONS",
+      "AX_BOOST_SYSTEM",
+      "AX_BOOST_THREAD",
+      "PKG_CHECK_MODULES"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 303,
+    "configure_fi": 278,
+    "configure_case": 69,
+    "configure_esac": 72,
+    "balanced": false,
+    "automake_conditionals": [
+      "BUILD_WX"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": ".",
+    "present": [
+      "install-sh",
+      "missing"
+    ],
+    "missing": [
+      "depcomp",
+      "compile",
+      "config.guess",
+      "config.sub"
+    ]
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "c": 12,
+      "cpp": 16,
+      "h": 55
+    },
+    "configure_macros": [
+      "AC_PROG_CXX"
+    ],
+    "needs_cxx": true,
+    "needs_fortran": false,
+    "sets_c_std": false
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": true,
+    "defines_sampled": []
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-subdir-objects",
+      "applied_at": "configure",
+      "effect": "neutral",
+      "effectiveness": "low"
+    },
+    {
+      "quirk_id": "uses-maintainer-mode",
+      "applied_at": "configure",
+      "effect": "neutral",
+      "effectiveness": "low"
+    },
+    {
+      "quirk_id": "uses-pkg-config",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "has-m4-macro-dir",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-ax-archive",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "stdio.h",
+      "stdlib.h",
+      "strings.h",
+      "sys/stat.h",
+      "sys/types.h",
+      "unistd.h"
+    ],
+    "headers_included_unchecked": [
+      "arpa/inet.h",
+      "fcntl.h",
+      "miniupnpc/miniupnpc.h",
+      "miniupnpc/miniwget.h",
+      "miniupnpc/upnpcommands.h",
+      "miniupnpc/upnperrors.h",
+      "net/if.h",
+      "netinet/in.h",
+      "openssl/bn.h",
+      "openssl/buffer.h",
+      "openssl/ec.h",
+      "openssl/ecdsa.h",
+      "openssl/evp.h",
+      "openssl/obj_mac.h",
+      "openssl/rand.h",
+      "openssl/ripemd.h",
+      "openssl/sha.h",
+      "stdint.h",
+      "sys/param.h",
+      "sys/queue.h",
+      "sys/resource.h",
+      "sys/select.h",
+      "sys/socket.h",
+      "sys/time.h",
+      "sys/un.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 5,
+    "shadowed_macros": [
+      "AM_OPTIONS_WXCONFIG",
+      "AM_PATH_WXCONFIG",
+      "AM_PATH_WXRC"
+    ]
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "gnu++",
+    "strip_modern_poison_flags": [],
+    "inject_legacy_shims": false,
+    "compiler_aliasing": {}
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 2,
+    "shadowed_builtins": [
+      "AM_OPTIONS_WXCONFIG",
+      "AM_PATH_WXCONFIG",
+      "AM_PATH_WXRC"
+    ],
+    "permitted_mutations": 5,
+    "suspect_global_mutations": 0
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "arpa/inet.h",
+      "fcntl.h",
+      "miniupnpc/miniupnpc.h",
+      "miniupnpc/miniwget.h",
+      "miniupnpc/upnpcommands.h",
+      "miniupnpc/upnperrors.h",
+      "net/if.h",
+      "netinet/in.h",
+      "openssl/bn.h",
+      "openssl/buffer.h",
+      "openssl/ec.h",
+      "openssl/ecdsa.h",
+      "openssl/evp.h",
+      "openssl/obj_mac.h",
+      "openssl/rand.h",
+      "openssl/ripemd.h",
+      "openssl/sha.h",
+      "stdint.h",
+      "sys/param.h",
+      "sys/queue.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "subdir-config-h-include-path"
+  ],
+  "repair_hints": [
+    {
+      "id": "subdir-top-builddir",
+      "phase": "make",
+      "confidence": 0.88,
+      "evidence": [
+        "src consumes config.h below root",
+        "src/json consumes config.h below root",
+        "src/cryptopp consumes config.h below root",
+        "src/upnp consumes config.h below root"
+      ],
+      "action": "ensure ac_subst_file sets relative top_builddir per subdir (0.1.19)",
+      "expected_effect": "config.h found in subdir compiles"
+    },
+    {
+      "id": "missing-build-tool",
+      "phase": "make",
+      "confidence": 0.75,
+      "evidence": [
+        "0: command not found"
+      ],
+      "action": "provide 0",
+      "expected_effect": "unblocks the build step needing this tool"
+    }
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": 0,
+      "Makefile.in": 1241,
+      "aclocal.m4": 11,
+      "configure": 34,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_ENABLE": "system-aclocal",
+      "AC_CANONICAL_HOST": "system-aclocal",
+      "AC_CHECK_FUNCS": "system-aclocal",
+      "AC_CHECK_HEADERS": "system-aclocal",
+      "AC_CHECK_LIB": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_HEADERS": "system-aclocal",
+      "AC_CONFIG_MACRO_DIR": "system-aclocal",
+      "AC_CONFIG_SRCDIR": "system-aclocal",
+      "AC_DEFINE": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_MSG_CHECKING": "system-aclocal",
+      "AC_MSG_ERROR": "system-aclocal",
+      "AC_MSG_RESULT": "system-aclocal",
+      "AC_MSG_WARN": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PACKAGE_URL": "system-aclocal",
+      "AC_PREREQ": "system-aclocal",
+      "AC_PROG_CPP": "system-aclocal",
+      "AC_PROG_CXX": "system-aclocal",
+      "AC_PROG_INSTALL": "system-aclocal",
+      "AC_PROG_LN_S": "system-aclocal",
+      "AC_PROG_MAKE_SET": "system-aclocal",
+      "AC_PROG_RANLIB": "system-aclocal",
+      "AC_SUBST": "system-aclocal",
+      "AM_CONDITIONAL": "system-aclocal",
+      "AM_INIT_AUTOMAKE": "system-aclocal",
+      "AM_MAINTAINER_MODE": "system-aclocal",
+      "AM_OPTIONS_WXCONFIG": "m4/wxwin.m4",
+      "AM_PATH_WXCONFIG": "m4/wxwin.m4",
+      "AM_PROG_AS": "system-aclocal",
+      "AM_SILENT_RULES": "system-aclocal",
+      "AX_BOOST_BASE": "m4/ax_boost_base.m4",
+      "AX_BOOST_FILESYSTEM": "m4/ax_boost_filesystem.m4",
+      "AX_BOOST_PROGRAM_OPTIONS": "m4/ax_boost_program_options.m4",
+      "AX_BOOST_SYSTEM": "m4/ax_boost_system.m4",
+      "AX_BOOST_THREAD": "m4/ax_boost_thread.m4",
+      "PKG_CHECK_MODULES": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "bitcoin_LDADD",
+        "var": "COMMON_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "bitcoin_LDADD",
+        "var": "BOOST_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "bitcoin_LDADD",
+        "var": "SSL_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "bitcoin_LDADD",
+        "var": "CRYPTO_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "bitcoin_LDADD",
+        "var": "GTHREAD2_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "bitcoin_LDADD",
+        "var": "UPNP_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "bitcoin_LDADD",
+        "var": "ASSUAN_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "bitcoin_LDADD",
+        "var": "GUI_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "bitcoin_LDADD",
+        "var": "HOST_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "bitcoind_LDADD",
+        "var": "PROFILING_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "bitcoind_LDADD",
+        "var": "COMMON_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "bitcoind_LDADD",
+        "var": "BOOST_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "bitcoind_LDADD",
+        "var": "SSL_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "bitcoind_LDADD",
+        "var": "CRYPTO_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "bitcoind_LDADD",
+        "var": "GTHREAD2_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "bitcoind_LDADD",
+        "var": "UPNP_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "bitcoind_LDADD",
+        "var": "ASSUAN_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "bitcoind_LDADD",
+        "var": "HOST_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      }
+    ],
+    "unresolved_refs": [
+      "bitcoin_LDADD = $(COMMON_LIBS)",
+      "bitcoin_LDADD = $(BOOST_LIBS)",
+      "bitcoin_LDADD = $(SSL_LIBS)",
+      "bitcoin_LDADD = $(CRYPTO_LIBS)",
+      "bitcoin_LDADD = $(GTHREAD2_LIBS)",
+      "bitcoin_LDADD = $(UPNP_LIBS)",
+      "bitcoin_LDADD = $(ASSUAN_LIBS)",
+      "bitcoin_LDADD = $(GUI_LIBS)",
+      "bitcoin_LDADD = $(HOST_LIBS)",
+      "bitcoind_LDADD = $(PROFILING_LIBS)",
+      "bitcoind_LDADD = $(COMMON_LIBS)",
+      "bitcoind_LDADD = $(BOOST_LIBS)",
+      "bitcoind_LDADD = $(SSL_LIBS)",
+      "bitcoind_LDADD = $(CRYPTO_LIBS)",
+      "bitcoind_LDADD = $(GTHREAD2_LIBS)",
+      "bitcoind_LDADD = $(UPNP_LIBS)",
+      "bitcoind_LDADD = $(ASSUAN_LIBS)",
+      "bitcoind_LDADD = $(HOST_LIBS)"
+    ],
+    "indirection_count": 18
   }
 }

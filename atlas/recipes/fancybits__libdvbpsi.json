@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "fancybits/libdvbpsi",
   "source": {
     "url": "https://github.com/fancybits/libdvbpsi",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,15 +26,26 @@
     {
       "step": "configure",
       "tool": "./configure",
-      "status": "fail"
+      "status": "ok"
     },
     {
-      "step": "auto-quirk",
-      "tool": "quirk-engine",
+      "step": "make",
+      "tool": "make",
       "status": "fail"
     }
   ],
-  "probe_results": {},
+  "probe_results": {
+    "HAVE_ASPRINTF": 1,
+    "HAVE_GETOPT_H": 1,
+    "HAVE_INTTYPES_H": 1,
+    "HAVE_NET_IF_H": 1,
+    "HAVE_STDBOOL_H": 1,
+    "HAVE_STDINT_H": 1,
+    "HAVE_STRINGS_H": 1,
+    "HAVE_SYS_SOCKET_H": 1,
+    "HAVE_SYS_TIME_H": 1,
+    "HAVE_VARIADIC_MACROS": 1
+  },
   "feature_flags": {
     "configure_args": []
   },
@@ -49,38 +60,25 @@
     "subdirs"
   ],
   "outputs": [],
-  "status": "CONFIGURE_RUN_FAIL",
+  "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1480: syntax error near unexpected token `done'",
+  "diagnostic": "dvbinfo.c:704:28: error: 'LOG_PID' undeclared (first use in this function)",
   "deep_expansion": {
-    "configure_lines": 2600,
+    "configure_lines": 2730,
     "leaked_macros": [],
-    "heredoc_openers": 21,
-    "heredoc_terminators": 21,
+    "heredoc_openers": 20,
+    "heredoc_terminators": 20,
     "heredoc_imbalance": 0,
-    "syntax_errors": [
-      {
-        "line": 1480,
-        "token": "done",
-        "source": "fi; done",
-        "block": [
-          "1476: if ac_fn_c_try_link; then",
-          "1477:   printf '%s\\n' \"yes\"",
-          "1478: else",
-          "1479:   printf '%s\\n' \"no\"",
-          "1480: fi; done",
-          "1481: ",
-          "1482: for ac_hdr in sys/socket.h; do printf %s \"checking for $ac_hdr... \"",
-          "1483: cat confdefs.h 2>/dev/null - <<_ACEOF >conftest.$ac_ext"
-        ]
-      }
-    ],
+    "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2114: do eval test \\${$as_var+y} \\"
+      "line 1409: # eval \"_acrs_sv=\\${}\"; printf '%s\\n' \"s|@@|${_acrs_sv}|g\" >",
+      "line 2243: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
+      "HAVE_SYS_SOCKET_H_TRUE",
+      "HAVE_SYS_SOCKET_H_FALSE",
       "PACKAGE_NAME",
       "PACKAGE_TARNAME",
       "PACKAGE_VERSION",
@@ -101,62 +99,102 @@
       "DEFS",
       "LIBOBJS",
       "INSTALL",
-      "host_vendor",
+      "LD",
       "host_alias",
+      "host_os",
+      "AR",
+      "host_vendor",
       "host_cpu",
-      "host_os"
+      "top_srcdir"
     ],
-    "failed_during_check": "checking for sys/time.h... yes",
+    "failed_during_check": "checking for net/if.h... yes",
     "failure_tail": [
-      "checking for sys/time.h... yes",
-      "./configure: line 1480: syntax error near unexpected token `done'",
-      "./configure: line 1480: `fi; done'"
+      "checking for net/if.h... yes",
+      "for variadic cpp macros... for asprintf()... configure: creating Makefile",
+      "configure: creating src/Makefile",
+      "configure: creating examples/Makefile",
+      "configure: creating examples/dvbinfo/Makefile"
     ],
     "conftest_corruption": [],
-    "conftest_directives_intact": 7,
+    "conftest_directives_intact": 3,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
       "#include <$ac_hdr>",
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func();\\nint main() { return $ac_func(); }",
       "#include <$ac_hdr>",
       "#include <$ac_hdr>",
-      "\\n\\n#include <stdio.h>\\n#include <stdlib.h>\\nint main(void) {\\nchar *text = NULL;\\nint ret = asprintf(&text, \"test\");\\nif (ret >= 0) free(text);\\nreturn 0;\\n}\\n"
+      "\\n\\n#[include <stdio.h>]\\n#[include <stdlib.h>]\\nint main(void) {\\nchar *text = NULL;\\nint ret = asprintf(&text, \"test\");\\nif (ret >= 0) free(text);\\nreturn 0;\\n}\\n"
     ]
   },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "ok",
-    "real_make": "ok",
-    "real_configure_lines": 15216,
-    "real_first_error": "",
-    "classification": "OURS_BUG_CONFIGURE"
-  },
-  "divergence": {
-    "stage": "configure",
-    "ours_error": "line 1480: fi; done (near `done`)",
-    "ours_error_context": [
-      "fi; done"
-    ],
-    "ours_configure_lines": 2600,
-    "real_configure_lines": 15216,
-    "macros_ours_left_undefined": []
-  },
   "receipt": {
-    "court_status": "failed",
-    "probe_trace": [],
+    "court_status": "partial",
+    "probe_trace": [
+      {
+        "name": "HAVE_ASPRINTF",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_GETOPT_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_INTTYPES_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_NET_IF_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STDBOOL_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STDINT_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STRINGS_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SYS_SOCKET_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SYS_TIME_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_VARIADIC_MACROS",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      }
+    ],
     "quirks_matched": [
       "uses-libtool",
       "uses-subdir-objects",
       "vendored-aclocal"
     ],
-    "quirks_applied": [
-      {
-        "id": "uses-subdir-objects",
-        "action": "--disable-dependency-tracking",
-        "verified": false
-      }
-    ],
-    "receipt_hash": "24e39ed3178d433d21c1340a6407fda16d8349c27724819539e8175382940e80",
+    "receipt_hash": "c83e2027b2aaab178724a55ccbcdf63ba39f39ce3886a881ce5aa698b8fdf1aa",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -165,6 +203,715 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "doc/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "examples/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "examples/dvbinfo/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "libdvbpsi.pc",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "libdvbpsi.spec",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "misc/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "src/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      }
+    ],
+    "config_headers": [
+      "config.h"
+    ],
+    "subdirs": [
+      "src",
+      "examples",
+      "misc",
+      "dvbinfo"
+    ],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [],
+        "subdirs": [
+          "src",
+          "examples",
+          "misc"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "examples",
+        "targets": [
+          "decode_pat",
+          "decode_pmt",
+          "get_pcr_pid",
+          "decode_sdt",
+          "decode_bat",
+          "dump_pids",
+          "check_cc_pid"
+        ],
+        "subdirs": [
+          "dvbinfo"
+        ],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "examples/dvbinfo",
+        "targets": [
+          "dvbinfo"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "misc",
+        "targets": [
+          "gen_crc",
+          "gen_pat",
+          "gen_pmt",
+          "test_dr",
+          "test_chain"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src",
+        "targets": [
+          "libdvbpsi.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      }
+    ],
+    "max_depth": 2,
+    "config_h_consumers_below_root": [
+      "misc",
+      "src",
+      "examples",
+      "examples/dvbinfo"
+    ]
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 535,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "misc/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 544,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 945,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "examples/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 636,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "examples/dvbinfo/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 491,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "doc/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 443,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      }
+    ]
+  },
+  "macro_inventory": {
+    "macro_dirs": [],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [],
+    "called_macros": [
+      "AC_ARG_ENABLE",
+      "AC_CACHE_CHECK",
+      "AC_CANONICAL_HOST",
+      "AC_CANONICAL_SYSTEM",
+      "AC_CHECK_FUNCS",
+      "AC_CHECK_HEADERS",
+      "AC_COMPILE_IFELSE",
+      "AC_CONFIG_AUX_DIR",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_HEADERS",
+      "AC_CONFIG_MACRO_DIR",
+      "AC_CONFIG_SRCDIR",
+      "AC_C_INLINE",
+      "AC_DEFINE",
+      "AC_HEADER_STDC",
+      "AC_INIT",
+      "AC_LANG_SOURCE",
+      "AC_LIBTOOL_WIN32_DLL",
+      "AC_MSG_ERROR",
+      "AC_OUTPUT",
+      "AC_PREREQ",
+      "AC_PROG_CC",
+      "AC_TRY_COMPILE",
+      "AM_CONDITIONAL",
+      "AM_INIT_AUTOMAKE",
+      "AM_PROG_CC_C_O",
+      "AM_PROG_LIBTOOL",
+      "LT_INIT"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 122,
+    "configure_fi": 118,
+    "configure_case": 70,
+    "configure_esac": 73,
+    "balanced": false,
+    "automake_conditionals": [
+      "HAVE_SYS_SOCKET_H"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": ".auto",
+    "present": [
+      "install-sh",
+      "missing",
+      "depcomp",
+      "compile"
+    ],
+    "missing": [
+      "ltmain.sh",
+      "config.guess",
+      "config.sub"
+    ]
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "c": 102,
+      "h": 106
+    },
+    "configure_macros": [
+      "AC_PROG_CC"
+    ],
+    "needs_cxx": false,
+    "needs_fortran": false,
+    "sets_c_std": true
+  },
+  "libtool_context": {
+    "uses_libtool": true,
+    "macros": [
+      "LT_INIT",
+      "AM_PROG_LIBTOOL"
+    ],
+    "ltmain_present": false,
+    "libtool_m4_sources": [],
+    "age": "modern"
+  },
+  "make_graph": {
+    "targets": [
+      "all",
+      "all-am",
+      "install-data-am",
+      "uninstall-am",
+      "install-am",
+      "installcheck-am",
+      "install-strip",
+      "install-info",
+      "install-info-am",
+      "install-dvi",
+      "install-dvi-am",
+      "install-ps",
+      "install-ps-am",
+      "install-pdf",
+      "install-pdf-am",
+      "install-html",
+      "install-html-am",
+      "install-data-hook",
+      "install-exec-hook",
+      "installdirs-am",
+      ".PHONY",
+      "mostlyclean-am",
+      "clean-am",
+      "distclean-am",
+      "maintainer-clean-am",
+      "distdir",
+      "dist",
+      "dist-all",
+      "dist-gzip",
+      "distcleancheck",
+      "distcheck",
+      "check-am",
+      "TAGS",
+      "tags",
+      "TAGS-am",
+      "tags-am",
+      "cscope",
+      "cscope-am",
+      "distuninstallcheck",
+      "$(srcdir)/Makefile.in"
+    ],
+    "key_variables": {
+      "AR": "ar",
+      "CC": "cc",
+      "CFLAGS": "-Wall -std=gnu99 -D_GNU_SOURCE -Wpointer-arith -Wcast-align -Wstrict-prototypes -Wshadow -Waggregate-return -Wmissing-prototypes -Wnested-externs -Wsign-compare",
+      "CPPFLAGS": "",
+      "CXX": "c++",
+      "CXXFLAGS": "-g -O2",
+      "DEFS": "-DHAVE_CONFIG_H",
+      "LDFLAGS": "",
+      "LIBS": "",
+      "RANLIB": "ranlib"
+    },
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "config.h",
+      "libtool",
+      "config.log"
+    ],
+    "recursion_depth": 2,
+    "top_targets": [
+      "all",
+      "dist",
+      "all-am"
+    ],
+    "make_diagnostics": [
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "dvbinfo.c:704:28: error: 'LOG_PID' undeclared (first use in this function)"
+      },
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "dvbinfo.c:704:37: error: 'LOG_DAEMON' undeclared (first use in this function)"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[3]: *** [Makefile:478: dvbinfo-dvbinfo.o] Error 1"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[3]: *** Waiting for unfinished jobs...."
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[2]: *** [Makefile:229: all-am] Error 2"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[1]: *** [Makefile:583: all-recursive] Error 1"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make: *** [Makefile:459: all-recursive] Error 1"
+      }
+    ]
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": false,
+    "defines_sampled": [
+      "_GNU_SOURCE",
+      "DVBPSI_DIST",
+      "DVBPSI_USE_DEPRECATED_DR_API",
+      "HAVE_CONFIG_H"
+    ]
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-libtool",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-subdir-objects",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "getopt.h",
+      "inttypes.h",
+      "net/if.h",
+      "stdbool.h",
+      "stdint.h",
+      "strings.h",
+      "sys/socket.h",
+      "sys/time.h"
+    ],
+    "headers_included_unchecked": [
+      "dvbpsi/bat.h",
+      "dvbpsi/chain.h",
+      "dvbpsi/descriptor.h",
+      "dvbpsi/dr.h",
+      "dvbpsi/dvbpsi.h",
+      "dvbpsi/pat.h",
+      "dvbpsi/pmt.h",
+      "dvbpsi/psi.h",
+      "dvbpsi/sdt.h",
+      "fcntl.h",
+      "pthread.h",
+      "sys/stat.h",
+      "sys/types.h",
+      "unistd.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 1,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "explicit",
+    "strip_modern_poison_flags": [],
+    "inject_legacy_shims": false,
+    "compiler_aliasing": {}
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 0,
+    "shadowed_builtins": [],
+    "permitted_mutations": 4,
+    "suspect_global_mutations": 0
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "dvbpsi/bat.h",
+      "dvbpsi/chain.h",
+      "dvbpsi/descriptor.h",
+      "dvbpsi/dr.h",
+      "dvbpsi/dvbpsi.h",
+      "dvbpsi/pat.h",
+      "dvbpsi/pmt.h",
+      "dvbpsi/psi.h",
+      "dvbpsi/sdt.h",
+      "fcntl.h",
+      "pthread.h",
+      "sys/stat.h",
+      "sys/types.h",
+      "unistd.h",
+      "getopt.h",
+      "inttypes.h",
+      "net/if.h",
+      "stdbool.h",
+      "stdint.h",
+      "strings.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "subdir-config-h-include-path"
+  ],
+  "repair_hints": [
+    {
+      "id": "subdir-top-builddir",
+      "phase": "make",
+      "confidence": 0.88,
+      "evidence": [
+        "misc consumes config.h below root",
+        "src consumes config.h below root",
+        "examples consumes config.h below root",
+        "examples/dvbinfo consumes config.h below root"
+      ],
+      "action": "ensure ac_subst_file sets relative top_builddir per subdir (0.1.19)",
+      "expected_effect": "config.h found in subdir compiles"
+    }
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": 0,
+      "Makefile.in": 1329,
+      "aclocal.m4": 18,
+      "config.h.in": 25,
+      "configure": 23,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_ENABLE": "system-aclocal",
+      "AC_CACHE_CHECK": "system-aclocal",
+      "AC_CANONICAL_HOST": "system-aclocal",
+      "AC_CANONICAL_SYSTEM": "system-aclocal",
+      "AC_CHECK_FUNCS": "system-aclocal",
+      "AC_CHECK_HEADERS": "system-aclocal",
+      "AC_COMPILE_IFELSE": "system-aclocal",
+      "AC_CONFIG_AUX_DIR": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_HEADERS": "system-aclocal",
+      "AC_CONFIG_MACRO_DIR": "system-aclocal",
+      "AC_CONFIG_SRCDIR": "system-aclocal",
+      "AC_C_INLINE": "system-aclocal",
+      "AC_DEFINE": "system-aclocal",
+      "AC_HEADER_STDC": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_LANG_SOURCE": "system-aclocal",
+      "AC_LIBTOOL_WIN32_DLL": "system-aclocal",
+      "AC_MSG_ERROR": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PREREQ": "system-aclocal",
+      "AC_PROG_CC": "system-aclocal",
+      "AC_TRY_COMPILE": "system-aclocal",
+      "AM_CONDITIONAL": "system-aclocal",
+      "AM_INIT_AUTOMAKE": "system-aclocal",
+      "AM_PROG_CC_C_O": "system-aclocal",
+      "AM_PROG_LIBTOOL": "system-aclocal",
+      "LT_INIT": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "libdvbpsi_la_SOURCES",
+        "var": "tables_src",
+        "resolved_to": [
+          "tables/pat.c",
+          "tables/pat_private.h",
+          "tables/pmt.c",
+          "tables/pmt_private.h",
+          "tables/sdt.c",
+          "tables/sdt_private.h",
+          "tables/eit.c",
+          "tables/eit_private.h",
+          "tables/cat.c",
+          "tables/cat_private.h",
+          "tables/nit.c",
+          "tables/nit_private.h",
+          "tables/tot.c",
+          "tables/tot_private.h",
+          "tables/sis.c",
+          "tables/sis_private.h",
+          "tables/bat.c",
+          "tables/bat_private.h",
+          "tables/rst.c",
+          "tables/rst_private.h",
+          "tables/atsc_vct.c",
+          "tables/atsc_vct.h",
+          "tables/atsc_stt.c",
+          "tables/atsc_stt.h",
+          "tables/atsc_eit.c",
+          "tables/atsc_eit.h",
+          "tables/atsc_ett.c",
+          "tables/atsc_ett.h",
+          "tables/atsc_mgt.c",
+          "tables/atsc_mgt.h"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libdvbpsi_la_SOURCES",
+        "var": "descriptors_src",
+        "resolved_to": [
+          "descriptors/mpeg/dr_02.c",
+          "descriptors/mpeg/dr_03.c",
+          "descriptors/mpeg/dr_04.c",
+          "descriptors/mpeg/dr_05.c",
+          "descriptors/mpeg/dr_06.c",
+          "descriptors/mpeg/dr_07.c",
+          "descriptors/mpeg/dr_08.c",
+          "descriptors/mpeg/dr_09.c",
+          "descriptors/mpeg/dr_0a.c",
+          "descriptors/mpeg/dr_0b.c",
+          "descriptors/mpeg/dr_0c.c",
+          "descriptors/mpeg/dr_0d.c",
+          "descriptors/mpeg/dr_0e.c",
+          "descriptors/mpeg/dr_0f.c",
+          "descriptors/mpeg/dr_10.c",
+          "descriptors/mpeg/dr_11.c",
+          "descriptors/mpeg/dr_12.c",
+          "descriptors/mpeg/dr_13.c",
+          "descriptors/mpeg/dr_14.c",
+          "descriptors/mpeg/dr_1b.c",
+          "descriptors/mpeg/dr_1c.c",
+          "descriptors/mpeg/dr_1d.c",
+          "descriptors/mpeg/dr_1e.c",
+          "descriptors/mpeg/dr_1f.c",
+          "descriptors/mpeg/dr_20.c",
+          "descriptors/mpeg/dr_23.c",
+          "descriptors/mpeg/dr_24.c",
+          "descriptors/dvb/dr_40.c",
+          "descriptors/dvb/dr_41.c",
+          "descriptors/dvb/dr_42.c",
+          "descriptors/dvb/dr_43.c",
+          "descriptors/dvb/dr_44.c",
+          "descriptors/dvb/dr_45.c",
+          "descriptors/dvb/dr_47.c",
+          "descriptors/dvb/dr_48.c",
+          "descriptors/dvb/dr_49.c",
+          "descriptors/dvb/dr_4a.c",
+          "descriptors/dvb/dr_4b.c",
+          "descriptors/dvb/dr_4c.c",
+          "descriptors/dvb/dr_4d.c",
+          "descriptors/dvb/dr_4e.c",
+          "descriptors/dvb/dr_4f.c",
+          "descriptors/dvb/dr_50.c",
+          "descriptors/dvb/dr_52.c",
+          "descriptors/dvb/dr_53.c",
+          "descriptors/dvb/dr_54.c",
+          "descriptors/dvb/dr_55.c",
+          "descriptors/dvb/dr_56.c",
+          "descriptors/dvb/dr_58.c",
+          "descriptors/dvb/dr_59.c",
+          "descriptors/dvb/dr_5a.c",
+          "descriptors/dvb/dr_62.c",
+          "descriptors/dvb/dr_65.c",
+          "descriptors/dvb/dr_66.c",
+          "descriptors/dvb/dr_67.c",
+          "descriptors/dvb/dr_69.c",
+          "descriptors/dvb/dr_73.c",
+          "descriptors/dvb/dr_76.c",
+          "descriptors/dvb/dr_7c.c",
+          "descriptors/atsc/dr_81.c",
+          "descriptors/atsc/dr_86.c",
+          "descriptors/atsc/dr_a0.c",
+          "descriptors/atsc/dr_a1.c",
+          "descriptors/custom/dr_83_eacem.c",
+          "descriptors/custom/dr_8a_scte.c"
+        ],
+        "resolved": true
+      }
+    ],
+    "unresolved_refs": [],
+    "indirection_count": 2
   }
 }

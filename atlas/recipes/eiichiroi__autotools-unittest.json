@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "eiichiroi/autotools-unittest",
   "source": {
     "url": "https://github.com/eiichiroi/autotools-unittest",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -51,50 +51,73 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1501: pthread-config: command not found",
+  "diagnostic": "./configure: line 1569: pthread-config: command not found",
   "deep_expansion": {
-    "configure_lines": 3515,
+    "configure_lines": 3761,
     "leaked_macros": [],
     "heredoc_openers": 18,
     "heredoc_terminators": 18,
     "heredoc_imbalance": 0,
     "syntax_errors": [
       {
-        "line": 1552,
+        "line": 1620,
         "token": "done",
         "source": "done",
         "block": [
-          "1548: \tprintf %s \"checking for joinable pthread attribute... \"",
-          "1549: \tattr_name=unknown",
-          "1550: \tfor attr in PTHREAD_CREATE_JOINABLE PTHREAD_CREATE_UNDETACHED; do",
-          "1551: \t    # Try link (obsolete)",
-          "1552: \tdone",
-          "1553:         printf '%s\\n' \"$attr_name\"",
-          "1554:         if test \"$attr_name\" != PTHREAD_CREATE_JOINABLE; then",
-          "1555:             # Define unquoted: PTHREAD_CREATE_JOINABLE"
+          "1616: \tprintf %s \"checking for joinable pthread attribute... \"",
+          "1617: \tattr_name=unknown",
+          "1618: \tfor attr in PTHREAD_CREATE_JOINABLE PTHREAD_CREATE_UNDETACHED; do",
+          "1619: \t    # Try link (obsolete)",
+          "1620: \tdone",
+          "1621:         printf '%s\\n' \"$attr_name\"",
+          "1622:         if test \"$attr_name\" != PTHREAD_CREATE_JOINABLE; then",
+          "1623:             printf '%s\\n' \"#define PTHREAD_CREATE_JOINABLE $attr_name\" >> co"
         ]
       }
     ],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 3006: do eval test \\${$as_var+y} \\"
+      "line 1459: # eval \"_acrs_sv=\\${}\"; printf '%s\\n' \"s|@@|${_acrs_sv}|g\" >",
+      "line 3251: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
-      "CXX",
-      "CXXFLAGS",
-      "PACKAGE_NAME",
-      "PACKAGE_TARNAME",
-      "PACKAGE_VERSION",
-      "PACKAGE_STRING",
-      "PACKAGE_BUGREPORT"
+      "PTHREAD_LIBS",
+      "PTHREAD_CFLAGS",
+      "PTHREAD_CC",
+      "GTEST_VERSION",
+      "GTEST_CPPFLAGS",
+      "GTEST_CXXFLAGS",
+      "GTEST_LDFLAGS",
+      "GTEST_LIBS",
+      "DX_PROJECT",
+      "DX_CONFIG",
+      "DX_DOCDIR",
+      "DX_ENV",
+      "DX_FLAG_doc",
+      "DX_FLAG_DX_CURRENT_FEATURE",
+      "DX_COND_doc_TRUE",
+      "DX_COND_doc_FALSE",
+      "DX_FLAG_dot",
+      "DX_COND_dot_TRUE",
+      "DX_COND_dot_FALSE",
+      "DX_FLAG_man",
+      "DX_COND_man_TRUE",
+      "DX_COND_man_FALSE",
+      "DX_FLAG_rtf",
+      "DX_COND_rtf_TRUE",
+      "DX_COND_rtf_FALSE",
+      "DX_FLAG_xml",
+      "DX_COND_xml_TRUE",
+      "DX_COND_xml_FALSE",
+      "DX_FLAG_chm"
     ],
     "failed_during_check": "checking whether pthreads work with -mt... no",
     "failure_tail": [
       "checking whether pthreads work with -mt... no",
-      "./configure: line 1501: pthread-config: command not found",
-      "./configure: line 1502: pthread-config: command not found",
-      "./configure: line 1502: pthread-config: command not found",
+      "./configure: line 1569: pthread-config: command not found",
+      "./configure: line 1570: pthread-config: command not found",
+      "./configure: line 1570: pthread-config: command not found",
       "no"
     ],
     "conftest_corruption": [],
@@ -104,24 +127,6 @@
       "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar pthread_join();\\nint main() { return pthread_join(); }",
       "\\nint main() {\\n#ifndef __clang__\\nnot clang\\n#endif\\n; return 0; }"
     ]
-  },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "ok",
-    "real_make": "ok",
-    "real_configure_lines": 23274,
-    "real_first_error": "",
-    "classification": "OURS_BUG_CONFIGURE"
-  },
-  "divergence": {
-    "stage": "configure",
-    "ours_error": "line 1552: done (near `done`)",
-    "ours_error_context": [
-      "done"
-    ],
-    "ours_configure_lines": 3515,
-    "real_configure_lines": 23274,
-    "macros_ours_left_undefined": []
   },
   "receipt": {
     "court_status": "failed",
@@ -140,7 +145,7 @@
         "verified": false
       }
     ],
-    "receipt_hash": "24e39ed3178d433d21c1340a6407fda16d8349c27724819539e8175382940e80",
+    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -149,6 +154,476 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "autotools-unittest.pc",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      }
+    ],
+    "config_headers": [
+      "HEADERS...",
+      "config.h"
+    ],
+    "subdirs": [],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [
+          "lib/gmock/libgmock.la",
+          "lib/gmock/libgmock_main.la",
+          "src/autotools-unittest/libsample.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)/src"
+      }
+    ],
+    "max_depth": 0,
+    "config_h_consumers_below_root": []
+  },
+  "tool_requirements": {
+    "detected": [
+      "c++",
+      "ar"
+    ],
+    "missing": [
+      {
+        "name": "pthread-config",
+        "phase": "make",
+        "suggested_package": ""
+      }
+    ]
+  },
+  "macro_inventory": {
+    "macro_dirs": [
+      "m4"
+    ],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [
+      {
+        "name": "AX_CXX_COMPILE_STDCXX_11",
+        "source": "m4/ax_cxx_compile_stdcxx_11.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "ACX_PTHREAD",
+        "source": "m4/acx_pthread.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "DX_FEATURE_doc",
+        "source": "m4/ac_doxygen.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "DX_FEATURE_dot",
+        "source": "m4/ac_doxygen.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "DX_FEATURE_man",
+        "source": "m4/ac_doxygen.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "DX_FEATURE_html",
+        "source": "m4/ac_doxygen.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "DX_FEATURE_chm",
+        "source": "m4/ac_doxygen.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "DX_FEATURE_chi",
+        "source": "m4/ac_doxygen.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "DX_FEATURE_rtf",
+        "source": "m4/ac_doxygen.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "DX_FEATURE_xml",
+        "source": "m4/ac_doxygen.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "DX_FEATURE_pdf",
+        "source": "m4/ac_doxygen.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "DX_FEATURE_ps",
+        "source": "m4/ac_doxygen.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "DX_ENV_APPEND",
+        "source": "m4/ac_doxygen.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "DX_DIRNAME_EXPR",
+        "source": "m4/ac_doxygen.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "DX_IF_FEATURE",
+        "source": "m4/ac_doxygen.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "DX_REQUIRE_PROG",
+        "source": "m4/ac_doxygen.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "DX_TEST_FEATURE",
+        "source": "m4/ac_doxygen.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "DX_CHECK_DEPEND",
+        "source": "m4/ac_doxygen.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "DX_CLEAR_DEPEND",
+        "source": "m4/ac_doxygen.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "DX_ARG_ABLE",
+        "source": "m4/ac_doxygen.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "DX_CURRENT_FEATURE",
+        "source": "m4/ac_doxygen.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "DX_CURRENT_DESCRIPTION",
+        "source": "m4/ac_doxygen.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "DX_DOXYGEN_FEATURE",
+        "source": "m4/ac_doxygen.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "DX_MAN_FEATURE",
+        "source": "m4/ac_doxygen.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "DX_HTML_FEATURE",
+        "source": "m4/ac_doxygen.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "DX_CHM_FEATURE",
+        "source": "m4/ac_doxygen.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "DX_CHI_FEATURE",
+        "source": "m4/ac_doxygen.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "DX_RTF_FEATURE",
+        "source": "m4/ac_doxygen.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "DX_XML_FEATURE",
+        "source": "m4/ac_doxygen.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "DX_PDF_FEATURE",
+        "source": "m4/ac_doxygen.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "DX_PS_FEATURE",
+        "source": "m4/ac_doxygen.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "DX_INIT_DOXYGEN",
+        "source": "m4/ac_doxygen.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AX_COVERAGE",
+        "source": "m4/ax_coverage.m4",
+        "kind": "AX"
+      }
+    ],
+    "called_macros": [
+      "AC_CHECK_PROG",
+      "AC_CONFIG_AUX_DIR",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_HEADERS",
+      "AC_CONFIG_MACRO_DIR",
+      "AC_CONFIG_SRCDIR",
+      "AC_INIT",
+      "AC_LANG",
+      "AC_MSG_RESULT",
+      "AC_OUTPUT",
+      "AC_PROG_CC",
+      "AC_PROG_CXX",
+      "AC_SUBST",
+      "AM_INIT_AUTOMAKE",
+      "AM_PROG_AR",
+      "AX_COVERAGE",
+      "AX_CXX_COMPILE_STDCXX_11",
+      "LT_INIT"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 204,
+    "configure_fi": 179,
+    "configure_case": 79,
+    "configure_esac": 82,
+    "balanced": false,
+    "automake_conditionals": []
+  },
+  "config_aux_inventory": {
+    "aux_dir": "build-aux",
+    "present": [
+      "install-sh",
+      "missing",
+      "depcomp",
+      "compile"
+    ],
+    "missing": [
+      "ltmain.sh"
+    ]
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "cc": 2,
+      "cpp": 2,
+      "h": 4
+    },
+    "configure_macros": [
+      "AC_PROG_CC",
+      "AC_PROG_CXX"
+    ],
+    "needs_cxx": true,
+    "needs_fortran": false,
+    "sets_c_std": true
+  },
+  "libtool_context": {
+    "uses_libtool": true,
+    "macros": [
+      "LT_INIT"
+    ],
+    "ltmain_present": false,
+    "libtool_m4_sources": [],
+    "age": "modern"
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": false,
+    "defines_sampled": []
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-subdir-objects",
+      "applied_at": "configure",
+      "effect": "neutral",
+      "effectiveness": "low"
+    },
+    {
+      "quirk_id": "uses-libtool",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "has-m4-macro-dir",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-ax-archive",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "feature_probe_gap": {
+    "headers_checked": [],
+    "headers_included_unchecked": [
+      "gtest/gtest.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 5,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "gnu++",
+    "strip_modern_poison_flags": [],
+    "inject_legacy_shims": false,
+    "compiler_aliasing": {}
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 0,
+    "shadowed_builtins": [],
+    "permitted_mutations": 0,
+    "suspect_global_mutations": 0
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "gtest/gtest.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "repair_hints": [
+    {
+      "id": "missing-build-tool",
+      "phase": "make",
+      "confidence": 0.75,
+      "evidence": [
+        "pthread-config: command not found"
+      ],
+      "action": "provide pthread-config",
+      "expected_effect": "unblocks the build step needing this tool"
+    }
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": 0,
+      "Makefile.in": 1183,
+      "aclocal.m4": 9,
+      "configure": 18,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_CHECK_PROG": "system-aclocal",
+      "AC_CONFIG_AUX_DIR": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_HEADERS": "system-aclocal",
+      "AC_CONFIG_MACRO_DIR": "system-aclocal",
+      "AC_CONFIG_SRCDIR": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_LANG": "system-aclocal",
+      "AC_MSG_RESULT": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PROG_CC": "system-aclocal",
+      "AC_PROG_CXX": "system-aclocal",
+      "AC_SUBST": "system-aclocal",
+      "AM_INIT_AUTOMAKE": "system-aclocal",
+      "AM_PROG_AR": "system-aclocal",
+      "AX_COVERAGE": "m4/ax_coverage.m4",
+      "AX_CXX_COMPILE_STDCXX_11": "m4/ax_cxx_compile_stdcxx_11.m4",
+      "LT_INIT": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "lib_gmock_libgmock_la_LIBADD",
+        "var": "GTEST_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "lib_gmock_libgmock_main_la_LIBADD",
+        "var": "GTEST_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "test_sample_test_LDADD",
+        "var": "GTEST_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      }
+    ],
+    "unresolved_refs": [
+      "lib_gmock_libgmock_la_LIBADD = $(GTEST_LIBS)",
+      "lib_gmock_libgmock_main_la_LIBADD = $(GTEST_LIBS)",
+      "test_sample_test_LDADD = $(GTEST_LIBS)"
+    ],
+    "indirection_count": 3
   }
 }

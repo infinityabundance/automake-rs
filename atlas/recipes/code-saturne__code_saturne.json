@@ -1,13 +1,13 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "code-saturne/code_saturne",
   "source": {
     "url": "https://github.com/code-saturne/code_saturne",
-    "git_sha": "d040cdf6c5ef76da35eabc29f490800321590b4b",
+    "git_sha": "f453c225856c4a94c4a46b5d33ff9e024b0e4f8a",
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -50,33 +50,74 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "configure: error: directory specified by --with-salome= does not exist!",
+  "diagnostic": "./configure: line 3362: syntax error near unexpected token `fi'",
   "deep_expansion": {
-    "configure_lines": 8635,
+    "configure_lines": 10955,
     "leaked_macros": [],
-    "heredoc_openers": 129,
-    "heredoc_terminators": 129,
+    "heredoc_openers": 135,
+    "heredoc_terminators": 135,
     "heredoc_imbalance": 0,
-    "syntax_errors": [],
+    "syntax_errors": [
+      {
+        "line": 3362,
+        "token": "fi",
+        "source": "fi",
+        "block": [
+          "3358: # First determination of Fortran libraries (before OpenMP test)",
+          "3359: if test \"x$cs_have_fortran\" = \"xyes\" ; then",
+          "3360:   # Fortran library linker flags",
+          "3361: ",
+          "3362: fi",
+          "3363: ",
+          "3364: #---------------------------------------------------------------------------",
+          "3365: # Determine SYCL support"
+        ]
+      }
+    ],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 8046: do eval test \\${$as_var+y} \\"
+      "line 10365: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
-      "PACKAGE_NAME",
-      "PACKAGE_TARNAME",
-      "PACKAGE_VERSION",
-      "PACKAGE_STRING",
-      "PACKAGE_BUGREPORT"
+      "shell_env",
+      "HAVE_SHELL_LAUNCHER_TRUE",
+      "HAVE_SHELL_LAUNCHER_FALSE",
+      "MODULECMD",
+      "cs_env_modules",
+      "cs_have_fortran",
+      "HAVE_FORTRAN_TRUE",
+      "HAVE_FORTRAN_FALSE",
+      "cs_have_cuda",
+      "NVCC",
+      "NVCCFLAGS",
+      "HAVE_CUDA_TRUE",
+      "HAVE_CUDA_FALSE",
+      "cs_have_cublas",
+      "cs_have_cusparse",
+      "cs_have_nccl",
+      "CUDA_CPPFLAGS",
+      "CUDA_LDFLAGS",
+      "CUDA_LIBS",
+      "HAVE_CUDA_CPP_TRUE",
+      "HAVE_CUDA_CPP_FALSE",
+      "cs_enable_cuda_cpp",
+      "cs_have_hip",
+      "HIPCC",
+      "HIPCCFLAGS",
+      "HAVE_HIP_TRUE",
+      "HAVE_HIP_FALSE",
+      "cs_have_hipblas",
+      "cs_have_rocsparse"
     ],
-    "failed_during_check": "",
+    "failed_during_check": "checking size of double... 0",
     "failure_tail": [
-      "configure: WARNING: no supported environment module commmand detected",
-      "configure: error: directory specified by --with-salome= does not exist!"
+      "checking size of double... 0",
+      "./configure: line 3362: syntax error near unexpected token `fi'",
+      "./configure: line 3362: `fi'"
     ],
     "conftest_corruption": [],
-    "conftest_directives_intact": 192,
+    "conftest_directives_intact": 219,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
       "#include <cublas_v2.h>\\nint main() { cublasHandle_t handle = NULL;\\ncublasStatus_t status = cublasCreate(&handle); ; return 0; }\\n",
@@ -86,22 +127,6 @@
       "#include <rocsparse/rocsparse.h>\\nint main() { rocsparse_spmat_descr mat_a;\\nrocsparse_status status = rocsparse_destroy_spmat_descr(mat_a); ; return 0; \\n",
       "#include <rccl.h>\\nint main() { rcclComm_t* comm;\\nrcclUniqueId Id;\\nrcclCommInitRank(comm, 1, Id, 0); ; return 0; }\\n"
     ]
-  },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "ok",
-    "real_make": "ok",
-    "real_configure_lines": 21441,
-    "real_first_error": "",
-    "classification": "OURS_BUG_CONFIGURE"
-  },
-  "divergence": {
-    "stage": "configure",
-    "ours_error": "",
-    "ours_error_context": [],
-    "ours_configure_lines": 8635,
-    "real_configure_lines": 21441,
-    "macros_ours_left_undefined": []
   },
   "receipt": {
     "court_status": "failed",
@@ -125,7 +150,7 @@
         "verified": false
       }
     ],
-    "receipt_hash": "24e39ed3178d433d21c1340a6407fda16d8349c27724819539e8175382940e80",
+    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -134,6 +159,1782 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "config/code_saturne_build.cfg.in",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "docs/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "docs/doxygen/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "docs/refcard/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "docs/style/csvers.tex",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "docs/theory/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "external/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "external/atmo/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "preprocessor/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "preprocessor/appli/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "preprocessor/base/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "preprocessor/pre-post/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "preprocessor/util/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "python/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "src/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "src/alge/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/apps/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/atmo/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/base/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/bft/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/cdo/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/cfbl/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/cogz/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/comb/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/ctwr/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/elec/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/fvm/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/gui/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/gwf/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/lagr/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/meg/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/mesh/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/pprt/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/rayt/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/turb/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/user/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/user_examples/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tests/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      }
+    ],
+    "config_headers": [
+      "src/base/cs_config.h"
+    ],
+    "subdirs": [
+      ".",
+      "$(PLE)",
+      "preprocessor",
+      "external",
+      "src",
+      "python",
+      "$(NEPTUNE_CFD)",
+      "$(DOCS)",
+      "$(TSTS)",
+      "$(LATEX_SUBDIRS)",
+      "$(DOXYGEN_SUBDIRS)",
+      ".",
+      "atmo",
+      "src",
+      "pyple",
+      "tests",
+      "doc",
+      "doxygen",
+      "base",
+      "pre-post",
+      "util",
+      "appli",
+      ".",
+      ".",
+      ".",
+      "bft",
+      "fvm",
+      "gui",
+      "base",
+      "cdo",
+      "pprt",
+      "alge",
+      "mesh",
+      "turb",
+      "atmo",
+      "cfbl",
+      "cogz",
+      "comb",
+      "ctwr",
+      "elec",
+      "gwf",
+      "lagr",
+      "rayt",
+      "user",
+      "user_examples",
+      "meg",
+      "apps"
+    ],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [],
+        "subdirs": [
+          ".",
+          "$(PLE)",
+          "preprocessor",
+          "external",
+          "src",
+          "python",
+          "$(NEPTUNE_CFD)",
+          "$(DOCS)",
+          "$(TSTS)"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "docs",
+        "targets": [],
+        "subdirs": [
+          "$(LATEX_SUBDIRS)",
+          "$(DOXYGEN_SUBDIRS)"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "external",
+        "targets": [],
+        "subdirs": [
+          ".",
+          "atmo"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "external/atmo",
+        "targets": [
+          "libextatmo.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "$(MPI_CPPFLAGS)"
+      },
+      {
+        "dir": "libple",
+        "targets": [],
+        "subdirs": [
+          "src",
+          "pyple",
+          "tests",
+          "doc"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "libple/doc",
+        "targets": [],
+        "subdirs": [
+          "doxygen"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "libple/src",
+        "targets": [],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-DHAVE_CONFIG_H -I$(top_builddir) $(MPI_CPPFLAGS)"
+      },
+      {
+        "dir": "preprocessor",
+        "targets": [],
+        "subdirs": [
+          "base",
+          "pre-post",
+          "util",
+          "appli"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "preprocessor/appli",
+        "targets": [
+          "cs_preprocess"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-DLOCALEDIR=\\\"'$(localedir)'\\\"  -I$(top_srcdir)/preprocessor/base -I$(top_srcdir)/preprocessor/pre-post -I$(top_srcdir)/"
+      },
+      {
+        "dir": "preprocessor/base",
+        "targets": [
+          "libbaseecs.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)/preprocessor/pre-post -I$(top_srcdir)/preprocessor/util"
+      },
+      {
+        "dir": "preprocessor/pre-post",
+        "targets": [
+          "libprepostecs.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)/preprocessor/base -I$(top_srcdir)/preprocessor/util  $(HDF5_CPPFLAGS) $(HDF5_CPPFLAGS_MPI)  $(MED_CPPFLA"
+      },
+      {
+        "dir": "preprocessor/util",
+        "targets": [
+          "libutilecs.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "python/code_saturne/base",
+        "targets": [],
+        "subdirs": [
+          "."
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "python/code_saturne/model",
+        "targets": [],
+        "subdirs": [
+          "."
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src",
+        "targets": [
+          "libcsmodules.a"
+        ],
+        "subdirs": [
+          ".",
+          "bft",
+          "fvm",
+          "gui",
+          "base",
+          "cdo",
+          "pprt",
+          "alge",
+          "mesh",
+          "turb",
+          "atmo",
+          "cfbl",
+          "cogz",
+          "comb",
+          "ctwr",
+          "elec",
+          "gwf",
+          "lagr",
+          "rayt",
+          "user",
+          "user_examples",
+          "meg",
+          "apps"
+        ],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/alge",
+        "targets": [
+          "libcsalge.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)/src -I$(top_builddir)/src  $(CPPFLAGS) $(CPPFLAGS_PLE)  $(MPI_CPPFLAGS) $(BLAS_CPPFLAGS)"
+      },
+      {
+        "dir": "src/atmo",
+        "targets": [
+          "libcsatmo.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)/src -I$(top_builddir)/src  $(CPPFLAGS) $(CPPFLAGS_PLE)  $(MPI_CPPFLAGS)"
+      },
+      {
+        "dir": "src/base",
+        "targets": [
+          "libcscore.a",
+          "libcsbase.a",
+          "libcsrenumber.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)/src -I$(top_builddir)/src  $(CPPFLAGS) $(CPPFLAGS_PLE)  $(MPI_CPPFLAGS)"
+      },
+      {
+        "dir": "src/bft",
+        "targets": [
+          "libbft.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)/src -I$(top_builddir)/src  $(CPPFLAGS) $(MPI_CPPFLAGS)"
+      },
+      {
+        "dir": "src/cdo",
+        "targets": [
+          "libcscdo.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)/src -I$(top_builddir)/src  $(CPPFLAGS) $(CPPFLAGS_PLE) $(MPI_CPPFLAGS)"
+      },
+      {
+        "dir": "src/cfbl",
+        "targets": [
+          "libcscfbl.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)/src -I$(top_builddir)/src  $(CPPFLAGS) $(CPPFLAGS_PLE)  $(MPI_CPPFLAGS)"
+      },
+      {
+        "dir": "src/cogz",
+        "targets": [
+          "libcscogz.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)/src -I$(top_builddir)/src  $(CPPFLAGS) $(CPPFLAGS_PLE)  $(MPI_CPPFLAGS)"
+      },
+      {
+        "dir": "src/comb",
+        "targets": [
+          "libcscomb.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)/src -I$(top_builddir)/src  $(CPPFLAGS_PLE)  $(MPI_CPPFLAGS)"
+      },
+      {
+        "dir": "src/ctwr",
+        "targets": [
+          "libcsctwr.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)/src -I$(top_builddir)/src  $(CPPFLAGS) $(CPPFLAGS_PLE)  $(MPI_CPPFLAGS)"
+      },
+      {
+        "dir": "src/elec",
+        "targets": [
+          "libcselec.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)/src -I$(top_builddir)/src  $(CPPFLAGS) $(CPPFLAGS_PLE)  $(MPI_CPPFLAGS)"
+      },
+      {
+        "dir": "src/fvm",
+        "targets": [
+          "libfvm.a",
+          "libfvm_filters.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)/src -I$(top_builddir)/src  $(CPPFLAGS) $(MPI_CPPFLAGS)"
+      },
+      {
+        "dir": "src/gui",
+        "targets": [
+          "libcsgui.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)/src -I$(top_builddir)/src  $(CPPFLAGS) $(CPPFLAGS_PLE)  $(MPI_CPPFLAGS)"
+      },
+      {
+        "dir": "src/gwf",
+        "targets": [
+          "libcsgwf.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)/src -I$(top_builddir)/src  $(CPPFLAGS) $(CPPFLAGS_PLE) $(MPI_CPPFLAGS)"
+      },
+      {
+        "dir": "src/lagr",
+        "targets": [
+          "libcslagr.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)/src -I$(top_builddir)/src  $(CPPFLAGS) $(CPPFLAGS_PLE)  $(MPI_CPPFLAGS)"
+      },
+      {
+        "dir": "src/meg",
+        "targets": [
+          "libcsmeg.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)/src -I$(top_builddir)/src  $(CPPFLAGS) $(CPPFLAGS_PLE)  $(PETSC_CPPFLAGS)  $(HYPRE_CPPFLAGS)  $(MUMPS_CP"
+      },
+      {
+        "dir": "src/mesh",
+        "targets": [
+          "libcsmesh.a",
+          "libcspartition.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)/src -I$(top_builddir)/src  $(CPPFLAGS) $(CPPFLAGS_PLE)  $(MPI_CPPFLAGS)"
+      },
+      {
+        "dir": "src/pprt",
+        "targets": [
+          "libcspprt.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)/src -I$(top_builddir)/src  $(CPPFLAGS) $(CPPFLAGS_PLE)  $(MPI_CPPFLAGS)"
+      },
+      {
+        "dir": "src/rayt",
+        "targets": [
+          "libcsrayt.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)/src -I$(top_builddir)/src  $(CPPFLAGS) $(CPPFLAGS_PLE)  $(MPI_CPPFLAGS) $(BLAS_CPPFLAGS)"
+      },
+      {
+        "dir": "src/turb",
+        "targets": [
+          "libcsturb.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)/src -I$(top_builddir)/src  $(CPPFLAGS) $(CPPFLAGS_PLE)  $(MPI_CPPFLAGS)"
+      },
+      {
+        "dir": "src/user",
+        "targets": [
+          "libcsuser.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)/src -I$(top_builddir)/src  $(CPPFLAGS) $(CPPFLAGS_PLE)  $(PETSC_CPPFLAGS)  $(HYPRE_CPPFLAGS)  $(MUMPS_CP"
+      },
+      {
+        "dir": "src/user_examples",
+        "targets": [
+          "libcsexample.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)/src -I$(top_builddir)/src  $(CPPFLAGS)  $(CPPFLAGS_PLE)  $(PETSC_CPPFLAGS)  $(HYPRE_CPPFLAGS)  $(MUMPS_C"
+      }
+    ],
+    "max_depth": 2,
+    "config_h_consumers_below_root": [
+      "src",
+      "src/cfbl",
+      "src/fvm",
+      "src/alge",
+      "preprocessor/util",
+      "preprocessor/pre-post",
+      "preprocessor/base",
+      "preprocessor/appli",
+      "libple/src"
+    ]
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "extras/FMI/Makefile",
+        "has_makefile_in": false,
+        "has_makefile_am": false,
+        "lines": 35,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "docs/web/references/Makefile",
+        "has_makefile_in": false,
+        "has_makefile_am": false,
+        "lines": 20,
+        "first_parse_error": {
+          "line": 6,
+          "kind": "missing-separator",
+          "text": "SPHINXOPTS    ?=",
+          "previous_lines": [
+            "# You can set these variables from the command line, and also",
+            "# from the environment for the first two."
+          ],
+          "probable_cause": "shell-fragment-in-make"
+        },
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "libple/examples/Makefile",
+        "has_makefile_in": false,
+        "has_makefile_am": false,
+        "lines": 9,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      }
+    ]
+  },
+  "tool_requirements": {
+    "detected": [
+      "python",
+      "c++",
+      "ar",
+      "perl",
+      "doxygen"
+    ],
+    "missing": []
+  },
+  "macro_inventory": {
+    "macro_dirs": [
+      "m4",
+      "config"
+    ],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [
+      {
+        "name": "CS_AC_TEST_CATALYST",
+        "source": "m4/cs_catalyst.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "CS_AC_TEST_HYPRE",
+        "source": "m4/cs_hypre.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "CS_AC_TEST_CCM",
+        "source": "m4/cs_ccm.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "CS_AC_TEST_MEDCOUPLING",
+        "source": "m4/cs_medcoupling.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "CS_AC_TEST_BLAS",
+        "source": "m4/cs_blas.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "CS_AC_TEST_ZLIB",
+        "source": "m4/cs_zlib.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "CS_AC_SALOME_ENV",
+        "source": "m4/cs_salome.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "CS_AC_TEST_CATALYST2",
+        "source": "m4/cs_catalyst2.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "CS_AC_TEST_EOS",
+        "source": "m4/cs_eos.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "CS_AC_TEST_CUDSS",
+        "source": "m4/cs_cudss.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "CS_AC_TEST_ENV_MODULES",
+        "source": "m4/cs_modules.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "CS_AC_TEST_PETSC",
+        "source": "m4/cs_petsc.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "CS_AC_TEST_HIP",
+        "source": "m4/cs_hip.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "CS_AC_TEST_MED",
+        "source": "m4/cs_med.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "CS_AC_TEST_DOCS",
+        "source": "m4/cs_docs.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "CS_AC_TEST_LATEX",
+        "source": "m4/cs_docs.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "CS_AC_TEST_DOXYGEN",
+        "source": "m4/cs_docs.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "CS_AC_TEST_SPHINX",
+        "source": "m4/cs_docs.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "CS_AC_TEST_METIS",
+        "source": "m4/cs_metis.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "CS_AC_TEST_CGNS",
+        "source": "m4/cs_cgns.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "CS_AC_TEST_FC_MOD",
+        "source": "m4/cs_fortran.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "CS_AC_TEST_AMGX",
+        "source": "m4/cs_amgx.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "CS_AC_TEST_HDF5",
+        "source": "m4/cs_hdf5.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "CS_AC_TEST_MPI",
+        "source": "m4/cs_mpi.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "CS_AC_TEST_MUMPS",
+        "source": "m4/cs_mumps.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "CS_AC_TEST_SCOTCH",
+        "source": "m4/cs_scotch.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "CS_AC_TEST_CUDA",
+        "source": "m4/cs_cuda.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "CS_AC_TEST_PLE",
+        "source": "m4/cs_ple.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "CS_AC_TEST_MELISSA",
+        "source": "m4/cs_melissa.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "CS_AC_TEST_COOLPROP",
+        "source": "m4/cs_coolprop.m4",
+        "kind": "project-local"
+      }
+    ],
+    "called_macros": [
+      "AC_ARG_ENABLE",
+      "AC_ARG_VAR",
+      "AC_ARG_WITH",
+      "AC_CANONICAL_TARGET",
+      "AC_CHECK_FUNCS",
+      "AC_CHECK_HEADERS",
+      "AC_CHECK_SIZEOF",
+      "AC_CHECK_TYPES",
+      "AC_COMPILE_IFELSE",
+      "AC_CONFIG_AUX_DIR",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_HEADERS",
+      "AC_CONFIG_MACRO_DIR",
+      "AC_CONFIG_SRCDIR",
+      "AC_CONFIG_SUBDIRS",
+      "AC_C_CONST",
+      "AC_C_INLINE",
+      "AC_DEFINE",
+      "AC_DEFINE_UNQUOTED",
+      "AC_FC_LIBRARY_LDFLAGS",
+      "AC_FUNC_FSEEKO",
+      "AC_FUNC_STRTOD",
+      "AC_HEADER_STDBOOL",
+      "AC_INIT",
+      "AC_LANG_POP",
+      "AC_LANG_PROGRAM",
+      "AC_LANG_PUSH",
+      "AC_LINK_IFELSE",
+      "AC_MSG_CHECKING",
+      "AC_MSG_ERROR",
+      "AC_MSG_FAILURE",
+      "AC_MSG_NOTICE",
+      "AC_MSG_RESULT",
+      "AC_MSG_WARN",
+      "AC_OPENMP",
+      "AC_OUTPUT",
+      "AC_PATH_PROG",
+      "AC_PROG_CC",
+      "AC_PROG_CXX",
+      "AC_PROG_FC",
+      "AC_PROG_INSTALL",
+      "AC_PROG_LN_S",
+      "AC_PROG_RANLIB",
+      "AC_PROG_SED",
+      "AC_SUBST",
+      "AC_SYS_LARGEFILE",
+      "AC_TYPE_PID_T",
+      "AC_TYPE_SIZE_T",
+      "AM_CONDITIONAL",
+      "AM_INIT_AUTOMAKE",
+      "AM_MAINTAINER_MODE",
+      "AM_PATH_PYTHON",
+      "AM_PROG_AR",
+      "AM_PROG_CC_C_O",
+      "AM_SILENT_RULES"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 1117,
+    "configure_fi": 1004,
+    "configure_case": 115,
+    "configure_esac": 118,
+    "balanced": false,
+    "automake_conditionals": [
+      "HAVE_SHELL_LAUNCHER",
+      "HAVE_FORTRAN",
+      "HAVE_RELOCATABLE",
+      "ENABLE_SHARED",
+      "HAVE_ACCEL",
+      "HAVE_OPENMP_TARGET",
+      "HAVE_INTERNAL_PLE",
+      "HAVE_PP_LINK_CXX",
+      "HAVE_FRONTEND",
+      "HAVE_BACKEND",
+      "HAVE_GUI",
+      "HAVE_PYSIDE6",
+      "HAVE_PYQT6",
+      "HAVE_PYQT5",
+      "HAVE_PYUIC",
+      "HAVE_PYRCC",
+      "HAVE_PLUGINS"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": "build-aux",
+    "present": [
+      "install-sh",
+      "missing",
+      "depcomp",
+      "compile"
+    ],
+    "missing": [
+      "config.guess",
+      "config.sub"
+    ]
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "c": 51,
+      "cpp": 661,
+      "cxx": 31,
+      "f90": 19,
+      "h": 626
+    },
+    "configure_macros": [
+      "AC_PROG_CC",
+      "AC_PROG_CXX",
+      "AC_PROG_FC"
+    ],
+    "needs_cxx": true,
+    "needs_fortran": true,
+    "sets_c_std": false
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": true,
+    "defines_sampled": []
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-subdir-objects",
+      "applied_at": "configure",
+      "effect": "neutral",
+      "effectiveness": "low"
+    },
+    {
+      "quirk_id": "uses-maintainer-mode",
+      "applied_at": "configure",
+      "effect": "neutral",
+      "effectiveness": "low"
+    },
+    {
+      "quirk_id": "uses-python",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "has-m4-macro-dir",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "vpath_analysis": {
+    "hardcoded_src_paths": 8,
+    "abs_path_leakage": 0,
+    "built_sources": [
+      "src/base/cs_version.h",
+      "lib/code_saturne_build.cfg",
+      "cs_halo.cpp",
+      "cs_range_set.cpp",
+      "cs_sort.cpp",
+      "cs_matrix.cpp",
+      "cs_matrix_assembler.cpp",
+      "cs_blas.cpp",
+      "cs_random.cpp"
+    ],
+    "generated_source_targets": []
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "dirent.h",
+      "fcntl.h",
+      "float.h",
+      "stddef.h",
+      "string.h",
+      "sys/procfs.h",
+      "sys/resource.h",
+      "sys/signal.h",
+      "sys/stat.h",
+      "sys/sysinfo.h",
+      "sys/time.h",
+      "sys/types.h",
+      "sys/utsname.h",
+      "unistd.h"
+    ],
+    "headers_included_unchecked": [
+      "arpa/inet.h",
+      "dlfcn.h",
+      "hip/hip_cooperative_groups.h",
+      "hip/hip_runtime.h",
+      "hip/hip_runtime_api.h",
+      "libccmio/ccmio.h",
+      "libccmio/ccmioversion.h",
+      "linux/sockios.h",
+      "netinet/in.h",
+      "rocprofiler-sdk-roctx/roctx.h",
+      "rocsparse/rocsparse.h",
+      "src/callbacks.h",
+      "stdint.h",
+      "sys/ioctl.h",
+      "sys/socket.h",
+      "sys/times.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 5,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "gnu++",
+    "strip_modern_poison_flags": [],
+    "inject_legacy_shims": false,
+    "compiler_aliasing": {}
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 62,
+    "shadowed_builtins": [],
+    "permitted_mutations": 19,
+    "suspect_global_mutations": 0
+  },
+  "parallel_build_safety": {
+    "vpath_out_of_tree_safe": false,
+    "generators": [],
+    "unordered_generated_sources": [],
+    "built_sources_declared": true
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "arpa/inet.h",
+      "dlfcn.h",
+      "hip/hip_cooperative_groups.h",
+      "hip/hip_runtime.h",
+      "hip/hip_runtime_api.h",
+      "libccmio/ccmio.h",
+      "libccmio/ccmioversion.h",
+      "linux/sockios.h",
+      "netinet/in.h",
+      "rocprofiler-sdk-roctx/roctx.h",
+      "rocsparse/rocsparse.h",
+      "src/callbacks.h",
+      "stdint.h",
+      "sys/ioctl.h",
+      "sys/socket.h",
+      "sys/times.h",
+      "dirent.h",
+      "fcntl.h",
+      "float.h",
+      "stddef.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "subdir-config-h-include-path",
+    "vpath-unsafe (abs-path/hardcoded-srcdir leakage)"
+  ],
+  "repair_hints": [
+    {
+      "id": "makefile-shell-fragment-in-make",
+      "phase": "make",
+      "confidence": 0.5,
+      "evidence": [
+        "docs/web/references/Makefile:6 missing-separator",
+        "SPHINXOPTS    ?="
+      ],
+      "action": "classify-shell-fragment-in-make",
+      "expected_effect": "partial -> FUNC_OK candidate"
+    },
+    {
+      "id": "subdir-top-builddir",
+      "phase": "make",
+      "confidence": 0.88,
+      "evidence": [
+        "src consumes config.h below root",
+        "src/cfbl consumes config.h below root",
+        "src/fvm consumes config.h below root",
+        "src/alge consumes config.h below root",
+        "preprocessor/util consumes config.h below root"
+      ],
+      "action": "ensure ac_subst_file sets relative top_builddir per subdir (0.1.19)",
+      "expected_effect": "config.h found in subdir compiles"
+    }
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": -1,
+      "Makefile.in": 2726,
+      "aclocal.m4": 157,
+      "configure": 210,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_ENABLE": "system-aclocal",
+      "AC_ARG_VAR": "system-aclocal",
+      "AC_ARG_WITH": "system-aclocal",
+      "AC_CANONICAL_TARGET": "system-aclocal",
+      "AC_CHECK_FUNCS": "system-aclocal",
+      "AC_CHECK_HEADERS": "system-aclocal",
+      "AC_CHECK_SIZEOF": "system-aclocal",
+      "AC_CHECK_TYPES": "system-aclocal",
+      "AC_COMPILE_IFELSE": "system-aclocal",
+      "AC_CONFIG_AUX_DIR": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_HEADERS": "system-aclocal",
+      "AC_CONFIG_MACRO_DIR": "system-aclocal",
+      "AC_CONFIG_SRCDIR": "system-aclocal",
+      "AC_CONFIG_SUBDIRS": "system-aclocal",
+      "AC_C_CONST": "system-aclocal",
+      "AC_C_INLINE": "system-aclocal",
+      "AC_DEFINE": "system-aclocal",
+      "AC_DEFINE_UNQUOTED": "system-aclocal",
+      "AC_FC_LIBRARY_LDFLAGS": "system-aclocal",
+      "AC_FUNC_FSEEKO": "system-aclocal",
+      "AC_FUNC_STRTOD": "system-aclocal",
+      "AC_HEADER_STDBOOL": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_LANG_POP": "system-aclocal",
+      "AC_LANG_PROGRAM": "system-aclocal",
+      "AC_LANG_PUSH": "system-aclocal",
+      "AC_LINK_IFELSE": "system-aclocal",
+      "AC_MSG_CHECKING": "system-aclocal",
+      "AC_MSG_ERROR": "system-aclocal",
+      "AC_MSG_FAILURE": "system-aclocal",
+      "AC_MSG_NOTICE": "system-aclocal",
+      "AC_MSG_RESULT": "system-aclocal",
+      "AC_MSG_WARN": "system-aclocal",
+      "AC_OPENMP": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PATH_PROG": "system-aclocal",
+      "AC_PROG_CC": "system-aclocal",
+      "AC_PROG_CXX": "system-aclocal",
+      "AC_PROG_FC": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "bft_backtrace_test_LDADD",
+        "var": "LDADD_CS_TESTS",
+        "resolved_to": [
+          "$(top_builddir)/src/base/libcscore.a",
+          "$(top_builddir)/src/bft/libbft.a",
+          "$(PLE_LIBS)",
+          "$(MPI_LIBS)",
+          "$(CUDA_LIBS)",
+          "$(HIP_LIBS)",
+          "-lm"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "bft_error_test_LDADD",
+        "var": "LDADD_CS_TESTS",
+        "resolved_to": [
+          "$(top_builddir)/src/base/libcscore.a",
+          "$(top_builddir)/src/bft/libbft.a",
+          "$(PLE_LIBS)",
+          "$(MPI_LIBS)",
+          "$(CUDA_LIBS)",
+          "$(HIP_LIBS)",
+          "-lm"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "bft_mem_usage_test_LDADD",
+        "var": "LDADD_CS_TESTS",
+        "resolved_to": [
+          "$(top_builddir)/src/base/libcscore.a",
+          "$(top_builddir)/src/bft/libbft.a",
+          "$(PLE_LIBS)",
+          "$(MPI_LIBS)",
+          "$(CUDA_LIBS)",
+          "$(HIP_LIBS)",
+          "-lm"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "bft_mem_test_LDADD",
+        "var": "LDADD_CS_TESTS",
+        "resolved_to": [
+          "$(top_builddir)/src/base/libcscore.a",
+          "$(top_builddir)/src/bft/libbft.a",
+          "$(PLE_LIBS)",
+          "$(MPI_LIBS)",
+          "$(CUDA_LIBS)",
+          "$(HIP_LIBS)",
+          "-lm"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "bft_printf_test_LDADD",
+        "var": "LDADD_CS_TESTS",
+        "resolved_to": [
+          "$(top_builddir)/src/base/libcscore.a",
+          "$(top_builddir)/src/bft/libbft.a",
+          "$(PLE_LIBS)",
+          "$(MPI_LIBS)",
+          "$(CUDA_LIBS)",
+          "$(HIP_LIBS)",
+          "-lm"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "cs_all_to_all_test_LDADD",
+        "var": "LDADD_CS_TESTS",
+        "resolved_to": [
+          "$(top_builddir)/src/base/libcscore.a",
+          "$(top_builddir)/src/bft/libbft.a",
+          "$(PLE_LIBS)",
+          "$(MPI_LIBS)",
+          "$(CUDA_LIBS)",
+          "$(HIP_LIBS)",
+          "-lm"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "cs_blas_test_LDADD",
+        "var": "BLASRUNPATH",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "cs_blas_test_LDADD",
+        "var": "BLAS_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "cs_blas_test_LDADD",
+        "var": "LDADD_CS_TESTS",
+        "resolved_to": [
+          "$(top_builddir)/src/base/libcscore.a",
+          "$(top_builddir)/src/bft/libbft.a",
+          "$(PLE_LIBS)",
+          "$(MPI_LIBS)",
+          "$(CUDA_LIBS)",
+          "$(HIP_LIBS)",
+          "-lm"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "cs_core_test_LDADD",
+        "var": "LDADD_CS_TESTS",
+        "resolved_to": [
+          "$(top_builddir)/src/base/libcscore.a",
+          "$(top_builddir)/src/bft/libbft.a",
+          "$(PLE_LIBS)",
+          "$(MPI_LIBS)",
+          "$(CUDA_LIBS)",
+          "$(HIP_LIBS)",
+          "-lm"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "cs_file_test_LDADD",
+        "var": "LDADD_CS_TESTS",
+        "resolved_to": [
+          "$(top_builddir)/src/base/libcscore.a",
+          "$(top_builddir)/src/bft/libbft.a",
+          "$(PLE_LIBS)",
+          "$(MPI_LIBS)",
+          "$(CUDA_LIBS)",
+          "$(HIP_LIBS)",
+          "-lm"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "cs_geom_test_LDADD",
+        "var": "LDADD_CS_TESTS",
+        "resolved_to": [
+          "$(top_builddir)/src/base/libcscore.a",
+          "$(top_builddir)/src/bft/libbft.a",
+          "$(PLE_LIBS)",
+          "$(MPI_LIBS)",
+          "$(CUDA_LIBS)",
+          "$(HIP_LIBS)",
+          "-lm"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "cs_interface_test_LDADD",
+        "var": "LDADD_CS_TESTS",
+        "resolved_to": [
+          "$(top_builddir)/src/base/libcscore.a",
+          "$(top_builddir)/src/bft/libbft.a",
+          "$(PLE_LIBS)",
+          "$(MPI_LIBS)",
+          "$(CUDA_LIBS)",
+          "$(HIP_LIBS)",
+          "-lm"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "cs_map_test_LDADD",
+        "var": "LDADD_CS_TESTS",
+        "resolved_to": [
+          "$(top_builddir)/src/base/libcscore.a",
+          "$(top_builddir)/src/bft/libbft.a",
+          "$(PLE_LIBS)",
+          "$(MPI_LIBS)",
+          "$(CUDA_LIBS)",
+          "$(HIP_LIBS)",
+          "-lm"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "cs_random_test_LDADD",
+        "var": "LDADD_CS_TESTS",
+        "resolved_to": [
+          "$(top_builddir)/src/base/libcscore.a",
+          "$(top_builddir)/src/bft/libbft.a",
+          "$(PLE_LIBS)",
+          "$(MPI_LIBS)",
+          "$(CUDA_LIBS)",
+          "$(HIP_LIBS)",
+          "-lm"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "cs_rank_neighbors_test_LDADD",
+        "var": "LDADD_CS_TESTS",
+        "resolved_to": [
+          "$(top_builddir)/src/base/libcscore.a",
+          "$(top_builddir)/src/bft/libbft.a",
+          "$(PLE_LIBS)",
+          "$(MPI_LIBS)",
+          "$(CUDA_LIBS)",
+          "$(HIP_LIBS)",
+          "-lm"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "cs_sizes_test_LDADD",
+        "var": "LDADD_CS_TESTS",
+        "resolved_to": [
+          "$(top_builddir)/src/base/libcscore.a",
+          "$(top_builddir)/src/bft/libbft.a",
+          "$(PLE_LIBS)",
+          "$(MPI_LIBS)",
+          "$(CUDA_LIBS)",
+          "$(HIP_LIBS)",
+          "-lm"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "cs_tree_test_LDADD",
+        "var": "LDADD_CS_TESTS",
+        "resolved_to": [
+          "$(top_builddir)/src/base/libcscore.a",
+          "$(top_builddir)/src/bft/libbft.a",
+          "$(PLE_LIBS)",
+          "$(MPI_LIBS)",
+          "$(CUDA_LIBS)",
+          "$(HIP_LIBS)",
+          "-lm"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libcsexample_a_SOURCES",
+        "var": "examplefiles",
+        "resolved_to": [
+          "cs_user_1d_wall_thermal.cpp",
+          "cs_user_atmo.cpp",
+          "cs_user_wall_condensation.cpp",
+          "cs_user_boundary_conditions.cpp",
+          "cs_user_boundary_conditions-advanced.cpp",
+          "cs_user_boundary_conditions_ale-base.cpp",
+          "cs_user_boundary_conditions-atmospheric.cpp",
+          "cs_user_boundary_conditions-auto_inlet_profile.cpp",
+          "cs_user_boundary_conditions-base.cpp",
+          "cs_user_boundary_conditions-compressible.cpp",
+          "cs_user_boundary_conditions-cooling_towers.cpp",
+          "cs_user_boundary_conditions-electric_arcs.cpp",
+          "cs_user_boundary_conditions-electric_arcs_ieljou_3_or_4.cpp",
+          "cs_user_boundary_conditions-mapped_inlet.cpp",
+          "cs_user_boundary_conditions-medcoupling_remapper_2d.cpp",
+          "cs_user_boundary_conditions-notebook.cpp",
+          "cs_user_boundary_conditions-pulverized_coal.cpp",
+          "cs_user_boundary_conditions-time_table.cpp",
+          "cs_user_coupling-saturne.cpp",
+          "cs_user_coupling-syrthes.cpp",
+          "cs_user_electric_scaling.cpp",
+          "cs_user_extra_operations-balance_by_zone.cpp",
+          "cs_user_extra_operations-boundary_forces.cpp",
+          "cs_user_extra_operations-force_temperature.cpp",
+          "cs_user_extra_operations-mean_profiles.cpp",
+          "cs_user_extra_operations-medcoupling_slice.cpp",
+          "cs_user_extra_operations-nusselt_and_friction_calculation.cpp",
+          "cs_user_extra_operations-nusselt_calculation.cpp",
+          "cs_user_extra_operations-parallel_operations.cpp",
+          "cs_user_extra_operations-scalar_balance.cpp",
+          "cs_user_extra_operations-stopping_criterion.cpp",
+          "cs_user_extra_operations-turbomachinery.cpp",
+          "cs_user_extra_operations-verif_cdo_diffusion.cpp",
+          "cs_user_extra_operations-vorticity_field.cpp",
+          "cs_user_fluid_structure_interaction.cpp",
+          "cs_user_fluid_structure_interaction-code_aster.cpp",
+          "cs_user_head_losses.cpp",
+          "cs_user_hgn-relax_time_scale.cpp",
+          "cs_user_ibm.cpp",
+          "cs_user_ibm_modify.cpp",
+          "cs_user_initialization-atmospheric.cpp",
+          "cs_user_initialization-base.cpp",
+          "cs_user_initialization-compressible.cpp",
+          "cs_user_initialization-cooling_towers.cpp",
+          "cs_user_initialization-electric_arcs.cpp",
+          "cs_user_initialization-gas_3ptchem.cpp",
+          "cs_user_initialization-medcoupling_remapper_3d.cpp",
+          "cs_user_initialization-pulverized_coal.cpp",
+          "cs_user_initialization-time_step.cpp",
+          "cs_user_lagr_boundary_conditions.cpp",
+          "cs_user_lagr_volume_conditions.cpp",
+          "cs_user_lagr_model.cpp",
+          "cs_user_lagr_particle.cpp",
+          "cs_user_lagr_particle-coal.cpp",
+          "cs_user_les_inflow-base.cpp",
+          "cs_user_mesh-boundary.cpp",
+          "cs_user_mesh-cartesian.cpp",
+          "cs_user_mesh-groups_from_free_faces.cpp",
+          "cs_user_mesh-input-save.cpp",
+          "cs_user_mesh-joining.cpp",
+          "cs_user_mesh-modify.cpp",
+          "cs_user_mesh-multiblock_cartesian.cpp",
+          "cs_user_mesh-periodicity.cpp",
+          "cs_user_mesh-quality.cpp",
+          "cs_user_paramedmem_coupling-base.cpp",
+          "cs_user_parameters-base.cpp",
+          "cs_user_parameters-cdo-condif.cpp",
+          "cs_user_parameters-cdo-gwf.cpp",
+          "cs_user_parameters-cdo-gwf_user_soil.cpp",
+          "cs_user_parameters-cdo-laplacian.cpp",
+          "cs_user_parameters-cdo-navsto.cpp",
+          "cs_user_parameters-cdo-solidification.cpp",
+          "cs_user_parameters-ctwr.cpp",
+          "cs_user_parameters-coupling.cpp",
+          "cs_user_parameters-fans.cpp",
+          "cs_user_parameters-cdo-linear_solvers.cpp",
+          "cs_user_parameters-linear_solvers.cpp",
+          "cs_user_parameters-rotation.cpp",
+          "cs_user_parameters-volume_mass_injection.cpp",
+          "cs_user_parameters-time_moments.cpp",
+          "cs_user_performance_tuning-matrix.cpp",
+          "cs_user_performance_tuning-numbering.cpp",
+          "cs_user_performance_tuning-parallel-io.cpp",
+          "cs_user_performance_tuning-partition.cpp",
+          "cs_user_physical_properties.cpp",
+          "cs_user_physical_properties-compressible_flow.cpp",
+          "cs_user_physical_properties-coal_drift.cpp",
+          "cs_user_physical_properties-scalar_drift.cpp",
+          "cs_user_porosity.cpp",
+          "cs_user_postprocess.cpp",
+          "cs_user_postprocess-boundary_pressure_profile.cpp",
+          "cs_user_postprocess-profiles.cpp",
+          "cs_user_postprocess-probes-interpolate.cpp",
+          "cs_user_postprocess-sfc.cpp",
+          "cs_user_radiative_transfer.cpp",
+          "cs_user_radiative_transfer_bcs.cpp",
+          "cs_user_solver-heat-equation.cpp",
+          "cs_user_source_terms-along_line.cpp",
+          "cs_user_source_terms-base.cpp",
+          "cs_user_source_terms-momentum.cpp",
+          "cs_user_source_terms-scalar_in_a_channel.cpp",
+          "cs_user_source_terms-turbulence.cpp",
+          "cs_user_time_table.cpp",
+          "cs_user_turbomachinery.cpp",
+          "cs_user_zones.cpp",
+          "cs_user_boundary_conditions-gas_3ptchem.cpp",
+          "cs_user_profile.cxx",
+          "cs_user_profile.h",
+          "cs_user_profile_plot.py"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libcsuser_a_SOURCES",
+        "var": "userfiles",
+        "resolved_to": [
+          "cs_user_1d_wall_thermal.cpp",
+          "cs_user_atmo.cpp",
+          "cs_user_boundary_conditions.cpp",
+          "cs_user_coupling.cpp",
+          "cs_user_electric_scaling.cpp",
+          "cs_user_extra_operations.cpp",
+          "cs_user_fluid_structure_interaction.cpp",
+          "cs_user_head_losses.cpp",
+          "cs_user_hgn.cpp",
+          "cs_user_ibm.cpp",
+          "cs_user_ibm_modify.cpp",
+          "cs_user_initialization.cpp",
+          "cs_user_lagr_model.cpp",
+          "cs_user_lagr_particle.cpp",
+          "cs_user_lagr_boundary_conditions.cpp",
+          "cs_user_lagr_volume_conditions.cpp",
+          "cs_user_les_inflow.cpp",
+          "cs_user_mesh.cpp",
+          "cs_user_paramedmem_coupling.cpp",
+          "cs_user_parameters.cpp",
+          "cs_user_performance_tuning.cpp",
+          "cs_user_physical_properties.cpp",
+          "cs_user_postprocess.cpp",
+          "cs_user_porosity.cpp",
+          "cs_user_radiative_transfer.cpp",
+          "cs_user_radiative_transfer_bcs.cpp",
+          "cs_user_solver.cpp",
+          "cs_user_source_terms.cpp",
+          "cs_user_time_table.cpp",
+          "cs_user_turbomachinery.cpp",
+          "cs_user_wall_condensation.cpp",
+          "cs_user_zones.cpp"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libcsmeg_a_SOURCES",
+        "var": "megfiles",
+        "resolved_to": [
+          "cs_meg_boundary_function.cxx",
+          "cs_meg_fsi_struct.cxx",
+          "cs_meg_immersed_boundaries.cxx",
+          "cs_meg_immersed_boundaries_fsi.cxx",
+          "cs_meg_immersed_boundaries_volume.cxx",
+          "cs_meg_initialization.cxx",
+          "cs_meg_post_calculator.cxx",
+          "cs_meg_post_output.cxx",
+          "cs_meg_post_profile.cxx",
+          "cs_meg_source_terms.cxx",
+          "cs_meg_volume_function.cxx",
+          "cs_meg_xdef_wrapper.cxx"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "cs_preprocess_LDADD",
+        "var": "LDADD_CCM",
+        "resolved_to": [
+          "$(top_builddir)/preprocessor/pre-post/ecs_pre_ccm.o",
+          "$(CCM_LDFLAGS)",
+          "$(CCMRUNPATH)",
+          "$(CCM_LIBS)"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "cs_preprocess_LDADD",
+        "var": "MED_LDFLAGS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "cs_preprocess_LDADD",
+        "var": "MEDRUNPATH",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "cs_preprocess_LDADD",
+        "var": "MED_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "cs_preprocess_LDADD",
+        "var": "CGNS_LDFLAGS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "cs_preprocess_LDADD",
+        "var": "CGNSRUNPATH",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "cs_preprocess_LDADD",
+        "var": "CGNS_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "cs_preprocess_LDADD",
+        "var": "HDF5_LDFLAGS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "cs_preprocess_LDADD",
+        "var": "HDF5RUNPATH",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "cs_preprocess_LDADD",
+        "var": "HDF5_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "cs_preprocess_LDADD",
+        "var": "HDF5_MPI_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "ple_coupling_test_LDADD",
+        "var": "MPI_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "ple_coupling_test_LDADD",
+        "var": "INTLLIBS",
+        "resolved_to": [],
+        "resolved": false
+      }
+    ],
+    "unresolved_refs": [
+      "cs_blas_test_LDADD = $(BLASRUNPATH)",
+      "cs_blas_test_LDADD = $(BLAS_LIBS)",
+      "cs_preprocess_LDADD = $(MED_LDFLAGS)",
+      "cs_preprocess_LDADD = $(MEDRUNPATH)",
+      "cs_preprocess_LDADD = $(MED_LIBS)",
+      "cs_preprocess_LDADD = $(CGNS_LDFLAGS)",
+      "cs_preprocess_LDADD = $(CGNSRUNPATH)",
+      "cs_preprocess_LDADD = $(CGNS_LIBS)",
+      "cs_preprocess_LDADD = $(HDF5_LDFLAGS)",
+      "cs_preprocess_LDADD = $(HDF5RUNPATH)",
+      "cs_preprocess_LDADD = $(HDF5_LIBS)",
+      "cs_preprocess_LDADD = $(HDF5_MPI_LIBS)",
+      "ple_coupling_test_LDADD = $(MPI_LIBS)",
+      "ple_coupling_test_LDADD = $(INTLLIBS)"
+    ],
+    "indirection_count": 34
   }
 }

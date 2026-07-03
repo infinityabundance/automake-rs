@@ -1,13 +1,13 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "dfrc-korea/carpe-sleuthkit",
   "source": {
     "url": "https://github.com/dfrc-korea/carpe-sleuthkit",
-    "git_sha": "",
+    "git_sha": "5d047f9daf94feb501bb8c5b5facc8d97d1c1b71",
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -17,27 +17,142 @@
     "cflags": "-g -O2",
     "host": "x86_64-pc-linux-gnu"
   },
-  "pass_pipeline": [],
+  "pass_pipeline": [
+    {
+      "step": "autoreconf",
+      "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "fail"
+    },
+    {
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
+      "status": "fail"
+    }
+  ],
   "probe_results": {},
   "feature_flags": {
     "configure_args": []
   },
   "dependencies": {
-    "pkg_config": [],
+    "pkg_config": [
+      "checking for Cppunit - version >= 1.12.1... ./configure: line 1433: --cflags: co"
+    ],
     "system_libs": [],
     "headers_needed": [],
     "missing": []
   },
-  "quirks": [],
+  "quirks": [
+    "autoconf-archive-macros",
+    "subdirs"
+  ],
   "outputs": [],
-  "status": "CLONE_FAIL",
+  "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "",
+  "diagnostic": "checking for Cppunit - version >= 1.12.1... ./configure: line 1433: --cflags: command not found",
+  "deep_expansion": {
+    "configure_lines": 4030,
+    "leaked_macros": [],
+    "heredoc_openers": 53,
+    "heredoc_terminators": 53,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1939,
+        "token": "done",
+        "source": "done",
+        "block": [
+          "1935: \tprintf %s \"checking for joinable pthread attribute... \"",
+          "1936: \tattr_name=unknown",
+          "1937: \tfor attr in PTHREAD_CREATE_JOINABLE PTHREAD_CREATE_UNDETACHED; do",
+          "1938: \t    # Try link (obsolete)",
+          "1939: \tdone",
+          "1940:         printf '%s\\n' \"$attr_name\"",
+          "1941:         if test \"$attr_name\" != PTHREAD_CREATE_JOINABLE; then",
+          "1942:             printf '%s\\n' \"#define PTHREAD_CREATE_JOINABLE $attr_name\" >> co"
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 1824: # eval \"_acrs_sv=\\${}\"; printf '%s\\n' \"s|@@|${_acrs_sv}|g\" >",
+      "line 3540: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "CPPUNIT_CFLAGS",
+      "CPPUNIT_LIBS",
+      "CPPUNIT_TRUE",
+      "CPPUNIT_FALSE",
+      "PTHREAD_LIBS",
+      "PTHREAD_CFLAGS",
+      "PTHREAD_CC",
+      "HAVE_LIBSQLITE3_TRUE",
+      "HAVE_LIBSQLITE3_FALSE",
+      "HAVE_POSTGRESQL_TRUE",
+      "HAVE_POSTGRESQL_FALSE",
+      "X_ZLIB_TRUE",
+      "X_ZLIB_FALSE",
+      "Z_PATH",
+      "OFFLINE_TRUE",
+      "OFFLINE_FALSE",
+      "JNI_CPPFLAGS",
+      "X_JNI_TRUE",
+      "X_JNI_FALSE",
+      "LIBTSK_LDFLAGS",
+      "AM_CFLAGS",
+      "AM_CXXFLAGS",
+      "PACKAGE_NAME",
+      "PACKAGE_TARNAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL",
+      "srcdir"
+    ],
+    "failed_during_check": "checking whether pthreads work with -mt... no",
+    "failure_tail": [
+      "checking whether pthreads work with -mt... no",
+      "./configure: line 1899: pthread-config: command not found",
+      "./configure: line 1900: pthread-config: command not found",
+      "./configure: line 1900: pthread-config: command not found",
+      "no"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 49,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "#include <$ac_hdr>",
+      "#include <stdbool.h>",
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { uid_t x; return 0; }",
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { mode_t x; return 0; }",
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { off_t x; return 0; }",
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { size_t x; return 0; }"
+    ]
+  },
   "receipt": {
     "court_status": "failed",
     "probe_trace": [],
-    "quirks_matched": [],
-    "receipt_hash": "",
+    "quirks_matched": [
+      "uses-maintainer-mode",
+      "has-m4-macro-dir",
+      "vendored-aclocal",
+      "uses-ax-archive",
+      "uses-pthread-check",
+      "perl-in-configure"
+    ],
+    "quirks_applied": [
+      {
+        "id": "uses-maintainer-mode",
+        "action": "--disable-maintainer-mode",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -46,6 +161,1237 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "bindings/java/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "bindings/java/jni/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "man/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "samples/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "tests/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "tools/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "tools/autotools/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tools/fiwalk/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tools/fiwalk/plugins/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "tools/fiwalk/src/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "tools/fstools/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tools/hashtools/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tools/imgtools/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tools/sorter/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tools/srchtools/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tools/timeline/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tools/vstools/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tsk/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "tsk/auto/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tsk/base/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tsk/fs/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tsk/hashdb/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tsk/img/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tsk/vs/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "unit_tests/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "unit_tests/base/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      }
+    ],
+    "config_headers": [
+      "tsk/tsk_config.h"
+    ],
+    "subdirs": [
+      "tsk",
+      "tools",
+      "tests",
+      "samples",
+      "man",
+      "$(UNIT_TESTS)",
+      "$(JAVA_BINDINGS)",
+      "tsk/framework",
+      "tools",
+      "modules",
+      "c_EntropyModule",
+      "c_FileTypeSigModule",
+      "c_HashCalcModule",
+      "c_LibExifModule",
+      "c_InterestingFilesModule",
+      "c_ZIPExtractionModule",
+      "c_SaveInterestingFilesModule",
+      "c_SummaryReportModule",
+      "c_TskHashLookupModule",
+      "c_RegRipperModule",
+      "src",
+      "magic",
+      "tests",
+      "doc",
+      "python",
+      "m4m",
+      "po",
+      "libexif",
+      "test",
+      "doc",
+      "binary",
+      "contrib",
+      "tsk_analyzeimg",
+      "tsk_validatepipeline",
+      "extraction",
+      "file",
+      "pipeline",
+      "services",
+      "utilities",
+      "imgtools",
+      "vstools",
+      "fstools",
+      "hashtools",
+      "srchtools",
+      "sorter",
+      "timeline",
+      "autotools",
+      "fiwalk",
+      "src",
+      "plugins",
+      "base",
+      "img",
+      "vs",
+      "fs",
+      "hashdb",
+      "auto",
+      "base"
+    ],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [],
+        "subdirs": [
+          "tsk",
+          "tools",
+          "tests",
+          "samples",
+          "man",
+          "$(UNIT_TESTS)",
+          "$(JAVA_BINDINGS)"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "framework",
+        "targets": [
+          "copy_libs",
+          "copy_configs"
+        ],
+        "subdirs": [
+          "tsk/framework",
+          "tools",
+          "modules"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "framework/modules",
+        "targets": [],
+        "subdirs": [
+          "c_EntropyModule",
+          "c_FileTypeSigModule",
+          "c_HashCalcModule",
+          "c_LibExifModule",
+          "c_InterestingFilesModule",
+          "c_ZIPExtractionModule",
+          "c_SaveInterestingFilesModule",
+          "c_SummaryReportModule",
+          "c_TskHashLookupModule",
+          "c_RegRipperModule"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "framework/modules/c_EntropyModule",
+        "targets": [
+          "libtskEntropyModule.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "framework/modules/c_FileTypeSigModule",
+        "targets": [
+          "libtskFileTypeSigModule.la",
+          "maybe_copy_configs",
+          "setup_data",
+          "no_libmagic"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "$(FW_INCLUDE) $(TSK_INCLUDE)"
+      },
+      {
+        "dir": "framework/modules/c_FileTypeSigModule/file-5.08",
+        "targets": [],
+        "subdirs": [
+          "src",
+          "magic",
+          "tests",
+          "doc",
+          "python"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "framework/modules/c_HashCalcModule",
+        "targets": [
+          "libtskHashCalcModule.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "framework/modules/c_InterestingFilesModule",
+        "targets": [
+          "libtskInterestingFilesModule.la",
+          "maybe_copy_configs",
+          "setup_data"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "framework/modules/c_LibExifModule",
+        "targets": [
+          "libtskLibExifModule.la",
+          "no_libmagic"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "$(FW_INCLUDE) $(TSK_INCLUDE)"
+      },
+      {
+        "dir": "framework/modules/c_LibExifModule/libexif-0.6.20",
+        "targets": [],
+        "subdirs": [
+          "m4m",
+          "po",
+          "libexif",
+          "test",
+          "doc",
+          "binary",
+          "contrib"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "framework/modules/c_RegRipperModule",
+        "targets": [
+          "libtskRegRipperModule.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "framework/modules/c_SaveInterestingFilesModule",
+        "targets": [
+          "libtskSaveInterestingFilesModule.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "framework/modules/c_SummaryReportModule",
+        "targets": [
+          "libtskSummaryReportModule.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "framework/modules/c_TskHashLookupModule",
+        "targets": [
+          "libtskHashLookupModule.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "framework/modules/c_ZIPExtractionModule",
+        "targets": [
+          "libtskZipExtractionModule.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "framework/tools",
+        "targets": [],
+        "subdirs": [
+          "tsk_analyzeimg",
+          "tsk_validatepipeline"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "framework/tools/tsk_analyzeimg",
+        "targets": [
+          "tsk_analyzeimg"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "framework/tools/tsk_validatepipeline",
+        "targets": [
+          "tsk_validatepipeline"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "framework/tsk/framework",
+        "targets": [
+          "libtskframework.la"
+        ],
+        "subdirs": [
+          "extraction",
+          "file",
+          "pipeline",
+          "services",
+          "utilities"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "samples",
+        "targets": [
+          "posix_style",
+          "callback_style",
+          "posix_cpp_style",
+          "callback_cpp_style"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I.. -I$(srcdir)/.."
+      },
+      {
+        "dir": "tests",
+        "targets": [
+          "read_apis",
+          "fs_fname_apis",
+          "fs_attrlist_apis",
+          "fs_thread_test"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I.. -I$(srcdir)/.."
+      },
+      {
+        "dir": "tools",
+        "targets": [],
+        "subdirs": [
+          "imgtools",
+          "vstools",
+          "fstools",
+          "hashtools",
+          "srchtools",
+          "sorter",
+          "timeline",
+          "autotools",
+          "fiwalk"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "tools/autotools",
+        "targets": [
+          "tsk_recover",
+          "tsk_loaddb",
+          "tsk_comparedir",
+          "tsk_gettimes"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I../.. -I$(srcdir)/../.."
+      },
+      {
+        "dir": "tools/fiwalk",
+        "targets": [],
+        "subdirs": [
+          "src",
+          "plugins"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "tools/fiwalk/plugins",
+        "targets": [
+          "jpeg_extract"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "tools/fiwalk/src",
+        "targets": [
+          "fiwalk"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I../../.."
+      },
+      {
+        "dir": "tools/fstools",
+        "targets": [
+          "blkcalc",
+          "blkcat",
+          "blkls",
+          "blkstat",
+          "ffind",
+          "fls",
+          "fcat",
+          "fsstat",
+          "icat",
+          "ifind",
+          "ils",
+          "istat"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I../.. -I$(srcdir)/../.."
+      },
+      {
+        "dir": "tools/hashtools",
+        "targets": [
+          "hfind"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I../.. -I$(srcdir)/../.."
+      },
+      {
+        "dir": "tools/imgtools",
+        "targets": [
+          "img_cat",
+          "img_stat"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I../.. -I$(srcdir)/../.."
+      },
+      {
+        "dir": "tools/srchtools",
+        "targets": [
+          "srch_strings",
+          "sigfind"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I../.. -I$(srcdir)/../.."
+      },
+      {
+        "dir": "tools/vstools",
+        "targets": [
+          "mmls",
+          "mmstat",
+          "mmcat"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I../.. -I$(srcdir)/../.."
+      },
+      {
+        "dir": "tsk",
+        "targets": [
+          "libtsk.la"
+        ],
+        "subdirs": [
+          "base",
+          "img",
+          "vs",
+          "fs",
+          "hashdb",
+          "auto"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "tsk/auto",
+        "targets": [
+          "libtskauto.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I../.. -I$(srcdir)/../.."
+      },
+      {
+        "dir": "tsk/base",
+        "targets": [
+          "libtskbase.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I../.."
+      },
+      {
+        "dir": "tsk/fs",
+        "targets": [
+          "libtskfs.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I../.. -I$(srcdir)/../.."
+      },
+      {
+        "dir": "tsk/hashdb",
+        "targets": [
+          "libtskhashdb.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I../.. -I$(srcdir)/../.."
+      },
+      {
+        "dir": "tsk/img",
+        "targets": [
+          "libtskimg.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I../.. -I$(srcdir)/../.."
+      },
+      {
+        "dir": "tsk/vs",
+        "targets": [
+          "libtskvs.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I../.. -I$(srcdir)/../.."
+      },
+      {
+        "dir": "unit_tests",
+        "targets": [],
+        "subdirs": [
+          "base"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "unit_tests/base",
+        "targets": [
+          "test_base"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I../.. $(CPPUNIT_CFLAGS)"
+      }
+    ],
+    "max_depth": 3,
+    "config_h_consumers_below_root": [
+      "tests",
+      "tools/fiwalk/src",
+      "tools/srchtools",
+      "unit_tests/base",
+      "tsk/auto",
+      "tsk/img",
+      "tsk/base"
+    ]
+  },
+  "tool_requirements": {
+    "detected": [
+      "c++",
+      "perl"
+    ],
+    "missing": [
+      {
+        "name": "--cflags",
+        "phase": "make",
+        "suggested_package": ""
+      }
+    ]
+  },
+  "macro_inventory": {
+    "macro_dirs": [
+      "m4"
+    ],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [
+      {
+        "name": "AX_JNI_INCLUDE_DIR",
+        "source": "m4/ax_jni_include_dir.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "_ACJNI_FOLLOW_SYMLINKS",
+        "source": "m4/ax_jni_include_dir.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AC_PROG_JAVAC_WORKS",
+        "source": "m4/ac_prog_javac_works.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AM_PATH_CPPUNIT",
+        "source": "m4/cppunit.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AX_PTHREAD",
+        "source": "m4/ax_pthread.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AC_PROG_JAVA_WORKS",
+        "source": "m4/ac_prog_java_works.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_PROG_JAVA",
+        "source": "m4/ac_prog_java.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_PROG_JAVAC",
+        "source": "m4/ac_prog_javac.m4",
+        "kind": "AC"
+      }
+    ],
+    "called_macros": [
+      "AC_ARG_ENABLE",
+      "AC_ARG_WITH",
+      "AC_CHECK_FUNCS",
+      "AC_CHECK_HEADERS",
+      "AC_CHECK_LIB",
+      "AC_CHECK_MEMBERS",
+      "AC_CONFIG_AUX_DIR",
+      "AC_CONFIG_COMMANDS",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_HEADERS",
+      "AC_CONFIG_MACRO_DIR",
+      "AC_CONFIG_SRCDIR",
+      "AC_C_CONST",
+      "AC_DEFINE",
+      "AC_FUNC_ALLOCA",
+      "AC_FUNC_ERROR_AT_LINE",
+      "AC_FUNC_FORK",
+      "AC_FUNC_FSEEKO",
+      "AC_FUNC_LSTAT",
+      "AC_FUNC_LSTAT_FOLLOWS_SLASHED_SYMLINK",
+      "AC_FUNC_MALLOC",
+      "AC_FUNC_MBRTOWC",
+      "AC_FUNC_MEMCMP",
+      "AC_FUNC_MKTIME",
+      "AC_FUNC_MMAP",
+      "AC_FUNC_REALLOC",
+      "AC_FUNC_SELECT_ARGTYPES",
+      "AC_FUNC_STAT",
+      "AC_FUNC_UTIME_NULL",
+      "AC_FUNC_VPRINTF",
+      "AC_HEADER_MAJOR",
+      "AC_HEADER_STDBOOL",
+      "AC_HEADER_STDC",
+      "AC_HEADER_SYS_WAIT",
+      "AC_HEADER_TIME",
+      "AC_INIT",
+      "AC_MSG_CHECKING",
+      "AC_MSG_ERROR",
+      "AC_MSG_FAILURE",
+      "AC_MSG_NOTICE",
+      "AC_MSG_RESULT",
+      "AC_MSG_WARN",
+      "AC_OUTPUT",
+      "AC_PATH_PROG",
+      "AC_PREREQ",
+      "AC_PROG_CC",
+      "AC_PROG_CPP",
+      "AC_PROG_CXX",
+      "AC_PROG_GCC_TRADITIONAL",
+      "AC_PROG_INSTALL",
+      "AC_PROG_JAVA",
+      "AC_PROG_JAVAC",
+      "AC_PROG_LN_S",
+      "AC_PROG_MAKE_SET",
+      "AC_SEARCH_LIBS",
+      "AC_STRUCT_TM",
+      "AC_SUBST",
+      "AC_SYS_LARGEFILE",
+      "AC_TYPE_MODE_T",
+      "AC_TYPE_OFF_T"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 265,
+    "configure_fi": 249,
+    "configure_case": 75,
+    "configure_esac": 77,
+    "balanced": false,
+    "automake_conditionals": [
+      "CPPUNIT",
+      "HAVE_LIBSQLITE3",
+      "HAVE_POSTGRESQL",
+      "X_ZLIB",
+      "OFFLINE",
+      "X_JNI"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": "config",
+    "present": [
+      "install-sh",
+      "missing",
+      "depcomp",
+      "compile"
+    ],
+    "missing": []
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "c": 104,
+      "cpp": 141,
+      "h": 141
+    },
+    "configure_macros": [
+      "AC_PROG_CC",
+      "AC_PROG_CXX"
+    ],
+    "needs_cxx": true,
+    "needs_fortran": false,
+    "sets_c_std": false
+  },
+  "libtool_context": {
+    "uses_libtool": true,
+    "macros": [
+      "AM_PROG_LIBTOOL"
+    ],
+    "ltmain_present": false,
+    "libtool_m4_sources": [],
+    "age": "unknown"
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": true,
+    "defines_sampled": []
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-maintainer-mode",
+      "applied_at": "configure",
+      "effect": "neutral",
+      "effectiveness": "low"
+    },
+    {
+      "quirk_id": "has-m4-macro-dir",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-ax-archive",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-pthread-check",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "perl-in-configure",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "vpath_analysis": {
+    "hardcoded_src_paths": 15,
+    "abs_path_leakage": 0,
+    "built_sources": [],
+    "generated_source_targets": []
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "afflib/afflib.h",
+      "err.h",
+      "fcntl.h",
+      "inttypes.h",
+      "libewf.h",
+      "libpq-fe.h",
+      "libvhdi.h",
+      "libvmdk.h",
+      "limits.h",
+      "locale.h",
+      "memory.h",
+      "netinet/in.h",
+      "postgresql/libpq-fe.h",
+      "sqlite3.h",
+      "stdint.h",
+      "stdlib.h",
+      "string.h",
+      "sys/ioctl.h",
+      "sys/param.h",
+      "sys/resource.h",
+      "sys/time.h",
+      "unistd.h",
+      "utime.h",
+      "wchar.h",
+      "wctype.h",
+      "zlib.h"
+    ],
+    "headers_included_unchecked": [
+      "CoreFoundation/CFUUID.h",
+      "afflib/afflib_i.h",
+      "afflib/utils.h",
+      "cppunit/CompilerOutputter.h",
+      "cppunit/extensions/HelperMacros.h",
+      "cppunit/extensions/TestFactoryRegistry.h",
+      "cppunit/ui/text/TestRunner.h",
+      "mach/semaphore.h",
+      "mach/task.h",
+      "pthread.h",
+      "sys/cdefs.h",
+      "sys/disk.h",
+      "sys/fcntl.h",
+      "sys/mman.h",
+      "sys/mmap.h",
+      "sys/signal.h",
+      "sys/stat.h",
+      "sys/sysmacros.h",
+      "sys/types.h",
+      "sys/utsname.h",
+      "tsk/libtsk.h",
+      "uuid/uuid.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 4,
+    "shadowed_macros": [
+      "AC_PROG_JAVAC_WORKS",
+      "AM_PATH_CPPUNIT",
+      "AC_PROG_JAVA_WORKS",
+      "AC_PROG_JAVA",
+      "AC_PROG_JAVAC"
+    ]
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "gnu++",
+    "strip_modern_poison_flags": [],
+    "inject_legacy_shims": false,
+    "compiler_aliasing": {}
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 4,
+    "shadowed_builtins": [
+      "AC_PROG_JAVAC_WORKS",
+      "AM_PATH_CPPUNIT",
+      "AC_PROG_JAVA_WORKS",
+      "AC_PROG_JAVA",
+      "AC_PROG_JAVAC"
+    ],
+    "permitted_mutations": 8,
+    "suspect_global_mutations": 0
+  },
+  "parallel_build_safety": {
+    "vpath_out_of_tree_safe": false,
+    "generators": [],
+    "unordered_generated_sources": [],
+    "built_sources_declared": false
+  },
+  "host_environment_veil": {
+    "header_injection_candidates": [
+      "sys/cdefs.h"
+    ],
+    "symbol_aliasing_candidates": []
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "CoreFoundation/CFUUID.h",
+      "afflib/afflib_i.h",
+      "afflib/utils.h",
+      "cppunit/CompilerOutputter.h",
+      "cppunit/extensions/HelperMacros.h",
+      "cppunit/extensions/TestFactoryRegistry.h",
+      "cppunit/ui/text/TestRunner.h",
+      "mach/semaphore.h",
+      "mach/task.h",
+      "pthread.h",
+      "sys/cdefs.h",
+      "sys/disk.h",
+      "sys/fcntl.h",
+      "sys/mman.h",
+      "sys/mmap.h",
+      "sys/signal.h",
+      "sys/stat.h",
+      "sys/sysmacros.h",
+      "sys/types.h",
+      "sys/utsname.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "subdir-config-h-include-path",
+    "vpath-unsafe (abs-path/hardcoded-srcdir leakage)"
+  ],
+  "repair_hints": [
+    {
+      "id": "subdir-top-builddir",
+      "phase": "make",
+      "confidence": 0.88,
+      "evidence": [
+        "tests consumes config.h below root",
+        "tools/fiwalk/src consumes config.h below root",
+        "tools/srchtools consumes config.h below root",
+        "unit_tests/base consumes config.h below root",
+        "tsk/auto consumes config.h below root"
+      ],
+      "action": "ensure ac_subst_file sets relative top_builddir per subdir (0.1.19)",
+      "expected_effect": "config.h found in subdir compiles"
+    },
+    {
+      "id": "missing-build-tool",
+      "phase": "make",
+      "confidence": 0.75,
+      "evidence": [
+        "--cflags: command not found"
+      ],
+      "action": "provide --cflags",
+      "expected_effect": "unblocks the build step needing this tool"
+    }
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": -16,
+      "Makefile.in": 4167,
+      "aclocal.m4": 231,
+      "configure": 243,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_ENABLE": "system-aclocal",
+      "AC_ARG_WITH": "system-aclocal",
+      "AC_CHECK_FUNCS": "system-aclocal",
+      "AC_CHECK_HEADERS": "system-aclocal",
+      "AC_CHECK_LIB": "system-aclocal",
+      "AC_CHECK_MEMBERS": "system-aclocal",
+      "AC_CONFIG_AUX_DIR": "system-aclocal",
+      "AC_CONFIG_COMMANDS": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_HEADERS": "system-aclocal",
+      "AC_CONFIG_MACRO_DIR": "system-aclocal",
+      "AC_CONFIG_SRCDIR": "system-aclocal",
+      "AC_C_CONST": "system-aclocal",
+      "AC_DEFINE": "system-aclocal",
+      "AC_FUNC_ALLOCA": "system-aclocal",
+      "AC_FUNC_ERROR_AT_LINE": "system-aclocal",
+      "AC_FUNC_FORK": "system-aclocal",
+      "AC_FUNC_FSEEKO": "system-aclocal",
+      "AC_FUNC_LSTAT": "system-aclocal",
+      "AC_FUNC_LSTAT_FOLLOWS_SLASHED_SYMLINK": "system-aclocal",
+      "AC_FUNC_MALLOC": "system-aclocal",
+      "AC_FUNC_MBRTOWC": "system-aclocal",
+      "AC_FUNC_MEMCMP": "system-aclocal",
+      "AC_FUNC_MKTIME": "system-aclocal",
+      "AC_FUNC_MMAP": "system-aclocal",
+      "AC_FUNC_REALLOC": "system-aclocal",
+      "AC_FUNC_SELECT_ARGTYPES": "system-aclocal",
+      "AC_FUNC_STAT": "system-aclocal",
+      "AC_FUNC_UTIME_NULL": "system-aclocal",
+      "AC_FUNC_VPRINTF": "system-aclocal",
+      "AC_HEADER_MAJOR": "system-aclocal",
+      "AC_HEADER_STDBOOL": "system-aclocal",
+      "AC_HEADER_STDC": "system-aclocal",
+      "AC_HEADER_SYS_WAIT": "system-aclocal",
+      "AC_HEADER_TIME": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_MSG_CHECKING": "system-aclocal",
+      "AC_MSG_ERROR": "system-aclocal",
+      "AC_MSG_FAILURE": "system-aclocal",
+      "AC_MSG_NOTICE": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "libtskHashCalcModule_la_LIBADD",
+        "var": "AM_LIBADD_MOD",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libtskLibExifModule_la_LIBADD",
+        "var": "FW_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libtskInterestingFilesModule_la_LIBADD",
+        "var": "AM_LIBADD_MOD",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libtskEntropyModule_la_LIBADD",
+        "var": "AM_LIBADD_MOD",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libtskSummaryReportModule_la_LIBADD",
+        "var": "AM_LIBADD_MOD",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libtskHashLookupModule_la_LIBADD",
+        "var": "AM_LIBADD_MOD",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libtskRegRipperModule_la_LIBADD",
+        "var": "AM_LIBADD_MOD",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libtskFileTypeSigModule_la_LIBADD",
+        "var": "FW_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libtskSaveInterestingFilesModule_la_LIBADD",
+        "var": "AM_LIBADD_MOD",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libtskZipExtractionModule_la_LIBADD",
+        "var": "AM_LIBADD_MOD",
+        "resolved_to": [],
+        "resolved": false
+      }
+    ],
+    "unresolved_refs": [
+      "libtskHashCalcModule_la_LIBADD = $(AM_LIBADD_MOD)",
+      "libtskLibExifModule_la_LIBADD = $(FW_LIBS)",
+      "libtskInterestingFilesModule_la_LIBADD = $(AM_LIBADD_MOD)",
+      "libtskEntropyModule_la_LIBADD = $(AM_LIBADD_MOD)",
+      "libtskSummaryReportModule_la_LIBADD = $(AM_LIBADD_MOD)",
+      "libtskHashLookupModule_la_LIBADD = $(AM_LIBADD_MOD)",
+      "libtskRegRipperModule_la_LIBADD = $(AM_LIBADD_MOD)",
+      "libtskFileTypeSigModule_la_LIBADD = $(FW_LIBS)",
+      "libtskSaveInterestingFilesModule_la_LIBADD = $(AM_LIBADD_MOD)",
+      "libtskZipExtractionModule_la_LIBADD = $(AM_LIBADD_MOD)"
+    ],
+    "indirection_count": 10
   }
 }

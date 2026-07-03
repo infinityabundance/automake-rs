@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "cwi-dis/ambulant",
   "source": {
     "url": "https://github.com/cwi-dis/ambulant",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -53,82 +53,84 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "configure: error: Your platform is not currently supported",
+  "diagnostic": "./configure: line 1513: LT_AC_PROG_SED: command not found",
   "deep_expansion": {
-    "configure_lines": 3914,
+    "configure_lines": 4563,
     "leaked_macros": [],
-    "heredoc_openers": 25,
-    "heredoc_terminators": 25,
+    "heredoc_openers": 21,
+    "heredoc_terminators": 21,
     "heredoc_imbalance": 0,
-    "syntax_errors": [],
+    "syntax_errors": [
+      {
+        "line": 1520,
+        "token": "convenience",
+        "source": "LTDL_INIT(convenience)",
+        "block": [
+          "1516: # Allow either included or standard ltdl",
+          "1517: #",
+          "1518: :",
+          "1519: _acrs_write_libtool",
+          "1520: LTDL_INIT(convenience)",
+          "1521: # ??? AC_LIBTOOL_DLOPEN",
+          "1522: # ??? AC_LIB_LTDL",
+          "1523: #"
+        ]
+      }
+    ],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 3382: do eval test \\${$as_var+y} \\"
+      "line 1441: # eval \"_acrs_sv=\\${}\"; printf '%s\\n' \"s|@@|${_acrs_sv}|g\" >",
+      "line 4030: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
-      "PACKAGE_NAME",
-      "PACKAGE_TARNAME",
-      "PACKAGE_VERSION",
-      "PACKAGE_STRING",
-      "PACKAGE_BUGREPORT",
-      "PACKAGE_URL",
-      "srcdir",
-      "prefix",
-      "exec_prefix",
-      "CC",
-      "CFLAGS",
-      "CPPFLAGS",
-      "LDFLAGS",
-      "LIBS",
-      "CXX",
-      "CXXFLAGS",
-      "CPP",
-      "DEFS",
-      "LIBOBJS",
-      "INSTALL",
-      "FFMPEG_LIBS",
-      "PTHREAD_CFLAGS",
+      "ac_configure_args",
+      "WITH_LTDL_PLUGINS_TRUE",
+      "WITH_LTDL_PLUGINS_FALSE",
+      "WITH_DUMMY_PLUGIN_TRUE",
+      "WITH_DUMMY_PLUGIN_FALSE",
+      "GCD_LIBS",
+      "WITH_GCD_EVENT_PROCESSOR_TRUE",
+      "WITH_GCD_EVENT_PROCESSOR_FALSE",
+      "EXPAT_CFLAGS",
+      "EXPAT_LIBS",
+      "WITH_EXPAT_TRUE",
+      "WITH_EXPAT_FALSE",
       "XERCES_CFLAGS",
-      "INCLTDL",
-      "FFMPEG_CFLAGS",
-      "GSTREAMER_CFLAGS",
-      "host_os",
-      "GTK_CFLAGS",
-      "PTHREAD_CC"
+      "XERCES_LIBS",
+      "WITH_XERCES_TRUE",
+      "WITH_XERCES_FALSE",
+      "WITH_XERCES_PLUGIN_TRUE",
+      "WITH_XERCES_PLUGIN_FALSE",
+      "WITH_XERCES_BUILTIN_TRUE",
+      "WITH_XERCES_BUILTIN_FALSE",
+      "WITH_CG_TRUE",
+      "WITH_CG_FALSE",
+      "WITH_UIKIT_TRUE",
+      "WITH_UIKIT_FALSE",
+      "OBJCFLAGS",
+      "OBJC",
+      "SDL_CFLAGS",
+      "SDL_LIBS",
+      "SDL2_image_CFLAGS"
     ],
-    "failed_during_check": "checking for python... /usr/bin/python3",
+    "failed_during_check": "checking for assert.h... yes",
     "failure_tail": [
-      "checking for python... /usr/bin/python3",
-      "configure: error: Your platform is not currently supported"
+      "checking for assert.h... yes",
+      "./configure: line 1513: LT_AC_PROG_SED: command not found",
+      "./configure: line 1520: syntax error near unexpected token `convenience'",
+      "./configure: line 1520: `LTDL_INIT(convenience)'"
     ],
     "conftest_corruption": [],
-    "conftest_directives_intact": 11,
+    "conftest_directives_intact": 6,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
       "#include <assert.h>",
       "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar pthread_join();\\nint main() { return pthread_join(); }",
       "#include <pthread.h>\\nint main() { pthread_t th; pthread_join(th, 0);\\npthread_attr_init(0); pthread_cleanup_push(0, 0);\\npthread_create(0,0,0,0); pthread_cleanup_pop(0);  ; return 0; }",
       "#include <pthread.h>\\nint main() { int attr=PTHREAD_CREATE_JOINABLE; ; return 0; }",
-      "#include <pthread.h>\\nint main() { int attr=PTHREAD_CREATE_UNDETACHED; ; return 0; }",
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar pthread_join();\\nint main() { return pthread_join(); }"
+      "#include <pthread.h>\\nint main() { int attr=PTHREAD_CREATE_UNDETACHED; ; return 0; }"
     ]
-  },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "ok",
-    "real_make": "fail",
-    "real_configure_lines": 28516,
-    "real_first_error": "",
-    "classification": "OURS_BUG_CONFIGURE"
-  },
-  "divergence": {
-    "stage": "configure",
-    "ours_error": "",
-    "ours_error_context": [],
-    "ours_configure_lines": 3914,
-    "real_configure_lines": 28516,
-    "macros_ours_left_undefined": []
   },
   "receipt": {
     "court_status": "failed",
@@ -149,7 +151,7 @@
         "verified": false
       }
     ],
-    "receipt_hash": "24e39ed3178d433d21c1340a6407fda16d8349c27724819539e8175382940e80",
+    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -158,6 +160,1552 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Documentation/API/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "Documentation/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "Extras/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "ambulant.spec",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "include/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "include/ambulant/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "include/ambulant/common/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "include/ambulant/config/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "include/ambulant/config/compiler/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "include/ambulant/config/platform/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "include/ambulant/config/stdlib/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "include/ambulant/gui/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "include/ambulant/gui/SDL/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "include/ambulant/gui/cg/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "include/ambulant/gui/d2/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "include/ambulant/gui/gstreamer/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "include/ambulant/gui/gtk/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "include/ambulant/gui/none/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "include/ambulant/lib/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "include/ambulant/lib/unix/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "include/ambulant/lib/win32/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "include/ambulant/net/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "include/ambulant/smil2/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "libambulant.pc",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "po/Makefile.in",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "src/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "src/libambulant/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/libambulant/pc-uninstalled/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/libambulant/pc-uninstalled/libambulant.pc",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/npambulant/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/player_gtk/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/player_macosx/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/player_sdl/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/pyambulant/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "third_party_packages/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      }
+    ],
+    "config_headers": [],
+    "subdirs": [
+      "libltdl",
+      "po",
+      "src",
+      "include",
+      "third_party_packages",
+      "Documentation",
+      "Extras",
+      "API",
+      "ambulant",
+      "lib",
+      "net",
+      "gui",
+      "common",
+      "config",
+      "smil2",
+      "compiler",
+      "platform",
+      "stdlib",
+      "none",
+      "gtk",
+      "SDL",
+      "d2",
+      "gstreamer",
+      "cg",
+      "unix",
+      "win32",
+      "include",
+      "src",
+      "tests",
+      "gst",
+      "bindings",
+      "common",
+      "pkgconfig",
+      "docs",
+      "examples",
+      "tests",
+      "python",
+      "vala",
+      "codegen",
+      "m4",
+      "$(DOCS_SUBDIRS)",
+      "rtsp-server",
+      "src",
+      "tests",
+      "src",
+      "tests",
+      "debian",
+      "scripts",
+      "libambulant",
+      "$(build_pyambulant)",
+      "plugins",
+      "$(build_player_gtk)",
+      "$(build_player_sdl)",
+      "$(build_player_macosx)",
+      "$(build_npambulant)",
+      "pc-uninstalled",
+      "nightly"
+    ],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [],
+        "subdirs": [
+          "libltdl",
+          "po",
+          "src",
+          "include",
+          "third_party_packages",
+          "Documentation",
+          "Extras"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": "-rdynamic"
+      },
+      {
+        "dir": "Documentation",
+        "targets": [],
+        "subdirs": [
+          "API"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "include",
+        "targets": [],
+        "subdirs": [
+          "ambulant"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "include/ambulant",
+        "targets": [],
+        "subdirs": [
+          "lib",
+          "net",
+          "gui",
+          "common",
+          "config",
+          "smil2"
+        ],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "include/ambulant/common",
+        "targets": [],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "include/ambulant/config",
+        "targets": [],
+        "subdirs": [
+          "compiler",
+          "platform",
+          "stdlib"
+        ],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "include/ambulant/gui",
+        "targets": [],
+        "subdirs": [
+          "none",
+          "gtk",
+          "SDL",
+          "d2",
+          "gstreamer",
+          "cg"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "include/ambulant/gui/SDL",
+        "targets": [],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "include/ambulant/gui/d2",
+        "targets": [],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "include/ambulant/gui/gtk",
+        "targets": [],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "include/ambulant/gui/none",
+        "targets": [],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "include/ambulant/lib",
+        "targets": [],
+        "subdirs": [
+          "unix",
+          "win32"
+        ],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "include/ambulant/lib/win32",
+        "targets": [],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "include/ambulant/net",
+        "targets": [],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "include/ambulant/smil2",
+        "targets": [],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "sandbox/ambulant-recorder-plugin",
+        "targets": [],
+        "subdirs": [
+          "include",
+          "src",
+          "tests"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "sandbox/ambulant-recorder-plugin/src",
+        "targets": [
+          "libamplugin_recorder.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir)/include $(AMBULANT_CFLAGS) $(SDL_CFLAGS)"
+      },
+      {
+        "dir": "sandbox/gst-rtsp-0.10.8",
+        "targets": [],
+        "subdirs": [
+          "gst",
+          "bindings",
+          "common",
+          "pkgconfig",
+          "docs",
+          "examples",
+          "tests"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "sandbox/gst-rtsp-0.10.8/bindings",
+        "targets": [],
+        "subdirs": [
+          "python",
+          "vala"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "sandbox/gst-rtsp-0.10.8/bindings/python",
+        "targets": [
+          "rtspserver.la"
+        ],
+        "subdirs": [
+          "codegen"
+        ],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir) -I$(srcdir) $(PYTHON_INCLUDES)"
+      },
+      {
+        "dir": "sandbox/gst-rtsp-0.10.8/common",
+        "targets": [],
+        "subdirs": [
+          "m4"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "sandbox/gst-rtsp-0.10.8/docs",
+        "targets": [],
+        "subdirs": [
+          "$(DOCS_SUBDIRS)"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "sandbox/gst-rtsp-0.10.8/examples",
+        "targets": [
+          "test-screen",
+          "test-webcam",
+          "test-video",
+          "test-ogg",
+          "test-mp4",
+          "test-readme",
+          "test-launch",
+          "test-sdp",
+          "test-uri",
+          "test-auth"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir) -I$(srcdir)"
+      },
+      {
+        "dir": "sandbox/gst-rtsp-0.10.8/gst",
+        "targets": [],
+        "subdirs": [
+          "rtsp-server"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "sandbox/gst-rtsp-0.10.8/gst/rtsp-server",
+        "targets": [
+          "libgstrtspserver-@GST_MAJORMINOR@.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "sandbox/gst-rtsp-0.10.8/tests",
+        "targets": [
+          "test-cleanup"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_srcdir) -I$(srcdir)"
+      },
+      {
+        "dir": "sandbox/gstambulant-plugin-package-0.10.0",
+        "targets": [],
+        "subdirs": [
+          "src",
+          "tests"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "sandbox/gstambulant-plugin-package-0.10.0/src",
+        "targets": [
+          "libgstambulantsrc.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "sandbox/gstambulantsrc-1.0.x",
+        "targets": [],
+        "subdirs": [
+          "src",
+          "tests",
+          "debian",
+          "scripts"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "sandbox/gstambulantsrc-1.0.x/src",
+        "targets": [
+          "libgstambulantsrc.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "sandbox/gstambulantsrc-1.0.x/tests",
+        "targets": [
+          "test2t"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src",
+        "targets": [],
+        "subdirs": [
+          "libambulant",
+          "$(build_pyambulant)",
+          "plugins",
+          "$(build_player_gtk)",
+          "$(build_player_sdl)",
+          "$(build_player_macosx)",
+          "$(build_npambulant)"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/libambulant",
+        "targets": [
+          "$(toolkit_gstreamer_libraries)",
+          "$(toolkit_sdl_libraries)",
+          "$(toolkit_ffmpeg_libraries)",
+          "$(toolkit_cg_libraries)",
+          "$(toolkit_gtk_libraries)",
+          "libambulant.la"
+        ],
+        "subdirs": [
+          "pc-uninstalled"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": "-DAMBULANT_DATADIR=\\\"$(pkgdatadir)\\\"  \t-DAMBULANT_PLUGINDIR=\\\"$(pkglibdir)\\\"  \t-I$(top_builddir)/include  \t-I$(top_srcdi"
+      },
+      {
+        "dir": "src/npambulant",
+        "targets": [
+          "libnpambulant.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "$(extra_cg_DEFINES)\t \t$(extra_gtk_DEFINES)\t \t$(extra_ffmpeg_DEFINES)\t \t$(extra_sdl_DEFINES)\t \t$(extra_xerces_DEFINES)\t \t"
+      },
+      {
+        "dir": "src/player_gtk",
+        "targets": [
+          "AmbulantPlayer_gtk"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "$(extra_gstreamer_CPPFLAGS)  \t\t-DAMBULANT_DATADIR=\\\"$(pkgdatadir)\\\"  \t\t$(extra_expat_DEFINES)  \t\t$(extra_ffmpeg_DEFINES)"
+      },
+      {
+        "dir": "src/player_macosx",
+        "targets": [
+          "ambulant_executable"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_builddir)/include -I$(top_srcdir)/include  \t$(extra_expat_DEFINES)  \t$(extra_ffmpeg_DEFINES)  \t$(extra_nls_DEFIN"
+      },
+      {
+        "dir": "src/player_sdl",
+        "targets": [
+          "AmbulantPlayer_sdl"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "$(extra_gstreamer_CPPFLAGS)  \t\t-DAMBULANT_DATADIR=\\\"$(pkgdatadir)\\\"  \t\t$(extra_expat_DEFINES)  \t\t$(extra_ffmpeg_DEFINES)"
+      },
+      {
+        "dir": "src/plugins",
+        "targets": [
+          "$(dummy_plugin)",
+          "$(rot13_plugin)",
+          "$(xerces_plugin)",
+          "$(dummy_state_plugin)",
+          "$(xpath_state_plugin)",
+          "$(wkdom_plugin)",
+          "$(python_plugin)"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I$(top_builddir)/include -I$(top_srcdir)/include  \t $(xerces_includes) $(python_includes)  \t $(xpath_state_includes)"
+      },
+      {
+        "dir": "src/pyambulant",
+        "targets": [],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "tests",
+        "targets": [],
+        "subdirs": [
+          "nightly"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      }
+    ],
+    "max_depth": 4,
+    "config_h_consumers_below_root": [
+      "sandbox/gst-rtsp-0.10.8/gst/rtsp-server",
+      "sandbox/gst-rtsp-0.10.8/bindings/python",
+      "sandbox/gstambulant-plugin-package-0.10.0/src",
+      "sandbox/gstambulantsrc-1.0.x/src",
+      "src/player_gtk",
+      "src/pyambulant",
+      "src/player_sdl",
+      "include/ambulant",
+      "include/ambulant/gui/d2",
+      "include/ambulant/gui/gtk",
+      "include/ambulant/gui/none",
+      "include/ambulant/gui/SDL",
+      "include/ambulant/common",
+      "include/ambulant/smil2",
+      "include/ambulant/net",
+      "include/ambulant/lib",
+      "include/ambulant/lib/win32",
+      "include/ambulant/config"
+    ]
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "Documentation/Design/Makefile",
+        "has_makefile_in": false,
+        "has_makefile_am": false,
+        "lines": 21,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 2
+      },
+      {
+        "path": "Documentation/Design/text/Makefile",
+        "has_makefile_in": false,
+        "has_makefile_am": false,
+        "lines": 38,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 2
+      }
+    ]
+  },
+  "tool_requirements": {
+    "detected": [
+      "python",
+      "c++",
+      "xgettext"
+    ],
+    "missing": [
+      {
+        "name": "LT_AC_PROG_SED",
+        "phase": "make",
+        "suggested_package": ""
+      }
+    ]
+  },
+  "macro_inventory": {
+    "macro_dirs": [],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [],
+    "called_macros": [
+      "AC_ARG_WITH",
+      "AC_CANONICAL_HOST",
+      "AC_CHECK_PROG",
+      "AC_CONFIG_AUX_DIR",
+      "AC_CONFIG_COMMANDS",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_MACRO_DIR",
+      "AC_CONFIG_SRCDIR",
+      "AC_DEFINE",
+      "AC_DEFUN",
+      "AC_HEADER_ASSERT",
+      "AC_HEADER_STDC",
+      "AC_INIT",
+      "AC_ISC_POSIX",
+      "AC_LANG_POP",
+      "AC_LANG_PROGRAM",
+      "AC_LANG_PUSH",
+      "AC_LIBTOOL_DLOPEN",
+      "AC_LIB_LTDL",
+      "AC_LINK_IFELSE",
+      "AC_MSG_CHECKING",
+      "AC_MSG_ERROR",
+      "AC_MSG_RESULT",
+      "AC_MSG_WARN",
+      "AC_OUTPUT",
+      "AC_PROG_CC",
+      "AC_PROG_CPP",
+      "AC_PROG_CXX",
+      "AC_PROG_LIBTOOL",
+      "AC_PROG_LN_S",
+      "AC_PROG_MKDIR_P",
+      "AC_REQUIRE",
+      "AC_SUBST",
+      "AC_TRY_LINK",
+      "AC_TRY_LINK_FUNC",
+      "AM_CONDITIONAL",
+      "AM_DEPENDENCIES",
+      "AM_GNU_GETTEXT",
+      "AM_GNU_GETTEXT_VERSION",
+      "AM_INIT_AUTOMAKE",
+      "AM_PATH_PYTHON",
+      "AM_SILENT_RULES",
+      "GTK_CFLAGS",
+      "GTK_LIBS",
+      "GTK_REQUIRED",
+      "LT_AC_PROG_SED",
+      "LT_CONFIG_LTDL_DIR",
+      "LT_INIT",
+      "PKG_CHECK_EXISTS",
+      "PKG_CHECK_MODULES",
+      "PKG_CONFIG",
+      "PKG_CONFIG_PATH"
+    ],
+    "unresolved_macros": [
+      "GTK_CFLAGS",
+      "GTK_LIBS",
+      "GTK_REQUIRED"
+    ]
+  },
+  "conditional_context": {
+    "configure_if": 287,
+    "configure_fi": 281,
+    "configure_case": 92,
+    "configure_esac": 95,
+    "balanced": false,
+    "automake_conditionals": [
+      "WITH_PKG_CONFIG",
+      "WITH_LTDL_PLUGINS",
+      "WITH_DUMMY_PLUGIN",
+      "WITH_GCD_EVENT_PROCESSOR",
+      "WITH_EXPAT",
+      "WITH_XERCES",
+      "WITH_XERCES_PLUGIN",
+      "WITH_XERCES_BUILTIN",
+      "WITH_CG",
+      "WITH_UIKIT",
+      "cpp",
+      "audio",
+      "WITH_SDL",
+      "WITH_SDL1",
+      "WITH_SDL2",
+      "WITH_SDL_AUDIO",
+      "WITH_SDL_VIDEO",
+      "WITH_SDL_IMAGE",
+      "WITH_SDL_PANGO",
+      "WITH_SDL_TTF",
+      "WITH_SDL_FRONTEND",
+      "WITH_GTK",
+      "WITH_GSTREAMER",
+      "WITH_FFMPEG",
+      "WITH_FFMPEG_SWSCALE",
+      "WITH_DOXYGEN",
+      "WITH_PYTHON",
+      "WITH_PYTHON_PLUGIN",
+      "WITH_NPAMBULANT",
+      "WITH_LIBXML2"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": "libltdl/config",
+    "present": [
+      "install-sh",
+      "missing"
+    ],
+    "missing": [
+      "depcomp",
+      "compile",
+      "ltmain.sh",
+      "config.guess",
+      "config.sub"
+    ]
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "c": 41,
+      "cc": 1,
+      "cpp": 154,
+      "h": 272,
+      "m": 17,
+      "mm": 27
+    },
+    "configure_macros": [
+      "AC_PROG_CC",
+      "AC_PROG_CXX"
+    ],
+    "needs_cxx": true,
+    "needs_fortran": false,
+    "sets_c_std": false
+  },
+  "libtool_context": {
+    "uses_libtool": true,
+    "macros": [
+      "LT_INIT",
+      "AC_PROG_LIBTOOL"
+    ],
+    "ltmain_present": false,
+    "libtool_m4_sources": [],
+    "age": "modern"
+  },
+  "gettext_intl_context": {
+    "uses_gettext": true,
+    "uses_intltool": false,
+    "po_dir_present": true,
+    "missing_files": [
+      "config.rpath"
+    ]
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": true,
+    "defines_sampled": []
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-subdir-objects",
+      "applied_at": "configure",
+      "effect": "neutral",
+      "effectiveness": "low"
+    },
+    {
+      "quirk_id": "uses-libtool",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-libtool-old",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-pkg-config",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-gettext",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-python",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "vpath_analysis": {
+    "hardcoded_src_paths": 19,
+    "abs_path_leakage": 0,
+    "built_sources": [],
+    "generated_source_targets": [
+      "GstRtspServer-@GST_MAJORMINOR@.gir",
+      "# TODO",
+      "TESTS_ENVIRONMENT=AMBULANT_PLUGIN_PATH=$(abs_top_builddir)/src/.libs",
+      ".libs/$(NPAMBULANT)",
+      "$(NPAMBULANT_PLUGIN)",
+      "DYLD_LIBRARY_PATH=$(top_builddir)/src/libambulant/.libs",
+      "npambulant_plugin_dir",
+      "LD_LIBRARY_PATH=$(top_builddir)/src/libambulant/.libs"
+    ]
+  },
+  "feature_probe_gap": {
+    "headers_checked": [],
+    "headers_included_unchecked": [
+      "ApplicationServices/ApplicationServices.h",
+      "CHUD/CHUD.h",
+      "Carbon/Carbon.h",
+      "CoreFoundation/CoreFoundation.h",
+      "WebKit/WebKit.h",
+      "X11/Intrinsic.h",
+      "X11/X.h",
+      "X11/Xlib.h",
+      "X11/cursorfont.h",
+      "ambulant/net/url.h",
+      "android/log.h",
+      "dlfcn.h",
+      "fcntl.h",
+      "ffmpeg/avcodec.h",
+      "ffmpeg/avformat.h",
+      "ffmpeg/swscale.h",
+      "gdk-pixbuf/gdk-pixbuf.h",
+      "gdk/gdk.h",
+      "gdk/gdkx.h",
+      "gst/app/gstappsrc.h",
+      "gst/base/gstbasesrc.h",
+      "gst/gst.h",
+      "gst/rtsp-server/rtsp-server.h",
+      "gst/video/video.h",
+      "gtk/gtk.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 1,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "gnu++",
+    "strip_modern_poison_flags": [],
+    "inject_legacy_shims": false,
+    "compiler_aliasing": {}
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 27,
+    "shadowed_builtins": [],
+    "permitted_mutations": 25,
+    "suspect_global_mutations": 0
+  },
+  "parallel_build_safety": {
+    "vpath_out_of_tree_safe": false,
+    "generators": [
+      "GstRtspServer-@GST_MAJORMINOR@.gir",
+      "# TODO",
+      "TESTS_ENVIRONMENT=AMBULANT_PLUGIN_PATH=$(abs_top_builddir)/src/.libs",
+      ".libs/$(NPAMBULANT)",
+      "$(NPAMBULANT_PLUGIN)",
+      "DYLD_LIBRARY_PATH=$(top_builddir)/src/libambulant/.libs",
+      "npambulant_plugin_dir",
+      "LD_LIBRARY_PATH=$(top_builddir)/src/libambulant/.libs"
+    ],
+    "unordered_generated_sources": [
+      "GstRtspServer-@GST_MAJORMINOR@.gir",
+      "# TODO",
+      "TESTS_ENVIRONMENT=AMBULANT_PLUGIN_PATH=$(abs_top_builddir)/src/.libs",
+      ".libs/$(NPAMBULANT)",
+      "$(NPAMBULANT_PLUGIN)",
+      "DYLD_LIBRARY_PATH=$(top_builddir)/src/libambulant/.libs",
+      "npambulant_plugin_dir",
+      "LD_LIBRARY_PATH=$(top_builddir)/src/libambulant/.libs"
+    ],
+    "built_sources_declared": false
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "ApplicationServices/ApplicationServices.h",
+      "CHUD/CHUD.h",
+      "Carbon/Carbon.h",
+      "CoreFoundation/CoreFoundation.h",
+      "WebKit/WebKit.h",
+      "X11/Intrinsic.h",
+      "X11/X.h",
+      "X11/Xlib.h",
+      "X11/cursorfont.h",
+      "ambulant/net/url.h",
+      "android/log.h",
+      "dlfcn.h",
+      "fcntl.h",
+      "ffmpeg/avcodec.h",
+      "ffmpeg/avformat.h",
+      "ffmpeg/swscale.h",
+      "gdk-pixbuf/gdk-pixbuf.h",
+      "gdk/gdk.h",
+      "gdk/gdkx.h",
+      "gst/app/gstappsrc.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "subdir-config-h-include-path",
+    "unresolved-macros",
+    "gettext-support-files-missing",
+    "parallel-build-race (gen-source not in BUILT_SOURCES)",
+    "vpath-unsafe (abs-path/hardcoded-srcdir leakage)"
+  ],
+  "repair_hints": [
+    {
+      "id": "subdir-top-builddir",
+      "phase": "make",
+      "confidence": 0.88,
+      "evidence": [
+        "sandbox/gst-rtsp-0.10.8/gst/rtsp-server consumes config.h below root",
+        "sandbox/gst-rtsp-0.10.8/bindings/python consumes config.h below root",
+        "sandbox/gstambulant-plugin-package-0.10.0/src consumes config.h below root",
+        "sandbox/gstambulantsrc-1.0.x/src consumes config.h below root",
+        "src/player_gtk consumes config.h below root"
+      ],
+      "action": "ensure ac_subst_file sets relative top_builddir per subdir (0.1.19)",
+      "expected_effect": "config.h found in subdir compiles"
+    },
+    {
+      "id": "ship-or-neutralize-macro",
+      "phase": "autoreconf",
+      "confidence": 0.6,
+      "evidence": [
+        "GTK_CFLAGS",
+        "GTK_LIBS",
+        "GTK_REQUIRED"
+      ],
+      "action": "ship native impl or neutralize",
+      "expected_effect": "resolves unexpanded AX_/custom macros"
+    },
+    {
+      "id": "missing-build-tool",
+      "phase": "make",
+      "confidence": 0.75,
+      "evidence": [
+        "LT_AC_PROG_SED: command not found"
+      ],
+      "action": "provide LT_AC_PROG_SED",
+      "expected_effect": "unblocks the build step needing this tool"
+    }
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": 0,
+      "Makefile.in": 1468,
+      "aclocal.m4": 267,
+      "configure": 279,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_WITH": "system-aclocal",
+      "AC_CANONICAL_HOST": "system-aclocal",
+      "AC_CHECK_PROG": "system-aclocal",
+      "AC_CONFIG_AUX_DIR": "system-aclocal",
+      "AC_CONFIG_COMMANDS": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_MACRO_DIR": "system-aclocal",
+      "AC_CONFIG_SRCDIR": "system-aclocal",
+      "AC_DEFINE": "system-aclocal",
+      "AC_DEFUN": "system-aclocal",
+      "AC_HEADER_ASSERT": "system-aclocal",
+      "AC_HEADER_STDC": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_ISC_POSIX": "system-aclocal",
+      "AC_LANG_POP": "system-aclocal",
+      "AC_LANG_PROGRAM": "system-aclocal",
+      "AC_LANG_PUSH": "system-aclocal",
+      "AC_LIBTOOL_DLOPEN": "system-aclocal",
+      "AC_LIB_LTDL": "system-aclocal",
+      "AC_LINK_IFELSE": "system-aclocal",
+      "AC_MSG_CHECKING": "system-aclocal",
+      "AC_MSG_ERROR": "system-aclocal",
+      "AC_MSG_RESULT": "system-aclocal",
+      "AC_MSG_WARN": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PROG_CC": "system-aclocal",
+      "AC_PROG_CPP": "system-aclocal",
+      "AC_PROG_CXX": "system-aclocal",
+      "AC_PROG_LIBTOOL": "system-aclocal",
+      "AC_PROG_LN_S": "system-aclocal",
+      "AC_PROG_MKDIR_P": "system-aclocal",
+      "AC_REQUIRE": "system-aclocal",
+      "AC_SUBST": "system-aclocal",
+      "AC_TRY_LINK": "system-aclocal",
+      "AC_TRY_LINK_FUNC": "system-aclocal",
+      "AM_CONDITIONAL": "system-aclocal",
+      "AM_DEPENDENCIES": "system-aclocal",
+      "AM_GNU_GETTEXT": "system-aclocal",
+      "AM_GNU_GETTEXT_VERSION": "system-aclocal",
+      "AM_INIT_AUTOMAKE": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "libgstrtspserver_@GST_MAJORMINOR@_la_SOURCES",
+        "var": "c_sources",
+        "resolved_to": [
+          "rtsp-funnel.c",
+          "rtsp-auth.c",
+          "rtsp-params.c",
+          "rtsp-sdp.c",
+          "rtsp-media.c",
+          "rtsp-media-factory.c",
+          "rtsp-media-factory-uri.c",
+          "rtsp-media-mapping.c",
+          "rtsp-session.c",
+          "rtsp-session-pool.c",
+          "rtsp-client.c",
+          "rtsp-server.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libgstrtspserver_@GST_MAJORMINOR@_la_LIBADD",
+        "var": "GST_PLUGINS_BASE_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libgstrtspserver_@GST_MAJORMINOR@_la_LIBADD",
+        "var": "GST_BASE_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libgstrtspserver_@GST_MAJORMINOR@_la_LIBADD",
+        "var": "GST_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libgstrtspserver_@GST_MAJORMINOR@_la_LIBADD",
+        "var": "LIBM",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "rtspserver_la_LIBADD",
+        "var": "GST_PLUGINS_BASE_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "rtspserver_la_LIBADD",
+        "var": "GST_BASE_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "rtspserver_la_LIBADD",
+        "var": "GST_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "rtspserver_la_LIBADD",
+        "var": "LIBM",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libgstambulantsrc_la_LIBADD",
+        "var": "GST_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "# est2_LDADD",
+        "var": "GST_OBJ_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "# est2_LDADD",
+        "var": "GST_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libgstambulantsrc_la_LIBADD",
+        "var": "GST_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "extra_expat_LDADD",
+        "var": "EXPAT_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "extra_ffmpeg_LDADD",
+        "var": "libambulant_ffmpeg",
+        "resolved_to": [
+          "-L$(ambulantlibdir)",
+          "-lambulant_ffmpeg",
+          "$(ambulantlibdir)/libambulant_ffmpeg.a"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "extra_ffmpeg_LDADD",
+        "var": "FFMPEG_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "extra_gstreamer_LDADD",
+        "var": "libambulant_gstreamer",
+        "resolved_to": [
+          "-L$(ambulantlibdir)",
+          "-lambulant_gstreamer",
+          "$(ambulantlibdir)/libambulant_gstreamer.a"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "extra_gstreamer_LDADD",
+        "var": "GSTREAMER_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "extra_sdl_LDADD",
+        "var": "libambulant_sdl",
+        "resolved_to": [
+          "-L$(ambulantlibdir)",
+          "-lambulant_sdl",
+          "$(ambulantlibdir)/libambulant_sdl.a"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "extra_sdl_LDADD",
+        "var": "SDL_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "extra_xerces_LDADD",
+        "var": "XERCES_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "AmbulantPlayer_gtk_LDADD",
+        "var": "libambulant_gtk",
+        "resolved_to": [
+          "-L$(ambulantlibdir)",
+          "-lambulant_gtk",
+          "$(ambulantlibdir)/libambulant_gtk.a"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "AmbulantPlayer_gtk_LDADD",
+        "var": "extra_expat_LDADD",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "AmbulantPlayer_gtk_LDADD",
+        "var": "extra_ffmpeg_LDADD",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "AmbulantPlayer_gtk_LDADD",
+        "var": "extra_gstreamer_LDADD",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "AmbulantPlayer_gtk_LDADD",
+        "var": "extra_sdl_LDADD",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "AmbulantPlayer_gtk_LDADD",
+        "var": "extra_xerces_LDADD",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "AmbulantPlayer_gtk_LDADD",
+        "var": "libambulant_core",
+        "resolved_to": [
+          "-L$(ambulantlibdir)",
+          "-lambulant",
+          "$(ambulantlibdir)/libambulant.a"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "AmbulantPlayer_gtk_LDADD",
+        "var": "gtk_libs",
+        "resolved_to": [
+          "$(GTK_LIBS)",
+          "$(GCD_LIBS)",
+          "$(GTK_LIBS)"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "AmbulantPlayer_gtk_LDADD",
+        "var": "LIBLTDL",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "AmbulantPlayer_gtk_LDADD",
+        "var": "PTHREAD_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "ambulant_LDADD",
+        "var": "libambulant_core",
+        "resolved_to": [
+          "-L$(ambulantlibdir)",
+          "-lambulant",
+          "$(ambulantlibdir)/libambulant.a"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "ambulant_LDADD",
+        "var": "EXPAT_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "ambulant_LDADD",
+        "var": "libambulant_core",
+        "resolved_to": [
+          "-L$(ambulantlibdir)",
+          "-lambulant",
+          "$(ambulantlibdir)/libambulant.a"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "extra_gtk_LDADD",
+        "var": "GTK_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "extra_ffmpeg_LDADD",
+        "var": "FFMPEG_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "extra_ffmpeg_LDADD",
+        "var": "libambulant_ffmpeg",
+        "resolved_to": [
+          "-L$(ambulantlibdir)",
+          "-lambulant_ffmpeg",
+          "$(ambulantlibdir)/libambulant_ffmpeg.a"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "extra_ffmpeg_LDADD",
+        "var": "FFMPEG_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "extra_sdl_LDADD",
+        "var": "libambulant_sdl",
+        "resolved_to": [
+          "-L$(ambulantlibdir)",
+          "-lambulant_sdl",
+          "$(ambulantlibdir)/libambulant_sdl.a"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "extra_sdl_LDADD",
+        "var": "SDL_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      }
+    ],
+    "unresolved_refs": [
+      "libgstrtspserver_@GST_MAJORMINOR@_la_LIBADD = $(GST_PLUGINS_BASE_LIBS)",
+      "libgstrtspserver_@GST_MAJORMINOR@_la_LIBADD = $(GST_BASE_LIBS)",
+      "libgstrtspserver_@GST_MAJORMINOR@_la_LIBADD = $(GST_LIBS)",
+      "libgstrtspserver_@GST_MAJORMINOR@_la_LIBADD = $(LIBM)",
+      "rtspserver_la_LIBADD = $(GST_PLUGINS_BASE_LIBS)",
+      "rtspserver_la_LIBADD = $(GST_BASE_LIBS)",
+      "rtspserver_la_LIBADD = $(GST_LIBS)",
+      "rtspserver_la_LIBADD = $(LIBM)",
+      "libgstambulantsrc_la_LIBADD = $(GST_LIBS)",
+      "# est2_LDADD = $(GST_OBJ_LIBS)",
+      "# est2_LDADD = $(GST_LIBS)",
+      "libgstambulantsrc_la_LIBADD = $(GST_LIBS)",
+      "extra_expat_LDADD = $(EXPAT_LIBS)",
+      "extra_ffmpeg_LDADD = $(FFMPEG_LIBS)",
+      "extra_gstreamer_LDADD = $(GSTREAMER_LIBS)",
+      "extra_sdl_LDADD = $(SDL_LIBS)",
+      "extra_xerces_LDADD = $(XERCES_LIBS)",
+      "AmbulantPlayer_gtk_LDADD = $(extra_expat_LDADD)",
+      "AmbulantPlayer_gtk_LDADD = $(extra_ffmpeg_LDADD)",
+      "AmbulantPlayer_gtk_LDADD = $(extra_gstreamer_LDADD)",
+      "AmbulantPlayer_gtk_LDADD = $(extra_sdl_LDADD)",
+      "AmbulantPlayer_gtk_LDADD = $(extra_xerces_LDADD)",
+      "AmbulantPlayer_gtk_LDADD = $(LIBLTDL)",
+      "AmbulantPlayer_gtk_LDADD = $(PTHREAD_LIBS)",
+      "ambulant_LDADD = $(EXPAT_LIBS)",
+      "extra_gtk_LDADD = $(GTK_LIBS)",
+      "extra_ffmpeg_LDADD = $(FFMPEG_LIBS)",
+      "extra_ffmpeg_LDADD = $(FFMPEG_LIBS)",
+      "extra_sdl_LDADD = $(SDL_LIBS)",
+      "extra_xerces_LDADD = $(XERCES_LIBS)",
+      "pkglib_LTLIBRARIES = $(dummy_state_plugin)",
+      "extra_expat_LDADD = $(EXPAT_LIBS)",
+      "extra_ffmpeg_LDADD = $(FFMPEG_LIBS)",
+      "extra_sdl_LDADD = $(FFMPEG_LIBS)",
+      "extra_sdl_LDADD = $(SDL_LIBS)",
+      "extra_xerces_LDADD = $(XERCES_LIBS)",
+      "extra_expat_LDADD = $(EXPAT_LIBS)",
+      "extra_ffmpeg_LDADD = $(FFMPEG_LIBS)",
+      "extra_sdl_LDADD = $(SDL_LIBS)",
+      "extra_xerces_LDADD = $(XERCES_LIBS)"
+    ],
+    "indirection_count": 75
   }
 }

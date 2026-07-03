@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "IBMSpectrumComputing/lsf-drmaa",
   "source": {
     "url": "https://github.com/IBMSpectrumComputing/lsf-drmaa",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -47,47 +47,66 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1342: FedStage: command not found",
+  "diagnostic": "./configure: line 1769: pthread-config: command not found",
   "deep_expansion": {
-    "configure_lines": 3063,
+    "configure_lines": 3240,
     "leaked_macros": [],
     "heredoc_openers": 27,
     "heredoc_terminators": 27,
     "heredoc_imbalance": 0,
     "syntax_errors": [
       {
-        "line": 1343,
-        "token": "C",
-        "source": "Copyright (C) 2007-2008  FedStage Systems",
+        "line": 1820,
+        "token": "done",
+        "source": "done",
         "block": [
-          "1339: # Requires Autoconf >= 2.59",
-          "1340: # Revision: $Id: configure.ac 2305 2009-04-09 16:30:43Z lukasz $",
-          "1341: # Copyright: ",
-          "1342: FedStage DRMAA for LSF",
-          "1343: Copyright (C) 2007-2008  FedStage Systems",
-          "1344: ",
-          "1345: This program is free software: you can redistribute it and/or modify",
-          "1346: it under the terms of the GNU General Public License as published by"
+          "1816: \tprintf %s \"checking for joinable pthread attribute... \"",
+          "1817: \tattr_name=unknown",
+          "1818: \tfor attr in PTHREAD_CREATE_JOINABLE PTHREAD_CREATE_UNDETACHED; do",
+          "1819: \t    # Try link (obsolete)",
+          "1820: \tdone",
+          "1821:         printf '%s\\n' \"$attr_name\"",
+          "1822:         if test \"$attr_name\" != PTHREAD_CREATE_JOINABLE; then",
+          "1823:             printf '%s\\n' \"#define PTHREAD_CREATE_JOINABLE $attr_name\" >> co"
         ]
       }
     ],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2583: do eval test \\${$as_var+y} \\"
+      "line 1578: # eval \"_acrs_sv=\\${}\"; printf '%s\\n' \"s|@@|${_acrs_sv}|g\" >",
+      "line 1654: # eval \"_acrs_sv=\\${}\"; printf '%s\\n' \"s|@@|${_acrs_sv}|g\" >",
+      "line 2759: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
+      "LSF_DRMAA_MAJOR",
+      "LSF_DRMAA_MINOR",
+      "LSF_DRMAA_MICRO",
+      "LSF_DRMAA_VERSION_INFO",
+      "DEVELOPER_MODE_TRUE",
+      "DEVELOPER_MODE_FALSE",
+      "GCC_TRUE",
+      "GCC_FALSE",
+      "GCC_W_NO_MISSING_FIELD_INITIALIZERS",
+      "GCC_W_NO_FORMAT_ZERO_LENGTH",
+      "PTHREAD_LIBS",
+      "PTHREAD_CFLAGS",
+      "LSF_INCLUDES",
+      "LSF_LDFLAGS",
+      "LSF_LIBS",
       "PACKAGE_NAME",
       "PACKAGE_TARNAME",
       "PACKAGE_VERSION",
       "PACKAGE_STRING",
       "PACKAGE_BUGREPORT"
     ],
-    "failed_during_check": "",
+    "failed_during_check": "checking whether pthreads work with -mt... no",
     "failure_tail": [
-      "./configure: line 1342: FedStage: command not found",
-      "./configure: line 1343: syntax error near unexpected token `C'",
-      "./configure: line 1343: `Copyright (C) 2007-2008  FedStage Systems'"
+      "checking whether pthreads work with -mt... no",
+      "./configure: line 1769: pthread-config: command not found",
+      "./configure: line 1770: pthread-config: command not found",
+      "./configure: line 1770: pthread-config: command not found",
+      "no"
     ],
     "conftest_corruption": [],
     "conftest_directives_intact": 16,
@@ -101,14 +120,6 @@
       "#include <$ac_hdr>"
     ]
   },
-  "oracle": {
-    "real_autoreconf": "fail",
-    "real_configure": "skipped",
-    "real_make": "skipped",
-    "real_configure_lines": 0,
-    "real_first_error": "Makefile.am: error: required file './AUTHORS' not found",
-    "classification": "OURS_BETTER"
-  },
   "receipt": {
     "court_status": "failed",
     "probe_trace": [],
@@ -118,7 +129,7 @@
       "vendored-aclocal",
       "uses-ax-archive"
     ],
-    "receipt_hash": "0c30dce6270fb3560c454d8c8d1e4e34e811f65407638476dab76fe1fd927894",
+    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -127,6 +138,523 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "doc/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "lsf_drmaa/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "sample/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      }
+    ],
+    "config_headers": [
+      "config.h"
+    ],
+    "subdirs": [
+      "drmaa_utils",
+      "lsf_drmaa",
+      "doc",
+      "drmaa_utils",
+      "test"
+    ],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [],
+        "subdirs": [
+          "drmaa_utils",
+          "lsf_drmaa",
+          "doc"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "drmaa_utils",
+        "targets": [],
+        "subdirs": [
+          "drmaa_utils",
+          "test"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "drmaa_utils/drmaa_utils",
+        "targets": [
+          "libdrmaa_utils.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "drmaa_utils/test",
+        "targets": [
+          "$(TESTS)"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-DDEBUG"
+      },
+      {
+        "dir": "lsf_drmaa",
+        "targets": [
+          "libdrmaa.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "sample",
+        "targets": [
+          "sub"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-DDEBUG"
+      }
+    ],
+    "max_depth": 1,
+    "config_h_consumers_below_root": [
+      "lsf_drmaa",
+      "drmaa_utils/drmaa_utils"
+    ]
+  },
+  "tool_requirements": {
+    "detected": [],
+    "missing": [
+      {
+        "name": "pthread-config",
+        "phase": "make",
+        "suggested_package": ""
+      }
+    ]
+  },
+  "macro_inventory": {
+    "macro_dirs": [
+      "m4"
+    ],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [
+      {
+        "name": "ACX_PTHREAD",
+        "source": "m4/acx_pthread.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AX_DOCUTILS",
+        "source": "m4/ax_docutils.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AX_GCC_WARNINGS",
+        "source": "m4/ax_gcc_warnings.m4",
+        "kind": "AX"
+      },
+      {
+        "name": "AX_LSF",
+        "source": "m4/ax_lsf.m4",
+        "kind": "AX"
+      }
+    ],
+    "called_macros": [
+      "AC_ARG_ENABLE",
+      "AC_CANONICAL_HOST",
+      "AC_CHECK_FUNCS",
+      "AC_CHECK_HEADERS",
+      "AC_CHECK_PROGS",
+      "AC_CONFIG_AUX_DIR",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_HEADERS",
+      "AC_CONFIG_MACRO_DIR",
+      "AC_CONFIG_SRCDIR",
+      "AC_CONFIG_SUBDIRS",
+      "AC_COPYRIGHT",
+      "AC_C_CONST",
+      "AC_C_INLINE",
+      "AC_C_VOLATILE",
+      "AC_DEFINE",
+      "AC_FUNC_MALLOC",
+      "AC_FUNC_STRFTIME",
+      "AC_FUNC_VPRINTF",
+      "AC_HEADER_STDC",
+      "AC_HEADER_TIME",
+      "AC_HELP_STRING",
+      "AC_INIT",
+      "AC_MSG_ERROR",
+      "AC_OUTPUT",
+      "AC_PREREQ",
+      "AC_PROG_CC",
+      "AC_PROG_CPP",
+      "AC_PROG_INSTALL",
+      "AC_PROG_LIBTOOL",
+      "AC_PROG_LN_S",
+      "AC_PROG_MAKE_SET",
+      "AC_PROG_RANLIB",
+      "AC_REVISION",
+      "AC_STRUCT_TM",
+      "AC_SUBST",
+      "AC_TYPE_SIZE_T",
+      "AM_CONDITIONAL",
+      "AM_INIT_AUTOMAKE",
+      "AX_DOCUTILS",
+      "AX_GCC_WARNINGS",
+      "AX_LSF"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 157,
+    "configure_fi": 149,
+    "configure_case": 72,
+    "configure_esac": 75,
+    "balanced": false,
+    "automake_conditionals": [
+      "DEVELOPER_MODE",
+      "GCC"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": "scripts",
+    "present": [
+      "install-sh",
+      "missing",
+      "depcomp",
+      "ltmain.sh",
+      "config.guess",
+      "config.sub"
+    ],
+    "missing": [
+      "compile"
+    ]
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "c": 27,
+      "h": 28
+    },
+    "configure_macros": [
+      "AC_PROG_CC"
+    ],
+    "needs_cxx": false,
+    "needs_fortran": false,
+    "sets_c_std": false
+  },
+  "libtool_context": {
+    "uses_libtool": true,
+    "macros": [
+      "AC_PROG_LIBTOOL"
+    ],
+    "ltmain_present": false,
+    "libtool_m4_sources": [],
+    "age": "old"
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": true,
+    "defines_sampled": []
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-libtool-old",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "has-m4-macro-dir",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-ax-archive",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "vpath_analysis": {
+    "hardcoded_src_paths": 0,
+    "abs_path_leakage": 0,
+    "built_sources": [
+      "native.c",
+      "datetime_tab.c",
+      "datetime_tab.h",
+      "conf_tab.c",
+      "conf_tab.h",
+      "drmaa_attrib.c",
+      "timedelta.c"
+    ],
+    "generated_source_targets": [
+      "native.lo",
+      "drmaa_attrib.c"
+    ]
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "stddef.h",
+      "stdlib.h",
+      "string.h",
+      "strings.h",
+      "sys/time.h",
+      "unistd.h"
+    ],
+    "headers_included_unchecked": [
+      "drmaa_utils/common.h",
+      "drmaa_utils/compat.h",
+      "drmaa_utils/conf.h",
+      "drmaa_utils/conf_impl.h",
+      "drmaa_utils/conf_tab.h",
+      "drmaa_utils/datetime.h",
+      "drmaa_utils/datetime_impl.h",
+      "drmaa_utils/datetime_tab.h",
+      "drmaa_utils/drmaa.h",
+      "drmaa_utils/drmaa_attrib.h",
+      "drmaa_utils/drmaa_base.h",
+      "drmaa_utils/drmaa_util.h",
+      "drmaa_utils/environ.h",
+      "drmaa_utils/exception.h",
+      "drmaa_utils/iter.h",
+      "drmaa_utils/job.h",
+      "drmaa_utils/logging.h",
+      "drmaa_utils/lookup3.h",
+      "drmaa_utils/session.h",
+      "drmaa_utils/template.h",
+      "drmaa_utils/thread.h",
+      "drmaa_utils/util.h",
+      "drmaa_utils/xmalloc.h",
+      "fcntl.h",
+      "lsf/lsbatch.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 3,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "c89_gnu",
+    "strip_modern_poison_flags": [
+      "-Werror=implicit-function-declaration",
+      "-Werror=int-conversion",
+      "-Werror=incompatible-pointer-types"
+    ],
+    "inject_legacy_shims": true,
+    "compiler_aliasing": {
+      "clang-18+": "-std=gnu89 -Wno-error",
+      "gcc-14+": "-std=gnu89 -fpermissive"
+    }
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 0,
+    "shadowed_builtins": [],
+    "permitted_mutations": 2,
+    "suspect_global_mutations": 0
+  },
+  "parallel_build_safety": {
+    "vpath_out_of_tree_safe": true,
+    "generators": [
+      "native.lo",
+      "drmaa_attrib.c"
+    ],
+    "unordered_generated_sources": [],
+    "built_sources_declared": true
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "drmaa_utils/common.h",
+      "drmaa_utils/compat.h",
+      "drmaa_utils/conf.h",
+      "drmaa_utils/conf_impl.h",
+      "drmaa_utils/conf_tab.h",
+      "drmaa_utils/datetime.h",
+      "drmaa_utils/datetime_impl.h",
+      "drmaa_utils/datetime_tab.h",
+      "drmaa_utils/drmaa.h",
+      "drmaa_utils/drmaa_attrib.h",
+      "drmaa_utils/drmaa_base.h",
+      "drmaa_utils/drmaa_util.h",
+      "drmaa_utils/environ.h",
+      "drmaa_utils/exception.h",
+      "drmaa_utils/iter.h",
+      "drmaa_utils/job.h",
+      "drmaa_utils/logging.h",
+      "drmaa_utils/lookup3.h",
+      "drmaa_utils/session.h",
+      "drmaa_utils/template.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "subdir-config-h-include-path",
+    "ancient-libtool",
+    "modern-compiler-strictness (no explicit C std)"
+  ],
+  "repair_hints": [
+    {
+      "id": "subdir-top-builddir",
+      "phase": "make",
+      "confidence": 0.88,
+      "evidence": [
+        "lsf_drmaa consumes config.h below root",
+        "drmaa_utils/drmaa_utils consumes config.h below root"
+      ],
+      "action": "ensure ac_subst_file sets relative top_builddir per subdir (0.1.19)",
+      "expected_effect": "config.h found in subdir compiles"
+    },
+    {
+      "id": "missing-build-tool",
+      "phase": "make",
+      "confidence": 0.75,
+      "evidence": [
+        "pthread-config: command not found"
+      ],
+      "action": "provide pthread-config",
+      "expected_effect": "unblocks the build step needing this tool"
+    }
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": -2,
+      "Makefile.in": 1177,
+      "aclocal.m4": 10,
+      "config.h.in": 18,
+      "configure": 16,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_ENABLE": "system-aclocal",
+      "AC_CANONICAL_HOST": "system-aclocal",
+      "AC_CHECK_FUNCS": "system-aclocal",
+      "AC_CHECK_HEADERS": "system-aclocal",
+      "AC_CHECK_PROGS": "system-aclocal",
+      "AC_CONFIG_AUX_DIR": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_HEADERS": "system-aclocal",
+      "AC_CONFIG_MACRO_DIR": "system-aclocal",
+      "AC_CONFIG_SRCDIR": "system-aclocal",
+      "AC_CONFIG_SUBDIRS": "system-aclocal",
+      "AC_COPYRIGHT": "system-aclocal",
+      "AC_C_CONST": "system-aclocal",
+      "AC_C_INLINE": "system-aclocal",
+      "AC_C_VOLATILE": "system-aclocal",
+      "AC_DEFINE": "system-aclocal",
+      "AC_FUNC_MALLOC": "system-aclocal",
+      "AC_FUNC_STRFTIME": "system-aclocal",
+      "AC_FUNC_VPRINTF": "system-aclocal",
+      "AC_HEADER_STDC": "system-aclocal",
+      "AC_HEADER_TIME": "system-aclocal",
+      "AC_HELP_STRING": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_MSG_ERROR": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PREREQ": "system-aclocal",
+      "AC_PROG_CC": "system-aclocal",
+      "AC_PROG_CPP": "system-aclocal",
+      "AC_PROG_INSTALL": "system-aclocal",
+      "AC_PROG_LIBTOOL": "system-aclocal",
+      "AC_PROG_LN_S": "system-aclocal",
+      "AC_PROG_MAKE_SET": "system-aclocal",
+      "AC_PROG_RANLIB": "system-aclocal",
+      "AC_REVISION": "system-aclocal",
+      "AC_STRUCT_TM": "system-aclocal",
+      "AC_SUBST": "system-aclocal",
+      "AC_TYPE_SIZE_T": "system-aclocal",
+      "AM_CONDITIONAL": "system-aclocal",
+      "AM_INIT_AUTOMAKE": "system-aclocal",
+      "AX_DOCUTILS": "m4/ax_docutils.m4"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "check_PROGRAMS",
+        "var": "TESTS",
+        "resolved_to": [
+          "exception_test"
+        ],
+        "resolved": true
+      }
+    ],
+    "unresolved_refs": [],
+    "indirection_count": 1
   }
 }

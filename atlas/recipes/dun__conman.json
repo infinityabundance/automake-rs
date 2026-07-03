@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "dun/conman",
   "source": {
     "url": "https://github.com/dun/conman",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.14",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -34,7 +34,22 @@
       "status": "fail"
     }
   ],
-  "probe_results": {},
+  "probe_results": {
+    "HAVE_INET_ATON": 1,
+    "HAVE_INET_NTOP": 1,
+    "HAVE_INET_PTON": 1,
+    "HAVE_IPMICONSOLE_H": 1,
+    "HAVE_LIBIPMICONSOLE": 1,
+    "HAVE_LIBWRAP": 1,
+    "HAVE_LOCALTIME_R": 1,
+    "HAVE_PATHS_H": 1,
+    "HAVE_STRCASECMP": 1,
+    "HAVE_STRLCAT": 1,
+    "HAVE_STRLCPY": 1,
+    "HAVE_STRNCASECMP": 1,
+    "HAVE_SYS_INOTIFY_H": 1,
+    "HAVE_TCPD_H": 1
+  },
   "feature_flags": {
     "configure_args": []
   },
@@ -48,20 +63,34 @@
   "outputs": [],
   "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1817: strlcat: command not found",
+  "diagnostic": "src/common.h:132:13: error: conflicting types for 'socklen_t'; have 'int'",
   "deep_expansion": {
-    "configure_lines": 2859,
+    "configure_lines": 2998,
     "leaked_macros": [],
-    "heredoc_openers": 28,
-    "heredoc_terminators": 28,
+    "heredoc_openers": 29,
+    "heredoc_terminators": 29,
     "heredoc_imbalance": 0,
     "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2383: do eval test \\${$as_var+y} \\"
+      "line 2521: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
+      "DATE",
+      "CONMAN_CONF",
+      "CONMAN_HOST",
+      "CONMAN_PORT",
+      "runstatedir",
+      "systemdunitdir",
+      "sysvinitddir",
+      "sysconfigdir",
+      "AM_CFLAGS",
+      "DEBUGCFLAGS",
+      "PTHREADLIBS",
+      "FREEIPMIOBJS",
+      "FREEIPMILIBS",
+      "TCPWRAPPERSLIBS",
       "PACKAGE_NAME",
       "PACKAGE_TARNAME",
       "PACKAGE_VERSION",
@@ -76,68 +105,122 @@
       "CPPFLAGS",
       "LDFLAGS",
       "LIBS",
-      "CXX",
-      "CXXFLAGS",
-      "CPP",
-      "DEFS",
-      "LIBOBJS",
-      "INSTALL",
-      "AM_CFLAGS",
-      "systemdunitdir",
-      "FREEIPMIOBJS",
-      "TCPWRAPPERSLIBS",
-      "CONMAN_PORT",
-      "PTHREADLIBS",
-      "sysvinitddir",
-      "runstatedir",
-      "CONMAN_CONF"
+      "CXX"
     ],
-    "failed_during_check": "checking for toint... no",
+    "failed_during_check": "checking for strlcpy... yes",
     "failure_tail": [
-      "checking for toint... no",
-      "./configure: line 1817: strlcat: command not found",
+      "checking for strlcpy... yes",
       "configure: creating Makefile",
       "configure: creating config.h",
       "configure: creating ./config.status"
     ],
     "conftest_corruption": [],
-    "conftest_directives_intact": 9,
+    "conftest_directives_intact": 11,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
-      "char socket();\\nint main() { return socket(); }",
+      "char socket ();\\nint main() { return socket(); }",
       "char inet_addr ();\\nint main() { return inet_addr (); }",
       "#include <pthread.h>\\nint main() { pthread_join (0, 0); ; return 0; }",
       "#include <ipmiconsole.h>",
-      "char ipmiconsole_workaround_flags_is_valid();\\nint main() { return ipmiconsole_workaround_flags_is_valid(); }",
+      "char ipmiconsole_workaround_flags_is_valid ();\\nint main() { return ipmiconsole_workaround_flags_is_valid(); }",
       "#include <tcpd.h>"
     ]
   },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "ok",
-    "real_make": "ok",
-    "real_configure_lines": 6735,
-    "real_first_error": "",
-    "classification": "OURS_BUG_MAKE"
-  },
-  "divergence": {
-    "stage": "make",
-    "ours_error": "",
-    "ours_error_context": [],
-    "ours_configure_lines": 2859,
-    "real_configure_lines": 6735,
-    "macros_ours_left_undefined": []
-  },
   "receipt": {
     "court_status": "partial",
-    "probe_trace": [],
+    "probe_trace": [
+      {
+        "name": "HAVE_INET_ATON",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_INET_NTOP",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_INET_PTON",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_IPMICONSOLE_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_LIBIPMICONSOLE",
+        "kind": "lib",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_LIBWRAP",
+        "kind": "lib",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_LOCALTIME_R",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_PATHS_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STRCASECMP",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STRLCAT",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STRLCPY",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STRNCASECMP",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SYS_INOTIFY_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_TCPD_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      }
+    ],
     "quirks_matched": [
       "uses-subdir-objects",
       "uses-maintainer-mode",
       "has-m4-macro-dir",
       "vendored-aclocal"
     ],
-    "receipt_hash": "c619dc62146d859ed28bac26d7280d61cfc674fb717e466cf24e89384d83f8ff",
+    "receipt_hash": "51d07a78fedebc8a2bb91915bcdadaccc5660930313fc554110f99c164ba438f",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -146,6 +229,605 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      }
+    ],
+    "config_headers": [
+      "config.h"
+    ],
+    "subdirs": [],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [
+          "conman",
+          "#",
+          "End",
+          "of",
+          "bin_PROGRAMS",
+          "conmand",
+          "#",
+          "End",
+          "of",
+          "sbin_PROGRAMS"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      }
+    ],
+    "max_depth": 0,
+    "config_h_consumers_below_root": []
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 953,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      }
+    ]
+  },
+  "macro_inventory": {
+    "macro_dirs": [
+      "m4"
+    ],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [
+      {
+        "name": "X_AC_WITH_SYSTEMDUNITDIR",
+        "source": "m4/x_ac_with_systemdunitdir.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "X_AC_CHECK_PTHREADS",
+        "source": "m4/x_ac_check_pthreads.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "X_AC_CHECK_STDBOOL",
+        "source": "m4/x_ac_check_stdbool.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "X_AC_RUNSTATEDIR",
+        "source": "m4/x_ac_runstatedir.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "X_AC_WITH_SYSCONFIGDIR",
+        "source": "m4/x_ac_with_sysconfigdir.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "X_AC_WITH_FREEIPMI",
+        "source": "m4/x_ac_with_freeipmi.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "X_AC_WITH_SYSVINITDDIR",
+        "source": "m4/x_ac_with_sysvinitddir.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "X_AC_WITH_TCP_WRAPPERS",
+        "source": "m4/x_ac_with_tcp_wrappers.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "X_AC_ENABLE_DEBUG",
+        "source": "m4/x_ac_enable_debug.m4",
+        "kind": "project-local"
+      }
+    ],
+    "called_macros": [
+      "AC_CHECK_FUNCS",
+      "AC_CHECK_HEADERS",
+      "AC_CHECK_LIB",
+      "AC_CHECK_TYPES",
+      "AC_CONFIG_AUX_DIR",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_HEADERS",
+      "AC_CONFIG_LIBOBJ_DIR",
+      "AC_CONFIG_MACRO_DIR",
+      "AC_CONFIG_SRCDIR",
+      "AC_INIT",
+      "AC_OUTPUT",
+      "AC_PREREQ",
+      "AC_PROG_CC",
+      "AC_PROG_INSTALL",
+      "AC_PROG_MKDIR_P",
+      "AC_PROG_SED",
+      "AC_REPLACE_FUNCS",
+      "AC_REQUIRE_AUX_FILE",
+      "AC_SEARCH_LIBS",
+      "AC_SUBST",
+      "AM_INIT_AUTOMAKE",
+      "AM_MAINTAINER_MODE",
+      "AM_SILENT_RULES"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 149,
+    "configure_fi": 142,
+    "configure_case": 63,
+    "configure_esac": 66,
+    "balanced": false,
+    "automake_conditionals": []
+  },
+  "config_aux_inventory": {
+    "aux_dir": "build-aux",
+    "present": [
+      "install-sh",
+      "missing",
+      "depcomp",
+      "compile"
+    ],
+    "missing": []
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "c": 28,
+      "h": 15
+    },
+    "configure_macros": [
+      "AC_PROG_CC"
+    ],
+    "needs_cxx": false,
+    "needs_fortran": false,
+    "sets_c_std": false
+  },
+  "make_graph": {
+    "targets": [
+      "all",
+      "all-am",
+      "$(am__depfiles_remade)",
+      "am--depfiles",
+      "install-exec-am",
+      "install-data-am",
+      "uninstall-am",
+      "install-man",
+      "install-man-am",
+      "uninstall-man",
+      "uninstall-man-am",
+      "install",
+      "install-am",
+      "installcheck",
+      "install-strip",
+      "install-info",
+      "install-info-am",
+      "install-dvi",
+      "install-dvi-am",
+      "install-ps",
+      "install-ps-am",
+      "install-pdf",
+      "install-pdf-am",
+      "install-html",
+      "install-html-am",
+      "install-data-hook",
+      "install-exec-hook",
+      "installdirs",
+      "installdirs-am",
+      ".PHONY",
+      "mostlyclean-am",
+      "clean-am",
+      "distclean-am",
+      "maintainer-clean-am",
+      "clean",
+      "distdir",
+      "dist",
+      "dist-all",
+      "dist-gzip",
+      "distcleancheck"
+    ],
+    "key_variables": {
+      "AR": "ar",
+      "CC": "cc",
+      "CFLAGS": "-g -O2",
+      "CPPFLAGS": "",
+      "CXX": "c++",
+      "CXXFLAGS": "-g -O2",
+      "DEFAULT_INCLUDES": "-I. -I$(top_builddir)",
+      "DEFS": "-DHAVE_CONFIG_H",
+      "LDFLAGS": "",
+      "LIBS": "",
+      "RANLIB": "ranlib"
+    },
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "config.h",
+      "config.log"
+    ],
+    "recursion_depth": 0,
+    "top_targets": [
+      "all",
+      "install",
+      "clean",
+      "dist",
+      "all-am"
+    ],
+    "make_diagnostics": [
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "src/common.h:132:13: error: conflicting types for 'socklen_t'; have 'int'"
+      },
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "src/common.h:132:13: error: conflicting types for 'socklen_t'; have 'int'"
+      },
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "src/client-conf.c:223:33: error: 'PACKAGE' undeclared (first use in this function)"
+      },
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "src/client-conf.c:223:42: error: 'VERSION' undeclared (first use in this function)"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[1]: *** [Makefile:803: src/conman-client-sock.o] Error 1"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[1]: *** Waiting for unfinished jobs...."
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[1]: *** [Makefile:800: src/conman-client-conf.o] Error 1"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make: *** [Makefile:275: all-am] Error 2"
+      }
+    ]
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": true,
+    "defines_sampled": [
+      "HAVE_CONFIG_H",
+      "WITH_OOMF",
+      "WITH_PTHREADS",
+      "SYSCONFDIR='$(sysconfdir)'"
+    ]
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-subdir-objects",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-maintainer-mode",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "has-m4-macro-dir",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "vpath_analysis": {
+    "hardcoded_src_paths": 0,
+    "abs_path_leakage": 0,
+    "built_sources": [],
+    "generated_source_targets": [
+      "etc/conman.logrotate",
+      "install-logrotate"
+    ]
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "paths.h",
+      "sys/inotify.h"
+    ],
+    "headers_included_unchecked": [
+      "arpa/inet.h",
+      "arpa/telnet.h",
+      "fcntl.h",
+      "netinet/in.h",
+      "pthread.h",
+      "stdint.h",
+      "sys/resource.h",
+      "sys/socket.h",
+      "sys/stat.h",
+      "sys/time.h",
+      "sys/types.h",
+      "sys/uio.h",
+      "sys/un.h",
+      "sys/wait.h",
+      "unistd.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 5,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "c89_gnu",
+    "strip_modern_poison_flags": [
+      "-Werror=implicit-function-declaration",
+      "-Werror=int-conversion",
+      "-Werror=incompatible-pointer-types"
+    ],
+    "inject_legacy_shims": true,
+    "compiler_aliasing": {
+      "clang-18+": "-std=gnu89 -Wno-error",
+      "gcc-14+": "-std=gnu89 -fpermissive"
+    }
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 0,
+    "shadowed_builtins": [],
+    "permitted_mutations": 0,
+    "suspect_global_mutations": 0
+  },
+  "parallel_build_safety": {
+    "vpath_out_of_tree_safe": true,
+    "generators": [
+      "etc/conman.logrotate",
+      "install-logrotate"
+    ],
+    "unordered_generated_sources": [
+      "etc/conman.logrotate",
+      "install-logrotate"
+    ],
+    "built_sources_declared": false
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "arpa/inet.h",
+      "arpa/telnet.h",
+      "fcntl.h",
+      "netinet/in.h",
+      "pthread.h",
+      "stdint.h",
+      "sys/resource.h",
+      "sys/socket.h",
+      "sys/stat.h",
+      "sys/time.h",
+      "sys/types.h",
+      "sys/uio.h",
+      "sys/un.h",
+      "sys/wait.h",
+      "unistd.h",
+      "paths.h",
+      "sys/inotify.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "modern-compiler-strictness (no explicit C std)",
+    "parallel-build-race (gen-source not in BUILT_SOURCES)"
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": 0,
+      "Makefile.in": 1136,
+      "aclocal.m4": 7,
+      "config.h.in": 15,
+      "configure": 13,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_CHECK_FUNCS": "system-aclocal",
+      "AC_CHECK_HEADERS": "system-aclocal",
+      "AC_CHECK_LIB": "system-aclocal",
+      "AC_CHECK_TYPES": "system-aclocal",
+      "AC_CONFIG_AUX_DIR": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_HEADERS": "system-aclocal",
+      "AC_CONFIG_LIBOBJ_DIR": "system-aclocal",
+      "AC_CONFIG_MACRO_DIR": "system-aclocal",
+      "AC_CONFIG_SRCDIR": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PREREQ": "system-aclocal",
+      "AC_PROG_CC": "system-aclocal",
+      "AC_PROG_INSTALL": "system-aclocal",
+      "AC_PROG_MKDIR_P": "system-aclocal",
+      "AC_PROG_SED": "system-aclocal",
+      "AC_REPLACE_FUNCS": "system-aclocal",
+      "AC_REQUIRE_AUX_FILE": "system-aclocal",
+      "AC_SEARCH_LIBS": "system-aclocal",
+      "AC_SUBST": "system-aclocal",
+      "AM_INIT_AUTOMAKE": "system-aclocal",
+      "AM_MAINTAINER_MODE": "system-aclocal",
+      "AM_SILENT_RULES": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "conman_LDADD",
+        "var": "LIBOBJS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "conman_LDADD",
+        "var": "PTHREADLIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "conman_SOURCES",
+        "var": "common_sources",
+        "resolved_to": [
+          "src/common.c",
+          "src/common.h",
+          "src/lex.c",
+          "src/lex.h",
+          "src/list.c",
+          "src/list.h",
+          "src/log.c",
+          "src/log.h",
+          "src/util-file.c",
+          "src/util-file.h",
+          "src/util-net.c",
+          "src/util-net.h",
+          "src/util-str.c",
+          "src/util-str.h",
+          "src/util.c",
+          "src/util.h",
+          "#",
+          "End",
+          "of",
+          "common_sources"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "conmand_LDADD",
+        "var": "FREEIPMIOBJS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "conmand_LDADD",
+        "var": "FREEIPMILIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "conmand_LDADD",
+        "var": "LIBOBJS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "conmand_LDADD",
+        "var": "PTHREADLIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "conmand_LDADD",
+        "var": "TCPWRAPPERSLIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "conmand_SOURCES",
+        "var": "common_sources",
+        "resolved_to": [
+          "src/common.c",
+          "src/common.h",
+          "src/lex.c",
+          "src/lex.h",
+          "src/list.c",
+          "src/list.h",
+          "src/log.c",
+          "src/log.h",
+          "src/util-file.c",
+          "src/util-file.h",
+          "src/util-net.c",
+          "src/util-net.h",
+          "src/util-str.c",
+          "src/util-str.h",
+          "src/util.c",
+          "src/util.h",
+          "#",
+          "End",
+          "of",
+          "common_sources"
+        ],
+        "resolved": true
+      }
+    ],
+    "unresolved_refs": [
+      "conman_LDADD = $(LIBOBJS)",
+      "conman_LDADD = $(PTHREADLIBS)",
+      "conmand_LDADD = $(FREEIPMIOBJS)",
+      "conmand_LDADD = $(FREEIPMILIBS)",
+      "conmand_LDADD = $(LIBOBJS)",
+      "conmand_LDADD = $(PTHREADLIBS)",
+      "conmand_LDADD = $(TCPWRAPPERSLIBS)"
+    ],
+    "indirection_count": 9
   }
 }

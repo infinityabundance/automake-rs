@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "cluslab/metastack",
   "source": {
     "url": "https://github.com/cluslab/metastack",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -53,48 +53,73 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 585: syntax error near unexpected token `('",
+  "diagnostic": "./configure: line 597: syntax error near unexpected token `('",
   "deep_expansion": {
-    "configure_lines": 10821,
+    "configure_lines": 8004,
     "leaked_macros": [],
-    "heredoc_openers": 151,
-    "heredoc_terminators": 151,
+    "heredoc_openers": 93,
+    "heredoc_terminators": 93,
     "heredoc_imbalance": 0,
     "syntax_errors": [
       {
-        "line": 585,
+        "line": 597,
         "token": "(",
         "source": "PACKAGE_VERSION='m4_esyscmd(perl -ne 'print,exit if s/^\\s*VERSION:\\s*(\\d",
         "block": [
-          "581: ",
-          "582: # Identity of this package.",
-          "583: PACKAGE_NAME='slurm'",
-          "584: PACKAGE_TARNAME='slurm'",
-          "585: PACKAGE_VERSION='m4_esyscmd(perl -ne 'print,exit if s/^\\s*VERSION:\\s*(\\d*.\\d",
-          "586: PACKAGE_STRING='slurm m4_esyscmd(perl -ne 'print,exit if s/^\\s*VERSION:\\s*(\\",
-          "587: PACKAGE_BUGREPORT=''",
-          "588: PACKAGE_URL=''"
+          "593: ",
+          "594: # Identity of this package.",
+          "595: PACKAGE_NAME='slurm'",
+          "596: PACKAGE_TARNAME='slurm'",
+          "597: PACKAGE_VERSION='m4_esyscmd(perl -ne 'print,exit if s/^\\s*VERSION:\\s*(\\d*.\\d",
+          "598: PACKAGE_STRING='slurm m4_esyscmd(perl -ne 'print,exit if s/^\\s*VERSION:\\s*(\\",
+          "599: PACKAGE_BUGREPORT=''",
+          "600: PACKAGE_URL=''"
         ]
       }
     ],
     "cache_var_anomalies": [
-      "line 58: do eval test \\${$as_var+y} \\"
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 7527: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
+      "DONT_BUILD_TRUE",
+      "DONT_BUILD_FALSE",
+      "PROJECT",
+      "SLURM_API_VERSION",
+      "SLURM_API_CURRENT",
+      "SLURM_API_MAJOR",
+      "SLURM_API_AGE",
+      "SLURM_API_REVISION",
+      "VERSION",
+      "SLURM_VERSION_NUMBER",
+      "SLURM_MAJOR",
+      "SLURM_MINOR",
+      "SLURM_MICRO",
+      "RELEASE",
+      "SLURM_VERSION_STRING",
+      "HAVEMYSQLCONFIG",
+      "MYSQL_LIBS",
+      "MYSQL_CFLAGS",
+      "WITH_MYSQL_TRUE",
+      "WITH_MYSQL_FALSE",
+      "HAVEKINGBASECONFIG",
+      "KINGBASE_LIBS",
+      "KINGBASE_CFLAGS",
+      "WITH_KINGBASE_TRUE",
+      "WITH_KINGBASE_FALSE",
       "PKG_CONFIG",
       "pkgconfigdir",
-      "PTHREAD_CC",
-      "PTHREAD_CFLAGS",
-      "PTHREAD_LIBS"
+      "WITH_PKG_CONFIG_TRUE",
+      "WITH_PKG_CONFIG_FALSE"
     ],
     "failed_during_check": "",
     "failure_tail": [
-      "./configure: line 585: syntax error near unexpected token `('",
-      "./configure: line 585: `PACKAGE_VERSION='m4_esyscmd(perl -ne 'print,exit if s/^\\"
+      "./configure: line 597: syntax error near unexpected token `('",
+      "./configure: line 597: `PACKAGE_VERSION='m4_esyscmd(perl -ne 'print,exit if s/^\\"
     ],
     "conftest_corruption": [],
-    "conftest_directives_intact": 79,
+    "conftest_directives_intact": 60,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
       "\\n#include <mysql.h>\\n\\nint main() {\\nMYSQL mysql;\\n(void) mysql_init(&mysql);\\n(void) mysql_close(&mysql);\\n; return 0; }",
@@ -103,15 +128,28 @@
       "char hstrerror ();\\nint main() { return hstrerror (); }",
       "char kstat_open ();\\nint main() { return kstat_open (); }",
       "char ns_initparse ();\\nint main() { return ns_initparse (); }"
-    ]
-  },
-  "oracle": {
-    "real_autoreconf": "fail",
-    "real_configure": "skipped",
-    "real_make": "skipped",
-    "real_configure_lines": 0,
-    "real_first_error": "src/plugins/gpu/Makefile.am:5: error: BUILD_DSMI does not appear in AM_CONDITIONAL",
-    "classification": "OURS_BETTER"
+    ],
+    "rescan_loop": {
+      "guard": "",
+      "suspect_macro": "PKG_CONFIG",
+      "max_indent": 80,
+      "repeating_unit": "HDF5_tmp_flags=$(eval $H5CC -showconfig \\",
+      "repeat_count": 1,
+      "loop_context": [
+        "3427:         fi",
+        "3428: ",
+        "3429:                         ",
+        "3430:                 HDF5_VERSION=$(eval $H5CC -showconfig | $GREP 'HDF5 Version:' \\",
+        "3431:             | $AWK '{print $3}')",
+        "3432: ",
+        "3433:                                                                                 HDF5_tmp_flags=$(eva",
+        "3434:             | $GREP 'FLAGS\\|Extra libraries:' \\",
+        "3435:             | $AWK -F: '{printf(\"%s \"), $2}' )",
+        "3436: ",
+        "3437:                 HDF5_tmp_inst=$(eval $H5CC -showconfig \\",
+        "3438:             | $GREP 'Installation point:' \\"
+      ]
+    }
   },
   "receipt": {
     "court_status": "failed",
@@ -137,7 +175,7 @@
         "verified": false
       }
     ],
-    "receipt_hash": "0c30dce6270fb3560c454d8c8d1e4e34e811f65407638476dab76fe1fd927894",
+    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -146,6 +184,2902 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "auxdir/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "contribs/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "contribs/lua/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "contribs/nss_slurm/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "contribs/openlava/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "contribs/pam/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "contribs/pam_slurm_adopt/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "contribs/perlapi/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "contribs/perlapi/libslurm/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "contribs/perlapi/libslurm/perl/Makefile.PL",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "contribs/perlapi/libslurmdb/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "contribs/perlapi/libslurmdb/perl/Makefile.PL",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "contribs/pmi/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "contribs/pmi2/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "contribs/seff/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "contribs/sgather/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "contribs/sjobexit/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "contribs/torque/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "doc/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "doc/html/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "doc/html/configurator.easy.html",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "doc/html/configurator.html",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "doc/man/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "doc/man/man1/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "doc/man/man5/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "doc/man/man8/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "etc/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "src/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "src/api/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/bcast/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/common/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/database/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/interfaces/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/lua/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/accounting_storage/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/accounting_storage/common/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/accounting_storage/ctld_relay/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/accounting_storage/kingbase/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/accounting_storage/mysql/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/accounting_storage/slurmdbd/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/acct_gather_energy/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/acct_gather_energy/gpu/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/acct_gather_energy/ibmaem/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/acct_gather_energy/ipmi/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/acct_gather_energy/pm_counters/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/acct_gather_energy/rapl/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/acct_gather_energy/xcc/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/acct_gather_filesystem/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/acct_gather_filesystem/lustre/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/acct_gather_interconnect/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/acct_gather_interconnect/ofed/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/acct_gather_interconnect/sysfs/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/acct_gather_profile/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/acct_gather_profile/hdf5/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/acct_gather_profile/hdf5/sh5util/Makefile",
+        "depth": 5,
+        "top_builddir": "../../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/acct_gather_profile/influxdb/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/auth/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/auth/jwt/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/auth/munge/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/auth/none/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/auth/slurm/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/burst_buffer/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/burst_buffer/common/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/burst_buffer/datawarp/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/burst_buffer/lua/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/cgroup/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/cgroup/common/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/cgroup/v1/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/cgroup/v2/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/cli_filter/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/cli_filter/common/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/cli_filter/lua/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/cli_filter/syslog/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/cli_filter/user_defaults/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/cred/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/cred/common/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/cred/munge/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/cred/none/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/data_parser/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/data_parser/v0.0.39/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/data_parser/v0.0.40/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/data_parser/v0.0.41/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/gpu/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/gpu/common/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/gpu/generic/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/gpu/nrt/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/gpu/nvml/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/gpu/oneapi/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/gpu/rsmi/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/gres/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/gres/common/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/gres/gpu/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/gres/mps/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/gres/nic/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/gres/shard/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/hash/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/hash/common_xkcp/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/hash/k12/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/hash/sha3/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/job_container/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/job_container/tmpfs/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/job_submit/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/job_submit/all_partitions/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/job_submit/defaults/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/job_submit/logging/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/job_submit/lua/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/job_submit/partition/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/job_submit/pbs/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/job_submit/require_timelimit/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/job_submit/throttle/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/jobacct_gather/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/jobacct_gather/cgroup/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/jobacct_gather/common/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/jobacct_gather/linux/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/jobcomp/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/jobcomp/common/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/jobcomp/elasticsearch/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/jobcomp/filetxt/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/jobcomp/kafka/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/jobcomp/lua/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/jobcomp/mysql/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/jobcomp/script/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/mcs/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/mcs/account/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/mcs/group/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/mcs/user/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/mpi/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/mpi/cray_shasta/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/mpi/pmi2/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/mpi/pmix/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/node_features/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/node_features/helpers/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/node_features/knl_generic/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/preempt/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/preempt/partition_prio/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/preempt/qos/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/prep/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/prep/script/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/priority/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/priority/basic/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/priority/multifactor/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/proctrack/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/proctrack/cgroup/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/proctrack/linuxproc/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/proctrack/pgid/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/sched/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/sched/backfill/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/sched/builtin/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/select/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/select/cons_tres/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/select/linear/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/serializer/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/serializer/json/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/serializer/url-encoded/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/serializer/yaml/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/site_factor/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/site_factor/example/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/switch/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/switch/hpe_slingshot/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/switch/nvidia_imex/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/task/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/task/affinity/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/task/cgroup/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/tls/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/tls/none/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/tls/s2n/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/topology/3d_torus/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/topology/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/topology/block/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/topology/common/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/topology/default/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/plugins/topology/tree/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/sacct/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/sacctmgr/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/sackd/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/salloc/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/sattach/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/sbatch/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/sbcast/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/scancel/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/scontrol/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/scrontab/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/scrun/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/sdiag/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/sinfo/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/slurmctld/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/slurmd/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/slurmd/common/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/slurmd/slurmd/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/slurmd/slurmstepd/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/slurmdbd/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/slurmrestd/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/slurmrestd/plugins/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/slurmrestd/plugins/auth/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/slurmrestd/plugins/auth/jwt/Makefile",
+        "depth": 5,
+        "top_builddir": "../../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/slurmrestd/plugins/auth/local/Makefile",
+        "depth": 5,
+        "top_builddir": "../../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/slurmrestd/plugins/openapi/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/slurmrestd/plugins/openapi/dbv0.0.39/Makefile",
+        "depth": 5,
+        "top_builddir": "../../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/slurmrestd/plugins/openapi/slurmctld/Makefile",
+        "depth": 5,
+        "top_builddir": "../../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/slurmrestd/plugins/openapi/slurmdbd/Makefile",
+        "depth": 5,
+        "top_builddir": "../../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/slurmrestd/plugins/openapi/v0.0.39/Makefile",
+        "depth": 5,
+        "top_builddir": "../../../../..",
+        "has_template": true
+      },
+      {
+        "path": "src/sprio/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/squeue/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/sreport/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/srun/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/sshare/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/sstat/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/stepmgr/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/strigger/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/sview/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "testsuite/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "testsuite/expect/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "testsuite/slurm_unit/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "testsuite/slurm_unit/common/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "testsuite/slurm_unit/common/bitstring/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "testsuite/slurm_unit/common/hostlist/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "testsuite/slurm_unit/common/slurm_protocol_defs/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "testsuite/slurm_unit/common/slurm_protocol_pack/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "testsuite/slurm_unit/common/slurmdb_defs/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "testsuite/slurm_unit/common/slurmdb_pack/Makefile",
+        "depth": 4,
+        "top_builddir": "../../../..",
+        "has_template": true
+      },
+      {
+        "path": "testsuite/testsuite.conf.sample",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      }
+    ],
+    "config_headers": [
+      "config.h",
+      "slurm/slurm_version.h"
+    ],
+    "subdirs": [
+      "auxdir",
+      "src",
+      "testsuite",
+      "doc",
+      "etc",
+      "lua",
+      "nss_slurm",
+      "openlava",
+      "pam",
+      "perlapi",
+      "pmi",
+      "pmi2",
+      "pyxis",
+      "seff",
+      "sgather",
+      "sjobexit",
+      "torque",
+      "sjinfo",
+      "spank",
+      "pam_slurm_adopt",
+      "libslurm",
+      "libslurmdb",
+      "api",
+      "bcast",
+      "common",
+      "database",
+      "interfaces",
+      "lua",
+      "plugins",
+      "sacct",
+      "sacctmgr",
+      "sackd",
+      "salloc",
+      "sattach",
+      "sbatch",
+      "sbcast",
+      "scancel",
+      "scontrol",
+      "scrontab",
+      "sdiag",
+      "sinfo",
+      "slurmctld",
+      "slurmd",
+      "slurmdbd",
+      "slurmrestd",
+      "sprio",
+      "squeue",
+      "sreport",
+      "srun",
+      "sshare",
+      "sstat",
+      "stepmgr",
+      "strigger",
+      "sview",
+      "scrun",
+      "accounting_storage",
+      "acct_gather_energy",
+      "acct_gather_profile",
+      "acct_gather_interconnect",
+      "acct_gather_filesystem",
+      "auth",
+      "burst_buffer",
+      "cli_filter",
+      "cred",
+      "data_parser",
+      "gpu",
+      "gres",
+      "hash",
+      "jobacct_gather",
+      "jobcomp",
+      "job_container",
+      "job_submit",
+      "mcs",
+      "mpi",
+      "node_features",
+      "preempt",
+      "prep",
+      "priority",
+      "proctrack",
+      "sched",
+      "select",
+      "serializer",
+      "site_factor",
+      "switch",
+      "task",
+      "tls",
+      "topology",
+      "cgroup",
+      "common",
+      "none",
+      "munge",
+      "affinity",
+      "cgroup",
+      "none",
+      "s2n",
+      "plugins",
+      "auth",
+      "openapi",
+      "local",
+      "jwt",
+      "v0.0.39",
+      "dbv0.0.39",
+      "slurmctld",
+      "slurmdbd"
+    ],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [],
+        "subdirs": [
+          "auxdir",
+          "src",
+          "testsuite",
+          "doc",
+          "etc"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "contribs",
+        "targets": [],
+        "subdirs": [
+          "lua",
+          "nss_slurm",
+          "openlava",
+          "pam",
+          "perlapi",
+          "pmi",
+          "pmi2",
+          "pyxis",
+          "seff",
+          "sgather",
+          "sjobexit",
+          "torque",
+          "sjinfo",
+          "spank",
+          "pam_slurm_adopt"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "contribs/nss_slurm",
+        "targets": [
+          "libnss_slurm.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-fPIC -I$(top_srcdir)"
+      },
+      {
+        "dir": "contribs/pam",
+        "targets": [
+          "$(pam_lib)"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-fPIC -I$(top_srcdir)"
+      },
+      {
+        "dir": "contribs/pam_slurm_adopt",
+        "targets": [
+          "$(pam_lib)"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-fPIC -I$(top_srcdir)"
+      },
+      {
+        "dir": "contribs/perlapi",
+        "targets": [],
+        "subdirs": [
+          "libslurm",
+          "libslurmdb"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "contribs/pmi",
+        "targets": [
+          "libpmi.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-fPIC -I$(top_srcdir)"
+      },
+      {
+        "dir": "contribs/pmi2",
+        "targets": [
+          "libpmi2.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src",
+        "targets": [],
+        "subdirs": [
+          "api",
+          "bcast",
+          "common",
+          "database",
+          "interfaces",
+          "lua",
+          "plugins",
+          "sacct",
+          "sacctmgr",
+          "sackd",
+          "salloc",
+          "sattach",
+          "sbatch",
+          "sbcast",
+          "scancel",
+          "scontrol",
+          "scrontab",
+          "sdiag",
+          "sinfo",
+          "slurmctld",
+          "slurmd",
+          "slurmdbd",
+          "slurmrestd",
+          "sprio",
+          "squeue",
+          "sreport",
+          "srun",
+          "sshare",
+          "sstat",
+          "stepmgr",
+          "strigger",
+          "sview",
+          "scrun"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/api",
+        "targets": [
+          "libslurm.la",
+          "libslurmfull.la",
+          "libslurm_pmi.la",
+          "libslurmhelper.la",
+          "libslurm.o"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)"
+      },
+      {
+        "dir": "src/bcast",
+        "targets": [
+          "$(BCAST_LIB)"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir) -I$(top_srcdir)/src/common"
+      },
+      {
+        "dir": "src/common",
+        "targets": [
+          "libcommon.o",
+          "libcommon.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir) -DSBINDIR=\\\"$(sbindir)\\\""
+      },
+      {
+        "dir": "src/database",
+        "targets": [
+          "$(MYSQL_LIB)",
+          "$(KINGBASE_LIB)"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir) -I$(top_srcdir)/src/common"
+      },
+      {
+        "dir": "src/lua",
+        "targets": [
+          "$(LUA_LIB)"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir) -I$(top_srcdir)/src/common"
+      },
+      {
+        "dir": "src/plugins",
+        "targets": [],
+        "subdirs": [
+          "accounting_storage",
+          "acct_gather_energy",
+          "acct_gather_profile",
+          "acct_gather_interconnect",
+          "acct_gather_filesystem",
+          "auth",
+          "burst_buffer",
+          "cli_filter",
+          "cred",
+          "data_parser",
+          "gpu",
+          "gres",
+          "hash",
+          "jobacct_gather",
+          "jobcomp",
+          "job_container",
+          "job_submit",
+          "mcs",
+          "mpi",
+          "node_features",
+          "preempt",
+          "prep",
+          "priority",
+          "proctrack",
+          "sched",
+          "select",
+          "serializer",
+          "site_factor",
+          "switch",
+          "task",
+          "tls",
+          "topology",
+          "cgroup"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/plugins/cred",
+        "targets": [],
+        "subdirs": [
+          "common",
+          "none",
+          "munge"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/plugins/cred/common",
+        "targets": [
+          "libcred_common.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-DSLURM_PLUGIN_DEBUG -I$(top_srcdir)"
+      },
+      {
+        "dir": "src/plugins/cred/munge",
+        "targets": [
+          "cred_munge.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-DSLURM_PLUGIN_DEBUG -I$(top_srcdir) $(MUNGE_CPPFLAGS)"
+      },
+      {
+        "dir": "src/plugins/cred/none",
+        "targets": [
+          "cred_none.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-DSLURM_PLUGIN_DEBUG -I$(top_srcdir)"
+      },
+      {
+        "dir": "src/plugins/task",
+        "targets": [],
+        "subdirs": [
+          "affinity",
+          "cgroup"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/plugins/task/affinity",
+        "targets": [
+          "task_affinity.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-DSLURM_PLUGIN_DEBUG -I$(top_srcdir) -I$(top_srcdir)/src/common"
+      },
+      {
+        "dir": "src/plugins/task/cgroup",
+        "targets": [
+          "task_cgroup.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-DSLURM_PLUGIN_DEBUG -I$(top_srcdir) -I$(top_srcdir)/src/common $(HWLOC_CPPFLAGS)"
+      },
+      {
+        "dir": "src/plugins/tls",
+        "targets": [],
+        "subdirs": [
+          "none",
+          "s2n"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/plugins/tls/none",
+        "targets": [
+          "tls_none.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-DSLURM_PLUGIN_DEBUG -I$(top_srcdir)"
+      },
+      {
+        "dir": "src/plugins/tls/s2n",
+        "targets": [
+          "tls_s2n.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-DSLURM_PLUGIN_DEBUG -I$(top_srcdir) $(S2N_CPPFLAGS)"
+      },
+      {
+        "dir": "src/sacct",
+        "targets": [
+          "sacct"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)"
+      },
+      {
+        "dir": "src/sackd",
+        "targets": [
+          "sackd",
+          "$(LIB_REF)"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)"
+      },
+      {
+        "dir": "src/salloc",
+        "targets": [
+          "salloc"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)"
+      },
+      {
+        "dir": "src/sbatch",
+        "targets": [
+          "sbatch"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)"
+      },
+      {
+        "dir": "src/scancel",
+        "targets": [
+          "scancel"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)"
+      },
+      {
+        "dir": "src/sdiag",
+        "targets": [
+          "sdiag"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)"
+      },
+      {
+        "dir": "src/slurmctld",
+        "targets": [
+          "libslurmctld.la",
+          "slurmctld",
+          "$(LIB_REF)"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)"
+      },
+      {
+        "dir": "src/slurmdbd",
+        "targets": [
+          "slurmdbd"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)"
+      },
+      {
+        "dir": "src/slurmrestd",
+        "targets": [
+          "slurmrestd",
+          "$(LIB_REF)"
+        ],
+        "subdirs": [
+          "plugins"
+        ],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir) $(HTTP_PARSER_CPPFLAGS)"
+      },
+      {
+        "dir": "src/slurmrestd/plugins",
+        "targets": [],
+        "subdirs": [
+          "auth",
+          "openapi"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/slurmrestd/plugins/auth",
+        "targets": [],
+        "subdirs": [
+          "local",
+          "jwt"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/slurmrestd/plugins/openapi",
+        "targets": [],
+        "subdirs": [
+          "v0.0.39",
+          "dbv0.0.39",
+          "slurmctld",
+          "slurmdbd"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src/squeue",
+        "targets": [
+          "squeue",
+          "$(LIB_REF)"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)"
+      },
+      {
+        "dir": "src/sstat",
+        "targets": [
+          "sstat"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)"
+      },
+      {
+        "dir": "src/stepmgr",
+        "targets": [
+          "libstepmgr.o",
+          "libstepmgr.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir) -I$(top_srcdir)/src/common"
+      }
+    ],
+    "max_depth": 5,
+    "config_h_consumers_below_root": [
+      "contribs/pam_slurm_adopt",
+      "contribs/nss_slurm",
+      "contribs/pam",
+      "src/slurmctld",
+      "src/sackd",
+      "src/scancel",
+      "src/sdiag",
+      "src/salloc",
+      "src/database",
+      "src/stepmgr",
+      "src/api",
+      "src/slurmrestd",
+      "src/sacct",
+      "src/slurmdbd",
+      "src/common",
+      "src/lua",
+      "src/bcast",
+      "src/squeue",
+      "src/sstat",
+      "src/sbatch",
+      "src/plugins/tls/s2n",
+      "src/plugins/tls/none",
+      "src/plugins/task/affinity",
+      "src/plugins/task/cgroup",
+      "src/plugins/cred/munge"
+    ]
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "contribs/sjinfo/Makefile",
+        "has_makefile_in": false,
+        "has_makefile_am": false,
+        "lines": 40,
+        "first_parse_error": {
+          "line": 1,
+          "kind": "missing-separator",
+          "text": "PREFIX ?= $(DESTDIR)/usr",
+          "previous_lines": [],
+          "probable_cause": "bare-macro"
+        },
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "contribs/pyxis/Makefile",
+        "has_makefile_in": false,
+        "has_makefile_am": false,
+        "lines": 55,
+        "first_parse_error": {
+          "line": 1,
+          "kind": "missing-separator",
+          "text": "PREFIX      ?= /opt/gridview/slurm",
+          "previous_lines": [],
+          "probable_cause": "shell-fragment-in-make"
+        },
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "contribs/spank/Makefile",
+        "has_makefile_in": false,
+        "has_makefile_am": false,
+        "lines": 30,
+        "first_parse_error": {
+          "line": 1,
+          "kind": "missing-separator",
+          "text": "PREFIX ?= /opt/gridview/slurm",
+          "previous_lines": [],
+          "probable_cause": "shell-fragment-in-make"
+        },
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      }
+    ]
+  },
+  "tool_requirements": {
+    "detected": [
+      "c++",
+      "perl"
+    ],
+    "missing": []
+  },
+  "macro_inventory": {
+    "macro_dirs": [],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [],
+    "called_macros": [
+      "AC_ARG_ENABLE",
+      "AC_CANONICAL_TARGET",
+      "AC_CHECK_DECLS",
+      "AC_CHECK_FUNCS",
+      "AC_CHECK_HEADERS",
+      "AC_CHECK_LIB",
+      "AC_CHECK_SIZEOF",
+      "AC_CHECK_TARGET_TOOL",
+      "AC_CONFIG_AUX_DIR",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_HEADERS",
+      "AC_CONFIG_MACRO_DIR",
+      "AC_CONFIG_SRCDIR",
+      "AC_DEFINE",
+      "AC_DEFINE_UNQUOTED",
+      "AC_FUNC_STRERROR_R",
+      "AC_HEADER_MAJOR",
+      "AC_HEADER_SYS_WAIT",
+      "AC_INIT",
+      "AC_MSG_CHECKING",
+      "AC_MSG_ERROR",
+      "AC_MSG_RESULT",
+      "AC_OUTPUT",
+      "AC_PATH_PROG",
+      "AC_PREREQ",
+      "AC_PROG_CC",
+      "AC_PROG_CXX",
+      "AC_PROG_GCC_TRADITIONAL",
+      "AC_PROG_MAKE_SET",
+      "AC_SEARCH_LIBS",
+      "AC_SUBST",
+      "AM_CONDITIONAL",
+      "AM_INIT_AUTOMAKE",
+      "AM_MAINTAINER_MODE",
+      "AX_CHECK_COMPILE_FLAG",
+      "AX_COMPARE_VERSION",
+      "AX_GCC_BUILTIN",
+      "AX_LIB_HDF5",
+      "AX_PTHREAD",
+      "LT_INIT",
+      "PKG_CHECK_MODULES"
+    ],
+    "unresolved_macros": [
+      "AX_CHECK_COMPILE_FLAG",
+      "AX_COMPARE_VERSION",
+      "AX_GCC_BUILTIN",
+      "AX_LIB_HDF5",
+      "AX_PTHREAD"
+    ]
+  },
+  "conditional_context": {
+    "configure_if": 822,
+    "configure_fi": 792,
+    "configure_case": 94,
+    "configure_esac": 97,
+    "balanced": false,
+    "automake_conditionals": [
+      "DONT_BUILD",
+      "WITH_CXX",
+      "WITH_GNU_LD",
+      "BUILD_HDF5",
+      "HAVE_CHECK",
+      "HAVE_MAN2HTML"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": "auxdir",
+    "present": [
+      "install-sh",
+      "missing",
+      "depcomp",
+      "compile",
+      "ltmain.sh",
+      "config.guess",
+      "config.sub"
+    ],
+    "missing": []
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "c": 753,
+      "h": 432
+    },
+    "configure_macros": [
+      "AC_PROG_CC",
+      "AC_PROG_CXX"
+    ],
+    "needs_cxx": true,
+    "needs_fortran": false,
+    "sets_c_std": false
+  },
+  "libtool_context": {
+    "uses_libtool": true,
+    "macros": [
+      "LT_INIT"
+    ],
+    "ltmain_present": false,
+    "libtool_m4_sources": [
+      "aclocal.m4"
+    ],
+    "age": "modern"
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": true,
+    "defines_sampled": []
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-subdir-objects",
+      "applied_at": "configure",
+      "effect": "neutral",
+      "effectiveness": "low"
+    },
+    {
+      "quirk_id": "uses-maintainer-mode",
+      "applied_at": "configure",
+      "effect": "neutral",
+      "effectiveness": "low"
+    },
+    {
+      "quirk_id": "uses-libtool",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-pkg-config",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-ax-archive",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-pthread-check",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "vpath_analysis": {
+    "hardcoded_src_paths": 15,
+    "abs_path_leakage": 0,
+    "built_sources": [
+      "$(PMI2_VERSION_SCRIPT)",
+      "$(PMI_VERSION_SCRIPT)",
+      "$(VERSION_SCRIPT)",
+      "$(FULL_VERSION_SCRIPT)",
+      "libslurm.la"
+    ],
+    "generated_source_targets": []
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "dirent.h",
+      "errno.h",
+      "float.h",
+      "inttypes.h",
+      "kstat.h",
+      "limits.h",
+      "linux/sched.h",
+      "mcheck.h",
+      "netdb.h",
+      "pam/pam_appl.h",
+      "paths.h",
+      "pthread.h",
+      "pty.h",
+      "security/pam_appl.h",
+      "socket.h",
+      "stdbool.h",
+      "stdlib.h",
+      "sys/dr.h",
+      "sys/ipc.h",
+      "sys/prctl.h",
+      "sys/ptrace.h",
+      "sys/sem.h",
+      "sys/shm.h",
+      "sys/socket.h",
+      "sys/statfs.h",
+      "sys/statvfs.h",
+      "sys/sysctl.h",
+      "sys/syslog.h",
+      "sys/systemcfg.h",
+      "sys/vfs.h",
+      "sysint.h",
+      "termcap.h",
+      "utmp.h",
+      "values.h"
+    ],
+    "headers_included_unchecked": [
+      "arpa/inet.h",
+      "arpa/nameser.h",
+      "curl/curl.h",
+      "dlfcn.h",
+      "fcntl.h",
+      "gdk/gdkkeysyms.h",
+      "gtk/gtk.h",
+      "linux/audit.h",
+      "linux/filter.h",
+      "linux/limits.h",
+      "linux/magic.h",
+      "linux/seccomp.h",
+      "machine/vmparam.h",
+      "netinet/in.h",
+      "netinet/tcp.h",
+      "security/_pam_macros.h",
+      "security/pam_ext.h",
+      "security/pam_modules.h",
+      "security/pam_modutil.h",
+      "selinux/selinux.h",
+      "slurm/pmi.h",
+      "slurm/pmi2.h",
+      "slurm/slurm.h",
+      "slurm/slurm_errno.h",
+      "slurm/slurm_version.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 3,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "gnu++",
+    "strip_modern_poison_flags": [],
+    "inject_legacy_shims": false,
+    "compiler_aliasing": {}
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 4,
+    "shadowed_builtins": [],
+    "permitted_mutations": 1,
+    "suspect_global_mutations": 0
+  },
+  "parallel_build_safety": {
+    "vpath_out_of_tree_safe": false,
+    "generators": [],
+    "unordered_generated_sources": [],
+    "built_sources_declared": true
+  },
+  "host_environment_veil": {
+    "header_injection_candidates": [
+      "sys/sysctl.h",
+      "values.h"
+    ],
+    "symbol_aliasing_candidates": []
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "arpa/inet.h",
+      "arpa/nameser.h",
+      "curl/curl.h",
+      "dlfcn.h",
+      "fcntl.h",
+      "gdk/gdkkeysyms.h",
+      "gtk/gtk.h",
+      "linux/audit.h",
+      "linux/filter.h",
+      "linux/limits.h",
+      "linux/magic.h",
+      "linux/seccomp.h",
+      "machine/vmparam.h",
+      "netinet/in.h",
+      "netinet/tcp.h",
+      "security/_pam_macros.h",
+      "security/pam_ext.h",
+      "security/pam_modules.h",
+      "security/pam_modutil.h",
+      "selinux/selinux.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "subdir-config-h-include-path",
+    "unresolved-macros",
+    "vpath-unsafe (abs-path/hardcoded-srcdir leakage)"
+  ],
+  "repair_hints": [
+    {
+      "id": "makefile-bare-macro",
+      "phase": "make",
+      "confidence": 0.7,
+      "evidence": [
+        "contribs/sjinfo/Makefile:1 missing-separator",
+        "PREFIX ?= $(DESTDIR)/usr"
+      ],
+      "action": "define-or-neutralize-leaked-macro",
+      "expected_effect": "partial -> FUNC_OK candidate"
+    },
+    {
+      "id": "makefile-shell-fragment-in-make",
+      "phase": "make",
+      "confidence": 0.5,
+      "evidence": [
+        "contribs/pyxis/Makefile:1 missing-separator",
+        "PREFIX      ?= /opt/gridview/slurm"
+      ],
+      "action": "classify-shell-fragment-in-make",
+      "expected_effect": "partial -> FUNC_OK candidate"
+    },
+    {
+      "id": "makefile-shell-fragment-in-make",
+      "phase": "make",
+      "confidence": 0.5,
+      "evidence": [
+        "contribs/spank/Makefile:1 missing-separator",
+        "PREFIX ?= /opt/gridview/slurm"
+      ],
+      "action": "classify-shell-fragment-in-make",
+      "expected_effect": "partial -> FUNC_OK candidate"
+    },
+    {
+      "id": "subdir-top-builddir",
+      "phase": "make",
+      "confidence": 0.88,
+      "evidence": [
+        "contribs/pam_slurm_adopt consumes config.h below root",
+        "contribs/nss_slurm consumes config.h below root",
+        "contribs/pam consumes config.h below root",
+        "src/slurmctld consumes config.h below root",
+        "src/sackd consumes config.h below root"
+      ],
+      "action": "ensure ac_subst_file sets relative top_builddir per subdir (0.1.19)",
+      "expected_effect": "config.h found in subdir compiles"
+    },
+    {
+      "id": "ship-or-neutralize-macro",
+      "phase": "autoreconf",
+      "confidence": 0.6,
+      "evidence": [
+        "AX_CHECK_COMPILE_FLAG",
+        "AX_COMPARE_VERSION",
+        "AX_GCC_BUILTIN",
+        "AX_LIB_HDF5",
+        "AX_PTHREAD"
+      ],
+      "action": "ship native impl or neutralize",
+      "expected_effect": "resolves unexpanded AX_/custom macros"
+    }
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": -8,
+      "Makefile.in": 2232,
+      "aclocal.m4": 121,
+      "config.h.in": 235,
+      "configure": 231,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_ENABLE": "system-aclocal",
+      "AC_CANONICAL_TARGET": "system-aclocal",
+      "AC_CHECK_DECLS": "system-aclocal",
+      "AC_CHECK_FUNCS": "system-aclocal",
+      "AC_CHECK_HEADERS": "system-aclocal",
+      "AC_CHECK_LIB": "system-aclocal",
+      "AC_CHECK_SIZEOF": "system-aclocal",
+      "AC_CHECK_TARGET_TOOL": "system-aclocal",
+      "AC_CONFIG_AUX_DIR": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_HEADERS": "system-aclocal",
+      "AC_CONFIG_MACRO_DIR": "system-aclocal",
+      "AC_CONFIG_SRCDIR": "system-aclocal",
+      "AC_DEFINE": "system-aclocal",
+      "AC_DEFINE_UNQUOTED": "system-aclocal",
+      "AC_FUNC_STRERROR_R": "system-aclocal",
+      "AC_HEADER_MAJOR": "system-aclocal",
+      "AC_HEADER_SYS_WAIT": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_MSG_CHECKING": "system-aclocal",
+      "AC_MSG_ERROR": "system-aclocal",
+      "AC_MSG_RESULT": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PATH_PROG": "system-aclocal",
+      "AC_PREREQ": "system-aclocal",
+      "AC_PROG_CC": "system-aclocal",
+      "AC_PROG_CXX": "system-aclocal",
+      "AC_PROG_GCC_TRADITIONAL": "system-aclocal",
+      "AC_PROG_MAKE_SET": "system-aclocal",
+      "AC_SEARCH_LIBS": "system-aclocal",
+      "AC_SUBST": "system-aclocal",
+      "AM_CONDITIONAL": "system-aclocal",
+      "AM_INIT_AUTOMAKE": "system-aclocal",
+      "AM_MAINTAINER_MODE": "system-aclocal",
+      "AX_CHECK_COMPILE_FLAG": "unresolved",
+      "AX_COMPARE_VERSION": "unresolved",
+      "AX_GCC_BUILTIN": "unresolved",
+      "AX_LIB_HDF5": "unresolved",
+      "AX_PTHREAD": "unresolved",
+      "LT_INIT": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "pkglib_LTLIBRARIES",
+        "var": "pam_lib",
+        "resolved_to": [
+          "pam_slurm_adopt.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "BUILT_SOURCES",
+        "var": "PMI2_VERSION_SCRIPT",
+        "resolved_to": [
+          "pmi2_version.map"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "BUILT_SOURCES",
+        "var": "PMI_VERSION_SCRIPT",
+        "resolved_to": [
+          "pmi_version.map"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "pkglib_LTLIBRARIES",
+        "var": "pam_lib",
+        "resolved_to": [
+          "pam_slurm.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "slurmctld_LDADD",
+        "var": "LIB_SLURM",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "slurmctld_LDADD",
+        "var": "dependencies",
+        "resolved_to": [
+          "$(SLURMCTLD_INTERFACES)",
+          "$(top_builddir)/src/stepmgr/libstepmgr.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "noinst_LTLIBRARIES",
+        "var": "LIB_REF",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "slurmctld_LDADD",
+        "var": "LIB_REF",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "sackd_SOURCES",
+        "var": "SRCS",
+        "resolved_to": [
+          "sackd.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "sackd_LDADD",
+        "var": "LIB_SLURM",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "noinst_LTLIBRARIES",
+        "var": "LIB_REF",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "sackd_LDADD",
+        "var": "LIB_REF",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "scancel_LDADD",
+        "var": "LIB_SLURM",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "sdiag_LDADD",
+        "var": "LIB_SLURM",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "salloc_LDADD",
+        "var": "convenience_libs",
+        "resolved_to": [
+          "$(LIB_SLURM)"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libslurm_mysql_la_LIBADD",
+        "var": "MYSQL_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libslurm_kingbase_la_LIBADD",
+        "var": "KINGBASE_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "noinst_LTLIBRARIES",
+        "var": "MYSQL_LIB",
+        "resolved_to": [
+          "libslurm_mysql.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "noinst_LTLIBRARIES",
+        "var": "KINGBASE_LIB",
+        "resolved_to": [
+          "libslurm_kingbase.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "BUILT_SOURCES",
+        "var": "VERSION_SCRIPT",
+        "resolved_to": [
+          "version.map"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "BUILT_SOURCES",
+        "var": "FULL_VERSION_SCRIPT",
+        "resolved_to": [
+          "full_version.map"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libslurmhelper_la_SOURCES",
+        "var": "slurmapi_src",
+        "resolved_to": [
+          "allocate.c",
+          "allocate_msg.c",
+          "block_info.c",
+          "burst_buffer_info.c",
+          "assoc_mgr_info.c",
+          "cancel.c",
+          "cluster_info.c",
+          "complete.c",
+          "config_info.c",
+          "crontab.c",
+          "federation_info.c",
+          "front_end_info.c",
+          "init.c",
+          "init_msg.c",
+          "job_info.c",
+          "job_step_info.c",
+          "license_info.c",
+          "node_info.c",
+          "partition_info.c",
+          "pmi_server.c",
+          "pmi_server.h",
+          "reservation_info.c",
+          "signal.c",
+          "slurm_get_statistics.c",
+          "slurm_pmi.c",
+          "slurm_pmi.h",
+          "step_io.c",
+          "step_io.h",
+          "step_launch.c",
+          "step_launch.h",
+          "submit.c",
+          "suspend.c",
+          "token.c",
+          "topo_info.c",
+          "triggers.c",
+          "reconfigure.c",
+          "update_config.c",
+          "$(slurmdbapi_src)"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libslurmhelper_la_LIBADD",
+        "var": "slurmapi_add",
+        "resolved_to": [
+          "$(common_dir)/libcommon.la",
+          "$(top_builddir)/src/interfaces/libcommon_interfaces.la",
+          "-lpthread"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libslurm_la_LIBADD",
+        "var": "convenience_libs",
+        "resolved_to": [
+          "$(top_builddir)/src/api/libslurmhelper.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libslurmfull_la_LIBADD",
+        "var": "convenience_libs",
+        "resolved_to": [
+          "$(top_builddir)/src/api/libslurmhelper.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libslurm_pmi_la_LIBADD",
+        "var": "convenience_libs",
+        "resolved_to": [
+          "$(top_builddir)/src/api/libslurmhelper.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "slurmrestd_SOURCES",
+        "var": "SRCS",
+        "resolved_to": [
+          "http.c",
+          "http.h",
+          "operations.c",
+          "operations.h",
+          "slurmrestd.c",
+          "openapi.h",
+          "openapi.c",
+          "rest_auth.h",
+          "rest_auth.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "slurmrestd_LDADD",
+        "var": "LIB_SLURM",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "slurmrestd_LDADD",
+        "var": "HTTP_PARSER_LDFLAGS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "noinst_LTLIBRARIES",
+        "var": "LIB_REF",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "slurmrestd_LDADD",
+        "var": "LIB_REF",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "sacct_LDADD",
+        "var": "LIB_SLURM",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "slurmdbd_LDADD",
+        "var": "LIB_SLURM",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libcommon_la_LIBADD",
+        "var": "libselinux_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libslurm_lua_la_LIBADD",
+        "var": "lua_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "noinst_LTLIBRARIES",
+        "var": "LUA_LIB",
+        "resolved_to": [
+          "libslurm_lua.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libfile_bcast_la_LIBADD",
+        "var": "LZ4_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "noinst_LTLIBRARIES",
+        "var": "BCAST_LIB",
+        "resolved_to": [
+          "libfile_bcast.la"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "squeue_LDADD",
+        "var": "LIB_SLURM",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "noinst_LTLIBRARIES",
+        "var": "LIB_REF",
+        "resolved_to": [],
+        "resolved": false
+      }
+    ],
+    "unresolved_refs": [
+      "slurmctld_LDADD = $(LIB_SLURM)",
+      "noinst_LTLIBRARIES = $(LIB_REF)",
+      "slurmctld_LDADD = $(LIB_REF)",
+      "sackd_LDADD = $(LIB_SLURM)",
+      "noinst_LTLIBRARIES = $(LIB_REF)",
+      "sackd_LDADD = $(LIB_REF)",
+      "scancel_LDADD = $(LIB_SLURM)",
+      "sdiag_LDADD = $(LIB_SLURM)",
+      "libslurm_mysql_la_LIBADD = $(MYSQL_LIBS)",
+      "libslurm_kingbase_la_LIBADD = $(KINGBASE_LIBS)",
+      "slurmrestd_LDADD = $(LIB_SLURM)",
+      "slurmrestd_LDADD = $(HTTP_PARSER_LDFLAGS)",
+      "noinst_LTLIBRARIES = $(LIB_REF)",
+      "slurmrestd_LDADD = $(LIB_REF)",
+      "sacct_LDADD = $(LIB_SLURM)",
+      "slurmdbd_LDADD = $(LIB_SLURM)",
+      "libcommon_la_LIBADD = $(libselinux_LIBS)",
+      "libslurm_lua_la_LIBADD = $(lua_LIBS)",
+      "libfile_bcast_la_LIBADD = $(LZ4_LIBS)",
+      "squeue_LDADD = $(LIB_SLURM)",
+      "noinst_LTLIBRARIES = $(LIB_REF)",
+      "squeue_LDADD = $(LIB_REF)",
+      "sstat_LDADD = $(LIB_SLURM)",
+      "tls_s2n_la_LIBADD = $(S2N_LIBS)",
+      "cred_munge_la_LIBADD = $(MUNGE_LIBS)",
+      "libhdf5_api_la_SOURCES = $(HDF5_API_SOURCES)",
+      "libhdf5_api_la_LIBADD = $(HDF5_LIBS)",
+      "acct_gather_profile_hdf5_la_SOURCES = $(HDF5_SOURCES)",
+      "acct_gather_profile_hdf5_la_LIBADD = $(HDF5_LIBS)",
+      "EXTRA_acct_gather_profile_hdf5_la_SOURCES = $(HDF5_SOURCES)",
+      "EXTRA_libhdf5_api_la_SOURCES = $(HDF5_API_SOURCES)",
+      "acct_gather_profile_influxdb_la_LIBADD = $(LIBCURL)",
+      "switch_hpe_slingshot_la_LIBADD = $(LIBCURL)",
+      "switch_hpe_slingshot_la_LIBADD = $(JSON_LDFLAGS)",
+      "burst_buffer_lua_la_LIBADD = $(lua_lIBS)",
+      "cli_filter_lua_la_LIBADD = $(lua_LIBS)",
+      "jobcomp_lua_la_LIBADD = $(lua_LIBS)",
+      "jobcomp_mysql_la_LIBADD = $(MYSQL_LIBS)",
+      "jobcomp_elasticsearch_la_SOURCES = $(AS_ELASTICSEARCH_SOURCES)",
+      "jobcomp_elasticsearch_la_LIBADD = $(LIBCURL)",
+      "EXTRA_jobcomp_elasticsearch_la_SOURCES = $(AS_ELASTICSEARCH_SOURCES)",
+      "jobcomp_kafka_la_LIBADD = $(RDKAFKA_LIBS)",
+      "job_submit_lua_la_LIBADD = $(lua_LIBS)",
+      "acct_gather_energy_ipmi_la_LIBADD = $(FREEIPMI_LIBS)",
+      "acct_gather_energy_xcc_la_LIBADD = $(FREEIPMI_LIBS)",
+      "serializer_json_la_LIBADD = $(JSON_LDFLAGS)",
+      "serializer_yaml_la_LIBADD = $(YAML_LDFLAGS)",
+      "auth_slurm_la_LIBADD = $(JWT_LIBS)",
+      "auth_jwt_la_LIBADD = $(JWT_LIBS)",
+      "auth_munge_la_LIBADD = $(MUNGE_LIBS)",
+      "gpu_nvml_la_SOURCES = $(NVML_SOURCES)",
+      "gpu_nrt_la_SOURCES = $(NRT_SOURCES)",
+      "gpu_dsmi_la_SOURCES = $(DSMI_SOURCES)",
+      "gpu_dsmi_la_LIBADD = $(DSMI_LIBS)",
+      "gpu_oneapi_la_SOURCES = $(ONEAPI_SOURCES)",
+      "gpu_rsmi_la_SOURCES = $(RSMI_SOURCES)",
+      "accounting_storage_mysql_la_SOURCES = $(AS_MYSQL_SOURCES)",
+      "accounting_storage_mysql_la_LIBADD = $(MYSQL_LIBS)",
+      "EXTRA_accounting_storage_mysql_la_SOURCES = $(AS_MYSQL_SOURCES)",
+      "accounting_storage_kingbase_la_SOURCES = $(AS_KINGBASE_SOURCES)",
+      "accounting_storage_kingbase_la_LIBADD = $(KINGBASE_LIBS)",
+      "EXTRA_accounting_storage_kingbase_la_SOURCES = $(AS_KINGBASE_SOURCES)",
+      "cgroup_v2_la_LIBADD = $(dbus_LIBS)",
+      "acct_gather_interconnect_ofed_la_LIBADD = $(OFED_LIBS)",
+      "srun_LDADD = $(LIB_SLURM)",
+      "sreport_LDADD = $(LIB_SLURM)",
+      "sreport_LDADD = $(READLINE_LIBS)",
+      "scrontab_LDADD = $(LIB_SLURM)",
+      "noinst_LTLIBRARIES = $(LIB_REF)",
+      "scrontab_LDADD = $(LIB_REF)",
+      "scrun_LDADD = $(lua_LIBS)",
+      "noinst_LTLIBRARIES = $(LIB_REF)",
+      "scrun_LDADD = $(LIB_REF)",
+      "scontrol_LDADD = $(LIB_SLURM)",
+      "scontrol_LDADD = $(READLINE_LIBS)",
+      "noinst_LTLIBRARIES = $(LIB_REF)",
+      "scontrol_LDADD = $(LIB_REF)",
+      "sacctmgr_LDADD = $(LIB_SLURM)",
+      "sacctmgr_LDADD = $(READLINE_LIBS)",
+      "noinst_LTLIBRARIES = $(LIB_REF)",
+      "sacctmgr_LDADD = $(LIB_REF)",
+      "strigger_LDADD = $(LIB_SLURM)",
+      "sshare_LDADD = $(LIB_SLURM)",
+      "sshare_LDADD = $(READLINE_LIBS)",
+      "sinfo_LDADD = $(LIB_SLURM)",
+      "noinst_LTLIBRARIES = $(LIB_REF)",
+      "sinfo_LDADD = $(LIB_REF)",
+      "sview_LDADD = $(LIB_SLURM)",
+      "slurmstepd_LDADD = $(LIB_SLURM)",
+      "slurmstepd_LDADD = $(libselinux_LIBS)",
+      "slurmd_LDADD = $(LIB_SLURM)",
+      "slurmd_LDADD = $(NUMA_LIBS)",
+      "slurmd_SOURCES = $(SLURMD_SOURCES)",
+      "noinst_LTLIBRARIES = $(LIB_REF)",
+      "slurmd_LDADD = $(LIB_REF)",
+      "sprio_LDADD = $(LIB_SLURM)",
+      "noinst_LTLIBRARIES = $(LIB_REF)",
+      "sprio_LDADD = $(LIB_REF)",
+      "sbcast_LDADD = $(LIB_SLURM)"
+    ],
+    "indirection_count": 181
   }
 }

@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "dankamongmen/babl",
   "source": {
     "url": "https://github.com/dankamongmen/babl",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -21,6 +21,16 @@
     {
       "step": "autoreconf",
       "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
+      "status": "fail"
+    },
+    {
+      "step": "auto-quirk",
+      "tool": "quirk-engine",
       "status": "fail"
     }
   ],
@@ -40,24 +50,84 @@
     "subdirs"
   ],
   "outputs": [],
-  "status": "CONFIGURE_GEN_FAIL",
+  "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "",
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "ok",
-    "real_make": "ok",
-    "real_configure_lines": 18128,
-    "real_first_error": "",
-    "classification": "OURS_GEN_FAIL"
-  },
-  "divergence": {
-    "stage": "autoreconf",
-    "ours_error": "",
-    "ours_error_context": [],
-    "ours_configure_lines": 0,
-    "real_configure_lines": 18128,
-    "macros_ours_left_undefined": []
+  "diagnostic": "./configure: line 1366: syntax error near unexpected token `('",
+  "deep_expansion": {
+    "configure_lines": 3323,
+    "leaked_macros": [],
+    "heredoc_openers": 25,
+    "heredoc_terminators": 25,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [
+      {
+        "line": 1366,
+        "token": "(",
+        "source": "BABL_BINARY_AGE=m4_eval(100 * babl_minor_version + babl_micro_version)",
+        "block": [
+          "1362: BABL_MAJOR_VERSION=0",
+          "1363: BABL_MINOR_VERSION=1",
+          "1364: BABL_MICRO_VERSION=11",
+          "1365: BABL_INTERFACE_AGE=1",
+          "1366: BABL_BINARY_AGE=m4_eval(100 * babl_minor_version + babl_micro_version)",
+          "1367: BABL_VERSION=babl_major_version.babl_minor_version.babl_micro_version",
+          "1368: BABL_REAL_VERSION=babl_major_version.babl_minor_version.babl_micro_version",
+          "1369: BABL_API_VERSION=babl_major_version.babl_minor_version"
+        ]
+      }
+    ],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2846: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "BABL_MAJOR_VERSION",
+      "BABL_MINOR_VERSION",
+      "BABL_MICRO_VERSION",
+      "BABL_INTERFACE_AGE",
+      "BABL_BINARY_AGE",
+      "BABL_VERSION",
+      "BABL_REAL_VERSION",
+      "BABL_API_VERSION",
+      "BABL_RELEASE",
+      "INTROSPECTION_SCANNER",
+      "INTROSPECTION_COMPILER",
+      "INTROSPECTION_GENERATE",
+      "INTROSPECTION_GIRDIR",
+      "INTROSPECTION_TYPELIBDIR",
+      "INTROSPECTION_CFLAGS",
+      "INTROSPECTION_LIBS",
+      "INTROSPECTION_MAKEFILE",
+      "HAVE_INTROSPECTION_TRUE",
+      "HAVE_INTROSPECTION_FALSE",
+      "GI_1_33_5_CFLAGS",
+      "GI_1_33_5_LIBS",
+      "HAVE_GI_RENAME_TO_TRUE",
+      "HAVE_GI_RENAME_TO_FALSE",
+      "HAVE_VALA_TRUE",
+      "HAVE_VALA_FALSE",
+      "BABL_UNSTABLE_TRUE",
+      "BABL_UNSTABLE_FALSE",
+      "BABL_UNSTABLE",
+      "BABL_LIBRARY_VERSION"
+    ],
+    "failed_during_check": "",
+    "failure_tail": [
+      "./configure: line 1366: syntax error near unexpected token `('",
+      "./configure: line 1366: `BABL_BINARY_AGE=m4_eval(100 * babl_minor_version + babl"
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 6,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "\\nint main() { asm (\"movq 0, %mm0\"); ; return 0; }",
+      "\\nint main() { asm (\"movntps %xmm0, 0\"); ; return 0; }",
+      "#include <$ac_hdr>",
+      "\\nint main() { asm (\"vand %v0, %v0, %v0\"); ; return 0; }",
+      "#include <$ac_hdr>",
+      "char dlopen ();\\nint main() { return dlopen (); }"
+    ]
   },
   "receipt": {
     "court_status": "failed",
@@ -70,7 +140,14 @@
       "has-acinclude",
       "vendored-aclocal"
     ],
-    "receipt_hash": "2d33522efa3804d72b89515b2d49919bd17cdebd0eb5d18ca47ae0324fc38953",
+    "quirks_applied": [
+      {
+        "id": "uses-maintainer-mode",
+        "action": "--disable-maintainer-mode",
+        "verified": false
+      }
+    ],
+    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -79,6 +156,649 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "babl.pc",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "babl/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "babl/babl-version.h",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "babl/base/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "docs/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "docs/graphics/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "docs/index-static.html",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "extensions/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "tests/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      }
+    ],
+    "config_headers": [
+      "config.h"
+    ],
+    "subdirs": [
+      "babl",
+      "extensions",
+      "tests",
+      "docs",
+      "base",
+      "graphics"
+    ],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [],
+        "subdirs": [
+          "babl",
+          "extensions",
+          "tests",
+          "docs"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "babl",
+        "targets": [
+          "libbabl-@BABL_API_VERSION@.la"
+        ],
+        "subdirs": [
+          "base"
+        ],
+        "sources_include_config_h": true,
+        "am_cppflags": "-DLIBDIR=\\\"\"$(libdir)\"\\\"\t \t-I$(top_srcdir)\t\t\t \t-I$(top_srcdir)/babl/base"
+      },
+      {
+        "dir": "babl/base",
+        "targets": [
+          "libbase.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir) -I$(top_srcdir)/babl"
+      },
+      {
+        "dir": "docs",
+        "targets": [],
+        "subdirs": [
+          "graphics"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "extensions",
+        "targets": [
+          "cairo.la",
+          "CIE.la",
+          "gegl-fixups.la",
+          "gggl-lies.la",
+          "gggl.la",
+          "gimp-8bit.la",
+          "float.la",
+          "fast-float.la",
+          "naive-CMYK.la",
+          "HSV.la",
+          "sse-fixups.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_builddir)\t\t \t-I$(top_srcdir)\t\t\t \t-I$(top_srcdir)/babl\t\t \t-I$(top_srcdir)/extensions"
+      },
+      {
+        "dir": "tests",
+        "targets": [
+          "introspect",
+          "babl_fish_path_fitness",
+          "babl_fish_path_dhtml",
+          "babl-html-dump",
+          "conversions",
+          "formats",
+          "$(C_TESTS)"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir) -I$(top_srcdir)/babl"
+      }
+    ],
+    "max_depth": 2,
+    "config_h_consumers_below_root": [
+      "tests",
+      "babl",
+      "babl/base",
+      "extensions"
+    ]
+  },
+  "macro_inventory": {
+    "macro_dirs": [
+      "m4"
+    ],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": true,
+    "defined_macros": [
+      {
+        "name": "GOBJECT_INTROSPECTION_CHECK",
+        "source": "m4/introspection.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "GOBJECT_INTROSPECTION_REQUIRE",
+        "source": "m4/introspection.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "BABL_DETECT_CFLAGS",
+        "source": "acinclude.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "BABL_VARIADIC_MACROS",
+        "source": "acinclude.m4",
+        "kind": "project-local"
+      }
+    ],
+    "called_macros": [
+      "AC_ARG_ENABLE",
+      "AC_ARG_WITH",
+      "AC_CHECK_FUNCS",
+      "AC_CHECK_HEADERS",
+      "AC_COMPILE_IFELSE",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_HEADERS",
+      "AC_CONFIG_MACRO_DIR",
+      "AC_CONFIG_SRCDIR",
+      "AC_DEFINE",
+      "AC_DEFINE_UNQUOTED",
+      "AC_HEADER_STDC",
+      "AC_INIT",
+      "AC_LANG_PROGRAM",
+      "AC_MSG_CHECKING",
+      "AC_MSG_RESULT",
+      "AC_MSG_WARN",
+      "AC_OUTPUT",
+      "AC_PATH_PROG",
+      "AC_PREREQ",
+      "AC_PROG_CC",
+      "AC_REPLACE_FUNCS",
+      "AC_SEARCH_LIBS",
+      "AC_SUBST",
+      "AM_CONDITIONAL",
+      "AM_INIT_AUTOMAKE",
+      "AM_MAINTAINER_MODE",
+      "AM_SANITY_CHECK",
+      "AM_SILENT_RULES",
+      "LT_INIT",
+      "LT_PREREQ",
+      "PKG_CHECK_MODULES"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 173,
+    "configure_fi": 167,
+    "configure_case": 72,
+    "configure_esac": 75,
+    "balanced": false,
+    "automake_conditionals": [
+      "HAVE_GI_RENAME_TO",
+      "HAVE_VALA",
+      "BABL_UNSTABLE",
+      "HAVE_RSVG",
+      "HAVE_W3M",
+      "PLATFORM_WIN32",
+      "OS_WIN32",
+      "OS_UNIX"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": ".",
+    "present": [
+      "install-sh",
+      "missing"
+    ],
+    "missing": [
+      "depcomp",
+      "compile",
+      "ltmain.sh"
+    ]
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "c": 75,
+      "h": 31
+    },
+    "configure_macros": [
+      "AC_PROG_CC"
+    ],
+    "needs_cxx": false,
+    "needs_fortran": false,
+    "sets_c_std": false
+  },
+  "libtool_context": {
+    "uses_libtool": true,
+    "macros": [
+      "LT_INIT"
+    ],
+    "ltmain_present": false,
+    "libtool_m4_sources": [
+      "aclocal.m4"
+    ],
+    "age": "modern"
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": true,
+    "defines_sampled": []
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-maintainer-mode",
+      "applied_at": "configure",
+      "effect": "neutral",
+      "effectiveness": "low"
+    },
+    {
+      "quirk_id": "uses-libtool",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-pkg-config",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "has-m4-macro-dir",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "has-acinclude",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "vpath_analysis": {
+    "hardcoded_src_paths": 0,
+    "abs_path_leakage": 0,
+    "built_sources": [],
+    "generated_source_targets": [
+      "TESTS_ENVIRONMENT = LD_LIBRARY_PATH=$(top_builddir)/babl",
+      "Babl-$(BABL_API_VERSION).gir",
+      "export BABL_PATH=\"$(top_builddir)/extensions",
+      "(which mktemp > /dev/null 2>&1 && TMPFILE=`mktemp` || TMPFILE=\"/tmp/babl_build_tempfile\" ; \texport BABL_PATH=\"$(top_builddir)/extensions"
+    ]
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "altivec.h",
+      "dl.h"
+    ],
+    "headers_included_unchecked": [
+      "babl/babl-macros.h",
+      "babl/babl-types.h",
+      "babl/babl-version.h",
+      "pthread.h",
+      "stdint.h",
+      "sys/time.h",
+      "sys/types.h",
+      "unistd.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 4,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "c89_gnu",
+    "strip_modern_poison_flags": [
+      "-Werror=implicit-function-declaration",
+      "-Werror=int-conversion",
+      "-Werror=incompatible-pointer-types"
+    ],
+    "inject_legacy_shims": true,
+    "compiler_aliasing": {
+      "clang-18+": "-std=gnu89 -Wno-error",
+      "gcc-14+": "-std=gnu89 -fpermissive"
+    }
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 12,
+    "shadowed_builtins": [],
+    "permitted_mutations": 4,
+    "suspect_global_mutations": 0
+  },
+  "parallel_build_safety": {
+    "vpath_out_of_tree_safe": true,
+    "generators": [
+      "TESTS_ENVIRONMENT = LD_LIBRARY_PATH=$(top_builddir)/babl",
+      "Babl-$(BABL_API_VERSION).gir",
+      "export BABL_PATH=\"$(top_builddir)/extensions",
+      "(which mktemp > /dev/null 2>&1 && TMPFILE=`mktemp` || TMPFILE=\"/tmp/babl_build_tempfile\" ; \texport BABL_PATH=\"$(top_builddir)/extensions"
+    ],
+    "unordered_generated_sources": [
+      "TESTS_ENVIRONMENT = LD_LIBRARY_PATH=$(top_builddir)/babl",
+      "Babl-$(BABL_API_VERSION).gir",
+      "export BABL_PATH=\"$(top_builddir)/extensions",
+      "(which mktemp > /dev/null 2>&1 && TMPFILE=`mktemp` || TMPFILE=\"/tmp/babl_build_tempfile\" ; \texport BABL_PATH=\"$(top_builddir)/extensions"
+    ],
+    "built_sources_declared": false
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "babl/babl-macros.h",
+      "babl/babl-types.h",
+      "babl/babl-version.h",
+      "pthread.h",
+      "stdint.h",
+      "sys/time.h",
+      "sys/types.h",
+      "unistd.h",
+      "altivec.h",
+      "dl.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "subdir-config-h-include-path",
+    "modern-compiler-strictness (no explicit C std)",
+    "parallel-build-race (gen-source not in BUILT_SOURCES)"
+  ],
+  "repair_hints": [
+    {
+      "id": "subdir-top-builddir",
+      "phase": "make",
+      "confidence": 0.88,
+      "evidence": [
+        "tests consumes config.h below root",
+        "babl consumes config.h below root",
+        "babl/base consumes config.h below root",
+        "extensions consumes config.h below root"
+      ],
+      "action": "ensure ac_subst_file sets relative top_builddir per subdir (0.1.19)",
+      "expected_effect": "config.h found in subdir compiles"
+    }
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": -3,
+      "Makefile.in": 1206,
+      "aclocal.m4": 9,
+      "config.h.in": 23,
+      "configure": 18,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_ENABLE": "system-aclocal",
+      "AC_ARG_WITH": "system-aclocal",
+      "AC_CHECK_FUNCS": "system-aclocal",
+      "AC_CHECK_HEADERS": "system-aclocal",
+      "AC_COMPILE_IFELSE": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_HEADERS": "system-aclocal",
+      "AC_CONFIG_MACRO_DIR": "system-aclocal",
+      "AC_CONFIG_SRCDIR": "system-aclocal",
+      "AC_DEFINE": "system-aclocal",
+      "AC_DEFINE_UNQUOTED": "system-aclocal",
+      "AC_HEADER_STDC": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_LANG_PROGRAM": "system-aclocal",
+      "AC_MSG_CHECKING": "system-aclocal",
+      "AC_MSG_RESULT": "system-aclocal",
+      "AC_MSG_WARN": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PATH_PROG": "system-aclocal",
+      "AC_PREREQ": "system-aclocal",
+      "AC_PROG_CC": "system-aclocal",
+      "AC_REPLACE_FUNCS": "system-aclocal",
+      "AC_SEARCH_LIBS": "system-aclocal",
+      "AC_SUBST": "system-aclocal",
+      "AM_CONDITIONAL": "system-aclocal",
+      "AM_INIT_AUTOMAKE": "system-aclocal",
+      "AM_MAINTAINER_MODE": "system-aclocal",
+      "AM_SANITY_CHECK": "system-aclocal",
+      "AM_SILENT_RULES": "system-aclocal",
+      "LT_INIT": "system-aclocal",
+      "LT_PREREQ": "system-aclocal",
+      "PKG_CHECK_MODULES": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "noinst_PROGRAMS",
+        "var": "C_TESTS",
+        "resolved_to": [
+          "grayscale_to_rgb",
+          "rgb_to_bgr",
+          "rgb_to_ycbcr",
+          "srgb_to_lab_u8",
+          "sanity",
+          "babl_class_name",
+          "extract",
+          "floatclamp",
+          "float-to-8bit",
+          "hsva",
+          "types",
+          "palette",
+          "extract",
+          "nop",
+          "n_components",
+          "models",
+          "cairo-RGB24",
+          "$(CONCURRENCY_STRESS_TEST)"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libbabl_@BABL_API_VERSION@_la_SOURCES",
+        "var": "h_sources",
+        "resolved_to": [
+          "babl.h",
+          "babl-class.h",
+          "babl-classes.h",
+          "babl-component.h",
+          "babl-conversion.h",
+          "babl-cpuaccel.h",
+          "babl-db.h",
+          "babl-extension.h",
+          "babl-fish.h",
+          "babl-format.h",
+          "babl-hash-table.h",
+          "babl-ids.h",
+          "babl-image.h",
+          "babl-internal.h",
+          "babl-introspect.h",
+          "babl-list.h",
+          "babl-macros.h",
+          "babl-memory.h",
+          "babl-model.h",
+          "babl-mutex.h",
+          "babl-sampling.h",
+          "babl-type.h",
+          "babl-types.h",
+          "babl-util.h"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libbabl_@BABL_API_VERSION@_la_SOURCES",
+        "var": "c_sources",
+        "resolved_to": [
+          "babl.c",
+          "babl-component.c",
+          "babl-conversion.c",
+          "babl-core.c",
+          "babl-db.c",
+          "babl-extension.c",
+          "babl-fish-path.c",
+          "babl-fish-reference.c",
+          "babl-fish-simple.c",
+          "babl-fish-stats.c",
+          "babl-fish.c",
+          "babl-format.c",
+          "babl-hash-table.c",
+          "babl-image.c",
+          "babl-internal.c",
+          "babl-introspect.c",
+          "babl-list.c",
+          "babl-memory.c",
+          "babl-model.c",
+          "babl-mutex.c",
+          "babl-palette.c",
+          "babl-sampling.c",
+          "babl-sanity.c",
+          "babl-type.c",
+          "babl-util.c",
+          "babl-cpuaccel.c",
+          "babl-version.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libbase_la_SOURCES",
+        "var": "h_sources",
+        "resolved_to": [
+          "babl-base.h"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libbase_la_SOURCES",
+        "var": "c_sources",
+        "resolved_to": [
+          "babl-base.c",
+          "formats.c",
+          "pow-24.c",
+          "type-float.c",
+          "type-half.c",
+          "type-u8.c",
+          "type-u15.c",
+          "type-u16.c",
+          "type-u32.c",
+          "model-rgb.c",
+          "model-gray.c",
+          "model-ycbcr.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libbase_la_LIBADD",
+        "var": "MATH_LIB",
+        "resolved_to": [],
+        "resolved": false
+      }
+    ],
+    "unresolved_refs": [
+      "libbase_la_LIBADD = $(MATH_LIB)"
+    ],
+    "indirection_count": 6
   }
 }

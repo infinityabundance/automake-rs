@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "Distrotech/sharutils",
   "source": {
     "url": "https://github.com/Distrotech/sharutils",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.14",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,11 +26,6 @@
     {
       "step": "configure",
       "tool": "./configure",
-      "status": "ok"
-    },
-    {
-      "step": "make",
-      "tool": "make",
       "status": "fail"
     }
   ],
@@ -39,7 +34,9 @@
     "configure_args": []
   },
   "dependencies": {
-    "pkg_config": [],
+    "pkg_config": [
+      "This is a known interoperability problem of glibc <= 2.5 with gcc >= 4.3 in"
+    ],
     "system_libs": [],
     "headers_needed": [],
     "missing": []
@@ -49,42 +46,80 @@
     "subdirs"
   ],
   "outputs": [],
-  "status": "MAKE_FAIL",
+  "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "",
+  "diagnostic": "configure: error: <wchar.h> cannot be used with this compiler (cc  ).",
   "deep_expansion": {
-    "configure_lines": 0,
+    "configure_lines": 5300,
     "leaked_macros": [],
-    "heredoc_openers": 0,
-    "heredoc_terminators": 0,
+    "heredoc_openers": 210,
+    "heredoc_terminators": 210,
     "heredoc_imbalance": 0,
     "syntax_errors": [],
-    "cache_var_anomalies": [],
-    "residual_placeholders": [],
-    "failed_during_check": "",
-    "failure_tail": [],
+    "cache_var_anomalies": [
+      "line 66: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "PACKAGE_NAME",
+      "PACKAGE_VERSION",
+      "PACKAGE_STRING",
+      "PACKAGE_TARNAME",
+      "PACKAGE_BUGREPORT",
+      "PACKAGE_URL",
+      "srcdir",
+      "prefix",
+      "exec_prefix",
+      "HAVE_DECL_STRNLEN",
+      "GNULIB_GETUSERSHELL",
+      "GNULIB_OPENAT",
+      "GNULIB_GETDELIM",
+      "REPLACE_VFPRINTF",
+      "GNULIB_FCHDIR",
+      "GNULIB_GL_UNISTD_H_GETOPT",
+      "HAVE_WCSCASECMP",
+      "REPLACE_MBSNRTOWCS",
+      "HAVE_SETHOSTNAME",
+      "GNULIB_FDOPENDIR",
+      "HAVE_SIGSET_T",
+      "REPLACE_STRCASESTR",
+      "GNULIB_STRTOIMAX",
+      "GLIBC21",
+      "GNULIB_OPENDIR",
+      "GNULIB_CLOSEDIR",
+      "REPLACE_STRTOK_R",
+      "WOE32",
+      "WINDOWS_64_BIT_OFF_T",
+      "GNULIB_FSCANF"
+    ],
+    "failed_during_check": "checking for C compiler... cc",
+    "failure_tail": [
+      "checking for C compiler... cc",
+      "if  is properly declared... whether compress works... how to link with lib[]... ",
+      "yes",
+      "no, installing compress-dummy",
+      "[NAME]"
+    ],
     "conftest_corruption": [],
-    "conftest_directives_intact": 0,
+    "conftest_directives_intact": 313,
     "conftest_directives_mangled": 0,
-    "conftest_programs": []
-  },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "fail",
-    "real_make": "skipped",
-    "real_configure_lines": 35342,
-    "real_first_error": "config.status: error: in `/tmp/atlasx_Distrotech__sharutils/s':",
-    "classification": "OURS_BETTER"
+    "conftest_programs": [
+      "/* end confdefs.h */\\nint main() { return 0; }",
+      "/* end confdefs.h */\\n#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar sigprocmask();\\nint main() { return sigprocmask(); }",
+      "/* end confdefs.h */\\n#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar __mktime_internal();\\nint main() { return __mktime_internal(); }",
+      "/* end confdefs.h */\\n#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar mmap();\\nint main() { return mmap(); }",
+      "/* end confdefs.h */\\n#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func();\\nint main() { return $ac_func(); }",
+      "/* end confdefs.h */\\n#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar readdir();\\nint main() { return readdir(); }"
+    ]
   },
   "receipt": {
-    "court_status": "partial",
+    "court_status": "failed",
     "probe_trace": [],
     "quirks_matched": [
       "uses-gettext",
       "has-m4-macro-dir",
       "vendored-aclocal"
     ],
-    "receipt_hash": "492386303fdd83cef4b6801ad6296d97e30d85323659e84dacf7883d6be5eebc",
+    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -93,6 +128,933 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "doc/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "intl/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "lib/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "libopts/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "po/Makefile.in",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "src/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "tests/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      }
+    ],
+    "config_headers": [
+      "config.h"
+    ],
+    "subdirs": [
+      "intl",
+      "lib",
+      "libopts",
+      "src",
+      "doc",
+      "po",
+      "tests"
+    ],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [],
+        "subdirs": [
+          "intl",
+          "lib",
+          "libopts",
+          "src",
+          "doc",
+          "po",
+          "tests"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "lib",
+        "targets": [],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_builddir)/intl"
+      },
+      {
+        "dir": "libopts",
+        "targets": [
+          "libopts.a"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src",
+        "targets": [
+          "shar",
+          "unshar"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "$(AOINC) -I$(srcdir) -I$(top_builddir)  \t-I$(top_srcdir)/lib -I$(top_builddir)/lib -I$(top_builddir)/intl"
+      }
+    ],
+    "max_depth": 1,
+    "config_h_consumers_below_root": [
+      "src",
+      "libopts",
+      "lib"
+    ]
+  },
+  "tool_requirements": {
+    "detected": [
+      "ar",
+      "xgettext"
+    ],
+    "missing": []
+  },
+  "macro_inventory": {
+    "macro_dirs": [
+      "m4"
+    ],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [
+      {
+        "name": "gl_SOCKETLIB",
+        "source": "m4/socketlib.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_COMMON",
+        "source": "m4/gnulib-common.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_COMMON_BODY",
+        "source": "m4/gnulib-common.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_MODULE_INDICATOR_SET_VARIABLE",
+        "source": "m4/gnulib-common.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_MODULE_INDICATOR_SET_VARIABLE_AUX",
+        "source": "m4/gnulib-common.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_MODULE_INDICATOR_SET_VARIABLE_AUX_OR",
+        "source": "m4/gnulib-common.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_MODULE_INDICATOR",
+        "source": "m4/gnulib-common.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_MODULE_INDICATOR_FOR_TESTS",
+        "source": "m4/gnulib-common.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_ASSERT_NO_GNULIB_POSIXCHECK",
+        "source": "m4/gnulib-common.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_W",
+        "source": "m4/gnulib-common.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_ASSERT_NO_GNULIB_TESTS",
+        "source": "m4/gnulib-common.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_FEATURES_H",
+        "source": "m4/gnulib-common.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_PROG_CC_C99",
+        "source": "m4/gnulib-common.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_PROG_AR_RANLIB",
+        "source": "m4/gnulib-common.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AC_PROG_MKDIR_P",
+        "source": "m4/gnulib-common.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_C_RESTRICT",
+        "source": "m4/gnulib-common.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "gl_BIGENDIAN",
+        "source": "m4/gnulib-common.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_CACHE_VAL_SILENT",
+        "source": "m4/gnulib-common.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_FUNC_READDIR",
+        "source": "m4/readdir.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_STDLIB_H",
+        "source": "m4/stdlib_h.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_STDLIB_MODULE_INDICATOR",
+        "source": "m4/stdlib_h.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_STDLIB_H_DEFAULTS",
+        "source": "m4/stdlib_h.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_EARLY",
+        "source": "m4/gnulib-comp.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_INIT",
+        "source": "m4/gnulib-comp.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_LIBOBJ",
+        "source": "m4/gnulib-comp.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_REPLACE_FUNCS",
+        "source": "m4/gnulib-comp.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_LIBSOURCES",
+        "source": "m4/gnulib-comp.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gltests_LIBOBJ",
+        "source": "m4/gnulib-comp.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gltests_REPLACE_FUNCS",
+        "source": "m4/gnulib-comp.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gltests_LIBSOURCES",
+        "source": "m4/gnulib-comp.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_FILE_LIST",
+        "source": "m4/gnulib-comp.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AC_C_FLEXIBLE_ARRAY_MEMBER",
+        "source": "m4/flexmember.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "gl_WAIT_PROCESS",
+        "source": "m4/wait-process.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_FUNC_GETHOSTNAME",
+        "source": "m4/gethostname.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_PREREQ_HOST_NAME_MAX",
+        "source": "m4/gethostname.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_PREREQ_GETHOSTNAME",
+        "source": "m4/gethostname.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_AC_HEADER_INTTYPES_H",
+        "source": "m4/inttypes_h.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_FUNC_STRTOIMAX",
+        "source": "m4/strtoimax.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_PREREQ_STRTOIMAX",
+        "source": "m4/strtoimax.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gt_LOCALE_ZH_CN",
+        "source": "m4/locale-zh.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AC_TYPE_LONG_LONG_INT",
+        "source": "m4/longlong.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_TYPE_UNSIGNED_LONG_LONG_INT",
+        "source": "m4/longlong.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "_AC_TYPE_LONG_LONG_SNIPPET",
+        "source": "m4/longlong.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gt_INTTYPES_PRI",
+        "source": "m4/inttypes-pri.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_SIGNALBLOCKING",
+        "source": "m4/signalblocking.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_PREREQ_SIGPROCMASK",
+        "source": "m4/signalblocking.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_STDINT_H",
+        "source": "m4/stdint.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_STDINT_BITSIZEOF",
+        "source": "m4/stdint.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_CHECK_TYPES_SIGNED",
+        "source": "m4/stdint.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_INTEGER_TYPE_SUFFIX",
+        "source": "m4/stdint.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_STDINT_INCLUDES",
+        "source": "m4/stdint.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_STDINT_TYPE_PROPERTIES",
+        "source": "m4/stdint.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AC_COMPUTE_INT",
+        "source": "m4/stdint.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "gl_FUNC_GETCWD_PATH_MAX",
+        "source": "m4/getcwd-path-max.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_ENVIRON",
+        "source": "m4/environ.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gt_CHECK_VAR_DECL",
+        "source": "m4/environ.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "CHECK_COMPRESS_AND_LINK",
+        "source": "m4/sharutils.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_FUNC_GETCWD_ABORT_BUG",
+        "source": "m4/getcwd-abort-bug.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_FUNC_GETCWD_NULL",
+        "source": "m4/getcwd.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_FUNC_GETCWD_SIGNATURE",
+        "source": "m4/getcwd.m4",
+        "kind": "project-local"
+      }
+    ],
+    "called_macros": [
+      "AC_ARG_ENABLE",
+      "AC_CHECK_FUNCS",
+      "AC_CHECK_HEADERS",
+      "AC_COMPILE_IFELSE",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_HEADERS",
+      "AC_CONFIG_SRCDIR",
+      "AC_C_BIGENDIAN",
+      "AC_C_CHAR_UNSIGNED",
+      "AC_C_CONST",
+      "AC_C_INLINE",
+      "AC_DEFINE",
+      "AC_DEFINE_UNQUOTED",
+      "AC_FUNC_CLOSEDIR_VOID",
+      "AC_FUNC_FSEEKO",
+      "AC_HEADER_DIRENT",
+      "AC_HEADER_STAT",
+      "AC_HEADER_STDC",
+      "AC_INIT",
+      "AC_LANG_PROGRAM",
+      "AC_MSG_CHECKING",
+      "AC_MSG_ERROR",
+      "AC_MSG_RESULT",
+      "AC_OUTPUT",
+      "AC_PATH_PROGS",
+      "AC_PROG_CC",
+      "AC_PROG_INSTALL",
+      "AC_PROG_MAKE_SET",
+      "AC_PROG_RANLIB",
+      "AC_REPLACE_FUNCS",
+      "AC_RUN_IFELSE",
+      "AC_SEARCH_LIBS",
+      "AC_STRUCT_TIMEZONE",
+      "AC_SUBST",
+      "AC_SYS_LARGEFILE",
+      "AC_TYPE_SIZE_T",
+      "AC_USE_SYSTEM_EXTENSIONS",
+      "AM_CFLAGS",
+      "AM_CONDITIONAL",
+      "AM_GNU_GETTEXT",
+      "AM_GNU_GETTEXT_VERSION",
+      "AM_INIT_AUTOMAKE",
+      "AM_PROG_AR",
+      "AM_PROG_CC_C_O",
+      "AM_WITH_DMALLOC"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 300,
+    "configure_fi": 293,
+    "configure_case": 49,
+    "configure_esac": 53,
+    "balanced": false,
+    "automake_conditionals": [
+      "UUCODE"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": ".",
+    "present": [
+      "install-sh",
+      "missing",
+      "depcomp",
+      "compile"
+    ],
+    "missing": []
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "c": 204,
+      "h": 124
+    },
+    "configure_macros": [
+      "AC_PROG_CC"
+    ],
+    "needs_cxx": false,
+    "needs_fortran": false,
+    "sets_c_std": false
+  },
+  "gettext_intl_context": {
+    "uses_gettext": true,
+    "uses_intltool": false,
+    "po_dir_present": true,
+    "missing_files": []
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": true,
+    "defines_sampled": []
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-gettext",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "has-m4-macro-dir",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "vpath_analysis": {
+    "hardcoded_src_paths": 19,
+    "abs_path_leakage": 0,
+    "built_sources": [
+      "$(ALLOCA_H)",
+      "configmake.h",
+      "ctype.h",
+      "dirent.h",
+      "$(ERRNO_H)",
+      "fcntl.h",
+      "$(GETOPT_H)",
+      "inttypes.h",
+      "$(SCHED_H)",
+      "signal.h",
+      "arg-nonnull.h",
+      "c++defs.h",
+      "warn-on-use.h",
+      "spawn.h",
+      "$(STDALIGN_H)",
+      "$(STDBOOL_H)",
+      "$(STDDEF_H)",
+      "$(STDINT_H)",
+      "stdio.h",
+      "stdlib.h"
+    ],
+    "generated_source_targets": []
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "locale.h",
+      "stdbool.h"
+    ],
+    "headers_included_unchecked": [
+      "autoopts/options.h",
+      "fcntl.h",
+      "inttypes.h",
+      "stdint.h",
+      "sys/param.h",
+      "sys/socket.h",
+      "sys/stat.h",
+      "sys/time.h",
+      "sys/types.h",
+      "sys/utsname.h",
+      "sys/wait.h",
+      "unistd.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 11,
+    "shadowed_macros": [
+      "AC_PROG_MKDIR_P",
+      "AC_C_RESTRICT",
+      "AC_C_FLEXIBLE_ARRAY_MEMBER",
+      "AC_TYPE_LONG_LONG_INT",
+      "AC_TYPE_UNSIGNED_LONG_LONG_INT",
+      "AC_COMPUTE_INT"
+    ]
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "c89_gnu",
+    "strip_modern_poison_flags": [
+      "-Werror=implicit-function-declaration",
+      "-Werror=int-conversion",
+      "-Werror=incompatible-pointer-types"
+    ],
+    "inject_legacy_shims": true,
+    "compiler_aliasing": {
+      "clang-18+": "-std=gnu89 -Wno-error",
+      "gcc-14+": "-std=gnu89 -fpermissive"
+    }
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 1,
+    "shadowed_builtins": [
+      "AC_PROG_MKDIR_P",
+      "AC_C_RESTRICT",
+      "AC_C_FLEXIBLE_ARRAY_MEMBER",
+      "AC_TYPE_LONG_LONG_INT",
+      "AC_TYPE_UNSIGNED_LONG_LONG_INT",
+      "AC_COMPUTE_INT"
+    ],
+    "permitted_mutations": 1,
+    "suspect_global_mutations": 0
+  },
+  "parallel_build_safety": {
+    "vpath_out_of_tree_safe": false,
+    "generators": [],
+    "unordered_generated_sources": [],
+    "built_sources_declared": true
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "autoopts/options.h",
+      "fcntl.h",
+      "inttypes.h",
+      "stdint.h",
+      "sys/param.h",
+      "sys/socket.h",
+      "sys/stat.h",
+      "sys/time.h",
+      "sys/types.h",
+      "sys/utsname.h",
+      "sys/wait.h",
+      "unistd.h",
+      "locale.h",
+      "stdbool.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "subdir-config-h-include-path",
+    "modern-compiler-strictness (no explicit C std)",
+    "vpath-unsafe (abs-path/hardcoded-srcdir leakage)"
+  ],
+  "repair_hints": [
+    {
+      "id": "subdir-top-builddir",
+      "phase": "make",
+      "confidence": 0.88,
+      "evidence": [
+        "src consumes config.h below root",
+        "libopts consumes config.h below root",
+        "lib consumes config.h below root"
+      ],
+      "action": "ensure ac_subst_file sets relative top_builddir per subdir (0.1.19)",
+      "expected_effect": "config.h found in subdir compiles"
+    }
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": -4,
+      "Makefile.in": 3256,
+      "aclocal.m4": 44,
+      "config.h.in": 169,
+      "configure": 166,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_ENABLE": "system-aclocal",
+      "AC_CHECK_FUNCS": "system-aclocal",
+      "AC_CHECK_HEADERS": "system-aclocal",
+      "AC_COMPILE_IFELSE": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_HEADERS": "system-aclocal",
+      "AC_CONFIG_SRCDIR": "system-aclocal",
+      "AC_C_BIGENDIAN": "system-aclocal",
+      "AC_C_CHAR_UNSIGNED": "system-aclocal",
+      "AC_C_CONST": "system-aclocal",
+      "AC_C_INLINE": "system-aclocal",
+      "AC_DEFINE": "system-aclocal",
+      "AC_DEFINE_UNQUOTED": "system-aclocal",
+      "AC_FUNC_CLOSEDIR_VOID": "system-aclocal",
+      "AC_FUNC_FSEEKO": "system-aclocal",
+      "AC_HEADER_DIRENT": "system-aclocal",
+      "AC_HEADER_STAT": "system-aclocal",
+      "AC_HEADER_STDC": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_LANG_PROGRAM": "system-aclocal",
+      "AC_MSG_CHECKING": "system-aclocal",
+      "AC_MSG_ERROR": "system-aclocal",
+      "AC_MSG_RESULT": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PATH_PROGS": "system-aclocal",
+      "AC_PROG_CC": "system-aclocal",
+      "AC_PROG_INSTALL": "system-aclocal",
+      "AC_PROG_MAKE_SET": "system-aclocal",
+      "AC_PROG_RANLIB": "system-aclocal",
+      "AC_REPLACE_FUNCS": "system-aclocal",
+      "AC_RUN_IFELSE": "system-aclocal",
+      "AC_SEARCH_LIBS": "system-aclocal",
+      "AC_STRUCT_TIMEZONE": "system-aclocal",
+      "AC_SUBST": "system-aclocal",
+      "AC_SYS_LARGEFILE": "system-aclocal",
+      "AC_TYPE_SIZE_T": "system-aclocal",
+      "AC_USE_SYSTEM_EXTENSIONS": "system-aclocal",
+      "AM_CFLAGS": "system-aclocal",
+      "AM_CONDITIONAL": "system-aclocal",
+      "AM_GNU_GETTEXT": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "shar_LDADD",
+        "var": "LDADD",
+        "resolved_to": [
+          "$(top_builddir)/libopts/libopts.a",
+          "$(top_builddir)/lib/libgnu.a",
+          "$(LIBINTL)",
+          "$(top_builddir)/lib/libgnu.a",
+          "$(GETHOSTNAME_LIB)",
+          "$(LIBSOCKET)"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "unshar_LDADD",
+        "var": "LDADD",
+        "resolved_to": [
+          "$(top_builddir)/libopts/libopts.a",
+          "$(top_builddir)/lib/libgnu.a",
+          "$(LIBINTL)",
+          "$(top_builddir)/lib/libgnu.a",
+          "$(GETHOSTNAME_LIB)",
+          "$(LIBSOCKET)"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "uuencode_LDADD",
+        "var": "LDADD",
+        "resolved_to": [
+          "$(top_builddir)/libopts/libopts.a",
+          "$(top_builddir)/lib/libgnu.a",
+          "$(LIBINTL)",
+          "$(top_builddir)/lib/libgnu.a",
+          "$(GETHOSTNAME_LIB)",
+          "$(LIBSOCKET)"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "uudecode_LDADD",
+        "var": "LDADD",
+        "resolved_to": [
+          "$(top_builddir)/libopts/libopts.a",
+          "$(top_builddir)/lib/libgnu.a",
+          "$(LIBINTL)",
+          "$(top_builddir)/lib/libgnu.a",
+          "$(GETHOSTNAME_LIB)",
+          "$(LIBSOCKET)"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "uudecode_SOURCES",
+        "var": "decode_opt_code",
+        "resolved_to": [
+          "uudecode-opts.c",
+          "uudecode-opts.h"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "uuencode_SOURCES",
+        "var": "encode_opt_code",
+        "resolved_to": [
+          "uuencode-opts.c",
+          "uuencode-opts.h"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "shar_SOURCES",
+        "var": "shar_opt_code",
+        "resolved_to": [
+          "shar-opts.c",
+          "shar-opts.h"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "unshar_SOURCES",
+        "var": "unshar_opt_code",
+        "resolved_to": [
+          "unshar-opts.c",
+          "unshar-opts.h"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libgnu_a_LIBADD",
+        "var": "gl_LIBOBJS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "BUILT_SOURCES",
+        "var": "ALLOCA_H",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "BUILT_SOURCES",
+        "var": "ERRNO_H",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "BUILT_SOURCES",
+        "var": "GETOPT_H",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "BUILT_SOURCES",
+        "var": "SCHED_H",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "BUILT_SOURCES",
+        "var": "STDALIGN_H",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "BUILT_SOURCES",
+        "var": "STDBOOL_H",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "BUILT_SOURCES",
+        "var": "STDDEF_H",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "BUILT_SOURCES",
+        "var": "STDINT_H",
+        "resolved_to": [],
+        "resolved": false
+      }
+    ],
+    "unresolved_refs": [
+      "libgnu_a_LIBADD = $(gl_LIBOBJS)",
+      "BUILT_SOURCES = $(ALLOCA_H)",
+      "BUILT_SOURCES = $(ERRNO_H)",
+      "BUILT_SOURCES = $(GETOPT_H)",
+      "BUILT_SOURCES = $(SCHED_H)",
+      "BUILT_SOURCES = $(STDALIGN_H)",
+      "BUILT_SOURCES = $(STDBOOL_H)",
+      "BUILT_SOURCES = $(STDDEF_H)",
+      "BUILT_SOURCES = $(STDINT_H)"
+    ],
+    "indirection_count": 17
   }
 }

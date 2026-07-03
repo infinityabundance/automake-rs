@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "geoffjay/libgnt",
   "source": {
     "url": "https://github.com/geoffjay/libgnt",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -21,6 +21,11 @@
     {
       "step": "autoreconf",
       "tool": "autoreconf-rs",
+      "status": "ok"
+    },
+    {
+      "step": "configure",
+      "tool": "./configure",
       "status": "fail"
     }
   ],
@@ -29,7 +34,9 @@
     "configure_args": []
   },
   "dependencies": {
-    "pkg_config": [],
+    "pkg_config": [
+      "checking for glib-2.0 >= 2.0.0 gobject-2.0 gmodule-2.0... yes"
+    ],
     "system_libs": [],
     "headers_needed": [],
     "missing": []
@@ -39,24 +46,69 @@
     "subdirs"
   ],
   "outputs": [],
-  "status": "CONFIGURE_GEN_FAIL",
+  "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "",
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "ok",
-    "real_make": "fail",
-    "real_configure_lines": 17302,
-    "real_first_error": "",
-    "classification": "OURS_GEN_FAIL"
-  },
-  "divergence": {
-    "stage": "autoreconf",
-    "ours_error": "",
-    "ours_error_context": [],
-    "ours_configure_lines": 0,
-    "real_configure_lines": 17302,
-    "macros_ours_left_undefined": []
+  "diagnostic": "./configure: line 1454: --variable=g_ir_scanner: command not found",
+  "deep_expansion": {
+    "configure_lines": 3153,
+    "leaked_macros": [],
+    "heredoc_openers": 41,
+    "heredoc_terminators": 41,
+    "heredoc_imbalance": 0,
+    "syntax_errors": [],
+    "cache_var_anomalies": [
+      "line 58: do eval test \\${$as_var+y} \\",
+      "line 2676: do eval test \\${$as_var+y} \\"
+    ],
+    "residual_placeholders": [
+      "LIBTOOL",
+      "GNT_MAJOR_VERSION",
+      "GNT_MINOR_VERSION",
+      "GNT_MICRO_VERSION",
+      "GNT_VERSION",
+      "GNT_LT_VERSION_INFO",
+      "INTROSPECTION_SCANNER",
+      "INTROSPECTION_COMPILER",
+      "INTROSPECTION_GENERATE",
+      "INTROSPECTION_GIRDIR",
+      "INTROSPECTION_TYPELIBDIR",
+      "INTROSPECTION_CFLAGS",
+      "INTROSPECTION_LIBS",
+      "INTROSPECTION_MAKEFILE",
+      "HAVE_INTROSPECTION_TRUE",
+      "HAVE_INTROSPECTION_FALSE",
+      "DNSAPI_LIBS",
+      "IS_WIN32_TRUE",
+      "IS_WIN32_FALSE",
+      "PLUGIN_LDFLAGS",
+      "CFLAGS",
+      "GLIB_CFLAGS",
+      "GLIB_LIBS",
+      "GNT_CFLAGS",
+      "GNT_LIBS",
+      "PY_CFLAGS",
+      "PY_LIBS",
+      "LIBXML_CFLAGS",
+      "LIBXML_LIBS",
+      "PACKAGE_NAME"
+    ],
+    "failed_during_check": "checking for /usr/include/ncurses.h... yes",
+    "failure_tail": [
+      "checking for /usr/include/ncurses.h... yes",
+      "configure: error:",
+      "*** You need ncursesw or ncurses and its header files."
+    ],
+    "conftest_corruption": [],
+    "conftest_directives_intact": 24,
+    "conftest_directives_mangled": 0,
+    "conftest_programs": [
+      "#include <sys/wait.h>",
+      "#include <$ac_hdr>",
+      "int main() { int x = 1; return *(char*)&x; }",
+      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { sig_atomic_t x; return 0; }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar strftime ();\\nint main() { return strftime(); }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func ();\\nint main() { return $ac_func(); }"
+    ]
   },
   "receipt": {
     "court_status": "failed",
@@ -66,7 +118,7 @@
       "has-m4-macro-dir",
       "vendored-aclocal"
     ],
-    "receipt_hash": "2d33522efa3804d72b89515b2d49919bd17cdebd0eb5d18ca47ae0324fc38953",
+    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -75,6 +127,474 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "gnt.pc",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "gnt/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      }
+    ],
+    "config_headers": [
+      "config.h"
+    ],
+    "subdirs": [
+      "m4",
+      "gnt"
+    ],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [],
+        "subdirs": [
+          "m4",
+          "gnt"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "gnt",
+        "targets": [
+          "libgnt.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "$(GLIB_CFLAGS)  \t$(GNT_CFLAGS)  \t$(DEBUG_CFLAGS)  \t$(LIBXML_CFLAGS)  \t$(PY_CFLAGS)"
+      }
+    ],
+    "max_depth": 1,
+    "config_h_consumers_below_root": [
+      "gnt"
+    ]
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "examples/Makefile",
+        "has_makefile_in": false,
+        "has_makefile_am": false,
+        "lines": 16,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      }
+    ]
+  },
+  "tool_requirements": {
+    "detected": [
+      "python"
+    ],
+    "missing": []
+  },
+  "macro_inventory": {
+    "macro_dirs": [
+      "m4"
+    ],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [
+      {
+        "name": "GOBJECT_INTROSPECTION_CHECK",
+        "source": "m4/introspection.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "GOBJECT_INTROSPECTION_REQUIRE",
+        "source": "m4/introspection.m4",
+        "kind": "project-local"
+      }
+    ],
+    "called_macros": [
+      "AC_ARG_WITH",
+      "AC_CANONICAL_SYSTEM",
+      "AC_CHECK_FUNC",
+      "AC_CHECK_FUNCS",
+      "AC_CHECK_HEADER",
+      "AC_CHECK_HEADERS",
+      "AC_CHECK_LIB",
+      "AC_CHECK_TOOL",
+      "AC_CONFIG_AUX_DIR",
+      "AC_CONFIG_MACRO_DIR",
+      "AC_CYGWIN",
+      "AC_C_BIGENDIAN",
+      "AC_C_CONST",
+      "AC_DEFINE",
+      "AC_DEFINE_UNQUOTED",
+      "AC_DISABLE_STATIC",
+      "AC_FUNC_STRFTIME",
+      "AC_HEADER_STDC",
+      "AC_HEADER_SYS_WAIT",
+      "AC_HELP_STRING",
+      "AC_INIT",
+      "AC_MSG_CHECKING",
+      "AC_MSG_ERROR",
+      "AC_MSG_RESULT",
+      "AC_OUTPUT",
+      "AC_PATH_PROG",
+      "AC_PREREQ",
+      "AC_PROG_CC",
+      "AC_PROG_INSTALL",
+      "AC_STRUCT_TM",
+      "AC_SUBST",
+      "AC_SYS_LARGEFILE",
+      "AC_TRY_COMPILE",
+      "AC_TRY_RUN",
+      "AC_TYPE_SIGNAL",
+      "AC_VAR_TIMEZONE_EXTERNALS",
+      "AM_CONDITIONAL",
+      "AM_CONFIG_HEADER",
+      "AM_INIT_AUTOMAKE",
+      "AM_PROG_LIBTOOL",
+      "PKG_CHECK_MODULES"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 145,
+    "configure_fi": 138,
+    "configure_case": 65,
+    "configure_esac": 68,
+    "balanced": false,
+    "automake_conditionals": [
+      "IS_WIN32"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": ".",
+    "present": [
+      "install-sh",
+      "missing"
+    ],
+    "missing": [
+      "depcomp",
+      "compile",
+      "config.guess",
+      "config.sub"
+    ]
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "c": 38,
+      "h": 29
+    },
+    "configure_macros": [
+      "AC_PROG_CC"
+    ],
+    "needs_cxx": false,
+    "needs_fortran": false,
+    "sets_c_std": false
+  },
+  "libtool_context": {
+    "uses_libtool": true,
+    "macros": [
+      "AM_PROG_LIBTOOL"
+    ],
+    "ltmain_present": false,
+    "libtool_m4_sources": [
+      "aclocal.m4"
+    ],
+    "age": "unknown"
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": true,
+    "defines_sampled": []
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-pkg-config",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "has-m4-macro-dir",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "vpath_analysis": {
+    "hardcoded_src_paths": 0,
+    "abs_path_leakage": 0,
+    "built_sources": [
+      "gntmarshal.h"
+    ],
+    "generated_source_targets": [
+      "Gnt.gir"
+    ]
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "arpa/nameser_compat.h",
+      "fcntl.h",
+      "locale.h",
+      "malloc.h",
+      "paths.h",
+      "regex.h",
+      "sgtty.h",
+      "signal.h",
+      "stdarg.h",
+      "stdint.h",
+      "sys/cdefs.h",
+      "sys/file.h",
+      "sys/filio.h",
+      "sys/ioctl.h",
+      "sys/msgbuf.h",
+      "sys/select.h",
+      "sys/time.h",
+      "sys/uio.h",
+      "sys/utsname.h",
+      "sys/wait.h",
+      "termios.h",
+      "unistd.h"
+    ],
+    "headers_included_unchecked": [
+      "glib/gstdio.h",
+      "libxml/parser.h",
+      "libxml/tree.h",
+      "sys/stat.h",
+      "sys/types.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 4,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "c89_gnu",
+    "strip_modern_poison_flags": [
+      "-Werror=implicit-function-declaration",
+      "-Werror=int-conversion",
+      "-Werror=incompatible-pointer-types"
+    ],
+    "inject_legacy_shims": true,
+    "compiler_aliasing": {
+      "clang-18+": "-std=gnu89 -Wno-error",
+      "gcc-14+": "-std=gnu89 -fpermissive"
+    }
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 1,
+    "shadowed_builtins": [],
+    "permitted_mutations": 1,
+    "suspect_global_mutations": 0
+  },
+  "parallel_build_safety": {
+    "vpath_out_of_tree_safe": true,
+    "generators": [
+      "Gnt.gir"
+    ],
+    "unordered_generated_sources": [
+      "Gnt.gir"
+    ],
+    "built_sources_declared": true
+  },
+  "host_environment_veil": {
+    "header_injection_candidates": [
+      "malloc.h",
+      "sys/cdefs.h"
+    ],
+    "symbol_aliasing_candidates": []
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "glib/gstdio.h",
+      "libxml/parser.h",
+      "libxml/tree.h",
+      "sys/stat.h",
+      "sys/types.h",
+      "arpa/nameser_compat.h",
+      "fcntl.h",
+      "locale.h",
+      "malloc.h",
+      "paths.h",
+      "regex.h",
+      "sgtty.h",
+      "signal.h",
+      "stdarg.h",
+      "stdint.h",
+      "sys/cdefs.h",
+      "sys/file.h",
+      "sys/filio.h",
+      "sys/ioctl.h",
+      "sys/msgbuf.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "subdir-config-h-include-path",
+    "modern-compiler-strictness (no explicit C std)",
+    "parallel-build-race (gen-source not in BUILT_SOURCES)"
+  ],
+  "repair_hints": [
+    {
+      "id": "subdir-top-builddir",
+      "phase": "make",
+      "confidence": 0.88,
+      "evidence": [
+        "gnt consumes config.h below root"
+      ],
+      "action": "ensure ac_subst_file sets relative top_builddir per subdir (0.1.19)",
+      "expected_effect": "config.h found in subdir compiles"
+    }
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": 0,
+      "Makefile.in": 1429,
+      "aclocal.m4": 11,
+      "config.h.in": 28,
+      "configure": 21,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_WITH": "system-aclocal",
+      "AC_CANONICAL_SYSTEM": "system-aclocal",
+      "AC_CHECK_FUNC": "system-aclocal",
+      "AC_CHECK_FUNCS": "system-aclocal",
+      "AC_CHECK_HEADER": "system-aclocal",
+      "AC_CHECK_HEADERS": "system-aclocal",
+      "AC_CHECK_LIB": "system-aclocal",
+      "AC_CHECK_TOOL": "system-aclocal",
+      "AC_CONFIG_AUX_DIR": "system-aclocal",
+      "AC_CONFIG_MACRO_DIR": "system-aclocal",
+      "AC_CYGWIN": "system-aclocal",
+      "AC_C_BIGENDIAN": "system-aclocal",
+      "AC_C_CONST": "system-aclocal",
+      "AC_DEFINE": "system-aclocal",
+      "AC_DEFINE_UNQUOTED": "system-aclocal",
+      "AC_DISABLE_STATIC": "system-aclocal",
+      "AC_FUNC_STRFTIME": "system-aclocal",
+      "AC_HEADER_STDC": "system-aclocal",
+      "AC_HEADER_SYS_WAIT": "system-aclocal",
+      "AC_HELP_STRING": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_MSG_CHECKING": "system-aclocal",
+      "AC_MSG_ERROR": "system-aclocal",
+      "AC_MSG_RESULT": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PATH_PROG": "system-aclocal",
+      "AC_PREREQ": "system-aclocal",
+      "AC_PROG_CC": "system-aclocal",
+      "AC_PROG_INSTALL": "system-aclocal",
+      "AC_STRUCT_TM": "system-aclocal",
+      "AC_SUBST": "system-aclocal",
+      "AC_SYS_LARGEFILE": "system-aclocal",
+      "AC_TRY_COMPILE": "system-aclocal",
+      "AC_TRY_RUN": "system-aclocal",
+      "AC_TYPE_SIGNAL": "system-aclocal",
+      "AC_VAR_TIMEZONE_EXTERNALS": "system-aclocal",
+      "AM_CONDITIONAL": "system-aclocal",
+      "AM_CONFIG_HEADER": "system-aclocal",
+      "AM_INIT_AUTOMAKE": "system-aclocal",
+      "AM_PROG_LIBTOOL": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "libgnt_la_LIBADD",
+        "var": "GLIB_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libgnt_la_LIBADD",
+        "var": "GNT_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libgnt_la_LIBADD",
+        "var": "LIBXML_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libgnt_la_LIBADD",
+        "var": "PY_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      }
+    ],
+    "unresolved_refs": [
+      "libgnt_la_LIBADD = $(GLIB_LIBS)",
+      "libgnt_la_LIBADD = $(GNT_LIBS)",
+      "libgnt_la_LIBADD = $(LIBXML_LIBS)",
+      "libgnt_la_LIBADD = $(PY_LIBS)"
+    ],
+    "indirection_count": 4
   }
 }

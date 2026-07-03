@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "HDFGroup/vol-log-based",
   "source": {
     "url": "https://github.com/HDFGroup/vol-log-based",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.14",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -51,99 +51,72 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1340: syntax error near unexpected token `tests'",
+  "diagnostic": "configure: error:",
   "deep_expansion": {
-    "configure_lines": 3601,
-    "leaked_macros": [
-      {
-        "name": "AM_EXTRA_RECURSIVE_TARGETS",
-        "line": 1340,
-        "context": "AM_EXTRA_RECURSIVE_TARGETS(tests)"
-      }
-    ],
-    "heredoc_openers": 33,
-    "heredoc_terminators": 33,
+    "configure_lines": 4016,
+    "leaked_macros": [],
+    "heredoc_openers": 35,
+    "heredoc_terminators": 35,
     "heredoc_imbalance": 0,
-    "syntax_errors": [
-      {
-        "line": 1340,
-        "token": "tests",
-        "source": "AM_EXTRA_RECURSIVE_TARGETS(tests)",
-        "block": [
-          "1336: ",
-          "1337: ",
-          "1338: ",
-          "1339: ",
-          "1340: AM_EXTRA_RECURSIVE_TARGETS(tests)",
-          "1341: ",
-          "1342: ",
-          "1343: "
-        ]
-      }
-    ],
+    "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 3083: do eval test \\${$as_var+y} \\"
+      "line 3497: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
-      "PACKAGE_NAME",
-      "PACKAGE_TARNAME",
-      "PACKAGE_VERSION",
-      "PACKAGE_STRING",
-      "PACKAGE_BUGREPORT",
-      "PACKAGE_URL",
-      "srcdir",
-      "prefix",
-      "exec_prefix",
-      "CC",
-      "CFLAGS",
-      "CPPFLAGS",
-      "LDFLAGS",
-      "LIBS",
-      "CXX",
-      "CXXFLAGS",
-      "CPP",
-      "DEFS",
-      "LIBOBJS",
-      "INSTALL",
-      "ABIVERSIONFLAGS",
-      "INSTALL_PREFIX",
-      "H5VL_LOG_RELEASE_DATE_FULL",
-      "SED_I",
-      "ac_cv_c_bigendian",
-      "M4FFLAGS",
+      "H5VL_LOG_VERSION_MAJOR",
       "H5VL_LOG_VERSION_MINOR",
+      "H5VL_LOG_VERSION_SUB",
       "H5VL_LOG_VERSION",
-      "H5VL_LOG_RELEASE_DATE"
+      "H5VL_LOG_RELEASE_DATE",
+      "H5VL_LOG_RELEASE_DATE_FULL",
+      "PACKAGE_VERSION",
+      "SED_I",
+      "M4FLAGS",
+      "M4FFLAGS",
+      "ac_mpi_prog_MPICC",
+      "ac_mpi_prog_MPICXX",
+      "IS_BIGENDIAN_TRUE",
+      "IS_BIGENDIAN_FALSE",
+      "ac_cv_c_bigendian",
+      "ENABLE_DEBUG",
+      "LOGVOL_DEBUG_TRUE",
+      "LOGVOL_DEBUG_FALSE",
+      "ENABLE_PROFILING",
+      "LOGVOL_PROFILING_TRUE",
+      "LOGVOL_PROFILING_FALSE",
+      "H5DIFF_PATH",
+      "HAVE_H5DIFF_TRUE",
+      "HAVE_H5DIFF_FALSE",
+      "NETCDF_VERSION",
+      "ENABLE_NETCDF4_TRUE",
+      "ENABLE_NETCDF4_FALSE",
+      "NCDUMP",
+      "ENABLE_ZLIB"
     ],
-    "failed_during_check": "",
+    "failed_during_check": "checking whether the HDF5 version is equal to or greater than 1.14.0... no",
     "failure_tail": [
-      "./configure: line 1340: syntax error near unexpected token `tests'",
-      "./configure: line 1340: `AM_EXTRA_RECURSIVE_TARGETS(tests)'"
+      "checking whether the HDF5 version is equal to or greater than 1.14.0... no",
+      "configure: error:",
+      "-----------------------------------------------------------------------",
+      "H5VL_log requires HDF5 1.14.0 and later. Abort.",
+      "-----------------------------------------------------------------------"
     ],
     "conftest_corruption": [],
-    "conftest_directives_intact": 28,
+    "conftest_directives_intact": 25,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
       "#include <sys/types.h>\\nint main() { return sizeof(off_t) >= 8 ? 0 : 1; }",
       "int main() { char c = -1; return c < 0; }",
       "int main() { int x = 1; return *(char*)&x; }",
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar MPI_Comm_rank();\\nint main() { return MPI_Comm_rank(); }",
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar MPI_File_open();\\nint main() { return MPI_File_open(); }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar MPI_Comm_rank ();\\nint main() { return MPI_Comm_rank(); }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar MPI_File_open ();\\nint main() { return MPI_File_open(); }",
       "#include <unistd.h>\\nint main (void)\\n{\\n#ifndef access\\n(void) access;\\n#endif\\n;\\nreturn 0;\\n}"
     ]
   },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "fail",
-    "real_make": "skipped",
-    "real_configure_lines": 23863,
-    "real_first_error": "checking if /usr/bin/mpicc supports -c -o file.o... rm: cannot remove 'conftest*': No such file or directory",
-    "classification": "BOTH_CONFIGURE_FAIL"
-  },
   "receipt": {
-    "court_status": "not_standalone",
+    "court_status": "failed",
     "probe_trace": [],
     "quirks_matched": [
       "uses-libtool",
@@ -158,7 +131,7 @@
         "verified": false
       }
     ],
-    "receipt_hash": "1b59d07d0a20a927a52050673c57d051c46cf0669ffc84ae54f67e19a8cf7afb",
+    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -167,6 +140,1002 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "cache.cfg",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "doc/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "examples/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "examples/hdf5_examples/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "src/H5VL_log.h",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "src/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "tests/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "tests/basic/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tests/common/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tests/dynamic/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tests/external/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tests/external/hdf5_iotest/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "tests/external/hdf5_iotest/config.sh",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "tests/external/openpmd/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "tests/external/openpmd/config.sh",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "tests/external/qmcpack/Makefile",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "tests/external/qmcpack/config.sh",
+        "depth": 3,
+        "top_builddir": "../../..",
+        "has_template": true
+      },
+      {
+        "path": "tests/nc4/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tests/passthru/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tests/read_regular/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "tests/testcases/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "utils/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "utils/h5ldump/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "utils/h5lenv.bash",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "utils/h5lenv.csh",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "utils/h5lreplay/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      }
+    ],
+    "config_headers": [
+      "config.h"
+    ],
+    "subdirs": [
+      "src",
+      "utils",
+      "doc",
+      "tests",
+      "examples",
+      ".",
+      "$(C_SUBDIRS)",
+      "$(C_SUBDIRS)",
+      "nc4",
+      "$(C_SUBDIRS)",
+      "h5lreplay",
+      "h5ldump"
+    ],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [],
+        "subdirs": [
+          "src",
+          "utils",
+          "doc",
+          "tests",
+          "examples"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "examples",
+        "targets": [
+          "create_open",
+          "dwrite_n",
+          "dread_n",
+          "non_blocking",
+          "demo_logvol",
+          "demo_buffered",
+          "demo_sblock",
+          "demo_dwrite_n"
+        ],
+        "subdirs": [
+          ".",
+          "$(C_SUBDIRS)"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I${top_builddir}/src"
+      },
+      {
+        "dir": "examples/hdf5_examples",
+        "targets": [
+          "$(TESTPROGRAMS)"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-DHDF5_PARALLEL"
+      },
+      {
+        "dir": "src",
+        "targets": [
+          "libH5VL_log.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-DLOGVOL_PROFILING=1"
+      },
+      {
+        "dir": "tests",
+        "targets": [],
+        "subdirs": [
+          "$(C_SUBDIRS)",
+          "nc4"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "tests/basic",
+        "targets": [
+          "attr",
+          "dread",
+          "dset",
+          "dwrite",
+          "file",
+          "fill",
+          "group",
+          "memsel",
+          "multiblockselection",
+          "multipointselection"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-DTEST_H5VL_LOG"
+      },
+      {
+        "dir": "tests/common",
+        "targets": [
+          "libtestutils.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "tests/external",
+        "targets": [],
+        "subdirs": [
+          "$(C_SUBDIRS)"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "tests/external/hdf5_iotest",
+        "targets": [
+          "hdf5_iotest"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I${top_builddir}/src"
+      },
+      {
+        "dir": "tests/external/openpmd",
+        "targets": [
+          "8a_benchmark_write_parallel",
+          "8b_benchmark_read_parallel"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I${top_builddir}/src"
+      },
+      {
+        "dir": "tests/external/qmcpack",
+        "targets": [
+          "restart"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I${top_builddir}/src"
+      },
+      {
+        "dir": "tests/nc4",
+        "targets": [
+          "$(TESTPROGRAMS)"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-DHDF5_PARALLEL"
+      },
+      {
+        "dir": "tests/passthru",
+        "targets": [
+          "dwrite",
+          "col_read"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I${top_builddir}/src"
+      },
+      {
+        "dir": "tests/read_regular",
+        "targets": [
+          "$(TESTPROGRAMS)"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-DHDF5_PARALLEL"
+      },
+      {
+        "dir": "tests/testcases",
+        "targets": [
+          "scalar",
+          "null_req",
+          "null_space",
+          "multi_open",
+          "fapl"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": "-I${top_builddir}/src"
+      },
+      {
+        "dir": "utils",
+        "targets": [],
+        "subdirs": [
+          "h5lreplay",
+          "h5ldump"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "utils/h5ldump",
+        "targets": [
+          "h5ldump"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-DLOGVOL_PROFILING=1"
+      },
+      {
+        "dir": "utils/h5lreplay",
+        "targets": [
+          "h5lgen",
+          "h5lreplay"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-DLOGVOL_PROFILING=1"
+      }
+    ],
+    "max_depth": 3,
+    "config_h_consumers_below_root": [
+      "src",
+      "utils/h5lreplay",
+      "utils/h5ldump"
+    ]
+  },
+  "tool_requirements": {
+    "detected": [
+      "c++",
+      "perl"
+    ],
+    "missing": []
+  },
+  "macro_inventory": {
+    "macro_dirs": [
+      "m4"
+    ],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [
+      {
+        "name": "UD_PROG_SED_I",
+        "source": "m4/utils.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "UD_PROG_M4",
+        "source": "m4/utils.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "UD_MPI_PATH_PROG",
+        "source": "m4/utils.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "UD_MPI_PATH_PROGS",
+        "source": "m4/utils.m4",
+        "kind": "project-local"
+      }
+    ],
+    "called_macros": [
+      "AC_ARG_ENABLE",
+      "AC_ARG_VAR",
+      "AC_ARG_WITH",
+      "AC_CHECK_DECL",
+      "AC_CHECK_FILE",
+      "AC_CHECK_FUNC",
+      "AC_CHECK_FUNCS",
+      "AC_CHECK_HEADER",
+      "AC_CHECK_HEADERS",
+      "AC_CHECK_PROGS",
+      "AC_CHECK_SIZEOF",
+      "AC_COMPILE_IFELSE",
+      "AC_CONFIG_AUX_DIR",
+      "AC_CONFIG_COMMANDS",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_HEADERS",
+      "AC_CONFIG_LINKS",
+      "AC_CONFIG_MACRO_DIRS",
+      "AC_CONFIG_SRCDIR",
+      "AC_C_BIGENDIAN",
+      "AC_C_CHAR_UNSIGNED",
+      "AC_DEFINE",
+      "AC_DEFUN",
+      "AC_INIT",
+      "AC_LANG_POP",
+      "AC_LANG_PROGRAM",
+      "AC_LANG_PUSH",
+      "AC_MSG_CHECKING",
+      "AC_MSG_ERROR",
+      "AC_MSG_NOTICE",
+      "AC_MSG_RESULT",
+      "AC_MSG_WARN",
+      "AC_OUTPUT",
+      "AC_PATH_PROG",
+      "AC_PREPROC_IFELSE",
+      "AC_PREREQ",
+      "AC_PROG_CC",
+      "AC_PROG_CPP",
+      "AC_PROG_CXX",
+      "AC_PROG_EGREP",
+      "AC_PROG_SED",
+      "AC_SEARCH_LIBS",
+      "AC_SUBST",
+      "AC_SYS_LARGEFILE",
+      "AC_TYPE_SIZE_T",
+      "AM_CONDITIONAL",
+      "AM_EXTRA_RECURSIVE_TARGETS",
+      "AM_INIT_AUTOMAKE",
+      "AM_MAINTAINER_MODE",
+      "AM_SILENT_RULES",
+      "LT_INIT",
+      "LT_PREREQ"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 358,
+    "configure_fi": 326,
+    "configure_case": 67,
+    "configure_esac": 70,
+    "balanced": false,
+    "automake_conditionals": [
+      "IS_BIGENDIAN",
+      "LOGVOL_DEBUG",
+      "LOGVOL_PROFILING",
+      "HAVE_H5DIFF",
+      "ENABLE_NETCDF4",
+      "ENABLE_ZLIB",
+      "ENABLE_SHARED",
+      "HAVE_QMCPACK",
+      "HAVE_HDF5_IOTEST",
+      "HAVE_OPENPMD"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": "./scripts",
+    "present": [
+      "install-sh",
+      "missing"
+    ],
+    "missing": [
+      "depcomp",
+      "compile",
+      "ltmain.sh"
+    ]
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "c": 1,
+      "cpp": 78,
+      "h": 2,
+      "hpp": 40
+    },
+    "configure_macros": [
+      "AC_PROG_CC",
+      "AC_PROG_CXX"
+    ],
+    "needs_cxx": true,
+    "needs_fortran": false,
+    "sets_c_std": false
+  },
+  "libtool_context": {
+    "uses_libtool": true,
+    "macros": [
+      "LT_INIT"
+    ],
+    "ltmain_present": false,
+    "libtool_m4_sources": [],
+    "age": "modern"
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": true,
+    "defines_sampled": []
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-maintainer-mode",
+      "applied_at": "configure",
+      "effect": "neutral",
+      "effectiveness": "low"
+    },
+    {
+      "quirk_id": "uses-libtool",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "has-m4-macro-dir",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "vpath_analysis": {
+    "hardcoded_src_paths": 12,
+    "abs_path_leakage": 0,
+    "built_sources": [
+      "$(SEQ_SRCS)",
+      "$(PAR_SRCS)",
+      "nc4internal.h",
+      "hdf5internal.h",
+      "err_macros.h",
+      "ref_tst_dims.nc",
+      "$(SEQ_SRCS)",
+      "$(PAR_SRCS)",
+      "$(M4_SRCS:.m4=.cpp)",
+      "$(M4H_SRCS:.m4h=.hpp)",
+      "$(SEQ_SRCS)",
+      "$(PAR_SRCS)"
+    ],
+    "generated_source_targets": [
+      "../common/libtestutils.la"
+    ]
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "hdf5.h",
+      "netcdf.h",
+      "netcdf_par.h",
+      "zlib.h"
+    ],
+    "headers_included_unchecked": [
+      "fcntl.h",
+      "sys/errno.h",
+      "sys/stat.h",
+      "sys/types.h",
+      "unistd.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 4,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "gnu++",
+    "strip_modern_poison_flags": [],
+    "inject_legacy_shims": false,
+    "compiler_aliasing": {}
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 15,
+    "shadowed_builtins": [],
+    "permitted_mutations": 11,
+    "suspect_global_mutations": 0
+  },
+  "parallel_build_safety": {
+    "vpath_out_of_tree_safe": false,
+    "generators": [
+      "../common/libtestutils.la"
+    ],
+    "unordered_generated_sources": [
+      "../common/libtestutils.la"
+    ],
+    "built_sources_declared": true
+  },
+  "host_environment_veil": {
+    "header_injection_candidates": [
+      "sys/errno.h"
+    ],
+    "symbol_aliasing_candidates": []
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "fcntl.h",
+      "sys/errno.h",
+      "sys/stat.h",
+      "sys/types.h",
+      "unistd.h",
+      "hdf5.h",
+      "netcdf.h",
+      "netcdf_par.h",
+      "zlib.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "subdir-config-h-include-path",
+    "parallel-build-race (gen-source not in BUILT_SOURCES)",
+    "vpath-unsafe (abs-path/hardcoded-srcdir leakage)"
+  ],
+  "repair_hints": [
+    {
+      "id": "subdir-top-builddir",
+      "phase": "make",
+      "confidence": 0.88,
+      "evidence": [
+        "src consumes config.h below root",
+        "utils/h5lreplay consumes config.h below root",
+        "utils/h5ldump consumes config.h below root"
+      ],
+      "action": "ensure ac_subst_file sets relative top_builddir per subdir (0.1.19)",
+      "expected_effect": "config.h found in subdir compiles"
+    }
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": 0,
+      "Makefile.in": 1960,
+      "aclocal.m4": 10,
+      "config.h.in": 29,
+      "configure": 20,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_ENABLE": "system-aclocal",
+      "AC_ARG_VAR": "system-aclocal",
+      "AC_ARG_WITH": "system-aclocal",
+      "AC_CHECK_DECL": "system-aclocal",
+      "AC_CHECK_FILE": "system-aclocal",
+      "AC_CHECK_FUNC": "system-aclocal",
+      "AC_CHECK_FUNCS": "system-aclocal",
+      "AC_CHECK_HEADER": "system-aclocal",
+      "AC_CHECK_HEADERS": "system-aclocal",
+      "AC_CHECK_PROGS": "system-aclocal",
+      "AC_CHECK_SIZEOF": "system-aclocal",
+      "AC_COMPILE_IFELSE": "system-aclocal",
+      "AC_CONFIG_AUX_DIR": "system-aclocal",
+      "AC_CONFIG_COMMANDS": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_HEADERS": "system-aclocal",
+      "AC_CONFIG_LINKS": "system-aclocal",
+      "AC_CONFIG_MACRO_DIRS": "system-aclocal",
+      "AC_CONFIG_SRCDIR": "system-aclocal",
+      "AC_C_BIGENDIAN": "system-aclocal",
+      "AC_C_CHAR_UNSIGNED": "system-aclocal",
+      "AC_DEFINE": "system-aclocal",
+      "AC_DEFUN": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_LANG_POP": "system-aclocal",
+      "AC_LANG_PROGRAM": "system-aclocal",
+      "AC_LANG_PUSH": "system-aclocal",
+      "AC_MSG_CHECKING": "system-aclocal",
+      "AC_MSG_ERROR": "system-aclocal",
+      "AC_MSG_NOTICE": "system-aclocal",
+      "AC_MSG_RESULT": "system-aclocal",
+      "AC_MSG_WARN": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PATH_PROG": "system-aclocal",
+      "AC_PREPROC_IFELSE": "system-aclocal",
+      "AC_PREREQ": "system-aclocal",
+      "AC_PROG_CC": "system-aclocal",
+      "AC_PROG_CPP": "system-aclocal",
+      "AC_PROG_CXX": "system-aclocal",
+      "AC_PROG_EGREP": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "BUILT_SOURCES",
+        "var": "SEQ_SRCS",
+        "resolved_to": [
+          "tst_files.c",
+          "tst_grps.c",
+          "tst_grps2.c",
+          "tst_atts.c",
+          "tst_atts1.c",
+          "tst_atts2.c",
+          "tst_atts3.c",
+          "tst_dims2.c",
+          "tst_types.c",
+          "tst_vars3.c",
+          "tst_dims.c",
+          "tst_dims3.c",
+          "tst_vars.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "BUILT_SOURCES",
+        "var": "PAR_SRCS",
+        "resolved_to": [
+          "parallel_vara.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "check_PROGRAMS",
+        "var": "TESTPROGRAMS",
+        "resolved_to": [
+          "$(SEQ_TESTS)",
+          "$(PAR_TESTS)"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "BUILT_SOURCES",
+        "var": "SEQ_SRCS",
+        "resolved_to": [
+          "h5_attribute.c",
+          "h5_group.c",
+          "h5_extend_write.c",
+          "h5_cmprss.c",
+          "h5_subset.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "BUILT_SOURCES",
+        "var": "PAR_SRCS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "check_PROGRAMS",
+        "var": "TESTPROGRAMS",
+        "resolved_to": [
+          "$(SEQ_SRCS:.c=)"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libH5VL_log_la_LIBADD",
+        "var": "LTLIBOBJS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libH5VL_log_la_SOURCES",
+        "var": "C_SRCS",
+        "resolved_to": [],
+        "resolved": true
+      },
+      {
+        "primary": "libH5VL_log_la_SOURCES",
+        "var": "CXX_SRCS",
+        "resolved_to": [
+          "H5VL_log_att.cpp",
+          "H5VL_log_atti.cpp",
+          "H5VL_log_blob.cpp",
+          "H5VL_log_dataset.cpp",
+          "H5VL_log_dataseti.cpp",
+          "H5VL_log_datatype.cpp",
+          "H5VL_log_datatypei.cpp",
+          "H5VL_log_file.cpp",
+          "H5VL_log_filei.cpp",
+          "H5VL_log_filei_meta.cpp",
+          "H5VL_log_group.cpp",
+          "H5VL_log_info.cpp",
+          "H5VL_log_introspect.cpp",
+          "H5VL_log_link.cpp",
+          "H5VL_log_linki.cpp",
+          "H5VL_log_main.cpp",
+          "H5VL_log_obj.cpp",
+          "H5VL_log_obji.cpp",
+          "H5VL_log_req.cpp",
+          "H5VL_log_reqi.cpp",
+          "H5VL_log_token.cpp",
+          "H5VL_log_wrap.cpp",
+          "H5VL_log.cpp",
+          "H5VL_logi_dataspace.cpp",
+          "H5VL_logi_err.cpp",
+          "H5VL_logi_filter.cpp",
+          "H5VL_logi_filter_deflate.cpp",
+          "H5VL_logi_idx.cpp",
+          "H5VL_logi_idx_list.cpp",
+          "H5VL_logi_idx_compact.cpp",
+          "H5VL_logi_mem.cpp",
+          "H5VL_logi_meta.cpp",
+          "H5VL_logi_nb.cpp",
+          "H5VL_logi_util.cpp",
+          "H5VL_logi_wrapper.cpp",
+          "H5VL_logi_zip.cpp",
+          "H5VL_logi_debug.cpp"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libH5VL_log_la_SOURCES",
+        "var": "H_SRCS",
+        "resolved_to": [
+          "H5VL_log_att.hpp",
+          "H5VL_log_atti.hpp",
+          "H5VL_log_blob.hpp",
+          "H5VL_log_dataset.hpp",
+          "H5VL_log_dataseti.hpp",
+          "H5VL_log_datatype.hpp",
+          "H5VL_log_file.hpp",
+          "H5VL_log_filei.hpp",
+          "H5VL_log_group.hpp",
+          "H5VL_log_info.hpp",
+          "H5VL_log_introspect.hpp",
+          "H5VL_log_link.hpp",
+          "H5VL_log_linki.hpp",
+          "H5VL_log_main.hpp",
+          "H5VL_log_obj.hpp",
+          "H5VL_log_obji.hpp",
+          "H5VL_log_req.hpp",
+          "H5VL_log_reqi.hpp",
+          "H5VL_log_token.hpp",
+          "H5VL_log_wrap.hpp",
+          "H5VL_logi.hpp",
+          "H5VL_logi_dataspace.hpp",
+          "H5VL_logi_debug.hpp",
+          "H5VL_logi_err.hpp",
+          "H5VL_logi_filter.hpp",
+          "H5VL_logi_filter_deflate.hpp",
+          "H5VL_logi_idx.hpp",
+          "H5VL_logi_mem.hpp",
+          "H5VL_logi_meta.hpp",
+          "H5VL_logi_nb.hpp",
+          "H5VL_logi_util.hpp",
+          "H5VL_logi_wrapper.hpp",
+          "H5VL_logi_zip.hpp"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "nodist_libH5VL_log_la_SOURCES",
+        "var": "M4_SRCS:.m4=.cpp",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "nodist_libH5VL_log_la_SOURCES",
+        "var": "M4H_SRCS:.m4h=.h",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "BUILT_SOURCES",
+        "var": "M4_SRCS:.m4=.cpp",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "BUILT_SOURCES",
+        "var": "M4H_SRCS:.m4h=.hpp",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "BUILT_SOURCES",
+        "var": "SEQ_SRCS",
+        "resolved_to": [
+          "h5_crtdat.c",
+          "h5_crtatt.c",
+          "h5_crtgrp.c",
+          "h5_crtgrpar.c",
+          "h5_crtgrpd.c",
+          "h5_interm_group.c",
+          "h5_rdwt.c",
+          "h5_write.c",
+          "h5_read.c",
+          "h5_select.c",
+          "h5_subset.c",
+          "h5_attribute.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "BUILT_SOURCES",
+        "var": "PAR_SRCS",
+        "resolved_to": [
+          "ph5example.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "check_PROGRAMS",
+        "var": "TESTPROGRAMS",
+        "resolved_to": [
+          "$(SEQ_TESTS)",
+          "$(PAR_TESTS)"
+        ],
+        "resolved": true
+      }
+    ],
+    "unresolved_refs": [
+      "BUILT_SOURCES = $(PAR_SRCS)",
+      "libH5VL_log_la_LIBADD = $(LTLIBOBJS)",
+      "nodist_libH5VL_log_la_SOURCES = $(M4_SRCS:.m4=.cpp)",
+      "nodist_libH5VL_log_la_SOURCES = $(M4H_SRCS:.m4h=.h)",
+      "BUILT_SOURCES = $(M4_SRCS:.m4=.cpp)",
+      "BUILT_SOURCES = $(M4H_SRCS:.m4h=.hpp)"
+    ],
+    "indirection_count": 17
   }
 }
