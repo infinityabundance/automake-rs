@@ -106,6 +106,51 @@
       "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { uid_t x; return 0; }"
     ]
   },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "fail",
+    "real_configure_lines": 16980,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE",
+    "internal_traces": [
+      "libtoolize: putting auxiliary files in '.'.",
+      "libtoolize: copying file './ltmain.sh'",
+      "libtoolize: Consider adding 'AC_CONFIG_MACRO_DIRS([m4])' to configure.ac,",
+      "libtoolize: and rerunning libtoolize and aclocal.",
+      "libtoolize: Consider adding '-I m4' to ACLOCAL_AMFLAGS in Makefile.am.",
+      "configure.ac:8: warning: The macro `AC_CONFIG_HEADER' is obsolete.",
+      "configure.ac:14: warning: The macro `AM_DISABLE_SHARED' is obsolete.",
+      "configure.ac:15: warning: The macro `AM_ENABLE_STATIC' is obsolete.",
+      "configure.ac:16: warning: The macro `AC_PROG_LIBTOOL' is obsolete.",
+      "configure.ac:27: warning: The macro `AC_HEADER_STDC' is obsolete.",
+      "configure.ac:46: warning: The macro `AC_TYPE_SIGNAL' is obsolete.",
+      "configure.ac:53: warning: The macro `AC_TRY_COMPILE' is obsolete.",
+      "configure.ac:67: warning: The macro `AC_HELP_STRING' is obsolete.",
+      "configure.ac:72: warning: The macro `AC_HELP_STRING' is obsolete.",
+      "configure.ac:77: warning: The macro `AC_HELP_STRING' is obsolete.",
+      "configure.ac:83: warning: The macro `AC_HELP_STRING' is obsolete.",
+      "configure.ac:88: warning: The macro `AC_HELP_STRING' is obsolete.",
+      "configure.ac:100: warning: The macro `AC_HELP_STRING' is obsolete.",
+      "configure.ac:101: warning: The macro `AC_TRY_COMPILE' is obsolete.",
+      "configure.ac:101: warning: 'AM_CONFIG_HEADER': this macro is obsolete.",
+      "configure.ac:11: installing './compile'",
+      "configure.ac:16: installing './config.guess'",
+      "configure.ac:16: installing './config.sub'",
+      "configure.ac:6: installing './install-sh'",
+      "configure.ac:6: installing './missing'"
+    ]
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "line 1810: fi (near `fi`)",
+    "ours_error_context": [
+      "fi"
+    ],
+    "ours_configure_lines": 3012,
+    "real_configure_lines": 16980,
+    "macros_ours_left_undefined": []
+  },
   "receipt": {
     "court_status": "failed",
     "probe_trace": [],
@@ -114,7 +159,7 @@
       "has-acinclude",
       "vendored-aclocal"
     ],
-    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
+    "receipt_hash": "a538dd1b607f6cd976fc862d4e8e8d63c3c1266aed35ab3625cbb61237e9478c",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -123,17 +168,21 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": [],
+    "relevant_env": [
+      "ACLOCAL_PATH=/usr/share/aclocal"
+    ],
     "kernel_version": "6.8.0-124-generic",
     "libc_name": "glibc",
     "libc_version": "2.39",
     "pkg_config_path": [],
-    "env_vars_influential": {},
+    "env_vars_influential": {
+      "ACLOCAL_PATH": "/usr/share/aclocal"
+    },
     "posix_flavor": "gnu",
     "shell": "dash",
     "oracle_tool_versions": {
       "autoconf": "2.71",
-      "automake": "1.16.5",
+      "automake": "1.18.1",
       "libtool": "2.4.7",
       "m4": "1.4.19"
     },
@@ -213,6 +262,43 @@
       "plpa-1.1/src"
     ]
   },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1869,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "plpa-1.1/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 647,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "plpa-1.1/src/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 779,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      }
+    ]
+  },
   "macro_inventory": {
     "macro_dirs": [],
     "aclocal_m4_present": true,
@@ -261,10 +347,10 @@
     "unresolved_macros": []
   },
   "conditional_context": {
-    "configure_if": 150,
-    "configure_fi": 147,
-    "configure_case": 63,
-    "configure_esac": 66,
+    "configure_if": 940,
+    "configure_fi": 857,
+    "configure_case": 333,
+    "configure_esac": 320,
     "balanced": false,
     "automake_conditionals": [
       "HAVE_PLPA"
@@ -276,16 +362,15 @@
       "install-sh",
       "missing",
       "depcomp",
-      "compile"
-    ],
-    "missing": [
+      "compile",
       "ltmain.sh"
-    ]
+    ],
+    "missing": []
   },
   "language_surface": {
     "source_suffixes": {
       "c": 44,
-      "h": 43
+      "h": 45
     },
     "configure_macros": [
       "AC_PROG_CC"
@@ -299,15 +384,91 @@
     "macros": [
       "AC_PROG_LIBTOOL"
     ],
-    "ltmain_present": false,
-    "libtool_m4_sources": [],
+    "ltmain_present": true,
+    "libtool_m4_sources": [
+      "aclocal.m4"
+    ],
     "age": "old"
+  },
+  "make_graph": {
+    "targets": [
+      "all",
+      ".SUFFIXES",
+      "am--refresh",
+      "$(srcdir)/Makefile.in",
+      "Makefile",
+      "$(top_builddir)/config.status",
+      "$(top_srcdir)/configure",
+      "$(ACLOCAL_M4)",
+      "$(am__aclocal_m4_deps)",
+      "config.h",
+      "stamp-h1",
+      "$(srcdir)/config.h.in",
+      "distclean-hdr",
+      "install-binPROGRAMS",
+      "uninstall-binPROGRAMS",
+      "clean-binPROGRAMS",
+      "htop$(EXEEXT)",
+      "mostlyclean-compile",
+      "distclean-compile",
+      "$(am__depfiles_remade)",
+      "am--depfiles",
+      ".c.o",
+      ".c.obj",
+      ".c.lo",
+      "htop-AvailableMetersPanel.o",
+      "htop-AvailableMetersPanel.obj",
+      "htop-CategoriesPanel.o",
+      "htop-CategoriesPanel.obj",
+      "htop-CheckItem.o",
+      "htop-CheckItem.obj",
+      "htop-ClockMeter.o",
+      "htop-ClockMeter.obj",
+      "htop-ColorsPanel.o",
+      "htop-ColorsPanel.obj",
+      "htop-ColumnsPanel.o",
+      "htop-ColumnsPanel.obj",
+      "htop-CPUMeter.o",
+      "htop-CPUMeter.obj",
+      "htop-CRT.o",
+      "htop-CRT.obj"
+    ],
+    "key_variables": {
+      "AR": "ar",
+      "CC": "gcc",
+      "CFLAGS": "-g -O2",
+      "CPPFLAGS": "",
+      "DEFAULT_INCLUDES": "-I. -I$(top_builddir)/plpa-1.1/src",
+      "DEFS": "-DHAVE_CONFIG_H",
+      "LDFLAGS": "",
+      "LIBS": "-lncurses -lm",
+      "RANLIB": "ranlib"
+    },
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "config.h",
+      "libtool",
+      "stamp-h1",
+      "config.log"
+    ],
+    "recursion_depth": 0,
+    "top_targets": [
+      "all"
+    ],
+    "make_diagnostics": []
   },
   "toolchain_interaction": {
     "compiler": "cc",
     "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
     "c_std_default_risk": false,
-    "defines_sampled": []
+    "defines_sampled": [
+      "HAVE_CONFIG_H",
+      "_XOPEN_SOURCE_EXTENDED",
+      "SYSCONFDIR=\\\"$(sysconfdir)\\\"",
+      "DEBUG\"",
+      "DEBUGLITE\""
+    ]
   },
   "quirk_history": [
     {
@@ -330,7 +491,7 @@
     }
   ],
   "verification": {
-    "vs_gnu": "not-compared",
+    "vs_gnu": "ours-worse",
     "output_match": "not-compared"
   },
   "vpath_analysis": {
@@ -427,11 +588,11 @@
   ],
   "scenario_context": {
     "temporal_map": {
-      "Makefile.am": -2,
-      "Makefile.in": 1726,
-      "aclocal.m4": 5,
-      "config.h.in": 16,
-      "configure": 12,
+      "Makefile.am": 0,
+      "Makefile.in": 5458,
+      "aclocal.m4": 4944,
+      "config.h.in": 5275,
+      "configure": 5122,
       "configure.ac": 0
     },
     "m4_ancestry": {

@@ -92,9 +92,9 @@
       "DEFS",
       "LIBOBJS",
       "INSTALL",
-      "LD",
-      "host_alias",
-      "AR"
+      "AR",
+      "host_os",
+      "host_alias"
     ],
     "failed_during_check": "checking for library containing gmp... no",
     "failure_tail": [
@@ -110,6 +110,18 @@
       "char gmp ();\\nint main() { return gmp (); }"
     ]
   },
+  "oracle": {
+    "real_autoreconf": "fail",
+    "real_configure": "skipped",
+    "real_make": "skipped",
+    "real_configure_lines": 0,
+    "real_first_error": "aclocal: error: unrecognized option '-lm'.",
+    "classification": "OURS_BETTER",
+    "internal_traces": [
+      "aclocal: error: unrecognized option '-lm'.",
+      "aclocal: Try '/usr/local/bin/aclocal --help' for more information."
+    ]
+  },
   "receipt": {
     "court_status": "partial",
     "probe_trace": [],
@@ -118,7 +130,7 @@
       "uses-subdir-objects",
       "vendored-aclocal"
     ],
-    "receipt_hash": "fc222e24136e1c7565f3970366c0a81d4ec04fa5491250e780188ba2805c06fb",
+    "receipt_hash": "4a56d3d05b2d7872a94ebad8606e6a3f979f282ce4d5e2c8eba66082ab973ca2",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -127,17 +139,21 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": [],
+    "relevant_env": [
+      "ACLOCAL_PATH=/usr/share/aclocal"
+    ],
     "kernel_version": "6.8.0-124-generic",
     "libc_name": "glibc",
     "libc_version": "2.39",
     "pkg_config_path": [],
-    "env_vars_influential": {},
+    "env_vars_influential": {
+      "ACLOCAL_PATH": "/usr/share/aclocal"
+    },
     "posix_flavor": "gnu",
     "shell": "dash",
     "oracle_tool_versions": {
       "autoconf": "2.71",
-      "automake": "1.16.5",
+      "automake": "1.18.1",
       "libtool": "2.4.7",
       "m4": "1.4.19"
     },
@@ -175,13 +191,13 @@
         "path": "Makefile",
         "depth": 0,
         "top_builddir": ".",
-        "has_template": true
+        "has_template": false
       },
       {
         "path": "src/Makefile",
         "depth": 1,
         "top_builddir": "..",
-        "has_template": true
+        "has_template": false
       }
     ],
     "config_headers": [],
@@ -218,32 +234,6 @@
     "max_depth": 1,
     "config_h_consumers_below_root": []
   },
-  "makefile_forensics": {
-    "generated_makefiles": [
-      {
-        "path": "Makefile",
-        "has_makefile_in": true,
-        "has_makefile_am": true,
-        "lines": 522,
-        "unexpanded_vars": [],
-        "unexpanded_automake_tokens": [
-          "$(am__"
-        ],
-        "recipe_tab_anomalies": 0
-      },
-      {
-        "path": "src/Makefile",
-        "has_makefile_in": true,
-        "has_makefile_am": true,
-        "lines": 504,
-        "unexpanded_vars": [],
-        "unexpanded_automake_tokens": [
-          "$(am__"
-        ],
-        "recipe_tab_anomalies": 0
-      }
-    ]
-  },
   "tool_requirements": {
     "detected": [
       "ar"
@@ -252,7 +242,7 @@
   },
   "macro_inventory": {
     "macro_dirs": [],
-    "aclocal_m4_present": true,
+    "aclocal_m4_present": false,
     "acinclude_m4_present": false,
     "defined_macros": [],
     "called_macros": [
@@ -278,25 +268,12 @@
     ],
     "unresolved_macros": []
   },
-  "conditional_context": {
-    "configure_if": 107,
-    "configure_fi": 104,
-    "configure_case": 66,
-    "configure_esac": 69,
-    "balanced": false,
-    "automake_conditionals": [
-      "LINUX",
-      "WINDOWS",
-      "OSX"
-    ]
-  },
   "config_aux_inventory": {
     "aux_dir": "cnf",
-    "present": [
-      "install-sh",
-      "missing"
-    ],
+    "present": [],
     "missing": [
+      "install-sh",
+      "missing",
       "depcomp",
       "compile",
       "ltmain.sh",
@@ -326,140 +303,11 @@
     "libtool_m4_sources": [],
     "age": "modern"
   },
-  "make_graph": {
-    "targets": [
-      "all",
-      "all-am",
-      "install-am",
-      "installcheck-am",
-      "install-strip",
-      "install-info",
-      "install-info-am",
-      "install-dvi",
-      "install-dvi-am",
-      "install-ps",
-      "install-ps-am",
-      "install-pdf",
-      "install-pdf-am",
-      "install-html",
-      "install-html-am",
-      "install-data-hook",
-      "install-exec-hook",
-      "installdirs-am",
-      ".PHONY",
-      "mostlyclean-am",
-      "clean-am",
-      "distclean-am",
-      "maintainer-clean-am",
-      "distdir",
-      "dist",
-      "dist-all",
-      "dist-gzip",
-      "distcleancheck",
-      "distcheck",
-      "check-am",
-      "TAGS",
-      "tags",
-      "TAGS-am",
-      "tags-am",
-      "cscope",
-      "cscope-am",
-      "distuninstallcheck",
-      "$(srcdir)/Makefile.in",
-      "$(am__recursive_targets)",
-      "check"
-    ],
-    "key_variables": {
-      "AR": "ar",
-      "CC": "cc",
-      "CFLAGS": "",
-      "CPPFLAGS": "",
-      "CXX": "c++",
-      "CXXFLAGS": "-g -O2",
-      "DEFS": "-DPACKAGE=\"omf5\" -DVERSION=\"1.0.0-beta.1\" -DPACKAGE_NAME=\"omf5\" -DPACKAGE_TARNAME=\"omf5\" -DPACKAGE_VERSION=\"1.0.0-beta.1\" -DPACKAGE_STRING=\"omf5 1.0.0-beta.1\" -",
-      "LDFLAGS": "",
-      "LIBS": "",
-      "RANLIB": "ranlib"
-    },
-    "generated_files": [
-      "Makefile",
-      "config.status",
-      "libtool",
-      "config.log"
-    ],
-    "recursion_depth": 1,
-    "top_targets": [
-      "all",
-      "check",
-      "dist",
-      "all-am"
-    ],
-    "make_diagnostics": [
-      {
-        "command": "",
-        "error_type": "linker-error",
-        "message": "/usr/bin/ld: omf5-omf5.o: in function `main':"
-      },
-      {
-        "command": "",
-        "error_type": "linker-error",
-        "message": "omf5.c:(.text.startup+0x44a): undefined reference to `test_greedy_overflow'"
-      },
-      {
-        "command": "",
-        "error_type": "linker-error",
-        "message": "/usr/bin/ld: omf5.c:(.text.startup+0x454): undefined reference to `test_61'"
-      },
-      {
-        "command": "",
-        "error_type": "linker-error",
-        "message": "/usr/bin/ld: omf5.c:(.text.startup+0x45d): undefined reference to `test_69'"
-      },
-      {
-        "command": "",
-        "error_type": "linker-error",
-        "message": "/usr/bin/ld: omf5.c:(.text.startup+0x497): undefined reference to `compute_genus'"
-      },
-      {
-        "command": "",
-        "error_type": "linker-error",
-        "message": "/usr/bin/ld: omf5.c:(.text.startup+0x4e8): undefined reference to `compute_hecke_col'"
-      },
-      {
-        "command": "",
-        "error_type": "linker-error",
-        "message": "/usr/bin/ld: omf5.c:(.text.startup+0x505): undefined reference to `parse_matrix'"
-      },
-      {
-        "command": "",
-        "error_type": "linker-error",
-        "message": "/usr/bin/ld: omf5.c:(.text.startup+0x62e): undefined reference to `genus_init_file'"
-      },
-      {
-        "command": "",
-        "error_type": "linker-error",
-        "message": "/usr/bin/ld: omf5.c:(.text.startup+0x649): undefined reference to `compute_first_large_hecke'"
-      },
-      {
-        "command": "",
-        "error_type": "linker-error",
-        "message": "/usr/bin/ld: omf5.c:(.text.startup+0x66f): undefined reference to `compute_eigenvalues_up_to'"
-      }
-    ]
-  },
   "toolchain_interaction": {
     "compiler": "cc",
     "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
     "c_std_default_risk": true,
-    "defines_sampled": [
-      "PACKAGE=\"omf5\"",
-      "VERSION=\"1.0.0-beta.1\"",
-      "PACKAGE_NAME=\"omf5\"",
-      "PACKAGE_TARNAME=\"omf5\"",
-      "PACKAGE_VERSION=\"1.0.0-beta.1\"",
-      "PACKAGE_STRING=\"omf5",
-      "PACKAGE_BUGREPORT=\"https://github.com/assaferan/omf5\""
-    ]
+    "defines_sampled": []
   },
   "quirk_history": [
     {
@@ -482,7 +330,7 @@
     }
   ],
   "verification": {
-    "vs_gnu": "not-compared",
+    "vs_gnu": "ours-better",
     "output_match": "not-compared"
   },
   "feature_probe_gap": {
@@ -589,9 +437,6 @@
   "scenario_context": {
     "temporal_map": {
       "Makefile.am": 0,
-      "Makefile.in": 1028,
-      "aclocal.m4": 7,
-      "configure": 11,
       "configure.ac": 0
     },
     "m4_ancestry": {

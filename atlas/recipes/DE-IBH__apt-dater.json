@@ -122,6 +122,23 @@
       "char get_wch ();\\nint main() { return get_wch(); }"
     ]
   },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "fail",
+    "real_configure_lines": 11733,
+    "real_first_error": "",
+    "classification": "BOTH_MAKE_FAIL",
+    "internal_traces": [
+      "configure.ac:34: installing './compile'",
+      "configure.ac:18: installing './config.guess'",
+      "configure.ac:18: installing './config.sub'",
+      "configure.ac:20: installing './install-sh'",
+      "configure.ac:20: installing './missing'",
+      "Makefile.am: installing './INSTALL'",
+      "src/Makefile.am: installing './depcomp'"
+    ]
+  },
   "receipt": {
     "court_status": "partial",
     "probe_trace": [
@@ -161,7 +178,7 @@
       "uses-gettext",
       "vendored-aclocal"
     ],
-    "receipt_hash": "2bab6cf9e03c29755f17a0732a1317cee2a14c92812c3ae19c28845c8ecfdc53",
+    "receipt_hash": "230518e29f980fc1f245bfb089d4213b5d7e11b49edf33ac201b30e4b96a08fb",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -170,17 +187,21 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": [],
+    "relevant_env": [
+      "ACLOCAL_PATH=/usr/share/aclocal"
+    ],
     "kernel_version": "6.8.0-124-generic",
     "libc_name": "glibc",
     "libc_version": "2.39",
     "pkg_config_path": [],
-    "env_vars_influential": {},
+    "env_vars_influential": {
+      "ACLOCAL_PATH": "/usr/share/aclocal"
+    },
     "posix_flavor": "gnu",
     "shell": "dash",
     "oracle_tool_versions": {
       "autoconf": "2.71",
-      "automake": "1.16.5",
+      "automake": "1.18.1",
       "libtool": "2.4.7",
       "m4": "1.4.19"
     },
@@ -278,7 +299,7 @@
         "path": "po/Makefile.in",
         "depth": 1,
         "top_builddir": "..",
-        "has_template": false
+        "has_template": true
       },
       {
         "path": "schema/Makefile",
@@ -318,7 +339,7 @@
           "etc",
           "schema"
         ],
-        "sources_include_config_h": false,
+        "sources_include_config_h": true,
         "am_cppflags": ""
       },
       {
@@ -343,7 +364,7 @@
         "path": "Makefile",
         "has_makefile_in": true,
         "has_makefile_am": true,
-        "lines": 558,
+        "lines": 904,
         "unexpanded_vars": [],
         "unexpanded_automake_tokens": [
           "$(am__"
@@ -354,7 +375,7 @@
         "path": "schema/Makefile",
         "has_makefile_in": true,
         "has_makefile_am": true,
-        "lines": 455,
+        "lines": 520,
         "unexpanded_vars": [],
         "unexpanded_automake_tokens": [
           "$(am__"
@@ -365,14 +386,14 @@
         "path": "src/Makefile",
         "has_makefile_in": true,
         "has_makefile_am": true,
-        "lines": 524,
+        "lines": 802,
         "first_parse_error": {
-          "line": 215,
+          "line": 790,
           "kind": "missing-separator",
           "text": "SOURCE_DATE_EPOCH ?= $(shell date +%s)",
           "previous_lines": [
-            "#FEAT_TTYMUX_SOURCES = tmux.c tmux.h",
-            "SHARED_SOURCES = ../include/adproto.h\t\t \tapt-dater.c\t\t\t \tapt-dater.h\t\t\t \tcolors."
+            "",
+            "# https://reproducible-builds.org/docs/source-date-epoch/#makefile"
           ],
           "probable_cause": "bare-macro"
         },
@@ -386,7 +407,7 @@
         "path": "conf/Makefile",
         "has_makefile_in": true,
         "has_makefile_am": true,
-        "lines": 445,
+        "lines": 478,
         "unexpanded_vars": [],
         "unexpanded_automake_tokens": [
           "$(am__"
@@ -397,7 +418,7 @@
         "path": "etc/Makefile",
         "has_makefile_in": true,
         "has_makefile_am": true,
-        "lines": 475,
+        "lines": 512,
         "unexpanded_vars": [],
         "unexpanded_automake_tokens": [
           "$(am__"
@@ -405,10 +426,21 @@
         "recipe_tab_anomalies": 0
       },
       {
+        "path": "po/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": false,
+        "lines": 667,
+        "unexpanded_vars": [
+          "@CROSS_COMPILING@"
+        ],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      },
+      {
         "path": "lib/Makefile",
         "has_makefile_in": true,
         "has_makefile_am": true,
-        "lines": 471,
+        "lines": 574,
         "unexpanded_vars": [],
         "unexpanded_automake_tokens": [
           "$(am__"
@@ -419,7 +451,7 @@
         "path": "man/Makefile",
         "has_makefile_in": true,
         "has_makefile_am": true,
-        "lines": 480,
+        "lines": 648,
         "unexpanded_vars": [],
         "unexpanded_automake_tokens": [
           "$(am__"
@@ -435,10 +467,168 @@
     "missing": []
   },
   "macro_inventory": {
-    "macro_dirs": [],
+    "macro_dirs": [
+      "m4"
+    ],
     "aclocal_m4_present": true,
     "acinclude_m4_present": false,
-    "defined_macros": [],
+    "defined_macros": [
+      {
+        "name": "AM_PO_SUBDIRS",
+        "source": "m4/po.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AM_POSTPROCESS_PO_MAKEFILE",
+        "source": "m4/po.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AM_XGETTEXT_OPTION_INIT",
+        "source": "m4/po.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AM_XGETTEXT_OPTION",
+        "source": "m4/po.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AC_LIB_LINKFLAGS",
+        "source": "m4/lib-link.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_LIB_HAVE_LINKFLAGS",
+        "source": "m4/lib-link.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_LIB_RPATH",
+        "source": "m4/lib-link.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_LIB_FROMPACKAGE",
+        "source": "m4/lib-link.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_LIB_LINKFLAGS_BODY",
+        "source": "m4/lib-link.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_LIB_APPENDTOVAR",
+        "source": "m4/lib-link.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_LIB_LINKFLAGS_FROM_LIBS",
+        "source": "m4/lib-link.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AM_PATH_PROG_WITH_TEST",
+        "source": "m4/progtest.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AM_ICONV_LINKFLAGS_BODY",
+        "source": "m4/iconv.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AM_ICONV_LINK",
+        "source": "m4/iconv.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "gl_iconv_AC_DEFUN",
+        "source": "m4/iconv.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "2",
+        "source": "m4/iconv.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AM_ICONV",
+        "source": "m4/iconv.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AM_NLS",
+        "source": "m4/nls.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AC_LIB_PREFIX",
+        "source": "m4/lib-prefix.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_LIB_PREPARE_PREFIX",
+        "source": "m4/lib-prefix.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_LIB_WITH_FINAL_PREFIX",
+        "source": "m4/lib-prefix.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_LIB_PREPARE_MULTILIB",
+        "source": "m4/lib-prefix.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_LIB_PROG_LD_GNU",
+        "source": "m4/lib-ld.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_LIB_PROG_LD",
+        "source": "m4/lib-ld.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "gl_HOST_CPU_C_ABI",
+        "source": "m4/host-cpu-c-abi.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_HOST_CPU_C_ABI_32BIT",
+        "source": "m4/host-cpu-c-abi.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gt_INTL_MACOSX",
+        "source": "m4/intlmacosx.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AM_GNU_GETTEXT",
+        "source": "m4/gettext.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AM_GNU_GETTEXT_NEED",
+        "source": "m4/gettext.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AM_GNU_GETTEXT_VERSION",
+        "source": "m4/gettext.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AM_GNU_GETTEXT_REQUIRE_VERSION",
+        "source": "m4/gettext.m4",
+        "kind": "AM"
+      }
+    ],
     "called_macros": [
       "AC_ARG_ENABLE",
       "AC_ARG_VAR",
@@ -473,10 +663,10 @@
     "unresolved_macros": []
   },
   "conditional_context": {
-    "configure_if": 189,
-    "configure_fi": 173,
-    "configure_case": 66,
-    "configure_esac": 69,
+    "configure_if": 872,
+    "configure_fi": 783,
+    "configure_case": 209,
+    "configure_esac": 195,
     "balanced": false,
     "automake_conditionals": [
       "LINUX",
@@ -490,12 +680,11 @@
       "install-sh",
       "missing",
       "depcomp",
-      "compile"
-    ],
-    "missing": [
+      "compile",
       "config.guess",
       "config.sub"
-    ]
+    ],
+    "missing": []
   },
   "language_surface": {
     "source_suffixes": {
@@ -513,78 +702,69 @@
     "uses_gettext": true,
     "uses_intltool": false,
     "po_dir_present": true,
-    "missing_files": [
-      "config.rpath",
-      "po/Makefile.in.in"
-    ]
+    "missing_files": []
   },
   "make_graph": {
     "targets": [
       "all",
-      "all-am",
-      "install-am",
-      "installcheck-am",
-      "install-strip",
-      "install-info",
-      "install-info-am",
-      "install-dvi",
-      "install-dvi-am",
-      "install-ps",
-      "install-ps-am",
-      "install-pdf",
-      "install-pdf-am",
-      "install-html",
-      "install-html-am",
-      "install-data-hook",
-      "install-exec-hook",
-      "installdirs-am",
-      ".PHONY",
-      "mostlyclean-am",
-      "clean-am",
-      "distclean-am",
-      "maintainer-clean-am",
-      "distdir",
-      "dist",
-      "dist-all",
-      "dist-gzip",
-      "distcleancheck",
-      "distcheck",
-      "check-am",
-      "TAGS",
-      "tags",
-      "TAGS-am",
-      "tags-am",
-      "cscope",
-      "cscope-am",
-      "distuninstallcheck",
+      ".SUFFIXES",
+      "am--refresh",
       "$(srcdir)/Makefile.in",
+      "Makefile",
+      "$(top_builddir)/config.status",
+      "$(top_srcdir)/configure",
+      "$(ACLOCAL_M4)",
+      "$(am__aclocal_m4_deps)",
+      "config.h",
+      "stamp-h1",
+      "$(srcdir)/config.h.in",
+      "distclean-hdr",
+      "build/apt-dater.spec",
       "$(am__recursive_targets)",
-      "check"
+      "ID",
+      "tags",
+      "TAGS",
+      "tags-am",
+      "ctags",
+      "CTAGS",
+      "ctags-am",
+      "GTAGS",
+      "cscope",
+      "clean-cscope",
+      "cscope.files",
+      "cscopelist",
+      "cscopelist-am",
+      "distclean-tags",
+      "distdir",
+      "distdir-am",
+      "dist-gzip",
+      "dist-bzip2",
+      "dist-bzip3",
+      "dist-lzip",
+      "dist-xz",
+      "dist-zstd",
+      "dist-tarZ",
+      "dist-shar",
+      "dist-zip"
     ],
     "key_variables": {
-      "AR": "ar",
-      "CC": "cc",
+      "CC": "gcc",
       "CFLAGS": "-g -O2",
       "CPPFLAGS": "-I/usr/include/ncursesw",
-      "CXX": "c++",
-      "CXXFLAGS": "-g -O2",
       "DEFS": "-DHAVE_CONFIG_H",
       "LDFLAGS": "",
-      "LIBS": "-lpopt  -lncursesw",
-      "RANLIB": "ranlib"
+      "LIBS": "-lpopt  -lncursesw"
     },
     "generated_files": [
       "Makefile",
       "config.status",
       "config.h",
+      "stamp-h1",
       "config.log"
     ],
     "recursion_depth": 1,
     "top_targets": [
-      "all",
-      "check",
-      "dist",
-      "all-am"
+      "all"
     ],
     "make_diagnostics": [
       {
@@ -628,8 +808,8 @@
     }
   ],
   "verification": {
-    "vs_gnu": "not-compared",
-    "output_match": "not-compared"
+    "vs_gnu": "both-fail",
+    "output_match": "both-fail"
   },
   "vpath_analysis": {
     "hardcoded_src_paths": 4,
@@ -665,8 +845,29 @@
   },
   "source_to_generated_map": {
     "configure_origins": [],
-    "m4_trace_depth": 1,
-    "shadowed_macros": []
+    "m4_trace_depth": 6,
+    "shadowed_macros": [
+      "AM_PO_SUBDIRS",
+      "AM_POSTPROCESS_PO_MAKEFILE",
+      "AM_XGETTEXT_OPTION_INIT",
+      "AM_XGETTEXT_OPTION",
+      "AC_LIB_LINKFLAGS",
+      "AC_LIB_HAVE_LINKFLAGS",
+      "AC_LIB_RPATH",
+      "AC_LIB_FROMPACKAGE",
+      "AC_LIB_LINKFLAGS_BODY",
+      "AC_LIB_APPENDTOVAR",
+      "AC_LIB_LINKFLAGS_FROM_LIBS",
+      "AM_PATH_PROG_WITH_TEST",
+      "AM_ICONV_LINKFLAGS_BODY",
+      "AM_ICONV_LINK",
+      "AM_ICONV",
+      "AM_NLS",
+      "AC_LIB_PREFIX",
+      "AC_LIB_PREPARE_PREFIX",
+      "AC_LIB_WITH_FINAL_PREFIX",
+      "AC_LIB_PREPARE_MULTILIB"
+    ]
   },
   "dialect_reconciliation": {
     "enforce_standards_tier": "c89_gnu",
@@ -683,7 +884,23 @@
   },
   "m4_side_effect_isolation": {
     "unquoted_subst_in_conditional": 13,
-    "shadowed_builtins": [],
+    "shadowed_builtins": [
+      "AM_PO_SUBDIRS",
+      "AM_POSTPROCESS_PO_MAKEFILE",
+      "AM_XGETTEXT_OPTION_INIT",
+      "AM_XGETTEXT_OPTION",
+      "AC_LIB_LINKFLAGS",
+      "AC_LIB_HAVE_LINKFLAGS",
+      "AC_LIB_RPATH",
+      "AC_LIB_FROMPACKAGE",
+      "AC_LIB_LINKFLAGS_BODY",
+      "AC_LIB_APPENDTOVAR",
+      "AC_LIB_LINKFLAGS_FROM_LIBS",
+      "AM_PATH_PROG_WITH_TEST",
+      "AM_ICONV_LINKFLAGS_BODY",
+      "AM_ICONV_LINK",
+      "AM_ICONV"
+    ],
     "permitted_mutations": 9,
     "suspect_global_mutations": 0
   },
@@ -720,7 +937,6 @@
   },
   "risk_factors": [
     "subdir-config-h-include-path",
-    "gettext-support-files-missing",
     "modern-compiler-strictness (no explicit C std)",
     "vpath-unsafe (abs-path/hardcoded-srcdir leakage)"
   ],
@@ -730,11 +946,21 @@
       "phase": "make",
       "confidence": 0.7,
       "evidence": [
-        "src/Makefile:215 missing-separator",
+        "src/Makefile:790 missing-separator",
         "SOURCE_DATE_EPOCH ?= $(shell date +%s)"
       ],
       "action": "define-or-neutralize-leaked-macro",
       "expected_effect": "partial -> FUNC_OK candidate"
+    },
+    {
+      "id": "unexpanded-makefile-vars",
+      "phase": "make",
+      "confidence": 0.8,
+      "evidence": [
+        "@CROSS_COMPILING@"
+      ],
+      "action": "add these to STD_VAR_SED / AC_SUBST handling",
+      "expected_effect": "removes raw @VAR@ from Makefile"
     },
     {
       "id": "subdir-top-builddir",
@@ -750,10 +976,10 @@
   "scenario_context": {
     "temporal_map": {
       "Makefile.am": 0,
-      "Makefile.in": 1073,
-      "aclocal.m4": 6,
-      "config.h.in": 15,
-      "configure": 11,
+      "Makefile.in": 6668,
+      "aclocal.m4": 6128,
+      "config.h.in": 6508,
+      "configure": 6388,
       "configure.ac": 0
     },
     "m4_ancestry": {
@@ -782,8 +1008,8 @@
       "AC_PROG_INSTALL": "system-aclocal",
       "AC_SUBST": "system-aclocal",
       "AM_CONDITIONAL": "system-aclocal",
-      "AM_GNU_GETTEXT": "system-aclocal",
-      "AM_GNU_GETTEXT_REQUIRE_VERSION": "system-aclocal",
+      "AM_GNU_GETTEXT": "m4/gettext.m4",
+      "AM_GNU_GETTEXT_REQUIRE_VERSION": "m4/gettext.m4",
       "AM_INIT_AUTOMAKE": "system-aclocal",
       "PKG_CHECK_MODULES": "system-aclocal"
     },

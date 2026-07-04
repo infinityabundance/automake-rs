@@ -115,6 +115,48 @@
       "char cblas_dgemm ();\\nint main() { return cblas_dgemm(); }"
     ]
   },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "fail",
+    "real_configure_lines": 27618,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE",
+    "internal_traces": [
+      "libtoolize: putting auxiliary files in '.'.",
+      "libtoolize: copying file './ltmain.sh'",
+      "libtoolize: putting macros in AC_CONFIG_MACRO_DIRS, 'm4'.",
+      "libtoolize: copying file 'm4/libtool.m4'",
+      "libtoolize: copying file 'm4/ltoptions.m4'",
+      "libtoolize: copying file 'm4/ltsugar.m4'",
+      "libtoolize: copying file 'm4/ltversion.m4'",
+      "libtoolize: copying file 'm4/lt~obsolete.m4'",
+      "configure.ac:9: warning: The macro `AC_PROG_CC_C99' is obsolete.",
+      "configure.ac:8: installing './compile'",
+      "configure.ac:2: installing './missing'",
+      "Makefile.am: installing './depcomp'",
+      "libtoolize: putting auxiliary files in '.'.",
+      "libtoolize: copying file './ltmain.sh'",
+      "libtoolize: putting macros in AC_CONFIG_MACRO_DIRS, 'm4'.",
+      "libtoolize: copying file 'm4/libtool.m4'",
+      "libtoolize: copying file 'm4/ltoptions.m4'",
+      "libtoolize: copying file 'm4/ltsugar.m4'",
+      "libtoolize: copying file 'm4/ltversion.m4'",
+      "libtoolize: copying file 'm4/lt~obsolete.m4'",
+      "configure.ac:14: warning: The macro `AC_PROG_CC_C99' is obsolete.",
+      "configure.ac:13: installing './compile'",
+      "configure.ac:2: installing './missing'",
+      "Makefile.am: installing './depcomp'"
+    ]
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "",
+    "ours_error_context": [],
+    "ours_configure_lines": 4283,
+    "real_configure_lines": 27618,
+    "macros_ours_left_undefined": []
+  },
   "receipt": {
     "court_status": "failed",
     "probe_trace": [],
@@ -138,7 +180,7 @@
         "verified": false
       }
     ],
-    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
+    "receipt_hash": "a538dd1b607f6cd976fc862d4e8e8d63c3c1266aed35ab3625cbb61237e9478c",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -147,17 +189,21 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": [],
+    "relevant_env": [
+      "ACLOCAL_PATH=/usr/share/aclocal"
+    ],
     "kernel_version": "6.8.0-124-generic",
     "libc_name": "glibc",
     "libc_version": "2.39",
     "pkg_config_path": [],
-    "env_vars_influential": {},
+    "env_vars_influential": {
+      "ACLOCAL_PATH": "/usr/share/aclocal"
+    },
     "posix_flavor": "gnu",
     "shell": "dash",
     "oracle_tool_versions": {
       "autoconf": "2.71",
-      "automake": "1.16.5",
+      "automake": "1.18.1",
       "libtool": "2.4.7",
       "m4": "1.4.19"
     },
@@ -238,7 +284,7 @@
         "subdirs": [
           "src/external/tci"
         ],
-        "sources_include_config_h": false,
+        "sources_include_config_h": true,
         "am_cppflags": "-I$(srcdir) -I$(srcdir)/src -I. -Isrc -Isrc/util -I$(srcdir)/src/external/tci -Isrc/external/tci/tci"
       },
       {
@@ -274,6 +320,28 @@
   },
   "makefile_forensics": {
     "generated_makefiles": [
+      {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 2898,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/external/tci/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 952,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
       {
         "path": "src/external/blis/Makefile",
         "has_makefile_in": false,
@@ -704,10 +772,10 @@
     "unresolved_macros": []
   },
   "conditional_context": {
-    "configure_if": 277,
-    "configure_fi": 268,
-    "configure_case": 66,
-    "configure_esac": 69,
+    "configure_if": 1447,
+    "configure_fi": 1318,
+    "configure_case": 500,
+    "configure_esac": 481,
     "balanced": false,
     "automake_conditionals": [
       "ENABLE_BLAS",
@@ -745,8 +813,8 @@
     "source_suffixes": {
       "c": 55,
       "cxx": 78,
-      "h": 38,
-      "hpp": 90
+      "h": 43,
+      "hpp": 91
     },
     "configure_macros": [
       "AC_PROG_CC",
@@ -769,11 +837,83 @@
     ],
     "age": "modern"
   },
+  "make_graph": {
+    "targets": [
+      "all",
+      ".SUFFIXES",
+      "am--refresh",
+      "$(srcdir)/Makefile.in",
+      "Makefile",
+      "$(top_builddir)/config.status",
+      "$(top_srcdir)/configure",
+      "$(ACLOCAL_M4)",
+      "$(am__aclocal_m4_deps)",
+      "config.h",
+      "stamp-h1",
+      "$(srcdir)/config.h.in",
+      "distclean-hdr",
+      "src/configs/foreach_type.h",
+      "src/configs/foreach_config.h",
+      "src/configs/foreach_config_and_type.h",
+      "src/configs/include_configs.hpp",
+      "clean-noinstPROGRAMS",
+      "install-libLTLIBRARIES",
+      "uninstall-libLTLIBRARIES",
+      "clean-libLTLIBRARIES",
+      "clean-noinstLTLIBRARIES",
+      "src/configs/bulldozer/$(am__dirstamp)",
+      "src/configs/bulldozer/$(DEPDIR)/$(am__dirstamp)",
+      "src/configs/bulldozer/lib_libbulldozer_la-bli_gemm_asm_d4x6_fma4.lo",
+      "src/configs/bulldozer/lib_libbulldozer_la-config.lo",
+      "lib/$(am__dirstamp)",
+      "lib/libbulldozer.la",
+      "src/configs/core2/$(am__dirstamp)",
+      "src/configs/core2/$(DEPDIR)/$(am__dirstamp)",
+      "src/configs/core2/lib_libcore2_la-bli_gemm_asm_d4x4.lo",
+      "src/configs/core2/lib_libcore2_la-config.lo",
+      "lib/libcore2.la",
+      "src/configs/excavator/$(am__dirstamp)",
+      "src/configs/excavator/$(DEPDIR)/$(am__dirstamp)",
+      "src/configs/excavator/lib_libexcavator_la-bli_gemm_asm_d8x3.lo",
+      "src/configs/excavator/lib_libexcavator_la-config.lo",
+      "lib/libexcavator.la",
+      "src/configs/haswell/$(am__dirstamp)",
+      "src/configs/haswell/$(DEPDIR)/$(am__dirstamp)"
+    ],
+    "key_variables": {
+      "AR": "ar",
+      "CC": "gcc",
+      "CFLAGS": "-O3",
+      "CPPFLAGS": "",
+      "CXX": "g++",
+      "CXXFLAGS": "-O3",
+      "DEFAULT_INCLUDES": "-I.",
+      "DEFS": "-DHAVE_CONFIG_H",
+      "LDFLAGS": "",
+      "LIBS": "-lhwloc",
+      "RANLIB": "ranlib"
+    },
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "config.h",
+      "libtool",
+      "stamp-h1",
+      "config.log"
+    ],
+    "recursion_depth": 2,
+    "top_targets": [
+      "all"
+    ],
+    "make_diagnostics": []
+  },
   "toolchain_interaction": {
     "compiler": "cc",
     "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
     "c_std_default_risk": false,
-    "defines_sampled": []
+    "defines_sampled": [
+      "HAVE_CONFIG_H"
+    ]
   },
   "quirk_history": [
     {
@@ -814,7 +954,7 @@
     }
   ],
   "verification": {
-    "vs_gnu": "not-compared",
+    "vs_gnu": "ours-worse",
     "output_match": "not-compared"
   },
   "feature_probe_gap": {
@@ -920,10 +1060,10 @@
   "scenario_context": {
     "temporal_map": {
       "Makefile.am": -4,
-      "Makefile.in": 1676,
-      "aclocal.m4": 56,
-      "config.h.in": 96,
-      "configure": 93,
+      "Makefile.in": 14130,
+      "aclocal.m4": 13507,
+      "config.h.in": 13928,
+      "configure": 13740,
       "configure.ac": 0
     },
     "m4_ancestry": {

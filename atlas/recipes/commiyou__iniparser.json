@@ -116,13 +116,32 @@
       "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { uint8_t x; return 0; }"
     ]
   },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "ok",
+    "real_configure_lines": 7080,
+    "real_first_error": "",
+    "classification": "BOTH_OK",
+    "internal_traces": [
+      "configure.ac:12: installing './compile'",
+      "automake: warning: possible forward-incompatibility.",
+      "automake: At least one source file is in a subdirectory, but the 'subdir-objects'",
+      "automake: automake option hasn't been enabled.  For now, the corresponding output",
+      "automake: object file(s) will be placed in the top-level directory.  However, this",
+      "automake: behavior may change in a future Automake major version, with object",
+      "automake: files being placed in the same subdirectory as the corresponding sources.",
+      "automake: You are advised to start using 'subdir-objects' option throughout your",
+      "automake: project, to avoid future incompatibility."
+    ]
+  },
   "receipt": {
     "court_status": "quirk_dependent",
     "probe_trace": [],
     "quirks_matched": [
       "vendored-aclocal"
     ],
-    "receipt_hash": "926c512109016e5d34ba8a9c0299a9b14cd575b38577d3694528943d23f2008c",
+    "receipt_hash": "513ff23fb65f0369722e5123b8edd732a726fe167ff20c0435035f7ad153ae24",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -131,17 +150,21 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": [],
+    "relevant_env": [
+      "ACLOCAL_PATH=/usr/share/aclocal"
+    ],
     "kernel_version": "6.8.0-124-generic",
     "libc_name": "glibc",
     "libc_version": "2.39",
     "pkg_config_path": [],
-    "env_vars_influential": {},
+    "env_vars_influential": {
+      "ACLOCAL_PATH": "/usr/share/aclocal"
+    },
     "posix_flavor": "gnu",
     "shell": "dash",
     "oracle_tool_versions": {
       "autoconf": "2.71",
-      "automake": "1.16.5",
+      "automake": "1.18.1",
       "libtool": "2.4.7",
       "m4": "1.4.19"
     },
@@ -193,7 +216,7 @@
           "iniparser"
         ],
         "subdirs": [],
-        "sources_include_config_h": false,
+        "sources_include_config_h": true,
         "am_cppflags": "-Isrc/include -Isrc/parser"
       }
     ],
@@ -206,7 +229,7 @@
         "path": "Makefile",
         "has_makefile_in": true,
         "has_makefile_am": true,
-        "lines": 520,
+        "lines": 923,
         "unexpanded_vars": [],
         "unexpanded_automake_tokens": [
           "$(am__"
@@ -246,10 +269,10 @@
     "unresolved_macros": []
   },
   "conditional_context": {
-    "configure_if": 98,
-    "configure_fi": 95,
-    "configure_case": 63,
-    "configure_esac": 66,
+    "configure_if": 368,
+    "configure_fi": 331,
+    "configure_case": 137,
+    "configure_esac": 125,
     "balanced": false,
     "automake_conditionals": []
   },
@@ -279,58 +302,56 @@
   "make_graph": {
     "targets": [
       "all",
-      "all-am",
+      ".SUFFIXES",
+      "am--refresh",
+      "$(srcdir)/Makefile.in",
+      "Makefile",
+      "$(top_builddir)/config.status",
+      "$(top_srcdir)/configure",
+      "$(ACLOCAL_M4)",
+      "$(am__aclocal_m4_deps)",
+      "config.h",
+      "stamp-h1",
+      "$(srcdir)/config.h.in",
+      "distclean-hdr",
+      "clean-noinstPROGRAMS",
+      "iniparser$(EXEEXT)",
+      "mostlyclean-compile",
+      "distclean-compile",
       "$(am__depfiles_remade)",
       "am--depfiles",
-      "install",
-      "install-am",
-      "installcheck",
-      "install-strip",
-      "install-info",
-      "install-info-am",
-      "install-dvi",
-      "install-dvi-am",
-      "install-ps",
-      "install-ps-am",
-      "install-pdf",
-      "install-pdf-am",
-      "install-html",
-      "install-html-am",
-      "install-data-hook",
-      "install-exec-hook",
-      "installdirs",
-      "installdirs-am",
-      ".PHONY",
-      "mostlyclean-am",
-      "clean-am",
-      "distclean-am",
-      "maintainer-clean-am",
-      "clean",
-      "distdir",
-      "dist",
-      "dist-all",
-      "dist-gzip",
-      "distcleancheck",
-      "distcheck",
-      "check-am",
-      "check",
-      "TAGS",
-      "tags",
-      "TAGS-am",
-      "tags-am"
+      ".cc.o",
+      ".cc.obj",
+      "main.o",
+      "main.obj",
+      "menu.o",
+      "menu.obj",
+      "inifile.o",
+      "inifile.obj",
+      "inidata.o",
+      "inidata.obj",
+      "iniorganiser.o",
+      "iniorganiser.obj",
+      "iniparser.o",
+      "iniparser.obj",
+      "iniwriter.o",
+      "iniwriter.obj",
+      "keyvalue.o",
+      "keyvalue.obj",
+      "section.o",
+      "section.obj",
+      "ID"
     ],
     "key_variables": {
-      "AR": "ar",
-      "CC": "cc",
+      "CC": "gcc",
       "CFLAGS": "-g -O2",
       "CPPFLAGS": "",
       "CXX": "g++",
       "CXXFLAGS": "-g -O2",
-      "DEFAULT_INCLUDES": "-I. -I$(top_builddir)",
-      "DEFS": "-DHAVE_CONFIG_H",
+      "DEFAULT_INCLUDES": "-I.",
+      "DEFS": "-DHAVE_CONFIG_H -D_GNU_SOURCE",
       "LDFLAGS": "",
-      "LIBS": "",
-      "RANLIB": "ranlib"
+      "LIBS": ""
     },
     "generated_files": [
       "Makefile",
@@ -341,12 +362,7 @@
     ],
     "recursion_depth": 0,
     "top_targets": [
-      "all",
-      "install",
-      "check",
-      "clean",
-      "dist",
-      "all-am"
+      "all"
     ],
     "make_diagnostics": []
   },
@@ -368,8 +384,8 @@
     }
   ],
   "verification": {
-    "vs_gnu": "not-compared",
-    "output_match": "ours-built"
+    "vs_gnu": "identical-status",
+    "output_match": "status-match"
   },
   "source_to_generated_map": {
     "configure_origins": [],
@@ -390,11 +406,11 @@
   },
   "scenario_context": {
     "temporal_map": {
-      "Makefile.am": -3,
-      "Makefile.in": 1779,
-      "aclocal.m4": 6,
-      "config.h.in": 10,
-      "configure": 9,
+      "Makefile.am": -2,
+      "Makefile.in": 4403,
+      "aclocal.m4": 3940,
+      "config.h.in": 4243,
+      "configure": 4143,
       "configure.ac": 0
     },
     "m4_ancestry": {

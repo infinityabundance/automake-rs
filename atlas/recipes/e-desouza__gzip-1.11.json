@@ -73,27 +73,27 @@
       "srcdir",
       "prefix",
       "exec_prefix",
-      "REPLACE_HYPOT",
-      "HAVE_ILOGBL",
-      "HAVE_DECL_STRNLEN",
-      "REPLACE_ATANF",
-      "HAVE_STRTOL",
-      "HAVE_STRTOLD",
-      "HAVE_TYPE_VOLATILE_SIG_ATOMIC_T",
-      "AR",
-      "HAVE_VDPRINTF",
-      "REPLACE_EXECVPE",
-      "HAVE_DECL_CEILL",
-      "HAVE_MBRTOWC",
-      "HAVE_FACCESSAT",
-      "HAVE_ALIGNED_ALLOC",
-      "HAVE_RANDOM_R",
-      "REPLACE_REALLOC",
-      "HAVE_DECL_WCSDUP",
-      "REPLACE_MEMCHR",
-      "REPLACE_STRTOULL",
-      "HAVE_STRERRORNAME_NP",
-      "REPLACE_SINF"
+      "REPLACE_FCLOSE",
+      "REPLACE_QSORT_R",
+      "REPLACE_ASINF",
+      "HAVE_UNLINKAT",
+      "HAVE_COPYSIGN",
+      "HAVE_LOGBL",
+      "gl_LTLIBOBJS",
+      "REPLACE_LOG2F",
+      "HAVE_DECL_FLOORL",
+      "REPLACE_PTSNAME",
+      "REPLACE_FTRUNCATE",
+      "HAVE_READLINKAT",
+      "HAVE_DECL_INITSTATE",
+      "HAVE_DECL_FCLOSEALL",
+      "HAVE_FTELLO",
+      "LIBGZIP_LTLIBDEPS",
+      "HAVE_DECL_WCWIDTH",
+      "REPLACE_READLINK",
+      "HAVE_CLOSEDIR",
+      "HAVE_DECL_FDOPENDIR",
+      "HAVE_STRPTIME"
     ],
     "failed_during_check": "checking for C++ compiler... c++",
     "failure_tail": [
@@ -112,6 +112,22 @@
       "/* end confdefs.h */\\n#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $1();\\nint main() { return $1(); }"
     ]
   },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "fail",
+    "real_configure_lines": 35392,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE"
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "",
+    "ours_error_context": [],
+    "ours_configure_lines": 3355,
+    "real_configure_lines": 35392,
+    "macros_ours_left_undefined": []
+  },
   "receipt": {
     "court_status": "failed",
     "probe_trace": [],
@@ -127,7 +143,7 @@
         "verified": false
       }
     ],
-    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
+    "receipt_hash": "a538dd1b607f6cd976fc862d4e8e8d63c3c1266aed35ab3625cbb61237e9478c",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -136,17 +152,21 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": [],
+    "relevant_env": [
+      "ACLOCAL_PATH=/usr/share/aclocal"
+    ],
     "kernel_version": "6.8.0-124-generic",
     "libc_name": "glibc",
     "libc_version": "2.39",
     "pkg_config_path": [],
-    "env_vars_influential": {},
+    "env_vars_influential": {
+      "ACLOCAL_PATH": "/usr/share/aclocal"
+    },
     "posix_flavor": "gnu",
     "shell": "dash",
     "oracle_tool_versions": {
       "autoconf": "2.71",
-      "automake": "1.16.5",
+      "automake": "1.18.1",
       "libtool": "2.4.7",
       "m4": "1.4.19"
     },
@@ -241,6 +261,54 @@
     "max_depth": 1,
     "config_h_consumers_below_root": [
       "lib"
+    ]
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 2495,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "tests/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 2318,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "doc/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 2015,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "lib/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 4000,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      }
     ]
   },
   "macro_inventory": {
@@ -592,10 +660,10 @@
     "unresolved_macros": []
   },
   "conditional_context": {
-    "configure_if": 168,
-    "configure_fi": 161,
-    "configure_case": 49,
-    "configure_esac": 53,
+    "configure_if": 2159,
+    "configure_fi": 1670,
+    "configure_case": 496,
+    "configure_esac": 488,
     "balanced": false,
     "automake_conditionals": [
       "IBM_Z_DFLTCC"
@@ -613,8 +681,8 @@
   },
   "language_surface": {
     "source_suffixes": {
-      "c": 140,
-      "h": 104
+      "c": 141,
+      "h": 123
     },
     "configure_macros": [
       "AC_PROG_CC"
@@ -623,11 +691,79 @@
     "needs_fortran": false,
     "sets_c_std": false
   },
+  "make_graph": {
+    "targets": [
+      "all",
+      ".SUFFIXES",
+      "am--refresh",
+      "$(srcdir)/Makefile.in",
+      "Makefile",
+      "$(top_builddir)/config.status",
+      "$(top_srcdir)/configure",
+      "$(ACLOCAL_M4)",
+      "$(am__aclocal_m4_deps)",
+      "install-binPROGRAMS",
+      "uninstall-binPROGRAMS",
+      "clean-binPROGRAMS",
+      "clean-noinstLIBRARIES",
+      "libver.a",
+      "gzip$(EXEEXT)",
+      "install-binSCRIPTS",
+      "uninstall-binSCRIPTS",
+      "mostlyclean-compile",
+      "distclean-compile",
+      "$(am__depfiles_remade)",
+      "am--depfiles",
+      ".c.o",
+      ".c.obj",
+      "install-man1",
+      "uninstall-man1",
+      "$(am__recursive_targets)",
+      "ID",
+      "tags",
+      "TAGS",
+      "tags-am",
+      "ctags",
+      "CTAGS",
+      "ctags-am",
+      "GTAGS",
+      "cscope",
+      "clean-cscope",
+      "cscope.files",
+      "cscopelist",
+      "cscopelist-am",
+      "distclean-tags"
+    ],
+    "key_variables": {
+      "AR": "ar",
+      "CC": "gcc",
+      "CFLAGS": "-g -O2",
+      "CPPFLAGS": "",
+      "DEFAULT_INCLUDES": "-I. -I$(top_builddir)/lib",
+      "DEFS": "-DHAVE_CONFIG_H",
+      "LDFLAGS": "",
+      "LIBS": "",
+      "RANLIB": "ranlib"
+    },
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "config.log"
+    ],
+    "recursion_depth": 1,
+    "top_targets": [
+      "all"
+    ],
+    "make_diagnostics": []
+  },
   "toolchain_interaction": {
     "compiler": "cc",
     "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
     "c_std_default_risk": true,
-    "defines_sampled": []
+    "defines_sampled": [
+      "NO_UNDERLINE",
+      "HAVE_CONFIG_H"
+    ]
   },
   "quirk_history": [
     {
@@ -650,7 +786,7 @@
     }
   ],
   "verification": {
-    "vs_gnu": "not-compared",
+    "vs_gnu": "ours-worse",
     "output_match": "not-compared"
   },
   "vpath_analysis": {
@@ -748,9 +884,9 @@
   "scenario_context": {
     "temporal_map": {
       "Makefile.am": -5,
-      "Makefile.in": 3454,
-      "aclocal.m4": 19,
-      "configure": 169,
+      "Makefile.in": 10088,
+      "aclocal.m4": 8870,
+      "configure": 9552,
       "configure.ac": 0
     },
     "m4_ancestry": {

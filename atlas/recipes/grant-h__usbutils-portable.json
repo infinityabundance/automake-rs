@@ -97,6 +97,32 @@
       "char inflateEnd ();\\nint main() { return inflateEnd(); }"
     ]
   },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "ok",
+    "real_configure_lines": 6954,
+    "real_first_error": "",
+    "classification": "OURS_BUG_MAKE",
+    "internal_traces": [
+      "configure.ac:13: installing './compile'",
+      "configure.ac:9: installing './install-sh'",
+      "configure.ac:9: installing './missing'",
+      "src/Makefile.am: installing './depcomp'",
+      "configure.ac:12: installing './compile'",
+      "configure.ac:8: installing './install-sh'",
+      "configure.ac:8: installing './missing'",
+      "Makefile.am: installing './depcomp'"
+    ]
+  },
+  "divergence": {
+    "stage": "make",
+    "ours_error": "",
+    "ours_error_context": [],
+    "ours_configure_lines": 2607,
+    "real_configure_lines": 6954,
+    "macros_ours_left_undefined": []
+  },
   "receipt": {
     "court_status": "partial",
     "probe_trace": [],
@@ -104,7 +130,7 @@
       "uses-pkg-config",
       "vendored-aclocal"
     ],
-    "receipt_hash": "fc222e24136e1c7565f3970366c0a81d4ec04fa5491250e780188ba2805c06fb",
+    "receipt_hash": "da9100428374f9d4737a8db2ff640a534775a60ddd83491fd81748ed34de7b9d",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -113,17 +139,21 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": [],
+    "relevant_env": [
+      "ACLOCAL_PATH=/usr/share/aclocal"
+    ],
     "kernel_version": "6.8.0-124-generic",
     "libc_name": "glibc",
     "libc_version": "2.39",
     "pkg_config_path": [],
-    "env_vars_influential": {},
+    "env_vars_influential": {
+      "ACLOCAL_PATH": "/usr/share/aclocal"
+    },
     "posix_flavor": "gnu",
     "shell": "dash",
     "oracle_tool_versions": {
       "autoconf": "2.71",
-      "automake": "1.16.5",
+      "automake": "1.18.1",
       "libtool": "2.4.7",
       "m4": "1.4.19"
     },
@@ -191,7 +221,7 @@
         "subdirs": [
           "src"
         ],
-        "sources_include_config_h": false,
+        "sources_include_config_h": true,
         "am_cppflags": ""
       },
       {
@@ -206,6 +236,7 @@
     ],
     "max_depth": 0,
     "config_h_consumers_below_root": [
+      "usbhid-dump",
       "usbhid-dump/src"
     ]
   },
@@ -215,7 +246,31 @@
         "path": "Makefile",
         "has_makefile_in": true,
         "has_makefile_am": true,
-        "lines": 650,
+        "lines": 1329,
+        "unexpanded_vars": [
+          "@usbids@"
+        ],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "usbhid-dump/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 822,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "usbhid-dump/src/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 621,
         "unexpanded_vars": [],
         "unexpanded_automake_tokens": [
           "$(am__"
@@ -252,10 +307,10 @@
     "unresolved_macros": []
   },
   "conditional_context": {
-    "configure_if": 103,
-    "configure_fi": 100,
-    "configure_case": 63,
-    "configure_esac": 66,
+    "configure_if": 376,
+    "configure_fi": 339,
+    "configure_case": 139,
+    "configure_esac": 126,
     "balanced": false,
     "automake_conditionals": [
       "HAVE_ZLIB",
@@ -275,7 +330,7 @@
   "language_surface": {
     "source_suffixes": {
       "c": 12,
-      "h": 12
+      "h": 13
     },
     "configure_macros": [],
     "needs_cxx": false,
@@ -285,70 +340,65 @@
   "make_graph": {
     "targets": [
       "all",
-      "all-am",
+      ".SUFFIXES",
+      "am--refresh",
+      "$(srcdir)/Makefile.in",
+      "Makefile",
+      "$(top_builddir)/config.status",
+      "$(top_srcdir)/configure",
+      "$(ACLOCAL_M4)",
+      "$(am__aclocal_m4_deps)",
+      "config.h",
+      "stamp-h1",
+      "$(srcdir)/config.h.in",
+      "distclean-hdr",
+      "install-binPROGRAMS",
+      "uninstall-binPROGRAMS",
+      "clean-binPROGRAMS",
+      "lsusb$(EXEEXT)",
+      "install-binSCRIPTS",
+      "uninstall-binSCRIPTS",
+      "install-sbinSCRIPTS",
+      "uninstall-sbinSCRIPTS",
+      "mostlyclean-compile",
+      "distclean-compile",
       "$(am__depfiles_remade)",
       "am--depfiles",
-      "install-exec-am",
-      "install-data-am",
-      "uninstall-am",
-      "install-man",
-      "install-man-am",
-      "uninstall-man",
-      "uninstall-man-am",
-      "install-am",
-      "installcheck-am",
-      "install-strip",
-      "install-info",
-      "install-info-am",
-      "install-dvi",
-      "install-dvi-am",
-      "install-ps",
-      "install-ps-am",
-      "install-pdf",
-      "install-pdf-am",
-      "install-html",
-      "install-html-am",
-      "install-data-hook",
-      "install-exec-hook",
-      "installdirs-am",
-      ".PHONY",
-      "mostlyclean-am",
-      "clean-am",
-      "distclean-am",
-      "maintainer-clean-am",
-      "distdir",
-      "dist",
-      "dist-all",
-      "dist-gzip",
-      "distcleancheck",
-      "distcheck",
-      "check-am",
-      "TAGS"
+      ".c.o",
+      ".c.obj",
+      "lsusb-lsusb.o",
+      "lsusb-lsusb.obj",
+      "lsusb-lsusb-t.o",
+      "lsusb-lsusb-t.obj",
+      "lsusb-desc-defs.o",
+      "lsusb-desc-defs.obj",
+      "lsusb-desc-dump.o",
+      "lsusb-desc-dump.obj",
+      "lsusb-names.o",
+      "lsusb-names.obj",
+      "lsusb-usbmisc.o",
+      "lsusb-usbmisc.obj",
+      "install-man1"
     ],
     "key_variables": {
-      "AR": "ar",
-      "CC": "cc",
+      "CC": "gcc",
       "CFLAGS": "-g -O2",
-      "CPPFLAGS": "-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGE_FILES",
-      "CXX": "c++",
-      "CXXFLAGS": "-g -O2",
-      "DEFAULT_INCLUDES": "-I. -I$(top_builddir)",
+      "CPPFLAGS": "",
+      "DEFAULT_INCLUDES": "-I.",
       "DEFS": "-DHAVE_CONFIG_H",
       "LDFLAGS": "",
-      "LIBS": "",
-      "RANLIB": "ranlib"
+      "LIBS": ""
     },
     "generated_files": [
       "Makefile",
       "config.status",
       "config.h",
+      "stamp-h1",
       "config.log"
     ],
     "recursion_depth": 0,
     "top_targets": [
-      "all",
-      "dist",
-      "all-am"
+      "all"
     ],
     "make_diagnostics": [
       {
@@ -368,12 +418,9 @@
     "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
     "c_std_default_risk": true,
     "defines_sampled": [
-      "_FILE_OFFSET_BITS=64",
-      "_LARGEFILE_SOURCE",
-      "_LARGE_FILES",
+      "HAVE_LIBZ",
       "HAVE_CONFIG_H",
-      "DATADIR=\\\"$(datadir)\\\"",
-      "HAVE_LIBZ"
+      "DATADIR=\\\"$(datadir)\\\""
     ]
   },
   "quirk_history": [
@@ -391,7 +438,7 @@
     }
   ],
   "verification": {
-    "vs_gnu": "not-compared",
+    "vs_gnu": "ours-worse",
     "output_match": "not-compared"
   },
   "feature_probe_gap": {
@@ -455,10 +502,21 @@
   ],
   "repair_hints": [
     {
+      "id": "unexpanded-makefile-vars",
+      "phase": "make",
+      "confidence": 0.8,
+      "evidence": [
+        "@usbids@"
+      ],
+      "action": "add these to STD_VAR_SED / AC_SUBST handling",
+      "expected_effect": "removes raw @VAR@ from Makefile"
+    },
+    {
       "id": "subdir-top-builddir",
       "phase": "make",
       "confidence": 0.88,
       "evidence": [
+        "usbhid-dump consumes config.h below root",
         "usbhid-dump/src consumes config.h below root"
       ],
       "action": "ensure ac_subst_file sets relative top_builddir per subdir (0.1.19)",
@@ -468,10 +526,10 @@
   "scenario_context": {
     "temporal_map": {
       "Makefile.am": 0,
-      "Makefile.in": 1015,
-      "aclocal.m4": 6,
-      "config.h.in": 11,
-      "configure": 10,
+      "Makefile.in": 5698,
+      "aclocal.m4": 3538,
+      "config.h.in": 5537,
+      "configure": 5440,
       "configure.ac": 0
     },
     "m4_ancestry": {

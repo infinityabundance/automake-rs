@@ -102,7 +102,7 @@
     "failure_tail": [
       "for Valgrind tool memcheck... for Valgrind tool helgrind... for Valgrind tool dr",
       "configure: creating Makefile",
-      "sed: -e expression #23, char 24: unterminated `s' command",
+      "sed: -e expression #21, char 25: unterminated `s' command",
       "configure: creating config.h",
       "configure: creating ./config.status"
     ],
@@ -113,6 +113,29 @@
       "#include <assert.h>",
       "#include <stdlib.h>"
     ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "ok",
+    "real_configure_lines": 7062,
+    "real_first_error": "",
+    "classification": "OURS_BUG_MAKE",
+    "internal_traces": [
+      "configure.ac:29: warning: The macro `AC_PROG_CC_C99' is obsolete.",
+      "configure.ac:22: installing 'build-aux/compile'",
+      "configure.ac:7: installing 'build-aux/install-sh'",
+      "configure.ac:7: installing 'build-aux/missing'",
+      "Makefile.am: installing 'build-aux/depcomp'"
+    ]
+  },
+  "divergence": {
+    "stage": "make",
+    "ours_error": "",
+    "ours_error_context": [],
+    "ours_configure_lines": 3004,
+    "real_configure_lines": 7062,
+    "macros_ours_left_undefined": []
   },
   "receipt": {
     "court_status": "partial",
@@ -137,7 +160,7 @@
       "vendored-aclocal",
       "uses-ax-archive"
     ],
-    "receipt_hash": "0fa092a5243df68c170dc0d56b8d0313ef29cbd2fd5658c7443b9497b3db5559",
+    "receipt_hash": "68c311d27e4076c6abffddb2d8c6cde9f718414a3284b072f02b117fbb0e1471",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -146,17 +169,21 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": [],
+    "relevant_env": [
+      "ACLOCAL_PATH=/usr/share/aclocal"
+    ],
     "kernel_version": "6.8.0-124-generic",
     "libc_name": "glibc",
     "libc_version": "2.39",
     "pkg_config_path": [],
-    "env_vars_influential": {},
+    "env_vars_influential": {
+      "ACLOCAL_PATH": "/usr/share/aclocal"
+    },
     "posix_flavor": "gnu",
     "shell": "dash",
     "oracle_tool_versions": {
       "autoconf": "2.71",
-      "automake": "1.16.5",
+      "automake": "1.18.1",
       "libtool": "2.4.7",
       "m4": "1.4.19"
     },
@@ -216,7 +243,7 @@
           "add.ctaptest"
         ],
         "subdirs": [],
-        "sources_include_config_h": false,
+        "sources_include_config_h": true,
         "am_cppflags": "-I$(top_srcdir)/src # so that tests also find header files"
       }
     ],
@@ -229,9 +256,21 @@
         "path": "Makefile",
         "has_makefile_in": true,
         "has_makefile_am": true,
-        "lines": 0,
+        "lines": 1547,
+        "first_parse_error": {
+          "line": 1386,
+          "kind": "missing-separator",
+          "text": "VALGRIND_SUPPRESSIONS ?= $(addprefix --suppressions=,$(VALGRIND_SUPPRESSIONS_FIL",
+          "previous_lines": [
+            "",
+            "# Optional variables"
+          ],
+          "probable_cause": "bare-macro"
+        },
         "unexpanded_vars": [],
-        "unexpanded_automake_tokens": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
         "recipe_tab_anomalies": 0
       }
     ]
@@ -288,10 +327,10 @@
     "unresolved_macros": []
   },
   "conditional_context": {
-    "configure_if": 126,
-    "configure_fi": 118,
-    "configure_case": 64,
-    "configure_esac": 67,
+    "configure_if": 382,
+    "configure_fi": 350,
+    "configure_case": 136,
+    "configure_esac": 129,
     "balanced": false,
     "automake_conditionals": []
   },
@@ -319,16 +358,70 @@
     "sets_c_std": true
   },
   "make_graph": {
-    "targets": [],
-    "key_variables": {},
+    "targets": [
+      "all",
+      ".SUFFIXES",
+      "am--refresh",
+      "$(srcdir)/Makefile.in",
+      "Makefile",
+      "$(top_builddir)/config.status",
+      "$(top_srcdir)/configure",
+      "$(ACLOCAL_M4)",
+      "$(am__aclocal_m4_deps)",
+      "config.h",
+      "stamp-h1",
+      "$(srcdir)/config.h.in",
+      "distclean-hdr",
+      "install-binPROGRAMS",
+      "uninstall-binPROGRAMS",
+      "clean-binPROGRAMS",
+      "clean-checkPROGRAMS",
+      "clean-noinstLIBRARIES",
+      "src/$(am__dirstamp)",
+      "src/$(DEPDIR)/$(am__dirstamp)",
+      "src/common.$(OBJEXT)",
+      "libcommon.a",
+      "tests/$(am__dirstamp)",
+      "tests/$(DEPDIR)/$(am__dirstamp)",
+      "tests/add_ctaptest-add.$(OBJEXT)",
+      "src/add_ctaptest-add.$(OBJEXT)",
+      "add.ctaptest$(EXEEXT)",
+      "src/myexecutable-add.$(OBJEXT)",
+      "src/myexecutable-main.$(OBJEXT)",
+      "myexecutable$(EXEEXT)",
+      "mostlyclean-compile",
+      "distclean-compile",
+      "$(am__depfiles_remade)",
+      "am--depfiles",
+      ".c.o",
+      ".c.obj",
+      "tests/add_ctaptest-add.o",
+      "tests/add_ctaptest-add.obj",
+      "src/add_ctaptest-add.o",
+      "src/add_ctaptest-add.obj"
+    ],
+    "key_variables": {
+      "AR": "ar",
+      "CC": "gcc",
+      "CFLAGS": "-g -O2",
+      "CPPFLAGS": "",
+      "DEFAULT_INCLUDES": "-I.",
+      "DEFS": "-DHAVE_CONFIG_H",
+      "LDFLAGS": "",
+      "LIBS": "",
+      "RANLIB": "ranlib"
+    },
     "generated_files": [
       "Makefile",
       "config.status",
       "config.h",
+      "stamp-h1",
       "config.log"
     ],
     "recursion_depth": 0,
-    "top_targets": [],
+    "top_targets": [
+      "all"
+    ],
     "make_diagnostics": [
       {
         "command": "",
@@ -341,7 +434,9 @@
     "compiler": "cc",
     "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
     "c_std_default_risk": false,
-    "defines_sampled": []
+    "defines_sampled": [
+      "HAVE_CONFIG_H"
+    ]
   },
   "quirk_history": [
     {
@@ -376,7 +471,7 @@
     }
   ],
   "verification": {
-    "vs_gnu": "not-compared",
+    "vs_gnu": "ours-worse",
     "output_match": "not-compared"
   },
   "feature_probe_gap": {
@@ -412,13 +507,26 @@
     "undefined_symbols": [],
     "provided_symbols_sample": []
   },
+  "repair_hints": [
+    {
+      "id": "makefile-bare-macro",
+      "phase": "make",
+      "confidence": 0.7,
+      "evidence": [
+        "Makefile:1386 missing-separator",
+        "VALGRIND_SUPPRESSIONS ?= $(addprefix --suppressions=,$(VALGRIND_SUPPRESSIONS_FIL"
+      ],
+      "action": "define-or-neutralize-leaked-macro",
+      "expected_effect": "partial -> FUNC_OK candidate"
+    }
+  ],
   "scenario_context": {
     "temporal_map": {
       "Makefile.am": 0,
-      "Makefile.in": 1043,
-      "aclocal.m4": 5,
-      "config.h.in": 12,
-      "configure": 11,
+      "Makefile.in": 3121,
+      "aclocal.m4": 2674,
+      "config.h.in": 2962,
+      "configure": 2866,
       "configure.ac": 0
     },
     "m4_ancestry": {

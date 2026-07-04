@@ -110,6 +110,39 @@
       "#include <$ac_hdr>"
     ]
   },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "ok",
+    "real_configure_lines": 17497,
+    "real_first_error": "",
+    "classification": "OURS_BUG_MAKE",
+    "internal_traces": [
+      "aclocal: warning: autoconf input should be named 'configure.ac', not 'configure.in'",
+      "libtoolize: putting auxiliary files in '.'.",
+      "libtoolize: copying file './ltmain.sh'",
+      "libtoolize: Consider adding 'AC_CONFIG_MACRO_DIRS([m4])' to configure.in,",
+      "libtoolize: and rerunning libtoolize and aclocal.",
+      "libtoolize: Consider adding '-I m4' to ACLOCAL_AMFLAGS in Makefile.am.",
+      "aclocal: warning: autoconf input should be named 'configure.ac', not 'configure.in'",
+      "automake: warning: autoconf input should be named 'configure.ac', not 'configure.in'",
+      "configure.in:10: installing './compile'",
+      "configure.in:9: installing './config.guess'",
+      "configure.in:9: installing './config.sub'",
+      "configure.in:4: installing './install-sh'",
+      "configure.in:4: installing './missing'",
+      "automake: warning: autoconf input should be named 'configure.ac', not 'configure.in'",
+      "src/Makefile.am: installing './depcomp'"
+    ]
+  },
+  "divergence": {
+    "stage": "make",
+    "ours_error": "",
+    "ours_error_context": [],
+    "ours_configure_lines": 2504,
+    "real_configure_lines": 17497,
+    "macros_ours_left_undefined": []
+  },
   "receipt": {
     "court_status": "partial",
     "probe_trace": [],
@@ -117,7 +150,7 @@
       "uses-libtool-old",
       "vendored-aclocal"
     ],
-    "receipt_hash": "fc222e24136e1c7565f3970366c0a81d4ec04fa5491250e780188ba2805c06fb",
+    "receipt_hash": "da9100428374f9d4737a8db2ff640a534775a60ddd83491fd81748ed34de7b9d",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -126,17 +159,21 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": [],
+    "relevant_env": [
+      "ACLOCAL_PATH=/usr/share/aclocal"
+    ],
     "kernel_version": "6.8.0-124-generic",
     "libc_name": "glibc",
     "libc_version": "2.39",
     "pkg_config_path": [],
-    "env_vars_influential": {},
+    "env_vars_influential": {
+      "ACLOCAL_PATH": "/usr/share/aclocal"
+    },
     "posix_flavor": "gnu",
     "shell": "dash",
     "oracle_tool_versions": {
       "autoconf": "2.71",
-      "automake": "1.16.5",
+      "automake": "1.18.1",
       "libtool": "2.4.7",
       "m4": "1.4.19"
     },
@@ -225,7 +262,7 @@
         "path": "Makefile",
         "has_makefile_in": true,
         "has_makefile_am": true,
-        "lines": 539,
+        "lines": 920,
         "unexpanded_vars": [],
         "unexpanded_automake_tokens": [
           "$(am__"
@@ -236,7 +273,7 @@
         "path": "src/Makefile",
         "has_makefile_in": true,
         "has_makefile_am": true,
-        "lines": 593,
+        "lines": 970,
         "unexpanded_vars": [],
         "unexpanded_automake_tokens": [
           "$(am__"
@@ -273,10 +310,10 @@
     "unresolved_macros": []
   },
   "conditional_context": {
-    "configure_if": 97,
-    "configure_fi": 94,
-    "configure_case": 63,
-    "configure_esac": 66,
+    "configure_if": 1032,
+    "configure_fi": 944,
+    "configure_case": 359,
+    "configure_esac": 345,
     "balanced": false,
     "automake_conditionals": []
   },
@@ -284,13 +321,12 @@
     "aux_dir": ".",
     "present": [
       "install-sh",
-      "missing"
-    ],
-    "missing": [
+      "missing",
       "depcomp",
       "compile",
       "ltmain.sh"
-    ]
+    ],
+    "missing": []
   },
   "language_surface": {
     "source_suffixes": {
@@ -310,60 +346,60 @@
       "AC_PROG_LIBTOOL",
       "AM_PROG_LIBTOOL"
     ],
-    "ltmain_present": false,
-    "libtool_m4_sources": [],
+    "ltmain_present": true,
+    "libtool_m4_sources": [
+      "aclocal.m4"
+    ],
     "age": "old"
   },
   "make_graph": {
     "targets": [
       "all",
-      "all-am",
-      "install-data-am",
-      "uninstall-am",
-      "install-am",
-      "installcheck-am",
-      "install-strip",
-      "install-info",
-      "install-info-am",
-      "install-dvi",
-      "install-dvi-am",
-      "install-ps",
-      "install-ps-am",
-      "install-pdf",
-      "install-pdf-am",
-      "install-html",
-      "install-html-am",
-      "install-data-hook",
-      "install-exec-hook",
-      "installdirs-am",
-      ".PHONY",
-      "mostlyclean-am",
-      "clean-am",
-      "distclean-am",
-      "maintainer-clean-am",
-      "distdir",
-      "dist",
-      "dist-all",
-      "dist-gzip",
-      "distcleancheck",
-      "distcheck",
-      "check-am",
-      "TAGS",
+      ".SUFFIXES",
+      "am--refresh",
+      "$(srcdir)/Makefile.in",
+      "Makefile",
+      "$(top_builddir)/config.status",
+      "$(top_srcdir)/configure",
+      "$(ACLOCAL_M4)",
+      "$(am__aclocal_m4_deps)",
+      "include/config.h",
+      "include/stamp-h1",
+      "$(top_srcdir)/include/config.h.in",
+      "distclean-hdr",
+      "mostlyclean-libtool",
+      "clean-libtool",
+      "distclean-libtool",
+      "install-dist_pkgdataDATA",
+      "uninstall-dist_pkgdataDATA",
+      "$(am__recursive_targets)",
+      "ID",
       "tags",
-      "TAGS-am",
+      "TAGS",
       "tags-am",
+      "ctags",
+      "CTAGS",
+      "ctags-am",
+      "GTAGS",
       "cscope",
-      "cscope-am",
-      "distuninstallcheck",
-      "$(srcdir)/Makefile.in"
+      "clean-cscope",
+      "cscope.files",
+      "cscopelist",
+      "cscopelist-am",
+      "distclean-tags",
+      "distdir",
+      "distdir-am",
+      "dist-gzip",
+      "dist-bzip2",
+      "dist-bzip3",
+      "dist-lzip",
+      "dist-xz"
     ],
     "key_variables": {
       "AR": "ar",
-      "CC": "cc",
-      "CFLAGS": "-I/usr/include/libusb-1.0",
+      "CC": "gcc",
+      "CFLAGS": "-g -O2 -Wall -pipe -I/usr/include/libusb-1.0",
       "CPPFLAGS": "",
-      "CXX": "c++",
-      "CXXFLAGS": "-g -O2",
       "DEFS": "-DHAVE_CONFIG_H",
       "LDFLAGS": "",
       "LIBS": "",
@@ -377,9 +413,7 @@
     ],
     "recursion_depth": 1,
     "top_targets": [
-      "all",
-      "dist",
-      "all-am"
+      "all"
     ],
     "make_diagnostics": [
       {
@@ -432,7 +466,7 @@
     }
   ],
   "verification": {
-    "vs_gnu": "not-compared",
+    "vs_gnu": "ours-worse",
     "output_match": "not-compared"
   },
   "feature_probe_gap": {
@@ -506,9 +540,9 @@
   "scenario_context": {
     "temporal_map": {
       "Makefile.am": 0,
-      "Makefile.in": 1015,
-      "aclocal.m4": 6,
-      "configure": 9,
+      "Makefile.in": 5588,
+      "aclocal.m4": 5090,
+      "configure": 5269,
       "configure.in": 0
     },
     "m4_ancestry": {

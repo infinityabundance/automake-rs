@@ -114,6 +114,27 @@
       "AC_INCLUDES_DEFAULT\\n#ifdef HAVE_SYS_ENDIAN_H\\n#include <sys/endian.h>\\n#endif\\n\\nint main (void)\\n{\\n#ifndef le32enc\\n(void) le32enc;\\n#endif\\n;\\nreturn 0;"
     ]
   },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "fail",
+    "real_configure_lines": 8825,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE",
+    "internal_traces": [
+      "configure.ac:4: warning: The macro `AC_CANONICAL_SYSTEM' is obsolete.",
+      "configure.ac:15: warning: The macro `AC_PROG_CC_C99' is obsolete.",
+      "configure.ac:23: warning: The macro `AC_HEADER_STDC' is obsolete."
+    ]
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "",
+    "ours_error_context": [],
+    "ours_configure_lines": 3060,
+    "real_configure_lines": 8825,
+    "macros_ours_left_undefined": []
+  },
   "receipt": {
     "court_status": "failed",
     "probe_trace": [],
@@ -135,7 +156,7 @@
         "verified": false
       }
     ],
-    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
+    "receipt_hash": "a538dd1b607f6cd976fc862d4e8e8d63c3c1266aed35ab3625cbb61237e9478c",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -144,17 +165,21 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": [],
+    "relevant_env": [
+      "ACLOCAL_PATH=/usr/share/aclocal"
+    ],
     "kernel_version": "6.8.0-124-generic",
     "libc_name": "glibc",
     "libc_version": "2.39",
     "pkg_config_path": [],
-    "env_vars_influential": {},
+    "env_vars_influential": {
+      "ACLOCAL_PATH": "/usr/share/aclocal"
+    },
     "posix_flavor": "gnu",
     "shell": "dash",
     "oracle_tool_versions": {
       "autoconf": "2.71",
-      "automake": "1.16.5",
+      "automake": "1.18.1",
       "libtool": "2.4.7",
       "m4": "1.4.19"
     },
@@ -263,8 +288,32 @@
         "path": "Makefile",
         "has_makefile_in": true,
         "has_makefile_am": true,
-        "lines": 3311,
+        "lines": 3692,
         "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "compat/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 624,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "compat/bos-jansson/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 734,
+        "unexpanded_vars": [
+          "@JSON_BSYMBOLIC_LDFLAGS@"
+        ],
         "unexpanded_automake_tokens": [
           "$(am__"
         ],
@@ -324,10 +373,10 @@
     "unresolved_macros": []
   },
   "conditional_context": {
-    "configure_if": 130,
-    "configure_fi": 127,
-    "configure_case": 64,
-    "configure_esac": 67,
+    "configure_if": 501,
+    "configure_fi": 458,
+    "configure_case": 152,
+    "configure_esac": 138,
     "balanced": false,
     "automake_conditionals": [
       "WANT_JANSSON",
@@ -413,13 +462,13 @@
     ],
     "key_variables": {
       "CC": "gcc",
-      "CFLAGS": "-march=native  -Iyes/include -Iyes/include",
-      "CPPFLAGS": "-Iyes/include -Iyes/include",
+      "CFLAGS": "-g -O2",
+      "CPPFLAGS": "",
       "CXX": "g++",
       "CXXFLAGS": "-g -O2",
       "DEFAULT_INCLUDES": "-I.",
       "DEFS": "-DHAVE_CONFIG_H",
-      "LDFLAGS": "-Lyes/lib -Lyes/lib",
+      "LDFLAGS": "",
       "LIBS": "-lz",
       "RANLIB": "ranlib"
     },
@@ -471,7 +520,7 @@
     }
   ],
   "verification": {
-    "vs_gnu": "not-compared",
+    "vs_gnu": "ours-worse",
     "output_match": "not-compared"
   },
   "feature_probe_gap": {
@@ -569,6 +618,16 @@
   ],
   "repair_hints": [
     {
+      "id": "unexpanded-makefile-vars",
+      "phase": "make",
+      "confidence": 0.8,
+      "evidence": [
+        "@JSON_BSYMBOLIC_LDFLAGS@"
+      ],
+      "action": "add these to STD_VAR_SED / AC_SUBST handling",
+      "expected_effect": "removes raw @VAR@ from Makefile"
+    },
+    {
       "id": "subdir-top-builddir",
       "phase": "make",
       "confidence": 0.88,
@@ -582,9 +641,9 @@
   "scenario_context": {
     "temporal_map": {
       "Makefile.am": -99,
-      "Makefile.in": 1179,
-      "aclocal.m4": 15,
-      "configure": 21,
+      "Makefile.in": 4578,
+      "aclocal.m4": 4008,
+      "configure": 4232,
       "configure.ac": 0
     },
     "m4_ancestry": {

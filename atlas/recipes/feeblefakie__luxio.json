@@ -116,6 +116,32 @@
       "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { size_t x; return 0; }"
     ]
   },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "fail",
+    "real_configure_lines": 21072,
+    "real_first_error": "",
+    "classification": "BOTH_MAKE_FAIL",
+    "internal_traces": [
+      "libtoolize: putting auxiliary files in '.'.",
+      "libtoolize: copying file './ltmain.sh'",
+      "libtoolize: Consider adding 'AC_CONFIG_MACRO_DIRS([m4])' to configure.ac,",
+      "libtoolize: and rerunning libtoolize and aclocal.",
+      "libtoolize: Consider adding '-I m4' to ACLOCAL_AMFLAGS in Makefile.am.",
+      "libtoolize: 'AC_PROG_RANLIB' is rendered obsolete by 'LT_INIT'",
+      "configure.ac:7: warning: The macro `AC_CONFIG_HEADER' is obsolete.",
+      "configure.ac:8: warning: AM_INIT_AUTOMAKE: two- and three-arguments forms are deprecated.",
+      "configure.ac:20: warning: The macro `AC_PROG_LIBTOOL' is obsolete.",
+      "configure.ac:23: warning: The macro `AC_CXX_HAVE_STD' is obsolete.",
+      "configure.ac:26: warning: The macro `AC_HEADER_STDC' is obsolete.",
+      "configure.ac:36: warning: The macro `AC_HEADER_TIME' is obsolete.",
+      "configure.ac:8: warning: AM_INIT_AUTOMAKE: two- and three-arguments forms are deprecated.  For more info, see:",
+      "configure.ac:12: installing './compile'",
+      "configure.ac:8: installing './missing'",
+      "Makefile.am: installing './depcomp'"
+    ]
+  },
   "receipt": {
     "court_status": "partial",
     "probe_trace": [
@@ -263,7 +289,7 @@
       "has-m4-macro-dir",
       "vendored-aclocal"
     ],
-    "receipt_hash": "abe34ebef2358722dc36b370307be0efd2eccf6d721e720e6f2a5bcc6e43a216",
+    "receipt_hash": "53e181cef875d1a6623fc747f21f8f994c3952c72cc50be893825d45c968fc0e",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -272,17 +298,21 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": [],
+    "relevant_env": [
+      "ACLOCAL_PATH=/usr/share/aclocal"
+    ],
     "kernel_version": "6.8.0-124-generic",
     "libc_name": "glibc",
     "libc_version": "2.39",
     "pkg_config_path": [],
-    "env_vars_influential": {},
+    "env_vars_influential": {
+      "ACLOCAL_PATH": "/usr/share/aclocal"
+    },
     "posix_flavor": "gnu",
     "shell": "dash",
     "oracle_tool_versions": {
       "autoconf": "2.71",
-      "automake": "1.16.5",
+      "automake": "1.18.1",
       "libtool": "2.4.7",
       "m4": "1.4.19"
     },
@@ -345,7 +375,7 @@
         "path": "Makefile",
         "has_makefile_in": true,
         "has_makefile_am": true,
-        "lines": 593,
+        "lines": 950,
         "unexpanded_vars": [],
         "unexpanded_automake_tokens": [
           "$(am__"
@@ -439,10 +469,10 @@
     "unresolved_macros": []
   },
   "conditional_context": {
-    "configure_if": 109,
-    "configure_fi": 106,
-    "configure_case": 63,
-    "configure_esac": 66,
+    "configure_if": 1114,
+    "configure_fi": 993,
+    "configure_case": 426,
+    "configure_esac": 412,
     "balanced": false,
     "automake_conditionals": []
   },
@@ -477,60 +507,62 @@
       "AC_PROG_LIBTOOL"
     ],
     "ltmain_present": true,
-    "libtool_m4_sources": [],
+    "libtool_m4_sources": [
+      "aclocal.m4"
+    ],
     "age": "old"
   },
   "make_graph": {
     "targets": [
       "all",
-      "all-am",
+      ".SUFFIXES",
+      "am--refresh",
+      "$(srcdir)/Makefile.in",
+      "Makefile",
+      "$(top_builddir)/config.status",
+      "$(top_srcdir)/configure",
+      "$(ACLOCAL_M4)",
+      "$(am__aclocal_m4_deps)",
+      "config.h",
+      "stamp-h1",
+      "$(srcdir)/config.h.in",
+      "distclean-hdr",
+      "install-libLTLIBRARIES",
+      "uninstall-libLTLIBRARIES",
+      "clean-libLTLIBRARIES",
+      "libluxio.la",
+      "mostlyclean-compile",
+      "distclean-compile",
       "$(am__depfiles_remade)",
       "am--depfiles",
-      "install-data-am",
-      "uninstall-am",
-      "install",
-      "install-am",
-      "installcheck",
-      "install-strip",
-      "install-info",
-      "install-info-am",
-      "install-dvi",
-      "install-dvi-am",
-      "install-ps",
-      "install-ps-am",
-      "install-pdf",
-      "install-pdf-am",
-      "install-html",
-      "install-html-am",
-      "install-data-hook",
-      "install-exec-hook",
-      "installdirs",
-      "installdirs-am",
-      ".PHONY",
-      "mostlyclean-am",
-      "clean-am",
-      "distclean-am",
-      "maintainer-clean-am",
-      "clean",
-      "distdir",
-      "dist",
-      "dist-all",
-      "dist-gzip",
-      "distcleancheck",
-      "distcheck",
-      "check-am",
-      "check",
+      ".cpp.o",
+      ".cpp.obj",
+      ".cpp.lo",
+      "mostlyclean-libtool",
+      "clean-libtool",
+      "distclean-libtool",
+      "install-libluxio_includeHEADERS",
+      "uninstall-libluxio_includeHEADERS",
+      "ID",
+      "tags",
       "TAGS",
-      "tags"
+      "tags-am",
+      "ctags",
+      "CTAGS",
+      "ctags-am",
+      "GTAGS",
+      "cscope",
+      "clean-cscope",
+      "cscope.files"
     ],
     "key_variables": {
       "AR": "ar",
-      "CC": "cc",
+      "CC": "gcc",
       "CFLAGS": "-g -O2",
       "CPPFLAGS": "",
       "CXX": "g++",
       "CXXFLAGS": "-g -O2",
-      "DEFAULT_INCLUDES": "-I. -I$(top_builddir)",
+      "DEFAULT_INCLUDES": "-I.",
       "DEFS": "-DHAVE_CONFIG_H",
       "LDFLAGS": "",
       "LIBS": "-lpthread",
@@ -546,12 +578,7 @@
     ],
     "recursion_depth": 0,
     "top_targets": [
-      "all",
-      "install",
-      "check",
-      "clean",
-      "dist",
-      "all-am"
+      "all"
     ],
     "make_diagnostics": [
       {
@@ -592,17 +619,17 @@
       {
         "command": "",
         "error_type": "compiler-error",
-        "message": "data.h:1180:38: error: cannot convert 'bool' to 'Lux::IO::data_ptr_t*' in return"
-      },
-      {
-        "command": "",
-        "error_type": "compiler-error",
         "message": "data.h:673:16: error: cannot convert 'bool' to 'Lux::IO::data_t*' in return"
       },
       {
         "command": "",
         "error_type": "compiler-error",
-        "message": "array.cpp:173:20: error: call of overloaded 'div(off_t, uint16_t&)' is ambiguous"
+        "message": "data.h:1180:38: error: cannot convert 'bool' to 'Lux::IO::data_ptr_t*' in return"
+      },
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "data.h:1180:38: error: cannot convert 'bool' to 'Lux::IO::data_ptr_t*' in return"
       }
     ]
   },
@@ -635,8 +662,8 @@
     }
   ],
   "verification": {
-    "vs_gnu": "not-compared",
-    "output_match": "not-compared"
+    "vs_gnu": "both-fail",
+    "output_match": "both-fail"
   },
   "vpath_analysis": {
     "hardcoded_src_paths": 0,
@@ -723,11 +750,11 @@
   ],
   "scenario_context": {
     "temporal_map": {
-      "Makefile.am": -2,
-      "Makefile.in": 1131,
-      "aclocal.m4": 6,
-      "config.h.in": 10,
-      "configure": 9,
+      "Makefile.am": -3,
+      "Makefile.in": 4859,
+      "aclocal.m4": 4351,
+      "config.h.in": 4701,
+      "configure": 4547,
       "configure.ac": 0
     },
     "m4_ancestry": {

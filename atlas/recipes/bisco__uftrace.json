@@ -116,8 +116,8 @@
       "DEFS",
       "LIBOBJS",
       "INSTALL",
-      "LD",
       "AR",
+      "LD",
       "top_srcdir",
       "top_builddir",
       "builddir",
@@ -142,6 +142,23 @@
       "char pthread_self ();\\nint main() { return pthread_self(); }",
       "char bfd_openr ();\\nint main() { return bfd_openr(); }",
       "char dwarf_elf_init ();\\nint main() { return dwarf_elf_init(); }"
+    ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "fail",
+    "real_make": "skipped",
+    "real_configure_lines": 7351,
+    "real_first_error": "configure: error: Please install libdwarf development package",
+    "classification": "OURS_BETTER",
+    "internal_traces": [
+      "configure.ac:7: warning: 'AM_CONFIG_HEADER': this macro is obsolete.",
+      "configure.ac:39: warning: The macro `AC_HEADER_STDC' is obsolete.",
+      "configure.ac:57: warning: The macro `AC_HEADER_TIME' is obsolete.",
+      "configure.ac:18: installing './compile'",
+      "configure.ac:62: installing './config.guess'",
+      "configure.ac:62: installing './config.sub'",
+      "configure.ac:8: installing './missing'"
     ]
   },
   "receipt": {
@@ -266,7 +283,7 @@
       "uses-libtool-old",
       "vendored-aclocal"
     ],
-    "receipt_hash": "2d12f7781f13a093c2af88e37432d297c06070d16d3db6b10813f676ee93d2da",
+    "receipt_hash": "e5008fcf738234f1a9bc6fb6090d79d37b882775e606f553f98fd86628b019ce",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -275,17 +292,21 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": [],
+    "relevant_env": [
+      "ACLOCAL_PATH=/usr/share/aclocal"
+    ],
     "kernel_version": "6.8.0-124-generic",
     "libc_name": "glibc",
     "libc_version": "2.39",
     "pkg_config_path": [],
-    "env_vars_influential": {},
+    "env_vars_influential": {
+      "ACLOCAL_PATH": "/usr/share/aclocal"
+    },
     "posix_flavor": "gnu",
     "shell": "dash",
     "oracle_tool_versions": {
       "autoconf": "2.71",
-      "automake": "1.16.5",
+      "automake": "1.18.1",
       "libtool": "2.4.7",
       "m4": "1.4.19"
     },
@@ -346,21 +367,6 @@
     "max_depth": 0,
     "config_h_consumers_below_root": []
   },
-  "makefile_forensics": {
-    "generated_makefiles": [
-      {
-        "path": "Makefile",
-        "has_makefile_in": true,
-        "has_makefile_am": true,
-        "lines": 545,
-        "unexpanded_vars": [],
-        "unexpanded_automake_tokens": [
-          "$(am__"
-        ],
-        "recipe_tab_anomalies": 0
-      }
-    ]
-  },
   "macro_inventory": {
     "macro_dirs": [],
     "aclocal_m4_present": true,
@@ -396,10 +402,10 @@
     "unresolved_macros": []
   },
   "conditional_context": {
-    "configure_if": 112,
-    "configure_fi": 108,
-    "configure_case": 63,
-    "configure_esac": 66,
+    "configure_if": 407,
+    "configure_fi": 366,
+    "configure_case": 138,
+    "configure_esac": 125,
     "balanced": false,
     "automake_conditionals": []
   },
@@ -407,18 +413,18 @@
     "aux_dir": ".",
     "present": [
       "install-sh",
-      "depcomp"
+      "missing",
+      "depcomp",
+      "compile"
     ],
     "missing": [
-      "missing",
-      "compile",
       "ltmain.sh"
     ]
   },
   "language_surface": {
     "source_suffixes": {
       "c": 4,
-      "h": 3
+      "h": 2
     },
     "configure_macros": [
       "AC_PROG_CC"
@@ -436,117 +442,11 @@
     "libtool_m4_sources": [],
     "age": "old"
   },
-  "make_graph": {
-    "targets": [
-      "all",
-      "all-am",
-      "$(am__depfiles_remade)",
-      "am--depfiles",
-      "install-exec-am",
-      "uninstall-am",
-      "install-man",
-      "install-man-am",
-      "uninstall-man",
-      "uninstall-man-am",
-      "install",
-      "install-am",
-      "installcheck",
-      "install-strip",
-      "install-info",
-      "install-info-am",
-      "install-dvi",
-      "install-dvi-am",
-      "install-ps",
-      "install-ps-am",
-      "install-pdf",
-      "install-pdf-am",
-      "install-html",
-      "install-html-am",
-      "install-data-hook",
-      "install-exec-hook",
-      "installdirs",
-      "installdirs-am",
-      ".PHONY",
-      "mostlyclean-am",
-      "clean-am",
-      "distclean-am",
-      "maintainer-clean-am",
-      "clean",
-      "distdir",
-      "dist",
-      "dist-all",
-      "dist-gzip",
-      "distcleancheck",
-      "distcheck"
-    ],
-    "key_variables": {
-      "AR": "ar",
-      "CC": "cc",
-      "CFLAGS": "-I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include  -fPIC -DG_DISABLE_DEPRECATED",
-      "CPPFLAGS": "-I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include  -fPIC -DG_DISABLE_DEPRECATED -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/",
-      "CXX": "c++",
-      "CXXFLAGS": "-I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include  -fPIC -DG_DISABLE_DEPRECATED -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/",
-      "DEFAULT_INCLUDES": "-I. -I$(top_builddir)",
-      "DEFS": "-DHAVE_CONFIG_H",
-      "LDFLAGS": "-lglib-2.0",
-      "LIBS": "-ldwarf -lbfd -lpthread -ldl -lelf",
-      "RANLIB": "ranlib"
-    },
-    "generated_files": [
-      "Makefile",
-      "config.status",
-      "config.h",
-      "config.log"
-    ],
-    "recursion_depth": 0,
-    "top_targets": [
-      "all",
-      "install",
-      "clean",
-      "dist",
-      "all-am"
-    ],
-    "make_diagnostics": [
-      {
-        "command": "",
-        "error_type": "missing-header",
-        "message": "prototype.c:16:10: fatal error: libdwarf.h: No such file or directory"
-      },
-      {
-        "command": "",
-        "error_type": "make-syntax",
-        "message": "make[1]: *** [Makefile:535: libuftrace_so-prototype.o] Error 1"
-      },
-      {
-        "command": "",
-        "error_type": "make-syntax",
-        "message": "make[1]: *** Waiting for unfinished jobs...."
-      },
-      {
-        "command": "",
-        "error_type": "compiler-error",
-        "message": "libuftrace.c:506:5: error: conflicting types for 'pthread_create'; have 'int(pthread_t *, pthread_attr_t *, void * (*)(v"
-      },
-      {
-        "command": "",
-        "error_type": "make-syntax",
-        "message": "make[1]: *** [Makefile:532: libuftrace_so-libuftrace.o] Error 1"
-      },
-      {
-        "command": "",
-        "error_type": "make-syntax",
-        "message": "make: *** [Makefile:245: all-am] Error 2"
-      }
-    ]
-  },
   "toolchain_interaction": {
     "compiler": "cc",
     "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
     "c_std_default_risk": true,
-    "defines_sampled": [
-      "G_DISABLE_DEPRECATED",
-      "HAVE_CONFIG_H"
-    ]
+    "defines_sampled": []
   },
   "quirk_history": [
     {
@@ -563,7 +463,7 @@
     }
   ],
   "verification": {
-    "vs_gnu": "not-compared",
+    "vs_gnu": "ours-better",
     "output_match": "not-compared"
   },
   "feature_probe_gap": {
@@ -645,11 +545,11 @@
   ],
   "scenario_context": {
     "temporal_map": {
-      "Makefile.am": 0,
-      "Makefile.in": 1110,
-      "aclocal.m4": 5,
-      "config.h.in": 10,
-      "configure": 8,
+      "Makefile.am": -1,
+      "Makefile.in": 3381,
+      "aclocal.m4": 2908,
+      "config.h.in": 3222,
+      "configure": 3117,
       "configure.ac": 0
     },
     "m4_ancestry": {

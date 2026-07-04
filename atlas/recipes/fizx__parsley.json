@@ -82,6 +82,35 @@
       "char json_object_new_string ();\\nint main() { return json_object_new_string(); }"
     ]
   },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "fail",
+    "real_configure_lines": 15742,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE",
+    "internal_traces": [
+      "libtoolize: putting auxiliary files in '.'.",
+      "libtoolize: copying file './ltmain.sh'",
+      "libtoolize: Consider adding 'AC_CONFIG_MACRO_DIRS([m4])' to configure.ac,",
+      "libtoolize: and rerunning libtoolize and aclocal.",
+      "libtoolize: Consider adding '-I m4' to ACLOCAL_AMFLAGS in Makefile.am.",
+      "configure.ac:9: warning: The macro `AC_PROG_CC_C99' is obsolete.",
+      "configure.ac:10: warning: AC_PROG_LEX without either yywrap or noyywrap is obsolete",
+      "configure.ac:12: warning: The macro `AC_PROG_LIBTOOL' is obsolete.",
+      "configure.ac:9: installing './compile'",
+      "configure.ac:4: installing './missing'",
+      "Makefile.am: installing './depcomp'"
+    ]
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "",
+    "ours_error_context": [],
+    "ours_configure_lines": 2625,
+    "real_configure_lines": 15742,
+    "macros_ours_left_undefined": []
+  },
   "receipt": {
     "court_status": "failed",
     "probe_trace": [],
@@ -89,7 +118,7 @@
       "uses-libtool-old",
       "vendored-aclocal"
     ],
-    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
+    "receipt_hash": "a538dd1b607f6cd976fc862d4e8e8d63c3c1266aed35ab3625cbb61237e9478c",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -98,17 +127,21 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": [],
+    "relevant_env": [
+      "ACLOCAL_PATH=/usr/share/aclocal"
+    ],
     "kernel_version": "6.8.0-124-generic",
     "libc_name": "glibc",
     "libc_version": "2.39",
     "pkg_config_path": [],
-    "env_vars_influential": {},
+    "env_vars_influential": {
+      "ACLOCAL_PATH": "/usr/share/aclocal"
+    },
     "posix_flavor": "gnu",
     "shell": "dash",
     "oracle_tool_versions": {
       "autoconf": "2.71",
-      "automake": "1.16.5",
+      "automake": "1.18.1",
       "libtool": "2.4.7",
       "m4": "1.4.19"
     },
@@ -167,6 +200,21 @@
     "max_depth": 0,
     "config_h_consumers_below_root": []
   },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1079,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      }
+    ]
+  },
   "tool_requirements": {
     "detected": [
       "yacc"
@@ -197,10 +245,10 @@
     "unresolved_macros": []
   },
   "conditional_context": {
-    "configure_if": 104,
-    "configure_fi": 99,
-    "configure_case": 63,
-    "configure_esac": 66,
+    "configure_if": 855,
+    "configure_fi": 780,
+    "configure_case": 325,
+    "configure_esac": 311,
     "balanced": false,
     "automake_conditionals": []
   },
@@ -218,7 +266,7 @@
   "language_surface": {
     "source_suffixes": {
       "c": 11,
-      "h": 9
+      "h": 8
     },
     "configure_macros": [
       "AC_PROG_CC",
@@ -234,14 +282,103 @@
       "AC_PROG_LIBTOOL"
     ],
     "ltmain_present": true,
-    "libtool_m4_sources": [],
+    "libtool_m4_sources": [
+      "aclocal.m4"
+    ],
     "age": "old"
+  },
+  "make_graph": {
+    "targets": [
+      "all",
+      ".SUFFIXES",
+      "am--refresh",
+      "$(srcdir)/Makefile.in",
+      "Makefile",
+      "$(top_builddir)/config.status",
+      "$(top_srcdir)/configure",
+      "$(ACLOCAL_M4)",
+      "$(am__aclocal_m4_deps)",
+      "install-binPROGRAMS",
+      "uninstall-binPROGRAMS",
+      "clean-binPROGRAMS",
+      "install-libLTLIBRARIES",
+      "uninstall-libLTLIBRARIES",
+      "clean-libLTLIBRARIES",
+      "parser.h",
+      "libparsley.la",
+      "parsley$(EXEEXT)",
+      "parsleyc$(EXEEXT)",
+      "mostlyclean-compile",
+      "distclean-compile",
+      "$(am__depfiles_remade)",
+      "am--depfiles",
+      ".c.o",
+      ".c.obj",
+      ".c.lo",
+      ".l.c",
+      ".y.c",
+      "mostlyclean-libtool",
+      "clean-libtool",
+      "distclean-libtool",
+      "install-includeHEADERS",
+      "uninstall-includeHEADERS",
+      "ID",
+      "tags",
+      "TAGS",
+      "tags-am",
+      "ctags",
+      "CTAGS",
+      "ctags-am"
+    ],
+    "key_variables": {
+      "AR": "ar",
+      "CC": "gcc",
+      "CFLAGS": "-g -O2",
+      "CPPFLAGS": "-I/opt/local/include -I/usr/local/include -I/usr/include/libxml2 -I/usr/include/libxml2",
+      "DEFAULT_INCLUDES": "-I.",
+      "DEFS": "-DPACKAGE_NAME=\\\"parsleyc\\\" -DPACKAGE_TARNAME=\\\"parsleyc\\\" -DPACKAGE_VERSION=\\\"1.0\\\" -DPACKAGE_STRING=\\\"parsleyc\\ 1.0\\\" -DPACKAGE_BUGREPORT=\\\"kyle@kylemaxwell.c",
+      "LDFLAGS": "-L/opt/local/lib -L/usr/local/lib",
+      "LIBS": "-lexslt -lxml2 -lxslt -ljson-c -lpcre  -lxml2 -lxslt -lxml2",
+      "RANLIB": "ranlib"
+    },
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "libtool",
+      "config.log"
+    ],
+    "recursion_depth": 0,
+    "top_targets": [
+      "all"
+    ],
+    "make_diagnostics": []
   },
   "toolchain_interaction": {
     "compiler": "cc",
     "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
     "c_std_default_risk": false,
-    "defines_sampled": []
+    "defines_sampled": [
+      "PACKAGE_NAME=\\\"parsleyc\\\"",
+      "PACKAGE_TARNAME=\\\"parsleyc\\\"",
+      "PACKAGE_VERSION=\\\"1.0\\\"",
+      "PACKAGE_STRING=\\\"parsleyc\\",
+      "PACKAGE_BUGREPORT=\\\"kyle@kylemaxwell.com\\\"",
+      "PACKAGE_URL=\\\"\\\"",
+      "PACKAGE=\\\"parsleyc\\\"",
+      "VERSION=\\\"1.0\\\"",
+      "YYTEXT_POINTER=1",
+      "HAVE_STDIO_H=1",
+      "HAVE_STDLIB_H=1",
+      "HAVE_STRING_H=1",
+      "HAVE_INTTYPES_H=1",
+      "HAVE_STDINT_H=1",
+      "HAVE_STRINGS_H=1",
+      "HAVE_SYS_STAT_H=1",
+      "HAVE_SYS_TYPES_H=1",
+      "HAVE_UNISTD_H=1",
+      "STDC_HEADERS=1",
+      "HAVE_DLFCN_H=1"
+    ]
   },
   "quirk_history": [
     {
@@ -258,7 +395,7 @@
     }
   ],
   "verification": {
-    "vs_gnu": "not-compared",
+    "vs_gnu": "ours-worse",
     "output_match": "not-compared"
   },
   "vpath_analysis": {
@@ -362,9 +499,9 @@
   "scenario_context": {
     "temporal_map": {
       "Makefile.am": -2,
-      "Makefile.in": 1017,
-      "aclocal.m4": 11,
-      "configure": 14,
+      "Makefile.in": 3957,
+      "aclocal.m4": 3566,
+      "configure": 3726,
       "configure.ac": 0
     },
     "m4_ancestry": {

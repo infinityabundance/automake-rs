@@ -111,6 +111,32 @@
       "\\n#[define _GNU_SOURCE]\\n#[include <string.h>]\\n\\nint main() {\\nchar *d;\\nchar *s;\\nsize_t n = 0;\\nchar *r = stpncpy(d, s, n);\\n; return 0; }"
     ]
   },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "fail",
+    "real_configure_lines": 19541,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE",
+    "internal_traces": [
+      "configure.ac:117: warning: The macro `AC_PROG_CC_C99' is obsolete.",
+      "configure.ac:4236: warning: The macro `AC_HEADER_TIME' is obsolete.",
+      "configure.ac:30: installing './compile'",
+      "configure.ac:201: installing './config.guess'",
+      "configure.ac:201: installing './config.sub'",
+      "configure.ac:14: installing './install-sh'",
+      "configure.ac:14: installing './missing'",
+      "Makefile.vex.am: installing './depcomp'"
+    ]
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "",
+    "ours_error_context": [],
+    "ours_configure_lines": 10583,
+    "real_configure_lines": 19541,
+    "macros_ours_left_undefined": []
+  },
   "receipt": {
     "court_status": "failed",
     "probe_trace": [],
@@ -132,7 +158,7 @@
         "verified": false
       }
     ],
-    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
+    "receipt_hash": "a538dd1b607f6cd976fc862d4e8e8d63c3c1266aed35ab3625cbb61237e9478c",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -141,17 +167,21 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": [],
+    "relevant_env": [
+      "ACLOCAL_PATH=/usr/share/aclocal"
+    ],
     "kernel_version": "6.8.0-124-generic",
     "libc_name": "glibc",
     "libc_version": "2.39",
     "pkg_config_path": [],
-    "env_vars_influential": {},
+    "env_vars_influential": {
+      "ACLOCAL_PATH": "/usr/share/aclocal"
+    },
     "posix_flavor": "gnu",
     "shell": "dash",
     "oracle_tool_versions": {
       "autoconf": "2.71",
-      "automake": "1.16.5",
+      "automake": "1.18.1",
       "libtool": "2.4.7",
       "m4": "1.4.19"
     },
@@ -752,7 +782,7 @@
           "solaris",
           "docs"
         ],
-        "sources_include_config_h": false,
+        "sources_include_config_h": true,
         "am_cppflags": ""
       },
       {
@@ -1401,6 +1431,39 @@
   "makefile_forensics": {
     "generated_makefiles": [
       {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1431,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 1
+      },
+      {
+        "path": "mmt/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1595,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 1
+      },
+      {
+        "path": "mmt/tests/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 512,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
         "path": "mmt/mmaptest/Makefile",
         "has_makefile_in": false,
         "has_makefile_am": false,
@@ -1410,13 +1473,290 @@
         "recipe_tab_anomalies": 0
       },
       {
-        "path": "VEX/switchback/Makefile",
-        "has_makefile_in": false,
-        "has_makefile_am": false,
-        "lines": 12,
+        "path": "dhat/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1492,
         "unexpanded_vars": [],
-        "unexpanded_automake_tokens": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 1
+      },
+      {
+        "path": "dhat/tests/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1024,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 1
+      },
+      {
+        "path": "tests/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1138,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 1
+      },
+      {
+        "path": "massif/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1505,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 1
+      },
+      {
+        "path": "massif/tests/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1323,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 1
+      },
+      {
+        "path": "shared/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 516,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
         "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "helgrind/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1782,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 1
+      },
+      {
+        "path": "helgrind/tests/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1794,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 1
+      },
+      {
+        "path": "mpi/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 959,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 1
+      },
+      {
+        "path": "gdbserver_tests/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1343,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 1
+      },
+      {
+        "path": "gdbserver_tests/solaris/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 843,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 1
+      },
+      {
+        "path": "lackey/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1365,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 1
+      },
+      {
+        "path": "lackey/tests/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 517,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "include/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 736,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "none/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1363,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 1
+      },
+      {
+        "path": "none/tests/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 2635,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 2
+      },
+      {
+        "path": "none/tests/x86-solaris/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1011,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 1
+      },
+      {
+        "path": "none/tests/arm64/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1163,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 1
+      },
+      {
+        "path": "none/tests/x86/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1698,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 1
+      },
+      {
+        "path": "none/tests/s390x/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 2699,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 1
+      },
+      {
+        "path": "none/tests/darwin/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1015,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 1
+      },
+      {
+        "path": "none/tests/linux/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1143,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 1
+      },
+      {
+        "path": "none/tests/amd64-linux/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1003,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 1
+      },
+      {
+        "path": "none/tests/ppc32/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1680,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 1
+      },
+      {
+        "path": "none/tests/nanomips/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1152,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 1
+      },
+      {
+        "path": "none/tests/amd64-darwin/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 979,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 1
       }
     ]
   },
@@ -1497,10 +1837,10 @@
     "unresolved_macros": []
   },
   "conditional_context": {
-    "configure_if": 661,
-    "configure_fi": 607,
-    "configure_case": 76,
-    "configure_esac": 79,
+    "configure_if": 1147,
+    "configure_fi": 1046,
+    "configure_case": 176,
+    "configure_esac": 164,
     "balanced": false,
     "automake_conditionals": [
       "COMPILER_IS_CLANG",
@@ -1541,19 +1881,18 @@
       "install-sh",
       "missing",
       "depcomp",
-      "compile"
-    ],
-    "missing": [
+      "compile",
       "config.guess",
       "config.sub"
-    ]
+    ],
+    "missing": []
   },
   "language_surface": {
     "source_suffixes": {
       "S": 60,
       "c": 1317,
       "cpp": 32,
-      "h": 348,
+      "h": 350,
       "s": 2
     },
     "configure_macros": [
@@ -1566,11 +1905,90 @@
     "needs_fortran": false,
     "sets_c_std": true
   },
+  "make_graph": {
+    "targets": [
+      "all",
+      ".SUFFIXES",
+      "am--refresh",
+      "$(srcdir)/Makefile.in",
+      "Makefile",
+      "$(top_srcdir)/Makefile.all.am",
+      "$(am__empty)",
+      "$(top_builddir)/config.status",
+      "$(top_srcdir)/configure",
+      "$(ACLOCAL_M4)",
+      "$(am__aclocal_m4_deps)",
+      "config.h",
+      "stamp-h1",
+      "$(srcdir)/config.h.in",
+      "distclean-hdr",
+      "valgrind.spec",
+      "valgrind.pc",
+      "glibc-2.X.supp",
+      "drd/scripts/download-and-build-splash2",
+      "install-pkgconfigDATA",
+      "uninstall-pkgconfigDATA",
+      "install-vglibDATA",
+      "uninstall-vglibDATA",
+      "install-pkgincludeHEADERS",
+      "uninstall-pkgincludeHEADERS",
+      "$(am__recursive_targets)",
+      "ID",
+      "tags",
+      "TAGS",
+      "tags-am",
+      "ctags",
+      "CTAGS",
+      "ctags-am",
+      "GTAGS",
+      "cscope",
+      "clean-cscope",
+      "cscope.files",
+      "cscopelist",
+      "cscopelist-am",
+      "distclean-tags"
+    ],
+    "key_variables": {
+      "AR": "/usr/bin/ar",
+      "CC": "gcc",
+      "CFLAGS": "",
+      "CPPFLAGS": "",
+      "CXX": "g++",
+      "CXXFLAGS": "",
+      "DEFS": "-DHAVE_CONFIG_H",
+      "LDFLAGS": "",
+      "LIBS": "",
+      "RANLIB": "ranlib"
+    },
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "config.h",
+      "stamp-h1",
+      "config.log"
+    ],
+    "recursion_depth": 3,
+    "top_targets": [
+      "all"
+    ],
+    "make_diagnostics": []
+  },
   "toolchain_interaction": {
     "compiler": "cc",
     "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
     "c_std_default_risk": false,
-    "defines_sampled": []
+    "defines_sampled": [
+      "VGABI_",
+      "HAVE_CONFIG_H",
+      "VGA_amd64=1",
+      "VGO_linux=1",
+      "VGP_amd64_linux=1",
+      "VGPV_amd64_linux_vanilla=1",
+      "VGA_x86=1",
+      "VGP_x86_linux=1",
+      "VGPV_x86_linux_vanilla=1",
+      "_ASM"
+    ]
   },
   "quirk_history": [
     {
@@ -1599,7 +2017,7 @@
     }
   ],
   "verification": {
-    "vs_gnu": "not-compared",
+    "vs_gnu": "ours-worse",
     "output_match": "not-compared"
   },
   "vpath_analysis": {
@@ -1742,10 +2160,10 @@
   "scenario_context": {
     "temporal_map": {
       "Makefile.am": -29,
-      "Makefile.in": 1944,
-      "aclocal.m4": 201,
-      "config.h.in": 274,
-      "configure": 240,
+      "Makefile.in": 44641,
+      "aclocal.m4": 43859,
+      "config.h.in": 44461,
+      "configure": 44271,
       "configure.ac": 0
     },
     "m4_ancestry": {

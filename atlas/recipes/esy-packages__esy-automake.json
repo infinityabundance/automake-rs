@@ -107,6 +107,22 @@
       "\\nint main() {  ; return 0; }"
     ]
   },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "ok",
+    "real_configure_lines": 9106,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE"
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "",
+    "ours_error_context": [],
+    "ours_configure_lines": 4257,
+    "real_configure_lines": 9106,
+    "macros_ours_left_undefined": []
+  },
   "receipt": {
     "court_status": "failed",
     "probe_trace": [],
@@ -115,7 +131,7 @@
       "vendored-aclocal",
       "perl-in-configure"
     ],
-    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
+    "receipt_hash": "a538dd1b607f6cd976fc862d4e8e8d63c3c1266aed35ab3625cbb61237e9478c",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -124,17 +140,21 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": [],
+    "relevant_env": [
+      "ACLOCAL_PATH=/usr/share/aclocal"
+    ],
     "kernel_version": "6.8.0-124-generic",
     "libc_name": "glibc",
     "libc_version": "2.39",
     "pkg_config_path": [],
-    "env_vars_influential": {},
+    "env_vars_influential": {
+      "ACLOCAL_PATH": "/usr/share/aclocal"
+    },
     "posix_flavor": "gnu",
     "shell": "dash",
     "oracle_tool_versions": {
       "autoconf": "2.71",
-      "automake": "1.16.5",
+      "automake": "1.18.1",
       "libtool": "2.4.7",
       "m4": "1.4.19"
     },
@@ -202,6 +222,23 @@
     "max_depth": 0,
     "config_h_consumers_below_root": [
       "doc/amhello/src"
+    ]
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 4255,
+        "unexpanded_vars": [
+          "@substitutions@"
+        ],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      }
     ]
   },
   "tool_requirements": {
@@ -514,10 +551,10 @@
     "unresolved_macros": []
   },
   "conditional_context": {
-    "configure_if": 244,
-    "configure_fi": 210,
-    "configure_case": 73,
-    "configure_esac": 77,
+    "configure_if": 496,
+    "configure_fi": 466,
+    "configure_case": 182,
+    "configure_esac": 172,
     "balanced": false,
     "automake_conditionals": []
   },
@@ -535,8 +572,7 @@
   },
   "language_surface": {
     "source_suffixes": {
-      "c": 1,
-      "h": 1
+      "c": 1
     },
     "configure_macros": [
       "AC_PROG_CC",
@@ -548,11 +584,82 @@
     "needs_fortran": true,
     "sets_c_std": false
   },
+  "make_graph": {
+    "targets": [
+      "all",
+      ".SUFFIXES",
+      "am--refresh",
+      "$(srcdir)/Makefile.in",
+      "Makefile",
+      "$(srcdir)/bin/local.mk",
+      "$(srcdir)/doc/local.mk",
+      "$(srcdir)/lib/local.mk",
+      "$(srcdir)/lib/Automake/local.mk",
+      "$(srcdir)/lib/am/local.mk",
+      "$(srcdir)/m4/local.mk",
+      "$(srcdir)/t/local.mk",
+      "$(srcdir)/t/list-of-tests.mk",
+      "$(srcdir)/t/testsuite-part.am",
+      "$(srcdir)/contrib/t/local.mk",
+      "$(srcdir)/t/CheckListOfTests.am",
+      "$(am__empty)",
+      "$(top_builddir)/config.status",
+      "$(top_srcdir)/configure",
+      "$(ACLOCAL_M4)",
+      "$(am__aclocal_m4_deps)",
+      "pre-inst-env",
+      "install-binSCRIPTS",
+      "uninstall-binSCRIPTS",
+      "doc/$(am__dirstamp)",
+      "$(srcdir)/doc/automake.info",
+      "doc/automake.dvi",
+      "doc/automake.pdf",
+      "doc/automake.html",
+      "$(srcdir)/doc/version.texi",
+      "$(srcdir)/doc/stamp-vti",
+      "mostlyclean-vti",
+      "maintainer-clean-vti",
+      "$(srcdir)/doc/automake-history.info",
+      "doc/automake-history.dvi",
+      "doc/automake-history.pdf",
+      "doc/automake-history.html",
+      ".dvi.ps",
+      "uninstall-dvi-am",
+      "uninstall-html-am"
+    ],
+    "key_variables": {
+      "CC": "cc",
+      "CFLAGS": "-g -O2",
+      "CPPFLAGS": "",
+      "CXX": "c++",
+      "CXXFLAGS": "-g -O2",
+      "DEFS": "-DPACKAGE_NAME=\\\"GNU\\ Automake\\\" -DPACKAGE_TARNAME=\\\"automake\\\" -DPACKAGE_VERSION=\\\"1.16.1\\\" -DPACKAGE_STRING=\\\"GNU\\ Automake\\ 1.16.1\\\" -DPACKAGE_BUGREPORT=\\\"bu",
+      "LDFLAGS": "",
+      "LIBS": ""
+    },
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "config.log"
+    ],
+    "recursion_depth": 0,
+    "top_targets": [
+      "all"
+    ],
+    "make_diagnostics": []
+  },
   "toolchain_interaction": {
     "compiler": "cc",
     "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
     "c_std_default_risk": true,
-    "defines_sampled": []
+    "defines_sampled": [
+      "PACKAGE_NAME=\\\"GNU\\",
+      "PACKAGE_TARNAME=\\\"automake\\\"",
+      "PACKAGE_VERSION=\\\"1.16.1\\\"",
+      "PACKAGE_STRING=\\\"GNU\\",
+      "PACKAGE_BUGREPORT=\\\"bug-automake@gnu.org\\\"",
+      "PACKAGE_URL=\\\"https://www.gnu.org/software/automake/\\\""
+    ]
   },
   "quirk_history": [
     {
@@ -575,7 +682,7 @@
     }
   ],
   "verification": {
-    "vs_gnu": "not-compared",
+    "vs_gnu": "ours-worse",
     "output_match": "not-compared"
   },
   "vpath_analysis": {
@@ -649,6 +756,16 @@
   ],
   "repair_hints": [
     {
+      "id": "unexpanded-makefile-vars",
+      "phase": "make",
+      "confidence": 0.8,
+      "evidence": [
+        "@substitutions@"
+      ],
+      "action": "add these to STD_VAR_SED / AC_SUBST handling",
+      "expected_effect": "removes raw @VAR@ from Makefile"
+    },
+    {
       "id": "subdir-top-builddir",
       "phase": "make",
       "confidence": 0.88,
@@ -672,9 +789,9 @@
   "scenario_context": {
     "temporal_map": {
       "Makefile.am": -2,
-      "Makefile.in": 1324,
-      "aclocal.m4": 42,
-      "configure": 58,
+      "Makefile.in": 4084,
+      "aclocal.m4": 3675,
+      "configure": 3894,
       "configure.ac": 0
     },
     "m4_ancestry": {

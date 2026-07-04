@@ -100,8 +100,8 @@
       "DEFS",
       "LIBOBJS",
       "INSTALL",
-      "LD",
       "AR",
+      "LD",
       "top_srcdir",
       "top_builddir",
       "builddir",
@@ -127,6 +127,30 @@
       "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { uint8_t x; return 0; }",
       "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { uint16_t x; return 0; }"
     ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "ok",
+    "real_configure_lines": 7846,
+    "real_first_error": "",
+    "classification": "OURS_BUG_MAKE",
+    "internal_traces": [
+      "configure.ac:3: installing './compile'",
+      "configure.ac:10: installing './config.guess'",
+      "configure.ac:10: installing './config.sub'",
+      "configure.ac:2: installing './install-sh'",
+      "configure.ac:2: installing './missing'",
+      "src/Makefile.am: installing './depcomp'"
+    ]
+  },
+  "divergence": {
+    "stage": "make",
+    "ours_error": "",
+    "ours_error_context": [],
+    "ours_configure_lines": 2601,
+    "real_configure_lines": 7846,
+    "macros_ours_left_undefined": []
   },
   "receipt": {
     "court_status": "partial",
@@ -185,7 +209,7 @@
       "uses-maintainer-mode",
       "vendored-aclocal"
     ],
-    "receipt_hash": "262f7c559a45cc498532a56bd3491a00f7676d74186d4c6b751422032e0a66d2",
+    "receipt_hash": "373131ff32a5c3e3b8f1e1af87783b40a0ba3f3d4fd0ea00f066580502088f28",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -194,17 +218,21 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": [],
+    "relevant_env": [
+      "ACLOCAL_PATH=/usr/share/aclocal"
+    ],
     "kernel_version": "6.8.0-124-generic",
     "libc_name": "glibc",
     "libc_version": "2.39",
     "pkg_config_path": [],
-    "env_vars_influential": {},
+    "env_vars_influential": {
+      "ACLOCAL_PATH": "/usr/share/aclocal"
+    },
     "posix_flavor": "gnu",
     "shell": "dash",
     "oracle_tool_versions": {
       "autoconf": "2.71",
-      "automake": "1.16.5",
+      "automake": "1.18.1",
       "libtool": "2.4.7",
       "m4": "1.4.19"
     },
@@ -264,7 +292,7 @@
         "subdirs": [
           "src"
         ],
-        "sources_include_config_h": false,
+        "sources_include_config_h": true,
         "am_cppflags": ""
       },
       {
@@ -288,7 +316,7 @@
         "path": "Makefile",
         "has_makefile_in": true,
         "has_makefile_am": true,
-        "lines": 521,
+        "lines": 815,
         "unexpanded_vars": [],
         "unexpanded_automake_tokens": [
           "$(am__"
@@ -299,7 +327,7 @@
         "path": "src/Makefile",
         "has_makefile_in": true,
         "has_makefile_am": true,
-        "lines": 554,
+        "lines": 788,
         "unexpanded_vars": [],
         "unexpanded_automake_tokens": [
           "$(am__"
@@ -346,10 +374,10 @@
     "unresolved_macros": []
   },
   "conditional_context": {
-    "configure_if": 104,
-    "configure_fi": 101,
-    "configure_case": 63,
-    "configure_esac": 66,
+    "configure_if": 429,
+    "configure_fi": 387,
+    "configure_case": 154,
+    "configure_esac": 141,
     "balanced": false,
     "automake_conditionals": []
   },
@@ -357,12 +385,11 @@
     "aux_dir": ".",
     "present": [
       "install-sh",
-      "missing"
-    ],
-    "missing": [
+      "missing",
       "depcomp",
       "compile"
-    ]
+    ],
+    "missing": []
   },
   "language_surface": {
     "source_suffixes": {
@@ -380,49 +407,48 @@
   "make_graph": {
     "targets": [
       "all",
-      "all-am",
-      "install-am",
-      "installcheck-am",
-      "install-strip",
-      "install-info",
-      "install-info-am",
-      "install-dvi",
-      "install-dvi-am",
-      "install-ps",
-      "install-ps-am",
-      "install-pdf",
-      "install-pdf-am",
-      "install-html",
-      "install-html-am",
-      "install-data-hook",
-      "install-exec-hook",
-      "installdirs-am",
-      ".PHONY",
-      "mostlyclean-am",
-      "clean-am",
-      "distclean-am",
-      "maintainer-clean-am",
-      "distdir",
-      "dist",
-      "dist-all",
-      "dist-gzip",
-      "distcleancheck",
-      "distcheck",
-      "check-am",
-      "TAGS",
-      "tags",
-      "TAGS-am",
-      "tags-am",
-      "cscope",
-      "cscope-am",
-      "distuninstallcheck",
+      ".SUFFIXES",
+      "am--refresh",
       "$(srcdir)/Makefile.in",
+      "Makefile",
+      "$(top_builddir)/config.status",
+      "$(top_srcdir)/configure",
+      "$(ACLOCAL_M4)",
+      "$(am__aclocal_m4_deps)",
+      "config.h",
+      "stamp-h1",
+      "$(srcdir)/config.h.in",
+      "distclean-hdr",
       "$(am__recursive_targets)",
-      "check"
+      "ID",
+      "tags",
+      "TAGS",
+      "tags-am",
+      "ctags",
+      "CTAGS",
+      "ctags-am",
+      "GTAGS",
+      "cscope",
+      "clean-cscope",
+      "cscope.files",
+      "cscopelist",
+      "cscopelist-am",
+      "distclean-tags",
+      "distdir",
+      "distdir-am",
+      "dist-gzip",
+      "dist-bzip2",
+      "dist-bzip3",
+      "dist-lzip",
+      "dist-xz",
+      "dist-zstd",
+      "dist-tarZ",
+      "dist-shar",
+      "dist-zip",
+      "dist"
     ],
     "key_variables": {
-      "AR": "ar",
-      "CC": "cc",
+      "CC": "gcc",
       "CFLAGS": "-g -O2",
       "CPPFLAGS": "",
       "CXX": "g++",
@@ -436,14 +462,13 @@
       "Makefile",
       "config.status",
       "config.h",
+      "stamp-h1",
       "config.log"
     ],
     "recursion_depth": 1,
     "top_targets": [
       "all",
-      "check",
-      "dist",
-      "all-am"
+      "dist"
     ],
     "make_diagnostics": [
       {
@@ -502,7 +527,7 @@
     }
   ],
   "verification": {
-    "vs_gnu": "not-compared",
+    "vs_gnu": "ours-worse",
     "output_match": "not-compared"
   },
   "feature_probe_gap": {
@@ -564,11 +589,11 @@
   ],
   "scenario_context": {
     "temporal_map": {
-      "Makefile.am": 0,
-      "Makefile.in": 1208,
-      "aclocal.m4": 28,
-      "config.h.in": 33,
-      "configure": 31,
+      "Makefile.am": -1,
+      "Makefile.in": 4189,
+      "aclocal.m4": 3704,
+      "config.h.in": 4027,
+      "configure": 3921,
       "configure.ac": 0
     },
     "m4_ancestry": {

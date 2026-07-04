@@ -109,6 +109,32 @@
       "char exit ();\\nint main() { return exit(); }"
     ]
   },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "ok",
+    "real_configure_lines": 9823,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE",
+    "internal_traces": [
+      "configure.ac:92: warning: The macro `AC_HELP_STRING' is obsolete.",
+      "configure.ac:92: warning: The macro `AC_TRY_LINK' is obsolete.",
+      "configure.ac:34: installing './compile'",
+      "configure.ac:34: installing './config.guess'",
+      "configure.ac:34: installing './config.sub'",
+      "configure.ac:5: installing './install-sh'",
+      "configure.ac:5: installing './missing'",
+      "Makefile.am: installing './depcomp'"
+    ]
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "",
+    "ours_error_context": [],
+    "ours_configure_lines": 3856,
+    "real_configure_lines": 9823,
+    "macros_ours_left_undefined": []
+  },
   "receipt": {
     "court_status": "failed",
     "probe_trace": [],
@@ -119,7 +145,7 @@
       "uses-ax-archive",
       "uses-pthread-check"
     ],
-    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
+    "receipt_hash": "a538dd1b607f6cd976fc862d4e8e8d63c3c1266aed35ab3625cbb61237e9478c",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -128,17 +154,21 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": [],
+    "relevant_env": [
+      "ACLOCAL_PATH=/usr/share/aclocal"
+    ],
     "kernel_version": "6.8.0-124-generic",
     "libc_name": "glibc",
     "libc_version": "2.39",
     "pkg_config_path": [],
-    "env_vars_influential": {},
+    "env_vars_influential": {
+      "ACLOCAL_PATH": "/usr/share/aclocal"
+    },
     "posix_flavor": "gnu",
     "shell": "dash",
     "oracle_tool_versions": {
       "autoconf": "2.71",
-      "automake": "1.16.5",
+      "automake": "1.18.1",
       "libtool": "2.4.7",
       "m4": "1.4.19"
     },
@@ -196,6 +226,21 @@
     ],
     "max_depth": 0,
     "config_h_consumers_below_root": []
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 2118,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      }
+    ]
   },
   "tool_requirements": {
     "detected": [
@@ -279,10 +324,10 @@
     "unresolved_macros": []
   },
   "conditional_context": {
-    "configure_if": 238,
-    "configure_fi": 228,
-    "configure_case": 67,
-    "configure_esac": 70,
+    "configure_if": 622,
+    "configure_fi": 554,
+    "configure_case": 153,
+    "configure_esac": 138,
     "balanced": false,
     "automake_conditionals": [
       "LYRICS_SUPPORT",
@@ -313,11 +358,80 @@
     "needs_fortran": false,
     "sets_c_std": true
   },
+  "make_graph": {
+    "targets": [
+      "all",
+      ".SUFFIXES",
+      "am--refresh",
+      "$(srcdir)/Makefile.in",
+      "Makefile",
+      "$(top_builddir)/config.status",
+      "$(top_srcdir)/configure",
+      "$(ACLOCAL_M4)",
+      "$(am__aclocal_m4_deps)",
+      "src/config.h",
+      "src/stamp-h1",
+      "$(top_srcdir)/src/config.h.in",
+      "distclean-hdr",
+      "install-binPROGRAMS",
+      "uninstall-binPROGRAMS",
+      "clean-binPROGRAMS",
+      "src/$(am__dirstamp)",
+      "src/$(DEPDIR)/$(am__dirstamp)",
+      "src/vimpc-algorithm.$(OBJEXT)",
+      "src/vimpc-buffers.$(OBJEXT)",
+      "src/vimpc-clientstate.$(OBJEXT)",
+      "src/vimpc-colours.$(OBJEXT)",
+      "src/vimpc-errorcodes.$(OBJEXT)",
+      "src/vimpc-events.$(OBJEXT)",
+      "src/vimpc-mpdclient.$(OBJEXT)",
+      "src/vimpc-output.$(OBJEXT)",
+      "src/vimpc-player.$(OBJEXT)",
+      "src/vimpc-regex.$(OBJEXT)",
+      "src/vimpc-screen.$(OBJEXT)",
+      "src/vimpc-settings.$(OBJEXT)",
+      "src/vimpc-song.$(OBJEXT)",
+      "src/vimpc-vimpc.$(OBJEXT)",
+      "src/buffer/$(am__dirstamp)",
+      "src/buffer/$(DEPDIR)/$(am__dirstamp)",
+      "src/buffer/vimpc-browse.$(OBJEXT)",
+      "src/buffer/vimpc-library.$(OBJEXT)",
+      "src/buffer/vimpc-directory.$(OBJEXT)",
+      "src/mode/$(am__dirstamp)",
+      "src/mode/$(DEPDIR)/$(am__dirstamp)",
+      "src/mode/vimpc-command.$(OBJEXT)"
+    ],
+    "key_variables": {
+      "CC": "gcc]",
+      "CFLAGS": "-g -O2",
+      "CPPFLAGS": "-I/usr/local/include -I/opt/local/include -DHELP_DIRECTORY='\"${datarootdir}/doc/${PACKAGE_TARNAME}\"'",
+      "CXX": "g++",
+      "CXXFLAGS": "-g -O2 -D__STRICT_ANSI__",
+      "DEFAULT_INCLUDES": "-I. -I$(top_builddir)/src",
+      "DEFS": "-DHAVE_CONFIG_H",
+      "LDFLAGS": "-L/opt/local/lib",
+      "LIBS": "-lncursesw"
+    },
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "config.log"
+    ],
+    "recursion_depth": 0,
+    "top_targets": [
+      "all"
+    ],
+    "make_diagnostics": []
+  },
   "toolchain_interaction": {
     "compiler": "cc",
     "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
     "c_std_default_risk": false,
-    "defines_sampled": []
+    "defines_sampled": [
+      "HELP_DIRECTORY='\"${datarootdir}/doc/${PACKAGE_TARNAME}\"'",
+      "__STRICT_ANSI__",
+      "HAVE_CONFIG_H"
+    ]
   },
   "quirk_history": [
     {
@@ -352,7 +466,7 @@
     }
   ],
   "verification": {
-    "vs_gnu": "not-compared",
+    "vs_gnu": "ours-worse",
     "output_match": "not-compared"
   },
   "feature_probe_gap": {
@@ -427,10 +541,10 @@
   },
   "scenario_context": {
     "temporal_map": {
-      "Makefile.am": 0,
-      "Makefile.in": 1667,
-      "aclocal.m4": 11,
-      "configure": 22,
+      "Makefile.am": -1,
+      "Makefile.in": 3163,
+      "aclocal.m4": 2608,
+      "configure": 2852,
       "configure.ac": 0
     },
     "m4_ancestry": {

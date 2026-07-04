@@ -141,6 +141,32 @@
       "[[[#ifndef __APPLE_CC__\\nnot a universal capable compiler\\n#endif\\ntypedef int dummy;\\n]]]"
     ]
   },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "ok",
+    "real_configure_lines": 9471,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE",
+    "internal_traces": [
+      "configure.ac:10: installing 'build-aux/compile'",
+      "configure.ac:13: installing 'build-aux/config.guess'",
+      "configure.ac:13: installing 'build-aux/config.sub'",
+      "configure.ac:8: installing 'build-aux/install-sh'",
+      "configure.ac:8: installing 'build-aux/missing'",
+      "Makefile.am: installing 'build-aux/depcomp'"
+    ]
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "line 2187: # must be lowercase and GNU-style (`linux-gnu`, not `Linux`) so project  (near `)`)",
+    "ours_error_context": [
+      "# must be lowercase and GNU-style (`linux-gnu`, not `Linux`) so project "
+    ],
+    "ours_configure_lines": 4441,
+    "real_configure_lines": 9471,
+    "macros_ours_left_undefined": []
+  },
   "receipt": {
     "court_status": "failed",
     "probe_trace": [],
@@ -148,7 +174,7 @@
       "has-m4-macro-dir",
       "vendored-aclocal"
     ],
-    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
+    "receipt_hash": "a538dd1b607f6cd976fc862d4e8e8d63c3c1266aed35ab3625cbb61237e9478c",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -157,17 +183,21 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": [],
+    "relevant_env": [
+      "ACLOCAL_PATH=/usr/share/aclocal"
+    ],
     "kernel_version": "6.8.0-124-generic",
     "libc_name": "glibc",
     "libc_version": "2.39",
     "pkg_config_path": [],
-    "env_vars_influential": {},
+    "env_vars_influential": {
+      "ACLOCAL_PATH": "/usr/share/aclocal"
+    },
     "posix_flavor": "gnu",
     "shell": "dash",
     "oracle_tool_versions": {
       "autoconf": "2.71",
-      "automake": "1.16.5",
+      "automake": "1.18.1",
       "libtool": "2.4.7",
       "m4": "1.4.19"
     },
@@ -243,6 +273,32 @@
     "max_depth": 1,
     "config_h_consumers_below_root": [
       "lib"
+    ]
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1005,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "lib/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 903,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      }
     ]
   },
   "macro_inventory": {
@@ -583,10 +639,10 @@
     "unresolved_macros": []
   },
   "conditional_context": {
-    "configure_if": 249,
-    "configure_fi": 239,
-    "configure_case": 79,
-    "configure_esac": 83,
+    "configure_if": 534,
+    "configure_fi": 494,
+    "configure_case": 163,
+    "configure_esac": 150,
     "balanced": false,
     "automake_conditionals": []
   },
@@ -603,7 +659,7 @@
   "language_surface": {
     "source_suffixes": {
       "c": 4,
-      "h": 9
+      "h": 11
     },
     "configure_macros": [
       "AC_PROG_CC"
@@ -612,11 +668,80 @@
     "needs_fortran": false,
     "sets_c_std": false
   },
+  "make_graph": {
+    "targets": [
+      "all",
+      ".SUFFIXES",
+      "am--refresh",
+      "$(srcdir)/Makefile.in",
+      "Makefile",
+      "$(top_builddir)/config.status",
+      "$(top_srcdir)/configure",
+      "$(ACLOCAL_M4)",
+      "$(am__aclocal_m4_deps)",
+      "config.h",
+      "stamp-h1",
+      "$(srcdir)/config.h.in",
+      "distclean-hdr",
+      "install-binPROGRAMS",
+      "uninstall-binPROGRAMS",
+      "clean-binPROGRAMS",
+      "dedup$(EXEEXT)",
+      "mostlyclean-compile",
+      "distclean-compile",
+      "$(am__depfiles_remade)",
+      "am--depfiles",
+      ".c.o",
+      ".c.obj",
+      "dedup-main.o",
+      "dedup-main.obj",
+      "$(am__recursive_targets)",
+      "ID",
+      "tags",
+      "TAGS",
+      "tags-am",
+      "ctags",
+      "CTAGS",
+      "ctags-am",
+      "GTAGS",
+      "cscope",
+      "clean-cscope",
+      "cscope.files",
+      "cscopelist",
+      "cscopelist-am",
+      "distclean-tags"
+    ],
+    "key_variables": {
+      "AR": "ar",
+      "CC": "gcc",
+      "CFLAGS": "-g -O2",
+      "CPPFLAGS": "",
+      "DEFAULT_INCLUDES": "-I.",
+      "DEFS": "-DHAVE_CONFIG_H",
+      "LDFLAGS": "",
+      "LIBS": "",
+      "RANLIB": "ranlib"
+    },
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "config.h",
+      "stamp-h1",
+      "config.log"
+    ],
+    "recursion_depth": 1,
+    "top_targets": [
+      "all"
+    ],
+    "make_diagnostics": []
+  },
   "toolchain_interaction": {
     "compiler": "cc",
     "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
     "c_std_default_risk": true,
-    "defines_sampled": []
+    "defines_sampled": [
+      "HAVE_CONFIG_H"
+    ]
   },
   "quirk_history": [
     {
@@ -633,7 +758,7 @@
     }
   ],
   "verification": {
-    "vs_gnu": "not-compared",
+    "vs_gnu": "ours-worse",
     "output_match": "not-compared"
   },
   "vpath_analysis": {
@@ -749,10 +874,10 @@
   "scenario_context": {
     "temporal_map": {
       "Makefile.am": 0,
-      "Makefile.in": 1569,
-      "aclocal.m4": 7,
-      "config.h.in": 58,
-      "configure": 56,
+      "Makefile.in": 3650,
+      "aclocal.m4": 3155,
+      "config.h.in": 3498,
+      "configure": 3387,
       "configure.ac": 0
     },
     "m4_ancestry": {

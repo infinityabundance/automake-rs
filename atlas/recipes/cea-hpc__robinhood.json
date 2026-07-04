@@ -119,6 +119,47 @@
       "#include <stdio.h>\\n#include <sys/types.h>\\n#include <stdint.h>\\n#include <stddef.h>\\nint main() { printf(\"%d\", (int)sizeof(time_t)); return 0; }"
     ]
   },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "ok",
+    "real_configure_lines": 22515,
+    "real_first_error": "",
+    "classification": "OURS_BUG_MAKE",
+    "internal_traces": [
+      "libtoolize: putting auxiliary files in AC_CONFIG_AUX_DIR, 'autotools'.",
+      "libtoolize: copying file 'autotools/ltmain.sh'",
+      "libtoolize: putting macros in AC_CONFIG_MACRO_DIRS, 'autotools/m4'.",
+      "libtoolize: copying file 'autotools/m4/libtool.m4'",
+      "libtoolize: copying file 'autotools/m4/ltoptions.m4'",
+      "libtoolize: copying file 'autotools/m4/ltsugar.m4'",
+      "libtoolize: copying file 'autotools/m4/ltversion.m4'",
+      "libtoolize: copying file 'autotools/m4/lt~obsolete.m4'",
+      "configure.ac:15: warning: The macro `AC_CONFIG_HEADER' is obsolete.",
+      "configure.ac:23: warning: The macro `AC_GNU_SOURCE' is obsolete.",
+      "configure.ac:57: warning: The macro `AC_HELP_STRING' is obsolete.",
+      "configure.ac:61: warning: AC_PROG_LEX without either yywrap or noyywrap is obsolete",
+      "configure.ac:81: warning: The macro `AC_PROG_LIBTOOL' is obsolete.",
+      "configure.ac:458: warning: The macro `AC_HEADER_STDC' is obsolete.",
+      "configure.ac:79: installing 'autotools/ar-lib'",
+      "configure.ac:23: installing 'autotools/compile'",
+      "configure.ac:81: installing 'autotools/config.guess'",
+      "configure.ac:81: installing 'autotools/config.sub'",
+      "configure.ac:18: installing 'autotools/install-sh'",
+      "configure.ac:18: installing 'autotools/missing'",
+      "src/cfg_parsing/Makefile.am: installing 'autotools/depcomp'",
+      "configure.ac: installing 'autotools/ylwrap'",
+      "parallel-tests: installing 'autotools/test-driver'"
+    ]
+  },
+  "divergence": {
+    "stage": "make",
+    "ours_error": "",
+    "ours_error_context": [],
+    "ours_configure_lines": 4488,
+    "real_configure_lines": 22515,
+    "macros_ours_left_undefined": []
+  },
   "receipt": {
     "court_status": "partial",
     "probe_trace": [],
@@ -129,7 +170,7 @@
       "vendored-aclocal",
       "uses-ax-archive"
     ],
-    "receipt_hash": "fc222e24136e1c7565f3970366c0a81d4ec04fa5491250e780188ba2805c06fb",
+    "receipt_hash": "da9100428374f9d4737a8db2ff640a534775a60ddd83491fd81748ed34de7b9d",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -138,17 +179,21 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": [],
+    "relevant_env": [
+      "ACLOCAL_PATH=/usr/share/aclocal"
+    ],
     "kernel_version": "6.8.0-124-generic",
     "libc_name": "glibc",
     "libc_version": "2.39",
     "pkg_config_path": [],
-    "env_vars_influential": {},
+    "env_vars_influential": {
+      "ACLOCAL_PATH": "/usr/share/aclocal"
+    },
     "posix_flavor": "gnu",
     "shell": "dash",
     "oracle_tool_versions": {
       "autoconf": "2.71",
-      "automake": "1.16.5",
+      "automake": "1.18.1",
       "libtool": "2.4.7",
       "m4": "1.4.19"
     },
@@ -581,12 +626,253 @@
   "makefile_forensics": {
     "generated_makefiles": [
       {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 957,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "tests/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 819,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "tests/test_suite/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 692,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 684,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/modules/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 936,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/tests/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1261,
+        "first_parse_error": {
+          "line": 1179,
+          "kind": "missing-separator",
+          "text": "VALGRIND_SUPPRESSIONS ?= $(addprefix --suppressions=,$(VALGRIND_SUPPRESSIONS_FIL",
+          "previous_lines": [
+            "",
+            "# Optional variables"
+          ],
+          "probable_cause": "bare-macro"
+        },
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/tools/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 854,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/list_mgr/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 738,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/fs_scan/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 669,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/policies/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 678,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/common/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 718,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/include/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 606,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/entry_processor/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1113,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/robinhood/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1037,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/cfg_parsing/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 727,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/chglog_reader/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 659,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "doc/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 675,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
         "path": "doc/doxygen/Makefile",
         "has_makefile_in": false,
         "has_makefile_am": false,
         "lines": 7,
         "unexpanded_vars": [],
         "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "doc/templates/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 585,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "scripts/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 639,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "web_gui/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 508,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "man/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 582,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
         "recipe_tab_anomalies": 0
       }
     ]
@@ -669,10 +955,10 @@
     ]
   },
   "conditional_context": {
-    "configure_if": 285,
-    "configure_fi": 277,
-    "configure_case": 64,
-    "configure_esac": 67,
+    "configure_if": 1340,
+    "configure_fi": 1229,
+    "configure_case": 403,
+    "configure_esac": 383,
     "balanced": false,
     "automake_conditionals": [
       "DEBUG_PARSING",
@@ -693,18 +979,17 @@
     "aux_dir": "autotools",
     "present": [
       "install-sh",
-      "missing"
-    ],
-    "missing": [
+      "missing",
       "depcomp",
       "compile",
       "ltmain.sh"
-    ]
+    ],
+    "missing": []
   },
   "language_surface": {
     "source_suffixes": {
       "c": 93,
-      "h": 50
+      "h": 51
     },
     "configure_macros": [
       "AC_PROG_CC"
@@ -724,11 +1009,86 @@
     ],
     "age": "old"
   },
+  "make_graph": {
+    "targets": [
+      "all",
+      ".SUFFIXES",
+      "am--refresh",
+      "$(srcdir)/Makefile.in",
+      "Makefile",
+      "$(top_builddir)/config.status",
+      "$(top_srcdir)/configure",
+      "$(ACLOCAL_M4)",
+      "$(am__aclocal_m4_deps)",
+      "robinhood.spec",
+      "doc/doxygen/doxygen.cfg",
+      "mostlyclean-libtool",
+      "clean-libtool",
+      "distclean-libtool",
+      "$(am__recursive_targets)",
+      "ID",
+      "tags",
+      "TAGS",
+      "tags-am",
+      "ctags",
+      "CTAGS",
+      "ctags-am",
+      "GTAGS",
+      "cscope",
+      "clean-cscope",
+      "cscope.files",
+      "cscopelist",
+      "cscopelist-am",
+      "distclean-tags",
+      "distdir",
+      "distdir-am",
+      "dist-gzip",
+      "dist-bzip2",
+      "dist-bzip3",
+      "dist-lzip",
+      "dist-xz",
+      "dist-zstd",
+      "dist-tarZ",
+      "dist-shar",
+      "dist-zip"
+    ],
+    "key_variables": {
+      "AR": "ar",
+      "CC": "gcc",
+      "CFLAGS": "-g -O2 -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include  -pthread -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include  -I$(",
+      "CPPFLAGS": "",
+      "DEFS": "-DHAVE_CONFIG_H",
+      "LDFLAGS": "-lglib-2.0  -lgthread-2.0 -pthread -lglib-2.0  -ljemalloc",
+      "LIBS": "-lz",
+      "RANLIB": "ranlib"
+    },
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "libtool",
+      "config.log"
+    ],
+    "recursion_depth": 2,
+    "top_targets": [
+      "all"
+    ],
+    "make_diagnostics": [
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make: *** No targets specified and no makefile found.  Stop."
+      }
+    ]
+  },
   "toolchain_interaction": {
     "compiler": "cc",
     "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
     "c_std_default_risk": false,
-    "defines_sampled": []
+    "defines_sampled": [
+      "_MYSQL",
+      "_MYSQL5",
+      "HAVE_CONFIG_H"
+    ]
   },
   "quirk_history": [
     {
@@ -763,7 +1123,7 @@
     }
   ],
   "verification": {
-    "vs_gnu": "not-compared",
+    "vs_gnu": "ours-worse",
     "output_match": "not-compared"
   },
   "vpath_analysis": {
@@ -875,6 +1235,17 @@
   ],
   "repair_hints": [
     {
+      "id": "makefile-bare-macro",
+      "phase": "make",
+      "confidence": 0.7,
+      "evidence": [
+        "src/tests/Makefile:1179 missing-separator",
+        "VALGRIND_SUPPRESSIONS ?= $(addprefix --suppressions=,$(VALGRIND_SUPPRESSIONS_FIL"
+      ],
+      "action": "define-or-neutralize-leaked-macro",
+      "expected_effect": "partial -> FUNC_OK candidate"
+    },
+    {
       "id": "subdir-top-builddir",
       "phase": "make",
       "confidence": 0.88,
@@ -905,10 +1276,10 @@
   ],
   "scenario_context": {
     "temporal_map": {
-      "Makefile.am": -1,
-      "Makefile.in": 1349,
-      "aclocal.m4": 29,
-      "configure": 40,
+      "Makefile.am": 0,
+      "Makefile.in": 16102,
+      "aclocal.m4": 15548,
+      "configure": 15767,
       "configure.ac": 0
     },
     "m4_ancestry": {

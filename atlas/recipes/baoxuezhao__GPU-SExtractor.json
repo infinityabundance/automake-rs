@@ -88,7 +88,7 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "*********** Configuring:    (2026-07-03) **********",
+  "diagnostic": "*********** Configuring:    (2026-07-04) **********",
   "deep_expansion": {
     "configure_lines": 4130,
     "leaked_macros": [],
@@ -159,8 +159,43 @@
       "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar error_at_line ();\\nint main() { return error_at_line(); }"
     ]
   },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "fail",
+    "real_make": "skipped",
+    "real_configure_lines": 19304,
+    "real_first_error": "configure: error: CBLAS/LAPack library files not found at usual locations! Exiting.",
+    "classification": "BOTH_CONFIGURE_FAIL",
+    "internal_traces": [
+      "libtoolize: putting auxiliary files in AC_CONFIG_AUX_DIR, 'autoconf'.",
+      "libtoolize: copying file 'autoconf/ltmain.sh'",
+      "libtoolize: Consider adding 'AC_CONFIG_MACRO_DIRS([m4])' to configure.ac,",
+      "libtoolize: and rerunning libtoolize and aclocal.",
+      "libtoolize: Consider adding '-I m4' to ACLOCAL_AMFLAGS in Makefile.am.",
+      "configure.ac:12: warning: 'AM_CONFIG_HEADER': this macro is obsolete.",
+      "configure.ac:43: warning: The macro `AC_HELP_STRING' is obsolete.",
+      "configure.ac:58: warning: 'AM_PROG_CC_STDC': this macro is obsolete.",
+      "configure.ac:59: warning: The macro `AC_ISC_POSIX' is obsolete.",
+      "configure.ac:60: warning: AC_CACHE_VAL(prog_cc_optim_flags, ...): suspicious cache-id, must contain _cv_ to be cached",
+      "configure.ac:63: warning: The macro `AC_PROG_LIBTOOL' is obsolete.",
+      "configure.ac:70: warning: The macro `AC_HEADER_STDC' is obsolete.",
+      "configure.ac:85: warning: The macro `AC_TYPE_SIGNAL' is obsolete.",
+      "configure.ac:99: warning: The macro `AC_HELP_STRING' is obsolete.",
+      "configure.ac:105: warning: The macro `AC_HELP_STRING' is obsolete.",
+      "configure.ac:113: warning: The macro `AC_HELP_STRING' is obsolete.",
+      "configure.ac:119: warning: The macro `AC_HELP_STRING' is obsolete.",
+      "configure.ac:127: warning: The macro `AC_HELP_STRING' is obsolete.",
+      "configure.ac:138: warning: The macro `AC_HELP_STRING' is obsolete.",
+      "configure.ac:154: warning: The macro `AC_HELP_STRING' is obsolete.",
+      "configure.ac:165: warning: The macro `AC_HELP_STRING' is obsolete.",
+      "configure.ac:181: warning: The macro `AC_TRY_LINK' is obsolete.",
+      "configure.ac:198: warning: AC_CHECK_HEADERS($atlas_def/include/cblas.h): you should use literals",
+      "configure.ac:198: warning: AC_CHECK_HEADERS($atlas_def/include/clapack.h): you should use literals",
+      "configure.ac:198: warning: AC_CHECK_HEADERS($atlas_libdir/include/cblas.h): you should use literals"
+    ]
+  },
   "receipt": {
-    "court_status": "failed",
+    "court_status": "not_standalone",
     "probe_trace": [
       {
         "name": "HAVE_ATEXIT",
@@ -365,7 +400,7 @@
       "uses-libtool-old",
       "vendored-aclocal"
     ],
-    "receipt_hash": "39ca9f7d1c07ffe87acecd951ce15463e3752b62474e899e698b738995ddec15",
+    "receipt_hash": "09dfd279ac5b85558ab07727f7eb67873fb5f964021ee41ac95db1f4346a725e",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -374,17 +409,21 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": [],
+    "relevant_env": [
+      "ACLOCAL_PATH=/usr/share/aclocal"
+    ],
     "kernel_version": "6.8.0-124-generic",
     "libc_name": "glibc",
     "libc_version": "2.39",
     "pkg_config_path": [],
-    "env_vars_influential": {},
+    "env_vars_influential": {
+      "ACLOCAL_PATH": "/usr/share/aclocal"
+    },
     "posix_flavor": "gnu",
     "shell": "dash",
     "oracle_tool_versions": {
       "autoconf": "2.71",
-      "automake": "1.16.5",
+      "automake": "1.18.1",
       "libtool": "2.4.7",
       "m4": "1.4.19"
     },
@@ -712,10 +751,10 @@
     "unresolved_macros": []
   },
   "conditional_context": {
-    "configure_if": 255,
-    "configure_fi": 239,
-    "configure_case": 72,
-    "configure_esac": 75,
+    "configure_if": 1149,
+    "configure_fi": 1036,
+    "configure_case": 336,
+    "configure_esac": 325,
     "balanced": false,
     "automake_conditionals": [
       "USE_THREADS"
@@ -727,16 +766,15 @@
       "install-sh",
       "missing",
       "depcomp",
+      "compile",
       "ltmain.sh"
     ],
-    "missing": [
-      "compile"
-    ]
+    "missing": []
   },
   "language_surface": {
     "source_suffixes": {
       "c": 73,
-      "h": 74
+      "h": 73
     },
     "configure_macros": [
       "AC_PROG_CC"
@@ -751,7 +789,9 @@
       "AC_PROG_LIBTOOL"
     ],
     "ltmain_present": false,
-    "libtool_m4_sources": [],
+    "libtool_m4_sources": [
+      "aclocal.m4"
+    ],
     "age": "old"
   },
   "make_graph": {
@@ -847,8 +887,8 @@
     }
   ],
   "verification": {
-    "vs_gnu": "not-compared",
-    "output_match": "not-compared"
+    "vs_gnu": "both-fail",
+    "output_match": "both-fail"
   },
   "feature_probe_gap": {
     "headers_checked": [
@@ -964,10 +1004,10 @@
   "scenario_context": {
     "temporal_map": {
       "Makefile.am": -5,
-      "Makefile.in": 1318,
-      "aclocal.m4": 44,
-      "config.h.in": 58,
-      "configure": 52,
+      "Makefile.in": 7900,
+      "aclocal.m4": 7380,
+      "config.h.in": 7744,
+      "configure": 7578,
       "configure.ac": 0
     },
     "m4_ancestry": {

@@ -107,6 +107,24 @@
       "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { size_t x; return 0; }"
     ]
   },
+  "oracle": {
+    "real_autoreconf": "fail",
+    "real_configure": "skipped",
+    "real_make": "skipped",
+    "real_configure_lines": 0,
+    "real_first_error": "Makefile.am: error: required file './ChangeLog' not found",
+    "classification": "OURS_BETTER",
+    "internal_traces": [
+      "configure.ac:38: warning: AC_PROG_LEX without either yywrap or noyywrap is obsolete",
+      "configure.ac:32: installing './compile'",
+      "configure.ac:73: installing './config.guess'",
+      "configure.ac:73: installing './config.sub'",
+      "configure.ac:23: installing './install-sh'",
+      "configure.ac:23: installing './missing'",
+      "Makefile.am: installing './depcomp'",
+      "configure.ac: installing './ylwrap'"
+    ]
+  },
   "receipt": {
     "court_status": "partial",
     "probe_trace": [
@@ -198,7 +216,7 @@
     "quirks_matched": [
       "vendored-aclocal"
     ],
-    "receipt_hash": "cc5875c346cfc1e7319eb39a93b32d3454007a841123ce9774f94857c8ec3022",
+    "receipt_hash": "7e74ca92fdb6daaa3040101f0446cd3accc6d01c11d52dbe5f2ea34ceee53262",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -207,17 +225,21 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": [],
+    "relevant_env": [
+      "ACLOCAL_PATH=/usr/share/aclocal"
+    ],
     "kernel_version": "6.8.0-124-generic",
     "libc_name": "glibc",
     "libc_version": "2.39",
     "pkg_config_path": [],
-    "env_vars_influential": {},
+    "env_vars_influential": {
+      "ACLOCAL_PATH": "/usr/share/aclocal"
+    },
     "posix_flavor": "gnu",
     "shell": "dash",
     "oracle_tool_versions": {
       "autoconf": "2.71",
-      "automake": "1.16.5",
+      "automake": "1.18.1",
       "libtool": "2.4.7",
       "m4": "1.4.19"
     },
@@ -255,7 +277,7 @@
         "path": "Makefile",
         "depth": 0,
         "top_builddir": ".",
-        "has_template": true
+        "has_template": false
       }
     ],
     "config_headers": [
@@ -281,21 +303,6 @@
     ],
     "max_depth": 0,
     "config_h_consumers_below_root": []
-  },
-  "makefile_forensics": {
-    "generated_makefiles": [
-      {
-        "path": "Makefile",
-        "has_makefile_in": true,
-        "has_makefile_am": true,
-        "lines": 637,
-        "unexpanded_vars": [],
-        "unexpanded_automake_tokens": [
-          "$(am__"
-        ],
-        "recipe_tab_anomalies": 0
-      }
-    ]
   },
   "tool_requirements": {
     "detected": [
@@ -339,10 +346,10 @@
     "unresolved_macros": []
   },
   "conditional_context": {
-    "configure_if": 110,
-    "configure_fi": 105,
-    "configure_case": 63,
-    "configure_esac": 66,
+    "configure_if": 417,
+    "configure_fi": 383,
+    "configure_case": 149,
+    "configure_esac": 136,
     "balanced": false,
     "automake_conditionals": []
   },
@@ -359,7 +366,7 @@
   "language_surface": {
     "source_suffixes": {
       "c": 9,
-      "h": 10
+      "h": 9
     },
     "configure_macros": [
       "AC_PROG_CC"
@@ -368,89 +375,11 @@
     "needs_fortran": false,
     "sets_c_std": false
   },
-  "make_graph": {
-    "targets": [
-      "all",
-      "all-am",
-      "$(am__depfiles_remade)",
-      "am--depfiles",
-      "spec_parser.c",
-      "spec_parser.h",
-      "dictionary_parser.c",
-      "spec_tokenizer.c",
-      "install-exec-am",
-      "uninstall-am",
-      "libdp.a",
-      "libsp.a",
-      "install-man",
-      "install-man-am",
-      "uninstall-man",
-      "uninstall-man-am",
-      "install-am",
-      "installcheck-am",
-      "install-strip",
-      "install-info",
-      "install-info-am",
-      "install-dvi",
-      "install-dvi-am",
-      "install-ps",
-      "install-ps-am",
-      "install-pdf",
-      "install-pdf-am",
-      "install-html",
-      "install-html-am",
-      "install-data-hook",
-      "install-exec-hook",
-      "installdirs-am",
-      ".PHONY",
-      "mostlyclean-am",
-      "clean-am",
-      "distclean-am",
-      "maintainer-clean-am",
-      "distdir",
-      "dist",
-      "dist-all"
-    ],
-    "key_variables": {
-      "AR": "ar",
-      "CC": "cc",
-      "CFLAGS": "-g -O2",
-      "CPPFLAGS": "",
-      "CXX": "c++",
-      "CXXFLAGS": "-g -O2",
-      "DEFAULT_INCLUDES": "-I. -I$(top_builddir)",
-      "DEFS": "-DHAVE_CONFIG_H",
-      "LDFLAGS": "",
-      "LIBS": "-lnfc",
-      "RANLIB": "ranlib"
-    },
-    "generated_files": [
-      "Makefile",
-      "config.status",
-      "config.h",
-      "config.log"
-    ],
-    "recursion_depth": 0,
-    "top_targets": [
-      "all",
-      "dist",
-      "all-am"
-    ],
-    "make_diagnostics": [
-      {
-        "command": "",
-        "error_type": "make-syntax",
-        "message": "make: *** No rule to make target 'libsp_a-spec_parser.h', needed by 'all'.  Stop."
-      }
-    ]
-  },
   "toolchain_interaction": {
     "compiler": "cc",
     "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
     "c_std_default_risk": true,
-    "defines_sampled": [
-      "HAVE_CONFIG_H"
-    ]
+    "defines_sampled": []
   },
   "quirk_history": [
     {
@@ -461,7 +390,7 @@
     }
   ],
   "verification": {
-    "vs_gnu": "not-compared",
+    "vs_gnu": "ours-better",
     "output_match": "not-compared"
   },
   "vpath_analysis": {
@@ -543,10 +472,9 @@
   "scenario_context": {
     "temporal_map": {
       "Makefile.am": 0,
-      "Makefile.in": 1122,
-      "aclocal.m4": 5,
-      "config.h.in": 10,
-      "configure": 8,
+      "aclocal.m4": 2685,
+      "config.h.in": 2989,
+      "configure": 2889,
       "configure.ac": 0
     },
     "m4_ancestry": {

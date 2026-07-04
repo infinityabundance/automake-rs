@@ -86,15 +86,15 @@
       "DEFS",
       "LIBOBJS",
       "INSTALL",
-      "build_cpu",
       "build_os",
-      "GCJFLAGS",
-      "host_alias",
-      "SED",
-      "OBJDUMP",
-      "host_os",
+      "build_cpu",
+      "build_vendor",
+      "LIBM",
+      "GREP",
       "AR",
-      "build_alias"
+      "host_alias",
+      "NM",
+      "host_vendor"
     ],
     "failed_during_check": "checking for fuse_main in -lfuse... no",
     "failure_tail": [
@@ -109,6 +109,36 @@
       "char fuse_main ();\\nint main() { return fuse_main(); }",
       "char magic_file ();\\nint main() { return magic_file(); }"
     ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "ok",
+    "real_configure_lines": 20011,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE",
+    "internal_traces": [
+      "libtoolize: putting auxiliary files in '.'.",
+      "libtoolize: copying file './ltmain.sh'",
+      "libtoolize: putting macros in AC_CONFIG_MACRO_DIRS, 'm4'.",
+      "libtoolize: copying file 'm4/libtool.m4'",
+      "libtoolize: copying file 'm4/ltoptions.m4'",
+      "libtoolize: copying file 'm4/ltsugar.m4'",
+      "libtoolize: copying file 'm4/ltversion.m4'",
+      "libtoolize: copying file 'm4/lt~obsolete.m4'",
+      "configure.ac:28: warning: The macro `AC_HEADER_STDC' is obsolete.",
+      "configure.ac:14: installing './compile'",
+      "configure.ac:15: installing './missing'",
+      "src/Makefile.am: installing './depcomp'"
+    ]
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "",
+    "ours_error_context": [],
+    "ours_configure_lines": 2606,
+    "real_configure_lines": 20011,
+    "macros_ours_left_undefined": []
   },
   "receipt": {
     "court_status": "failed",
@@ -132,7 +162,7 @@
         "verified": false
       }
     ],
-    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
+    "receipt_hash": "a538dd1b607f6cd976fc862d4e8e8d63c3c1266aed35ab3625cbb61237e9478c",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -141,17 +171,21 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": [],
+    "relevant_env": [
+      "ACLOCAL_PATH=/usr/share/aclocal"
+    ],
     "kernel_version": "6.8.0-124-generic",
     "libc_name": "glibc",
     "libc_version": "2.39",
     "pkg_config_path": [],
-    "env_vars_influential": {},
+    "env_vars_influential": {
+      "ACLOCAL_PATH": "/usr/share/aclocal"
+    },
     "posix_flavor": "gnu",
     "shell": "dash",
     "oracle_tool_versions": {
       "autoconf": "2.71",
-      "automake": "1.16.5",
+      "automake": "1.18.1",
       "libtool": "2.4.7",
       "m4": "1.4.19"
     },
@@ -226,6 +260,32 @@
     ],
     "max_depth": 1,
     "config_h_consumers_below_root": []
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 847,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 781,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      }
+    ]
   },
   "tool_requirements": {
     "detected": [
@@ -566,10 +626,10 @@
     "unresolved_macros": []
   },
   "conditional_context": {
-    "configure_if": 100,
-    "configure_fi": 97,
-    "configure_case": 68,
-    "configure_esac": 71,
+    "configure_if": 1024,
+    "configure_fi": 919,
+    "configure_case": 420,
+    "configure_esac": 405,
     "balanced": false,
     "automake_conditionals": []
   },
@@ -612,11 +672,81 @@
     ],
     "age": "modern"
   },
+  "make_graph": {
+    "targets": [
+      "all",
+      ".SUFFIXES",
+      "am--refresh",
+      "$(srcdir)/Makefile.in",
+      "Makefile",
+      "$(top_builddir)/config.status",
+      "$(top_srcdir)/configure",
+      "$(ACLOCAL_M4)",
+      "$(am__aclocal_m4_deps)",
+      "include/config.h",
+      "include/stamp-h1",
+      "$(top_srcdir)/include/config.in",
+      "distclean-hdr",
+      "mostlyclean-libtool",
+      "clean-libtool",
+      "distclean-libtool",
+      "$(am__recursive_targets)",
+      "ID",
+      "tags",
+      "TAGS",
+      "tags-am",
+      "ctags",
+      "CTAGS",
+      "ctags-am",
+      "GTAGS",
+      "cscope",
+      "clean-cscope",
+      "cscope.files",
+      "cscopelist",
+      "cscopelist-am",
+      "distclean-tags",
+      "distdir",
+      "distdir-am",
+      "dist-gzip",
+      "dist-bzip2",
+      "dist-bzip3",
+      "dist-lzip",
+      "dist-xz",
+      "dist-zstd",
+      "dist-tarZ"
+    ],
+    "key_variables": {
+      "AR": "ar",
+      "CC": "gcc",
+      "CFLAGS": "-g -O2",
+      "CPPFLAGS": "",
+      "CXX": "g++",
+      "CXXFLAGS": "-std=c++11 -g -Wall -Wextra                              -D_FORTIFY_SOURCE=2 -O2  -fstack-protector                              --param=ssp-buffer-size=4 -Wfor",
+      "DEFS": "-DHAVE_CONFIG_H",
+      "LDFLAGS": "-Wl,-z,relro",
+      "LIBS": "-lmagic -lfuse",
+      "RANLIB": "ranlib"
+    },
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "libtool",
+      "config.log"
+    ],
+    "recursion_depth": 1,
+    "top_targets": [
+      "all"
+    ],
+    "make_diagnostics": []
+  },
   "toolchain_interaction": {
     "compiler": "cc",
     "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
     "c_std_default_risk": false,
-    "defines_sampled": []
+    "defines_sampled": [
+      "_FORTIFY_SOURCE=2",
+      "HAVE_CONFIG_H"
+    ]
   },
   "quirk_history": [
     {
@@ -651,7 +781,7 @@
     }
   ],
   "verification": {
-    "vs_gnu": "not-compared",
+    "vs_gnu": "ours-worse",
     "output_match": "not-compared"
   },
   "source_to_generated_map": {
@@ -711,9 +841,9 @@
   "scenario_context": {
     "temporal_map": {
       "Makefile.am": -2,
-      "Makefile.in": 1442,
-      "aclocal.m4": 9,
-      "configure": 38,
+      "Makefile.in": 6096,
+      "aclocal.m4": 5608,
+      "configure": 5793,
       "configure.ac": 0
     },
     "m4_ancestry": {

@@ -148,6 +148,38 @@
       "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { int64_t x; return 0; }"
     ]
   },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "fail",
+    "real_configure_lines": 22003,
+    "real_first_error": "",
+    "classification": "BOTH_MAKE_FAIL",
+    "internal_traces": [
+      "libtoolize: putting auxiliary files in AC_CONFIG_AUX_DIR, 'ac-config'.",
+      "libtoolize: copying file 'ac-config/ltmain.sh'",
+      "libtoolize: putting macros in AC_CONFIG_MACRO_DIRS, 'm4'.",
+      "libtoolize: copying file 'm4/libtool.m4'",
+      "libtoolize: copying file 'm4/ltoptions.m4'",
+      "libtoolize: copying file 'm4/ltsugar.m4'",
+      "libtoolize: copying file 'm4/ltversion.m4'",
+      "libtoolize: copying file 'm4/lt~obsolete.m4'",
+      "libtoolize: Consider adding '-I m4' to ACLOCAL_AMFLAGS in Makefile.am.",
+      "configure.ac:23: warning: AC_PROG_LEX without either yywrap or noyywrap is obsolete",
+      "configure.ac:26: warning: The macro `AM_PROG_LIBTOOL' is obsolete.",
+      "configure.ac:22: installing 'ac-config/compile'",
+      "configure.ac:12: installing 'ac-config/missing'",
+      "automake: warning: possible forward-incompatibility.",
+      "automake: At least one source file is in a subdirectory, but the 'subdir-objects'",
+      "automake: automake option hasn't been enabled.  For now, the corresponding output",
+      "automake: object file(s) will be placed in the top-level directory.  However, this",
+      "automake: behavior may change in a future Automake major version, with object",
+      "automake: files being placed in the same subdirectory as the corresponding sources.",
+      "automake: You are advised to start using 'subdir-objects' option throughout your",
+      "automake: project, to avoid future incompatibility.",
+      "src/Makefile.am: installing 'ac-config/depcomp'"
+    ]
+  },
   "receipt": {
     "court_status": "partial",
     "probe_trace": [
@@ -462,7 +494,7 @@
       "has-m4-macro-dir",
       "vendored-aclocal"
     ],
-    "receipt_hash": "85a9e834802393e45f4f3e0305e341853f37ca6b40cffc23f49e3efeb0c6a126",
+    "receipt_hash": "8bffb983a0bc41aacdd3d6afb3c928b5cb726604f0ea00b9b30f7912f2195fff",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -471,17 +503,21 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": [],
+    "relevant_env": [
+      "ACLOCAL_PATH=/usr/share/aclocal"
+    ],
     "kernel_version": "6.8.0-124-generic",
     "libc_name": "glibc",
     "libc_version": "2.39",
     "pkg_config_path": [],
-    "env_vars_influential": {},
+    "env_vars_influential": {
+      "ACLOCAL_PATH": "/usr/share/aclocal"
+    },
     "posix_flavor": "gnu",
     "shell": "dash",
     "oracle_tool_versions": {
       "autoconf": "2.71",
-      "automake": "1.16.5",
+      "automake": "1.18.1",
       "libtool": "2.4.7",
       "m4": "1.4.19"
     },
@@ -541,7 +577,7 @@
         "subdirs": [
           "src"
         ],
-        "sources_include_config_h": false,
+        "sources_include_config_h": true,
         "am_cppflags": ""
       },
       {
@@ -576,7 +612,7 @@
         "path": "Makefile",
         "has_makefile_in": true,
         "has_makefile_am": true,
-        "lines": 521,
+        "lines": 861,
         "unexpanded_vars": [],
         "unexpanded_automake_tokens": [
           "$(am__"
@@ -614,7 +650,7 @@
         "path": "src/Makefile",
         "has_makefile_in": true,
         "has_makefile_am": true,
-        "lines": 624,
+        "lines": 1187,
         "unexpanded_vars": [],
         "unexpanded_automake_tokens": [
           "$(am__"
@@ -830,6 +866,11 @@
         "kind": "AC"
       },
       {
+        "name": "_LT_DLL_DEF_P",
+        "source": "m4/libtool.m4",
+        "kind": "project-local"
+      },
+      {
         "name": "LT_LIB_M",
         "source": "m4/libtool.m4",
         "kind": "LT"
@@ -978,11 +1019,6 @@
         "name": "_LT_AC_SYS_LIBPATH_AIX",
         "source": "m4/lt~obsolete.m4",
         "kind": "project-local"
-      },
-      {
-        "name": "_LT_PROG_LTMAIN",
-        "source": "m4/lt~obsolete.m4",
-        "kind": "project-local"
       }
     ],
     "called_macros": [
@@ -1040,10 +1076,10 @@
     "unresolved_macros": []
   },
   "conditional_context": {
-    "configure_if": 133,
-    "configure_fi": 130,
-    "configure_case": 66,
-    "configure_esac": 69,
+    "configure_if": 1191,
+    "configure_fi": 1074,
+    "configure_case": 442,
+    "configure_esac": 428,
     "balanced": false,
     "automake_conditionals": []
   },
@@ -1053,12 +1089,11 @@
       "install-sh",
       "missing",
       "depcomp",
+      "compile",
       "config.guess",
       "config.sub"
     ],
-    "missing": [
-      "compile"
-    ]
+    "missing": []
   },
   "language_surface": {
     "source_suffixes": {
@@ -1092,49 +1127,49 @@
   "make_graph": {
     "targets": [
       "all",
-      "all-am",
-      "install-am",
-      "installcheck-am",
-      "install-strip",
-      "install-info",
-      "install-info-am",
-      "install-dvi",
-      "install-dvi-am",
-      "install-ps",
-      "install-ps-am",
-      "install-pdf",
-      "install-pdf-am",
-      "install-html",
-      "install-html-am",
-      "install-data-hook",
-      "install-exec-hook",
-      "installdirs-am",
-      ".PHONY",
-      "mostlyclean-am",
-      "clean-am",
-      "distclean-am",
-      "maintainer-clean-am",
-      "distdir",
-      "dist",
-      "dist-all",
-      "dist-gzip",
-      "distcleancheck",
-      "distcheck",
-      "check-am",
-      "TAGS",
-      "tags",
-      "TAGS-am",
-      "tags-am",
-      "cscope",
-      "cscope-am",
-      "distuninstallcheck",
+      ".SUFFIXES",
+      "am--refresh",
       "$(srcdir)/Makefile.in",
+      "Makefile",
+      "$(top_builddir)/config.status",
+      "$(top_srcdir)/configure",
+      "$(ACLOCAL_M4)",
+      "$(am__aclocal_m4_deps)",
+      "config.h",
+      "stamp-h1",
+      "$(srcdir)/config.h.in",
+      "distclean-hdr",
+      "mostlyclean-libtool",
+      "clean-libtool",
+      "distclean-libtool",
       "$(am__recursive_targets)",
-      "check"
+      "ID",
+      "tags",
+      "TAGS",
+      "tags-am",
+      "ctags",
+      "CTAGS",
+      "ctags-am",
+      "GTAGS",
+      "cscope",
+      "clean-cscope",
+      "cscope.files",
+      "cscopelist",
+      "cscopelist-am",
+      "distclean-tags",
+      "distdir",
+      "distdir-am",
+      "dist-gzip",
+      "dist-bzip2",
+      "dist-bzip3",
+      "dist-lzip",
+      "dist-xz",
+      "dist-zstd",
+      "dist-tarZ"
     ],
     "key_variables": {
       "AR": "ar",
-      "CC": "cc",
+      "CC": "gcc",
       "CFLAGS": "-g -O2",
       "CPPFLAGS": "",
       "CXX": "g++",
@@ -1149,14 +1184,12 @@
       "config.status",
       "config.h",
       "libtool",
+      "stamp-h1",
       "config.log"
     ],
     "recursion_depth": 1,
     "top_targets": [
-      "all",
-      "check",
-      "dist",
-      "all-am"
+      "all"
     ],
     "make_diagnostics": [
       {
@@ -1209,8 +1242,8 @@
     }
   ],
   "verification": {
-    "vs_gnu": "not-compared",
-    "output_match": "not-compared"
+    "vs_gnu": "both-fail",
+    "output_match": "both-fail"
   },
   "vpath_analysis": {
     "hardcoded_src_paths": 0,
@@ -1410,10 +1443,10 @@
   "scenario_context": {
     "temporal_map": {
       "Makefile.am": -7,
-      "Makefile.in": 1653,
-      "aclocal.m4": 89,
-      "config.h.in": 118,
-      "configure": 116,
+      "Makefile.in": 8958,
+      "aclocal.m4": 8410,
+      "config.h.in": 8797,
+      "configure": 8622,
       "configure.ac": 0
     },
     "m4_ancestry": {

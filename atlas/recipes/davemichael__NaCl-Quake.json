@@ -95,7 +95,7 @@
       "LIBOBJS",
       "INSTALL",
       "LD",
-      "host_cpu",
+      "AR",
       "host_alias",
       "host_os"
     ],
@@ -110,6 +110,22 @@
     "conftest_directives_mangled": 0,
     "conftest_programs": []
   },
+  "oracle": {
+    "real_autoreconf": "fail",
+    "real_configure": "skipped",
+    "real_make": "skipped",
+    "real_configure_lines": 0,
+    "real_first_error": "Makefile.am: error: required file './AUTHORS' not found",
+    "classification": "OURS_BETTER",
+    "internal_traces": [
+      "aclocal: warning: autoconf input should be named 'configure.ac', not 'configure.in'",
+      "automake: warning: autoconf input should be named 'configure.ac', not 'configure.in'",
+      "configure.in:14: installing './compile'",
+      "Makefile.am: installing './INSTALL'",
+      "Makefile.am: installing './depcomp'",
+      "automake: warning: autoconf input should be named 'configure.ac', not 'configure.in'"
+    ]
+  },
   "receipt": {
     "court_status": "partial",
     "probe_trace": [],
@@ -117,7 +133,7 @@
       "has-acinclude",
       "vendored-aclocal"
     ],
-    "receipt_hash": "fc222e24136e1c7565f3970366c0a81d4ec04fa5491250e780188ba2805c06fb",
+    "receipt_hash": "4a56d3d05b2d7872a94ebad8606e6a3f979f282ce4d5e2c8eba66082ab973ca2",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -126,17 +142,21 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": [],
+    "relevant_env": [
+      "ACLOCAL_PATH=/usr/share/aclocal"
+    ],
     "kernel_version": "6.8.0-124-generic",
     "libc_name": "glibc",
     "libc_version": "2.39",
     "pkg_config_path": [],
-    "env_vars_influential": {},
+    "env_vars_influential": {
+      "ACLOCAL_PATH": "/usr/share/aclocal"
+    },
     "posix_flavor": "gnu",
     "shell": "dash",
     "oracle_tool_versions": {
       "autoconf": "2.71",
-      "automake": "1.16.5",
+      "automake": "1.18.1",
       "libtool": "2.4.7",
       "m4": "1.4.19"
     },
@@ -199,11 +219,19 @@
         "path": "Makefile",
         "has_makefile_in": true,
         "has_makefile_am": true,
-        "lines": 574,
+        "lines": 85,
+        "first_parse_error": {
+          "line": 6,
+          "kind": "missing-separator",
+          "text": "NACL_SDK_ROOT ?= $(HOME)/native_client_sdk_0_5_984/",
+          "previous_lines": [
+            "CCFLAGS32 := $(CCFLAGS) -m32",
+            "CCFLAGS64 := $(CCFLAGS) -m64"
+          ],
+          "probable_cause": "bare-macro"
+        },
         "unexpanded_vars": [],
-        "unexpanded_automake_tokens": [
-          "$(am__"
-        ],
+        "unexpanded_automake_tokens": [],
         "recipe_tab_anomalies": 0
       }
     ]
@@ -236,10 +264,10 @@
     "unresolved_macros": []
   },
   "conditional_context": {
-    "configure_if": 110,
-    "configure_fi": 106,
-    "configure_case": 68,
-    "configure_esac": 71,
+    "configure_if": 325,
+    "configure_fi": 296,
+    "configure_case": 134,
+    "configure_esac": 120,
     "balanced": false,
     "automake_conditionals": []
   },
@@ -272,72 +300,21 @@
   "make_graph": {
     "targets": [
       "all",
-      "all-am",
-      "$(am__depfiles_remade)",
-      "am--depfiles",
-      "install-exec-am",
-      "uninstall-am",
-      "install",
-      "install-am",
-      "installcheck",
-      "install-strip",
-      "install-info",
-      "install-info-am",
-      "install-dvi",
-      "install-dvi-am",
-      "install-ps",
-      "install-ps-am",
-      "install-pdf",
-      "install-pdf-am",
-      "install-html",
-      "install-html-am",
-      "install-data-hook",
-      "install-exec-hook",
-      "installdirs",
-      "installdirs-am",
-      ".PHONY",
-      "mostlyclean-am",
-      "clean-am",
-      "distclean-am",
-      "maintainer-clean-am",
-      "clean",
-      "distdir",
-      "dist",
-      "dist-all",
-      "dist-gzip",
-      "distcleancheck",
-      "distcheck",
-      "check-am",
-      "check",
-      "TAGS",
-      "tags"
+      "quake",
+      "quake32",
+      "quake64",
+      "clean"
     ],
     "key_variables": {
-      "AR": "ar",
-      "CC": "cc",
-      "CFLAGS": "-I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT -DSDL -DELF",
-      "CPPFLAGS": "",
-      "CXX": "c++",
-      "CXXFLAGS": "-g -O2",
-      "DEFAULT_INCLUDES": "-I. -I$(top_builddir)",
-      "DEFS": "-DPACKAGE=\"README.SDL\" -DVERSION=\"0.0\" -DPACKAGE_NAME=\"README.SDL\" -DPACKAGE_TARNAME=\"README.SDL\" -DPACKAGE_VERSION=\"0.0\" -DPACKAGE_STRING=\"README.SDL 0.0\" -DPA",
-      "LDFLAGS": "",
-      "LIBS": "-lSDL",
-      "RANLIB": "ranlib"
+      "LDFLAGS": "-Xlinker --wrap -Xlinker read"
     },
     "generated_files": [
-      "Makefile",
-      "config.status",
-      "config.log"
+      "Makefile"
     ],
     "recursion_depth": 0,
     "top_targets": [
       "all",
-      "install",
-      "check",
-      "clean",
-      "dist",
-      "all-am"
+      "clean"
     ],
     "make_diagnostics": [
       {
@@ -362,17 +339,7 @@
     "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
     "c_std_default_risk": true,
     "defines_sampled": [
-      "_GNU_SOURCE=1",
-      "_REENTRANT",
-      "SDL",
-      "ELF",
-      "PACKAGE=\"README.SDL\"",
-      "VERSION=\"0.0\"",
-      "PACKAGE_NAME=\"README.SDL\"",
-      "PACKAGE_TARNAME=\"README.SDL\"",
-      "PACKAGE_VERSION=\"0.0\"",
-      "PACKAGE_STRING=\"README.SDL",
-      "PACKAGE_BUGREPORT=\"\""
+      "SDL"
     ]
   },
   "quirk_history": [
@@ -390,7 +357,7 @@
     }
   ],
   "verification": {
-    "vs_gnu": "not-compared",
+    "vs_gnu": "ours-better",
     "output_match": "not-compared"
   },
   "feature_probe_gap": {
@@ -471,12 +438,25 @@
     "undefined_symbols": [],
     "provided_symbols_sample": []
   },
+  "repair_hints": [
+    {
+      "id": "makefile-bare-macro",
+      "phase": "make",
+      "confidence": 0.7,
+      "evidence": [
+        "Makefile:6 missing-separator",
+        "NACL_SDK_ROOT ?= $(HOME)/native_client_sdk_0_5_984/"
+      ],
+      "action": "define-or-neutralize-leaked-macro",
+      "expected_effect": "partial -> FUNC_OK candidate"
+    }
+  ],
   "scenario_context": {
     "temporal_map": {
-      "Makefile.am": -3,
-      "Makefile.in": 1037,
-      "aclocal.m4": 24,
-      "configure": 31,
+      "Makefile.am": -4,
+      "Makefile.in": 1420,
+      "aclocal.m4": 2699,
+      "configure": 2880,
       "configure.in": 0
     },
     "m4_ancestry": {

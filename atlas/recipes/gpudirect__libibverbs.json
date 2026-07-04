@@ -113,6 +113,47 @@
       "#include <valgrind/memcheck.h>"
     ]
   },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "fail",
+    "real_configure_lines": 20693,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE",
+    "internal_traces": [
+      "libtoolize: putting auxiliary files in AC_CONFIG_AUX_DIR, 'config'.",
+      "libtoolize: copying file 'config/ltmain.sh'",
+      "libtoolize: putting macros in AC_CONFIG_MACRO_DIRS, 'config'.",
+      "libtoolize: copying file 'config/libtool.m4'",
+      "libtoolize: copying file 'config/ltoptions.m4'",
+      "libtoolize: copying file 'config/ltsugar.m4'",
+      "libtoolize: copying file 'config/ltversion.m4'",
+      "libtoolize: copying file 'config/lt~obsolete.m4'",
+      "configure.ac:8: warning: The macro `AC_CONFIG_HEADER' is obsolete.",
+      "configure.ac:15: warning: The macro `AC_GNU_SOURCE' is obsolete.",
+      "configure.ac:17: warning: The macro `AC_PROG_LIBTOOL' is obsolete.",
+      "configure.ac:25: warning: The macro `AC_HELP_STRING' is obsolete.",
+      "configure.ac:38: warning: The macro `AC_HELP_STRING' is obsolete.",
+      "configure.ac:79: warning: The macro `AC_HEADER_STDC' is obsolete.",
+      "configure.ac:107: warning: The macro `AC_TRY_COMPILE' is obsolete.",
+      "configure.ac:13: installing 'config/compile'",
+      "configure.ac:17: installing 'config/config.guess'",
+      "configure.ac:17: installing 'config/config.sub'",
+      "configure.ac:9: installing 'config/install-sh'",
+      "configure.ac:9: installing 'config/missing'",
+      "Makefile.am: installing 'config/depcomp'"
+    ]
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "line 1466: ; (near `;`)",
+    "ours_error_context": [
+      ";"
+    ],
+    "ours_configure_lines": 2725,
+    "real_configure_lines": 20693,
+    "macros_ours_left_undefined": []
+  },
   "receipt": {
     "court_status": "failed",
     "probe_trace": [],
@@ -130,7 +171,7 @@
         "verified": false
       }
     ],
-    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
+    "receipt_hash": "a538dd1b607f6cd976fc862d4e8e8d63c3c1266aed35ab3625cbb61237e9478c",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -139,17 +180,21 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": [],
+    "relevant_env": [
+      "ACLOCAL_PATH=/usr/share/aclocal"
+    ],
     "kernel_version": "6.8.0-124-generic",
     "libc_name": "glibc",
     "libc_version": "2.39",
     "pkg_config_path": [],
-    "env_vars_influential": {},
+    "env_vars_influential": {
+      "ACLOCAL_PATH": "/usr/share/aclocal"
+    },
     "posix_flavor": "gnu",
     "shell": "dash",
     "oracle_tool_versions": {
       "autoconf": "2.71",
-      "automake": "1.16.5",
+      "automake": "1.18.1",
       "libtool": "2.4.7",
       "m4": "1.4.19"
     },
@@ -216,12 +261,27 @@
           "examples/ibv_dcini"
         ],
         "subdirs": [],
-        "sources_include_config_h": false,
+        "sources_include_config_h": true,
         "am_cppflags": "-I$(srcdir)/include -DMLX_VERBS_PROVIDER_DIR=\\\"$(libdir)\\\""
       }
     ],
     "max_depth": 0,
     "config_h_consumers_below_root": []
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1728,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      }
+    ]
   },
   "tool_requirements": {
     "detected": [
@@ -571,10 +631,10 @@
     "unresolved_macros": []
   },
   "conditional_context": {
-    "configure_if": 117,
-    "configure_fi": 114,
-    "configure_case": 63,
-    "configure_esac": 66,
+    "configure_if": 1106,
+    "configure_fi": 983,
+    "configure_case": 422,
+    "configure_esac": 407,
     "balanced": false,
     "automake_conditionals": [
       "HAVE_LIBNL",
@@ -587,11 +647,10 @@
       "install-sh",
       "missing",
       "depcomp",
-      "compile"
-    ],
-    "missing": [
+      "compile",
       "ltmain.sh"
-    ]
+    ],
+    "missing": []
   },
   "language_surface": {
     "source_suffixes": {
@@ -614,14 +673,90 @@
       "AC_PROG_LIBTOOL"
     ],
     "ltmain_present": false,
-    "libtool_m4_sources": [],
+    "libtool_m4_sources": [
+      "aclocal.m4"
+    ],
     "age": "modern"
+  },
+  "make_graph": {
+    "targets": [
+      "all",
+      ".SUFFIXES",
+      "am--refresh",
+      "$(srcdir)/Makefile.in",
+      "Makefile",
+      "$(top_builddir)/config.status",
+      "$(top_srcdir)/configure",
+      "$(ACLOCAL_M4)",
+      "$(am__aclocal_m4_deps)",
+      "config.h",
+      "stamp-h1",
+      "$(srcdir)/config.h.in",
+      "distclean-hdr",
+      "libibverbs.spec",
+      "install-binPROGRAMS",
+      "uninstall-binPROGRAMS",
+      "clean-binPROGRAMS",
+      "install-libLTLIBRARIES",
+      "uninstall-libLTLIBRARIES",
+      "clean-libLTLIBRARIES",
+      "src/$(am__dirstamp)",
+      "src/$(DEPDIR)/$(am__dirstamp)",
+      "src/libibverbs_la-cmd.lo",
+      "src/libibverbs_la-compat-1_0.lo",
+      "src/libibverbs_la-device.lo",
+      "src/libibverbs_la-init.lo",
+      "src/libibverbs_la-marshall.lo",
+      "src/libibverbs_la-memory.lo",
+      "src/libibverbs_la-sysfs.lo",
+      "src/libibverbs_la-verbs.lo",
+      "src/libibverbs_la-enum_strs.lo",
+      "src/libibverbs_la-cmd_exp.lo",
+      "src/libibverbs_la-neigh.lo",
+      "src/libibverbs.la",
+      "examples/$(am__dirstamp)",
+      "examples/$(DEPDIR)/$(am__dirstamp)",
+      "examples/asyncwatch.$(OBJEXT)",
+      "examples/ibv_asyncwatch$(EXEEXT)",
+      "examples/cc_pingpong.$(OBJEXT)",
+      "examples/ibv_cc_pingpong$(EXEEXT)"
+    ],
+    "key_variables": {
+      "AR": "ar",
+      "CC": "gcc",
+      "CFLAGS": "-g -O2",
+      "CPPFLAGS": "",
+      "CXX": "g++",
+      "CXXFLAGS": "-g -O2",
+      "DEFAULT_INCLUDES": "-I.",
+      "DEFS": "-DHAVE_CONFIG_H",
+      "LDFLAGS": "",
+      "LIBS": "-lpthread -ldl",
+      "RANLIB": "ranlib"
+    },
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "config.h",
+      "libtool",
+      "stamp-h1",
+      "config.log"
+    ],
+    "recursion_depth": 0,
+    "top_targets": [
+      "all"
+    ],
+    "make_diagnostics": []
   },
   "toolchain_interaction": {
     "compiler": "cc",
     "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
     "c_std_default_risk": true,
-    "defines_sampled": []
+    "defines_sampled": [
+      "HAVE_CONFIG_H",
+      "MLX_VERBS_PROVIDER_DIR=\\\"$(libdir)\\\"",
+      "IBV_CONFIG_DIR=\\\"$(sysconfdir)/libibverbs.d\\\""
+    ]
   },
   "quirk_history": [
     {
@@ -656,7 +791,7 @@
     }
   ],
   "verification": {
-    "vs_gnu": "not-compared",
+    "vs_gnu": "ours-worse",
     "output_match": "not-compared"
   },
   "feature_probe_gap": {
@@ -774,11 +909,11 @@
   },
   "scenario_context": {
     "temporal_map": {
-      "Makefile.am": -5,
-      "Makefile.in": 1118,
-      "aclocal.m4": 12,
-      "config.h.in": 18,
-      "configure": 16,
+      "Makefile.am": -4,
+      "Makefile.in": 5620,
+      "aclocal.m4": 5097,
+      "config.h.in": 5446,
+      "configure": 5291,
       "configure.ac": 0
     },
     "m4_ancestry": {

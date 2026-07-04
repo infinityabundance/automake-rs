@@ -98,13 +98,30 @@
       "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { size_t x; return 0; }"
     ]
   },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "fail",
+    "real_configure_lines": 6245,
+    "real_first_error": "",
+    "classification": "BOTH_MAKE_FAIL",
+    "internal_traces": [
+      "configure.ac:23: warning: The macro `AC_HEADER_STDC' is obsolete.",
+      "configure.ac:20: installing './compile'",
+      "configure.ac:37: installing './config.guess'",
+      "configure.ac:37: installing './config.sub'",
+      "configure.ac:3: installing './install-sh'",
+      "configure.ac:3: installing './missing'",
+      "src/Makefile.am: installing './depcomp'"
+    ]
+  },
   "receipt": {
     "court_status": "partial",
     "probe_trace": [],
     "quirks_matched": [
       "vendored-aclocal"
     ],
-    "receipt_hash": "fc222e24136e1c7565f3970366c0a81d4ec04fa5491250e780188ba2805c06fb",
+    "receipt_hash": "8b0c2ac368d060751cfa87cb60220df01ba96f202061533dc445bc26dea553b1",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -113,17 +130,21 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": [],
+    "relevant_env": [
+      "ACLOCAL_PATH=/usr/share/aclocal"
+    ],
     "kernel_version": "6.8.0-124-generic",
     "libc_name": "glibc",
     "libc_version": "2.39",
     "pkg_config_path": [],
-    "env_vars_influential": {},
+    "env_vars_influential": {
+      "ACLOCAL_PATH": "/usr/share/aclocal"
+    },
     "posix_flavor": "gnu",
     "shell": "dash",
     "oracle_tool_versions": {
       "autoconf": "2.71",
-      "automake": "1.16.5",
+      "automake": "1.18.1",
       "libtool": "2.4.7",
       "m4": "1.4.19"
     },
@@ -207,7 +228,13 @@
       "lib/sodium",
       "lib/parson",
       "lib/base64",
-      "src"
+      "src",
+      "dist-build",
+      "msvc-scripts",
+      "src",
+      "test",
+      "libsodium",
+      "default"
     ],
     "build_dirs": [
       {
@@ -220,6 +247,54 @@
           "lib/parson",
           "lib/base64",
           "src"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "lib/nanomsg/nanomsg-0.8-beta",
+        "targets": [
+          "libnanomsg.la",
+          "perf/inproc_lat",
+          "perf/inproc_thr",
+          "perf/local_lat",
+          "perf/remote_lat",
+          "perf/local_thr",
+          "perf/remote_thr",
+          "$(TRANSPORT_TESTS)",
+          "$(PROTOCOL_TESTS)",
+          "$(FEATURE_TESTS)"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "lib/sodium/libsodium-1.0.9",
+        "targets": [],
+        "subdirs": [
+          "dist-build",
+          "msvc-scripts",
+          "src",
+          "test"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "lib/sodium/libsodium-1.0.9/src",
+        "targets": [],
+        "subdirs": [
+          "libsodium"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "lib/sodium/libsodium-1.0.9/test",
+        "targets": [],
+        "subdirs": [
+          "default"
         ],
         "sources_include_config_h": false,
         "am_cppflags": ""
@@ -243,7 +318,7 @@
         "path": "Makefile",
         "has_makefile_in": true,
         "has_makefile_am": true,
-        "lines": 530,
+        "lines": 804,
         "unexpanded_vars": [],
         "unexpanded_automake_tokens": [
           "$(am__"
@@ -254,7 +329,7 @@
         "path": "src/Makefile",
         "has_makefile_in": true,
         "has_makefile_am": true,
-        "lines": 515,
+        "lines": 701,
         "unexpanded_vars": [],
         "unexpanded_automake_tokens": [
           "$(am__"
@@ -265,7 +340,62 @@
         "path": "lib/sodium/Makefile",
         "has_makefile_in": true,
         "has_makefile_am": true,
-        "lines": 450,
+        "lines": 444,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "lib/sodium/libsodium-1.0.9/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 919,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "lib/sodium/libsodium-1.0.9/dist-build/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 486,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "lib/sodium/libsodium-1.0.9/src/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 654,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "lib/sodium/libsodium-1.0.9/msvc-scripts/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 476,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "lib/sodium/libsodium-1.0.9/test/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 657,
         "unexpanded_vars": [],
         "unexpanded_automake_tokens": [
           "$(am__"
@@ -276,7 +406,18 @@
         "path": "lib/nanomsg/Makefile",
         "has_makefile_in": true,
         "has_makefile_am": true,
-        "lines": 450,
+        "lines": 444,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "lib/nanomsg/nanomsg-0.8-beta/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 3731,
         "unexpanded_vars": [],
         "unexpanded_automake_tokens": [
           "$(am__"
@@ -287,7 +428,7 @@
         "path": "lib/parson/Makefile",
         "has_makefile_in": true,
         "has_makefile_am": true,
-        "lines": 450,
+        "lines": 444,
         "unexpanded_vars": [],
         "unexpanded_automake_tokens": [
           "$(am__"
@@ -298,7 +439,7 @@
         "path": "lib/base64/Makefile",
         "has_makefile_in": true,
         "has_makefile_am": true,
-        "lines": 450,
+        "lines": 444,
         "unexpanded_vars": [],
         "unexpanded_automake_tokens": [
           "$(am__"
@@ -309,7 +450,7 @@
         "path": "lib/vedis/Makefile",
         "has_makefile_in": true,
         "has_makefile_am": true,
-        "lines": 450,
+        "lines": 444,
         "unexpanded_vars": [],
         "unexpanded_automake_tokens": [
           "$(am__"
@@ -341,10 +482,10 @@
     "unresolved_macros": []
   },
   "conditional_context": {
-    "configure_if": 109,
-    "configure_fi": 106,
-    "configure_case": 66,
-    "configure_esac": 69,
+    "configure_if": 329,
+    "configure_fi": 300,
+    "configure_case": 130,
+    "configure_esac": 116,
     "balanced": false,
     "automake_conditionals": []
   },
@@ -352,19 +493,18 @@
     "aux_dir": ".",
     "present": [
       "install-sh",
-      "missing"
-    ],
-    "missing": [
+      "missing",
       "depcomp",
       "compile",
       "config.guess",
       "config.sub"
-    ]
+    ],
+    "missing": []
   },
   "language_surface": {
     "source_suffixes": {
-      "c": 17,
-      "h": 1
+      "c": 64,
+      "h": 18
     },
     "configure_macros": [
       "AC_PROG_CC"
@@ -376,57 +516,53 @@
   "make_graph": {
     "targets": [
       "all",
-      "all-am",
-      "install-am",
-      "installcheck-am",
-      "install-strip",
-      "install-info",
-      "install-info-am",
-      "install-dvi",
-      "install-dvi-am",
-      "install-ps",
-      "install-ps-am",
-      "install-pdf",
-      "install-pdf-am",
-      "install-html",
-      "install-html-am",
-      "install-data-hook",
-      "install-exec-hook",
-      "installdirs-am",
-      ".PHONY",
-      "mostlyclean-am",
-      "clean-am",
-      "distclean-am",
-      "maintainer-clean-am",
+      ".SUFFIXES",
+      "am--refresh",
+      "$(srcdir)/Makefile.in",
+      "Makefile",
+      "$(top_builddir)/config.status",
+      "$(top_srcdir)/configure",
+      "$(ACLOCAL_M4)",
+      "$(am__aclocal_m4_deps)",
+      "$(am__recursive_targets)",
+      "ID",
+      "tags",
+      "TAGS",
+      "tags-am",
+      "ctags",
+      "CTAGS",
+      "ctags-am",
+      "GTAGS",
+      "cscope",
+      "clean-cscope",
+      "cscope.files",
+      "cscopelist",
+      "cscopelist-am",
+      "distclean-tags",
       "distdir",
+      "distdir-am",
+      "dist-gzip",
+      "dist-bzip2",
+      "dist-bzip3",
+      "dist-lzip",
+      "dist-xz",
+      "dist-zstd",
+      "dist-tarZ",
+      "dist-shar",
+      "dist-zip",
       "dist",
       "dist-all",
-      "dist-gzip",
-      "distcleancheck",
       "distcheck",
-      "check-am",
-      "TAGS",
-      "tags",
-      "TAGS-am",
-      "tags-am",
-      "cscope",
-      "cscope-am",
       "distuninstallcheck",
-      "$(srcdir)/Makefile.in",
-      "$(am__recursive_targets)",
-      "check"
+      "distcleancheck"
     ],
     "key_variables": {
-      "AR": "ar",
-      "CC": "cc",
+      "CC": "gcc",
       "CFLAGS": "-g -O2",
       "CPPFLAGS": "",
-      "CXX": "c++",
-      "CXXFLAGS": "-g -O2",
-      "DEFS": "-DPACKAGE=\"nanochat\" -DVERSION=\"0.1\" -DPACKAGE_NAME=\"nanochat\" -DPACKAGE_TARNAME=\"nanochat\" -DPACKAGE_VERSION=\"0.1\" -DPACKAGE_STRING=\"nanochat 0.1\" -DPACKAGE_BU",
+      "DEFS": "-DPACKAGE_NAME=\\\"nanochat\\\" -DPACKAGE_TARNAME=\\\"nanochat\\\" -DPACKAGE_VERSION=\\\"0.1\\\" -DPACKAGE_STRING=\\\"nanochat\\ 0.1\\\" -DPACKAGE_BUGREPORT=\\\"hamidreza.s@gmail.",
       "LDFLAGS": "",
-      "LIBS": "",
-      "RANLIB": "ranlib"
+      "LIBS": ""
     },
     "generated_files": [
       "Makefile",
@@ -436,9 +572,7 @@
     "recursion_depth": 2,
     "top_targets": [
       "all",
-      "check",
-      "dist",
-      "all-am"
+      "dist"
     ],
     "make_diagnostics": [
       {
@@ -454,7 +588,7 @@
       {
         "command": "",
         "error_type": "make-syntax",
-        "message": "make[2]: *** [Makefile:501: nc_param.o] Error 1"
+        "message": "make[2]: *** [Makefile:501: nc.o] Error 1"
       },
       {
         "command": "",
@@ -464,7 +598,7 @@
       {
         "command": "",
         "error_type": "make-syntax",
-        "message": "make[2]: *** [Makefile:501: nc.o] Error 1"
+        "message": "make[2]: *** [Makefile:501: nc_param.o] Error 1"
       },
       {
         "command": "",
@@ -483,26 +617,26 @@
     "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
     "c_std_default_risk": true,
     "defines_sampled": [
-      "PACKAGE=\"nanochat\"",
-      "VERSION=\"0.1\"",
-      "PACKAGE_NAME=\"nanochat\"",
-      "PACKAGE_TARNAME=\"nanochat\"",
-      "PACKAGE_VERSION=\"0.1\"",
-      "PACKAGE_STRING=\"nanochat",
-      "PACKAGE_BUGREPORT=\"hamidreza.s@gmail.com\"",
+      "PACKAGE_NAME=\\\"nanochat\\\"",
+      "PACKAGE_TARNAME=\\\"nanochat\\\"",
+      "PACKAGE_VERSION=\\\"0.1\\\"",
+      "PACKAGE_STRING=\\\"nanochat\\",
+      "PACKAGE_BUGREPORT=\\\"hamidreza.s@gmail.com\\\"",
+      "PACKAGE_URL=\\\"\\\"",
+      "PACKAGE=\\\"nanochat\\\"",
+      "VERSION=\\\"0.1\\\"",
       "HAVE_STDIO_H=1",
       "HAVE_STDLIB_H=1",
-      "HAVE_UNISTD_H=1",
-      "HAVE_GETOPT_H=1",
       "HAVE_STRING_H=1",
-      "HAVE_TIME_H=1",
-      "HAVE_SYS_SELECT_H=1",
-      "HAVE_STDARG_H=1",
-      "HAVE_PTHREAD_H=1",
-      "HAVE_PWD_H=1",
-      "HAVE_SYS_SOCKET_H=1",
-      "HAVE_ARPA_INET_H=1",
-      "HAVE_IFADDRS_H=1"
+      "HAVE_INTTYPES_H=1",
+      "HAVE_STDINT_H=1",
+      "HAVE_STRINGS_H=1",
+      "HAVE_SYS_STAT_H=1",
+      "HAVE_SYS_TYPES_H=1",
+      "HAVE_UNISTD_H=1",
+      "STDC_HEADERS=1",
+      "HAVE_GETOPT_H=1",
+      "HAVE_TIME_H=1"
     ]
   },
   "quirk_history": [
@@ -514,8 +648,8 @@
     }
   ],
   "verification": {
-    "vs_gnu": "not-compared",
-    "output_match": "not-compared"
+    "vs_gnu": "both-fail",
+    "output_match": "both-fail"
   },
   "vpath_analysis": {
     "hardcoded_src_paths": 16,
@@ -609,9 +743,9 @@
   "scenario_context": {
     "temporal_map": {
       "Makefile.am": 0,
-      "Makefile.in": 1042,
-      "aclocal.m4": 7,
-      "configure": 10,
+      "Makefile.in": 5737,
+      "aclocal.m4": 5398,
+      "configure": 5588,
       "configure.ac": 0
     },
     "m4_ancestry": {
@@ -644,12 +778,227 @@
         "var": "NC_EXTRA_LDADD",
         "resolved_to": [],
         "resolved": false
+      },
+      {
+        "primary": "libnanomsg_la_SOURCES",
+        "var": "NANOMSG_CORE",
+        "resolved_to": [
+          "src/core/ep.h",
+          "src/core/ep.c",
+          "src/core/epbase.c",
+          "src/core/global.h",
+          "src/core/global.c",
+          "src/core/pipe.c",
+          "src/core/poll.c",
+          "src/core/sock.h",
+          "src/core/sock.c",
+          "src/core/sockbase.c",
+          "src/core/symbol.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libnanomsg_la_SOURCES",
+        "var": "NANOMSG_AIO",
+        "resolved_to": [
+          "src/aio/ctx.h",
+          "src/aio/ctx.c",
+          "src/aio/fsm.h",
+          "src/aio/fsm.c",
+          "src/aio/poller.h",
+          "src/aio/poller.c",
+          "src/aio/poller_epoll.h",
+          "src/aio/poller_epoll.inc",
+          "src/aio/poller_kqueue.h",
+          "src/aio/poller_kqueue.inc",
+          "src/aio/poller_poll.h",
+          "src/aio/poller_poll.inc",
+          "src/aio/pool.h",
+          "src/aio/pool.c",
+          "src/aio/timer.h",
+          "src/aio/timer.c",
+          "src/aio/timerset.h",
+          "src/aio/timerset.c",
+          "src/aio/usock.h",
+          "src/aio/usock.c",
+          "src/aio/usock_posix.h",
+          "src/aio/usock_posix.inc",
+          "src/aio/usock_win.h",
+          "src/aio/usock_win.inc",
+          "src/aio/worker.h",
+          "src/aio/worker.c",
+          "src/aio/worker_posix.h",
+          "src/aio/worker_posix.inc",
+          "src/aio/worker_win.h",
+          "src/aio/worker_win.inc"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libnanomsg_la_SOURCES",
+        "var": "NANOMSG_UTILS",
+        "resolved_to": [
+          "src/utils/alloc.h",
+          "src/utils/alloc.c",
+          "src/utils/atomic.h",
+          "src/utils/atomic.c",
+          "src/utils/attr.h",
+          "src/utils/chunk.h",
+          "src/utils/chunk.c",
+          "src/utils/chunkref.h",
+          "src/utils/chunkref.c",
+          "src/utils/clock.h",
+          "src/utils/clock.c",
+          "src/utils/closefd.h",
+          "src/utils/closefd.c",
+          "src/utils/cont.h",
+          "src/utils/efd.h",
+          "src/utils/efd.c",
+          "src/utils/efd_eventfd.h",
+          "src/utils/efd_eventfd.inc",
+          "src/utils/efd_pipe.h",
+          "src/utils/efd_pipe.inc",
+          "src/utils/efd_socketpair.h",
+          "src/utils/efd_socketpair.inc",
+          "src/utils/efd_win.h",
+          "src/utils/efd_win.inc",
+          "src/utils/err.h",
+          "src/utils/err.c",
+          "src/utils/fast.h",
+          "src/utils/fd.h",
+          "src/utils/glock.h",
+          "src/utils/glock.c",
+          "src/utils/hash.h",
+          "src/utils/hash.c",
+          "src/utils/int.h",
+          "src/utils/list.h",
+          "src/utils/list.c",
+          "src/utils/msg.h",
+          "src/utils/msg.c",
+          "src/utils/mutex.h",
+          "src/utils/mutex.c",
+          "src/utils/queue.h",
+          "src/utils/queue.c",
+          "src/utils/random.h",
+          "src/utils/random.c",
+          "src/utils/sem.h",
+          "src/utils/sem.c",
+          "src/utils/sleep.h",
+          "src/utils/sleep.c",
+          "src/utils/stopwatch.h",
+          "src/utils/stopwatch.c",
+          "src/utils/thread.h",
+          "src/utils/thread.c",
+          "src/utils/thread_posix.h",
+          "src/utils/thread_posix.inc",
+          "src/utils/thread_win.h",
+          "src/utils/thread_win.inc",
+          "src/utils/win.h",
+          "src/utils/wire.h",
+          "src/utils/wire.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libnanomsg_la_SOURCES",
+        "var": "NANOMSG_PROTOCOLS",
+        "resolved_to": [
+          "$(PROTOCOLS_BUS)",
+          "$(PROTOCOLS_PIPELINE)",
+          "$(PROTOCOLS_PAIR)",
+          "$(PROTOCOLS_PUBSUB)",
+          "$(PROTOCOLS_REQREP)",
+          "$(PROTOCOLS_SURVEY)",
+          "$(PROTOCOLS_UTILS)"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libnanomsg_la_SOURCES",
+        "var": "NANOMSG_TRANSPORTS",
+        "resolved_to": [
+          "$(TRANSPORTS_UTILS)",
+          "$(TRANSPORTS_INPROC)",
+          "$(TRANSPORTS_IPC)",
+          "$(TRANSPORTS_TCP)",
+          "$(TRANSPORTS_WS)",
+          "$(TRANSPORTS_TCPMUX)"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libnanomsg_la_SOURCES",
+        "var": "NANOMSG_DEVICES",
+        "resolved_to": [
+          "src/devices/device.c",
+          "src/devices/device.h",
+          "src/devices/tcpmuxd.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "check_PROGRAMS",
+        "var": "TRANSPORT_TESTS",
+        "resolved_to": [
+          "tests/inproc",
+          "tests/inproc_shutdown",
+          "tests/ipc",
+          "tests/ipc_shutdown",
+          "tests/ipc_stress",
+          "tests/tcp",
+          "tests/tcp_shutdown",
+          "tests/ws",
+          "tests/tcpmux"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "check_PROGRAMS",
+        "var": "PROTOCOL_TESTS",
+        "resolved_to": [
+          "tests/pair",
+          "tests/pubsub",
+          "tests/reqrep",
+          "tests/pipeline",
+          "tests/survey",
+          "tests/bus"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "check_PROGRAMS",
+        "var": "FEATURE_TESTS",
+        "resolved_to": [
+          "tests/async_shutdown",
+          "tests/block",
+          "tests/term",
+          "tests/timeo",
+          "tests/iovec",
+          "tests/msg",
+          "tests/prio",
+          "tests/poll",
+          "tests/device",
+          "tests/device4",
+          "tests/device5",
+          "tests/emfile",
+          "tests/domain",
+          "tests/trie",
+          "tests/list",
+          "tests/hash",
+          "tests/symbol",
+          "tests/separation",
+          "tests/zerocopy",
+          "tests/shutdown",
+          "tests/cmsg",
+          "tests/bug328"
+        ],
+        "resolved": true
       }
     ],
     "unresolved_refs": [
       "nanochat_LDADD = $(NC_OS_SPECIFIC_LDADD)",
       "nanochat_LDADD = $(NC_EXTRA_LDADD)"
     ],
-    "indirection_count": 2
+    "indirection_count": 11
   }
 }

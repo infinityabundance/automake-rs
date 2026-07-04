@@ -101,6 +101,42 @@
       "\\nint main() { return sizeof(void*) == 8 ? 0 : 1;\\n; return 0; }\\n"
     ]
   },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "fail",
+    "real_configure_lines": 8809,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE",
+    "internal_traces": [
+      "configure.ac:5: warning: The macro `AC_CANONICAL_SYSTEM' is obsolete.",
+      "configure.ac:7: warning: AM_INIT_AUTOMAKE: two- and three-arguments forms are deprecated.",
+      "configure.ac:8: warning: 'AM_CONFIG_HEADER': this macro is obsolete.",
+      "configure.ac:95: warning: The macro `AC_TRY_COMPILE' is obsolete.",
+      "configure.ac:213: warning: The macro `AC_TRY_LINK' is obsolete.",
+      "configure.ac:329: warning: The macro `AC_TRY_COMPILE' is obsolete.",
+      "configure.ac:355: warning: The macro `AC_TRY_COMPILE' is obsolete.",
+      "configure.ac:386: warning: The macro `AC_TRY_COMPILE' is obsolete.",
+      "configure.ac:436: warning: The macro `AC_TRY_LINK' is obsolete.",
+      "configure.ac:489: warning: The macro `AC_TRY_LINK' is obsolete.",
+      "configure.ac:7: warning: AM_INIT_AUTOMAKE: two- and three-arguments forms are deprecated.  For more info, see:",
+      "configure.ac:10: installing './compile'",
+      "configure.ac:5: installing './config.guess'",
+      "configure.ac:5: installing './config.sub'",
+      "configure.ac:7: installing './install-sh'",
+      "configure.ac:7: installing './missing'",
+      "Makefile.am: installing './INSTALL'",
+      "Makefile.am: installing './depcomp'"
+    ]
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "",
+    "ours_error_context": [],
+    "ours_configure_lines": 3571,
+    "real_configure_lines": 8809,
+    "macros_ours_left_undefined": []
+  },
   "receipt": {
     "court_status": "failed",
     "probe_trace": [],
@@ -108,7 +144,7 @@
       "has-m4-macro-dir",
       "vendored-aclocal"
     ],
-    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
+    "receipt_hash": "a538dd1b607f6cd976fc862d4e8e8d63c3c1266aed35ab3625cbb61237e9478c",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -117,17 +153,21 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": [],
+    "relevant_env": [
+      "ACLOCAL_PATH=/usr/share/aclocal"
+    ],
     "kernel_version": "6.8.0-124-generic",
     "libc_name": "glibc",
     "libc_version": "2.39",
     "pkg_config_path": [],
-    "env_vars_influential": {},
+    "env_vars_influential": {
+      "ACLOCAL_PATH": "/usr/share/aclocal"
+    },
     "posix_flavor": "gnu",
     "shell": "dash",
     "oracle_tool_versions": {
       "autoconf": "2.71",
-      "automake": "1.16.5",
+      "automake": "1.18.1",
       "libtool": "2.4.7",
       "m4": "1.4.19"
     },
@@ -201,6 +241,28 @@
   },
   "makefile_forensics": {
     "generated_makefiles": [
+      {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1350,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "doc/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 535,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
       {
         "path": "bench/Makefile",
         "has_makefile_in": false,
@@ -281,10 +343,10 @@
     "unresolved_macros": []
   },
   "conditional_context": {
-    "configure_if": 202,
-    "configure_fi": 193,
-    "configure_case": 66,
-    "configure_esac": 68,
+    "configure_if": 508,
+    "configure_fi": 472,
+    "configure_case": 151,
+    "configure_esac": 136,
     "balanced": false,
     "automake_conditionals": [
       "BUILD_DTRACE",
@@ -301,12 +363,11 @@
       "install-sh",
       "missing",
       "depcomp",
-      "compile"
-    ],
-    "missing": [
+      "compile",
       "config.guess",
       "config.sub"
-    ]
+    ],
+    "missing": []
   },
   "language_surface": {
     "source_suffixes": {
@@ -322,11 +383,78 @@
     "needs_fortran": false,
     "sets_c_std": true
   },
+  "make_graph": {
+    "targets": [
+      "all",
+      ".SUFFIXES",
+      "am--refresh",
+      "$(srcdir)/Makefile.in",
+      "Makefile",
+      "$(top_builddir)/config.status",
+      "$(top_srcdir)/configure",
+      "$(ACLOCAL_M4)",
+      "$(am__aclocal_m4_deps)",
+      "config.h",
+      "stamp-h1",
+      "$(srcdir)/config.h.in",
+      "distclean-hdr",
+      "install-binPROGRAMS",
+      "uninstall-binPROGRAMS",
+      "clean-binPROGRAMS",
+      "clean-noinstPROGRAMS",
+      "memc3$(EXEEXT)",
+      "sizes$(EXEEXT)",
+      "testapp$(EXEEXT)",
+      "timedrun$(EXEEXT)",
+      "mostlyclean-compile",
+      "distclean-compile",
+      "$(am__depfiles_remade)",
+      "am--depfiles",
+      ".c.o",
+      ".c.obj",
+      "memc3-memcached.o",
+      "memc3-memcached.obj",
+      "memc3-hash.o",
+      "memc3-hash.obj",
+      "memc3-slabs.o",
+      "memc3-slabs.obj",
+      "memc3-items.o",
+      "memc3-items.obj",
+      "memc3-assoc_chain.o",
+      "memc3-assoc_chain.obj",
+      "memc3-assoc_cuckoo.o",
+      "memc3-assoc_cuckoo.obj",
+      "memc3-thread.o"
+    ],
+    "key_variables": {
+      "CC": "gcc",
+      "CFLAGS": "-g -O2 -pthread -Wall -Werror -pedantic -Wmissing-prototypes -Wmissing-declarations -Wredundant-decls",
+      "CPPFLAGS": "",
+      "DEFAULT_INCLUDES": "-I.",
+      "DEFS": "-DHAVE_CONFIG_H",
+      "LDFLAGS": "",
+      "LIBS": "-levent"
+    },
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "config.h",
+      "stamp-h1",
+      "config.log"
+    ],
+    "recursion_depth": 1,
+    "top_targets": [
+      "all"
+    ],
+    "make_diagnostics": []
+  },
   "toolchain_interaction": {
     "compiler": "cc",
     "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
     "c_std_default_risk": false,
-    "defines_sampled": []
+    "defines_sampled": [
+      "HAVE_CONFIG_H"
+    ]
   },
   "quirk_history": [
     {
@@ -343,7 +471,7 @@
     }
   ],
   "verification": {
-    "vs_gnu": "not-compared",
+    "vs_gnu": "ours-worse",
     "output_match": "not-compared"
   },
   "vpath_analysis": {
@@ -445,11 +573,11 @@
   },
   "scenario_context": {
     "temporal_map": {
-      "Makefile.am": -1,
-      "Makefile.in": 1200,
-      "aclocal.m4": 7,
-      "config.h.in": 19,
-      "configure": 14,
+      "Makefile.am": 0,
+      "Makefile.in": 3532,
+      "aclocal.m4": 3037,
+      "config.h.in": 3362,
+      "configure": 3256,
       "configure.ac": 0
     },
     "m4_ancestry": {

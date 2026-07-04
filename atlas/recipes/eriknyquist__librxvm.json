@@ -97,6 +97,34 @@
       "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func ();\\nint main() { return $ac_func(); }"
     ]
   },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "ok",
+    "real_configure_lines": 6844,
+    "real_first_error": "",
+    "classification": "OURS_BUG_MAKE",
+    "internal_traces": [
+      "configure.ac:33: warning: AC_OUTPUT should be used without arguments.",
+      "configure.ac:28: installing 'build-aux/ar-lib'",
+      "configure.ac:10: installing 'build-aux/compile'",
+      "configure.ac:30: installing 'build-aux/config.guess'",
+      "configure.ac:30: installing 'build-aux/config.sub'",
+      "configure.ac:6: installing 'build-aux/install-sh'",
+      "configure.ac:6: installing 'build-aux/missing'",
+      "configure.ac:7: installing 'build-aux/tap-driver.sh'",
+      "examples/Makefile.am: installing 'build-aux/depcomp'",
+      "parallel-tests: installing 'build-aux/test-driver'"
+    ]
+  },
+  "divergence": {
+    "stage": "make",
+    "ours_error": "",
+    "ours_error_context": [],
+    "ours_configure_lines": 2569,
+    "real_configure_lines": 6844,
+    "macros_ours_left_undefined": []
+  },
   "receipt": {
     "court_status": "partial",
     "probe_trace": [
@@ -134,7 +162,7 @@
     "quirks_matched": [
       "vendored-aclocal"
     ],
-    "receipt_hash": "0371b44a2d69aebdc2e11dda29e71df4e53afb1c5e82b85425da0387a12f9aba",
+    "receipt_hash": "946d77a16540ef18e2a09eb372b9fa4b1426ad4c3e615bf606be1fb4a50226b5",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -143,17 +171,21 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": [],
+    "relevant_env": [
+      "ACLOCAL_PATH=/usr/share/aclocal"
+    ],
     "kernel_version": "6.8.0-124-generic",
     "libc_name": "glibc",
     "libc_version": "2.39",
     "pkg_config_path": [],
-    "env_vars_influential": {},
+    "env_vars_influential": {
+      "ACLOCAL_PATH": "/usr/share/aclocal"
+    },
     "posix_flavor": "gnu",
     "shell": "dash",
     "oracle_tool_versions": {
       "autoconf": "2.71",
-      "automake": "1.16.5",
+      "automake": "1.18.1",
       "libtool": "2.4.7",
       "m4": "1.4.19"
     },
@@ -229,7 +261,7 @@
           "examples",
           "tests/src"
         ],
-        "sources_include_config_h": false,
+        "sources_include_config_h": true,
         "am_cppflags": ""
       },
       {
@@ -271,7 +303,7 @@
         "path": "Makefile",
         "has_makefile_in": true,
         "has_makefile_am": true,
-        "lines": 523,
+        "lines": 816,
         "unexpanded_vars": [],
         "unexpanded_automake_tokens": [
           "$(am__"
@@ -282,7 +314,7 @@
         "path": "tests/src/Makefile",
         "has_makefile_in": true,
         "has_makefile_am": true,
-        "lines": 675,
+        "lines": 1099,
         "unexpanded_vars": [],
         "unexpanded_automake_tokens": [
           "$(am__"
@@ -293,7 +325,7 @@
         "path": "librxvm/Makefile",
         "has_makefile_in": true,
         "has_makefile_am": true,
-        "lines": 573,
+        "lines": 704,
         "unexpanded_vars": [],
         "unexpanded_automake_tokens": [
           "$(am__"
@@ -304,7 +336,7 @@
         "path": "examples/Makefile",
         "has_makefile_in": true,
         "has_makefile_am": true,
-        "lines": 534,
+        "lines": 650,
         "unexpanded_vars": [],
         "unexpanded_automake_tokens": [
           "$(am__"
@@ -350,10 +382,10 @@
     "unresolved_macros": []
   },
   "conditional_context": {
-    "configure_if": 105,
-    "configure_fi": 102,
-    "configure_case": 63,
-    "configure_esac": 66,
+    "configure_if": 366,
+    "configure_fi": 333,
+    "configure_case": 144,
+    "configure_esac": 131,
     "balanced": false,
     "automake_conditionals": [
       "NOEXTRAS"
@@ -363,12 +395,11 @@
     "aux_dir": "build-aux",
     "present": [
       "install-sh",
-      "missing"
-    ],
-    "missing": [
+      "missing",
       "depcomp",
       "compile"
-    ]
+    ],
+    "missing": []
   },
   "language_surface": {
     "source_suffixes": {
@@ -385,53 +416,51 @@
   "make_graph": {
     "targets": [
       "all",
-      "all-am",
-      "install-am",
-      "installcheck-am",
-      "install-strip",
-      "install-info",
-      "install-info-am",
-      "install-dvi",
-      "install-dvi-am",
-      "install-ps",
-      "install-ps-am",
-      "install-pdf",
-      "install-pdf-am",
-      "install-html",
-      "install-html-am",
-      "install-data-hook",
-      "install-exec-hook",
-      "installdirs-am",
-      ".PHONY",
-      "mostlyclean-am",
-      "clean-am",
-      "distclean-am",
-      "maintainer-clean-am",
-      "distdir",
-      "dist",
-      "dist-all",
-      "dist-gzip",
-      "distcleancheck",
-      "distcheck",
-      "check-am",
-      "TAGS",
-      "tags",
-      "TAGS-am",
-      "tags-am",
-      "cscope",
-      "cscope-am",
-      "distuninstallcheck",
+      ".SUFFIXES",
+      "am--refresh",
       "$(srcdir)/Makefile.in",
+      "Makefile",
+      "$(top_builddir)/config.status",
+      "$(top_srcdir)/configure",
+      "$(ACLOCAL_M4)",
+      "$(am__aclocal_m4_deps)",
+      "config.h",
+      "stamp-h1",
+      "$(srcdir)/config.h.in",
+      "distclean-hdr",
       "$(am__recursive_targets)",
-      "check"
+      "ID",
+      "tags",
+      "TAGS",
+      "tags-am",
+      "ctags",
+      "CTAGS",
+      "ctags-am",
+      "GTAGS",
+      "cscope",
+      "clean-cscope",
+      "cscope.files",
+      "cscopelist",
+      "cscopelist-am",
+      "distclean-tags",
+      "distdir",
+      "distdir-am",
+      "dist-gzip",
+      "dist-bzip2",
+      "dist-bzip3",
+      "dist-lzip",
+      "dist-xz",
+      "dist-zstd",
+      "dist-tarZ",
+      "dist-shar",
+      "dist-zip",
+      "dist"
     ],
     "key_variables": {
       "AR": "ar",
-      "CC": "cc",
+      "CC": "gcc",
       "CFLAGS": "-march=native -O3 -fno-stack-protector -fno-unwind-tables -fno-asynchronous-unwind-tables",
       "CPPFLAGS": "",
-      "CXX": "c++",
-      "CXXFLAGS": "-g -O2",
       "DEFS": "-DHAVE_CONFIG_H",
       "LDFLAGS": "",
       "LIBS": "",
@@ -441,14 +470,13 @@
       "Makefile",
       "config.status",
       "config.h",
+      "stamp-h1",
       "config.log"
     ],
     "recursion_depth": 2,
     "top_targets": [
       "all",
-      "check",
-      "dist",
-      "all-am"
+      "dist"
     ],
     "make_diagnostics": [
       {
@@ -520,7 +548,7 @@
     }
   ],
   "verification": {
-    "vs_gnu": "not-compared",
+    "vs_gnu": "ours-worse",
     "output_match": "not-compared"
   },
   "vpath_analysis": {
@@ -600,10 +628,10 @@
   "scenario_context": {
     "temporal_map": {
       "Makefile.am": 0,
-      "Makefile.in": 1145,
-      "aclocal.m4": 14,
-      "config.h.in": 19,
-      "configure": 18,
+      "Makefile.in": 5067,
+      "aclocal.m4": 4603,
+      "config.h.in": 4910,
+      "configure": 4808,
       "configure.ac": 0
     },
     "m4_ancestry": {

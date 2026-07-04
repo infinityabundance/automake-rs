@@ -129,6 +129,22 @@
       "\\nint main() { return main(); }"
     ]
   },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "fail",
+    "real_make": "skipped",
+    "real_configure_lines": 10652,
+    "real_first_error": "configure: error: Could not link against boost_filesystem !",
+    "classification": "OURS_BETTER",
+    "internal_traces": [
+      "configure.ac:13: installing './compile'",
+      "configure.ac:25: installing './config.guess'",
+      "configure.ac:25: installing './config.sub'",
+      "configure.ac:6: installing './install-sh'",
+      "configure.ac:6: installing './missing'",
+      "Makefile.am: installing './depcomp'"
+    ]
+  },
   "receipt": {
     "court_status": "partial",
     "probe_trace": [
@@ -266,7 +282,7 @@
       "uses-ax-archive",
       "perl-in-configure"
     ],
-    "receipt_hash": "c0f83642b601f2da8250d15fe3b55470406765f6f593a2a1d84a9a472155208f",
+    "receipt_hash": "de4e9f2a048dd52975b2adc6d579130501bfe43d6708bb00c784e0b14b610a92",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -275,17 +291,21 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": [],
+    "relevant_env": [
+      "ACLOCAL_PATH=/usr/share/aclocal"
+    ],
     "kernel_version": "6.8.0-124-generic",
     "libc_name": "glibc",
     "libc_version": "2.39",
     "pkg_config_path": [],
-    "env_vars_influential": {},
+    "env_vars_influential": {
+      "ACLOCAL_PATH": "/usr/share/aclocal"
+    },
     "posix_flavor": "gnu",
     "shell": "dash",
     "oracle_tool_versions": {
       "autoconf": "2.71",
-      "automake": "1.16.5",
+      "automake": "1.18.1",
       "libtool": "2.4.7",
       "m4": "1.4.19"
     },
@@ -347,21 +367,6 @@
     ],
     "max_depth": 0,
     "config_h_consumers_below_root": []
-  },
-  "makefile_forensics": {
-    "generated_makefiles": [
-      {
-        "path": "Makefile",
-        "has_makefile_in": true,
-        "has_makefile_am": true,
-        "lines": 610,
-        "unexpanded_vars": [],
-        "unexpanded_automake_tokens": [
-          "$(am__"
-        ],
-        "recipe_tab_anomalies": 0
-      }
-    ]
   },
   "tool_requirements": {
     "detected": [
@@ -479,10 +484,10 @@
     "unresolved_macros": []
   },
   "conditional_context": {
-    "configure_if": 312,
-    "configure_fi": 294,
-    "configure_case": 69,
-    "configure_esac": 72,
+    "configure_if": 660,
+    "configure_fi": 604,
+    "configure_case": 157,
+    "configure_esac": 144,
     "balanced": false,
     "automake_conditionals": [
       "HAVE_CPPCHECK",
@@ -502,7 +507,7 @@
   "language_surface": {
     "source_suffixes": {
       "cpp": 17,
-      "h": 15
+      "h": 14
     },
     "configure_macros": [
       "AC_PROG_CC",
@@ -512,92 +517,11 @@
     "needs_fortran": false,
     "sets_c_std": false
   },
-  "make_graph": {
-    "targets": [
-      "all",
-      "all-am",
-      "$(am__depfiles_remade)",
-      "am--depfiles",
-      "install-exec-am",
-      "uninstall-am",
-      "install",
-      "install-am",
-      "installcheck",
-      "install-strip",
-      "install-info",
-      "install-info-am",
-      "install-dvi",
-      "install-dvi-am",
-      "install-ps",
-      "install-ps-am",
-      "install-pdf",
-      "install-pdf-am",
-      "install-html",
-      "install-html-am",
-      "install-data-hook",
-      "install-exec-hook",
-      "installdirs",
-      "installdirs-am",
-      ".PHONY",
-      "mostlyclean-am",
-      "clean-am",
-      "distclean-am",
-      "maintainer-clean-am",
-      "clean",
-      "distdir",
-      "dist",
-      "dist-all",
-      "dist-gzip",
-      "distcleancheck",
-      "distcheck",
-      "check-am",
-      "check",
-      "TAGS",
-      "tags"
-    ],
-    "key_variables": {
-      "AR": "ar",
-      "CC": "cc",
-      "CFLAGS": "-g -O2",
-      "CPPFLAGS": "",
-      "CXX": "g++",
-      "CXXFLAGS": "",
-      "DEFAULT_INCLUDES": "-I. -I$(top_builddir)",
-      "DEFS": "-DHAVE_CONFIG_H",
-      "LDFLAGS": "",
-      "LIBS": "",
-      "RANLIB": "ranlib"
-    },
-    "generated_files": [
-      "Makefile",
-      "config.status",
-      "config.h",
-      "config.log"
-    ],
-    "recursion_depth": 0,
-    "top_targets": [
-      "all",
-      "install",
-      "check",
-      "clean",
-      "dist",
-      "all-am"
-    ],
-    "make_diagnostics": [
-      {
-        "command": "",
-        "error_type": "make-syntax",
-        "message": "make: *** [Makefile:607: mtrx/matrices.h] Error 127"
-      }
-    ]
-  },
   "toolchain_interaction": {
     "compiler": "cc",
     "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
     "c_std_default_risk": true,
-    "defines_sampled": [
-      "HAVE_CONFIG_H"
-    ]
+    "defines_sampled": []
   },
   "quirk_history": [
     {
@@ -632,7 +556,7 @@
     }
   ],
   "verification": {
-    "vs_gnu": "not-compared",
+    "vs_gnu": "ours-better",
     "output_match": "not-compared"
   },
   "vpath_analysis": {
@@ -690,10 +614,10 @@
   "scenario_context": {
     "temporal_map": {
       "Makefile.am": 0,
-      "Makefile.in": 1223,
-      "aclocal.m4": 6,
-      "config.h.in": 20,
-      "configure": 19,
+      "Makefile.in": 4093,
+      "aclocal.m4": 3533,
+      "config.h.in": 3924,
+      "configure": 3798,
       "configure.ac": 0
     },
     "m4_ancestry": {

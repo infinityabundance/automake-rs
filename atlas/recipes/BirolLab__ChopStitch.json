@@ -91,6 +91,33 @@
       "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar memcmp ();\\nint main() { return memcmp(); }"
     ]
   },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "fail",
+    "real_configure_lines": 9212,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE",
+    "internal_traces": [
+      "configure.ac:7: warning: The macro `AC_CONFIG_HEADER' is obsolete.",
+      "configure.ac:29: warning: The macro `AC_HEADER_STDC' is obsolete.",
+      "configure.ac:38: warning: The macro `AC_FUNC_SETVBUF_REVERSED' is obsolete.  Remove it and all references to SETVBUF_REV",
+      "configure.ac:19: installing './compile'",
+      "configure.ac:35: installing './config.guess'",
+      "configure.ac:35: installing './config.sub'",
+      "configure.ac:5: installing './install-sh'",
+      "configure.ac:5: installing './missing'",
+      "Makefile.am: installing './depcomp'"
+    ]
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "",
+    "ours_error_context": [],
+    "ours_configure_lines": 2855,
+    "real_configure_lines": 9212,
+    "macros_ours_left_undefined": []
+  },
   "receipt": {
     "court_status": "failed",
     "probe_trace": [],
@@ -105,7 +132,7 @@
         "verified": false
       }
     ],
-    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
+    "receipt_hash": "a538dd1b607f6cd976fc862d4e8e8d63c3c1266aed35ab3625cbb61237e9478c",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -114,17 +141,21 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": [],
+    "relevant_env": [
+      "ACLOCAL_PATH=/usr/share/aclocal"
+    ],
     "kernel_version": "6.8.0-124-generic",
     "libc_name": "glibc",
     "libc_version": "2.39",
     "pkg_config_path": [],
-    "env_vars_influential": {},
+    "env_vars_influential": {
+      "ACLOCAL_PATH": "/usr/share/aclocal"
+    },
     "posix_flavor": "gnu",
     "shell": "dash",
     "oracle_tool_versions": {
       "autoconf": "2.71",
-      "automake": "1.16.5",
+      "automake": "1.18.1",
       "libtool": "2.4.7",
       "m4": "1.4.19"
     },
@@ -175,12 +206,27 @@
           "FindExons"
         ],
         "subdirs": [],
-        "sources_include_config_h": false,
+        "sources_include_config_h": true,
         "am_cppflags": ""
       }
     ],
     "max_depth": 0,
     "config_h_consumers_below_root": []
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1153,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      }
+    ]
   },
   "tool_requirements": {
     "detected": [
@@ -244,10 +290,10 @@
     "unresolved_macros": []
   },
   "conditional_context": {
-    "configure_if": 123,
-    "configure_fi": 120,
-    "configure_case": 63,
-    "configure_esac": 66,
+    "configure_if": 529,
+    "configure_fi": 479,
+    "configure_case": 163,
+    "configure_esac": 151,
     "balanced": false,
     "automake_conditionals": [
       "HAVE_LIBZ"
@@ -277,11 +323,81 @@
     "needs_fortran": false,
     "sets_c_std": false
   },
+  "make_graph": {
+    "targets": [
+      "all",
+      ".SUFFIXES",
+      "am--refresh",
+      "$(srcdir)/Makefile.in",
+      "Makefile",
+      "$(top_builddir)/config.status",
+      "$(top_srcdir)/configure",
+      "$(ACLOCAL_M4)",
+      "$(am__aclocal_m4_deps)",
+      "config.h",
+      "stamp-h1",
+      "$(srcdir)/config.h.in",
+      "distclean-hdr",
+      "install-binPROGRAMS",
+      "uninstall-binPROGRAMS",
+      "clean-binPROGRAMS",
+      "Common/$(am__dirstamp)",
+      "Common/$(DEPDIR)/$(am__dirstamp)",
+      "Common/CreateBloom-Uncompress.$(OBJEXT)",
+      "Common/CreateBloom-SignalHandler.$(OBJEXT)",
+      "Common/CreateBloom-Fcontrol.$(OBJEXT)",
+      "CreateBloom$(EXEEXT)",
+      "Common/FindExons-FastaReader.$(OBJEXT)",
+      "Common/FindExons-SignalHandler.$(OBJEXT)",
+      "Common/FindExons-Sequence.$(OBJEXT)",
+      "Common/FindExons-Options.$(OBJEXT)",
+      "FindExons$(EXEEXT)",
+      "install-dist_binSCRIPTS",
+      "uninstall-dist_binSCRIPTS",
+      "mostlyclean-compile",
+      "distclean-compile",
+      "$(am__depfiles_remade)",
+      "am--depfiles",
+      ".cpp.o",
+      ".cpp.obj",
+      "Common/CreateBloom-Uncompress.o",
+      "Common/CreateBloom-Uncompress.obj",
+      "Common/CreateBloom-SignalHandler.o",
+      "Common/CreateBloom-SignalHandler.obj",
+      "Common/CreateBloom-Fcontrol.o"
+    ],
+    "key_variables": {
+      "CC": "gcc",
+      "CFLAGS": "-g -O2",
+      "CPPFLAGS": "-I/tmp/atlasx_BirolLab__ChopStitch/s -fopenmp",
+      "CXX": "g++",
+      "CXXFLAGS": "-O3",
+      "DEFAULT_INCLUDES": "-I.",
+      "DEFS": "-DHAVE_CONFIG_H",
+      "LDFLAGS": "-fopenmp",
+      "LIBS": "-lz -ldl -lm",
+      "RANLIB": "ranlib"
+    },
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "config.h",
+      "stamp-h1",
+      "config.log"
+    ],
+    "recursion_depth": 0,
+    "top_targets": [
+      "all"
+    ],
+    "make_diagnostics": []
+  },
   "toolchain_interaction": {
     "compiler": "cc",
     "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
     "c_std_default_risk": true,
-    "defines_sampled": []
+    "defines_sampled": [
+      "HAVE_CONFIG_H"
+    ]
   },
   "quirk_history": [
     {
@@ -298,7 +414,7 @@
     }
   ],
   "verification": {
-    "vs_gnu": "not-compared",
+    "vs_gnu": "ours-worse",
     "output_match": "not-compared"
   },
   "feature_probe_gap": {
@@ -360,10 +476,10 @@
   "scenario_context": {
     "temporal_map": {
       "Makefile.am": 0,
-      "Makefile.in": 1176,
-      "aclocal.m4": 4,
-      "config.h.in": 9,
-      "configure": 8,
+      "Makefile.in": 4050,
+      "aclocal.m4": 3538,
+      "config.h.in": 3886,
+      "configure": 3772,
       "configure.ac": 0
     },
     "m4_ancestry": {

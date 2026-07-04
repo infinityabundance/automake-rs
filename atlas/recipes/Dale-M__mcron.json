@@ -104,6 +104,36 @@
     "conftest_directives_mangled": 0,
     "conftest_programs": []
   },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "ok",
+    "real_configure_lines": 6482,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE",
+    "internal_traces": [
+      "configure.ac:70: installing 'build-aux/compile'",
+      "configure.ac:34: installing 'build-aux/config.guess'",
+      "configure.ac:34: installing 'build-aux/config.sub'",
+      "configure.ac:29: installing 'build-aux/install-sh'",
+      "configure.ac:29: installing 'build-aux/missing'",
+      "Makefile.am: installing './INSTALL'",
+      "Makefile.am: installing 'build-aux/depcomp'",
+      "Makefile.am:221: installing 'build-aux/mdate-sh'",
+      "Makefile.am:221: installing 'build-aux/texinfo.tex'",
+      "parallel-tests: installing 'build-aux/test-driver'"
+    ]
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "line 1433: GUILE_PROGS(3.0) (near `3.0`)",
+    "ours_error_context": [
+      "GUILE_PROGS(3.0)"
+    ],
+    "ours_configure_lines": 2659,
+    "real_configure_lines": 6482,
+    "macros_ours_left_undefined": []
+  },
   "receipt": {
     "court_status": "failed",
     "probe_trace": [],
@@ -118,7 +148,7 @@
         "verified": false
       }
     ],
-    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
+    "receipt_hash": "a538dd1b607f6cd976fc862d4e8e8d63c3c1266aed35ab3625cbb61237e9478c",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -127,17 +157,21 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": [],
+    "relevant_env": [
+      "ACLOCAL_PATH=/usr/share/aclocal"
+    ],
     "kernel_version": "6.8.0-124-generic",
     "libc_name": "glibc",
     "libc_version": "2.39",
     "pkg_config_path": [],
-    "env_vars_influential": {},
+    "env_vars_influential": {
+      "ACLOCAL_PATH": "/usr/share/aclocal"
+    },
     "posix_flavor": "gnu",
     "shell": "dash",
     "oracle_tool_versions": {
       "autoconf": "2.71",
-      "automake": "1.16.5",
+      "automake": "1.18.1",
       "libtool": "2.4.7",
       "m4": "1.4.19"
     },
@@ -213,6 +247,31 @@
     "max_depth": 2,
     "config_h_consumers_below_root": []
   },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 2341,
+        "first_parse_error": {
+          "line": 2279,
+          "kind": "missing-separator",
+          "text": "gnu_ftp_host-alpha = alpha.gnu.org",
+          "previous_lines": [
+            "# Use alpha.gnu.org for alpha and beta releases.",
+            "# Use ftp.gnu.org for stable releases."
+          ],
+          "probable_cause": "shell-fragment-in-make"
+        },
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      }
+    ]
+  },
   "macro_inventory": {
     "macro_dirs": [],
     "aclocal_m4_present": true,
@@ -244,10 +303,10 @@
     "unresolved_macros": []
   },
   "conditional_context": {
-    "configure_if": 113,
-    "configure_fi": 110,
-    "configure_case": 65,
-    "configure_esac": 68,
+    "configure_if": 356,
+    "configure_fi": 322,
+    "configure_case": 138,
+    "configure_esac": 124,
     "balanced": false,
     "automake_conditionals": [
       "MULTI_USER"
@@ -259,16 +318,16 @@
       "install-sh",
       "missing",
       "depcomp",
-      "compile"
-    ],
-    "missing": [
+      "compile",
       "config.guess",
       "config.sub"
-    ]
+    ],
+    "missing": []
   },
   "language_surface": {
     "source_suffixes": {
-      "h": 1
+      "c": 1,
+      "go": 15
     },
     "configure_macros": [
       "AC_PROG_CC"
@@ -277,11 +336,83 @@
     "needs_fortran": false,
     "sets_c_std": false
   },
+  "make_graph": {
+    "targets": [
+      "all",
+      ".SUFFIXES",
+      "am--refresh",
+      "$(srcdir)/Makefile.in",
+      "Makefile",
+      "$(top_builddir)/config.status",
+      "$(top_srcdir)/configure",
+      "$(ACLOCAL_M4)",
+      "$(am__aclocal_m4_deps)",
+      "pre-inst-env",
+      "doc/config.texi",
+      "src/mcron/config.scm.in",
+      "clean-noinstPROGRAMS",
+      "install-sbinPROGRAMS",
+      "uninstall-sbinPROGRAMS",
+      "clean-sbinPROGRAMS",
+      "installcheck-sbinPROGRAMS",
+      "bin/$(am__dirstamp)",
+      "bin/$(DEPDIR)/$(am__dirstamp)",
+      "bin/crontab-access.$(OBJEXT)",
+      "bin/crontab-access$(EXEEXT)",
+      "install-binSCRIPTS",
+      "uninstall-binSCRIPTS",
+      "installcheck-binSCRIPTS",
+      "install-libexecSCRIPTS",
+      "uninstall-libexecSCRIPTS",
+      "installcheck-libexecSCRIPTS",
+      "install-sbinSCRIPTS",
+      "uninstall-sbinSCRIPTS",
+      "installcheck-sbinSCRIPTS",
+      "mostlyclean-compile",
+      "distclean-compile",
+      "$(am__depfiles_remade)",
+      "am--depfiles",
+      ".c.o",
+      ".c.obj",
+      "doc/$(am__dirstamp)",
+      "$(srcdir)/doc/mcron.info",
+      "doc/mcron.dvi",
+      "doc/mcron.pdf"
+    ],
+    "key_variables": {
+      "CC": "gcc",
+      "CFLAGS": "-g -O2",
+      "CPPFLAGS": "",
+      "DEFAULT_INCLUDES": "-I.",
+      "DEFS": "-DPACKAGE_NAME=\\\"GNU\\ Mcron\\\" -DPACKAGE_TARNAME=\\\"mcron\\\" -DPACKAGE_VERSION=\\\"1.2.3\\\" -DPACKAGE_STRING=\\\"GNU\\ Mcron\\ 1.2.3\\\" -DPACKAGE_BUGREPORT=\\\"bug-mcron@gnu",
+      "LDFLAGS": "",
+      "LIBS": ""
+    },
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "config.log"
+    ],
+    "recursion_depth": 2,
+    "top_targets": [
+      "all"
+    ],
+    "make_diagnostics": []
+  },
   "toolchain_interaction": {
     "compiler": "cc",
     "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
     "c_std_default_risk": true,
-    "defines_sampled": []
+    "defines_sampled": [
+      "PACKAGE_NAME=\\\"GNU\\",
+      "PACKAGE_TARNAME=\\\"mcron\\\"",
+      "PACKAGE_VERSION=\\\"1.2.3\\\"",
+      "PACKAGE_STRING=\\\"GNU\\",
+      "PACKAGE_BUGREPORT=\\\"bug-mcron@gnu.org\\\"",
+      "PACKAGE_URL=\\\"https://www.gnu.org/software/mcron/\\\"",
+      "PACKAGE=\\\"mcron\\\"",
+      "VERSION=\\\"1.2.3\\\""
+    ]
   },
   "quirk_history": [
     {
@@ -298,7 +429,7 @@
     }
   ],
   "verification": {
-    "vs_gnu": "not-compared",
+    "vs_gnu": "ours-worse",
     "output_match": "not-compared"
   },
   "vpath_analysis": {
@@ -306,6 +437,13 @@
     "abs_path_leakage": 0,
     "built_sources": [],
     "generated_source_targets": []
+  },
+  "feature_probe_gap": {
+    "headers_checked": [],
+    "headers_included_unchecked": [
+      "unistd.h"
+    ],
+    "implicit_link_libs": []
   },
   "source_to_generated_map": {
     "configure_origins": [],
@@ -337,15 +475,35 @@
     "unordered_generated_sources": [],
     "built_sources_declared": false
   },
+  "semantic_context": {
+    "included_headers_sample": [
+      "unistd.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
   "risk_factors": [
     "modern-compiler-strictness (no explicit C std)"
   ],
+  "repair_hints": [
+    {
+      "id": "makefile-shell-fragment-in-make",
+      "phase": "make",
+      "confidence": 0.5,
+      "evidence": [
+        "Makefile:2279 missing-separator",
+        "gnu_ftp_host-alpha = alpha.gnu.org"
+      ],
+      "action": "classify-shell-fragment-in-make",
+      "expected_effect": "partial -> FUNC_OK candidate"
+    }
+  ],
   "scenario_context": {
     "temporal_map": {
-      "Makefile.am": -1,
-      "Makefile.in": 1031,
-      "aclocal.m4": 5,
-      "configure": 9,
+      "Makefile.am": 0,
+      "Makefile.in": 2960,
+      "aclocal.m4": 2568,
+      "configure": 2774,
       "configure.ac": 0
     },
     "m4_ancestry": {

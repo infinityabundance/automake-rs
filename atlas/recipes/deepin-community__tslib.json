@@ -131,6 +131,51 @@
       "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { size_t x; return 0; }"
     ]
   },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "ok",
+    "real_configure_lines": 22806,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE",
+    "internal_traces": [
+      "libtoolize: putting auxiliary files in '.'.",
+      "libtoolize: copying file './ltmain.sh'",
+      "libtoolize: putting macros in AC_CONFIG_MACRO_DIRS, 'm4/internal'.",
+      "libtoolize: copying file 'm4/internal/libtool.m4'",
+      "libtoolize: copying file 'm4/internal/ltoptions.m4'",
+      "libtoolize: copying file 'm4/internal/ltsugar.m4'",
+      "libtoolize: copying file 'm4/internal/ltversion.m4'",
+      "libtoolize: copying file 'm4/internal/lt~obsolete.m4'",
+      "configure.ac:60: warning: The macro `AC_HELP_STRING' is obsolete.",
+      "configure.ac:66: warning: The macro `AC_LIBTOOL_DLOPEN' is obsolete.",
+      "configure.ac:66: warning: AC_LIBTOOL_DLOPEN: Remove this warning and the call to _LT_SET_OPTION when you",
+      "configure.ac:67: warning: The macro `AC_PROG_LIBTOOL' is obsolete.",
+      "configure.ac:74: warning: The macro `AC_HEADER_STDC' is obsolete.",
+      "configure.ac:84: warning: The macro `AC_HEADER_TIME' is obsolete.",
+      "configure.ac:90: warning: The macro `AC_TYPE_SIGNAL' is obsolete.",
+      "configure.ac:98: warning: The macro `AC_HELP_STRING' is obsolete.",
+      "configure.ac:99: warning: The macro `AC_HELP_STRING' is obsolete.",
+      "configure.ac:100: warning: The macro `AC_HELP_STRING' is obsolete.",
+      "configure.ac:101: warning: The macro `AC_HELP_STRING' is obsolete.",
+      "configure.ac:102: warning: The macro `AC_HELP_STRING' is obsolete.",
+      "configure.ac:103: warning: The macro `AC_HELP_STRING' is obsolete.",
+      "configure.ac:104: warning: The macro `AC_HELP_STRING' is obsolete.",
+      "configure.ac:105: warning: The macro `AC_HELP_STRING' is obsolete.",
+      "configure.ac:106: warning: The macro `AC_HELP_STRING' is obsolete.",
+      "configure.ac:107: warning: The macro `AC_HELP_STRING' is obsolete."
+    ]
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "line 1882: ENABLE_m4_translit(debounce, -a-z, _A-Z)_MODULE_TRUE= (near `debounce,`)",
+    "ours_error_context": [
+      "ENABLE_m4_translit(debounce, -a-z, _A-Z)_MODULE_TRUE="
+    ],
+    "ours_configure_lines": 5444,
+    "real_configure_lines": 22806,
+    "macros_ours_left_undefined": []
+  },
   "receipt": {
     "court_status": "failed",
     "probe_trace": [],
@@ -149,7 +194,7 @@
         "verified": false
       }
     ],
-    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
+    "receipt_hash": "a538dd1b607f6cd976fc862d4e8e8d63c3c1266aed35ab3625cbb61237e9478c",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -158,17 +203,21 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": [],
+    "relevant_env": [
+      "ACLOCAL_PATH=/usr/share/aclocal"
+    ],
     "kernel_version": "6.8.0-124-generic",
     "libc_name": "glibc",
     "libc_version": "2.39",
     "pkg_config_path": [],
-    "env_vars_influential": {},
+    "env_vars_influential": {
+      "ACLOCAL_PATH": "/usr/share/aclocal"
+    },
     "posix_flavor": "gnu",
     "shell": "dash",
     "oracle_tool_versions": {
       "autoconf": "2.71",
-      "automake": "1.16.5",
+      "automake": "1.18.1",
       "libtool": "2.4.7",
       "m4": "1.4.19"
     },
@@ -276,7 +325,7 @@
           "tools",
           "doc"
         ],
-        "sources_include_config_h": false,
+        "sources_include_config_h": true,
         "am_cppflags": ""
       },
       {
@@ -343,6 +392,87 @@
       "tests",
       "src",
       "plugins"
+    ]
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 937,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "tests/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 955,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "tools/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 688,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1121,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "plugins/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1303,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "etc/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 541,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "doc/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 678,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      }
     ]
   },
   "macro_inventory": {
@@ -415,10 +545,10 @@
     ]
   },
   "conditional_context": {
-    "configure_if": 399,
-    "configure_fi": 367,
-    "configure_case": 68,
-    "configure_esac": 71,
+    "configure_if": 1889,
+    "configure_fi": 1481,
+    "configure_case": 340,
+    "configure_esac": 327,
     "balanced": false,
     "automake_conditionals": [
       "LINUX",
@@ -467,11 +597,82 @@
     ],
     "age": "old"
   },
+  "make_graph": {
+    "targets": [
+      "all",
+      ".SUFFIXES",
+      "am--refresh",
+      "$(srcdir)/Makefile.in",
+      "Makefile",
+      "$(top_builddir)/config.status",
+      "$(top_srcdir)/configure",
+      "$(ACLOCAL_M4)",
+      "$(am__aclocal_m4_deps)",
+      "config.h",
+      "stamp-h1",
+      "$(srcdir)/config.h.in",
+      "distclean-hdr",
+      "tslib.pc",
+      "mostlyclean-libtool",
+      "clean-libtool",
+      "distclean-libtool",
+      "install-pkgconfigDATA",
+      "uninstall-pkgconfigDATA",
+      "$(am__recursive_targets)",
+      "ID",
+      "tags",
+      "TAGS",
+      "tags-am",
+      "ctags",
+      "CTAGS",
+      "ctags-am",
+      "GTAGS",
+      "cscope",
+      "clean-cscope",
+      "cscope.files",
+      "cscopelist",
+      "cscopelist-am",
+      "distclean-tags",
+      "distdir",
+      "distdir-am",
+      "dist-gzip",
+      "dist-bzip2",
+      "dist-bzip3",
+      "dist-lzip"
+    ],
+    "key_variables": {
+      "AR": "ar",
+      "CC": "gcc",
+      "CFLAGS": "-DGCC_HASCLASSVISIBILITY -O2 -Wall -W -fPIC",
+      "CPPFLAGS": "",
+      "DEFS": "-DHAVE_CONFIG_H",
+      "LDFLAGS": "",
+      "LIBS": "-ldl",
+      "RANLIB": "ranlib"
+    },
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "config.h",
+      "libtool",
+      "stamp-h1",
+      "config.log"
+    ],
+    "recursion_depth": 1,
+    "top_targets": [
+      "all"
+    ],
+    "make_diagnostics": []
+  },
   "toolchain_interaction": {
     "compiler": "cc",
     "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
     "c_std_default_risk": true,
-    "defines_sampled": []
+    "defines_sampled": [
+      "GCC_HASCLASSVISIBILITY",
+      "HAVE_CONFIG_H",
+      "TSLIB_INTERNAL"
+    ]
   },
   "quirk_history": [
     {
@@ -512,7 +713,7 @@
     }
   ],
   "verification": {
-    "vs_gnu": "not-compared",
+    "vs_gnu": "ours-worse",
     "output_match": "not-compared"
   },
   "vpath_analysis": {
@@ -651,10 +852,10 @@
   "scenario_context": {
     "temporal_map": {
       "Makefile.am": -2,
-      "Makefile.in": 1644,
-      "aclocal.m4": 11,
-      "config.h.in": 54,
-      "configure": 51,
+      "Makefile.in": 9808,
+      "aclocal.m4": 9232,
+      "config.h.in": 9642,
+      "configure": 9461,
       "configure.ac": 0
     },
     "m4_ancestry": {

@@ -103,10 +103,10 @@
       "LIBOBJS",
       "INSTALL",
       "AR",
-      "host_alias",
       "host_os",
-      "host_vendor",
       "host_cpu",
+      "host_alias",
+      "host_vendor",
       "LD",
       "top_srcdir",
       "top_builddir"
@@ -130,6 +130,33 @@
       "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { sig_atomic_t x; return 0; }"
     ]
   },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "fail",
+    "real_configure_lines": 7064,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE",
+    "internal_traces": [
+      "configure.ac:8: warning: AM_INIT_AUTOMAKE: two- and three-arguments forms are deprecated.",
+      "configure.ac:9: warning: 'AM_CONFIG_HEADER': this macro is obsolete.",
+      "configure.ac:97: warning: The macro `AC_HEADER_STDC' is obsolete.",
+      "configure.ac:98: warning: AC_CHECK_HEADERS(\\): you should use literals",
+      "configure.ac:106: warning: The macro `AC_TYPE_SIGNAL' is obsolete.",
+      "configure.ac:8: warning: AM_INIT_AUTOMAKE: two- and three-arguments forms are deprecated.  For more info, see:",
+      "configure.ac:14: installing './compile'"
+    ]
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "line 1573: string.h sys/ioctl.h sys/socket.h sys/time.h unistd.h (near `string.h`)",
+    "ours_error_context": [
+      "string.h sys/ioctl.h sys/socket.h sys/time.h unistd.h"
+    ],
+    "ours_configure_lines": 2729,
+    "real_configure_lines": 7064,
+    "macros_ours_left_undefined": []
+  },
   "receipt": {
     "court_status": "failed",
     "probe_trace": [],
@@ -144,7 +171,7 @@
         "verified": false
       }
     ],
-    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
+    "receipt_hash": "a538dd1b607f6cd976fc862d4e8e8d63c3c1266aed35ab3625cbb61237e9478c",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -153,17 +180,21 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": [],
+    "relevant_env": [
+      "ACLOCAL_PATH=/usr/share/aclocal"
+    ],
     "kernel_version": "6.8.0-124-generic",
     "libc_name": "glibc",
     "libc_version": "2.39",
     "pkg_config_path": [],
-    "env_vars_influential": {},
+    "env_vars_influential": {
+      "ACLOCAL_PATH": "/usr/share/aclocal"
+    },
     "posix_flavor": "gnu",
     "shell": "dash",
     "oracle_tool_versions": {
       "autoconf": "2.71",
-      "automake": "1.16.5",
+      "automake": "1.18.1",
       "libtool": "2.4.7",
       "m4": "1.4.19"
     },
@@ -256,6 +287,43 @@
       "src"
     ]
   },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 793,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 763,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "include/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 514,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      }
+    ]
+  },
   "macro_inventory": {
     "macro_dirs": [],
     "aclocal_m4_present": true,
@@ -293,10 +361,10 @@
     "unresolved_macros": []
   },
   "conditional_context": {
-    "configure_if": 107,
-    "configure_fi": 104,
-    "configure_case": 67,
-    "configure_esac": 70,
+    "configure_if": 378,
+    "configure_fi": 345,
+    "configure_case": 138,
+    "configure_esac": 124,
     "balanced": false,
     "automake_conditionals": []
   },
@@ -324,11 +392,77 @@
     "needs_fortran": false,
     "sets_c_std": false
   },
+  "make_graph": {
+    "targets": [
+      "all",
+      ".SUFFIXES",
+      "am--refresh",
+      "$(srcdir)/Makefile.in",
+      "Makefile",
+      "$(top_builddir)/config.status",
+      "$(top_srcdir)/configure",
+      "$(ACLOCAL_M4)",
+      "$(am__aclocal_m4_deps)",
+      "$(am__recursive_targets)",
+      "ID",
+      "tags",
+      "TAGS",
+      "tags-am",
+      "ctags",
+      "CTAGS",
+      "ctags-am",
+      "GTAGS",
+      "cscope",
+      "clean-cscope",
+      "cscope.files",
+      "cscopelist",
+      "cscopelist-am",
+      "distclean-tags",
+      "distdir",
+      "distdir-am",
+      "dist-gzip",
+      "dist-bzip2",
+      "dist-bzip3",
+      "dist-lzip",
+      "dist-xz",
+      "dist-zstd",
+      "dist-tarZ",
+      "dist-shar",
+      "dist-zip",
+      "dist",
+      "dist-all",
+      "distcheck",
+      "distuninstallcheck",
+      "distcleancheck"
+    ],
+    "key_variables": {
+      "CC": "gcc",
+      "CFLAGS": "-g -O2",
+      "CPPFLAGS": "",
+      "DEFS": "-DHAVE_CONFIG_H",
+      "LDFLAGS": "",
+      "LIBS": "-lm -ldl"
+    },
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "config.log"
+    ],
+    "recursion_depth": 1,
+    "top_targets": [
+      "all",
+      "dist"
+    ],
+    "make_diagnostics": []
+  },
   "toolchain_interaction": {
     "compiler": "cc",
     "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
     "c_std_default_risk": true,
-    "defines_sampled": []
+    "defines_sampled": [
+      "HAVE_CONFIG_H",
+      "CONFIG_X86_64"
+    ]
   },
   "quirk_history": [
     {
@@ -345,7 +479,7 @@
     }
   ],
   "verification": {
-    "vs_gnu": "not-compared",
+    "vs_gnu": "ours-worse",
     "output_match": "not-compared"
   },
   "feature_probe_gap": {
@@ -452,9 +586,9 @@
   "scenario_context": {
     "temporal_map": {
       "Makefile.am": -1,
-      "Makefile.in": 1098,
-      "aclocal.m4": 8,
-      "configure": 11,
+      "Makefile.in": 3953,
+      "aclocal.m4": 3501,
+      "configure": 3703,
       "configure.ac": 0
     },
     "m4_ancestry": {

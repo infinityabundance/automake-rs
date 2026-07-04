@@ -68,27 +68,27 @@
       "srcdir",
       "prefix",
       "exec_prefix",
-      "TARGET_IMG_LDFLAGS",
-      "LIBICONV",
-      "HAVE_GETENTROPY",
-      "REPLACE_WCSTOK",
-      "HAVE_DECL_COPYSIGNF",
-      "REPLACE_WCWIDTH",
-      "REPLACE_FACCESSAT",
-      "HAVE_STRPBRK",
-      "REPLACE_FFSLL",
-      "VT_HANDOFF",
-      "REPLACE_STRSTR",
-      "REPLACE_FDOPEN",
-      "REPLACE_VASPRINTF",
-      "REPLACE_SYMLINK",
-      "REPLACE_STRTOIMAX",
-      "REPLACE_MODFL",
-      "HAVE_CRTDEFS_H",
-      "REPLACE_STAT",
-      "REPLACE_GETPASS",
-      "BSS_START_SYMBOL",
-      "REPLACE_TANF"
+      "REPLACE_PERROR",
+      "REPLACE_LOG10L",
+      "HAVE_TIMEZONE_T",
+      "bootdirname",
+      "HAVE_WCSCSPN",
+      "INSTOBJEXT",
+      "HAVE_MODFF",
+      "HAVE_SYS_LOADAVG_H",
+      "LIB_HARD_LOCALE",
+      "APPLE_UNIVERSAL_BUILD",
+      "REPLACE_SETSTATE",
+      "HAVE_DECL_COSL",
+      "HAVE_EUIDACCESS",
+      "HAVE_DECL_GETDELIM",
+      "HAVE_WCSSPN",
+      "HAVE_MEMPCPY",
+      "LTLIBTHREAD",
+      "BUILD_CFLAGS",
+      "REPLACE_ISWBLANK",
+      "HAVE_DECL_FCVT",
+      "HAVE_WCSLEN"
     ],
     "failed_during_check": "checking for C++ compiler... c++",
     "failure_tail": [
@@ -110,6 +110,25 @@
       "/* end confdefs.h */\\n#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar mbtowc();\\nint main() { return mbtowc(); }"
     ]
   },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "fail",
+    "real_configure_lines": 45565,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE",
+    "internal_traces": [
+      "configure.ac:46: installing 'build-aux/compile'"
+    ]
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "",
+    "ours_error_context": [],
+    "ours_configure_lines": 5376,
+    "real_configure_lines": 45565,
+    "macros_ours_left_undefined": []
+  },
   "receipt": {
     "court_status": "failed",
     "probe_trace": [],
@@ -121,7 +140,7 @@
       "has-acinclude",
       "vendored-aclocal"
     ],
-    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
+    "receipt_hash": "a538dd1b607f6cd976fc862d4e8e8d63c3c1266aed35ab3625cbb61237e9478c",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -130,17 +149,21 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": [],
+    "relevant_env": [
+      "ACLOCAL_PATH=/usr/share/aclocal"
+    ],
     "kernel_version": "6.8.0-124-generic",
     "libc_name": "glibc",
     "libc_version": "2.39",
     "pkg_config_path": [],
-    "env_vars_influential": {},
+    "env_vars_influential": {
+      "ACLOCAL_PATH": "/usr/share/aclocal"
+    },
     "posix_flavor": "gnu",
     "shell": "dash",
     "oracle_tool_versions": {
       "autoconf": "2.71",
-      "automake": "1.16.5",
+      "automake": "1.18.1",
       "libtool": "2.4.7",
       "m4": "1.4.19"
     },
@@ -243,8 +266,15 @@
           "docs",
           "util/bash-completion.d"
         ],
-        "sources_include_config_h": false,
+        "sources_include_config_h": true,
         "am_cppflags": "$(HOST_CPPFLAGS) $(CPPFLAGS_DEFAULT)"
+      },
+      {
+        "dir": "grub-core",
+        "targets": [],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "$(TARGET_CPPFLAGS) $(CPPFLAGS_DEFAULT)"
       },
       {
         "dir": "grub-core/lib/gnulib",
@@ -286,10 +316,82 @@
     ],
     "max_depth": 3,
     "config_h_consumers_below_root": [
+      "grub-core",
       "grub-core/lib/libgcrypt/cipher",
       "grub-core/lib/libgcrypt/src",
       "grub-core/lib/libgcrypt/mpi",
       "grub-core/lib/gnulib"
+    ]
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 15392,
+        "unexpanded_vars": [
+          "@MARKER@",
+          "@simplified_abs_top_srcdir@"
+        ],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "grub-core/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 51336,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "grub-core/lib/gnulib/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 5757,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "util/bash-completion.d/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1646,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "po/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": false,
+        "lines": 1947,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "docs/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1951,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      }
     ]
   },
   "tool_requirements": {
@@ -586,6 +688,21 @@
         "kind": "project-local"
       },
       {
+        "name": "AC_TYPE_LONG_LONG_INT",
+        "source": "m4/longlong.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_TYPE_UNSIGNED_LONG_LONG_INT",
+        "source": "m4/longlong.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "_AC_TYPE_LONG_LONG_SNIPPET",
+        "source": "m4/longlong.m4",
+        "kind": "project-local"
+      },
+      {
         "name": "gt_INTTYPES_PRI",
         "source": "m4/inttypes-pri.m4",
         "kind": "project-local"
@@ -598,21 +715,6 @@
       {
         "name": "gl_ABSOLUTE_HEADER",
         "source": "m4/absolute-header.m4",
-        "kind": "project-local"
-      },
-      {
-        "name": "gl_ABSOLUTE_HEADER_ONE",
-        "source": "m4/absolute-header.m4",
-        "kind": "project-local"
-      },
-      {
-        "name": "gl_STDINT_H",
-        "source": "m4/stdint.m4",
-        "kind": "project-local"
-      },
-      {
-        "name": "gl_STDINT_BITSIZEOF",
-        "source": "m4/stdint.m4",
         "kind": "project-local"
       }
     ],
@@ -681,10 +783,10 @@
     "unresolved_macros": []
   },
   "conditional_context": {
-    "configure_if": 291,
-    "configure_fi": 284,
-    "configure_case": 49,
-    "configure_esac": 53,
+    "configure_if": 3413,
+    "configure_fi": 2957,
+    "configure_case": 573,
+    "configure_esac": 559,
     "balanced": false,
     "automake_conditionals": [
       "COND_MM_DEBUG",
@@ -734,9 +836,9 @@
   "language_surface": {
     "source_suffixes": {
       "S": 98,
-      "c": 1025,
+      "c": 1033,
       "cc": 1,
-      "h": 665
+      "h": 791
     },
     "configure_macros": [
       "AC_PROG_CC",
@@ -754,11 +856,101 @@
       "config.rpath"
     ]
   },
+  "make_graph": {
+    "targets": [
+      "all",
+      ".SUFFIXES",
+      "am--refresh",
+      "$(srcdir)/Makefile.in",
+      "Makefile",
+      "$(top_srcdir)/conf/Makefile.common",
+      "$(top_srcdir)/conf/Makefile.extra-dist",
+      "$(srcdir)/Makefile.util.am",
+      "$(am__empty)",
+      "$(top_builddir)/config.status",
+      "$(top_srcdir)/configure",
+      "$(ACLOCAL_M4)",
+      "$(am__aclocal_m4_deps)",
+      "config-util.h",
+      "stamp-h1",
+      "$(srcdir)/config-util.h.in",
+      "distclean-hdr",
+      "stamp-h",
+      "config.h",
+      "install-binPROGRAMS",
+      "uninstall-binPROGRAMS",
+      "clean-binPROGRAMS",
+      "clean-checkPROGRAMS",
+      "clean-noinstPROGRAMS",
+      "install-platformPROGRAMS",
+      "uninstall-platformPROGRAMS",
+      "clean-platformPROGRAMS",
+      "install-sbinPROGRAMS",
+      "uninstall-sbinPROGRAMS",
+      "clean-sbinPROGRAMS",
+      "clean-noinstLIBRARIES",
+      "grub-core/lib/libgcrypt-grub/cipher/$(am__dirstamp)",
+      "grub-core/lib/libgcrypt-grub/cipher/$(DEPDIR)/$(am__dirstamp)",
+      "grub-core/lib/libgcrypt-grub/cipher/libgrubgcry_a-arcfour.$(OBJEXT)",
+      "grub-core/lib/libgcrypt-grub/cipher/libgrubgcry_a-blowfish.$(OBJEXT)",
+      "grub-core/lib/libgcrypt-grub/cipher/libgrubgcry_a-camellia-glue.$(OBJEXT)",
+      "grub-core/lib/libgcrypt-grub/cipher/libgrubgcry_a-camellia.$(OBJEXT)",
+      "grub-core/lib/libgcrypt-grub/cipher/libgrubgcry_a-cast5.$(OBJEXT)",
+      "grub-core/lib/libgcrypt-grub/cipher/libgrubgcry_a-crc.$(OBJEXT)",
+      "grub-core/lib/libgcrypt-grub/cipher/libgrubgcry_a-des.$(OBJEXT)"
+    ],
+    "key_variables": {
+      "AR": "ar",
+      "CC": "gcc",
+      "CFLAGS": "",
+      "CPPFLAGS": "-D_FILE_OFFSET_BITS=64",
+      "CXX": "g++",
+      "CXXFLAGS": "-g -O2",
+      "DEFAULT_INCLUDES": "-I.",
+      "DEFS": "-DHAVE_CONFIG_H",
+      "LDFLAGS": "",
+      "LIBS": "",
+      "RANLIB": "ranlib"
+    },
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "config.h",
+      "stamp-h1",
+      "config.log"
+    ],
+    "recursion_depth": 3,
+    "top_targets": [
+      "all"
+    ],
+    "make_diagnostics": []
+  },
   "toolchain_interaction": {
     "compiler": "cc",
     "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
     "c_std_default_risk": false,
-    "defines_sampled": []
+    "defines_sampled": [
+      "GRUB_HAS_PCI",
+      "_FILE_OFFSET_BITS=64",
+      "HAVE_CONFIG_H",
+      "FUSE_USE_VERSION=32",
+      "GRUB_UTIL=1",
+      "GRUB_MACHINE_PCBIOS=1",
+      "GRUB_MACHINE=I386_PC",
+      "GRUB_FILE=\\\"$(subst",
+      "ASM_FILE=1",
+      "GRUB_KERNEL=1",
+      "_GCRYPT_IN_LIBGCRYPT=1",
+      "grub_fs_register=FS_LIST_MARKER",
+      "grub_video_register=VIDEO_LIST_MARKER",
+      "grub_partition_map_register=PARTMAP_LIST_MARKER",
+      "grub_parttool_register=PARTTOOL_LIST_MARKER",
+      "MINILZO_HAVE_CONFIG_H",
+      "GRUB_MKFONT=1",
+      "GRUB_SETUP_FUNC=grub_util_bios_setup",
+      "GRUB_SETUP_FUNC=grub_util_sparc_setup",
+      "'GRUB_MOD_INIT(x)=@MARKER@x@'"
+    ]
   },
   "quirk_history": [
     {
@@ -799,7 +991,7 @@
     }
   ],
   "verification": {
-    "vs_gnu": "not-compared",
+    "vs_gnu": "ours-worse",
     "output_match": "not-compared"
   },
   "vpath_analysis": {
@@ -866,31 +1058,31 @@
       "util.h"
     ],
     "headers_included_unchecked": [
-      "SDL2/SDL.h",
-      "devices/hardblocks.h",
-      "devices/newstyle.h",
-      "devices/trackdisk.h",
-      "dlfcn.h",
-      "dos/dos.h",
-      "dos/exall.h",
-      "dos/filesystem.h",
-      "exec/errors.h",
-      "fcntl.h",
-      "grub/archelp.h",
-      "grub/arm/cros_ec.h",
-      "grub/at_keyboard.h",
-      "grub/auth.h",
-      "grub/bitmap.h",
-      "grub/bitmap_scale.h",
-      "grub/btrfs.h",
-      "grub/bufio.h",
-      "grub/cache.h",
-      "grub/cbfs_core.h",
-      "grub/charset.h",
-      "grub/color.h",
-      "grub/command.h",
-      "grub/coreboot/lbio.h",
-      "grub/cpu/at_keyboard.h"
+      "../config-util.h",
+      "../config.h",
+      "../include/grub/cache.h",
+      "../include/grub/command.h",
+      "../include/grub/compiler-rt.h",
+      "../include/grub/device.h",
+      "../include/grub/disk.h",
+      "../include/grub/dl.h",
+      "../include/grub/efi/sb.h",
+      "../include/grub/env.h",
+      "../include/grub/env_private.h",
+      "../include/grub/err.h",
+      "../include/grub/file.h",
+      "../include/grub/fs.h",
+      "../include/grub/i18n.h",
+      "../include/grub/i386/tsc.h",
+      "../include/grub/kernel.h",
+      "../include/grub/list.h",
+      "../include/grub/lockdown.h",
+      "../include/grub/machine/int.h",
+      "../include/grub/machine/kernel.h",
+      "../include/grub/machine/pxe.h",
+      "../include/grub/memory.h",
+      "../include/grub/misc.h",
+      "../include/grub/mm.h"
     ],
     "implicit_link_libs": []
   },
@@ -899,7 +1091,9 @@
     "m4_trace_depth": 11,
     "shadowed_macros": [
       "AC_C_RESTRICT",
-      "AC_C_FLEXIBLE_ARRAY_MEMBER"
+      "AC_C_FLEXIBLE_ARRAY_MEMBER",
+      "AC_TYPE_LONG_LONG_INT",
+      "AC_TYPE_UNSIGNED_LONG_LONG_INT"
     ]
   },
   "dialect_reconciliation": {
@@ -912,7 +1106,9 @@
     "unquoted_subst_in_conditional": 30,
     "shadowed_builtins": [
       "AC_C_RESTRICT",
-      "AC_C_FLEXIBLE_ARRAY_MEMBER"
+      "AC_C_FLEXIBLE_ARRAY_MEMBER",
+      "AC_TYPE_LONG_LONG_INT",
+      "AC_TYPE_UNSIGNED_LONG_LONG_INT"
     ],
     "permitted_mutations": 26,
     "suspect_global_mutations": 0
@@ -957,26 +1153,26 @@
   },
   "semantic_context": {
     "included_headers_sample": [
-      "SDL2/SDL.h",
-      "devices/hardblocks.h",
-      "devices/newstyle.h",
-      "devices/trackdisk.h",
-      "dlfcn.h",
-      "dos/dos.h",
-      "dos/exall.h",
-      "dos/filesystem.h",
-      "exec/errors.h",
-      "fcntl.h",
-      "grub/archelp.h",
-      "grub/arm/cros_ec.h",
-      "grub/at_keyboard.h",
-      "grub/auth.h",
-      "grub/bitmap.h",
-      "grub/bitmap_scale.h",
-      "grub/btrfs.h",
-      "grub/bufio.h",
-      "grub/cache.h",
-      "grub/cbfs_core.h"
+      "../config-util.h",
+      "../config.h",
+      "../include/grub/cache.h",
+      "../include/grub/command.h",
+      "../include/grub/compiler-rt.h",
+      "../include/grub/device.h",
+      "../include/grub/disk.h",
+      "../include/grub/dl.h",
+      "../include/grub/efi/sb.h",
+      "../include/grub/env.h",
+      "../include/grub/env_private.h",
+      "../include/grub/err.h",
+      "../include/grub/file.h",
+      "../include/grub/fs.h",
+      "../include/grub/i18n.h",
+      "../include/grub/i386/tsc.h",
+      "../include/grub/kernel.h",
+      "../include/grub/list.h",
+      "../include/grub/lockdown.h",
+      "../include/grub/machine/int.h"
     ],
     "undefined_symbols": [],
     "provided_symbols_sample": []
@@ -989,10 +1185,22 @@
   ],
   "repair_hints": [
     {
+      "id": "unexpanded-makefile-vars",
+      "phase": "make",
+      "confidence": 0.8,
+      "evidence": [
+        "@MARKER@",
+        "@simplified_abs_top_srcdir@"
+      ],
+      "action": "add these to STD_VAR_SED / AC_SUBST handling",
+      "expected_effect": "removes raw @VAR@ from Makefile"
+    },
+    {
       "id": "subdir-top-builddir",
       "phase": "make",
       "confidence": 0.88,
       "evidence": [
+        "grub-core consumes config.h below root",
         "grub-core/lib/libgcrypt/cipher consumes config.h below root",
         "grub-core/lib/libgcrypt/src consumes config.h below root",
         "grub-core/lib/libgcrypt/mpi consumes config.h below root",
@@ -1005,10 +1213,10 @@
   "scenario_context": {
     "temporal_map": {
       "Makefile.am": -10,
-      "Makefile.in": 3992,
-      "aclocal.m4": 151,
+      "Makefile.in": 29063,
+      "aclocal.m4": 13127,
       "config.h.in": -2,
-      "configure": 377,
+      "configure": 13937,
       "configure.ac": 0
     },
     "m4_ancestry": {

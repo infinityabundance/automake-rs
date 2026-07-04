@@ -1,6 +1,6 @@
 # Atlas Recipes — working / non-working roster
 
-Total **1000** recipes. **Working (built end-to-end): 62** · non-working: 383 partial · 0 not-standalone · 555 failed.
+Total **1000** recipes. **Working (built end-to-end): 62** · non-working: 383 partial · 225 not-standalone · 330 failed.
 
 "Working" means the full pipeline (autoreconf → configure → make) succeeded under the GNU-free toolchain. `quirk_dependent` needed an auto-applied quirk; `sealed` needed none.
 
@@ -154,7 +154,7 @@ Total **1000** recipes. **Working (built end-to-end): 62** · non-working: 383 p
 | BatchDrake/lfsrintruder | MAKE_FAIL | collect2: error: ld returned 1 exit status |
 | baxter104/fatx | MAKE_FAIL | /usr/include/fuse/fuse_common.h:33:2: error: #error Please add -D_FILE_OFFSET_BITS=64 to y |
 | bdonlan/libofx | MAKE_FAIL | ofx_utilities.cpp:22:10: fatal error: ParserEventGeneratorKit.h: No such file or directory |
-| beniz/hmdp | MAKE_FAIL | make[37488]: *** [Makefile:229: all-am] Killed |
+| beniz/hmdp | MAKE_FAIL | make[37381]: *** [Makefile:229: all-am] Killed |
 | benlemasurier/stormfs | MAKE_FAIL | proxy.c:20:10: fatal error: glib.h: No such file or directory |
 | benmwebb/dopewars | MAKE_FAIL | ../../src/network.h:32:10: fatal error: winsock2.h: No such file or directory |
 | bergundy/IOQueue | MAKE_FAIL | ioqueue.h:44:10: fatal error: arrayqueue.h: No such file or directory |
@@ -183,7 +183,7 @@ Total **1000** recipes. **Working (built end-to-end): 62** · non-working: 383 p
 | bsc-performance-tools/paraver-kernel | MAKE_FAIL | filtermanagement.cpp:26:10: fatal error: kfilter.h: No such file or directory |
 | bubbapizza/GCAM | MAKE_FAIL | ../libgcode/gcode_svg.h:19:10: fatal error: glib.h: No such file or directory |
 | BUILDS-/Derpnet | MAKE_FAIL | src/sockserv/Connection.cc:72:24: error: 'read' was not declared in this scope; did you me |
-| bvanheu/libsigrok-ad | MAKE_FAIL | sched.c:20:10: fatal error: glib.h: No such file or directory |
+| bvanheu/libsigrok-ad | MAKE_FAIL | api.c:20:10: fatal error: glib.h: No such file or directory |
 | bytedeco/helloworld | MAKE_FAIL | cc: error: 2.0: linker input file not found: No such file or directory |
 | Cacti/spine | MAKE_FAIL | common.h:66:10: fatal error: config/config.h: No such file or directory |
 | CAIDA/libparsebgp | MAKE_FAIL | ../lib/parsebgp.h:41:35: error: 'PKG_MAJOR_VERSION' undeclared (first use in this function |
@@ -223,7 +223,7 @@ Total **1000** recipes. **Working (built end-to-end): 62** · non-working: 383 p
 | cmcqueen/aes-min | MAKE_FAIL | collect2: error: ld returned 1 exit status |
 | cmusatyalab/vmnetx | MAKE_FAIL | /tmp/atlasx_cmusatyalab__vmnetx/s/vmnetfs/vmnetfs.c:418:(.text+0xd): undefined reference t |
 | codebutler/firesheep | MAKE_FAIL | cp: cannot stat './backend/backend': No such file or directory |
-| ColumPaget/gngeo-cjp | MAKE_FAIL | scanline.c:6:10: fatal error: SDL.h: No such file or directory |
+| ColumPaget/gngeo-cjp | MAKE_FAIL | scale2x.c:6:10: fatal error: SDL.h: No such file or directory |
 | commandus/proto-sql | MAKE_FAIL | sql_code_generator.cpp:107:27: error: 'scoped_ptr' is not a member of 'google::protobuf' |
 | coova/coova-chilli | MAKE_FAIL | mssl.h:46:3: error: unknown type name 'ssl_t' |
 | cosimoc/gnome-example-search-provider | MAKE_FAIL | gnome-search-example.c:8:10: fatal error: search-example-provider-generated.h: No such fil |
@@ -314,7 +314,7 @@ Total **1000** recipes. **Working (built end-to-end): 62** · non-working: 383 p
 | ederlf/horse | MAKE_FAIL | make[1]: *** No rule to make target '.libs/libhorse.a', needed by 'horse'.  Stop. |
 | egallesio/STklos | MAKE_FAIL | misc.c:208:29: error: 'VERSION' undeclared (first use in this function); did you mean 'C_V |
 | eklitzke/spv | MAKE_FAIL | ./addr.h:48:21: error: 'string' in namespace 'std' does not name a type |
-| elima/FileTea | MAKE_FAIL | filetead-main.c:23:10: fatal error: evd.h: No such file or directory |
+| elima/FileTea | MAKE_FAIL | filetea-web-service.h:26:10: fatal error: evd.h: No such file or directory |
 | elima/gjs-commonjs | MAKE_FAIL | /usr/include/mozjs-115/mozilla/AlreadyAddRefed.h:12:10: fatal error: utility: No such file |
 | Elive/engage | MAKE_FAIL | e_mod_main.h:4:10: fatal error: e.h: No such file or directory |
 | elmo2k3/had | MAKE_FAIL | mpd.h:33:10: fatal error: libmpd/libmpd.h: No such file or directory |
@@ -344,7 +344,7 @@ Total **1000** recipes. **Working (built end-to-end): 62** · non-working: 383 p
 | EvolBioInf/andi | MAKE_FAIL | esa.h:9:10: fatal error: config.h: No such file or directory |
 | Evolix/uvrrpd | MAKE_FAIL | vrrp_ip4.c:183:17: error: converting a packed 'struct vrrphdr' pointer (alignment 1) to a  |
 | ewxrjk/sftpserver | MAKE_FAIL | utils.h:180:39: error: expected declaration specifiers before 'attribute' |
-| exo/tvm-rcx | MAKE_FAIL | /tmp/ccvAGmbC.s:10: Error: no such instruction: `r6 saved by ROM' |
+| exo/tvm-rcx | MAKE_FAIL | /tmp/ccIhp3dp.s:10: Error: no such instruction: `r6 saved by ROM' |
 | FabricAttachedMemory/libfam-atomic | MAKE_FAIL | Makefile:605: git.mk: No such file or directory |
 | fan31415/bbq_new | MAKE_FAIL | main.c:10:10: fatal error: gtk/gtk.h: No such file or directory |
 | fancybits/libdvbpsi | MAKE_FAIL | dvbinfo.c:704:28: error: 'LOG_PID' undeclared (first use in this function) |
@@ -359,15 +359,15 @@ Total **1000** recipes. **Working (built end-to-end): 62** · non-working: 383 p
 | filebench/filebench | MAKE_FAIL | vars.h:60:17: error: unknown type name 'boolean_t' |
 | filiphanes/fts-elastic | MAKE_FAIL | /bin/sh: 1: --silent: not found |
 | filosganga/libwurfl | MAKE_FAIL | collect2: error: ld returned 1 exit status |
-| FinchBerryOS/fbyo-coreutils | MAKE_FAIL | /tmp/atlasx_FinchBerryOS__fbyo-coreutils/s/build-aux/missing: line 85: automake-1.18: comm |
-| FinTP/fintp_payloadevaluators | MAKE_FAIL | AchBlkAccPayload/AchBlkAccPayload.cpp:21:10: fatal error: StringUtil.h: No such file or di |
+| FinchBerryOS/fbyo-coreutils | MAKE_FAIL | configure.ac:19: error: possibly undefined macro: dnl |
+| FinTP/fintp_payloadevaluators | MAKE_FAIL | AchBlkAccPayload/AchBlkAccPayload.h:24:10: fatal error: WSRM/SequenceResponse.h: No such f |
 | fireae/nhocr | MAKE_FAIL | <command-line>: error: expected primary-expression before '/' token |
 | firecore/libudfread | MAKE_FAIL | cc: error: unrecognized command-line option '-Wpointer-arith-Wredundant-decls' |
 | firnsy/yubipam | MAKE_FAIL | ../../config.h:1:23: error: expected expression before '/' token |
 | flatcar/sysroot-wrappers | MAKE_FAIL | /tmp/atlasx_flatcar__sysroot-wrappers/s/src/cc_wrap.c:37:(.text.startup+0x16): undefined r |
 | Floobits/diffshipper | MAKE_FAIL | src/dmp_lua.c:12:10: fatal error: dmp_lua_str.h: No such file or directory |
 | fontforge/libuninameslist | MAKE_FAIL | /bin/sh: 1: --trace: not found |
-| fordmason/cronolog | MAKE_FAIL | cronoutils.c:502:17: error: storage size of 'tm_initial' isn't known |
+| fordmason/cronolog | MAKE_FAIL | cronolog.c:98:25: error: 'PACKAGE' undeclared (first use in this function); did you mean ' |
 | ForgotFun/wifidog | MAKE_FAIL | commandline.c:129:66: error: expected ')' before 'VERSION' |
 | frank-zago/xgalaga-sdl | MAKE_FAIL | frate.c:25:10: fatal error: SDL_framerate.h: No such file or directory |
 | fredowski/ssw | MAKE_FAIL | collect2: error: ld returned 1 exit status |
@@ -401,7 +401,7 @@ Total **1000** recipes. **Working (built end-to-end): 62** · non-working: 383 p
 | gitGNU/gnu_lash | MAKE_FAIL | make: *** No rule to make target 'svnversion.h', needed by 'all'.  Stop. |
 | gitGNU/gnu_rpge | MAKE_FAIL | make: *** No targets specified and no makefile found.  Stop. |
 | gitGNU/gnu_scambio | MAKE_FAIL | varbuf.c:25:10: fatal error: pth.h: No such file or directory |
-| gitGNU/gnu_sipwitch | MAKE_FAIL | service.cpp:18:10: fatal error: ucommon/ucommon.h: No such file or directory |
+| gitGNU/gnu_sipwitch | MAKE_FAIL | control.cpp:18:10: fatal error: ucommon/ucommon.h: No such file or directory |
 | gitpan/libnf | MAKE_FAIL | /usr/bin/ld: cannot find -lnf: No such file or directory |
 | gkobeaga/op-solver | MAKE_FAIL | collect2: error: ld returned 1 exit status |
 | glipari/rtscan | MAKE_FAIL | ar: ./.libs/property.o: No such file or directory |
@@ -420,7 +420,7 @@ Total **1000** recipes. **Working (built end-to-end): 62** · non-working: 383 p
 | greatergoodguy/Game_Tech_Assignment1 | MAKE_FAIL | OgreFramework.hpp:8:10: fatal error: OgreCamera.h: No such file or directory |
 | greg-kennedy/BridgeMail | MAKE_FAIL | cc: error: unrecognized argument to '-fsanitize=' option: 'integer' |
 | gregkh/bti | MAKE_FAIL | config.c:38:10: fatal error: oauth.h: No such file or directory |
-| grgbr/haveged | MAKE_FAIL | ../config.h:7:29: error: expected ')' before ':' token |
+| grgbr/haveged | MAKE_FAIL | haveged.c:71:21: error: 'PACKAGE' undeclared here (not in a function); did you mean 'PACKA |
 | grisbi/grisbi | MAKE_FAIL | make[1]: --generate-dependencies: No such file or directory |
 | grobian/carbon-c-relay | MAKE_FAIL | relay.c:357:34: error: expected ')' before 'VERSION' |
 | grondo/edac-utils | MAKE_FAIL | collect2: error: ld returned 1 exit status |
@@ -459,189 +459,107 @@ Total **1000** recipes. **Working (built end-to-end): 62** · non-working: 383 p
 | iczelia/xpar | MAKE_FAIL | (.text+0x1b): undefined reference to `main' |
 | idosch/ethtool | MAKE_FAIL | ethtool.c:372:17: error: 'PACKAGE' undeclared (first use in this function); did you mean ' |
 
-## ❌ Non-working — failed (ours fails before make) (555)
+## ❌ Non-working — failed (ours fails before make) (330)
 
 | repo | stage | first error |
 | --- | --- | --- |
-| 315234/lyx-retina | CONFIGURE_RUN_FAIL | ./configure: line 1367: LYX_CHECK_VERSION: command not found |
 | 6WIND/quagga | CONFIGURE_RUN_FAIL | ./configure: line 3247: AC_WORDS_BIGENDIAN: command not found |
 | A-Kyle/GrADS-CJK | CONFIGURE_RUN_FAIL | checking for supplibs directory... ./configure: line 2328: syntax error near unexpected to |
 | a-sassmannshausen/guile-monads | CONFIGURE_RUN_FAIL | ./configure: line 1366: syntax error near unexpected token `2.0.11' |
 | abc100m/libzdbcpp | CONFIGURE_RUN_FAIL |  |
-| acaudwell/Logstalgia | CONFIGURE_RUN_FAIL | configure: error: Could not find a valid OpenGL implementation |
 | accellera-official/systemc | CONFIGURE_RUN_FAIL | whether we are using a Clang/LLVM C compiler... configure: error: "sorry...architecture no |
-| acerion/cwdaemon | CONFIGURE_RUN_FAIL | ./configure: line 1643: 0: command not found |
-| acoin-project/acoin | CONFIGURE_RUN_FAIL | configure: error: libdb_cxx headers missing |
 | adiknoth/netatalk-debian | CONFIGURE_RUN_FAIL | ./configure: line 1390: AC_PROG_PERL: command not found |
-| adobe-research/libkafka | CONFIGURE_RUN_FAIL | ./configure: line 1397: syntax error near unexpected token `[_m4_provided_GTEST_LIB_CHECK] |
 | AdolfVonKleist/Phonetisaurus | CONFIGURE_RUN_FAIL | configure: error: Can't find OpenFST or one or more of its extensions. Use --with-openfst- |
 | ADVANTECH-Corp/WiseSnail | CONFIGURE_RUN_FAIL | ./configure: line 1673: ./library/WiseCore/WiseCore_MQTT/configure: No such file or direct |
-| AegisEmu/AegisEmu | CONFIGURE_RUN_FAIL | configure: error: Subversion not found |
 | affix/MSNC | CONFIGURE_RUN_FAIL | configure: error: You don't seem to have the curses headers installed |
-| agalakhov/captdriver | CONFIGURE_RUN_FAIL | configure: error: CUPS library not found. |
 | agn453/ZXCC | CONFIGURE_RUN_FAIL | ./configure: line 1561: ./cpmio/configure: No such file or directory |
-| agordon/fastx_toolkit | CONFIGURE_RUN_FAIL | for long long int... ./configure: line 1389: syntax error near unexpected token `fi' |
 | ahjragaas/inetutils | CONFIGURE_RUN_FAIL | ./configure: line 1534: syntax error near unexpected token `ftpd' |
 | ahlstromcj/midicvt | CONFIGURE_RUN_FAIL |  |
 | ahmedammar/platform_external_gst_gstreamer | CONFIGURE_RUN_FAIL | ./configure: line 1353: AG_GST_INIT: command not found |
 | ahorn/cpp-channel | CONFIGURE_RUN_FAIL | ./configure: line 1369: ./gtest/configure: No such file or directory |
 | ahupowerdns/setgrouper | CONFIGURE_RUN_FAIL | configure: error: no C++ compiler found |
-| aissammouche/bitextor | CONFIGURE_RUN_FAIL | configure: error: You don't have bash installed. |
-| ajhc/ajhc | CONFIGURE_RUN_FAIL | The ghc compiler was not found, please specify a location for it with the --with-hc flag |
-| ajnelson/geoproc | CONFIGURE_RUN_FAIL | configure: error: GNU getopt not found. |
 | ajnelson/photorec-testdisk | CONFIGURE_RUN_FAIL | configure: error: At least one of ncursesw/ncurses/pdcurses/curses library must be present |
-| ajnelson/regxml_extractor | CONFIGURE_RUN_FAIL | configure: error: GNU getopt not found. |
 | alanjaouen/compilateur-cpp | CONFIGURE_RUN_FAIL | awk: cmd. line:1:                               ^ syntax error |
 | albertok/web-polygraph | CONFIGURE_RUN_FAIL | configure: error: the compiler (g++) failed to pass a simple C++ test; check config.log fo |
-| alexandervdm/gummi | CONFIGURE_RUN_FAIL | configure: error: You need gtksourceview3 >= 3.4.0 to build |
-| AlmuHS/GNUMach_SMP | CONFIGURE_RUN_FAIL | ./configure: line 1364: $'\f': command not found |
 | alsa-project/alsa-firmware | CONFIGURE_RUN_FAIL |  |
 | AmkG/hl | CONFIGURE_RUN_FAIL | checking how to get an intptr_t type with ranges... configure: error: We can't find out wh |
-| andestech/nds-openocd | CONFIGURE_RUN_FAIL | ./configure: line 2108: syntax error near unexpected token `1,' |
 | andrewshadura/tnat64 | CONFIGURE_RUN_FAIL | configure: error: 'Could not find library containing connect()' |
 | AndyA/htop-osx | CONFIGURE_RUN_FAIL | ./configure: line 1810: syntax error near unexpected token `fi' |
 | anewhuahua/bilitw | CONFIGURE_RUN_FAIL | ./configure: line 2015: ./contrib/yaml-0.1.4/configure: No such file or directory |
-| ansisatteka/ovs-ipsec | CONFIGURE_RUN_FAIL | for Python 2.x for x >= 7... configure: error: cannot find python 2.7 or higher. |
-| ant9000/libsigrok | CONFIGURE_RUN_FAIL | checking for pygobject-3.0 >= 3.0.0... ./configure: line 2769: syntax error near unexpecte |
-| AnthonyDeroche/mod_authnz_jwt | CONFIGURE_RUN_FAIL |  |
-| anyone-protocol/ator-protocol | CONFIGURE_RUN_FAIL | ./configure: line 2285: dirauth: command not found |
 | AOMediaCodec/oac | CONFIGURE_RUN_FAIL | ./configure: line 2382: -mfma: command not found |
 | apache/xerces-c | CONFIGURE_RUN_FAIL | ./configure: line 1796: pthread-config: command not found |
 | apertium/apertium | CONFIGURE_RUN_FAIL | configure: error: You don't have xmllint installed. |
 | aportelli/LatAnalyze | CONFIGURE_RUN_FAIL | configure: error: HDF5 library not found |
-| Apress/Why-Learn-C | CONFIGURE_RUN_FAIL | configure: error:  not supported by C compiler |
-| ArchimedesCAD/libredwg | CONFIGURE_RUN_FAIL | configure: error: SWIG is required to build.. |
-| argonne-lcf/THAPI | CONFIGURE_RUN_FAIL | checking whether ln works... ./configure: line 3334: syntax error: unexpected end of file |
 | aristanetworks/EosSdk | CONFIGURE_RUN_FAIL | for std::unordered_set::operator==... configure: error: Your version of the STL seems to b |
-| arkadijs/asterisk-g72x | CONFIGURE_RUN_FAIL | checking whether C compiler accepts -march=native... ./configure: line 1621: 0: command no |
-| arki55/fuse-fuse | CONFIGURE_RUN_FAIL | ./configure: line 1429: syntax error near unexpected token `(' |
-| arkq/bluez-alsa | CONFIGURE_RUN_FAIL | configure: error: unable to find clock_gettime() function |
-| armenb/sharktools | CONFIGURE_RUN_FAIL | configure: error: Required parameter: you need to set --with-wireshark-src=/path/to/wiresh |
-| ARPA-SIMC/arkimet | CONFIGURE_RUN_FAIL | ./configure: line 2660: geos-config: command not found |
-| ARPA-SIMC/dballe | CONFIGURE_RUN_FAIL | ./configure: line 1412: syntax error near unexpected token `;' |
 | artclarke/xuggle-xuggler | CONFIGURE_RUN_FAIL | ./configure: line 1629: ./captive/configure: No such file or directory |
 | arthurdejong/nss-pam-ldapd | CONFIGURE_RUN_FAIL | configure: error: PAM header files are missing |
-| artyom-poptsov/metabash | CONFIGURE_RUN_FAIL | configure: error: required guile module not found: (ssh session) |
-| Ashod/garli | CONFIGURE_RUN_FAIL | ./configure: line 1744: ACX_MPI: command not found |
 | asnelt/rrep | CONFIGURE_RUN_FAIL | configure: error: Invalid value for --with-included-regex: |
 | ASPLes/libaxl | CONFIGURE_RUN_FAIL | ./configure: line 1521: python: command not found |
-| assen-totin/mate-applet-streamer | CONFIGURE_RUN_FAIL | configure: error: "*** GTK not found." |
-| astromatic/psfex | CONFIGURE_RUN_FAIL | ******** Configuring:  PSFEx 3.24.2 -  (2026-07-03) ******** |
-| astromatic/sextractor | CONFIGURE_RUN_FAIL | ******** Configuring:  SExtractor 2.29.0 -  (2026-07-03) ******** |
-| astromatic/skymaker | CONFIGURE_RUN_FAIL | ******** Configuring:  SkyMaker 4.3.0 -  (2026-07-03) ******** |
+| astromatic/psfex | CONFIGURE_RUN_FAIL | ******** Configuring:  PSFEx 3.24.2 -  (2026-07-04) ******** |
+| astromatic/sextractor | CONFIGURE_RUN_FAIL | ******** Configuring:  SExtractor 2.29.0 -  (2026-07-04) ******** |
+| astromatic/skymaker | CONFIGURE_RUN_FAIL | ******** Configuring:  SkyMaker 4.3.0 -  (2026-07-04) ******** |
 | autotools-mirror/autoconf | CONFIGURE_RUN_FAIL | ./configure: line 2812: syntax error: unexpected end of file |
 | avr-aics-riken/234Compositor | CONFIGURE_RUN_FAIL |  |
-| avr-aics-riken/CIOlib | CONFIGURE_RUN_FAIL |  |
 | awaw/dnsproxy | CONFIGURE_RUN_FAIL | checking for libevent... configure: error: |
 | awgn/brute | CONFIGURE_RUN_FAIL | ./configure: line 1573: syntax error near unexpected token `string.h' |
-| awsteiner/o2scl | CONFIGURE_RUN_FAIL | Boost locale not found. |
 | ayumin/open-cobol | CONFIGURE_RUN_FAIL | ./configure: line 2865: syntax error near unexpected token `newline' |
-| ayyi/samplecat | CONFIGURE_RUN_FAIL | configure: error: libyaml not found |
-| azatoth/minidlna | CONFIGURE_RUN_FAIL | configure: error: libavutil headers not found or not usable |
-| backuppc/backuppc-xs | CONFIGURE_RUN_FAIL | checking if md2man can create manpages... no - python3 not found |
 | balde/balde | CONFIGURE_RUN_FAIL | configure: error: no -fvisibility=hidden support found in , balde requires -fvisibility=hi |
 | bambulab/gmp | CONFIGURE_RUN_FAIL | ./configure: line 1465: syntax error near unexpected token `newline' |
-| baoxuezhao/GPU-SExtractor | CONFIGURE_RUN_FAIL | *********** Configuring:    (2026-07-03) ********** |
 | barak/djview4 | CONFIGURE_RUN_FAIL | conftest.d/conftest.sh: line 1: creating: command not found |
 | barak/oaklisp | CONFIGURE_RUN_FAIL | for long long int... ./configure: line 1793: syntax error near unexpected token `fi' |
 | baszoetekouw/pinfo | CONFIGURE_RUN_FAIL |  |
-| BayshoreNetworks/yextend | CONFIGURE_RUN_FAIL | checking checking for Python libraries used in unit tests... configure: error: "Cannot run |
-| bbc/bbcat-control | CONFIGURE_RUN_FAIL | configure: error: bbcat-base-0.1 >= 0.1.2.1 is required |
-| bbc/bbcat-dsp | CONFIGURE_RUN_FAIL | configure: error: bbcat-base-0.1 >= 0.1.2.0 is required |
-| bbc/bbcat-fileio | CONFIGURE_RUN_FAIL | configure: error: bbcat-base-0.1 >= 0.1.2.0 is required |
 | bbc/vc2hqdecode | CONFIGURE_RUN_FAIL | configure: error: librt is required |
-| bbidulock/xde-sounds | CONFIGURE_RUN_FAIL | configure: error: |
 | bcoin-org/libtorsion | CONFIGURE_RUN_FAIL | ./configure: line 3495: syntax error near unexpected token `;' |
 | bdwgc/bdwgc | CONFIGURE_RUN_FAIL | ./configure: line 1645: syntax error near unexpected token `(' |
-| benchmark-subsetting/cere | CONFIGURE_RUN_FAIL | configure: error: At least LLVM version 7.0 is required |
 | benegon/ntp | CONFIGURE_RUN_FAIL | ./configure: line 1823: syntax error near unexpected token `sntp/libopts' |
 | benvanik/gflags | CONFIGURE_RUN_FAIL | ./configure: line 1854: pthread-config: command not found |
 | benwbooth/tvision | CONFIGURE_RUN_FAIL | ./configure: line 1443: AC_STDC_HEADERS: command not found |
-| bert/geda-gaf | CONFIGURE_RUN_FAIL | ./configure: line 1465: []: command not found |
-| bgpsecurity/rpstir | CONFIGURE_RUN_FAIL | ./configure: line 1582: CFLAGS: command not found |
-| BIC-MNI/bicpl | CONFIGURE_RUN_FAIL | ./configure: line 1384: smr_WITH_BUILD_PATH: command not found |
-| BIMSBbioinfo/swineherd | CONFIGURE_RUN_FAIL | ./configure: line 1358: syntax error near unexpected token `3.0' |
 | binhqnguyen/ovs-srv6 | CONFIGURE_RUN_FAIL | whether cc accepts -Werror... ./configure: line 2760: syntax error near unexpected token ` |
-| BirolLab/abyss | CONFIGURE_RUN_FAIL |  |
 | BirolLab/ChopStitch | CONFIGURE_RUN_FAIL | configure: error: CHOPSTITCH must be compiled with a C++ compiler that supports OpenMP thr |
 | BirolLab/ntCard | CONFIGURE_RUN_FAIL | configure: error: NTCARD must be compiled with a C++ compiler that supports OpenMP threadi |
-| bitblaze-fuzzball/fuzzball | CONFIGURE_RUN_FAIL | configure: error: m4_default([], [Cannot find [ocamlc]]) |
-| bitcoinbabys/flexinodes | CONFIGURE_RUN_FAIL | configure: error: libdb_cxx headers missing |
 | BitzenyCoreDevelopers/cpuminer | CONFIGURE_RUN_FAIL | ./configure: line 1801: syntax error near unexpected token `,' |
-| bitzeppelin/linphone-sdk | CONFIGURE_GEN_FAIL |  |
 | bjango/istatserverlinux | CONFIGURE_RUN_FAIL | configure: error: sqlite not found. please install libsqlite3-dev/sqlite-devel or a simila |
-| bjoernvoss/RNAHeliCes | CONFIGURE_RUN_FAIL | ./configure: line 3055: syntax error: unexpected end of file |
-| bk138/wxservdisc | CONFIGURE_RUN_FAIL | checking wxWidgets version... ./configure: line 1506: wx-config: command not found |
 | bkearney/augeas | CONFIGURE_RUN_FAIL |  |
 | bloomen/libunittest | CONFIGURE_RUN_FAIL | ./configure: line 1593: pthread-config: command not found |
 | blueness/sthttpd | CONFIGURE_RUN_FAIL | ./configure: line 1377: syntax error near unexpected token `AR,' |
-| BOINC/boinc | CONFIGURE_RUN_FAIL | ./configure: line 1352: BOINC,: command not found |
 | BoldingBruggeman/netcdf3 | CONFIGURE_RUN_FAIL | ./configure: line 5104: syntax error: unexpected end of file |
-| bondhugula/pluto | CONFIGURE_RUN_FAIL | configure: error: Please install LLVM FileCheck before configuring. |
 | bonzini/smalltalk | CONFIGURE_RUN_FAIL | whether  produces any warnings... ./configure: line 1615: syntax error near unexpected tok |
 | borkmann/lksctp-tools | CONFIGURE_RUN_FAIL | timeout: failed to run command './configure': Permission denied |
 | boundary/wireshark | CONFIGURE_RUN_FAIL | ./configure: line 1415: syntax error near unexpected token `looks' |
 | boxbackup/boxi | CONFIGURE_RUN_FAIL | checking wxWidgets version... ./configure: line 1420: wx-config: command not found |
 | boysetsfrog/vimpc | CONFIGURE_RUN_FAIL | configure: error: vimpc requires boost library |
-| bradenmcd/uri-grammar | CONFIGURE_RUN_FAIL | for boost_thread-mt library... configure: error: libboost_thread-mt not found |
-| BrandRegard/gnash | CONFIGURE_RUN_FAIL | ./configure: line 1352: gnash,: command not found |
 | BrianGladman/mpfr | CONFIGURE_RUN_FAIL | ./configure: line 2243: syntax error near unexpected token `line' |
 | brianmcgillion/udev | CONFIGURE_RUN_FAIL | configure: error: POSIX RT library not found |
-| brimworks/zile | CONFIGURE_RUN_FAIL | configure: error: Lua not found |
-| bsc-pm/sonar | CONFIGURE_RUN_FAIL | ./configure: line 1478: This: command not found |
-| bsc-pm/tasycl | CONFIGURE_RUN_FAIL | whether C compiler accepts -fsycl... ./configure: line 1551: -I/include/sycl: No such file |
-| bspeice/libcvautomation | CONFIGURE_RUN_FAIL | configure: error: |
-| bulislaw/obexd-eds | CONFIGURE_RUN_FAIL | configure: error: libopenobex is required |
 | BunsenLabs/plank | CONFIGURE_RUN_FAIL | ./configure: line 1431: GLIB_GSETTINGS: command not found |
 | bytedance/ovs-dpdk | CONFIGURE_RUN_FAIL | ./configure: line 3529: string.h: command not found |
 | c-rack/squid-ecap-gzip | CONFIGURE_RUN_FAIL |  |
 | calaos/calaos_base | CONFIGURE_RUN_FAIL |  |
 | cannabisday/ovs-tsn | CONFIGURE_RUN_FAIL | ./configure: line 3542: string.h: command not found |
 | canonical/dqlite | CONFIGURE_RUN_FAIL | ./configure: line 3235: syntax error: unexpected end of file |
-| carboncointrust/CarboncoinCore | CONFIGURE_RUN_FAIL | configure: error: libdb_cxx headers missing |
-| cbg-ethz/shorah | CONFIGURE_RUN_FAIL | ./configure: line 1480: syntax error near unexpected token `],[,,[Define' |
-| cbuchner1/ccminer | CONFIGURE_RUN_FAIL | configure: error: OpenSSL library required |
-| cciechad/brlcad | CONFIGURE_RUN_FAIL | *** Configuring BRL-CAD Release MAJOR_VERSION.MINOR_VERSION.PATCH_VERSION, Build 20260703  |
+| cciechad/brlcad | CONFIGURE_RUN_FAIL | *** Configuring BRL-CAD Release MAJOR_VERSION.MINOR_VERSION.PATCH_VERSION, Build 20260704  |
 | cculianu/secp256k1 | CONFIGURE_RUN_FAIL | ./configure: line 2251: syntax error near unexpected token `_JTOPDIR=$_JTOPDIR' |
 | Certseeds/graphicsmagick | CONFIGURE_RUN_FAIL | ./configure: line 2149: syntax error near unexpected token `done' |
-| CESARBR/knot-network-nrf24 | CONFIGURE_RUN_FAIL | configure: error: "ell missing" |
-| CESARBR/knot-service-source | CONFIGURE_RUN_FAIL | configure: error: "ell missing" |
-| CESNET/GPUJPEG | CONFIGURE_RUN_FAIL | configure: error: Unsupported cuda compiler |
-| CESNET/libfastbit | CONFIGURE_RUN_FAIL | checking if compiler supports __sync_add_and_fetch for 32-bit integers... checking if comp |
-| cfra/quagga-testing | CONFIGURE_RUN_FAIL | ./configure: line 2756: AC_WORDS_BIGENDIAN: command not found |
-| cgdb/cgdb | CONFIGURE_RUN_FAIL | configure: error: Please install flex before installing |
-| cgwalters/git-evtag | CONFIGURE_RUN_FAIL |  |
-| chabbimilind/cctlib | CONFIGURE_RUN_FAIL | configure: error: --with-libelf requires absolute path as argument; given '' |
 | chaoran/fibril | CONFIGURE_RUN_FAIL | ./configure: line 1586: pthread-config: command not found |
 | chaos/pdsh | CONFIGURE_RUN_FAIL | ./configure: line 597: syntax error near unexpected token `(' |
 | chaos/powerman | CONFIGURE_RUN_FAIL | ./configure: line 597: syntax error near unexpected token `(' |
 | chaos/slurm | CONFIGURE_RUN_FAIL | ./configure: line 1362: X_AC_GPL_LICENSED: command not found |
-| chaupal/jxta-c | CONFIGURE_RUN_FAIL | configure: error: apr-util does not support SQLite3, as required by JXTA |
 | chenall/grub4dos | CONFIGURE_RUN_FAIL |  |
 | cherojeong/extundelete | CONFIGURE_RUN_FAIL | checking whether C compiler accepts -std=c99... ./configure: line 1480: 0: command not fou |
 | chimari/MaCoPiX | CONFIGURE_RUN_FAIL | ./configure: line 1584: AC_FUNC_LSTAT: command not found |
 | chiphackers/covered | CONFIGURE_RUN_FAIL | ./configure: line 1733: syntax error near unexpected token `test' |
-| choeger/MetaModelica-autotools | CONFIGURE_RUN_FAIL | configure: error: Cannot find mlton |
-| chosen1/SniffDet | CONFIGURE_RUN_FAIL | configure: error: "*** libnet10-config not found! You need libnet 1.0 to build sniffdet! * |
 | christian-sahlmann/gwyddion | CONFIGURE_RUN_FAIL | ./configure: line 1740: gconftool-2: command not found |
-| ChrisVine/guile-a-sync | CONFIGURE_RUN_FAIL |  |
-| Chronic-Dev/libgcrypt | CONFIGURE_RUN_FAIL | ./configure: line 1499: AC_DIVERT_POP: command not found |
 | chuckleb/virt-what | CONFIGURE_RUN_FAIL |  |
 | cisco/opus | CONFIGURE_RUN_FAIL | ./configure: line 1430: AC_MINGW32: command not found |
 | cjcole/libgolle | CONFIGURE_RUN_FAIL | ./configure: line 1541: DX_PDF_FEATURE: command not found |
 | CkNoSFeRaTU/pidgin | CONFIGURE_RUN_FAIL | ./configure: line 2024: AC_PROG_INTLTOOL: command not found |
 | cluslab/metastack | CONFIGURE_RUN_FAIL | ./configure: line 597: syntax error near unexpected token `(' |
 | ClusterLabs/cluster-glue | CONFIGURE_RUN_FAIL | ./configure: line 1510: AC_LIBLTDL_CONVENIENCE: command not found |
-| ClusterLabs/fence-agents | CONFIGURE_RUN_FAIL | whether the linker accepts -Wl,--enable-new-dtags... configure: error: "Linker support for |
 | ClusterLabs/libqb | CONFIGURE_RUN_FAIL | ./configure: 4: Syntax error: "\|" unexpected |
 | cmand/yarrp | CONFIGURE_RUN_FAIL | configure: error: either specify a valid zlib installation with --with-zlib=DIR or disable |
 | cmauri/eviacam | CONFIGURE_RUN_FAIL | configure: error: libXext is required. |
 | cminyard/gensio | CONFIGURE_RUN_FAIL | ./configure: line 5824: syntax error near unexpected token `<<<' |
-| cminyard/ser2net | CONFIGURE_RUN_FAIL | configure: error: libgensio won't link, please install gensio dev package |
-| cmu-sei/BigGrep | CONFIGURE_RUN_FAIL | ./configure: line 2957: syntax error: unexpected end of file |
 | cnDelbert/libtiff | CONFIGURE_RUN_FAIL | configure: error: Unsupported size_t size 0; please add support |
 | CNGLDLab/LORG-Release | CONFIGURE_RUN_FAIL | ./configure: line 1486: syntax error near unexpected token `;' |
-| CoachRun/boinc | CONFIGURE_RUN_FAIL | ./configure: line 1352: BOINC,: command not found |
 | coapp-packages/libunistring | CONFIGURE_RUN_FAIL | ./configure: line 2852: syntax error: unexpected end of file |
 | cockpit-project/cockpit | CONFIGURE_RUN_FAIL | configure: error: Couldn't find crypt library. Try installing glibc-devel |
 | code-saturne/code_saturne | CONFIGURE_RUN_FAIL | ./configure: line 3362: syntax error near unexpected token `fi' |
@@ -652,35 +570,20 @@ Total **1000** recipes. **Working (built end-to-end): 62** · non-working: 383 p
 | coin-or/OS | CONFIGURE_RUN_FAIL | ./configure: line 1376: AC_COIN_CREATE_LIBTOOL: command not found |
 | coin-or/Rehearse | CONFIGURE_RUN_FAIL | ./configure: line 1830: syntax error near unexpected token `sets' |
 | coin3d/quarter | CONFIGURE_RUN_FAIL | ./configure: line 1369: SIM_AC_SETUP_MSVCPP_IFELSE: command not found |
-| colaghost/coroutine_event | CONFIGURE_RUN_FAIL | for libevent directory... configure: error: libevent is required.If it's already installed |
-| common-tools-interface/cti | CONFIGURE_RUN_FAIL | ./configure: line 1432: syntax error near unexpected token `(' |
-| compiz-reloaded/emerald | CONFIGURE_RUN_FAIL | configure: error: Failed to check the decorator interface version |
-| COMSYS/tor4iot-tor | CONFIGURE_RUN_FAIL | configure: error: Missing libraries; unable to proceed. |
 | ConsoleKit2/ConsoleKit2 | CONFIGURE_RUN_FAIL | checking for optional package polkit-gobject-1 >= 0.92... not found |
 | cooljeanius/docbook-utils-0.6.14 | CONFIGURE_RUN_FAIL | checking for a decent directory to use for jade_bindir... not found |
 | cooljeanius/gawk | CONFIGURE_RUN_FAIL | ./configure: line 1378: syntax error near unexpected token `then' |
 | cooljeanius/gcab | CONFIGURE_RUN_FAIL | ./configure: line 1415: AC_LIB_PROG_LD_GNU: command not found |
 | cooljeanius/gcml2-0.7.1 | CONFIGURE_RUN_FAIL | checking for IMLIB - version >= 1.8.2... ./configure: line 1672: --cflags: command not fou |
 | cooljeanius/libUnixToOSX | CONFIGURE_RUN_FAIL | Try 0 --help for more information.: syntax error in expression (error token is "Try 0 --he |
-| cooljeanius/magicseteditor | CONFIGURE_RUN_FAIL | configure: error: Could not link against boost_regex ! |
 | cooljeanius/mdnsd | CONFIGURE_RUN_FAIL | ./configure: line 1392: syntax error near unexpected token `AM_SET_LEADING_DOT' |
 | cooljeanius/pkg-config | CONFIGURE_RUN_FAIL | ./configure: line 1364: syntax error near unexpected token `then' |
-| coolwanglu/scanmem_ | CONFIGURE_RUN_FAIL |  |
 | corazawaf/libcoraza | CONFIGURE_RUN_FAIL | configure: error: "Go does not found" |
-| CoryXie/GRUB2 | CONFIGURE_RUN_FAIL | configure: error: unsupported CPU: "" |
-| cosmicrays/DRAGON | CONFIGURE_RUN_FAIL | ./configure: line 1467: AC_F77_LIBRARY_LDFLAGS: command not found |
 | cosmos72/twin | CONFIGURE_RUN_FAIL | ./configure: line 1692: syntax error near unexpected token `_LT_SYS_DYNAMIC_LINKER' |
 | couchbaselabs/breakpad | CONFIGURE_RUN_FAIL | ./configure: line 1630: pthread-config: command not found |
 | cowsql/raft | CONFIGURE_RUN_FAIL | ./configure: line 3364: syntax error: unexpected end of file |
-| cpaasch/wireshark | CONFIGURE_RUN_FAIL | ./configure: line 1419: syntax error near unexpected token `looks' |
 | cpputest/cpputest | CONFIGURE_RUN_FAIL | ./configure: line 1627: pthread-config: command not found |
 | crdroidandroid/android_hardware_qcom_display | CONFIGURE_RUN_FAIL |  |
-| CRG-Barcelona/bwtool | CONFIGURE_RUN_FAIL | configure: error: |
-| criort/libPRISM | CONFIGURE_RUN_FAIL | configure:  *********************************************************** |
-| cruppstahl/upscaledb | CONFIGURE_RUN_FAIL | whether the compiler supports GCC C++ ABI name demangling... ./configure: line 2009: synta |
-| CryptoBridge/bridgecoin | CONFIGURE_RUN_FAIL | configure: error: cannot figure out how to use std::atomic |
-| cryptode/cryptode | CONFIGURE_RUN_FAIL | ./configure: line 1494: syntax error near unexpected token `string.h' |
-| CryptVenture/BitMoneyV2 | CONFIGURE_RUN_FAIL | configure: error: libdb_cxx headers missing |
 | crystalsnetworkdev/pq-crystals | CONFIGURE_RUN_FAIL | ./configure: line 2469: syntax error near unexpected token `aes-ni,' |
 | crystax/android-vendor-gnu-tar | CONFIGURE_RUN_FAIL | configure: error: The --with-packager-{bug-reports,version} options require --with-package |
 | CS198NDSGChanBrianJoe/html5rdp | CONFIGURE_RUN_FAIL | ./configure: line 1881: syntax error near unexpected token `;' |
@@ -688,36 +591,24 @@ Total **1000** recipes. **Working (built end-to-end): 62** · non-working: 383 p
 | csmith-project/creduce | CONFIGURE_RUN_FAIL | ./configure: line 1527: syntax error near unexpected token `(' |
 | cstrope/indel-seq-gen | CONFIGURE_RUN_FAIL | ./configure: line 1695: syntax error near unexpected token `then' |
 | cwi-dis/ambulant | CONFIGURE_RUN_FAIL | ./configure: line 1513: LT_AC_PROG_SED: command not found |
-| CyanogenMod/android_external_protobuf-c | CONFIGURE_RUN_FAIL |  |
-| cybermaggedon/cyberprobe | CONFIGURE_RUN_FAIL | ./configure: line 3809: syntax error: unexpected end of file |
 | cydhaselton/mono-android | CONFIGURE_RUN_FAIL | configure: error: You need to install g++ |
-| CZ-NIC/fred-db | CONFIGURE_RUN_FAIL | ls: cannot access '/etc/postgresql/': No such file or directory |
 | d99kris/namp-lite | CONFIGURE_RUN_FAIL | configure: error: Required library ncursesw not found. |
 | dajobe/librdf | CONFIGURE_RUN_FAIL | expr: syntax error: unexpected argument '10000' |
 | Dale-M/mcron | CONFIGURE_RUN_FAIL | ./configure: line 1433: syntax error near unexpected token `3.0' |
 | dankamongmen/babl | CONFIGURE_RUN_FAIL | ./configure: line 1366: syntax error near unexpected token `(' |
-| danos/frr | CONFIGURE_RUN_FAIL | configure: error: cross-compilation is only possible with builddir separate from srcdir.   |
 | Dansguardian/dansguardian | CONFIGURE_RUN_FAIL |  |
 | datacratic/gperftools | CONFIGURE_RUN_FAIL | configure: error: cannot find the nanosleep function |
-| davelambert/guile-pcap | CONFIGURE_RUN_FAIL | configure: error: Cannot find guile-srfi-srfi-4-v-1, required for compilation |
 | daveshields/jikes | CONFIGURE_RUN_FAIL | for __S_IFDIR symbol... for _S_IFDIR symbol... for S_IFDIR symbol... configure: error: Cou |
 | davexunit/guile-2d | CONFIGURE_RUN_FAIL | ./configure: line 1362: GUILE_PROGS: command not found |
 | daveyc/gawk_zos | CONFIGURE_RUN_FAIL | checking for msgfmt... ./configure: line 1868: syntax error near unexpected token `newline |
-| davidgiven/libfirm | CONFIGURE_RUN_FAIL | CFLAGS for gcc -fvisibility=hidden... ./configure: line 1446: unknown: command not found |
-| dcos/dcos-mesos-modules | CONFIGURE_RUN_FAIL | configure: error: Invalid mesos path; use --with-mesos-root=<DIR> |
-| ddarriba/pll-modules | CONFIGURE_RUN_FAIL | configure: error: could not find required installation of BISON |
 | deepin-community/tslib | CONFIGURE_RUN_FAIL | ./configure: line 1882: syntax error near unexpected token `debounce,' |
 | deepin-community/vde2 | CONFIGURE_RUN_FAIL | configure: error: Unsupported OS: . At the moment, only Linux, Darwin |
-| deepin-community/xdg-desktop-portal-gtk | CONFIGURE_RUN_FAIL | checking for msgfmt... ./configure: line 1516: syntax error near unexpected token `newline |
-| deepin-community/xfce4-appfinder | CONFIGURE_RUN_FAIL | ./configure: line 1425: syntax error near unexpected token `ie' |
 | deepin-community/xfconf | CONFIGURE_RUN_FAIL | checking for libxfce4util-1.0 >= 4.17.3... not found |
 | def-/sxc | CONFIGURE_RUN_FAIL | ./configure: line 1562: syntax error near unexpected token `else' |
 | delphix/grub2 | CONFIGURE_RUN_FAIL | configure: error: Invalid value for --with-included-regex: |
 | delphix/nfs-utils | CONFIGURE_RUN_FAIL | ./configure: line 1914: AC_LIBTIRPC: command not found |
 | demorest/mark5access | CONFIGURE_RUN_FAIL |  |
-| DeNA/HandlerSocket-Plugin-for-MySQL | CONFIGURE_RUN_FAIL | checking mysql source... configure: error: --with-mysql-source=PATH is required for standa |
 | deskull-m/bakabakaband | CONFIGURE_RUN_FAIL | configure: error: nkf is not found. Please install nkf. |
-| detomastah/adwc | CONFIGURE_RUN_FAIL | ./configure: line 2091: syntax error near unexpected token `'$(top_srcdir)/protocol'' |
 | detomon/BlipKit | CONFIGURE_RUN_FAIL | configure: error: SDL was requested with --with-sdl, but SDL was not found. Use --without- |
 | detomon/json5 | CONFIGURE_RUN_FAIL | ./configure: line 1546: syntax error near unexpected token `unicode-table' |
 | devicescape/aws_dynamo | CONFIGURE_RUN_FAIL | configure: error: no openssl; please install openssl or equivalent |
@@ -726,13 +617,10 @@ Total **1000** recipes. **Working (built end-to-end): 62** · non-working: 383 p
 | dex4er/nss-docker | CONFIGURE_RUN_FAIL | whether prove accepts --failures... ./configure: line 1639: syntax error near unexpected t |
 | dfangboy/opus | CONFIGURE_RUN_FAIL | ./configure: line 1430: AC_MINGW32: command not found |
 | dfrc-korea/carpe-sleuthkit | CONFIGURE_RUN_FAIL | checking for Cppunit - version >= 1.12.1... ./configure: line 1433: --cflags: command not  |
-| DGCDev/digitalcoin | CONFIGURE_RUN_FAIL | configure: error: libdb_cxx headers missing |
 | didier13150/geomorph | CONFIGURE_RUN_FAIL | checking for cos in -lm... ./configure: line 2700: syntax error: unexpected end of file |
 | digitalocean/hivex | CONFIGURE_RUN_FAIL | not found |
-| digitalocean/libguestfs | CONFIGURE_RUN_FAIL | not found |
 | digitalocean/ovs | CONFIGURE_RUN_FAIL | ./configure: line 3065: string.h: command not found |
 | DIKU-EDU/yams | CONFIGURE_RUN_FAIL | ./configure: line 2113: syntax error near unexpected token `done' |
-| dillo-browser/dillo | CONFIGURE_RUN_FAIL | configure: error: C++ compiler doesn't work |
 | DipodGC/iperf2 | CONFIGURE_RUN_FAIL | ./configure: line 3507: syntax error near unexpected token `struct' |
 | Distrotech/celt | CONFIGURE_RUN_FAIL | ./configure: line 1496: syntax error near unexpected token `tools="tools",' |
 | Distrotech/diffutils | CONFIGURE_RUN_FAIL | configure: error: The --with-packager-{bug-reports,version} options require --with-package |
@@ -756,143 +644,84 @@ Total **1000** recipes. **Working (built end-to-end): 62** · non-working: 383 p
 | Distrotech/popt | CONFIGURE_RUN_FAIL | ./configure: line 1384: AC_GCC_TRADITIONAL: command not found |
 | Distrotech/pulseaudio | CONFIGURE_RUN_FAIL | configure: error: git-version-gen failed |
 | Distrotech/radius | CONFIGURE_RUN_FAIL | ./configure: line 2218: $' >&2\nexit 1\nprintf \'%s\\n\' configure:': command not found |
-| Distrotech/sharutils | CONFIGURE_RUN_FAIL | configure: error: <wchar.h> cannot be used with this compiler (cc  ). |
 | Distrotech/squid | CONFIGURE_RUN_FAIL |  |
 | Distrotech/tar | CONFIGURE_RUN_FAIL | configure: error: The --with-packager-{bug-reports,version} options require --with-package |
 | Distrotech/Thunar | CONFIGURE_RUN_FAIL |  |
-| dividendcash/DividendCash | CONFIGURE_RUN_FAIL | configure: error: libdb_cxx headers missing |
 | djn3m0/debit | CONFIGURE_RUN_FAIL | ./configure: line 1392: AX_CHECK_ALIGNED_ACCESS_REQUIRED: command not found |
-| dkosmari/libwupsxx | CONFIGURE_RUN_FAIL | checking devkitPro path... not found |
-| dkosmari/Papaya-HUD | CONFIGURE_RUN_FAIL | checking devkitPro path... not found |
-| dkrotx/htmarkup | CONFIGURE_RUN_FAIL | configure: error: Could not find the Expat library |
 | dleonard0/pktstat | CONFIGURE_RUN_FAIL | checking for library containing socket... ./configure: line 1408: syntax error near unexpe |
 | dmalhotra/pvfmm | CONFIGURE_RUN_FAIL | ./configure: line 1431: syntax error near unexpected token `here,' |
-| dmp0x7c5/gobexfuse | CONFIGURE_RUN_FAIL | configure: error: libical is required |
-| dns-stats/hedgehog | CONFIGURE_RUN_FAIL | ./configure: line 1995: syntax error near unexpected token `else' |
-| dnstap/dnstap-ldns | CONFIGURE_RUN_FAIL | configure: error: The protoc-c program was not found. Please install the protobuf-c compil |
-| DocQMiner/tesseract-4.0.0-beta.1 | CONFIGURE_RUN_FAIL | ./configure: line 1362: AC_LANG_COMPILER_REQUIRE: command not found |
-| doug65536/dgos | CONFIGURE_RUN_FAIL | ./configure: line 5238: syntax error: unexpected end of file |
 | dreal-deps/gsl | CONFIGURE_RUN_FAIL |  |
 | dreal-deps/libunwind | CONFIGURE_RUN_FAIL | checking for ELF helper width... configure: error: Unknown ELF target: |
 | dreamcat4/php-fpm | CONFIGURE_RUN_FAIL | checking for php configuration... configure: error: Please specify full path to php source |
-| DreamSourceLab/DSLogic-fw | CONFIGURE_RUN_FAIL | configure: error: cannot find sdcc. |
 | dreibh/sctplib | CONFIGURE_RUN_FAIL | checking whether this OS does have IPv6 stack... ./configure: line 1731: syntax error near |
-| drewc/guix | CONFIGURE_RUN_FAIL |  |
-| droogie/bluez-fuzzer | CONFIGURE_RUN_FAIL | configure: error: libical is required |
 | drothlis/gstreamer | CONFIGURE_RUN_FAIL | ./configure: line 1353: AG_GST_INIT: command not found |
-| dtbartle/cgminer-gc3355 | CONFIGURE_RUN_FAIL | ./configure: line 2436: syntax error near unexpected token `)' |
 | duality-solutions/Dynamic-GPU-Miner-Nvidia | CONFIGURE_RUN_FAIL | configure: error: OpenSSL library required |
 | dvab-sarma/android_external_alsa-lib | CONFIGURE_RUN_FAIL | checking for versioned symbols... grep: ./ltmain.sh: No such file or directory |
-| dyne/Freecoin | CONFIGURE_RUN_FAIL | ./configure: line 2520: 0: command not found |
-| dyne/FreeJ | CONFIGURE_RUN_FAIL | configure: error: *** Theora development files not found! |
 | dyninc/OpenBFDD | CONFIGURE_RUN_FAIL |  |
 | e-desouza/gzip-1.11 | CONFIGURE_RUN_FAIL | configure: error: <wchar.h> cannot be used with this compiler (cc  ). |
 | e2guardian/e2guardian | CONFIGURE_RUN_FAIL |  |
-| eastzone/snmp | CONFIGURE_RUN_FAIL | if libssl is wanted... if libssl wants a prefix... if libtomcrypt is wanted... if libtomcr |
 | ebosnjak/libpng-1.5.4-vuln | CONFIGURE_RUN_FAIL | ./configure: line 1404: AC_REQUIRE_CPP: command not found |
 | ecairn/sphinx-official | CONFIGURE_RUN_FAIL | for CFLAGS needed for pthreads... for LIBS needed for pthreads... checking for pthreads... |
 | echiu64/gutenprint | CONFIGURE_RUN_FAIL | ./configure: line 1362: STP_INIT: command not found |
-| ecliptchain/eclipt-source | CONFIGURE_RUN_FAIL | configure: error: cannot figure out how to use std::atomic |
 | edf-hpc/pkg-nsca-ng | CONFIGURE_RUN_FAIL | ./configure: line 1580: syntax error near unexpected token `fi' |
 | edrosten/tag | CONFIGURE_RUN_FAIL | configure: error: TooN is not optional. Use --with-TooN=dir to specify where it can be fou |
-| eeight/tdheap | CONFIGURE_RUN_FAIL | configure: error: Valgrind relies on GCC to be compiled |
 | efficient/memc3 | CONFIGURE_RUN_FAIL | configure: error: libevent is required.  You can get it from http://www.monkey.org/~provos |
 | eiichiroi/autotools-unittest | CONFIGURE_RUN_FAIL | ./configure: line 1569: pthread-config: command not found |
 | ekmett/jitplusplus | CONFIGURE_RUN_FAIL | ./configure: line 1661: pthread-config: command not found |
-| ekpyron/oclp | CONFIGURE_RUN_FAIL | ./configure: line 1405: syntax error near unexpected token `;' |
 | elbandi/lighttpd | CONFIGURE_RUN_FAIL | ./configure: line 3032: syntax error near unexpected token `else' |
 | electimon/bmp | CONFIGURE_RUN_FAIL | configure: error: Cannot find SMlib |
 | electronoora/komposter | CONFIGURE_RUN_FAIL | checking if Freetype2 is ok... configure: error: no |
-| ElvishArtisan/lwcore | CONFIGURE_RUN_FAIL | configure: error: *** Qt4 not found *** |
 | Elzair/nazghul | CONFIGURE_RUN_FAIL |  |
 | emcrisostomo/fswatch | CONFIGURE_RUN_FAIL | for C compiler vendor... for C compiler version... ./configure: line 1736: syntax error ne |
-| EmeraldMiningCo/Ebits | CONFIGURE_RUN_FAIL | configure: error: cannot figure out how to use std::atomic |
 | enba94yf/binutils-2.42 | CONFIGURE_RUN_FAIL | ./configure: line 1386: ACX_LARGEFILE: command not found |
-| endlessm/basin | CONFIGURE_RUN_FAIL | ./configure: line 1396: syntax error near unexpected token `1.30' |
-| endlessm/eos-knowledge-lib | CONFIGURE_RUN_FAIL | ./configure: line 1429: syntax error near unexpected token `1.30' |
 | endlessm/eos-shard | CONFIGURE_RUN_FAIL | ./configure: line 1370: syntax error near unexpected token `(' |
 | endlessm/flatpak-builder | CONFIGURE_RUN_FAIL | ./configure: line 1383: LIBGLNX_CONFIGURE: command not found |
 | Enigma-Game/Enigma | CONFIGURE_RUN_FAIL | configure: error: SDL2_mixer is required to compile Enigma |
 | enki/gvpe | CONFIGURE_RUN_FAIL | checking for msgfmt... ./configure: line 1414: syntax error near unexpected token `newline |
 | envytools/valgrind | CONFIGURE_RUN_FAIL | configure: error: Valgrind relies on GCC to be compiled |
-| epeec/TAGASPI | CONFIGURE_RUN_FAIL | configure: error: libnuma cannot be found |
 | epfl-dias/shore-mt | CONFIGURE_RUN_FAIL | ./configure: line 1388: AC_REQUIRE_CPP: command not found |
-| epruesse/SINA | CONFIGURE_RUN_FAIL | configure: error: libz.so not found! |
-| equalitie/gnunet | CONFIGURE_RUN_FAIL |  |
 | erikarn/libevent-adrian | CONFIGURE_RUN_FAIL | checking for socklen_t... checking whether our compiler supports __func__... ./configure:  |
 | erthink/ReOpenLDAP | CONFIGURE_RUN_FAIL | checking configure arguments... ./configure: line 1570: syntax error near unexpected token |
-| ESiWACE/esdm-netcdf-4.6.2-old | CONFIGURE_RUN_FAIL | configure: error: curl required for remote access. Install curl or build with --disable-da |
 | esrf-bliss/CCfits | CONFIGURE_RUN_FAIL | ./configure: line 1381: PFK_CXX_LIB_PATH: command not found |
-| esrille/escudo | CONFIGURE_RUN_FAIL | configure: error: Cannot find bison; bison parser generator is needed. |
 | ester-project/ester | CONFIGURE_RUN_FAIL | ./configure: line 1557: --ldflags: command not found |
 | esy-packages/esy-automake | CONFIGURE_RUN_FAIL | ./configure: line 1352: and: command not found |
-| etr/libhttpserver | CONFIGURE_RUN_FAIL | configure: error: "you must configure in a separate build directory" |
-| evergreen-library-system/Evergreen | CONFIGURE_RUN_FAIL | configure: error: Could not find osrf_config. |
 | evilnet/x3 | CONFIGURE_RUN_FAIL | checking for time_t ... configure: error: Cannot detect format string for time_t |
 | ewxrjk/with-readline | CONFIGURE_RUN_FAIL | ./configure: line 1440: AC_SET_MAKE: command not found |
-| excamera/alfalfa | CONFIGURE_RUN_FAIL | configure: error: Unable to find libjpeg. |
-| Expensify/mk_livestatus | CONFIGURE_RUN_FAIL | configure: error: unable to find the rrd_xport function |
-| experiencecoin/experiencecoin_legacy | CONFIGURE_RUN_FAIL | configure: error: libdb_cxx headers missing |
 | facchinm/avrdude | CONFIGURE_RUN_FAIL | ./configure: line 1472: syntax error near unexpected token `AR,' |
 | fairflow/espeak-ng-pt-br | CONFIGURE_RUN_FAIL | ./configure: line 1654: syntax error near unexpected token `for' |
-| fandangos/libbluray | CONFIGURE_RUN_FAIL | ./configure: line 1645: AC_STRUCT_DIRENT_D_TYPE: command not found |
-| fangq/medit | CONFIGURE_RUN_FAIL | ./configure: line 1395: AM_GLIB_GNU_GETTEXT: command not found |
-| farsightsec/axa | CONFIGURE_RUN_FAIL | configure: error: required library not found |
 | farsightsec/mtbl | CONFIGURE_RUN_FAIL | configure: error: liblz4 >= r130 required |
-| farsightsec/sie-nmsg | CONFIGURE_RUN_FAIL | configure: error: The protoc-c program was not found. Please install the protobuf-c compil |
 | FauxFaux/fastjar | CONFIGURE_RUN_FAIL | ./configure: line 1811: gl_00GNULIB: command not found |
-| fedoracoin-dev/fedoracoin | CONFIGURE_RUN_FAIL | configure: error: libdb_cxx headers missing |
 | felix-001/tstool | CONFIGURE_RUN_FAIL | ./configure: line 1432: AC_STDC_HEADERS: command not found |
 | fengye/swfdec | CONFIGURE_RUN_FAIL | configure: error: liboil-0.3 >= 0.3.1 is required to build swfdec |
 | ferrandi/PandA-bambu | CONFIGURE_RUN_FAIL | ./configure: line 1469: AC_COMPILE_STDCXX_17: command not found |
 | fhcrc/mcl | CONFIGURE_RUN_FAIL | _____ weak test for C void* <=> unsigned int conversion... ./configure: line 1394: [ac_cv_ |
 | FinchBerryOS/fbyo-utils | CONFIGURE_RUN_FAIL | whether compiler handles -fno-common... ./configure: line 1610: AC_LANG_WERROR: command no |
-| finit-project/finit | CONFIGURE_RUN_FAIL | ./configure: line 1665: syntax error near unexpected token `alsa-utils,-a-z,_A-Z' |
-| firecore/libbluray | CONFIGURE_RUN_FAIL | ./configure: line 1630: AC_STRUCT_DIRENT_D_TYPE: command not found |
-| firehol/firehol | CONFIGURE_RUN_FAIL | ./configure: line 2159: syntax error near unexpected token `else' |
 | firoorg/cpuminer | CONFIGURE_RUN_FAIL | configure: error: OpenSSL crypto library required |
-| Firstyear/ds_rust | CONFIGURE_RUN_FAIL | configure: error: Rust |
-| fix8/fix8 | CONFIGURE_RUN_FAIL | ./configure: line 1453: HAVE_SYS_TIME_H: command not found |
 | fizx/parsley | CONFIGURE_RUN_FAIL | configure: error: could not find pcre |
 | flame/tblis-strassen | CONFIGURE_RUN_FAIL | ./configure: line 1389: AC_F77_LIBRARY_LDFLAGS: command not found |
-| flatpak/ppa-xdg-desktop-portal | CONFIGURE_RUN_FAIL | checking for msgfmt... ./configure: line 1543: syntax error near unexpected token `newline |
 | flboudet/flobz | CONFIGURE_RUN_FAIL | checking the location of hash_map... ./configure: line 2005: syntax error near unexpected  |
-| flightaware/tclreadline | CONFIGURE_RUN_FAIL | checking which tclConfig.sh to use... configure: error: Can't find Tcl libraries.  Use --w |
 | flowgrind/flowgrind | CONFIGURE_RUN_FAIL | ./configure: line 2027: AC_TYPE_UNSIGNED_LONG_LONG_INT: command not found |
 | flux-framework/flux-foundry | CONFIGURE_RUN_FAIL | ./configure: line 597: syntax error near unexpected token `(' |
-| flux-framework/flux-pmix | CONFIGURE_RUN_FAIL | ./configure: line 597: syntax error near unexpected token `(' |
-| flux-framework/flux-security | CONFIGURE_RUN_FAIL | ./configure: line 597: syntax error near unexpected token `(' |
 | flyfeifan/myHtop | CONFIGURE_RUN_FAIL | ./configure: line 1899: syntax error near unexpected token `(' |
 | flyinghead/ircd-hybrid | CONFIGURE_RUN_FAIL | ./configure: line 1529: syntax error near unexpected token `_LT_SYS_DYNAMIC_LINKER' |
 | fmrico/libpng16 | CONFIGURE_RUN_FAIL | ./configure: line 3379: syntax error: unexpected end of file |
 | FNCS/fncs | CONFIGURE_RUN_FAIL | ./configure: line 1986: syntax error near unexpected token `[_AH_CHECK_HEADER' |
-| fomy/destor | CONFIGURE_RUN_FAIL | configure: error: *** Working glib library not found *** |
 | fontforge/libspiro | CONFIGURE_RUN_FAIL | configure: error: ERROR: Please install Math libraries and math.h include files for libm |
 | fork4jl/mpfr | CONFIGURE_RUN_FAIL | ./configure: line 2243: syntax error near unexpected token `line' |
 | formorer/pkg-keepalived | CONFIGURE_RUN_FAIL | Package libiptc was not found in the pkg-config search path. |
 | fossci/libgcrypt | CONFIGURE_RUN_FAIL | ./configure: line 1352: mym4_package,mym4_version,https://bugs.gnupg.org: No such file or  |
-| FOSSEE/scilab_for_xcos_on_cloud | CONFIGURE_RUN_FAIL | configure: error: ocamlc not found. Mandatory to build the Scicos modelica compiler (Use - |
 | fourmond/dvdcopy | CONFIGURE_RUN_FAIL | configure: error: cannot link to dvdread |
-| fractalcoin/fractalcoin | CONFIGURE_RUN_FAIL | configure: error: libdb_cxx headers missing |
 | FredericJacobs/obfsproxy-c | CONFIGURE_RUN_FAIL | for library containing ntohl... rm: cannot remove 'conftest.c': No such file or directory |
-| Freeaqingme/libvmod-oauth | CONFIGURE_RUN_FAIL | configure: error: No Varnish source tree specified |
 | freebsd/atf | CONFIGURE_RUN_FAIL | ./configure: line 1355: syntax error near unexpected token `(' |
 | freedesktop-unofficial-mirror/dbus__dbus-qt3 | CONFIGURE_RUN_FAIL | ./configure: line 2058: ac_cv_sizeof_[][_][_]char[_][_]=1: command not found |
-| freeipa/bind-dyndb-ldap | CONFIGURE_RUN_FAIL | checking libdns version... configure: error: Can't obtain libdns version. |
 | FreeMCU/freemcu | CONFIGURE_RUN_FAIL | ./configure: line 1675: ./libs/ptlib/configure: No such file or directory |
 | FreeRADIUS/freeradius-client | CONFIGURE_RUN_FAIL | checking gethostbyaddr_r() syntax... ./configure: line 1462: syntax error near unexpected  |
 | frida/xz | CONFIGURE_RUN_FAIL | configure: error:  support not found |
-| fries/android-external-openvpn | CONFIGURE_RUN_FAIL | ./configure: line 2804: syntax error near unexpected token `fi' |
-| fripon/freeture | CONFIGURE_RUN_FAIL | ******** Configuring:  freeture  (2026-07-03) ******** |
+| fripon/freeture | CONFIGURE_RUN_FAIL | ******** Configuring:  freeture  (2026-07-04) ******** |
 | frugalware/pacman-g2 | CONFIGURE_RUN_FAIL | configure: error: Your architecture is not supported |
-| FundacionPesetacoin/PesetacoinCore | CONFIGURE_RUN_FAIL | configure: error: libdb_cxx headers missing |
-| futurerestore/idevicerestore | CONFIGURE_RUN_FAIL | configure: error: You need either strsep or strcspn to build |
 | GabrielDosReis/open-axiom | CONFIGURE_RUN_FAIL | configure: error: OpenAxiom requires a Lisp system.  Either separately build one (GCL-2.6. |
-| Gahznt/otserver_source | CONFIGURE_RUN_FAIL | configure: error: "Linking against GMP failed." |
 | gajgeospatial/libpng-1.6.40 | CONFIGURE_RUN_FAIL | ./configure: line 3329: syntax error: unexpected end of file |
 | GalliumOS/xfce4-session | CONFIGURE_RUN_FAIL | ./configure: line 1518: AC_CHECK_LIBM: command not found |
-| ganehag/open-modbusgateway | CONFIGURE_RUN_FAIL | ./configure: line 1355: COMPILER_FLAGS: command not found |
-| gapcoin/gapcoin | CONFIGURE_RUN_FAIL | configure: error: libdb_cxx headers missing |
 | gbonacini/trollfs | CONFIGURE_RUN_FAIL | configure: error: could not find lib FUSE |
 | gderosa/dansguardian | CONFIGURE_RUN_FAIL |  |
 | gdnsd/gdnsd | CONFIGURE_RUN_FAIL | ./configure: line 1589: -fstack-protector-strong: command not found |
@@ -901,65 +730,32 @@ Total **1000** recipes. **Working (built end-to-end): 62** · non-working: 383 p
 | genome-vendor/gmap-gsnap | CONFIGURE_RUN_FAIL | checking for pthreads feature... ./configure: line 1806: syntax error near unexpected toke |
 | gentoo/portage-utils | CONFIGURE_RUN_FAIL | configure: error: |
 | gentoo/sandbox | CONFIGURE_RUN_FAIL | ./configure: line 1685: syntax error near unexpected token `dlfcn.h' |
-| geodynamics/citcoms | CONFIGURE_RUN_FAIL | ./configure: line 1364: syntax error near unexpected token `auto' |
 | geoffjay/libgnt | CONFIGURE_RUN_FAIL | ./configure: line 1454: --variable=g_ir_scanner: command not found |
 | geomview/geomview | CONFIGURE_RUN_FAIL | ./configure: command substitution: line 1552: syntax error: unexpected end of file |
-| ghani-1977/enigma2-openpli-sh4-2 | CONFIGURE_RUN_FAIL | configure: error: Could not find crypt |
 | gigaflow-vswitch/gvs | CONFIGURE_RUN_FAIL | ./configure: line 3576: string.h: command not found |
-| giltirn/HPCortex | CONFIGURE_RUN_FAIL | checking for c++17 compatibility... configure: error: Could |
-| gingi/fastbit | CONFIGURE_RUN_FAIL | checking if compiler supports __sync_add_and_fetch for 32-bit integers... checking if comp |
 | GiterMirror/mpg123 | CONFIGURE_RUN_FAIL | ./configure: line 1498: AC_INLINE: command not found |
-| gitGNU/gnu_ccd2cue | CONFIGURE_RUN_FAIL | awk: cmd. line:1:                                   ^ syntax error |
-| gitGNU/gnu_foliot | CONFIGURE_RUN_FAIL | configure: error: found development files for Guile 2.2,, but /usr/bin/guile has effective |
 | gitGNU/gnu_ld | CONFIGURE_RUN_FAIL | ./configure: line 1416: ACX_LARGEFILE: command not found |
 | giuseppe/containers-dedup | CONFIGURE_RUN_FAIL | ./configure: line 2187: syntax error near unexpected token `)' |
 | glebius/minidlna | CONFIGURE_RUN_FAIL | ./configure: line 1406: syntax error near unexpected token `(' |
-| GNOME/dasher | CONFIGURE_RUN_FAIL | ./configure: line 1387: AC_PROG_LD_GNU: command not found |
-| GNOME/easytag | CONFIGURE_RUN_FAIL | configure: error: appdata-tools is required for appdata-xml.m4 |
-| GNOME/gnumeric | CONFIGURE_RUN_FAIL | ./configure: line 1388: GTK_DOC_CHECK: command not found |
 | GNOME/goffice | CONFIGURE_RUN_FAIL | ./configure: line 1617: syntax error near unexpected token `;' |
 | gnosis/libunistring | CONFIGURE_RUN_FAIL | ./configure: line 3420: syntax error: unexpected end of file |
 | gnu-smalltalk/smalltalk | CONFIGURE_RUN_FAIL | whether  produces any warnings... ./configure: line 1615: syntax error near unexpected tok |
 | GNUAspell/aspell | CONFIGURE_RUN_FAIL | checking if file locking and truncating is supported... checking if mmap and friends is su |
-| GNUFreetalk/freetalk | CONFIGURE_RUN_FAIL | configure: error: ERROR! readline not found.. |
-| GNUnet-Mirror/GNUnet | CONFIGURE_RUN_FAIL |  |
-| goatattack/goatattack | CONFIGURE_RUN_FAIL | configure: error: missing libraries:  libz (you can use --enable-internal-zlib) |
-| gobolinux/GoboHide | CONFIGURE_RUN_FAIL | configure: error: generic netlink command line interface library (libnl-cli) not found |
 | golems/ach | CONFIGURE_RUN_FAIL | configure: error: process-shared condition variables are required |
 | golems/amino | CONFIGURE_RUN_FAIL | configure: error: BLAS is required. |
-| golosio/NeuronGPU | CONFIGURE_RUN_FAIL | ./configure: line 2820: /patch.sh: No such file or directory |
 | goodspeed34/ws63flash | CONFIGURE_RUN_FAIL | configure: error: |
-| google/certificate-transparency | CONFIGURE_RUN_FAIL | ./configure: line 3325: syntax error: unexpected end of file |
-| google/hiba | CONFIGURE_RUN_FAIL | configure: error: |
-| Gotos/CuteCapture | CONFIGURE_RUN_FAIL | ./configure: line 1476: syntax error near unexpected token `)' |
 | gpac-buildbot/libmad | CONFIGURE_RUN_FAIL |  |
-| gpg/gpgme | CONFIGURE_RUN_FAIL | ./configure: line 1352: mym4_package,mym4_version,https://bugs.gnupg.org: No such file or  |
 | gpg/libassuan | CONFIGURE_RUN_FAIL | ./configure: line 1352: mym4_package,mym4_version,https://bugs.gnupg.org: No such file or  |
-| gpg/libgcrypt | CONFIGURE_RUN_FAIL | ./configure: line 1352: mym4_package,mym4_version,https://bugs.gnupg.org: No such file or  |
-| gpg/scute | CONFIGURE_RUN_FAIL | ./configure: line 1352: mym4_package,mym4_version,https://bugs.gnupg.org: No such file or  |
-| GPGTools/pinentry | CONFIGURE_RUN_FAIL | ./configure: line 2022: syntax error near unexpected token `else' |
-| gphoto/libgphoto2-python | CONFIGURE_RUN_FAIL | ./configure: line 1393: GP_CHECK_SHELL_ENVIRONMENT: command not found |
-| gpudirect/libgdsync | CONFIGURE_RUN_FAIL | configure: error: cuStreamBatchMemOp() not found.  libgdsync requires CUDA 8.0 or later. |
 | gpudirect/libibverbs | CONFIGURE_RUN_FAIL | ./configure: line 1466: syntax error near unexpected token `;' |
 | graemes/poolparty-x16r | CONFIGURE_RUN_FAIL | configure: error: OpenSSL library required |
-| gramseyer/hotstuff | CONFIGURE_RUN_FAIL | configure: error: failed to find XDRC |
 | graydon/monotone | CONFIGURE_RUN_FAIL | whether xgettext supports --flag... ./configure: line 1681: syntax error near unexpected t |
 | GREO/gnuradio-git | CONFIGURE_RUN_FAIL | ./configure: line 1440: GR_VERSION: command not found |
 | GridOPTICS/FNCS | CONFIGURE_RUN_FAIL | ./configure: line 2303: syntax error near unexpected token `[_AH_CHECK_HEADER' |
-| grinsfem/grins | CONFIGURE_RUN_FAIL | ./configure: line 1365: AX_SPLIT_VERSION: command not found |
-| grke/burp | CONFIGURE_RUN_FAIL | configure: error: Unable to find OpenSSL library |
 | groonga/groonga | CONFIGURE_RUN_FAIL | ./configure: line 2338: ./version.sh: No such file or directory |
-| grrrr/flext | CONFIGURE_RUN_FAIL | configure: error: path to system SDK headers required |
-| gssapi/mod_auth_gssapi | CONFIGURE_RUN_FAIL | configure: error: Cannot find pkg-config. Please install pkg-config. |
 | gszura/wx-nfp | CONFIGURE_RUN_FAIL | ./configure: line 1387: AM_OPTIONS_WXCONFIG: command not found |
 | gvvaughan/slingshot | CONFIGURE_RUN_FAIL | for a Lua interpreter with version >= 5.1, < 5.4... configure: error: cannot find suitable |
 | gvz/avrdude | CONFIGURE_RUN_FAIL | ./configure: line 1470: syntax error near unexpected token `AR,' |
-| gyoto/Gyoto | CONFIGURE_RUN_FAIL | ./configure: line 2078: syntax error near unexpected token `else' |
 | gypified/libmpg123 | CONFIGURE_RUN_FAIL | ./configure: line 1498: AC_INLINE: command not found |
-| h0tw1r3/libuuid-mingw | CONFIGURE_RUN_FAIL | checking for UUID Library... configure: error: There isn't Microsoft UUID Library. |
-| hackerschoice/gsocket-relay | CONFIGURE_RUN_FAIL | configure: error: libgsocket not found. Compile gsocket in ./gsocket or use --with-gsocket |
-| haegrr/reprepro | CONFIGURE_RUN_FAIL | configure: error: Missing mkstemp or mkostemp |
-| hallyn/upstart | CONFIGURE_RUN_FAIL | ./configure: line 1353: syntax error near unexpected token `[Copyright' |
 | hamonikr-root/fontconfig | CONFIGURE_RUN_FAIL | ./configure: line 1945: AC_C_FLEXIBLE_ARRAY_MEMBER: command not found |
 | hamonikr-root/mate-screensaver | CONFIGURE_RUN_FAIL | ./configure: line 1380: intltool-update: command not found |
 | handshake-org/hnsd | CONFIGURE_RUN_FAIL | ./configure: line 3268: syntax error: unexpected end of file |
@@ -969,57 +765,262 @@ Total **1000** recipes. **Working (built end-to-end): 62** · non-working: 383 p
 | haussli/rancid | CONFIGURE_RUN_FAIL | ./configure: line 1416: AC_INCLUDES_DEFAULT: command not found |
 | hb/claws_mail_opensync_plugin | CONFIGURE_RUN_FAIL | checking for msgfmt... ./configure: line 1544: syntax error near unexpected token `newline |
 | hb9xar/siproxd | CONFIGURE_RUN_FAIL | ./configure: line 1453: syntax error near unexpected token `recursive' |
-| HDFGroup/vol-log-based | CONFIGURE_RUN_FAIL | configure: error: |
 | hdoddikindi/fstrm | CONFIGURE_RUN_FAIL | ./configure: line 1859: []: command not found |
-| HeapStats/heapstats | CONFIGURE_RUN_FAIL | configure: error: ant not found. |
-| heliocastro/gpgme | CONFIGURE_RUN_FAIL | ./configure: line 1352: mym4_package,mym4_version,: command not found |
-| hello31337/BI-SGX | CONFIGURE_RUN_FAIL | configure: error: Need OpenSSL v1.1.0 or later |
 | hercules-390/hyperion | CONFIGURE_RUN_FAIL | configure: error: in source build detected, aborting configure... |
 | hermansr/psid64 | CONFIGURE_RUN_FAIL | ./configure: line 1478: AX_FUNC_MKDIR: command not found |
-| hermet/enventor | CONFIGURE_RUN_FAIL | ./configure: line 1575: m4_translit([eet-eet], -A-Z, _a-z): syntax error in expression (er |
-| HewlettPackard/nagios-plugins-hpilo | CONFIGURE_RUN_FAIL | ./configure: line 2606: syntax error: unexpected end of file |
 | HewlettPackard/netperf | CONFIGURE_RUN_FAIL | checking for socklen_t equivalent... ./configure: line 1491: syntax error near unexpected  |
 | hexagonal-sun/bic | CONFIGURE_RUN_FAIL | ./configure: line 1436: AX_LIB_READLINE: command not found |
-| hexhex/mergingplugin | CONFIGURE_RUN_FAIL | ./configure: line 2444: syntax error near unexpected token `DLVHEX_USERPLUGINDIR,variable= |
-| hfiguiere/libopenraw | CONFIGURE_RUN_FAIL | ./configure: line 2865: syntax error: unexpected end of file |
-| hfst/hfst-ospell | CONFIGURE_RUN_FAIL | configure: error: libxml++ failed |
-| hgneng/ekho | CONFIGURE_RUN_FAIL | configure: error: espeak-ng test failed |
 | hgst/libnvme | CONFIGURE_RUN_FAIL | ./configure: line 1544: pthread-config: command not found |
 | hharte/tn5250 | CONFIGURE_RUN_FAIL | configure: error: ** You need a curses-compatible library installed. |
 | hhirsch/abook | CONFIGURE_RUN_FAIL | checking for msgfmt... ./configure: line 1455: syntax error near unexpected token `newline |
 | hhool/nut | CONFIGURE_RUN_FAIL | ./configure: line 1899: syntax error near unexpected token `inplace-runtime,' |
-| hightman/xunsearch | CONFIGURE_RUN_FAIL | configure: error: scws.h NOT FOUND. please check your scws install directory. >= 1.1.6 |
 | hiha-lang/hiha | CONFIGURE_RUN_FAIL | Try 0 --help for more information.: syntax error in expression (error token is "Try 0 --he |
 | hkerem/squid3-ssl | CONFIGURE_RUN_FAIL | ./configure: line 1854: LTDL_INIT: command not found |
 | hnwfs/lighttpd-plus | CONFIGURE_RUN_FAIL | ./configure: line 3046: syntax error near unexpected token `else' |
-| hollowiette/xrdp | CONFIGURE_RUN_FAIL | ./configure: line 1386: ./libpainter/configure: No such file or directory |
-| holzschu/lib-tex | CONFIGURE_RUN_FAIL | ./configure: line 1504: syntax error near unexpected token `;;' |
 | HomerReid/buff-em | CONFIGURE_RUN_FAIL | ./configure: line 1425: AC_F77_WRAPPERS: command not found |
-| hongyi-zhao/lyx | CONFIGURE_RUN_FAIL | ./configure: line 1367: LYX_CHECK_VERSION: command not found |
 | horms/ovs | CONFIGURE_RUN_FAIL | configure: error: bad value  for --enable-coverage |
 | hpc/cce-mpi-openmpi-1.4.4 | CONFIGURE_RUN_FAIL | ./configure: line 1359: OMPI_LOAD_PLATFORM: command not found |
 | hpc/Parallel-coreutils | CONFIGURE_RUN_FAIL | configure: error: The --with-packager-{bug-reports,version} options require --with-package |
-| hpc/supermagic | CONFIGURE_RUN_FAIL | configure: error: cc cannot compile MPI applications. cannot continue. |
 | hroptatyr/clob | CONFIGURE_RUN_FAIL | checking whether C compiler accepts -std=gnu11... ./configure: line 1478: AC_LANG_WERROR:  |
 | hroptatyr/echse | CONFIGURE_RUN_FAIL | checking whether C compiler accepts -std=c11... ./configure: line 1491: AC_LANG_WERROR: co |
 | hroptatyr/truffle | CONFIGURE_RUN_FAIL | checking whether C compiler accepts -std=gnu11... ./configure: line 1478: AC_LANG_WERROR:  |
 | hroptatyr/yuck | CONFIGURE_RUN_FAIL | checking whether C compiler accepts -std=c11... ./configure: line 1478: AC_LANG_WERROR: co |
-| htrb/ngraph-gtk | CONFIGURE_RUN_FAIL | configure: error: (Test for GtkSourceview failed.) |
-| huceke/xine-lib-vaapi | CONFIGURE_RUN_FAIL | ./configure: line 1663: LT_AC_PROG_SED: command not found |
 | huleyv/iperf2 | CONFIGURE_RUN_FAIL | ./configure: line 3212: syntax error near unexpected token `struct' |
 | hunter-packages/libmicrohttpd | CONFIGURE_RUN_FAIL | configure: error: Package requirements () were not met: |
 | hyperrealm/cbase | CONFIGURE_RUN_FAIL | checking for socklen_t in sys/socket.h or unistd.h... ./configure: line 1649: syntax error |
-| iagorubio/cssed-vte-plugin | CONFIGURE_RUN_FAIL | configure: error: headers are not in /usr/include/cssed/ please use the same prefix you us |
-| iamashwin99/octopus-debian-package | CONFIGURE_RUN_FAIL | how to get verbose linking output from g++ -std=c++14... ./configure: line 1569: syntax er |
-| IanSav/enigma2-Beyonwiz | CONFIGURE_RUN_FAIL | configure: error: |
-| ibm-power-utilities/powerpc-utils | CONFIGURE_RUN_FAIL | configure: error: librtas library is missing (--without-librtas to disable) |
 | IBMSpectrumComputing/lsf-drmaa | CONFIGURE_RUN_FAIL | ./configure: line 1769: pthread-config: command not found |
 | idiap/juicer | CONFIGURE_RUN_FAIL | configure: error: Required library TRACTER not found |
 | iem-projects/ncview | CONFIGURE_RUN_FAIL | ./configure: line 1355: AC_PATH_NETCDF: command not found |
 | ifwe/ucarp | CONFIGURE_RUN_FAIL | checking for msgfmt... ./configure: line 1486: syntax error near unexpected token `newline |
 | igmhub/likely | CONFIGURE_RUN_FAIL | ./configure: line 1365: AX_EXT: command not found |
 
-## ⚪ Non-working — not standalone (GNU autotools also fails; not our bug) (0)
+## ⚪ Non-working — not standalone (GNU autotools also fails; not our bug) (225)
 
-_None._
+| repo | stage |
+| --- | --- |
+| 315234/lyx-retina | CONFIGURE_RUN_FAIL |
+| acaudwell/Logstalgia | CONFIGURE_RUN_FAIL |
+| acerion/cwdaemon | CONFIGURE_RUN_FAIL |
+| acoin-project/acoin | CONFIGURE_RUN_FAIL |
+| adobe-research/libkafka | CONFIGURE_RUN_FAIL |
+| AegisEmu/AegisEmu | CONFIGURE_RUN_FAIL |
+| agalakhov/captdriver | CONFIGURE_RUN_FAIL |
+| agordon/fastx_toolkit | CONFIGURE_RUN_FAIL |
+| aissammouche/bitextor | CONFIGURE_RUN_FAIL |
+| ajhc/ajhc | CONFIGURE_RUN_FAIL |
+| ajnelson/geoproc | CONFIGURE_RUN_FAIL |
+| ajnelson/regxml_extractor | CONFIGURE_RUN_FAIL |
+| alexandervdm/gummi | CONFIGURE_RUN_FAIL |
+| AlmuHS/GNUMach_SMP | CONFIGURE_RUN_FAIL |
+| andestech/nds-openocd | CONFIGURE_RUN_FAIL |
+| ansisatteka/ovs-ipsec | CONFIGURE_RUN_FAIL |
+| ant9000/libsigrok | CONFIGURE_RUN_FAIL |
+| AnthonyDeroche/mod_authnz_jwt | CONFIGURE_RUN_FAIL |
+| anyone-protocol/ator-protocol | CONFIGURE_RUN_FAIL |
+| Apress/Why-Learn-C | CONFIGURE_RUN_FAIL |
+| ArchimedesCAD/libredwg | CONFIGURE_RUN_FAIL |
+| argonne-lcf/THAPI | CONFIGURE_RUN_FAIL |
+| arkadijs/asterisk-g72x | CONFIGURE_RUN_FAIL |
+| arki55/fuse-fuse | CONFIGURE_RUN_FAIL |
+| arkq/bluez-alsa | CONFIGURE_RUN_FAIL |
+| armenb/sharktools | CONFIGURE_RUN_FAIL |
+| ARPA-SIMC/arkimet | CONFIGURE_RUN_FAIL |
+| ARPA-SIMC/dballe | CONFIGURE_RUN_FAIL |
+| artyom-poptsov/metabash | CONFIGURE_RUN_FAIL |
+| Ashod/garli | CONFIGURE_RUN_FAIL |
+| assen-totin/mate-applet-streamer | CONFIGURE_RUN_FAIL |
+| avr-aics-riken/CIOlib | CONFIGURE_RUN_FAIL |
+| awsteiner/o2scl | CONFIGURE_RUN_FAIL |
+| ayyi/samplecat | CONFIGURE_RUN_FAIL |
+| azatoth/minidlna | CONFIGURE_RUN_FAIL |
+| backuppc/backuppc-xs | CONFIGURE_RUN_FAIL |
+| baoxuezhao/GPU-SExtractor | CONFIGURE_RUN_FAIL |
+| BayshoreNetworks/yextend | CONFIGURE_RUN_FAIL |
+| bbc/bbcat-control | CONFIGURE_RUN_FAIL |
+| bbc/bbcat-dsp | CONFIGURE_RUN_FAIL |
+| bbc/bbcat-fileio | CONFIGURE_RUN_FAIL |
+| bbidulock/xde-sounds | CONFIGURE_RUN_FAIL |
+| benchmark-subsetting/cere | CONFIGURE_RUN_FAIL |
+| bert/geda-gaf | CONFIGURE_RUN_FAIL |
+| bgpsecurity/rpstir | CONFIGURE_RUN_FAIL |
+| BIC-MNI/bicpl | CONFIGURE_RUN_FAIL |
+| BIMSBbioinfo/swineherd | CONFIGURE_RUN_FAIL |
+| BirolLab/abyss | CONFIGURE_RUN_FAIL |
+| bitblaze-fuzzball/fuzzball | CONFIGURE_RUN_FAIL |
+| bitcoinbabys/flexinodes | CONFIGURE_RUN_FAIL |
+| bitzeppelin/linphone-sdk | CONFIGURE_GEN_FAIL |
+| bjoernvoss/RNAHeliCes | CONFIGURE_RUN_FAIL |
+| bk138/wxservdisc | CONFIGURE_RUN_FAIL |
+| BOINC/boinc | CONFIGURE_RUN_FAIL |
+| bondhugula/pluto | CONFIGURE_RUN_FAIL |
+| bradenmcd/uri-grammar | CONFIGURE_RUN_FAIL |
+| BrandRegard/gnash | CONFIGURE_RUN_FAIL |
+| brimworks/zile | CONFIGURE_RUN_FAIL |
+| bsc-pm/sonar | CONFIGURE_RUN_FAIL |
+| bsc-pm/tasycl | CONFIGURE_RUN_FAIL |
+| bspeice/libcvautomation | CONFIGURE_RUN_FAIL |
+| bulislaw/obexd-eds | CONFIGURE_RUN_FAIL |
+| carboncointrust/CarboncoinCore | CONFIGURE_RUN_FAIL |
+| cbg-ethz/shorah | CONFIGURE_RUN_FAIL |
+| cbuchner1/ccminer | CONFIGURE_RUN_FAIL |
+| CESARBR/knot-network-nrf24 | CONFIGURE_RUN_FAIL |
+| CESARBR/knot-service-source | CONFIGURE_RUN_FAIL |
+| CESNET/GPUJPEG | CONFIGURE_RUN_FAIL |
+| CESNET/libfastbit | CONFIGURE_RUN_FAIL |
+| cfra/quagga-testing | CONFIGURE_RUN_FAIL |
+| cgdb/cgdb | CONFIGURE_RUN_FAIL |
+| cgwalters/git-evtag | CONFIGURE_RUN_FAIL |
+| chabbimilind/cctlib | CONFIGURE_RUN_FAIL |
+| chaupal/jxta-c | CONFIGURE_RUN_FAIL |
+| choeger/MetaModelica-autotools | CONFIGURE_RUN_FAIL |
+| chosen1/SniffDet | CONFIGURE_RUN_FAIL |
+| ChrisVine/guile-a-sync | CONFIGURE_RUN_FAIL |
+| Chronic-Dev/libgcrypt | CONFIGURE_RUN_FAIL |
+| ClusterLabs/fence-agents | CONFIGURE_RUN_FAIL |
+| cminyard/ser2net | CONFIGURE_RUN_FAIL |
+| cmu-sei/BigGrep | CONFIGURE_RUN_FAIL |
+| CoachRun/boinc | CONFIGURE_RUN_FAIL |
+| colaghost/coroutine_event | CONFIGURE_RUN_FAIL |
+| common-tools-interface/cti | CONFIGURE_RUN_FAIL |
+| compiz-reloaded/emerald | CONFIGURE_RUN_FAIL |
+| COMSYS/tor4iot-tor | CONFIGURE_RUN_FAIL |
+| cooljeanius/magicseteditor | CONFIGURE_RUN_FAIL |
+| coolwanglu/scanmem_ | CONFIGURE_RUN_FAIL |
+| CoryXie/GRUB2 | CONFIGURE_RUN_FAIL |
+| cosmicrays/DRAGON | CONFIGURE_RUN_FAIL |
+| cpaasch/wireshark | CONFIGURE_RUN_FAIL |
+| CRG-Barcelona/bwtool | CONFIGURE_RUN_FAIL |
+| criort/libPRISM | CONFIGURE_RUN_FAIL |
+| cruppstahl/upscaledb | CONFIGURE_RUN_FAIL |
+| CryptoBridge/bridgecoin | CONFIGURE_RUN_FAIL |
+| cryptode/cryptode | CONFIGURE_RUN_FAIL |
+| CryptVenture/BitMoneyV2 | CONFIGURE_RUN_FAIL |
+| CyanogenMod/android_external_protobuf-c | CONFIGURE_RUN_FAIL |
+| cybermaggedon/cyberprobe | CONFIGURE_RUN_FAIL |
+| CZ-NIC/fred-db | CONFIGURE_RUN_FAIL |
+| danos/frr | CONFIGURE_RUN_FAIL |
+| davelambert/guile-pcap | CONFIGURE_RUN_FAIL |
+| davidgiven/libfirm | CONFIGURE_RUN_FAIL |
+| dcos/dcos-mesos-modules | CONFIGURE_RUN_FAIL |
+| ddarriba/pll-modules | CONFIGURE_RUN_FAIL |
+| deepin-community/xdg-desktop-portal-gtk | CONFIGURE_RUN_FAIL |
+| deepin-community/xfce4-appfinder | CONFIGURE_RUN_FAIL |
+| DeNA/HandlerSocket-Plugin-for-MySQL | CONFIGURE_RUN_FAIL |
+| detomastah/adwc | CONFIGURE_RUN_FAIL |
+| DGCDev/digitalcoin | CONFIGURE_RUN_FAIL |
+| digitalocean/libguestfs | CONFIGURE_RUN_FAIL |
+| dillo-browser/dillo | CONFIGURE_RUN_FAIL |
+| Distrotech/sharutils | CONFIGURE_RUN_FAIL |
+| dividendcash/DividendCash | CONFIGURE_RUN_FAIL |
+| dkosmari/libwupsxx | CONFIGURE_RUN_FAIL |
+| dkosmari/Papaya-HUD | CONFIGURE_RUN_FAIL |
+| dkrotx/htmarkup | CONFIGURE_RUN_FAIL |
+| dmp0x7c5/gobexfuse | CONFIGURE_RUN_FAIL |
+| dns-stats/hedgehog | CONFIGURE_RUN_FAIL |
+| dnstap/dnstap-ldns | CONFIGURE_RUN_FAIL |
+| DocQMiner/tesseract-4.0.0-beta.1 | CONFIGURE_RUN_FAIL |
+| doug65536/dgos | CONFIGURE_RUN_FAIL |
+| DreamSourceLab/DSLogic-fw | CONFIGURE_RUN_FAIL |
+| drewc/guix | CONFIGURE_RUN_FAIL |
+| droogie/bluez-fuzzer | CONFIGURE_RUN_FAIL |
+| dtbartle/cgminer-gc3355 | CONFIGURE_RUN_FAIL |
+| dyne/Freecoin | CONFIGURE_RUN_FAIL |
+| dyne/FreeJ | CONFIGURE_RUN_FAIL |
+| eastzone/snmp | CONFIGURE_RUN_FAIL |
+| ecliptchain/eclipt-source | CONFIGURE_RUN_FAIL |
+| eeight/tdheap | CONFIGURE_RUN_FAIL |
+| ekpyron/oclp | CONFIGURE_RUN_FAIL |
+| ElvishArtisan/lwcore | CONFIGURE_RUN_FAIL |
+| EmeraldMiningCo/Ebits | CONFIGURE_RUN_FAIL |
+| endlessm/basin | CONFIGURE_RUN_FAIL |
+| endlessm/eos-knowledge-lib | CONFIGURE_RUN_FAIL |
+| epeec/TAGASPI | CONFIGURE_RUN_FAIL |
+| epruesse/SINA | CONFIGURE_RUN_FAIL |
+| equalitie/gnunet | CONFIGURE_RUN_FAIL |
+| ESiWACE/esdm-netcdf-4.6.2-old | CONFIGURE_RUN_FAIL |
+| esrille/escudo | CONFIGURE_RUN_FAIL |
+| etr/libhttpserver | CONFIGURE_RUN_FAIL |
+| evergreen-library-system/Evergreen | CONFIGURE_RUN_FAIL |
+| excamera/alfalfa | CONFIGURE_RUN_FAIL |
+| Expensify/mk_livestatus | CONFIGURE_RUN_FAIL |
+| experiencecoin/experiencecoin_legacy | CONFIGURE_RUN_FAIL |
+| fandangos/libbluray | CONFIGURE_RUN_FAIL |
+| fangq/medit | CONFIGURE_RUN_FAIL |
+| farsightsec/axa | CONFIGURE_RUN_FAIL |
+| farsightsec/sie-nmsg | CONFIGURE_RUN_FAIL |
+| fedoracoin-dev/fedoracoin | CONFIGURE_RUN_FAIL |
+| finit-project/finit | CONFIGURE_RUN_FAIL |
+| firecore/libbluray | CONFIGURE_RUN_FAIL |
+| firehol/firehol | CONFIGURE_RUN_FAIL |
+| Firstyear/ds_rust | CONFIGURE_RUN_FAIL |
+| fix8/fix8 | CONFIGURE_RUN_FAIL |
+| flatpak/ppa-xdg-desktop-portal | CONFIGURE_RUN_FAIL |
+| flightaware/tclreadline | CONFIGURE_RUN_FAIL |
+| flux-framework/flux-pmix | CONFIGURE_RUN_FAIL |
+| flux-framework/flux-security | CONFIGURE_RUN_FAIL |
+| fomy/destor | CONFIGURE_RUN_FAIL |
+| FOSSEE/scilab_for_xcos_on_cloud | CONFIGURE_RUN_FAIL |
+| fractalcoin/fractalcoin | CONFIGURE_RUN_FAIL |
+| Freeaqingme/libvmod-oauth | CONFIGURE_RUN_FAIL |
+| freeipa/bind-dyndb-ldap | CONFIGURE_RUN_FAIL |
+| fries/android-external-openvpn | CONFIGURE_RUN_FAIL |
+| FundacionPesetacoin/PesetacoinCore | CONFIGURE_RUN_FAIL |
+| futurerestore/idevicerestore | CONFIGURE_RUN_FAIL |
+| Gahznt/otserver_source | CONFIGURE_RUN_FAIL |
+| ganehag/open-modbusgateway | CONFIGURE_RUN_FAIL |
+| gapcoin/gapcoin | CONFIGURE_RUN_FAIL |
+| geodynamics/citcoms | CONFIGURE_RUN_FAIL |
+| ghani-1977/enigma2-openpli-sh4-2 | CONFIGURE_RUN_FAIL |
+| giltirn/HPCortex | CONFIGURE_RUN_FAIL |
+| gingi/fastbit | CONFIGURE_RUN_FAIL |
+| gitGNU/gnu_ccd2cue | CONFIGURE_RUN_FAIL |
+| gitGNU/gnu_foliot | CONFIGURE_RUN_FAIL |
+| GNOME/dasher | CONFIGURE_RUN_FAIL |
+| GNOME/easytag | CONFIGURE_RUN_FAIL |
+| GNOME/gnumeric | CONFIGURE_RUN_FAIL |
+| GNUFreetalk/freetalk | CONFIGURE_RUN_FAIL |
+| GNUnet-Mirror/GNUnet | CONFIGURE_RUN_FAIL |
+| goatattack/goatattack | CONFIGURE_RUN_FAIL |
+| gobolinux/GoboHide | CONFIGURE_RUN_FAIL |
+| golosio/NeuronGPU | CONFIGURE_RUN_FAIL |
+| google/certificate-transparency | CONFIGURE_RUN_FAIL |
+| google/hiba | CONFIGURE_RUN_FAIL |
+| Gotos/CuteCapture | CONFIGURE_RUN_FAIL |
+| gpg/gpgme | CONFIGURE_RUN_FAIL |
+| gpg/libgcrypt | CONFIGURE_RUN_FAIL |
+| gpg/scute | CONFIGURE_RUN_FAIL |
+| GPGTools/pinentry | CONFIGURE_RUN_FAIL |
+| gphoto/libgphoto2-python | CONFIGURE_RUN_FAIL |
+| gpudirect/libgdsync | CONFIGURE_RUN_FAIL |
+| gramseyer/hotstuff | CONFIGURE_RUN_FAIL |
+| grinsfem/grins | CONFIGURE_RUN_FAIL |
+| grke/burp | CONFIGURE_RUN_FAIL |
+| grrrr/flext | CONFIGURE_RUN_FAIL |
+| gssapi/mod_auth_gssapi | CONFIGURE_RUN_FAIL |
+| gyoto/Gyoto | CONFIGURE_RUN_FAIL |
+| h0tw1r3/libuuid-mingw | CONFIGURE_RUN_FAIL |
+| hackerschoice/gsocket-relay | CONFIGURE_RUN_FAIL |
+| haegrr/reprepro | CONFIGURE_RUN_FAIL |
+| hallyn/upstart | CONFIGURE_RUN_FAIL |
+| HDFGroup/vol-log-based | CONFIGURE_RUN_FAIL |
+| HeapStats/heapstats | CONFIGURE_RUN_FAIL |
+| heliocastro/gpgme | CONFIGURE_RUN_FAIL |
+| hello31337/BI-SGX | CONFIGURE_RUN_FAIL |
+| hermet/enventor | CONFIGURE_RUN_FAIL |
+| HewlettPackard/nagios-plugins-hpilo | CONFIGURE_RUN_FAIL |
+| hexhex/mergingplugin | CONFIGURE_RUN_FAIL |
+| hfiguiere/libopenraw | CONFIGURE_RUN_FAIL |
+| hfst/hfst-ospell | CONFIGURE_RUN_FAIL |
+| hgneng/ekho | CONFIGURE_RUN_FAIL |
+| hightman/xunsearch | CONFIGURE_RUN_FAIL |
+| hollowiette/xrdp | CONFIGURE_RUN_FAIL |
+| holzschu/lib-tex | CONFIGURE_RUN_FAIL |
+| hongyi-zhao/lyx | CONFIGURE_RUN_FAIL |
+| hpc/supermagic | CONFIGURE_RUN_FAIL |
+| htrb/ngraph-gtk | CONFIGURE_RUN_FAIL |
+| huceke/xine-lib-vaapi | CONFIGURE_RUN_FAIL |
+| iagorubio/cssed-vte-plugin | CONFIGURE_RUN_FAIL |
+| iamashwin99/octopus-debian-package | CONFIGURE_RUN_FAIL |
+| IanSav/enigma2-Beyonwiz | CONFIGURE_RUN_FAIL |
+| ibm-power-utilities/powerpc-utils | CONFIGURE_RUN_FAIL |
 

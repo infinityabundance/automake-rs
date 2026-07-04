@@ -81,14 +81,14 @@
       "DEFS",
       "LIBOBJS",
       "INSTALL",
-      "LD",
       "DUMPBIN",
-      "build_vendor",
-      "build_alias",
       "GCJFLAGS",
-      "host_alias",
-      "host_vendor",
-      "GREP"
+      "AR",
+      "GREP",
+      "build_os",
+      "build_cpu",
+      "LIBM",
+      "DLLTOOL"
     ],
     "failed_during_check": "checking for strstr... yes",
     "failure_tail": [
@@ -108,6 +108,49 @@
       "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar vprintf ();\\nint main() { return vprintf(); }"
     ]
   },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "ok",
+    "real_configure_lines": 16544,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE",
+    "internal_traces": [
+      "libtoolize: putting auxiliary files in AC_CONFIG_AUX_DIR, 'config'.",
+      "libtoolize: copying file 'config/ltmain.sh'",
+      "libtoolize: putting macros in AC_CONFIG_MACRO_DIRS, 'm4'.",
+      "libtoolize: copying file 'm4/libtool.m4'",
+      "libtoolize: copying file 'm4/ltoptions.m4'",
+      "libtoolize: copying file 'm4/ltsugar.m4'",
+      "libtoolize: copying file 'm4/ltversion.m4'",
+      "libtoolize: copying file 'm4/lt~obsolete.m4'",
+      "configure.ac:6: installing 'config/compile'",
+      "configure.ac:9: installing 'config/missing'",
+      "check/Makefile.am: installing 'config/depcomp'",
+      "libtoolize: putting auxiliary files in AC_CONFIG_AUX_DIR, 'config'.",
+      "libtoolize: copying file 'config/ltmain.sh'",
+      "libtoolize: putting macros in AC_CONFIG_MACRO_DIRS, 'm4'.",
+      "libtoolize: copying file 'm4/libtool.m4'",
+      "libtoolize: copying file 'm4/ltoptions.m4'",
+      "libtoolize: copying file 'm4/ltsugar.m4'",
+      "libtoolize: copying file 'm4/ltversion.m4'",
+      "libtoolize: copying file 'm4/lt~obsolete.m4'",
+      "configure.ac:10: installing 'config/compile'",
+      "configure.ac:8: installing 'config/missing'",
+      "lib/Makefile.am: installing 'config/depcomp'",
+      "libtoolize: putting auxiliary files in AC_CONFIG_AUX_DIR, 'config'.",
+      "libtoolize: copying file 'config/ltmain.sh'",
+      "libtoolize: putting macros in AC_CONFIG_MACRO_DIRS, 'm4'."
+    ]
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "",
+    "ours_error_context": [],
+    "ours_configure_lines": 2661,
+    "real_configure_lines": 16544,
+    "macros_ours_left_undefined": []
+  },
   "receipt": {
     "court_status": "failed",
     "probe_trace": [],
@@ -116,7 +159,7 @@
       "has-m4-macro-dir",
       "vendored-aclocal"
     ],
-    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
+    "receipt_hash": "a538dd1b607f6cd976fc862d4e8e8d63c3c1266aed35ab3625cbb61237e9478c",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -125,17 +168,21 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": [],
+    "relevant_env": [
+      "ACLOCAL_PATH=/usr/share/aclocal"
+    ],
     "kernel_version": "6.8.0-124-generic",
     "libc_name": "glibc",
     "libc_version": "2.39",
     "pkg_config_path": [],
-    "env_vars_influential": {},
+    "env_vars_influential": {
+      "ACLOCAL_PATH": "/usr/share/aclocal"
+    },
     "posix_flavor": "gnu",
     "shell": "dash",
     "oracle_tool_versions": {
       "autoconf": "2.71",
-      "automake": "1.16.5",
+      "automake": "1.18.1",
       "libtool": "2.4.7",
       "m4": "1.4.19"
     },
@@ -214,7 +261,7 @@
           "Z80",
           "bin"
         ],
-        "sources_include_config_h": false,
+        "sources_include_config_h": true,
         "am_cppflags": ""
       },
       {
@@ -240,7 +287,7 @@
           "lib",
           "check"
         ],
-        "sources_include_config_h": false,
+        "sources_include_config_h": true,
         "am_cppflags": ""
       },
       {
@@ -269,7 +316,7 @@
           "include",
           "lib"
         ],
-        "sources_include_config_h": false,
+        "sources_include_config_h": true,
         "am_cppflags": ""
       },
       {
@@ -284,9 +331,125 @@
     ],
     "max_depth": 1,
     "config_h_consumers_below_root": [
+      "cpmio",
       "cpmio/lib",
       "bin",
+      "cpmredir",
       "cpmredir/lib"
+    ]
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 907,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "cpmio/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 848,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "cpmio/include/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 572,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "cpmio/check/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 602,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "cpmio/lib/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 687,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "bin/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 721,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "cpmredir/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 847,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "cpmredir/include/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 571,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "cpmredir/lib/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 693,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "Z80/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 473,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      }
     ]
   },
   "macro_inventory": {
@@ -621,10 +784,10 @@
     "unresolved_macros": []
   },
   "conditional_context": {
-    "configure_if": 112,
-    "configure_fi": 109,
-    "configure_case": 63,
-    "configure_esac": 66,
+    "configure_if": 931,
+    "configure_fi": 845,
+    "configure_case": 341,
+    "configure_esac": 326,
     "balanced": false,
     "automake_conditionals": []
   },
@@ -642,7 +805,7 @@
   "language_surface": {
     "source_suffixes": {
       "c": 27,
-      "h": 17
+      "h": 19
     },
     "configure_macros": [
       "AC_PROG_CC"
@@ -663,11 +826,85 @@
     ],
     "age": "modern"
   },
+  "make_graph": {
+    "targets": [
+      "all",
+      ".SUFFIXES",
+      "am--refresh",
+      "$(srcdir)/Makefile.in",
+      "Makefile",
+      "$(top_builddir)/config.status",
+      "$(top_srcdir)/configure",
+      "$(ACLOCAL_M4)",
+      "$(am__aclocal_m4_deps)",
+      "config.h",
+      "stamp-h1",
+      "$(srcdir)/config.h.in",
+      "distclean-hdr",
+      "mostlyclean-libtool",
+      "clean-libtool",
+      "distclean-libtool",
+      "install-pkgdataDATA",
+      "uninstall-pkgdataDATA",
+      "$(am__recursive_targets)",
+      "ID",
+      "tags",
+      "TAGS",
+      "tags-am",
+      "ctags",
+      "CTAGS",
+      "ctags-am",
+      "GTAGS",
+      "cscope",
+      "clean-cscope",
+      "cscope.files",
+      "cscopelist",
+      "cscopelist-am",
+      "distclean-tags",
+      "distdir",
+      "distdir-am",
+      "dist-gzip",
+      "dist-bzip2",
+      "dist-bzip3",
+      "dist-lzip",
+      "dist-xz"
+    ],
+    "key_variables": {
+      "AR": "ar",
+      "CC": "gcc",
+      "CFLAGS": "-g -O2",
+      "CPPFLAGS": "-I/tmp/atlasx_agn453__ZXCC/s/cpmio/include -DUSE_CPMIO -I/tmp/atlasx_agn453__ZXCC/s/cpmredir/include -DZXCC -DBINDIR80=\\\"${exec_prefix}/lib/cpm/bin80/\\\" -DLIBDI",
+      "DEFS": "-DHAVE_CONFIG_H",
+      "LDFLAGS": "-L/tmp/atlasx_agn453__ZXCC/s/cpmio/lib -L/tmp/atlasx_agn453__ZXCC/s/cpmredir/lib",
+      "LIBS": "-lcpmredir -lcpmio -lcurses -lncurses",
+      "RANLIB": "ranlib"
+    },
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "config.h",
+      "libtool",
+      "stamp-h1",
+      "config.log"
+    ],
+    "recursion_depth": 1,
+    "top_targets": [
+      "all"
+    ],
+    "make_diagnostics": []
+  },
   "toolchain_interaction": {
     "compiler": "cc",
     "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
     "c_std_default_risk": true,
-    "defines_sampled": []
+    "defines_sampled": [
+      "USE_CPMIO",
+      "ZXCC",
+      "BINDIR80=\\\"${exec_prefix}/lib/cpm/bin80/\\\"",
+      "LIBDIR80=\\\"${exec_prefix}/lib/cpm/lib80/\\\"",
+      "INCDIR80=\\\"${exec_prefix}/lib/cpm/include80/\\\"",
+      "HAVE_CONFIG_H"
+    ]
   },
   "quirk_history": [
     {
@@ -690,7 +927,7 @@
     }
   ],
   "verification": {
-    "vs_gnu": "not-compared",
+    "vs_gnu": "ours-worse",
     "output_match": "not-compared"
   },
   "feature_probe_gap": {
@@ -791,8 +1028,10 @@
       "phase": "make",
       "confidence": 0.88,
       "evidence": [
+        "cpmio consumes config.h below root",
         "cpmio/lib consumes config.h below root",
         "bin consumes config.h below root",
+        "cpmredir consumes config.h below root",
         "cpmredir/lib consumes config.h below root"
       ],
       "action": "ensure ac_subst_file sets relative top_builddir per subdir (0.1.19)",
@@ -801,11 +1040,11 @@
   ],
   "scenario_context": {
     "temporal_map": {
-      "Makefile.am": -3,
-      "Makefile.in": 1430,
-      "aclocal.m4": 21,
-      "config.h.in": 52,
-      "configure": 50,
+      "Makefile.am": -4,
+      "Makefile.in": 20005,
+      "aclocal.m4": 19546,
+      "config.h.in": 19849,
+      "configure": 19711,
       "configure.ac": 0
     },
     "m4_ancestry": {

@@ -110,6 +110,36 @@
       "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar strtod ();\\nint main() { return strtod(); }"
     ]
   },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "ok",
+    "real_configure_lines": 21465,
+    "real_first_error": "",
+    "classification": "OURS_BUG_MAKE",
+    "internal_traces": [
+      "libtoolize: putting auxiliary files in AC_CONFIG_AUX_DIR, 'build-aux'.",
+      "libtoolize: copying file 'build-aux/ltmain.sh'",
+      "libtoolize: putting macros in AC_CONFIG_MACRO_DIRS, 'm4'.",
+      "libtoolize: copying file 'm4/libtool.m4'",
+      "libtoolize: copying file 'm4/ltoptions.m4'",
+      "libtoolize: copying file 'm4/ltsugar.m4'",
+      "libtoolize: copying file 'm4/ltversion.m4'",
+      "libtoolize: copying file 'm4/lt~obsolete.m4'",
+      "configure.ac:101: warning: The macro `AC_PROG_LIBTOOL' is obsolete.",
+      "configure.ac:22: installing 'build-aux/compile'",
+      "configure.ac:9: installing 'build-aux/missing'",
+      "Makefile.am: installing 'build-aux/depcomp'"
+    ]
+  },
+  "divergence": {
+    "stage": "make",
+    "ours_error": "",
+    "ours_error_context": [],
+    "ours_configure_lines": 2753,
+    "real_configure_lines": 21465,
+    "macros_ours_left_undefined": []
+  },
   "receipt": {
     "court_status": "partial",
     "probe_trace": [
@@ -205,7 +235,7 @@
       "has-m4-macro-dir",
       "vendored-aclocal"
     ],
-    "receipt_hash": "2015b23e2066aa8aaac3072b007aae1bd966c27ff44d6adc7017de531e3d9323",
+    "receipt_hash": "1914f55795a37614cf09e79aa37b84f8be18fc5e33687e330c42e30e0aa04759",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -214,17 +244,21 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": [],
+    "relevant_env": [
+      "ACLOCAL_PATH=/usr/share/aclocal"
+    ],
     "kernel_version": "6.8.0-124-generic",
     "libc_name": "glibc",
     "libc_version": "2.39",
     "pkg_config_path": [],
-    "env_vars_influential": {},
+    "env_vars_influential": {
+      "ACLOCAL_PATH": "/usr/share/aclocal"
+    },
     "posix_flavor": "gnu",
     "shell": "dash",
     "oracle_tool_versions": {
       "autoconf": "2.71",
-      "automake": "1.16.5",
+      "automake": "1.18.1",
       "libtool": "2.4.7",
       "m4": "1.4.19"
     },
@@ -288,7 +322,7 @@
           "src",
           "libsvm"
         ],
-        "sources_include_config_h": false,
+        "sources_include_config_h": true,
         "am_cppflags": "-I$(top_srcdir)/include -I$(top_builddir)/libsvm"
       }
     ],
@@ -301,7 +335,7 @@
         "path": "Makefile",
         "has_makefile_in": true,
         "has_makefile_am": true,
-        "lines": 712,
+        "lines": 1302,
         "unexpanded_vars": [],
         "unexpanded_automake_tokens": [
           "$(am__"
@@ -377,6 +411,16 @@
         "name": "AC_LIBTOOL_GCJ",
         "source": "m4/libtool.m4",
         "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_RC",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "_LT_WITH_SYSROOT",
+        "source": "m4/libtool.m4",
+        "kind": "project-local"
       },
       {
         "name": "_LT_COMPILER_OPTION",
@@ -459,6 +503,11 @@
         "kind": "AC"
       },
       {
+        "name": "_LT_DLL_DEF_P",
+        "source": "m4/libtool.m4",
+        "kind": "project-local"
+      },
+      {
         "name": "LT_LIB_M",
         "source": "m4/libtool.m4",
         "kind": "LT"
@@ -469,27 +518,17 @@
         "kind": "AC"
       },
       {
-        "name": "_LT_PROG_CXX",
-        "source": "m4/libtool.m4",
-        "kind": "project-local"
-      },
-      {
-        "name": "_LT_PROG_F77",
-        "source": "m4/libtool.m4",
-        "kind": "project-local"
-      },
-      {
-        "name": "_LT_PROG_FC",
-        "source": "m4/libtool.m4",
-        "kind": "project-local"
-      },
-      {
         "name": "LT_PROG_GCJ",
         "source": "m4/libtool.m4",
         "kind": "LT"
       },
       {
         "name": "LT_AC_PROG_GCJ",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_PROG_GO",
         "source": "m4/libtool.m4",
         "kind": "LT"
       },
@@ -617,11 +656,6 @@
         "name": "_LT_AC_SYS_LIBPATH_AIX",
         "source": "m4/lt~obsolete.m4",
         "kind": "project-local"
-      },
-      {
-        "name": "_LT_PROG_LTMAIN",
-        "source": "m4/lt~obsolete.m4",
-        "kind": "project-local"
       }
     ],
     "called_macros": [
@@ -662,10 +696,10 @@
     "unresolved_macros": []
   },
   "conditional_context": {
-    "configure_if": 113,
-    "configure_fi": 109,
-    "configure_case": 63,
-    "configure_esac": 66,
+    "configure_if": 1154,
+    "configure_fi": 1043,
+    "configure_case": 439,
+    "configure_esac": 425,
     "balanced": false,
     "automake_conditionals": [
       "COMPILING_ON_DARWIN",
@@ -712,57 +746,57 @@
   "make_graph": {
     "targets": [
       "all",
-      "all-am",
-      "$(am__depfiles_remade)",
-      "am--depfiles",
-      "install-exec-am",
-      "install-data-am",
-      "uninstall-am",
-      "install-am",
-      "installcheck-am",
-      "install-strip",
-      "install-info",
-      "install-info-am",
-      "install-dvi",
-      "install-dvi-am",
-      "install-ps",
-      "install-ps-am",
-      "install-pdf",
-      "install-pdf-am",
-      "install-html",
-      "install-html-am",
-      "install-data-hook",
-      "install-exec-hook",
-      "installdirs-am",
-      ".PHONY",
-      "mostlyclean-am",
-      "clean-am",
-      "distclean-am",
-      "maintainer-clean-am",
-      "distdir",
-      "dist",
-      "dist-all",
-      "dist-gzip",
-      "distcleancheck",
-      "distcheck",
-      "check-am",
-      "TAGS",
-      "tags",
-      "TAGS-am",
-      "tags-am",
-      "cscope"
+      ".SUFFIXES",
+      "am--refresh",
+      "$(srcdir)/Makefile.in",
+      "Makefile",
+      "$(top_builddir)/config.status",
+      "$(top_srcdir)/configure",
+      "$(ACLOCAL_M4)",
+      "$(am__aclocal_m4_deps)",
+      "config.h",
+      "stamp-h1",
+      "$(srcdir)/config.h.in",
+      "distclean-hdr",
+      "install-binPROGRAMS",
+      "uninstall-binPROGRAMS",
+      "clean-binPROGRAMS",
+      "clean-checkPROGRAMS",
+      "install-libLTLIBRARIES",
+      "uninstall-libLTLIBRARIES",
+      "clean-libLTLIBRARIES",
+      "src/$(am__dirstamp)",
+      "src/$(DEPDIR)/$(am__dirstamp)",
+      "src/CLI.lo",
+      "libsvm/$(am__dirstamp)",
+      "libsvm/$(DEPDIR)/$(am__dirstamp)",
+      "libsvm/svm.lo",
+      "src/Util.lo",
+      "src/MatrixMath.lo",
+      "src/Approximation.lo",
+      "lib/$(am__dirstamp)",
+      "lib/libapproxsvm.la",
+      "src/tools/$(am__dirstamp)",
+      "src/tools/$(DEPDIR)/$(am__dirstamp)",
+      "src/tools/approx-analyse.$(OBJEXT)",
+      "$(top_builddir)/bin/$(am__dirstamp)",
+      "$(top_builddir)/bin/approx-analyse$(EXEEXT)",
+      "src/tools/approx-predict.$(OBJEXT)",
+      "$(top_builddir)/bin/approx-predict$(EXEEXT)",
+      "src/tools/approx-svm.$(OBJEXT)",
+      "$(top_builddir)/bin/approx-svm$(EXEEXT)"
     ],
     "key_variables": {
       "AR": "ar",
-      "CC": "cc",
+      "CC": "gcc",
       "CFLAGS": "-g -O2",
       "CPPFLAGS": "",
       "CXX": "g++",
       "CXXFLAGS": "-g -O2",
-      "DEFAULT_INCLUDES": "-I. -I$(top_builddir)",
+      "DEFAULT_INCLUDES": "-I.",
       "DEFS": "-DHAVE_CONFIG_H",
       "LDFLAGS": "",
-      "LIBS": "",
+      "LIBS": "-lblas -lpthread",
       "RANLIB": "ranlib"
     },
     "generated_files": [
@@ -770,13 +804,12 @@
       "config.status",
       "config.h",
       "libtool",
+      "stamp-h1",
       "config.log"
     ],
     "recursion_depth": 0,
     "top_targets": [
-      "all",
-      "dist",
-      "all-am"
+      "all"
     ],
     "make_diagnostics": [
       {
@@ -847,7 +880,7 @@
     }
   ],
   "verification": {
-    "vs_gnu": "not-compared",
+    "vs_gnu": "ours-worse",
     "output_match": "not-compared"
   },
   "feature_probe_gap": {
@@ -871,6 +904,7 @@
       "AC_LIBTOOL_F77",
       "AC_LIBTOOL_FC",
       "AC_LIBTOOL_GCJ",
+      "AC_LIBTOOL_RC",
       "AC_LIBTOOL_COMPILER_OPTION",
       "AC_LIBTOOL_LINKER_OPTION",
       "AC_LIBTOOL_SYS_MAX_CMD_LEN",
@@ -883,8 +917,7 @@
       "AC_CHECK_LIBM",
       "AC_LIBTOOL_DLOPEN",
       "AC_LIBTOOL_WIN32_DLL",
-      "AC_ENABLE_SHARED",
-      "AC_DISABLE_SHARED"
+      "AC_ENABLE_SHARED"
     ]
   },
   "dialect_reconciliation": {
@@ -902,6 +935,7 @@
       "AC_LIBTOOL_F77",
       "AC_LIBTOOL_FC",
       "AC_LIBTOOL_GCJ",
+      "AC_LIBTOOL_RC",
       "AC_LIBTOOL_COMPILER_OPTION",
       "AC_LIBTOOL_LINKER_OPTION",
       "AC_LIBTOOL_SYS_MAX_CMD_LEN",
@@ -909,8 +943,7 @@
       "AC_PATH_TOOL_PREFIX",
       "AM_PROG_LD",
       "AC_PROG_LD",
-      "AM_PROG_NM",
-      "AC_PROG_NM"
+      "AM_PROG_NM"
     ],
     "permitted_mutations": 3,
     "suspect_global_mutations": 0
@@ -929,10 +962,10 @@
   "scenario_context": {
     "temporal_map": {
       "Makefile.am": -6,
-      "Makefile.in": 1434,
-      "aclocal.m4": 6,
-      "config.h.in": 32,
-      "configure": 30,
+      "Makefile.in": 6587,
+      "aclocal.m4": 6079,
+      "config.h.in": 6427,
+      "configure": 6275,
       "configure.ac": 0
     },
     "m4_ancestry": {

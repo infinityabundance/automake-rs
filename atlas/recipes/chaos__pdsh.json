@@ -130,6 +130,40 @@
       "#include <sys/types.h>\\n#include <sys/socket.h>\\nint main() { socklen_t len = 42; return 0; ; return 0; }"
     ]
   },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "ok",
+    "real_configure_lines": 18506,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE",
+    "internal_traces": [
+      "libtoolize: putting auxiliary files in AC_CONFIG_AUX_DIR, 'config'.",
+      "libtoolize: copying file 'config/ltmain.sh'",
+      "libtoolize: putting macros in AC_CONFIG_MACRO_DIRS, 'config'.",
+      "libtoolize: copying file 'config/libtool.m4'",
+      "libtoolize: copying file 'config/ltoptions.m4'",
+      "libtoolize: copying file 'config/ltsugar.m4'",
+      "libtoolize: copying file 'config/ltversion.m4'",
+      "libtoolize: copying file 'config/lt~obsolete.m4'",
+      "configure.ac:36: installing 'config/compile'",
+      "configure.ac:16: installing 'config/config.guess'",
+      "configure.ac:16: installing 'config/config.sub'",
+      "configure.ac:27: installing 'config/install-sh'",
+      "configure.ac:27: installing 'config/missing'",
+      "src/common/Makefile.am: installing 'config/depcomp'"
+    ]
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "line 597: PACKAGE_VERSION='m4_esyscmd(git describe --always |  awk '/.*/ {sub(/^pd (near `(`)",
+    "ours_error_context": [
+      "PACKAGE_VERSION='m4_esyscmd(git describe --always |  awk '/.*/ {sub(/^pd"
+    ],
+    "ours_configure_lines": 4463,
+    "real_configure_lines": 18506,
+    "macros_ours_left_undefined": []
+  },
   "receipt": {
     "court_status": "failed",
     "probe_trace": [],
@@ -146,7 +180,7 @@
         "verified": false
       }
     ],
-    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
+    "receipt_hash": "a538dd1b607f6cd976fc862d4e8e8d63c3c1266aed35ab3625cbb61237e9478c",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -155,17 +189,21 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": [],
+    "relevant_env": [
+      "ACLOCAL_PATH=/usr/share/aclocal"
+    ],
     "kernel_version": "6.8.0-124-generic",
     "libc_name": "glibc",
     "libc_version": "2.39",
     "pkg_config_path": [],
-    "env_vars_influential": {},
+    "env_vars_influential": {
+      "ACLOCAL_PATH": "/usr/share/aclocal"
+    },
     "posix_flavor": "gnu",
     "shell": "dash",
     "oracle_tool_versions": {
       "autoconf": "2.71",
-      "automake": "1.16.5",
+      "automake": "1.18.1",
       "libtool": "2.4.7",
       "m4": "1.4.19"
     },
@@ -297,7 +335,7 @@
           "scripts",
           "config"
         ],
-        "sources_include_config_h": false,
+        "sources_include_config_h": true,
         "am_cppflags": ""
       },
       {
@@ -379,6 +417,170 @@
       "src/pdsh"
     ]
   },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1091,
+        "first_parse_error": {
+          "line": 949,
+          "kind": "missing-separator",
+          "text": "$(top_builddir)/src/common/libcommon.la \\",
+          "previous_lines": [
+            "",
+            ""
+          ],
+          "probable_cause": "shell-fragment-in-make"
+        },
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "tests/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1128,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "tests/test-modules/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 740,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 736,
+        "first_parse_error": {
+          "line": 712,
+          "kind": "missing-separator",
+          "text": "$(top_builddir)/src/common/libcommon.la \\",
+          "previous_lines": [
+            "",
+            ""
+          ],
+          "probable_cause": "shell-fragment-in-make"
+        },
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/modules/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1099,
+        "first_parse_error": {
+          "line": 1068,
+          "kind": "missing-separator",
+          "text": "$(top_builddir)/src/common/libcommon.la \\",
+          "previous_lines": [
+            "",
+            ""
+          ],
+          "probable_cause": "shell-fragment-in-make"
+        },
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/common/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 756,
+        "first_parse_error": {
+          "line": 732,
+          "kind": "missing-separator",
+          "text": "$(top_builddir)/src/common/libcommon.la \\",
+          "previous_lines": [
+            "",
+            ""
+          ],
+          "probable_cause": "shell-fragment-in-make"
+        },
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/pdsh/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 882,
+        "first_parse_error": {
+          "line": 832,
+          "kind": "missing-separator",
+          "text": "$(top_builddir)/src/common/libcommon.la \\",
+          "previous_lines": [
+            "",
+            ""
+          ],
+          "probable_cause": "shell-fragment-in-make"
+        },
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "doc/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 614,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "scripts/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 592,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "config/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 550,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      }
+    ]
+  },
   "macro_inventory": {
     "macro_dirs": [
       "config"
@@ -412,6 +614,196 @@
         "kind": "AC"
       },
       {
+        "name": "LT_INIT",
+        "source": "config/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LTOPTIONS_VERSION",
+        "source": "config/libtool.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AC_PROG_LIBTOOL",
+        "source": "config/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AM_PROG_LIBTOOL",
+        "source": "config/libtool.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "LT_OUTPUT",
+        "source": "config/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_SUPPORTED_TAG",
+        "source": "config/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_LANG",
+        "source": "config/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_CXX",
+        "source": "config/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_F77",
+        "source": "config/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_FC",
+        "source": "config/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_GCJ",
+        "source": "config/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_RC",
+        "source": "config/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "_LT_WITH_SYSROOT",
+        "source": "config/libtool.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_LT_COMPILER_OPTION",
+        "source": "config/libtool.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AC_LIBTOOL_COMPILER_OPTION",
+        "source": "config/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "_LT_LINKER_OPTION",
+        "source": "config/libtool.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AC_LIBTOOL_LINKER_OPTION",
+        "source": "config/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_CMD_MAX_LEN",
+        "source": "config/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_SYS_MAX_CMD_LEN",
+        "source": "config/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_SYS_DLOPEN_SELF",
+        "source": "config/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_DLOPEN_SELF",
+        "source": "config/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "_LT_PATH_TOOL_PREFIX",
+        "source": "config/libtool.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AC_PATH_TOOL_PREFIX",
+        "source": "config/libtool.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "LT_PATH_LD",
+        "source": "config/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AM_PROG_LD",
+        "source": "config/libtool.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AC_PROG_LD",
+        "source": "config/libtool.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "LT_PATH_NM",
+        "source": "config/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AM_PROG_NM",
+        "source": "config/libtool.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AC_PROG_NM",
+        "source": "config/libtool.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "_LT_DLL_DEF_P",
+        "source": "config/libtool.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "LT_LIB_M",
+        "source": "config/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_CHECK_LIBM",
+        "source": "config/libtool.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "LT_PROG_GCJ",
+        "source": "config/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_AC_PROG_GCJ",
+        "source": "config/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_PROG_GO",
+        "source": "config/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_PROG_RC",
+        "source": "config/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_AC_PROG_RC",
+        "source": "config/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_AC_PROG_SED",
+        "source": "config/libtool.m4",
+        "kind": "LT"
+      },
+      {
         "name": "AC_MRSH",
         "source": "config/ac_mrsh.m4",
         "kind": "AC"
@@ -432,6 +824,11 @@
         "kind": "project-local"
       },
       {
+        "name": "LTVERSION_VERSION",
+        "source": "config/ltversion.m4",
+        "kind": "project-local"
+      },
+      {
         "name": "AC_FANOUT",
         "source": "config/ac_fanout.m4",
         "kind": "AC"
@@ -442,89 +839,54 @@
         "kind": "AC"
       },
       {
-        "name": "AC_CONNECT_TIMEOUT",
-        "source": "config/ac_connect_timeout.m4",
+        "name": "AC_LIBTOOL_DLOPEN",
+        "source": "config/ltoptions.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_WIN32_DLL",
+        "source": "config/ltoptions.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_ENABLE_SHARED",
+        "source": "config/ltoptions.m4",
         "kind": "AC"
       },
       {
-        "name": "AC_MSGHDR_ACCRIGHTS",
-        "source": "config/ac_msghdr_accrights.m4",
+        "name": "AC_DISABLE_SHARED",
+        "source": "config/ltoptions.m4",
         "kind": "AC"
       },
       {
-        "name": "AC_SSH",
-        "source": "config/ac_ssh.m4",
+        "name": "AM_ENABLE_SHARED",
+        "source": "config/ltoptions.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AM_DISABLE_SHARED",
+        "source": "config/ltoptions.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AC_ENABLE_STATIC",
+        "source": "config/ltoptions.m4",
         "kind": "AC"
       },
       {
-        "name": "AC_READLINE",
-        "source": "config/ac_readline.m4",
+        "name": "AC_DISABLE_STATIC",
+        "source": "config/ltoptions.m4",
         "kind": "AC"
       },
       {
-        "name": "AC_SLURM",
-        "source": "config/ac_slurm.m4",
-        "kind": "AC"
+        "name": "AM_ENABLE_STATIC",
+        "source": "config/ltoptions.m4",
+        "kind": "AM"
       },
       {
-        "name": "AC_NETGROUP",
-        "source": "config/ac_netgroup.m4",
-        "kind": "AC"
-      },
-      {
-        "name": "AC_KRB4",
-        "source": "config/ac_krb4.m4",
-        "kind": "AC"
-      },
-      {
-        "name": "AC_STATIC_MODULES_INIT",
-        "source": "config/ac_static_modules.m4",
-        "kind": "AC"
-      },
-      {
-        "name": "AC_ADD_STATIC_MODULE",
-        "source": "config/ac_static_modules.m4",
-        "kind": "AC"
-      },
-      {
-        "name": "AC_STATIC_MODULES_EXIT",
-        "source": "config/ac_static_modules.m4",
-        "kind": "AC"
-      },
-      {
-        "name": "AC_GPL_LICENSED",
-        "source": "config/ac_gpl_licensed.m4",
-        "kind": "AC"
-      },
-      {
-        "name": "AC_NODEUPDOWN",
-        "source": "config/ac_nodeupdown.m4",
-        "kind": "AC"
-      },
-      {
-        "name": "AX_CODE_COVERAGE",
-        "source": "config/ax_code_coverage.m4",
-        "kind": "AX"
-      },
-      {
-        "name": "AC_DEBUG",
-        "source": "config/ac_debug.m4",
-        "kind": "AC"
-      },
-      {
-        "name": "AC_XCPU",
-        "source": "config/ac_xcpu.m4",
-        "kind": "AC"
-      },
-      {
-        "name": "ACX_PTHREAD",
-        "source": "config/acx_pthread.m4",
-        "kind": "project-local"
-      },
-      {
-        "name": "AC_DSHGROUP",
-        "source": "config/ac_dshgroup.m4",
-        "kind": "AC"
+        "name": "AM_DISABLE_STATIC",
+        "source": "config/ltoptions.m4",
+        "kind": "AM"
       }
     ],
     "called_macros": [
@@ -585,10 +947,10 @@
     "unresolved_macros": []
   },
   "conditional_context": {
-    "configure_if": 255,
-    "configure_fi": 244,
-    "configure_case": 86,
-    "configure_esac": 89,
+    "configure_if": 1057,
+    "configure_fi": 977,
+    "configure_case": 339,
+    "configure_esac": 341,
     "balanced": false,
     "automake_conditionals": [
       "WITH_GNU_LD",
@@ -616,17 +978,16 @@
       "install-sh",
       "missing",
       "depcomp",
-      "compile"
-    ],
-    "missing": [
+      "compile",
       "ltmain.sh",
       "config.guess",
       "config.sub"
-    ]
+    ],
+    "missing": []
   },
   "language_surface": {
     "source_suffixes": {
-      "c": 36,
+      "c": 38,
       "h": 20
     },
     "configure_macros": [
@@ -647,11 +1008,80 @@
     ],
     "age": "modern"
   },
+  "make_graph": {
+    "targets": [
+      "all",
+      ".SUFFIXES",
+      "am--refresh",
+      "$(srcdir)/Makefile.in",
+      "Makefile",
+      "$(top_srcdir)/config/Make-inc.mk",
+      "$(am__empty)",
+      "$(top_builddir)/config.status",
+      "$(top_srcdir)/configure",
+      "$(ACLOCAL_M4)",
+      "$(am__aclocal_m4_deps)",
+      "config.h",
+      "stamp-h1",
+      "$(srcdir)/config.h.in",
+      "distclean-hdr",
+      "mostlyclean-libtool",
+      "clean-libtool",
+      "distclean-libtool",
+      "$(am__recursive_targets)",
+      "ID",
+      "tags",
+      "TAGS",
+      "tags-am",
+      "ctags",
+      "CTAGS",
+      "ctags-am",
+      "GTAGS",
+      "cscope",
+      "clean-cscope",
+      "cscope.files",
+      "cscopelist",
+      "cscopelist-am",
+      "distclean-tags",
+      "distdir",
+      "distdir-am",
+      "dist-gzip",
+      "dist-bzip2",
+      "dist-bzip3",
+      "dist-lzip",
+      "dist-xz"
+    ],
+    "key_variables": {
+      "AR": "ar",
+      "CC": "gcc",
+      "CFLAGS": "-O3 -Wall -fno-strict-aliasing",
+      "CPPFLAGS": "",
+      "DEFS": "-DHAVE_CONFIG_H",
+      "LDFLAGS": "-s",
+      "LIBS": "",
+      "RANLIB": "ranlib"
+    },
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "config.h",
+      "libtool",
+      "stamp-h1",
+      "config.log"
+    ],
+    "recursion_depth": 2,
+    "top_targets": [
+      "all"
+    ],
+    "make_diagnostics": []
+  },
   "toolchain_interaction": {
     "compiler": "cc",
     "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
     "c_std_default_risk": true,
-    "defines_sampled": []
+    "defines_sampled": [
+      "HAVE_CONFIG_H"
+    ]
   },
   "quirk_history": [
     {
@@ -680,7 +1110,7 @@
     }
   ],
   "verification": {
-    "vs_gnu": "not-compared",
+    "vs_gnu": "ours-worse",
     "output_match": "not-compared"
   },
   "vpath_analysis": {
@@ -735,21 +1165,21 @@
       "AC_MACHINES",
       "AC_GENDERS",
       "AC_RSH",
-      "AC_MRSH",
-      "AC_EXEC",
-      "AC_RCMD_RANK_LIST",
-      "AC_FANOUT",
-      "AC_POLLSELECT",
-      "AC_CONNECT_TIMEOUT",
-      "AC_MSGHDR_ACCRIGHTS",
-      "AC_SSH",
-      "AC_READLINE",
-      "AC_SLURM",
-      "AC_NETGROUP",
-      "AC_KRB4",
-      "AC_STATIC_MODULES_INIT",
-      "AC_ADD_STATIC_MODULE",
-      "AC_STATIC_MODULES_EXIT"
+      "AC_PROG_LIBTOOL",
+      "AM_PROG_LIBTOOL",
+      "AC_LIBTOOL_CXX",
+      "AC_LIBTOOL_F77",
+      "AC_LIBTOOL_FC",
+      "AC_LIBTOOL_GCJ",
+      "AC_LIBTOOL_RC",
+      "AC_LIBTOOL_COMPILER_OPTION",
+      "AC_LIBTOOL_LINKER_OPTION",
+      "AC_LIBTOOL_SYS_MAX_CMD_LEN",
+      "AC_LIBTOOL_DLOPEN_SELF",
+      "AC_PATH_TOOL_PREFIX",
+      "AM_PROG_LD",
+      "AC_PROG_LD",
+      "AM_PROG_NM"
     ]
   },
   "dialect_reconciliation": {
@@ -773,16 +1203,16 @@
       "AC_MACHINES",
       "AC_GENDERS",
       "AC_RSH",
-      "AC_MRSH",
-      "AC_EXEC",
-      "AC_RCMD_RANK_LIST",
-      "AC_FANOUT",
-      "AC_POLLSELECT",
-      "AC_CONNECT_TIMEOUT",
-      "AC_MSGHDR_ACCRIGHTS",
-      "AC_SSH",
-      "AC_READLINE",
-      "AC_SLURM"
+      "AC_PROG_LIBTOOL",
+      "AM_PROG_LIBTOOL",
+      "AC_LIBTOOL_CXX",
+      "AC_LIBTOOL_F77",
+      "AC_LIBTOOL_FC",
+      "AC_LIBTOOL_GCJ",
+      "AC_LIBTOOL_RC",
+      "AC_LIBTOOL_COMPILER_OPTION",
+      "AC_LIBTOOL_LINKER_OPTION",
+      "AC_LIBTOOL_SYS_MAX_CMD_LEN"
     ],
     "permitted_mutations": 1,
     "suspect_global_mutations": 0
@@ -825,6 +1255,61 @@
   ],
   "repair_hints": [
     {
+      "id": "makefile-shell-fragment-in-make",
+      "phase": "make",
+      "confidence": 0.5,
+      "evidence": [
+        "Makefile:949 missing-separator",
+        "$(top_builddir)/src/common/libcommon.la \\"
+      ],
+      "action": "classify-shell-fragment-in-make",
+      "expected_effect": "partial -> FUNC_OK candidate"
+    },
+    {
+      "id": "makefile-shell-fragment-in-make",
+      "phase": "make",
+      "confidence": 0.5,
+      "evidence": [
+        "src/Makefile:712 missing-separator",
+        "$(top_builddir)/src/common/libcommon.la \\"
+      ],
+      "action": "classify-shell-fragment-in-make",
+      "expected_effect": "partial -> FUNC_OK candidate"
+    },
+    {
+      "id": "makefile-shell-fragment-in-make",
+      "phase": "make",
+      "confidence": 0.5,
+      "evidence": [
+        "src/modules/Makefile:1068 missing-separator",
+        "$(top_builddir)/src/common/libcommon.la \\"
+      ],
+      "action": "classify-shell-fragment-in-make",
+      "expected_effect": "partial -> FUNC_OK candidate"
+    },
+    {
+      "id": "makefile-shell-fragment-in-make",
+      "phase": "make",
+      "confidence": 0.5,
+      "evidence": [
+        "src/common/Makefile:732 missing-separator",
+        "$(top_builddir)/src/common/libcommon.la \\"
+      ],
+      "action": "classify-shell-fragment-in-make",
+      "expected_effect": "partial -> FUNC_OK candidate"
+    },
+    {
+      "id": "makefile-shell-fragment-in-make",
+      "phase": "make",
+      "confidence": 0.5,
+      "evidence": [
+        "src/pdsh/Makefile:832 missing-separator",
+        "$(top_builddir)/src/common/libcommon.la \\"
+      ],
+      "action": "classify-shell-fragment-in-make",
+      "expected_effect": "partial -> FUNC_OK candidate"
+    },
+    {
       "id": "subdir-top-builddir",
       "phase": "make",
       "confidence": 0.88,
@@ -840,11 +1325,11 @@
   ],
   "scenario_context": {
     "temporal_map": {
-      "Makefile.am": 0,
-      "Makefile.in": 1292,
-      "aclocal.m4": 11,
-      "config.h.in": 30,
-      "configure": 28,
+      "Makefile.am": -2,
+      "Makefile.in": 13204,
+      "aclocal.m4": 12679,
+      "config.h.in": 13042,
+      "configure": 12874,
       "configure.ac": 0
     },
     "m4_ancestry": {
@@ -858,26 +1343,26 @@
       "AC_CONFIG_HEADERS": "system-aclocal",
       "AC_CONFIG_MACRO_DIR": "system-aclocal",
       "AC_CONFIG_SRCDIR": "system-aclocal",
-      "AC_CONNECT_TIMEOUT": "config/ac_connect_timeout.m4",
-      "AC_DEBUG": "config/ac_debug.m4",
+      "AC_CONNECT_TIMEOUT": "system-aclocal",
+      "AC_DEBUG": "system-aclocal",
       "AC_DEFINE": "system-aclocal",
       "AC_DEFINE_UNQUOTED": "system-aclocal",
       "AC_DMALLOC": "config/ac_dmalloc.m4",
-      "AC_DSHGROUP": "config/ac_dshgroup.m4",
+      "AC_DSHGROUP": "system-aclocal",
       "AC_EXEC": "config/ac_exec.m4",
       "AC_FANOUT": "config/ac_fanout.m4",
       "AC_FUNC_MALLOC": "system-aclocal",
       "AC_FUNC_STRERROR_R": "system-aclocal",
       "AC_GENDERS": "config/ac_genders.m4",
-      "AC_GPL_LICENSED": "config/ac_gpl_licensed.m4",
+      "AC_GPL_LICENSED": "system-aclocal",
       "AC_INIT": "system-aclocal",
-      "AC_KRB4": "config/ac_krb4.m4",
+      "AC_KRB4": "system-aclocal",
       "AC_MACHINES": "config/ac_machines.m4",
       "AC_MRSH": "config/ac_mrsh.m4",
-      "AC_MSGHDR_ACCRIGHTS": "config/ac_msghdr_accrights.m4",
+      "AC_MSGHDR_ACCRIGHTS": "system-aclocal",
       "AC_MSG_ERROR": "system-aclocal",
-      "AC_NETGROUP": "config/ac_netgroup.m4",
-      "AC_NODEUPDOWN": "config/ac_nodeupdown.m4",
+      "AC_NETGROUP": "system-aclocal",
+      "AC_NODEUPDOWN": "system-aclocal",
       "AC_OUTPUT": "system-aclocal",
       "AC_POLLSELECT": "config/ac_pollselect.m4",
       "AC_PROG_CC": "system-aclocal",
@@ -885,9 +1370,9 @@
       "AC_PROG_LN_S": "system-aclocal",
       "AC_PROG_MAKE_SET": "system-aclocal",
       "AC_RCMD_RANK_LIST": "config/ac_rcmd_rank_list.m4",
-      "AC_READLINE": "config/ac_readline.m4",
+      "AC_READLINE": "system-aclocal",
       "AC_RSH": "config/ac_rsh.m4",
-      "AC_SLURM": "config/ac_slurm.m4"
+      "AC_SLURM": "system-aclocal"
     },
     "rebuild_trigger_risk": false
   },

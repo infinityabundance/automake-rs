@@ -135,7 +135,7 @@
       "guard": "",
       "suspect_macro": "AM_OPT_FLAGS",
       "max_indent": 80,
-      "repeating_unit": "wx_cv_use_macosx_version_min=\"wxUSE_MACOSX_VERSION_MIN=$withval\"",
+      "repeating_unit": "#    echo \"$LINE\" >> ${wx_arg_cache_file}.tmp",
       "repeat_count": 1,
       "loop_context": [
         "1621:                         eval \"CC=\\\"$CC $MACOSX_VERSION_MIN_OPTS\\\"\"",
@@ -152,6 +152,29 @@
         "1632: "
       ]
     }
+  },
+  "oracle": {
+    "real_autoreconf": "fail",
+    "real_configure": "skipped",
+    "real_make": "skipped",
+    "real_configure_lines": 0,
+    "real_first_error": "configure.ac:35: error: possibly undefined macro: AM_OPT_FLAGS",
+    "classification": "OURS_BETTER",
+    "internal_traces": [
+      "configure.ac:58: warning: macro 'AM_OPT_FLAGS' not found in library",
+      "configure.ac:372: warning: macro 'AM_BUILD_ENVIRONMENT' not found in library",
+      "configure.ac:35: warning: macro 'AM_OPT_FLAGS' not found in library",
+      "configure.ac:204: warning: macro 'AM_BUILD_ENVIRONMENT' not found in library",
+      "configure.ac:7: warning: The macro `AC_VALIDATE_CACHED_SYSTEM_TUPLE' is obsolete.",
+      "configure.ac:24: warning: AM_INIT_AUTOMAKE: two- and three-arguments forms are deprecated.",
+      "configure.ac:49: warning: The macro `AC_LANG_CPLUSPLUS' is obsolete.",
+      "configure.ac:164: warning: The macro `AC_TRY_LINK' is obsolete.",
+      "configure.ac:169: warning: The macro `AC_TRY_LINK' is obsolete.",
+      "configure.ac:178: warning: The macro `AC_HEADER_STDC' is obsolete.",
+      "configure.ac:186: warning: The macro `AC_HEADER_TIME' is obsolete.",
+      "configure.ac:190: warning: The macro `AC_TYPE_SIGNAL' is obsolete.",
+      "configure.ac:210: warning: AC_OUTPUT should be used without arguments."
+    ]
   },
   "receipt": {
     "court_status": "partial",
@@ -199,7 +222,7 @@
       "vendored-aclocal",
       "uses-ax-archive"
     ],
-    "receipt_hash": "68f1454fbc0f9136e618a6b6ae12bc72cb16c393510646d80beacb8deb008a39",
+    "receipt_hash": "a756158c7e5ecf84ba73a77ff069d42253dd989992c576d446cd68f41320e39d",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -208,17 +231,21 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": [],
+    "relevant_env": [
+      "ACLOCAL_PATH=/usr/share/aclocal"
+    ],
     "kernel_version": "6.8.0-124-generic",
     "libc_name": "glibc",
     "libc_version": "2.39",
     "pkg_config_path": [],
-    "env_vars_influential": {},
+    "env_vars_influential": {
+      "ACLOCAL_PATH": "/usr/share/aclocal"
+    },
     "posix_flavor": "gnu",
     "shell": "dash",
     "oracle_tool_versions": {
       "autoconf": "2.71",
-      "automake": "1.16.5",
+      "automake": "1.18.1",
       "libtool": "2.4.7",
       "m4": "1.4.19"
     },
@@ -256,19 +283,19 @@
         "path": "Makefile",
         "depth": 0,
         "top_builddir": ".",
-        "has_template": true
+        "has_template": false
       },
       {
         "path": "src/Makefile",
         "depth": 1,
         "top_builddir": "..",
-        "has_template": true
+        "has_template": false
       },
       {
         "path": "src/gui/Makefile",
         "depth": 2,
         "top_builddir": "../..",
-        "has_template": true
+        "has_template": false
       },
       {
         "path": "version.h",
@@ -373,43 +400,6 @@
       "src/gui"
     ]
   },
-  "makefile_forensics": {
-    "generated_makefiles": [
-      {
-        "path": "Makefile",
-        "has_makefile_in": true,
-        "has_makefile_am": true,
-        "lines": 523,
-        "unexpanded_vars": [],
-        "unexpanded_automake_tokens": [
-          "$(am__"
-        ],
-        "recipe_tab_anomalies": 0
-      },
-      {
-        "path": "src/Makefile",
-        "has_makefile_in": true,
-        "has_makefile_am": true,
-        "lines": 673,
-        "unexpanded_vars": [],
-        "unexpanded_automake_tokens": [
-          "$(am__"
-        ],
-        "recipe_tab_anomalies": 0
-      },
-      {
-        "path": "src/gui/Makefile",
-        "has_makefile_in": true,
-        "has_makefile_am": true,
-        "lines": 543,
-        "unexpanded_vars": [],
-        "unexpanded_automake_tokens": [
-          "$(am__"
-        ],
-        "recipe_tab_anomalies": 0
-      }
-    ]
-  },
   "tool_requirements": {
     "detected": [
       "c++",
@@ -481,17 +471,6 @@
       "GTK_LIBS"
     ]
   },
-  "conditional_context": {
-    "configure_if": 157,
-    "configure_fi": 143,
-    "configure_case": 65,
-    "configure_esac": 68,
-    "balanced": false,
-    "automake_conditionals": [
-      "WITH_ALSA",
-      "WITH_COREMIDI"
-    ]
-  },
   "config_aux_inventory": {
     "aux_dir": ".",
     "present": [
@@ -510,7 +489,7 @@
       "c": 1,
       "cc": 31,
       "cpp": 99,
-      "h": 172,
+      "h": 170,
       "hpp": 39,
       "m": 2,
       "mm": 6
@@ -523,94 +502,11 @@
     "needs_fortran": false,
     "sets_c_std": true
   },
-  "make_graph": {
-    "targets": [
-      "all",
-      "all-am",
-      "install-am",
-      "installcheck-am",
-      "install-strip",
-      "install-info",
-      "install-info-am",
-      "install-dvi",
-      "install-dvi-am",
-      "install-ps",
-      "install-ps-am",
-      "install-pdf",
-      "install-pdf-am",
-      "install-html",
-      "install-html-am",
-      "install-data-hook",
-      "install-exec-hook",
-      "installdirs-am",
-      ".PHONY",
-      "mostlyclean-am",
-      "clean-am",
-      "distclean-am",
-      "maintainer-clean-am",
-      "distdir",
-      "dist",
-      "dist-all",
-      "dist-gzip",
-      "distcleancheck",
-      "distcheck",
-      "check-am",
-      "TAGS",
-      "tags",
-      "TAGS-am",
-      "tags-am",
-      "cscope",
-      "cscope-am",
-      "distuninstallcheck",
-      "$(srcdir)/Makefile.in",
-      "$(am__recursive_targets)",
-      "check"
-    ],
-    "key_variables": {
-      "AR": "ar",
-      "CC": "cc",
-      "CFLAGS": "",
-      "CPPFLAGS": "",
-      "CXX": "g++ -std=c++11",
-      "CXXFLAGS": "-std=c++11",
-      "DEFS": "-DHAVE_CONFIG_H",
-      "LDFLAGS": "",
-      "LIBS": "",
-      "RANLIB": "ranlib"
-    },
-    "generated_files": [
-      "Makefile",
-      "config.status",
-      "config.h",
-      "config.log"
-    ],
-    "recursion_depth": 2,
-    "top_targets": [
-      "all",
-      "check",
-      "dist",
-      "all-am"
-    ],
-    "make_diagnostics": [
-      {
-        "command": "",
-        "error_type": "make-syntax",
-        "message": "make[1]: *** No rule to make target 'all'.  Stop."
-      },
-      {
-        "command": "",
-        "error_type": "make-syntax",
-        "message": "make: *** [Makefile:446: all-recursive] Error 1"
-      }
-    ]
-  },
   "toolchain_interaction": {
     "compiler": "cc",
     "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
     "c_std_default_risk": false,
-    "defines_sampled": [
-      "HAVE_CONFIG_H"
-    ]
+    "defines_sampled": []
   },
   "quirk_history": [
     {
@@ -639,7 +535,7 @@
     }
   ],
   "verification": {
-    "vs_gnu": "not-compared",
+    "vs_gnu": "ours-better",
     "output_match": "not-compared"
   },
   "feature_probe_gap": {
@@ -752,10 +648,7 @@
   "scenario_context": {
     "temporal_map": {
       "Makefile.am": 0,
-      "Makefile.in": 1911,
-      "aclocal.m4": 23,
-      "config.h.in": 33,
-      "configure": 30,
+      "aclocal.m4": 6465,
       "configure.ac": 0
     },
     "m4_ancestry": {

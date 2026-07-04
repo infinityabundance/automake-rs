@@ -109,6 +109,20 @@
     "conftest_directives_mangled": 0,
     "conftest_programs": []
   },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "fail",
+    "real_configure_lines": 6341,
+    "real_first_error": "",
+    "classification": "BOTH_MAKE_FAIL",
+    "internal_traces": [
+      "configure.ac:32: installing 'build-aux/compile'",
+      "configure.ac:30: installing 'build-aux/install-sh'",
+      "configure.ac:30: installing 'build-aux/missing'",
+      "Makefile.am: installing 'build-aux/depcomp'"
+    ]
+  },
   "receipt": {
     "court_status": "partial",
     "probe_trace": [],
@@ -116,7 +130,7 @@
       "uses-pkg-config",
       "vendored-aclocal"
     ],
-    "receipt_hash": "fc222e24136e1c7565f3970366c0a81d4ec04fa5491250e780188ba2805c06fb",
+    "receipt_hash": "8b0c2ac368d060751cfa87cb60220df01ba96f202061533dc445bc26dea553b1",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -125,17 +139,21 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": [],
+    "relevant_env": [
+      "ACLOCAL_PATH=/usr/share/aclocal"
+    ],
     "kernel_version": "6.8.0-124-generic",
     "libc_name": "glibc",
     "libc_version": "2.39",
     "pkg_config_path": [],
-    "env_vars_influential": {},
+    "env_vars_influential": {
+      "ACLOCAL_PATH": "/usr/share/aclocal"
+    },
     "posix_flavor": "gnu",
     "shell": "dash",
     "oracle_tool_versions": {
       "autoconf": "2.71",
-      "automake": "1.16.5",
+      "automake": "1.18.1",
       "libtool": "2.4.7",
       "m4": "1.4.19"
     },
@@ -198,7 +216,7 @@
         "path": "Makefile",
         "has_makefile_in": true,
         "has_makefile_am": true,
-        "lines": 540,
+        "lines": 1050,
         "unexpanded_vars": [],
         "unexpanded_automake_tokens": [
           "$(am__"
@@ -229,10 +247,10 @@
     "unresolved_macros": []
   },
   "conditional_context": {
-    "configure_if": 98,
-    "configure_fi": 95,
-    "configure_case": 63,
-    "configure_esac": 66,
+    "configure_if": 367,
+    "configure_fi": 316,
+    "configure_case": 126,
+    "configure_esac": 114,
     "balanced": false,
     "automake_conditionals": [
       "ENABLE_GST"
@@ -263,58 +281,54 @@
   "make_graph": {
     "targets": [
       "all",
-      "all-am",
+      ".SUFFIXES",
+      "am--refresh",
+      "$(srcdir)/Makefile.in",
+      "Makefile",
+      "$(top_builddir)/config.status",
+      "$(top_srcdir)/configure",
+      "$(ACLOCAL_M4)",
+      "$(am__aclocal_m4_deps)",
+      "install-binPROGRAMS",
+      "uninstall-binPROGRAMS",
+      "clean-binPROGRAMS",
+      "kmscube$(EXEEXT)",
+      "mostlyclean-compile",
+      "distclean-compile",
       "$(am__depfiles_remade)",
       "am--depfiles",
-      "install-exec-am",
-      "uninstall-am",
-      "install",
-      "install-am",
-      "installcheck",
-      "install-strip",
-      "install-info",
-      "install-info-am",
-      "install-dvi",
-      "install-dvi-am",
-      "install-ps",
-      "install-ps-am",
-      "install-pdf",
-      "install-pdf-am",
-      "install-html",
-      "install-html-am",
-      "install-data-hook",
-      "install-exec-hook",
-      "installdirs",
-      "installdirs-am",
-      ".PHONY",
-      "mostlyclean-am",
-      "clean-am",
-      "distclean-am",
-      "maintainer-clean-am",
-      "clean",
-      "distdir",
-      "dist",
-      "dist-all",
-      "dist-gzip",
-      "distcleancheck",
-      "distcheck",
-      "check-am",
-      "check",
-      "TAGS",
-      "tags"
+      ".c.o",
+      ".c.obj",
+      "kmscube-common.o",
+      "kmscube-common.obj",
+      "kmscube-cube-smooth.o",
+      "kmscube-cube-smooth.obj",
+      "kmscube-cube-tex.o",
+      "kmscube-cube-tex.obj",
+      "kmscube-drm-atomic.o",
+      "kmscube-drm-atomic.obj",
+      "kmscube-drm-common.o",
+      "kmscube-drm-common.obj",
+      "kmscube-drm-legacy.o",
+      "kmscube-drm-legacy.obj",
+      "kmscube-esTransform.o",
+      "kmscube-esTransform.obj",
+      "kmscube-frame-512x512-NV12.o",
+      "kmscube-frame-512x512-NV12.obj",
+      "kmscube-frame-512x512-RGBA.o",
+      "kmscube-frame-512x512-RGBA.obj",
+      "kmscube-kmscube.o",
+      "kmscube-kmscube.obj",
+      "kmscube-cube-video.o"
     ],
     "key_variables": {
-      "AR": "ar",
-      "CC": "cc",
+      "CC": "gcc",
       "CFLAGS": "-g -O2",
       "CPPFLAGS": "",
-      "CXX": "c++",
-      "CXXFLAGS": "-g -O2",
-      "DEFAULT_INCLUDES": "-I. -I$(top_builddir)",
-      "DEFS": "-DPACKAGE=\"kmscube\" -DVERSION=\"0.0.1\" -DPACKAGE_NAME=\"kmscube\" -DPACKAGE_TARNAME=\"kmscube\" -DPACKAGE_VERSION=\"0.0.1\" -DPACKAGE_STRING=\"kmscube 0.0.1\" -DPACKAGE_",
+      "DEFAULT_INCLUDES": "-I.",
+      "DEFS": "-DPACKAGE_NAME=\\\"kmscube\\\" -DPACKAGE_TARNAME=\\\"kmscube\\\" -DPACKAGE_VERSION=\\\"0.0.1\\\" -DPACKAGE_STRING=\\\"kmscube\\ 0.0.1\\\" -DPACKAGE_BUGREPORT=\\\"https://gitlab.fr",
       "LDFLAGS": "",
-      "LIBS": "",
-      "RANLIB": "ranlib"
+      "LIBS": ""
     },
     "generated_files": [
       "Makefile",
@@ -323,12 +337,7 @@
     ],
     "recursion_depth": 0,
     "top_targets": [
-      "all",
-      "install",
-      "check",
-      "clean",
-      "dist",
-      "all-am"
+      "all"
     ],
     "make_diagnostics": [
       {
@@ -358,13 +367,14 @@
     "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
     "c_std_default_risk": true,
     "defines_sampled": [
-      "PACKAGE=\"kmscube\"",
-      "VERSION=\"0.0.1\"",
-      "PACKAGE_NAME=\"kmscube\"",
-      "PACKAGE_TARNAME=\"kmscube\"",
-      "PACKAGE_VERSION=\"0.0.1\"",
-      "PACKAGE_STRING=\"kmscube",
-      "PACKAGE_BUGREPORT=\"https://gitlab.freedesktop.org/mesa/kmscube/\""
+      "PACKAGE_NAME=\\\"kmscube\\\"",
+      "PACKAGE_TARNAME=\\\"kmscube\\\"",
+      "PACKAGE_VERSION=\\\"0.0.1\\\"",
+      "PACKAGE_STRING=\\\"kmscube\\",
+      "PACKAGE_BUGREPORT=\\\"https://gitlab.freedesktop.org/mesa/kmscube/\\\"",
+      "PACKAGE_URL=\\\"\\\"",
+      "PACKAGE=\\\"kmscube\\\"",
+      "VERSION=\\\"0.0.1\\\""
     ]
   },
   "quirk_history": [
@@ -382,8 +392,8 @@
     }
   ],
   "verification": {
-    "vs_gnu": "not-compared",
-    "output_match": "not-compared"
+    "vs_gnu": "both-fail",
+    "output_match": "both-fail"
   },
   "feature_probe_gap": {
     "headers_checked": [],
@@ -460,10 +470,10 @@
   ],
   "scenario_context": {
     "temporal_map": {
-      "Makefile.am": -1,
-      "Makefile.in": 1309,
-      "aclocal.m4": 8,
-      "configure": 11,
+      "Makefile.am": 0,
+      "Makefile.in": 3181,
+      "aclocal.m4": 2819,
+      "configure": 3017,
       "configure.ac": 0
     },
     "m4_ancestry": {

@@ -84,8 +84,8 @@
       "DEFS",
       "LIBOBJS",
       "INSTALL",
-      "LD",
       "AR",
+      "LD",
       "top_srcdir",
       "top_builddir",
       "builddir"
@@ -101,6 +101,27 @@
     "conftest_directives_mangled": 0,
     "conftest_programs": []
   },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "fail",
+    "real_configure_lines": 4555,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE",
+    "internal_traces": [
+      "configure.ac:6: installing 'build-aux/install-sh'",
+      "configure.ac:6: installing 'build-aux/missing'",
+      "doc/Makefile.am:3: installing 'build-aux/texinfo.tex'"
+    ]
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "",
+    "ours_error_context": [],
+    "ours_configure_lines": 2501,
+    "real_configure_lines": 4555,
+    "macros_ours_left_undefined": []
+  },
   "receipt": {
     "court_status": "failed",
     "probe_trace": [],
@@ -108,7 +129,7 @@
       "uses-pkg-config",
       "vendored-aclocal"
     ],
-    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
+    "receipt_hash": "a538dd1b607f6cd976fc862d4e8e8d63c3c1266aed35ab3625cbb61237e9478c",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -117,17 +138,21 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": [],
+    "relevant_env": [
+      "ACLOCAL_PATH=/usr/share/aclocal"
+    ],
     "kernel_version": "6.8.0-124-generic",
     "libc_name": "glibc",
     "libc_version": "2.39",
     "pkg_config_path": [],
-    "env_vars_influential": {},
+    "env_vars_influential": {
+      "ACLOCAL_PATH": "/usr/share/aclocal"
+    },
     "posix_flavor": "gnu",
     "shell": "dash",
     "oracle_tool_versions": {
       "autoconf": "2.71",
-      "automake": "1.16.5",
+      "automake": "1.18.1",
       "libtool": "2.4.7",
       "m4": "1.4.19"
     },
@@ -192,6 +217,32 @@
     "max_depth": 1,
     "config_h_consumers_below_root": []
   },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 881,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "doc/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 743,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      }
+    ]
+  },
   "tool_requirements": {
     "detected": [],
     "missing": [
@@ -221,10 +272,10 @@
     "unresolved_macros": []
   },
   "conditional_context": {
-    "configure_if": 98,
-    "configure_fi": 95,
-    "configure_case": 63,
-    "configure_esac": 66,
+    "configure_if": 244,
+    "configure_fi": 210,
+    "configure_case": 107,
+    "configure_esac": 96,
     "balanced": false,
     "automake_conditionals": []
   },
@@ -241,18 +292,87 @@
   },
   "language_surface": {
     "source_suffixes": {
-      "h": 1
+      "go": 2
     },
     "configure_macros": [],
     "needs_cxx": false,
     "needs_fortran": false,
     "sets_c_std": false
   },
+  "make_graph": {
+    "targets": [
+      "all",
+      ".SUFFIXES",
+      "am--refresh",
+      "$(srcdir)/Makefile.in",
+      "Makefile",
+      "$(srcdir)/guile.am",
+      "$(am__empty)",
+      "$(top_builddir)/config.status",
+      "$(top_srcdir)/configure",
+      "$(ACLOCAL_M4)",
+      "$(am__aclocal_m4_deps)",
+      "env",
+      "install-nobase_goDATA",
+      "uninstall-nobase_goDATA",
+      "install-nobase_modDATA",
+      "uninstall-nobase_modDATA",
+      "$(am__recursive_targets)",
+      "ID",
+      "tags",
+      "TAGS",
+      "tags-am",
+      "ctags",
+      "CTAGS",
+      "ctags-am",
+      "GTAGS",
+      "cscope",
+      "clean-cscope",
+      "cscope.files",
+      "cscopelist",
+      "cscopelist-am",
+      "distclean-tags",
+      "distdir",
+      "distdir-am",
+      "dist-gzip",
+      "dist-bzip2",
+      "dist-bzip3",
+      "dist-lzip",
+      "dist-xz",
+      "dist-zstd",
+      "dist-tarZ"
+    ],
+    "key_variables": {
+      "DEFS": "-DPACKAGE_NAME=\\\"guile-2d\\\" -DPACKAGE_TARNAME=\\\"guile-2d\\\" -DPACKAGE_VERSION=\\\"0.1.0\\\" -DPACKAGE_STRING=\\\"guile-2d\\ 0.1.0\\\" -DPACKAGE_BUGREPORT=\\\"\\\" -DPACKAGE_U",
+      "LIBS": ""
+    },
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "config.log"
+    ],
+    "recursion_depth": 1,
+    "top_targets": [
+      "all"
+    ],
+    "make_diagnostics": []
+  },
   "toolchain_interaction": {
     "compiler": "cc",
     "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
     "c_std_default_risk": true,
-    "defines_sampled": []
+    "defines_sampled": [
+      "PACKAGE_NAME=\\\"guile-2d\\\"",
+      "PACKAGE_TARNAME=\\\"guile-2d\\\"",
+      "PACKAGE_VERSION=\\\"0.1.0\\\"",
+      "PACKAGE_STRING=\\\"guile-2d\\",
+      "PACKAGE_BUGREPORT=\\\"\\\"",
+      "PACKAGE_URL=\\\"\\\"",
+      "PACKAGE=\\\"guile-2d\\\"",
+      "VERSION=\\\"0.1.0\\\"",
+      "_GNU_SOURCE=1",
+      "_REENTRANT"
+    ]
   },
   "quirk_history": [
     {
@@ -269,7 +389,7 @@
     }
   ],
   "verification": {
-    "vs_gnu": "not-compared",
+    "vs_gnu": "ours-worse",
     "output_match": "not-compared"
   },
   "source_to_generated_map": {
@@ -314,9 +434,9 @@
   "scenario_context": {
     "temporal_map": {
       "Makefile.am": 0,
-      "Makefile.in": 928,
-      "aclocal.m4": 6,
-      "configure": 9,
+      "Makefile.in": 3189,
+      "aclocal.m4": 2873,
+      "configure": 3038,
       "configure.ac": 0
     },
     "m4_ancestry": {

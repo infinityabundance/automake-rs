@@ -116,6 +116,49 @@
       "\\n\\n#if !defined(_MSC_VER)\\n#error \"not Microsoft VC++\"\\n#endif\\n\\nint main() {  ; return 0; }"
     ]
   },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "fail",
+    "real_configure_lines": 48239,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE",
+    "internal_traces": [
+      "libtoolize: putting auxiliary files in AC_CONFIG_AUX_DIR, 'config'.",
+      "libtoolize: copying file 'config/compile'",
+      "libtoolize: copying file 'config/config.guess'",
+      "libtoolize: copying file 'config/config.sub'",
+      "libtoolize: copying file 'config/depcomp'",
+      "libtoolize: copying file 'config/install-sh'",
+      "libtoolize: copying file 'config/missing'",
+      "libtoolize: copying file 'config/ltmain.sh'",
+      "libtoolize: putting macros in AC_CONFIG_MACRO_DIRS, 'm4'.",
+      "libtoolize: copying file 'm4/libtool.m4'",
+      "libtoolize: copying file 'm4/ltargz.m4'",
+      "libtoolize: You should add the contents of 'm4/ltargz.m4' to 'aclocal.m4'.",
+      "libtoolize: copying file 'm4/ltdl.m4'",
+      "libtoolize: copying file 'm4/ltoptions.m4'",
+      "libtoolize: copying file 'm4/ltsugar.m4'",
+      "libtoolize: copying file 'm4/ltversion.m4'",
+      "libtoolize: copying file 'm4/lt~obsolete.m4'",
+      "libtoolize: putting libltdl files in LT_CONFIG_LTDL_DIR, '.'.",
+      "libtoolize: copying file './COPYING.LIB'",
+      "libtoolize: creating file './Makefile.am'",
+      "libtoolize: copying file './README'",
+      "libtoolize: creating file './configure.ac'",
+      "libtoolize: creating file './aclocal.m4'",
+      "libtoolize: creating file './Makefile.in'",
+      "libtoolize: copying file './config-h.in'"
+    ]
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "",
+    "ours_error_context": [],
+    "ours_configure_lines": 18005,
+    "real_configure_lines": 48239,
+    "macros_ours_left_undefined": []
+  },
   "receipt": {
     "court_status": "failed",
     "probe_trace": [],
@@ -140,7 +183,7 @@
         "verified": false
       }
     ],
-    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
+    "receipt_hash": "a538dd1b607f6cd976fc862d4e8e8d63c3c1266aed35ab3625cbb61237e9478c",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -149,17 +192,21 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": [],
+    "relevant_env": [
+      "ACLOCAL_PATH=/usr/share/aclocal"
+    ],
     "kernel_version": "6.8.0-124-generic",
     "libc_name": "glibc",
     "libc_version": "2.39",
     "pkg_config_path": [],
-    "env_vars_influential": {},
+    "env_vars_influential": {
+      "ACLOCAL_PATH": "/usr/share/aclocal"
+    },
     "posix_flavor": "gnu",
     "shell": "dash",
     "oracle_tool_versions": {
       "autoconf": "2.71",
-      "automake": "1.16.5",
+      "automake": "1.18.1",
       "libtool": "2.4.7",
       "m4": "1.4.19"
     },
@@ -1398,23 +1445,402 @@
   "makefile_forensics": {
     "generated_makefiles": [
       {
-        "path": "contrib/nextstep/Makefile",
-        "has_makefile_in": false,
-        "has_makefile_am": false,
-        "lines": 14,
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1063,
         "unexpanded_vars": [
-          "@host_cpu@"
+          "@SERVICE_NAME@"
         ],
-        "unexpanded_automake_tokens": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
         "recipe_tab_anomalies": 0
       },
       {
-        "path": "doc/Programming-Guide/Makefile",
-        "has_makefile_in": false,
-        "has_makefile_am": false,
-        "lines": 25,
-        "unexpanded_vars": [],
-        "unexpanded_automake_tokens": [],
+        "path": "tools/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1594,
+        "unexpanded_vars": [
+          "@SERVICE_NAME@",
+          "@DEFAULT_ERROR_DIR@",
+          "@DEFAULT_MIME_TABLE@",
+          "@SYSCONFDIR@"
+        ],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "tools/helper-mux/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1146,
+        "unexpanded_vars": [
+          "@SERVICE_NAME@"
+        ],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "tools/systemd/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 626,
+        "unexpanded_vars": [
+          "@SERVICE_NAME@"
+        ],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "tools/sysvinit/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 626,
+        "unexpanded_vars": [
+          "@SERVICE_NAME@"
+        ],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "tools/purge/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1352,
+        "unexpanded_vars": [
+          "@SERVICE_NAME@"
+        ],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "tools/squidclient/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1515,
+        "unexpanded_vars": [
+          "@SERVICE_NAME@",
+          "@DEFAULT_ERROR_DIR@",
+          "@DEFAULT_MIME_TABLE@",
+          "@SYSCONFDIR@"
+        ],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "compat/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1447,
+        "unexpanded_vars": [
+          "@SERVICE_NAME@"
+        ],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "test-suite/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1570,
+        "unexpanded_vars": [
+          "@SERVICE_NAME@"
+        ],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 8529,
+        "unexpanded_vars": [
+          "@SERVICE_NAME@",
+          "@DEFAULT_ERROR_DIR@",
+          "@DEFAULT_MIME_TABLE@",
+          "@SYSCONFDIR@"
+        ],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/mem/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1257,
+        "unexpanded_vars": [
+          "@SERVICE_NAME@"
+        ],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/log/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1433,
+        "unexpanded_vars": [
+          "@SERVICE_NAME@"
+        ],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/log/file/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1248,
+        "unexpanded_vars": [
+          "@SERVICE_NAME@"
+        ],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/log/DB/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1147,
+        "unexpanded_vars": [
+          "@SERVICE_NAME@"
+        ],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/acl/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1725,
+        "unexpanded_vars": [
+          "@SERVICE_NAME@"
+        ],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/acl/external/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 817,
+        "unexpanded_vars": [
+          "@SERVICE_NAME@"
+        ],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/acl/external/SQL_session/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1146,
+        "unexpanded_vars": [
+          "@SERVICE_NAME@"
+        ],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/acl/external/LM_group/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1306,
+        "unexpanded_vars": [
+          "@SERVICE_NAME@"
+        ],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/acl/external/delayer/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1146,
+        "unexpanded_vars": [
+          "@SERVICE_NAME@"
+        ],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/acl/external/kerberos_ldap_group/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1374,
+        "unexpanded_vars": [
+          "@SERVICE_NAME@"
+        ],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/acl/external/AD_group/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1312,
+        "unexpanded_vars": [
+          "@SERVICE_NAME@"
+        ],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/acl/external/wbinfo_group/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1146,
+        "unexpanded_vars": [
+          "@SERVICE_NAME@"
+        ],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/acl/external/time_quota/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1301,
+        "unexpanded_vars": [
+          "@SERVICE_NAME@"
+        ],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/acl/external/LDAP_group/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1309,
+        "unexpanded_vars": [
+          "@SERVICE_NAME@"
+        ],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/acl/external/session/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1300,
+        "unexpanded_vars": [
+          "@SERVICE_NAME@"
+        ],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/acl/external/eDirectory_userip/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1305,
+        "unexpanded_vars": [
+          "@SERVICE_NAME@"
+        ],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/acl/external/file_userip/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1307,
+        "unexpanded_vars": [
+          "@SERVICE_NAME@"
+        ],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/acl/external/unix_group/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1302,
+        "unexpanded_vars": [
+          "@SERVICE_NAME@"
+        ],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/snmp/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1268,
+        "unexpanded_vars": [
+          "@SERVICE_NAME@"
+        ],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/fs/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1434,
+        "unexpanded_vars": [
+          "@SERVICE_NAME@"
+        ],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
         "recipe_tab_anomalies": 0
       }
     ]
@@ -1503,10 +1929,10 @@
     ]
   },
   "conditional_context": {
-    "configure_if": 1463,
-    "configure_fi": 1291,
-    "configure_case": 180,
-    "configure_esac": 183,
+    "configure_if": 3131,
+    "configure_fi": 2876,
+    "configure_case": 634,
+    "configure_esac": 619,
     "balanced": false,
     "automake_conditionals": [
       "ENABLE_POD2MAN_DOC",
@@ -1558,7 +1984,7 @@
     "source_suffixes": {
       "c": 88,
       "cc": 734,
-      "h": 805
+      "h": 806
     },
     "configure_macros": [
       "AC_PROG_CC",
@@ -1574,14 +2000,86 @@
       "LT_INIT"
     ],
     "ltmain_present": false,
-    "libtool_m4_sources": [],
+    "libtool_m4_sources": [
+      "aclocal.m4"
+    ],
     "age": "modern"
+  },
+  "make_graph": {
+    "targets": [
+      "all",
+      ".SUFFIXES",
+      "am--refresh",
+      "$(srcdir)/Makefile.in",
+      "Makefile",
+      "$(top_builddir)/config.status",
+      "$(top_srcdir)/configure",
+      "$(ACLOCAL_M4)",
+      "$(am__aclocal_m4_deps)",
+      "include/autoconf.h",
+      "include/stamp-h1",
+      "$(top_srcdir)/include/autoconf.h.in",
+      "distclean-hdr",
+      "mostlyclean-libtool",
+      "clean-libtool",
+      "distclean-libtool",
+      "$(am__recursive_targets)",
+      "ID",
+      "tags",
+      "TAGS",
+      "tags-am",
+      "ctags",
+      "CTAGS",
+      "ctags-am",
+      "GTAGS",
+      "cscope",
+      "clean-cscope",
+      "cscope.files",
+      "cscopelist",
+      "cscopelist-am",
+      "distclean-tags",
+      "distdir",
+      "distdir-am",
+      "dist-gzip",
+      "dist-bzip2",
+      "dist-bzip3",
+      "dist-lzip",
+      "dist-xz",
+      "dist-zstd",
+      "dist-tarZ"
+    ],
+    "key_variables": {
+      "AR": "/usr/bin/ar",
+      "CC": "gcc",
+      "CFLAGS": "-Wall -g -O2",
+      "CPPFLAGS": "",
+      "CXX": "g++",
+      "CXXFLAGS": "-I/usr/include/p11-kit-1  -g -O2 -march=native",
+      "DEFS": "-DHAVE_CONFIG_H",
+      "LDFLAGS": "-g",
+      "LIBS": "",
+      "RANLIB": "ranlib"
+    },
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "libtool",
+      "config.log"
+    ],
+    "recursion_depth": 4,
+    "top_targets": [
+      "all"
+    ],
+    "make_diagnostics": []
   },
   "toolchain_interaction": {
     "compiler": "cc",
     "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
     "c_std_default_risk": false,
-    "defines_sampled": []
+    "defines_sampled": [
+      "HAVE_CONFIG_H",
+      "_REENTRANT"
+    ]
   },
   "quirk_history": [
     {
@@ -1628,7 +2126,7 @@
     }
   ],
   "verification": {
-    "vs_gnu": "not-compared",
+    "vs_gnu": "ours-worse",
     "output_match": "not-compared"
   },
   "vpath_analysis": {
@@ -1646,7 +2144,7 @@
       "repl_modules.cc",
       "swap_log_op.cc",
       "+=",
-      "$(ARGZ_H)",
+      "libltdl/$(LT_ARGZ_H)",
       "+=",
       "$(ARGZ_H)"
     ],
@@ -1809,44 +2307,137 @@
       "phase": "make",
       "confidence": 0.8,
       "evidence": [
-        "@host_cpu@"
+        "@SERVICE_NAME@"
       ],
       "action": "add these to STD_VAR_SED / AC_SUBST handling",
       "expected_effect": "removes raw @VAR@ from Makefile"
     },
     {
-      "id": "subdir-top-builddir",
+      "id": "unexpanded-makefile-vars",
       "phase": "make",
-      "confidence": 0.88,
+      "confidence": 0.8,
       "evidence": [
-        "src/acl/external/LM_group consumes config.h below root",
-        "src/acl/external/AD_group consumes config.h below root",
-        "src/acl/external/unix_group consumes config.h below root"
+        "@SERVICE_NAME@",
+        "@DEFAULT_ERROR_DIR@",
+        "@DEFAULT_MIME_TABLE@",
+        "@SYSCONFDIR@"
       ],
-      "action": "ensure ac_subst_file sets relative top_builddir per subdir (0.1.19)",
-      "expected_effect": "config.h found in subdir compiles"
+      "action": "add these to STD_VAR_SED / AC_SUBST handling",
+      "expected_effect": "removes raw @VAR@ from Makefile"
     },
     {
-      "id": "ship-or-neutralize-macro",
-      "phase": "autoreconf",
-      "confidence": 0.6,
+      "id": "unexpanded-makefile-vars",
+      "phase": "make",
+      "confidence": 0.8,
       "evidence": [
-        "AX_CXX_COMPILE_STDCXX_11",
-        "AX_CXX_TYPE_NULLPTR",
-        "AX_CXX_TYPE_UNIFORM_DISTRIBUTIONS",
-        "AX_CXX_TYPE_UNIQUE_PTR",
-        "AX_WITH_PROG"
+        "@SERVICE_NAME@"
       ],
-      "action": "ship native impl or neutralize",
-      "expected_effect": "resolves unexpanded AX_/custom macros"
+      "action": "add these to STD_VAR_SED / AC_SUBST handling",
+      "expected_effect": "removes raw @VAR@ from Makefile"
+    },
+    {
+      "id": "unexpanded-makefile-vars",
+      "phase": "make",
+      "confidence": 0.8,
+      "evidence": [
+        "@SERVICE_NAME@"
+      ],
+      "action": "add these to STD_VAR_SED / AC_SUBST handling",
+      "expected_effect": "removes raw @VAR@ from Makefile"
+    },
+    {
+      "id": "unexpanded-makefile-vars",
+      "phase": "make",
+      "confidence": 0.8,
+      "evidence": [
+        "@SERVICE_NAME@"
+      ],
+      "action": "add these to STD_VAR_SED / AC_SUBST handling",
+      "expected_effect": "removes raw @VAR@ from Makefile"
+    },
+    {
+      "id": "unexpanded-makefile-vars",
+      "phase": "make",
+      "confidence": 0.8,
+      "evidence": [
+        "@SERVICE_NAME@"
+      ],
+      "action": "add these to STD_VAR_SED / AC_SUBST handling",
+      "expected_effect": "removes raw @VAR@ from Makefile"
+    },
+    {
+      "id": "unexpanded-makefile-vars",
+      "phase": "make",
+      "confidence": 0.8,
+      "evidence": [
+        "@SERVICE_NAME@",
+        "@DEFAULT_ERROR_DIR@",
+        "@DEFAULT_MIME_TABLE@",
+        "@SYSCONFDIR@"
+      ],
+      "action": "add these to STD_VAR_SED / AC_SUBST handling",
+      "expected_effect": "removes raw @VAR@ from Makefile"
+    },
+    {
+      "id": "unexpanded-makefile-vars",
+      "phase": "make",
+      "confidence": 0.8,
+      "evidence": [
+        "@SERVICE_NAME@"
+      ],
+      "action": "add these to STD_VAR_SED / AC_SUBST handling",
+      "expected_effect": "removes raw @VAR@ from Makefile"
+    },
+    {
+      "id": "unexpanded-makefile-vars",
+      "phase": "make",
+      "confidence": 0.8,
+      "evidence": [
+        "@SERVICE_NAME@"
+      ],
+      "action": "add these to STD_VAR_SED / AC_SUBST handling",
+      "expected_effect": "removes raw @VAR@ from Makefile"
+    },
+    {
+      "id": "unexpanded-makefile-vars",
+      "phase": "make",
+      "confidence": 0.8,
+      "evidence": [
+        "@SERVICE_NAME@",
+        "@DEFAULT_ERROR_DIR@",
+        "@DEFAULT_MIME_TABLE@",
+        "@SYSCONFDIR@"
+      ],
+      "action": "add these to STD_VAR_SED / AC_SUBST handling",
+      "expected_effect": "removes raw @VAR@ from Makefile"
+    },
+    {
+      "id": "unexpanded-makefile-vars",
+      "phase": "make",
+      "confidence": 0.8,
+      "evidence": [
+        "@SERVICE_NAME@"
+      ],
+      "action": "add these to STD_VAR_SED / AC_SUBST handling",
+      "expected_effect": "removes raw @VAR@ from Makefile"
+    },
+    {
+      "id": "unexpanded-makefile-vars",
+      "phase": "make",
+      "confidence": 0.8,
+      "evidence": [
+        "@SERVICE_NAME@"
+      ],
+      "action": "add these to STD_VAR_SED / AC_SUBST handling",
+      "expected_effect": "removes raw @VAR@ from Makefile"
     }
   ],
   "scenario_context": {
     "temporal_map": {
       "Makefile.am": -11,
-      "Makefile.in": 3202,
-      "aclocal.m4": 90,
-      "configure": 156,
+      "Makefile.in": 85211,
+      "aclocal.m4": 84157,
+      "configure": 84647,
       "configure.ac": 0
     },
     "m4_ancestry": {
@@ -2618,7 +3209,6 @@
       "libltdlc_la_LIBADD = $(libltdl_la_LIBADD)",
       "dlopen_la_LIBADD = $(LIBADD_DLOPEN)",
       "shl_load_la_LIBADD = $(LIBADD_SHL_LOAD)",
-      "BUILT_SOURCES = $(ARGZ_H)",
       "libmiscutil_la_SOURCES = $(SNPRINTFSOURCE)",
       "tests_testRFC1738_LDADD = $(SQUID_CPPUNIT_LA)",
       "tests_testRFC1738_LDADD = $(SQUID_CPPUNIT_LIBS)",
@@ -2631,6 +3221,6 @@
       "shl_load_la_LIBADD = $(LIBADD_SHL_LOAD)",
       "BUILT_SOURCES = $(ARGZ_H)"
     ],
-    "indirection_count": 499
+    "indirection_count": 498
   }
 }

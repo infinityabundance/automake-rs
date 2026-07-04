@@ -113,13 +113,13 @@
       "DEFS",
       "LIBOBJS",
       "INSTALL",
-      "LD",
-      "host_vendor",
-      "host_alias",
       "AR",
-      "target_alias",
+      "host_alias",
+      "host_cpu",
       "host_os",
-      "host_cpu"
+      "target_alias",
+      "LD",
+      "host_vendor"
     ],
     "failed_during_check": "checking for SDL_mixer.h... yes",
     "failure_tail": [
@@ -140,6 +140,34 @@
       "char IMG_ReadXPMFromArray ();\\nint main() { return IMG_ReadXPMFromArray(); }",
       "#include <SDL_image.h>"
     ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "fail",
+    "real_configure_lines": 8125,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE",
+    "internal_traces": [
+      "configure.ac:20: warning: 'AM_CONFIG_HEADER': this macro is obsolete.",
+      "configure.ac:97: warning: The macro `AC_TRY_RUN' is obsolete.",
+      "configure.ac:97: warning: The macro `AC_TRY_LINK' is obsolete.",
+      "configure.ac:107: warning: The macro `AC_HEADER_STDC' is obsolete.",
+      "configure.ac:65: installing './compile'",
+      "configure.ac:25: installing './config.guess'",
+      "configure.ac:25: installing './config.sub'",
+      "configure.ac:42: installing './install-sh'",
+      "configure.ac:42: installing './missing'",
+      "src/Makefile.am: installing './depcomp'"
+    ]
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "",
+    "ours_error_context": [],
+    "ours_configure_lines": 2901,
+    "real_configure_lines": 8125,
+    "macros_ours_left_undefined": []
   },
   "receipt": {
     "court_status": "failed",
@@ -266,7 +294,7 @@
         "verified": false
       }
     ],
-    "receipt_hash": "26b716f08d07e06218f46e6e07913f41988b3bdbc9b794dd80b14ed42aa6b1c0",
+    "receipt_hash": "44c3092e774eee70939987bacfd4132ffd9309c99b511c03f2205e6987434145",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -275,17 +303,21 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": [],
+    "relevant_env": [
+      "ACLOCAL_PATH=/usr/share/aclocal"
+    ],
     "kernel_version": "6.8.0-124-generic",
     "libc_name": "glibc",
     "libc_version": "2.39",
     "pkg_config_path": [],
-    "env_vars_influential": {},
+    "env_vars_influential": {
+      "ACLOCAL_PATH": "/usr/share/aclocal"
+    },
     "posix_flavor": "gnu",
     "shell": "dash",
     "oracle_tool_versions": {
       "autoconf": "2.71",
-      "automake": "1.16.5",
+      "automake": "1.18.1",
       "libtool": "2.4.7",
       "m4": "1.4.19"
     },
@@ -417,7 +449,7 @@
         "path": "Makefile",
         "has_makefile_in": true,
         "has_makefile_am": true,
-        "lines": 530,
+        "lines": 842,
         "unexpanded_vars": [],
         "unexpanded_automake_tokens": [
           "$(am__"
@@ -428,7 +460,7 @@
         "path": "m4/Makefile",
         "has_makefile_in": true,
         "has_makefile_am": true,
-        "lines": 436,
+        "lines": 438,
         "unexpanded_vars": [],
         "unexpanded_automake_tokens": [
           "$(am__"
@@ -439,7 +471,7 @@
         "path": "src/Makefile",
         "has_makefile_in": true,
         "has_makefile_am": true,
-        "lines": 611,
+        "lines": 1146,
         "unexpanded_vars": [],
         "unexpanded_automake_tokens": [
           "$(am__"
@@ -450,7 +482,7 @@
         "path": "worlds/Makefile",
         "has_makefile_in": true,
         "has_makefile_am": true,
-        "lines": 522,
+        "lines": 616,
         "unexpanded_vars": [],
         "unexpanded_automake_tokens": [
           "$(am__"
@@ -461,7 +493,7 @@
         "path": "worlds/haxima-1.002/Makefile",
         "has_makefile_in": true,
         "has_makefile_am": true,
-        "lines": 548,
+        "lines": 718,
         "unexpanded_vars": [],
         "unexpanded_automake_tokens": [
           "$(am__"
@@ -472,7 +504,7 @@
         "path": "worlds/haxima-1.002/music/Makefile",
         "has_makefile_in": true,
         "has_makefile_am": true,
-        "lines": 478,
+        "lines": 494,
         "unexpanded_vars": [],
         "unexpanded_automake_tokens": [
           "$(am__"
@@ -564,10 +596,10 @@
     "unresolved_macros": []
   },
   "conditional_context": {
-    "configure_if": 135,
-    "configure_fi": 131,
-    "configure_case": 67,
-    "configure_esac": 70,
+    "configure_if": 445,
+    "configure_fi": 405,
+    "configure_case": 149,
+    "configure_esac": 135,
     "balanced": false,
     "automake_conditionals": []
   },
@@ -577,12 +609,12 @@
       "install-sh",
       "missing",
       "depcomp",
-      "compile"
-    ],
-    "missing": [
-      "ltmain.sh",
+      "compile",
       "config.guess",
       "config.sub"
+    ],
+    "missing": [
+      "ltmain.sh"
     ]
   },
   "language_surface": {
@@ -611,70 +643,67 @@
   "make_graph": {
     "targets": [
       "all",
-      "all-am",
-      "install-am",
-      "installcheck-am",
-      "install-strip",
-      "install-info",
-      "install-info-am",
-      "install-dvi",
-      "install-dvi-am",
-      "install-ps",
-      "install-ps-am",
-      "install-pdf",
-      "install-pdf-am",
-      "install-html",
-      "install-html-am",
-      "install-data-hook",
-      "install-exec-hook",
-      "installdirs-am",
-      ".PHONY",
-      "mostlyclean-am",
-      "clean-am",
-      "distclean-am",
-      "maintainer-clean-am",
-      "distdir",
-      "dist",
-      "dist-all",
-      "dist-gzip",
-      "distcleancheck",
-      "distcheck",
-      "check-am",
-      "TAGS",
-      "tags",
-      "TAGS-am",
-      "tags-am",
-      "cscope",
-      "cscope-am",
-      "distuninstallcheck",
+      ".SUFFIXES",
+      "am--refresh",
       "$(srcdir)/Makefile.in",
+      "Makefile",
+      "$(top_builddir)/config.status",
+      "$(top_srcdir)/configure",
+      "$(ACLOCAL_M4)",
+      "$(am__aclocal_m4_deps)",
+      "config.h",
+      "stamp-h1",
+      "$(srcdir)/config.h.in",
+      "distclean-hdr",
       "$(am__recursive_targets)",
-      "check"
+      "ID",
+      "tags",
+      "TAGS",
+      "tags-am",
+      "ctags",
+      "CTAGS",
+      "ctags-am",
+      "GTAGS",
+      "cscope",
+      "clean-cscope",
+      "cscope.files",
+      "cscopelist",
+      "cscopelist-am",
+      "distclean-tags",
+      "distdir",
+      "distdir-am",
+      "dist-gzip",
+      "dist-bzip2",
+      "dist-bzip3",
+      "dist-lzip",
+      "dist-xz",
+      "dist-zstd",
+      "dist-tarZ",
+      "dist-shar",
+      "dist-zip",
+      "dist"
     ],
     "key_variables": {
-      "AR": "ar",
       "CC": "g++",
-      "CFLAGS": "-I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT",
+      "CFLAGS": "-g -O2 -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT",
       "CPPFLAGS": "",
       "CXX": "g++",
-      "CXXFLAGS": "-I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT",
+      "CXXFLAGS": "-g -O2 -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT",
       "DEFS": "-DHAVE_CONFIG_H",
       "LDFLAGS": "",
-      "LIBS": "-lSDL",
-      "RANLIB": "ranlib"
+      "LIBS": "-lSDL_mixer -lSDL_image -lpng  -lSDL"
     },
     "generated_files": [
       "Makefile",
       "config.status",
       "config.h",
+      "stamp-h1",
       "config.log"
     ],
     "recursion_depth": 3,
     "top_targets": [
       "all",
-      "check",
-      "dist",
-      "all-am"
+      "dist"
     ],
     "make_diagnostics": []
   },
@@ -715,7 +744,7 @@
     }
   ],
   "verification": {
-    "vs_gnu": "not-compared",
+    "vs_gnu": "ours-worse",
     "output_match": "not-compared"
   },
   "feature_probe_gap": {
@@ -798,11 +827,11 @@
   ],
   "scenario_context": {
     "temporal_map": {
-      "Makefile.am": -1,
-      "Makefile.in": 1213,
-      "aclocal.m4": 98,
-      "config.h.in": 105,
-      "configure": 103,
+      "Makefile.am": 0,
+      "Makefile.in": 6788,
+      "aclocal.m4": 6327,
+      "config.h.in": 6639,
+      "configure": 6536,
       "configure.ac": 0
     },
     "m4_ancestry": {

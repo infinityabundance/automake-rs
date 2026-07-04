@@ -100,13 +100,42 @@
       "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar malloc ();\\nint main() { return malloc(); }"
     ]
   },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "fail",
+    "real_configure_lines": 7160,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE",
+    "internal_traces": [
+      "configure.ac:8: warning: The macro `AC_CONFIG_HEADER' is obsolete.",
+      "configure.ac:18: installing './ar-lib'",
+      "configure.ac:15: installing './compile'",
+      "configure.ac:34: installing './config.guess'",
+      "configure.ac:34: installing './config.sub'",
+      "configure.ac:10: installing './install-sh'",
+      "configure.ac:10: installing './missing'",
+      "src/Makefile.am: installing './depcomp'",
+      "parallel-tests: installing './test-driver'"
+    ]
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "line 1546: unicode-table (near `unicode-table`)",
+    "ours_error_context": [
+      "unicode-table"
+    ],
+    "ours_configure_lines": 2642,
+    "real_configure_lines": 7160,
+    "macros_ours_left_undefined": []
+  },
   "receipt": {
     "court_status": "failed",
     "probe_trace": [],
     "quirks_matched": [
       "vendored-aclocal"
     ],
-    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
+    "receipt_hash": "a538dd1b607f6cd976fc862d4e8e8d63c3c1266aed35ab3625cbb61237e9478c",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -115,17 +144,21 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": [],
+    "relevant_env": [
+      "ACLOCAL_PATH=/usr/share/aclocal"
+    ],
     "kernel_version": "6.8.0-124-generic",
     "libc_name": "glibc",
     "libc_version": "2.39",
     "pkg_config_path": [],
-    "env_vars_influential": {},
+    "env_vars_influential": {
+      "ACLOCAL_PATH": "/usr/share/aclocal"
+    },
     "posix_flavor": "gnu",
     "shell": "dash",
     "oracle_tool_versions": {
       "autoconf": "2.71",
-      "automake": "1.16.5",
+      "automake": "1.18.1",
       "libtool": "2.4.7",
       "m4": "1.4.19"
     },
@@ -193,7 +226,7 @@
           "$(SUB_MODULES)",
           "$(DIST_SUBDIRS)"
         ],
-        "sources_include_config_h": false,
+        "sources_include_config_h": true,
         "am_cppflags": ""
       },
       {
@@ -203,7 +236,7 @@
           "$(SUB_MODULES)",
           "$(DIST_SUBDIRS)"
         ],
-        "sources_include_config_h": false,
+        "sources_include_config_h": true,
         "am_cppflags": ""
       },
       {
@@ -249,8 +282,79 @@
     ],
     "max_depth": 1,
     "config_h_consumers_below_root": [
+      "modules/php/json5",
       "modules/php/json5/src",
       "src"
+    ]
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 816,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "modules/php/json5/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 816,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "modules/php/json5/src/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 685,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "modules/php/json5/test/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1011,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 685,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "test/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1011,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      }
     ]
   },
   "tool_requirements": {
@@ -293,10 +397,10 @@
     "unresolved_macros": []
   },
   "conditional_context": {
-    "configure_if": 106,
-    "configure_fi": 103,
-    "configure_case": 63,
-    "configure_esac": 66,
+    "configure_if": 375,
+    "configure_fi": 341,
+    "configure_case": 155,
+    "configure_esac": 141,
     "balanced": false,
     "automake_conditionals": []
   },
@@ -304,12 +408,11 @@
     "aux_dir": ".",
     "present": [
       "install-sh",
-      "missing"
-    ],
-    "missing": [
+      "missing",
       "depcomp",
       "compile"
-    ]
+    ],
+    "missing": []
   },
   "language_surface": {
     "source_suffixes": {
@@ -323,11 +426,80 @@
     "needs_fortran": false,
     "sets_c_std": true
   },
+  "make_graph": {
+    "targets": [
+      "all",
+      ".SUFFIXES",
+      "am--refresh",
+      "$(srcdir)/Makefile.in",
+      "Makefile",
+      "$(top_builddir)/config.status",
+      "$(top_srcdir)/configure",
+      "$(ACLOCAL_M4)",
+      "$(am__aclocal_m4_deps)",
+      "config.h",
+      "stamp-h1",
+      "$(srcdir)/config.h.in",
+      "distclean-hdr",
+      "$(am__recursive_targets)",
+      "ID",
+      "tags",
+      "TAGS",
+      "tags-am",
+      "ctags",
+      "CTAGS",
+      "ctags-am",
+      "GTAGS",
+      "cscope",
+      "clean-cscope",
+      "cscope.files",
+      "cscopelist",
+      "cscopelist-am",
+      "distclean-tags",
+      "distdir",
+      "distdir-am",
+      "dist-gzip",
+      "dist-bzip2",
+      "dist-bzip3",
+      "dist-lzip",
+      "dist-xz",
+      "dist-zstd",
+      "dist-tarZ",
+      "dist-shar",
+      "dist-zip",
+      "dist"
+    ],
+    "key_variables": {
+      "AR": "ar",
+      "CC": "gcc",
+      "CFLAGS": "-g -O2",
+      "CPPFLAGS": "",
+      "DEFS": "-DHAVE_CONFIG_H",
+      "LDFLAGS": "",
+      "LIBS": "",
+      "RANLIB": "ranlib"
+    },
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "config.h",
+      "stamp-h1",
+      "config.log"
+    ],
+    "recursion_depth": 1,
+    "top_targets": [
+      "all",
+      "dist"
+    ],
+    "make_diagnostics": []
+  },
   "toolchain_interaction": {
     "compiler": "cc",
     "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
     "c_std_default_risk": false,
-    "defines_sampled": []
+    "defines_sampled": [
+      "HAVE_CONFIG_H"
+    ]
   },
   "quirk_history": [
     {
@@ -338,7 +510,7 @@
     }
   ],
   "verification": {
-    "vs_gnu": "not-compared",
+    "vs_gnu": "ours-worse",
     "output_match": "not-compared"
   },
   "vpath_analysis": {
@@ -402,6 +574,7 @@
       "phase": "make",
       "confidence": 0.88,
       "evidence": [
+        "modules/php/json5 consumes config.h below root",
         "modules/php/json5/src consumes config.h below root",
         "src consumes config.h below root"
       ],
@@ -411,11 +584,11 @@
   ],
   "scenario_context": {
     "temporal_map": {
-      "Makefile.am": -1,
-      "Makefile.in": 55377,
-      "aclocal.m4": 8,
-      "config.h.in": 18,
-      "configure": 14,
+      "Makefile.am": 0,
+      "Makefile.in": 59026,
+      "aclocal.m4": 58576,
+      "config.h.in": 58876,
+      "configure": 58777,
       "configure.ac": 0
     },
     "m4_ancestry": {

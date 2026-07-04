@@ -134,6 +134,42 @@
       "\\nint main (void) { return 0; }\\n"
     ]
   },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "ok",
+    "real_configure_lines": 22117,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE",
+    "internal_traces": [
+      "libtoolize: putting auxiliary files in '.'.",
+      "libtoolize: copying file './ltmain.sh'",
+      "libtoolize: putting macros in AC_CONFIG_MACRO_DIRS, 'm4'.",
+      "libtoolize: copying file 'm4/libtool.m4'",
+      "libtoolize: copying file 'm4/ltoptions.m4'",
+      "libtoolize: copying file 'm4/ltsugar.m4'",
+      "libtoolize: copying file 'm4/ltversion.m4'",
+      "libtoolize: copying file 'm4/lt~obsolete.m4'",
+      "configure.ac:449: installing './ar-lib'",
+      "configure.ac:433: installing './compile'",
+      "configure.ac:45: installing './config.guess'",
+      "configure.ac:45: installing './config.sub'",
+      "configure.ac:53: installing './install-sh'",
+      "configure.ac:53: installing './missing'",
+      "src/Makefile.am: installing './depcomp'",
+      "parallel-tests: installing './test-driver'"
+    ]
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "line 2243: fi line about -lmw is copied from libtool.m4, (near `line`)",
+    "ours_error_context": [
+      "fi line about -lmw is copied from libtool.m4,"
+    ],
+    "ours_configure_lines": 6448,
+    "real_configure_lines": 22117,
+    "macros_ours_left_undefined": []
+  },
   "receipt": {
     "court_status": "failed",
     "probe_trace": [],
@@ -159,7 +195,7 @@
         "verified": false
       }
     ],
-    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
+    "receipt_hash": "a538dd1b607f6cd976fc862d4e8e8d63c3c1266aed35ab3625cbb61237e9478c",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -168,17 +204,21 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": [],
+    "relevant_env": [
+      "ACLOCAL_PATH=/usr/share/aclocal"
+    ],
     "kernel_version": "6.8.0-124-generic",
     "libc_name": "glibc",
     "libc_version": "2.39",
     "pkg_config_path": [],
-    "env_vars_influential": {},
+    "env_vars_influential": {
+      "ACLOCAL_PATH": "/usr/share/aclocal"
+    },
     "posix_flavor": "gnu",
     "shell": "dash",
     "oracle_tool_versions": {
       "autoconf": "2.71",
-      "automake": "1.16.5",
+      "automake": "1.18.1",
       "libtool": "2.4.7",
       "m4": "1.4.19"
     },
@@ -336,12 +376,78 @@
   "makefile_forensics": {
     "generated_makefiles": [
       {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1018,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "tests/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 5275,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
         "path": "tools/mbench/Makefile",
         "has_makefile_in": false,
         "has_makefile_am": false,
         "lines": 145,
         "unexpanded_vars": [],
         "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "tools/bench/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 643,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "tune/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 697,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1881,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "doc/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 830,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
         "recipe_tab_anomalies": 0
       }
     ]
@@ -360,98 +466,303 @@
     "acinclude_m4_present": true,
     "defined_macros": [
       {
+        "name": "LT_INIT",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LTOPTIONS_VERSION",
+        "source": "m4/libtool.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AC_PROG_LIBTOOL",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AM_PROG_LIBTOOL",
+        "source": "m4/libtool.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "LT_OUTPUT",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_SUPPORTED_TAG",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_LANG",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_CXX",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_F77",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_FC",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_GCJ",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_RC",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "_LT_WITH_SYSROOT",
+        "source": "m4/libtool.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "_LT_COMPILER_OPTION",
+        "source": "m4/libtool.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AC_LIBTOOL_COMPILER_OPTION",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "_LT_LINKER_OPTION",
+        "source": "m4/libtool.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AC_LIBTOOL_LINKER_OPTION",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_CMD_MAX_LEN",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_SYS_MAX_CMD_LEN",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_SYS_DLOPEN_SELF",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_DLOPEN_SELF",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "_LT_PATH_TOOL_PREFIX",
+        "source": "m4/libtool.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AC_PATH_TOOL_PREFIX",
+        "source": "m4/libtool.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "LT_PATH_LD",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AM_PROG_LD",
+        "source": "m4/libtool.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AC_PROG_LD",
+        "source": "m4/libtool.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "LT_PATH_NM",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AM_PROG_NM",
+        "source": "m4/libtool.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AC_PROG_NM",
+        "source": "m4/libtool.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "_LT_DLL_DEF_P",
+        "source": "m4/libtool.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "LT_LIB_M",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_CHECK_LIBM",
+        "source": "m4/libtool.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "LT_PROG_GCJ",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_AC_PROG_GCJ",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_PROG_GO",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_PROG_RC",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_AC_PROG_RC",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LT_AC_PROG_SED",
+        "source": "m4/libtool.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LTVERSION_VERSION",
+        "source": "m4/ltversion.m4",
+        "kind": "project-local"
+      },
+      {
         "name": "AX_PTHREAD",
         "source": "m4/ax_pthread.m4",
         "kind": "AX"
       },
       {
-        "name": "MPFR_CONFIGS",
-        "source": "acinclude.m4",
+        "name": "AC_LIBTOOL_DLOPEN",
+        "source": "m4/ltoptions.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_LIBTOOL_WIN32_DLL",
+        "source": "m4/ltoptions.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "AC_ENABLE_SHARED",
+        "source": "m4/ltoptions.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_DISABLE_SHARED",
+        "source": "m4/ltoptions.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AM_ENABLE_SHARED",
+        "source": "m4/ltoptions.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AM_DISABLE_SHARED",
+        "source": "m4/ltoptions.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AC_ENABLE_STATIC",
+        "source": "m4/ltoptions.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_DISABLE_STATIC",
+        "source": "m4/ltoptions.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AM_ENABLE_STATIC",
+        "source": "m4/ltoptions.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AM_DISABLE_STATIC",
+        "source": "m4/ltoptions.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AC_ENABLE_FAST_INSTALL",
+        "source": "m4/ltoptions.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AM_DISABLE_FAST_INSTALL",
+        "source": "m4/ltoptions.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AC_LIBTOOL_PICMODE",
+        "source": "m4/ltoptions.m4",
+        "kind": "LT"
+      },
+      {
+        "name": "LTSUGAR_VERSION",
+        "source": "m4/ltsugar.m4",
         "kind": "project-local"
       },
       {
-        "name": "MPFR_CHECK_GMP",
-        "source": "acinclude.m4",
+        "name": "or",
+        "source": "m4/lt~obsolete.m4",
         "kind": "project-local"
       },
       {
-        "name": "MPFR_CHECK_DBL2INT_BUG",
-        "source": "acinclude.m4",
+        "name": "it",
+        "source": "m4/lt~obsolete.m4",
         "kind": "project-local"
       },
       {
-        "name": "MPFR_CHECK_MP_LIMB_T_VS_LONG",
-        "source": "acinclude.m4",
+        "name": "LTOBSOLETE_VERSION",
+        "source": "m4/lt~obsolete.m4",
         "kind": "project-local"
       },
       {
-        "name": "MPFR_CHECK_MP_LIMB_T_VS_INTMAX",
-        "source": "acinclude.m4",
+        "name": "AC_PROG_EGREP",
+        "source": "m4/lt~obsolete.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "_LT_AC_PROG_ECHO_BACKSLASH",
+        "source": "m4/lt~obsolete.m4",
         "kind": "project-local"
       },
       {
-        "name": "MPFR_PARSE_DIRECTORY",
-        "source": "acinclude.m4",
-        "kind": "project-local"
-      },
-      {
-        "name": "MPFR_C_REALFP_FORMAT",
-        "source": "acinclude.m4",
-        "kind": "project-local"
-      },
-      {
-        "name": "MPFR_HAVE_LIB",
-        "source": "acinclude.m4",
-        "kind": "project-local"
-      },
-      {
-        "name": "MPFR_CHECK_LIBM",
-        "source": "acinclude.m4",
-        "kind": "project-local"
-      },
-      {
-        "name": "MPFR_CHECK_LIBQUADMATH",
-        "source": "acinclude.m4",
-        "kind": "project-local"
-      },
-      {
-        "name": "MPFR_LD_SEARCH_PATHS_FIRST",
-        "source": "acinclude.m4",
-        "kind": "project-local"
-      },
-      {
-        "name": "GMP_C_ATTRIBUTE_MODE",
-        "source": "acinclude.m4",
-        "kind": "project-local"
-      },
-      {
-        "name": "MPFR_FUNC_GMP_PRINTF_SPEC",
-        "source": "acinclude.m4",
-        "kind": "project-local"
-      },
-      {
-        "name": "MPFR_CHECK_PRINTF_SPEC",
-        "source": "acinclude.m4",
-        "kind": "project-local"
-      },
-      {
-        "name": "MPFR_CHECK_PRINTF_GROUPFLAG",
-        "source": "acinclude.m4",
-        "kind": "project-local"
-      },
-      {
-        "name": "MPFR_LTO",
-        "source": "acinclude.m4",
-        "kind": "project-local"
-      },
-      {
-        "name": "MPFR_CHECK_CONSTRUCTOR_ATTR",
-        "source": "acinclude.m4",
-        "kind": "project-local"
-      },
-      {
-        "name": "MPFR_CHECK_C11_THREAD",
-        "source": "acinclude.m4",
+        "name": "_LT_AC_SHELL_INIT",
+        "source": "m4/lt~obsolete.m4",
         "kind": "project-local"
       }
     ],
@@ -504,10 +815,10 @@
     "unresolved_macros": []
   },
   "conditional_context": {
-    "configure_if": 413,
-    "configure_fi": 337,
-    "configure_case": 111,
-    "configure_esac": 113,
+    "configure_if": 1298,
+    "configure_fi": 1134,
+    "configure_case": 375,
+    "configure_esac": 374,
     "balanced": false,
     "automake_conditionals": [
       "MINI_GMP"
@@ -519,17 +830,16 @@
       "install-sh",
       "missing",
       "depcomp",
-      "compile"
-    ],
-    "missing": [
+      "compile",
       "ltmain.sh",
       "config.guess",
       "config.sub"
-    ]
+    ],
+    "missing": []
   },
   "language_surface": {
     "source_suffixes": {
-      "c": 495,
+      "c": 496,
       "cc": 11,
       "h": 39
     },
@@ -545,18 +855,105 @@
     "macros": [
       "LT_INIT"
     ],
-    "ltmain_present": false,
+    "ltmain_present": true,
     "libtool_m4_sources": [
+      "m4/libtool.m4",
       "aclocal.m4",
       "acinclude.m4"
     ],
     "age": "modern"
   },
+  "make_graph": {
+    "targets": [
+      "all",
+      ".SUFFIXES",
+      "am--refresh",
+      "$(srcdir)/Makefile.in",
+      "Makefile",
+      "$(top_builddir)/config.status",
+      "$(top_srcdir)/configure",
+      "$(ACLOCAL_M4)",
+      "$(am__aclocal_m4_deps)",
+      "mpfr.pc",
+      "mostlyclean-libtool",
+      "clean-libtool",
+      "distclean-libtool",
+      "install-nobase_dist_docDATA",
+      "uninstall-nobase_dist_docDATA",
+      "install-pkgconfigDATA",
+      "uninstall-pkgconfigDATA",
+      "$(am__recursive_targets)",
+      "ID",
+      "tags",
+      "TAGS",
+      "tags-am",
+      "ctags",
+      "CTAGS",
+      "ctags-am",
+      "GTAGS",
+      "cscope",
+      "clean-cscope",
+      "cscope.files",
+      "cscopelist",
+      "cscopelist-am",
+      "distclean-tags",
+      "distdir",
+      "distdir-am",
+      "dist-gzip",
+      "dist-bzip2",
+      "dist-bzip3",
+      "dist-lzip",
+      "dist-xz",
+      "dist-zstd"
+    ],
+    "key_variables": {
+      "AR": "ar",
+      "CC": "x86_64-linux-gnu-gcc",
+      "CFLAGS": "-Wall -Wmissing-prototypes -Wc++-compat -Wpointer-arith -g -O2 -fno-omit-frame-pointer -mno-omit-leaf-frame-pointer -ffile-prefix-map=BUILDPATH=. -flto=auto -ff",
+      "CPPFLAGS": "",
+      "DEFS": "-DHAVE_STDIO_H=1 -DHAVE_INTTYPES_H=1 -DHAVE_STDINT_H=1 -DLT_OBJDIR=\\\".libs/\\\" -DHAVE_LITTLE_ENDIAN=1 -DHAVE_CLOCK_GETTIME=1 -DHAVE_LOCALE_H=1 -DHAVE_WCHAR_H=1 -",
+      "LDFLAGS": "",
+      "LIBS": "-lgmp",
+      "RANLIB": "ranlib"
+    },
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "libtool",
+      "config.log"
+    ],
+    "recursion_depth": 2,
+    "top_targets": [
+      "all"
+    ],
+    "make_diagnostics": []
+  },
   "toolchain_interaction": {
     "compiler": "cc",
     "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
     "c_std_default_risk": true,
-    "defines_sampled": []
+    "defines_sampled": [
+      "HAVE_STDIO_H=1",
+      "HAVE_INTTYPES_H=1",
+      "HAVE_STDINT_H=1",
+      "LT_OBJDIR=\\\".libs/\\\"",
+      "HAVE_LITTLE_ENDIAN=1",
+      "HAVE_CLOCK_GETTIME=1",
+      "HAVE_LOCALE_H=1",
+      "HAVE_WCHAR_H=1",
+      "HAVE_STDARG=1",
+      "HAVE_STRUCT_LCONV_DECIMAL_POINT=1",
+      "HAVE_STRUCT_LCONV_THOUSANDS_SEP=1",
+      "HAVE_ALLOCA_H=1",
+      "HAVE_ALLOCA=1",
+      "HAVE_UINTPTR_T=1",
+      "HAVE_VA_COPY=1",
+      "HAVE_SETLOCALE=1",
+      "HAVE_GETTIMEOFDAY=1",
+      "HAVE_SIGNAL=1",
+      "HAVE_SIGACTION=1",
+      "HAVE_LONG_LONG=1"
+    ]
   },
   "quirk_history": [
     {
@@ -609,7 +1006,7 @@
     }
   ],
   "verification": {
-    "vs_gnu": "not-compared",
+    "vs_gnu": "ours-worse",
     "output_match": "not-compared"
   },
   "vpath_analysis": {
@@ -640,8 +1037,29 @@
   },
   "source_to_generated_map": {
     "configure_origins": [],
-    "m4_trace_depth": 3,
-    "shadowed_macros": []
+    "m4_trace_depth": 9,
+    "shadowed_macros": [
+      "AC_PROG_LIBTOOL",
+      "AM_PROG_LIBTOOL",
+      "AC_LIBTOOL_CXX",
+      "AC_LIBTOOL_F77",
+      "AC_LIBTOOL_FC",
+      "AC_LIBTOOL_GCJ",
+      "AC_LIBTOOL_RC",
+      "AC_LIBTOOL_COMPILER_OPTION",
+      "AC_LIBTOOL_LINKER_OPTION",
+      "AC_LIBTOOL_SYS_MAX_CMD_LEN",
+      "AC_LIBTOOL_DLOPEN_SELF",
+      "AC_PATH_TOOL_PREFIX",
+      "AM_PROG_LD",
+      "AC_PROG_LD",
+      "AM_PROG_NM",
+      "AC_PROG_NM",
+      "AC_CHECK_LIBM",
+      "AC_LIBTOOL_DLOPEN",
+      "AC_LIBTOOL_WIN32_DLL",
+      "AC_ENABLE_SHARED"
+    ]
   },
   "dialect_reconciliation": {
     "enforce_standards_tier": "gnu++",
@@ -651,7 +1069,23 @@
   },
   "m4_side_effect_isolation": {
     "unquoted_subst_in_conditional": 1,
-    "shadowed_builtins": [],
+    "shadowed_builtins": [
+      "AC_PROG_LIBTOOL",
+      "AM_PROG_LIBTOOL",
+      "AC_LIBTOOL_CXX",
+      "AC_LIBTOOL_F77",
+      "AC_LIBTOOL_FC",
+      "AC_LIBTOOL_GCJ",
+      "AC_LIBTOOL_RC",
+      "AC_LIBTOOL_COMPILER_OPTION",
+      "AC_LIBTOOL_LINKER_OPTION",
+      "AC_LIBTOOL_SYS_MAX_CMD_LEN",
+      "AC_LIBTOOL_DLOPEN_SELF",
+      "AC_PATH_TOOL_PREFIX",
+      "AM_PROG_LD",
+      "AC_PROG_LD",
+      "AM_PROG_NM"
+    ],
     "permitted_mutations": 21,
     "suspect_global_mutations": 0
   },
@@ -702,10 +1136,10 @@
   ],
   "scenario_context": {
     "temporal_map": {
-      "Makefile.am": -29,
-      "Makefile.in": 1346,
-      "aclocal.m4": 32,
-      "configure": 60,
+      "Makefile.am": -37,
+      "Makefile.in": 9464,
+      "aclocal.m4": 8977,
+      "configure": 9195,
       "configure.ac": 0
     },
     "m4_ancestry": {
@@ -741,7 +1175,7 @@
       "AC_OUTPUT": "system-aclocal",
       "AC_PROG_CC": "system-aclocal",
       "AC_PROG_CPP": "system-aclocal",
-      "AC_PROG_EGREP": "system-aclocal",
+      "AC_PROG_EGREP": "m4/lt~obsolete.m4",
       "AC_PROG_SED": "system-aclocal",
       "AC_RUN_IFELSE": "system-aclocal",
       "AC_SEARCH_LIBS": "system-aclocal",

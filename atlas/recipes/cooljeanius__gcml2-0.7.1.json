@@ -121,6 +121,35 @@
       "\\nint main() { return main(); }"
     ]
   },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "fail",
+    "real_configure_lines": 13118,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE",
+    "internal_traces": [
+      "configure.ac:47: warning: AC_PROG_LEX without either yywrap or noyywrap is obsolete",
+      "configure.ac:70: warning: The macro `AC_TRY_RUN' is obsolete.",
+      "configure.ac:70: warning: The macro `AC_TRY_LINK' is obsolete.",
+      "configure.ac:71: warning: The macro `AC_TRY_RUN' is obsolete.",
+      "configure.ac:71: warning: The macro `AC_TRY_LINK' is obsolete.",
+      "configure.ac:72: warning: The macro `AC_TRY_RUN' is obsolete.",
+      "configure.ac:72: warning: The macro `AC_TRY_LINK' is obsolete.",
+      "configure.ac:73: warning: The macro `AC_TRY_RUN' is obsolete.",
+      "configure.ac:73: warning: The macro `AC_TRY_LINK' is obsolete."
+    ]
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "line 3447: fi for ac_hdr in fcntl.h gdk_imlib.h glade/glade.h glib.h glib/glib.h \\ (near `for`)",
+    "ours_error_context": [
+      "fi for ac_hdr in fcntl.h gdk_imlib.h glade/glade.h glib.h glib/glib.h \\"
+    ],
+    "ours_configure_lines": 4753,
+    "real_configure_lines": 13118,
+    "macros_ours_left_undefined": []
+  },
   "receipt": {
     "court_status": "failed",
     "probe_trace": [],
@@ -137,7 +166,7 @@
         "verified": false
       }
     ],
-    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
+    "receipt_hash": "a538dd1b607f6cd976fc862d4e8e8d63c3c1266aed35ab3625cbb61237e9478c",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -146,17 +175,21 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": [],
+    "relevant_env": [
+      "ACLOCAL_PATH=/usr/share/aclocal"
+    ],
     "kernel_version": "6.8.0-124-generic",
     "libc_name": "glibc",
     "libc_version": "2.39",
     "pkg_config_path": [],
-    "env_vars_influential": {},
+    "env_vars_influential": {
+      "ACLOCAL_PATH": "/usr/share/aclocal"
+    },
     "posix_flavor": "gnu",
     "shell": "dash",
     "oracle_tool_versions": {
       "autoconf": "2.71",
-      "automake": "1.16.5",
+      "automake": "1.18.1",
       "libtool": "2.4.7",
       "m4": "1.4.19"
     },
@@ -224,7 +257,7 @@
           "curses",
           "check"
         ],
-        "sources_include_config_h": false,
+        "sources_include_config_h": true,
         "am_cppflags": ""
       }
     ],
@@ -233,6 +266,17 @@
   },
   "makefile_forensics": {
     "generated_makefiles": [
+      {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1032,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
       {
         "path": "gtk/Makefile",
         "has_makefile_in": false,
@@ -505,10 +549,10 @@
     "unresolved_macros": []
   },
   "conditional_context": {
-    "configure_if": 307,
-    "configure_fi": 288,
-    "configure_case": 71,
-    "configure_esac": 74,
+    "configure_if": 839,
+    "configure_fi": 778,
+    "configure_case": 200,
+    "configure_esac": 186,
     "balanced": false,
     "automake_conditionals": []
   },
@@ -517,12 +561,13 @@
     "present": [
       "install-sh",
       "missing",
-      "depcomp",
       "compile",
       "config.guess",
       "config.sub"
     ],
-    "missing": []
+    "missing": [
+      "depcomp"
+    ]
   },
   "language_surface": {
     "source_suffixes": {
@@ -536,11 +581,88 @@
     "needs_fortran": false,
     "sets_c_std": false
   },
+  "make_graph": {
+    "targets": [
+      "all",
+      ".SUFFIXES",
+      "am--refresh",
+      "$(srcdir)/Makefile.in",
+      "Makefile",
+      "$(srcdir)/variables.mk.am",
+      "$(am__empty)",
+      "$(top_builddir)/config.status",
+      "$(top_srcdir)/configure",
+      "$(ACLOCAL_M4)",
+      "$(am__aclocal_m4_deps)",
+      "config.h",
+      "stamp-h1",
+      "$(srcdir)/config.h.in",
+      "distclean-hdr",
+      "gcml2.spec",
+      "$(am__recursive_targets)",
+      "ID",
+      "tags",
+      "TAGS",
+      "tags-am",
+      "ctags",
+      "CTAGS",
+      "ctags-am",
+      "GTAGS",
+      "cscope",
+      "clean-cscope",
+      "cscope.files",
+      "cscopelist",
+      "cscopelist-am",
+      "distclean-tags",
+      "distdir",
+      "distdir-am",
+      "dist-gzip",
+      "dist-bzip2",
+      "dist-bzip3",
+      "dist-lzip",
+      "dist-xz",
+      "dist-zstd",
+      "dist-tarZ"
+    ],
+    "key_variables": {
+      "AR": "ar",
+      "CC": "gcc",
+      "CFLAGS": "",
+      "CPPFLAGS": "-DVERSION=\\\"$(VERSION)\\\" \\",
+      "DEFS": "-DHAVE_CONFIG_H",
+      "LDFLAGS": "",
+      "LIBS": "-lncurses"
+    },
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "config.h",
+      "stamp-h1",
+      "config.log"
+    ],
+    "recursion_depth": 0,
+    "top_targets": [
+      "all"
+    ],
+    "make_diagnostics": []
+  },
   "toolchain_interaction": {
     "compiler": "cc",
     "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
     "c_std_default_risk": true,
-    "defines_sampled": []
+    "defines_sampled": [
+      "VERSION=\\\"$(VERSION)\\\"",
+      "PACKAGE=\\\"$(PACKAGE)\\\"",
+      "PKGDATADIR=\\\"$(pkgdatadir)\\\"",
+      "_DEFAULT_SOURCE",
+      "_XOPEN_SOURCE=600",
+      "HAVE_CONFIG_H",
+      "DEBUG=$(DEBUG)",
+      "TESTSCRIPT=1",
+      "SYLVESTER=$(SYLVESTER)",
+      "PROFILE=1",
+      "COVERAGE=1"
+    ]
   },
   "quirk_history": [
     {
@@ -569,7 +691,7 @@
     }
   ],
   "verification": {
-    "vs_gnu": "not-compared",
+    "vs_gnu": "ours-worse",
     "output_match": "not-compared"
   },
   "vpath_analysis": {
@@ -719,10 +841,10 @@
   "scenario_context": {
     "temporal_map": {
       "Makefile.am": -2,
-      "Makefile.in": 1474,
-      "aclocal.m4": 8,
-      "config.h.in": 31,
-      "configure": 29,
+      "Makefile.in": 4390,
+      "aclocal.m4": 3759,
+      "config.h.in": 4226,
+      "configure": 4078,
       "configure.ac": 0
     },
     "m4_ancestry": {

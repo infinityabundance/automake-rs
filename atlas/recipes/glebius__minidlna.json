@@ -129,6 +129,34 @@
       "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { int32_t x; return 0; }"
     ]
   },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "ok",
+    "real_configure_lines": 14560,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE",
+    "internal_traces": [
+      "autopoint: using AM_GNU_GETTEXT_REQUIRE_VERSION instead of AM_GNU_GETTEXT_VERSION",
+      "configure.ac:25: installing './compile'",
+      "configure.ac:20: installing './config.guess'",
+      "configure.ac:20: installing './config.sub'",
+      "configure.ac:21: installing './install-sh'",
+      "configure.ac:21: installing './missing'",
+      "Makefile.am: installing './INSTALL'",
+      "Makefile.am: installing './depcomp'"
+    ]
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "line 1406: printf '%s\\n' \"#define ROOTDEV_MODELNAME \"Windows Media Connect compatib (near `(`)",
+    "ours_error_context": [
+      "printf '%s\\n' \"#define ROOTDEV_MODELNAME \"Windows Media Connect compatib"
+    ],
+    "ours_configure_lines": 3875,
+    "real_configure_lines": 14560,
+    "macros_ours_left_undefined": []
+  },
   "receipt": {
     "court_status": "failed",
     "probe_trace": [],
@@ -145,7 +173,7 @@
         "verified": false
       }
     ],
-    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
+    "receipt_hash": "a538dd1b607f6cd976fc862d4e8e8d63c3c1266aed35ab3625cbb61237e9478c",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -154,17 +182,21 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": [],
+    "relevant_env": [
+      "ACLOCAL_PATH=/usr/share/aclocal"
+    ],
     "kernel_version": "6.8.0-124-generic",
     "libc_name": "glibc",
     "libc_version": "2.39",
     "pkg_config_path": [],
-    "env_vars_influential": {},
+    "env_vars_influential": {
+      "ACLOCAL_PATH": "/usr/share/aclocal"
+    },
     "posix_flavor": "gnu",
     "shell": "dash",
     "oracle_tool_versions": {
       "autoconf": "2.71",
-      "automake": "1.16.5",
+      "automake": "1.18.1",
       "libtool": "2.4.7",
       "m4": "1.4.19"
     },
@@ -208,7 +240,7 @@
         "path": "po/Makefile.in",
         "depth": 1,
         "top_builddir": "..",
-        "has_template": false
+        "has_template": true
       }
     ],
     "config_headers": [
@@ -234,6 +266,34 @@
     "max_depth": 1,
     "config_h_consumers_below_root": []
   },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1190,
+        "unexpanded_vars": [
+          "@LIBAVUTIL_LIBS@"
+        ],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "po/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": false,
+        "lines": 614,
+        "unexpanded_vars": [
+          "@CROSS_COMPILING@"
+        ],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      }
+    ]
+  },
   "tool_requirements": {
     "detected": [
       "xgettext"
@@ -241,10 +301,168 @@
     "missing": []
   },
   "macro_inventory": {
-    "macro_dirs": [],
+    "macro_dirs": [
+      "m4"
+    ],
     "aclocal_m4_present": true,
     "acinclude_m4_present": false,
-    "defined_macros": [],
+    "defined_macros": [
+      {
+        "name": "AM_PO_SUBDIRS",
+        "source": "m4/po.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AM_POSTPROCESS_PO_MAKEFILE",
+        "source": "m4/po.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AM_XGETTEXT_OPTION_INIT",
+        "source": "m4/po.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AM_XGETTEXT_OPTION",
+        "source": "m4/po.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AC_LIB_LINKFLAGS",
+        "source": "m4/lib-link.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_LIB_HAVE_LINKFLAGS",
+        "source": "m4/lib-link.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_LIB_RPATH",
+        "source": "m4/lib-link.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_LIB_FROMPACKAGE",
+        "source": "m4/lib-link.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_LIB_LINKFLAGS_BODY",
+        "source": "m4/lib-link.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_LIB_APPENDTOVAR",
+        "source": "m4/lib-link.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_LIB_LINKFLAGS_FROM_LIBS",
+        "source": "m4/lib-link.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AM_PATH_PROG_WITH_TEST",
+        "source": "m4/progtest.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AM_ICONV_LINKFLAGS_BODY",
+        "source": "m4/iconv.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AM_ICONV_LINK",
+        "source": "m4/iconv.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "gl_iconv_AC_DEFUN",
+        "source": "m4/iconv.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "2",
+        "source": "m4/iconv.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AM_ICONV",
+        "source": "m4/iconv.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AM_NLS",
+        "source": "m4/nls.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AC_LIB_PREFIX",
+        "source": "m4/lib-prefix.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_LIB_PREPARE_PREFIX",
+        "source": "m4/lib-prefix.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_LIB_WITH_FINAL_PREFIX",
+        "source": "m4/lib-prefix.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_LIB_PREPARE_MULTILIB",
+        "source": "m4/lib-prefix.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_LIB_PROG_LD_GNU",
+        "source": "m4/lib-ld.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_LIB_PROG_LD",
+        "source": "m4/lib-ld.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "gl_HOST_CPU_C_ABI",
+        "source": "m4/host-cpu-c-abi.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gl_HOST_CPU_C_ABI_32BIT",
+        "source": "m4/host-cpu-c-abi.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gt_INTL_MACOSX",
+        "source": "m4/intlmacosx.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AM_GNU_GETTEXT",
+        "source": "m4/gettext.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AM_GNU_GETTEXT_NEED",
+        "source": "m4/gettext.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AM_GNU_GETTEXT_VERSION",
+        "source": "m4/gettext.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AM_GNU_GETTEXT_REQUIRE_VERSION",
+        "source": "m4/gettext.m4",
+        "kind": "AM"
+      }
+    ],
     "called_macros": [
       "AC_ARG_ENABLE",
       "AC_ARG_WITH",
@@ -302,10 +520,10 @@
     "unresolved_macros": []
   },
   "conditional_context": {
-    "configure_if": 202,
-    "configure_fi": 191,
-    "configure_case": 65,
-    "configure_esac": 68,
+    "configure_if": 1069,
+    "configure_fi": 973,
+    "configure_case": 216,
+    "configure_esac": 201,
     "balanced": false,
     "automake_conditionals": [
       "HAVE_VORBISFILE",
@@ -324,12 +542,12 @@
       "install-sh",
       "missing",
       "depcomp",
-      "compile"
-    ],
-    "missing": [
-      "ltmain.sh",
+      "compile",
       "config.guess",
       "config.sub"
+    ],
+    "missing": [
+      "ltmain.sh"
     ]
   },
   "language_surface": {
@@ -357,16 +575,82 @@
     "uses_gettext": true,
     "uses_intltool": false,
     "po_dir_present": true,
-    "missing_files": [
-      "config.rpath",
-      "po/Makefile.in.in"
-    ]
+    "missing_files": []
+  },
+  "make_graph": {
+    "targets": [
+      "all",
+      ".SUFFIXES",
+      "am--refresh",
+      "$(srcdir)/Makefile.in",
+      "Makefile",
+      "$(top_builddir)/config.status",
+      "$(top_srcdir)/configure",
+      "$(ACLOCAL_M4)",
+      "$(am__aclocal_m4_deps)",
+      "config.h",
+      "stamp-h1",
+      "$(srcdir)/config.h.in",
+      "distclean-hdr",
+      "clean-checkPROGRAMS",
+      "install-sbinPROGRAMS",
+      "uninstall-sbinPROGRAMS",
+      "clean-sbinPROGRAMS",
+      "tagutils/$(am__dirstamp)",
+      "tagutils/$(DEPDIR)/$(am__dirstamp)",
+      "tagutils/tagutils.$(OBJEXT)",
+      "minidlnad$(EXEEXT)",
+      "testupnpdescgen$(EXEEXT)",
+      "mostlyclean-compile",
+      "distclean-compile",
+      "$(am__depfiles_remade)",
+      "am--depfiles",
+      ".c.o",
+      ".c.obj",
+      "$(am__recursive_targets)",
+      "ID",
+      "tags",
+      "TAGS",
+      "tags-am",
+      "ctags",
+      "CTAGS",
+      "ctags-am",
+      "GTAGS",
+      "cscope",
+      "clean-cscope",
+      "cscope.files"
+    ],
+    "key_variables": {
+      "CC": "gcc",
+      "CFLAGS": "-g -O2",
+      "CPPFLAGS": "",
+      "DEFAULT_INCLUDES": "-I.",
+      "DEFS": "-DHAVE_CONFIG_H",
+      "LDFLAGS": "",
+      "LIBS": "-lpthread"
+    },
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "config.h",
+      "stamp-h1",
+      "config.log"
+    ],
+    "recursion_depth": 1,
+    "top_targets": [
+      "all"
+    ],
+    "make_diagnostics": []
   },
   "toolchain_interaction": {
     "compiler": "cc",
     "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
     "c_std_default_risk": true,
-    "defines_sampled": []
+    "defines_sampled": [
+      "HAVE_CONFIG_H",
+      "_LARGEFILE_SOURCE",
+      "_FILE_OFFSET_BITS=64"
+    ]
   },
   "quirk_history": [
     {
@@ -395,7 +679,7 @@
     }
   ],
   "verification": {
-    "vs_gnu": "not-compared",
+    "vs_gnu": "ours-worse",
     "output_match": "not-compared"
   },
   "feature_probe_gap": {
@@ -473,8 +757,29 @@
   },
   "source_to_generated_map": {
     "configure_origins": [],
-    "m4_trace_depth": 3,
-    "shadowed_macros": []
+    "m4_trace_depth": 6,
+    "shadowed_macros": [
+      "AM_PO_SUBDIRS",
+      "AM_POSTPROCESS_PO_MAKEFILE",
+      "AM_XGETTEXT_OPTION_INIT",
+      "AM_XGETTEXT_OPTION",
+      "AC_LIB_LINKFLAGS",
+      "AC_LIB_HAVE_LINKFLAGS",
+      "AC_LIB_RPATH",
+      "AC_LIB_FROMPACKAGE",
+      "AC_LIB_LINKFLAGS_BODY",
+      "AC_LIB_APPENDTOVAR",
+      "AC_LIB_LINKFLAGS_FROM_LIBS",
+      "AM_PATH_PROG_WITH_TEST",
+      "AM_ICONV_LINKFLAGS_BODY",
+      "AM_ICONV_LINK",
+      "AM_ICONV",
+      "AM_NLS",
+      "AC_LIB_PREFIX",
+      "AC_LIB_PREPARE_PREFIX",
+      "AC_LIB_WITH_FINAL_PREFIX",
+      "AC_LIB_PREPARE_MULTILIB"
+    ]
   },
   "dialect_reconciliation": {
     "enforce_standards_tier": "c89_gnu",
@@ -491,7 +796,23 @@
   },
   "m4_side_effect_isolation": {
     "unquoted_subst_in_conditional": 0,
-    "shadowed_builtins": [],
+    "shadowed_builtins": [
+      "AM_PO_SUBDIRS",
+      "AM_POSTPROCESS_PO_MAKEFILE",
+      "AM_XGETTEXT_OPTION_INIT",
+      "AM_XGETTEXT_OPTION",
+      "AC_LIB_LINKFLAGS",
+      "AC_LIB_HAVE_LINKFLAGS",
+      "AC_LIB_RPATH",
+      "AC_LIB_FROMPACKAGE",
+      "AC_LIB_LINKFLAGS_BODY",
+      "AC_LIB_APPENDTOVAR",
+      "AC_LIB_LINKFLAGS_FROM_LIBS",
+      "AM_PATH_PROG_WITH_TEST",
+      "AM_ICONV_LINKFLAGS_BODY",
+      "AM_ICONV_LINK",
+      "AM_ICONV"
+    ],
     "permitted_mutations": 10,
     "suspect_global_mutations": 0
   },
@@ -522,16 +843,37 @@
     "provided_symbols_sample": []
   },
   "risk_factors": [
-    "gettext-support-files-missing",
     "modern-compiler-strictness (no explicit C std)"
+  ],
+  "repair_hints": [
+    {
+      "id": "unexpanded-makefile-vars",
+      "phase": "make",
+      "confidence": 0.8,
+      "evidence": [
+        "@LIBAVUTIL_LIBS@"
+      ],
+      "action": "add these to STD_VAR_SED / AC_SUBST handling",
+      "expected_effect": "removes raw @VAR@ from Makefile"
+    },
+    {
+      "id": "unexpanded-makefile-vars",
+      "phase": "make",
+      "confidence": 0.8,
+      "evidence": [
+        "@CROSS_COMPILING@"
+      ],
+      "action": "add these to STD_VAR_SED / AC_SUBST handling",
+      "expected_effect": "removes raw @VAR@ from Makefile"
+    }
   ],
   "scenario_context": {
     "temporal_map": {
-      "Makefile.am": 0,
-      "Makefile.in": 1384,
-      "aclocal.m4": 8,
-      "config.h.in": 22,
-      "configure": 16,
+      "Makefile.am": -1,
+      "Makefile.in": 4661,
+      "aclocal.m4": 4023,
+      "config.h.in": 4497,
+      "configure": 4346,
       "configure.ac": 0
     },
     "m4_ancestry": {

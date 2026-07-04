@@ -129,6 +129,34 @@
       "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar strerror_r ();\\nint main() { return strerror_r(); }"
     ]
   },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "fail",
+    "real_configure_lines": 10076,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE",
+    "internal_traces": [
+      "configure.ac:32: warning: The macro `AC_PROG_CC_STDC' is obsolete.",
+      "configure.ac:58: installing 'acaux/ar-lib'",
+      "configure.ac:30: installing 'acaux/compile'",
+      "configure.ac:11: installing 'acaux/config.guess'",
+      "configure.ac:11: installing 'acaux/config.sub'",
+      "configure.ac:12: installing 'acaux/install-sh'",
+      "configure.ac:12: installing 'acaux/missing'",
+      "Makefile.am: installing 'acaux/depcomp'"
+    ]
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "line 1978: [[[[[<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<[ (near `<<<`)",
+    "ours_error_context": [
+      "[[[[[<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<["
+    ],
+    "ours_configure_lines": 3300,
+    "real_configure_lines": 10076,
+    "macros_ours_left_undefined": []
+  },
   "receipt": {
     "court_status": "failed",
     "probe_trace": [],
@@ -147,7 +175,7 @@
         "verified": false
       }
     ],
-    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
+    "receipt_hash": "a538dd1b607f6cd976fc862d4e8e8d63c3c1266aed35ab3625cbb61237e9478c",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -156,17 +184,21 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": [],
+    "relevant_env": [
+      "ACLOCAL_PATH=/usr/share/aclocal"
+    ],
     "kernel_version": "6.8.0-124-generic",
     "libc_name": "glibc",
     "libc_version": "2.39",
     "pkg_config_path": [],
-    "env_vars_influential": {},
+    "env_vars_influential": {
+      "ACLOCAL_PATH": "/usr/share/aclocal"
+    },
     "posix_flavor": "gnu",
     "shell": "dash",
     "oracle_tool_versions": {
       "autoconf": "2.71",
-      "automake": "1.16.5",
+      "automake": "1.18.1",
       "libtool": "2.4.7",
       "m4": "1.4.19"
     },
@@ -242,7 +274,7 @@
           ".",
           "t"
         ],
-        "sources_include_config_h": false,
+        "sources_include_config_h": true,
         "am_cppflags": "-I$(srcdir)/include"
       },
       {
@@ -279,6 +311,57 @@
     "config_h_consumers_below_root": [
       "t/libtap",
       "t/libgdmaps"
+    ]
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 2590,
+        "unexpanded_vars": [
+          "@GDNSD_RUNDIR@",
+          "@GDNSD_CONFIGDIR@"
+        ],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "t/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 687,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "t/libtap/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 606,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "t/libgdmaps/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 995,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      }
     ]
   },
   "tool_requirements": {
@@ -444,10 +527,10 @@
     "unresolved_macros": []
   },
   "conditional_context": {
-    "configure_if": 165,
-    "configure_fi": 151,
-    "configure_case": 65,
-    "configure_esac": 68,
+    "configure_if": 580,
+    "configure_fi": 539,
+    "configure_case": 179,
+    "configure_esac": 165,
     "balanced": false,
     "automake_conditionals": [
       "DO_SYSD_UNITFILE",
@@ -460,12 +543,11 @@
       "install-sh",
       "missing",
       "depcomp",
-      "compile"
-    ],
-    "missing": [
+      "compile",
       "config.guess",
       "config.sub"
-    ]
+    ],
+    "missing": []
   },
   "language_surface": {
     "source_suffixes": {
@@ -479,11 +561,86 @@
     "needs_fortran": false,
     "sets_c_std": false
   },
+  "make_graph": {
+    "targets": [
+      "all",
+      ".SUFFIXES",
+      "am--refresh",
+      "$(srcdir)/Makefile.in",
+      "Makefile",
+      "$(top_builddir)/config.status",
+      "$(top_srcdir)/configure",
+      "$(ACLOCAL_M4)",
+      "$(am__aclocal_m4_deps)",
+      "config.h",
+      "stamp-h1",
+      "$(srcdir)/config.h.in",
+      "distclean-hdr",
+      "install-binPROGRAMS",
+      "uninstall-binPROGRAMS",
+      "clean-binPROGRAMS",
+      "install-pkglibexecPROGRAMS",
+      "uninstall-pkglibexecPROGRAMS",
+      "clean-pkglibexecPROGRAMS",
+      "install-sbinPROGRAMS",
+      "uninstall-sbinPROGRAMS",
+      "clean-sbinPROGRAMS",
+      "clean-noinstLIBRARIES",
+      "libgdmaps/$(am__dirstamp)",
+      "libgdmaps/$(DEPDIR)/$(am__dirstamp)",
+      "libgdmaps/gdmaps.$(OBJEXT)",
+      "libgdmaps/dcinfo.$(OBJEXT)",
+      "libgdmaps/dclists.$(OBJEXT)",
+      "libgdmaps/dcmap.$(OBJEXT)",
+      "libgdmaps/nlist.$(OBJEXT)",
+      "libgdmaps/ntree.$(OBJEXT)",
+      "libgdmaps/nets.$(OBJEXT)",
+      "libgdmaps/gdgeoip2.$(OBJEXT)",
+      "libgdmaps/libgdmaps.a",
+      "libgdnsd/$(am__dirstamp)",
+      "libgdnsd/$(DEPDIR)/$(am__dirstamp)",
+      "libgdnsd/libgdnsd_a-dname.$(OBJEXT)",
+      "libgdnsd/libgdnsd_a-net.$(OBJEXT)",
+      "libgdnsd/libgdnsd_a-log.$(OBJEXT)",
+      "libgdnsd/libgdnsd_a-misc.$(OBJEXT)"
+    ],
+    "key_variables": {
+      "AR": "ar",
+      "CC": "gcc",
+      "CFLAGS": "-g -O2 -pthread -fPIE -fstack-protector-strong -fstack-clash-protection -fexceptions -ftrapv -mshstk -fcf-protection=full -fno-common -pipe -Wall -Wno-pragmas",
+      "CPPFLAGS": "-D_FORTIFY_SOURCE=2 -DNDEBUG",
+      "DEFAULT_INCLUDES": "-I.",
+      "DEFS": "-DHAVE_CONFIG_H",
+      "LDFLAGS": "-pie -Wl,-z,relro -Wl,-z,now -Wl,-z,noexecstack",
+      "LIBS": "-lpthread",
+      "RANLIB": "ranlib"
+    },
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "config.h",
+      "stamp-h1",
+      "config.log"
+    ],
+    "recursion_depth": 2,
+    "top_targets": [
+      "all"
+    ],
+    "make_diagnostics": []
+  },
   "toolchain_interaction": {
     "compiler": "cc",
     "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
     "c_std_default_risk": true,
-    "defines_sampled": []
+    "defines_sampled": [
+      "_FORTIFY_SOURCE=2",
+      "NDEBUG",
+      "HAVE_CONFIG_H",
+      "GDNSD_DEFPATH_CONFIG='\"$(GDNSD_DEFPATH_CONFIG)\"'",
+      "GDNSD_DEFPATH_RUN='\"$(GDNSD_DEFPATH_RUN)\"'",
+      "GDNSD_DEFPATH_STATE='\"$(GDNSD_DEFPATH_STATE)\"'",
+      "GDNSD_DEFPATH_LIBEXEC='\"$(GDNSD_DEFPATH_LIBEXEC)\"'"
+    ]
   },
   "quirk_history": [
     {
@@ -524,7 +681,7 @@
     }
   ],
   "verification": {
-    "vs_gnu": "not-compared",
+    "vs_gnu": "ours-worse",
     "output_match": "not-compared"
   },
   "vpath_analysis": {
@@ -633,6 +790,17 @@
   ],
   "repair_hints": [
     {
+      "id": "unexpanded-makefile-vars",
+      "phase": "make",
+      "confidence": 0.8,
+      "evidence": [
+        "@GDNSD_RUNDIR@",
+        "@GDNSD_CONFIGDIR@"
+      ],
+      "action": "add these to STD_VAR_SED / AC_SUBST handling",
+      "expected_effect": "removes raw @VAR@ from Makefile"
+    },
+    {
       "id": "subdir-top-builddir",
       "phase": "make",
       "confidence": 0.88,
@@ -656,11 +824,11 @@
   ],
   "scenario_context": {
     "temporal_map": {
-      "Makefile.am": 0,
-      "Makefile.in": 1434,
-      "aclocal.m4": 14,
-      "config.h.in": 35,
-      "configure": 30,
+      "Makefile.am": -1,
+      "Makefile.in": 6228,
+      "aclocal.m4": 5635,
+      "config.h.in": 6027,
+      "configure": 5904,
       "configure.ac": 0
     },
     "m4_ancestry": {

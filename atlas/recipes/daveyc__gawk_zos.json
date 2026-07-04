@@ -146,7 +146,7 @@
       "guard": "",
       "suspect_macro": "gl_cv_host_cpu_c_abi_32bit",
       "max_indent": 176,
-      "repeating_unit": "if test \"X$dependency_libdir\" != \"X/usr/$acl_libdirstem\" \\",
+      "repeating_unit": "if test \"X$additional_includedir\" != \"X/usr/include\"; then",
       "repeat_count": 2,
       "loop_context": [
         "2734:                     if test -z \"$haveit\"; then",
@@ -163,6 +163,37 @@
         "2745:             else"
       ]
     }
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "ok",
+    "real_configure_lines": 15718,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE",
+    "internal_traces": [
+      "libtoolize: putting auxiliary files in AC_CONFIG_AUX_DIR, '../build-aux'.",
+      "libtoolize: copying file '../build-aux/ltmain.sh'",
+      "libtoolize: putting macros in AC_CONFIG_MACRO_DIRS, '../m4'.",
+      "libtoolize: copying file '../m4/libtool.m4'",
+      "libtoolize: copying file '../m4/ltoptions.m4'",
+      "libtoolize: copying file '../m4/ltsugar.m4'",
+      "libtoolize: copying file '../m4/ltversion.m4'",
+      "libtoolize: copying file '../m4/lt~obsolete.m4'",
+      "configure.ac:36: installing '../build-aux/compile'",
+      "configure.ac:33: installing '../build-aux/missing'",
+      "Makefile.am: installing '../build-aux/depcomp'"
+    ]
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "line 1868: esacMSGFMT=\"$ac_cv_path_MSGFMT\" (near `newline`)",
+    "ours_error_context": [
+      "esacMSGFMT=\"$ac_cv_path_MSGFMT\""
+    ],
+    "ours_configure_lines": 6055,
+    "real_configure_lines": 15718,
+    "macros_ours_left_undefined": []
   },
   "receipt": {
     "court_status": "failed",
@@ -181,7 +212,7 @@
         "verified": false
       }
     ],
-    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
+    "receipt_hash": "a538dd1b607f6cd976fc862d4e8e8d63c3c1266aed35ab3625cbb61237e9478c",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -190,17 +221,21 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": [],
+    "relevant_env": [
+      "ACLOCAL_PATH=/usr/share/aclocal"
+    ],
     "kernel_version": "6.8.0-124-generic",
     "libc_name": "glibc",
     "libc_version": "2.39",
     "pkg_config_path": [],
-    "env_vars_influential": {},
+    "env_vars_influential": {
+      "ACLOCAL_PATH": "/usr/share/aclocal"
+    },
     "posix_flavor": "gnu",
     "shell": "dash",
     "oracle_tool_versions": {
       "autoconf": "2.71",
-      "automake": "1.16.5",
+      "automake": "1.18.1",
       "libtool": "2.4.7",
       "m4": "1.4.19"
     },
@@ -317,7 +352,7 @@
           "grcat"
         ],
         "subdirs": [],
-        "sources_include_config_h": false,
+        "sources_include_config_h": true,
         "am_cppflags": "-I$(top_builddir) -I$(top_srcdir)"
       },
       {
@@ -354,6 +389,7 @@
     ],
     "max_depth": 1,
     "config_h_consumers_below_root": [
+      "awklib",
       "support",
       "extension"
     ]
@@ -361,11 +397,120 @@
   "makefile_forensics": {
     "generated_makefiles": [
       {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1343,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "awklib/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 739,
+        "first_parse_error": {
+          "line": 718,
+          "kind": "missing-separator",
+          "text": "$(srcdir)/eg/lib/pwcat.c $(srcdir)/eg/lib/grcat.c $(srcdir)/eg/prog/igawk.sh \\",
+          "previous_lines": [
+            "\t$(LN_S) $(srcdir)/eg/lib/grcat.c .",
+            ""
+          ],
+          "probable_cause": "shell-fragment-in-make"
+        },
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "extras/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 549,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "support/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 744,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "doc/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 971,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
         "path": "pc/Makefile",
         "has_makefile_in": false,
         "has_makefile_am": false,
         "lines": 445,
         "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "po/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": false,
+        "lines": 693,
+        "unexpanded_vars": [
+          "@CROSS_COMPILING@"
+        ],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "test/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 5395,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "extension/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1416,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "extension/po/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": false,
+        "lines": 645,
+        "unexpanded_vars": [
+          "@CROSS_COMPILING@"
+        ],
         "unexpanded_automake_tokens": [],
         "recipe_tab_anomalies": 0
       }
@@ -752,10 +897,10 @@
     "unresolved_macros": []
   },
   "conditional_context": {
-    "configure_if": 480,
-    "configure_fi": 445,
-    "configure_case": 103,
-    "configure_esac": 106,
+    "configure_if": 1191,
+    "configure_fi": 1100,
+    "configure_case": 239,
+    "configure_esac": 222,
     "balanced": false,
     "automake_conditionals": [
       "TEST_CROSS_COMPILE",
@@ -774,8 +919,8 @@
   },
   "language_surface": {
     "source_suffixes": {
-      "c": 100,
-      "h": 46
+      "c": 102,
+      "h": 47
     },
     "configure_macros": [
       "AC_PROG_CC"
@@ -792,11 +937,86 @@
       "config.rpath"
     ]
   },
+  "make_graph": {
+    "targets": [
+      "all",
+      ".SUFFIXES",
+      "am--refresh",
+      "$(srcdir)/Makefile.in",
+      "Makefile",
+      "$(top_builddir)/config.status",
+      "$(top_srcdir)/configure",
+      "$(ACLOCAL_M4)",
+      "$(am__aclocal_m4_deps)",
+      "config.h",
+      "stamp-h1",
+      "$(srcdir)/configh.in",
+      "distclean-hdr",
+      "install-binPROGRAMS",
+      "uninstall-binPROGRAMS",
+      "clean-binPROGRAMS",
+      "gawk$(EXEEXT)",
+      "mostlyclean-compile",
+      "distclean-compile",
+      "$(am__depfiles_remade)",
+      "am--depfiles",
+      ".c.o",
+      ".c.obj",
+      ".y.c",
+      "install-includeHEADERS",
+      "uninstall-includeHEADERS",
+      "$(am__recursive_targets)",
+      "ID",
+      "tags",
+      "TAGS",
+      "tags-am",
+      "ctags",
+      "CTAGS",
+      "ctags-am",
+      "GTAGS",
+      "cscope",
+      "clean-cscope",
+      "cscope.files",
+      "cscopelist",
+      "cscopelist-am"
+    ],
+    "key_variables": {
+      "AR": "ar",
+      "CC": "gcc",
+      "CFLAGS": "-g -O2 -DNDEBUG",
+      "CPPFLAGS": "",
+      "DEFAULT_INCLUDES": "-I.",
+      "DEFS": "-DDEFPATH=$(DEFPATH) -DDEFLIBPATH=$(DEFLIBPATH) -DSHLIBEXT=$(SHLIBEXT) -DHAVE_CONFIG_H -DGAWK -DLOCALEDIR='\"$(datadir)/locale\"' -I\"$(srcdir)/support\"",
+      "LDFLAGS": "",
+      "LIBS": "-lm",
+      "RANLIB": "ranlib"
+    },
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "config.h",
+      "stamp-h1",
+      "config.log"
+    ],
+    "recursion_depth": 1,
+    "top_targets": [
+      "all"
+    ],
+    "make_diagnostics": []
+  },
   "toolchain_interaction": {
     "compiler": "cc",
     "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
     "c_std_default_risk": true,
-    "defines_sampled": []
+    "defines_sampled": [
+      "NDEBUG",
+      "DEFPATH=$(DEFPATH)",
+      "DEFLIBPATH=$(DEFLIBPATH)",
+      "SHLIBEXT=$(SHLIBEXT)",
+      "HAVE_CONFIG_H",
+      "GAWK",
+      "LOCALEDIR='\"$(datadir)/locale\"'"
+    ]
   },
   "quirk_history": [
     {
@@ -831,7 +1051,7 @@
     }
   ],
   "verification": {
-    "vs_gnu": "not-compared",
+    "vs_gnu": "ours-worse",
     "output_match": "not-compared"
   },
   "vpath_analysis": {
@@ -1002,10 +1222,42 @@
   ],
   "repair_hints": [
     {
+      "id": "makefile-shell-fragment-in-make",
+      "phase": "make",
+      "confidence": 0.5,
+      "evidence": [
+        "awklib/Makefile:718 missing-separator",
+        "$(srcdir)/eg/lib/pwcat.c $(srcdir)/eg/lib/grcat.c $(srcdir)/eg/prog/igawk.sh \\"
+      ],
+      "action": "classify-shell-fragment-in-make",
+      "expected_effect": "partial -> FUNC_OK candidate"
+    },
+    {
+      "id": "unexpanded-makefile-vars",
+      "phase": "make",
+      "confidence": 0.8,
+      "evidence": [
+        "@CROSS_COMPILING@"
+      ],
+      "action": "add these to STD_VAR_SED / AC_SUBST handling",
+      "expected_effect": "removes raw @VAR@ from Makefile"
+    },
+    {
+      "id": "unexpanded-makefile-vars",
+      "phase": "make",
+      "confidence": 0.8,
+      "evidence": [
+        "@CROSS_COMPILING@"
+      ],
+      "action": "add these to STD_VAR_SED / AC_SUBST handling",
+      "expected_effect": "removes raw @VAR@ from Makefile"
+    },
+    {
       "id": "subdir-top-builddir",
       "phase": "make",
       "confidence": 0.88,
       "evidence": [
+        "awklib consumes config.h below root",
         "support consumes config.h below root",
         "extension consumes config.h below root"
       ],
@@ -1015,10 +1267,10 @@
   ],
   "scenario_context": {
     "temporal_map": {
-      "Makefile.am": -11,
-      "Makefile.in": 1930,
-      "aclocal.m4": 151,
-      "configure": 236,
+      "Makefile.am": -8,
+      "Makefile.in": 15288,
+      "aclocal.m4": 8968,
+      "configure": 14958,
       "configure.ac": 0
     },
     "m4_ancestry": {

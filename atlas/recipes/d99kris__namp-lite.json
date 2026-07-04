@@ -83,6 +83,36 @@
       "#include <ao/ao.h>"
     ]
   },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "ok",
+    "real_configure_lines": 17138,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE",
+    "internal_traces": [
+      "libtoolize: putting auxiliary files in '.'.",
+      "libtoolize: copying file './ltmain.sh'",
+      "libtoolize: putting macros in AC_CONFIG_MACRO_DIRS, 'm4'.",
+      "libtoolize: copying file 'm4/libtool.m4'",
+      "libtoolize: copying file 'm4/ltoptions.m4'",
+      "libtoolize: copying file 'm4/ltsugar.m4'",
+      "libtoolize: copying file 'm4/ltversion.m4'",
+      "libtoolize: copying file 'm4/lt~obsolete.m4'",
+      "configure.ac:61: warning: The macro `AC_PROG_LIBTOOL' is obsolete.",
+      "configure.ac:9: installing './compile'",
+      "configure.ac:4: installing './missing'",
+      "src/Makefile.am: installing './depcomp'"
+    ]
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "",
+    "ours_error_context": [],
+    "ours_configure_lines": 2685,
+    "real_configure_lines": 17138,
+    "macros_ours_left_undefined": []
+  },
   "receipt": {
     "court_status": "failed",
     "probe_trace": [],
@@ -91,7 +121,7 @@
       "has-m4-macro-dir",
       "vendored-aclocal"
     ],
-    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
+    "receipt_hash": "a538dd1b607f6cd976fc862d4e8e8d63c3c1266aed35ab3625cbb61237e9478c",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -100,17 +130,21 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": [],
+    "relevant_env": [
+      "ACLOCAL_PATH=/usr/share/aclocal"
+    ],
     "kernel_version": "6.8.0-124-generic",
     "libc_name": "glibc",
     "libc_version": "2.39",
     "pkg_config_path": [],
-    "env_vars_influential": {},
+    "env_vars_influential": {
+      "ACLOCAL_PATH": "/usr/share/aclocal"
+    },
     "posix_flavor": "gnu",
     "shell": "dash",
     "oracle_tool_versions": {
       "autoconf": "2.71",
-      "automake": "1.16.5",
+      "automake": "1.18.1",
       "libtool": "2.4.7",
       "m4": "1.4.19"
     },
@@ -183,6 +217,32 @@
     ],
     "max_depth": 1,
     "config_h_consumers_below_root": []
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 835,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 969,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      }
+    ]
   },
   "tool_requirements": {
     "detected": [
@@ -343,6 +403,11 @@
         "kind": "AC"
       },
       {
+        "name": "_LT_DLL_DEF_P",
+        "source": "m4/libtool.m4",
+        "kind": "project-local"
+      },
+      {
         "name": "LT_LIB_M",
         "source": "m4/libtool.m4",
         "kind": "LT"
@@ -491,11 +556,6 @@
         "name": "_LT_AC_SYS_LIBPATH_AIX",
         "source": "m4/lt~obsolete.m4",
         "kind": "project-local"
-      },
-      {
-        "name": "_LT_PROG_LTMAIN",
-        "source": "m4/lt~obsolete.m4",
-        "kind": "project-local"
       }
     ],
     "called_macros": [
@@ -516,10 +576,10 @@
     "unresolved_macros": []
   },
   "conditional_context": {
-    "configure_if": 107,
-    "configure_fi": 103,
-    "configure_case": 63,
-    "configure_esac": 66,
+    "configure_if": 994,
+    "configure_fi": 899,
+    "configure_case": 343,
+    "configure_esac": 330,
     "balanced": false,
     "automake_conditionals": []
   },
@@ -537,7 +597,7 @@
   "language_surface": {
     "source_suffixes": {
       "c": 11,
-      "h": 12
+      "h": 11
     },
     "configure_macros": [
       "AC_PROG_CC"
@@ -558,11 +618,98 @@
     ],
     "age": "old"
   },
+  "make_graph": {
+    "targets": [
+      "all",
+      ".SUFFIXES",
+      "am--refresh",
+      "$(srcdir)/Makefile.in",
+      "Makefile",
+      "$(top_builddir)/config.status",
+      "$(top_srcdir)/configure",
+      "$(ACLOCAL_M4)",
+      "$(am__aclocal_m4_deps)",
+      "mostlyclean-libtool",
+      "clean-libtool",
+      "distclean-libtool",
+      "$(am__recursive_targets)",
+      "ID",
+      "tags",
+      "TAGS",
+      "tags-am",
+      "ctags",
+      "CTAGS",
+      "ctags-am",
+      "GTAGS",
+      "cscope",
+      "clean-cscope",
+      "cscope.files",
+      "cscopelist",
+      "cscopelist-am",
+      "distclean-tags",
+      "distdir",
+      "distdir-am",
+      "dist-gzip",
+      "dist-bzip2",
+      "dist-bzip3",
+      "dist-lzip",
+      "dist-xz",
+      "dist-zstd",
+      "dist-tarZ",
+      "dist-shar",
+      "dist-zip",
+      "dist",
+      "dist-all"
+    ],
+    "key_variables": {
+      "AR": "ar",
+      "CC": "gcc",
+      "CFLAGS": "-g -O2",
+      "CPPFLAGS": "",
+      "DEFS": "-DPACKAGE_NAME=\\\"namp\\\" -DPACKAGE_TARNAME=\\\"namp\\\" -DPACKAGE_VERSION=\\\"1.03\\\" -DPACKAGE_STRING=\\\"namp\\ 1.03\\\" -DPACKAGE_BUGREPORT=\\\"kristofer.berggren@gmail.com",
+      "LDFLAGS": "",
+      "LIBS": "-lcrypto -lcurl -ltag_c -lasound -lao -lmpg123 -lncursesw",
+      "RANLIB": "ranlib"
+    },
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "libtool",
+      "config.log"
+    ],
+    "recursion_depth": 1,
+    "top_targets": [
+      "all",
+      "dist"
+    ],
+    "make_diagnostics": []
+  },
   "toolchain_interaction": {
     "compiler": "cc",
     "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
     "c_std_default_risk": true,
-    "defines_sampled": []
+    "defines_sampled": [
+      "PACKAGE_NAME=\\\"namp\\\"",
+      "PACKAGE_TARNAME=\\\"namp\\\"",
+      "PACKAGE_VERSION=\\\"1.03\\\"",
+      "PACKAGE_STRING=\\\"namp\\",
+      "PACKAGE_BUGREPORT=\\\"kristofer.berggren@gmail.com\\\"",
+      "PACKAGE_URL=\\\"https://github.com/d99kris/namp-lite\\\"",
+      "PACKAGE=\\\"namp\\\"",
+      "VERSION=\\\"1.03\\\"",
+      "HAVE_LIBNCURSESW=1",
+      "HAVE_STDIO_H=1",
+      "HAVE_STDLIB_H=1",
+      "HAVE_STRING_H=1",
+      "HAVE_INTTYPES_H=1",
+      "HAVE_STDINT_H=1",
+      "HAVE_STRINGS_H=1",
+      "HAVE_SYS_STAT_H=1",
+      "HAVE_SYS_TYPES_H=1",
+      "HAVE_UNISTD_H=1",
+      "STDC_HEADERS=1",
+      "HAVE_LIBMPG123=1"
+    ]
   },
   "quirk_history": [
     {
@@ -585,7 +732,7 @@
     }
   ],
   "verification": {
-    "vs_gnu": "not-compared",
+    "vs_gnu": "ours-worse",
     "output_match": "not-compared"
   },
   "feature_probe_gap": {
@@ -687,9 +834,9 @@
   "scenario_context": {
     "temporal_map": {
       "Makefile.am": -2,
-      "Makefile.in": 1397,
-      "aclocal.m4": 7,
-      "configure": 35,
+      "Makefile.in": 6134,
+      "aclocal.m4": 5727,
+      "configure": 5904,
       "configure.ac": 0
     },
     "m4_ancestry": {

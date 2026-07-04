@@ -98,7 +98,7 @@
   "outputs": [],
   "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "../config.h:7:29: error: expected ')' before ':' token",
+  "diagnostic": "haveged.c:71:21: error: 'PACKAGE' undeclared here (not in a function); did you mean 'PACKAGE_URL'?",
   "deep_expansion": {
     "configure_lines": 3242,
     "leaked_macros": [],
@@ -162,6 +162,39 @@
       "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func ();\\nint main() { return $ac_func(); }",
       "#include <$ac_hdr>"
     ]
+  },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "ok",
+    "real_configure_lines": 16824,
+    "real_first_error": "",
+    "classification": "OURS_BUG_MAKE",
+    "internal_traces": [
+      "libtoolize: putting auxiliary files in AC_CONFIG_AUX_DIR, 'config'.",
+      "libtoolize: copying file 'config/ltmain.sh'",
+      "libtoolize: Consider adding 'AC_CONFIG_MACRO_DIRS([m4])' to configure.ac,",
+      "libtoolize: and rerunning libtoolize and aclocal.",
+      "libtoolize: Consider adding '-I m4' to ACLOCAL_AMFLAGS in Makefile.am.",
+      "configure.ac:9: warning: The macro `AC_CONFIG_HEADER' is obsolete.",
+      "configure.ac:17: warning: The macro `AC_PROG_LIBTOOL' is obsolete.",
+      "configure.ac:18: warning: The macro `AM_ENABLE_SHARED' is obsolete.",
+      "configure.ac:19: warning: The macro `AM_DISABLE_STATIC' is obsolete.",
+      "configure.ac:102: warning: The macro `AC_HEADER_TIME' is obsolete.",
+      "configure.ac:107: warning: The macro `AC_TYPE_SIGNAL' is obsolete.",
+      "configure.ac:111: warning: The macro `AC_HEADER_STDC' is obsolete.",
+      "configure.ac:137: warning: The macro `AC_TRY_LINK' is obsolete.",
+      "configure.ac:8: installing 'config/compile'",
+      "configure.ac:10: installing 'config/missing'"
+    ]
+  },
+  "divergence": {
+    "stage": "make",
+    "ours_error": "",
+    "ours_error_context": [],
+    "ours_configure_lines": 3242,
+    "real_configure_lines": 16824,
+    "macros_ours_left_undefined": []
   },
   "receipt": {
     "court_status": "partial",
@@ -449,7 +482,7 @@
       "uses-subdir-objects",
       "vendored-aclocal"
     ],
-    "receipt_hash": "29ca4b556932c7486d19088b896b1e13ee2f240d981c4e5343d42c40be0c3044",
+    "receipt_hash": "6e81592a05daadc284ca4ddc04e531bf8e100f22df1a2987a14fc64f0f9ad775",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -458,17 +491,21 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": [],
+    "relevant_env": [
+      "ACLOCAL_PATH=/usr/share/aclocal"
+    ],
     "kernel_version": "6.8.0-124-generic",
     "libc_name": "glibc",
     "libc_version": "2.39",
     "pkg_config_path": [],
-    "env_vars_influential": {},
+    "env_vars_influential": {
+      "ACLOCAL_PATH": "/usr/share/aclocal"
+    },
     "posix_flavor": "gnu",
     "shell": "dash",
     "oracle_tool_versions": {
       "autoconf": "2.71",
-      "automake": "1.16.5",
+      "automake": "1.18.1",
       "libtool": "2.4.7",
       "m4": "1.4.19"
     },
@@ -561,7 +598,7 @@
           "ent",
           "nist"
         ],
-        "sources_include_config_h": false,
+        "sources_include_config_h": true,
         "am_cppflags": ""
       },
       {
@@ -605,7 +642,7 @@
         "path": "Makefile",
         "has_makefile_in": true,
         "has_makefile_am": true,
-        "lines": 549,
+        "lines": 930,
         "unexpanded_vars": [],
         "unexpanded_automake_tokens": [
           "$(am__"
@@ -616,7 +653,7 @@
         "path": "ent/Makefile",
         "has_makefile_in": true,
         "has_makefile_am": true,
-        "lines": 464,
+        "lines": 586,
         "unexpanded_vars": [],
         "unexpanded_automake_tokens": [
           "$(am__"
@@ -627,7 +664,7 @@
         "path": "nist/Makefile",
         "has_makefile_in": true,
         "has_makefile_am": true,
-        "lines": 464,
+        "lines": 585,
         "unexpanded_vars": [],
         "unexpanded_automake_tokens": [
           "$(am__"
@@ -638,7 +675,7 @@
         "path": "src/Makefile",
         "has_makefile_in": true,
         "has_makefile_am": true,
-        "lines": 529,
+        "lines": 797,
         "unexpanded_vars": [],
         "unexpanded_automake_tokens": [
           "$(am__"
@@ -649,7 +686,7 @@
         "path": "init.d/Makefile",
         "has_makefile_in": true,
         "has_makefile_am": true,
-        "lines": 453,
+        "lines": 547,
         "unexpanded_vars": [],
         "unexpanded_automake_tokens": [
           "$(am__"
@@ -660,7 +697,7 @@
         "path": "man/Makefile",
         "has_makefile_in": true,
         "has_makefile_am": true,
-        "lines": 456,
+        "lines": 579,
         "unexpanded_vars": [],
         "unexpanded_automake_tokens": [
           "$(am__"
@@ -714,10 +751,10 @@
     "unresolved_macros": []
   },
   "conditional_context": {
-    "configure_if": 164,
-    "configure_fi": 155,
-    "configure_case": 68,
-    "configure_esac": 71,
+    "configure_if": 967,
+    "configure_fi": 880,
+    "configure_case": 327,
+    "configure_esac": 314,
     "balanced": false,
     "automake_conditionals": [
       "ENABLE_BIN",
@@ -763,60 +800,60 @@
       "LT_LANG"
     ],
     "ltmain_present": false,
-    "libtool_m4_sources": [],
+    "libtool_m4_sources": [
+      "aclocal.m4"
+    ],
     "age": "modern"
   },
   "make_graph": {
     "targets": [
       "all",
-      "all-am",
-      "install-exec-am",
-      "uninstall-am",
-      "install-am",
-      "installcheck-am",
-      "install-strip",
-      "install-info",
-      "install-info-am",
-      "install-dvi",
-      "install-dvi-am",
-      "install-ps",
-      "install-ps-am",
-      "install-pdf",
-      "install-pdf-am",
-      "install-html",
-      "install-html-am",
-      "install-data-hook",
-      "install-exec-hook",
-      "installdirs-am",
-      ".PHONY",
-      "mostlyclean-am",
-      "clean-am",
-      "distclean-am",
-      "maintainer-clean-am",
-      "distdir",
-      "dist",
-      "dist-all",
-      "dist-gzip",
-      "distcleancheck",
-      "distcheck",
-      "check-am",
-      "TAGS",
+      ".SUFFIXES",
+      "am--refresh",
+      "$(srcdir)/Makefile.in",
+      "Makefile",
+      "$(top_builddir)/config.status",
+      "$(top_srcdir)/configure",
+      "$(ACLOCAL_M4)",
+      "$(am__aclocal_m4_deps)",
+      "config.h",
+      "stamp-h1",
+      "$(srcdir)/config.h.in",
+      "distclean-hdr",
+      "ent/$(am__dirstamp)",
+      "ent/entest.$(OBJEXT)",
+      "ent/entest$(EXEEXT)",
+      "nist/$(am__dirstamp)",
+      "nist/nist.$(OBJEXT)",
+      "nist/nist$(EXEEXT)",
+      "mostlyclean-compile",
+      "distclean-compile",
+      ".c.o",
+      ".c.obj",
+      ".c.lo",
+      "mostlyclean-libtool",
+      "clean-libtool",
+      "distclean-libtool",
+      "$(am__recursive_targets)",
+      "ID",
       "tags",
-      "TAGS-am",
+      "TAGS",
       "tags-am",
+      "ctags",
+      "CTAGS",
+      "ctags-am",
+      "GTAGS",
       "cscope",
-      "cscope-am",
-      "distuninstallcheck",
-      "$(srcdir)/Makefile.in"
+      "clean-cscope",
+      "cscope.files",
+      "cscopelist"
     ],
     "key_variables": {
       "AR": "ar",
-      "CC": "cc",
+      "CC": "gcc",
       "CFLAGS": "-g -O2",
       "CPPFLAGS": "",
-      "CXX": "c++",
-      "CXXFLAGS": "-g -O2",
-      "DEFAULT_INCLUDES": "-I. -I$(top_builddir)",
+      "DEFAULT_INCLUDES": "-I.",
       "DEFS": "-DHAVE_CONFIG_H",
       "LDFLAGS": "",
       "LIBS": "",
@@ -827,15 +864,29 @@
       "config.status",
       "config.h",
       "libtool",
+      "stamp-h1",
       "config.log"
     ],
     "recursion_depth": 1,
     "top_targets": [
-      "all",
-      "dist",
-      "all-am"
+      "all"
     ],
     "make_diagnostics": [
+      {
+        "command": "",
+        "error_type": "compiler-error",
+        "message": "haveged.c:71:21: error: 'PACKAGE' undeclared here (not in a function); did you mean 'PACKAGE_URL'?"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[2]: *** [Makefile:522: haveged.o] Error 1"
+      },
+      {
+        "command": "",
+        "error_type": "make-syntax",
+        "message": "make[2]: *** Waiting for unfinished jobs...."
+      },
       {
         "command": "",
         "error_type": "compiler-error",
@@ -850,21 +901,6 @@
         "command": "",
         "error_type": "make-syntax",
         "message": "make[2]: *** [Makefile:510: libhavege_la-havege.lo] Error 1"
-      },
-      {
-        "command": "",
-        "error_type": "make-syntax",
-        "message": "make[2]: *** Waiting for unfinished jobs...."
-      },
-      {
-        "command": "",
-        "error_type": "compiler-error",
-        "message": "haveged.c:71:21: error: 'PACKAGE' undeclared here (not in a function); did you mean 'PACKAGE_URL'?"
-      },
-      {
-        "command": "",
-        "error_type": "make-syntax",
-        "message": "make[2]: *** [Makefile:522: haveged.o] Error 1"
       },
       {
         "command": "",
@@ -913,7 +949,7 @@
     }
   ],
   "verification": {
-    "vs_gnu": "not-compared",
+    "vs_gnu": "ours-worse",
     "output_match": "not-compared"
   },
   "feature_probe_gap": {
@@ -1017,11 +1053,11 @@
   ],
   "scenario_context": {
     "temporal_map": {
-      "Makefile.am": -5,
-      "Makefile.in": 1817,
-      "aclocal.m4": 12,
-      "config.h.in": 24,
-      "configure": 20,
+      "Makefile.am": -4,
+      "Makefile.in": 7639,
+      "aclocal.m4": 7151,
+      "config.h.in": 7485,
+      "configure": 7328,
       "configure.ac": 0
     },
     "m4_ancestry": {

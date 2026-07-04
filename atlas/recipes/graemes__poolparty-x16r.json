@@ -111,6 +111,30 @@
       "AC_INCLUDES_DEFAULT\\n#ifdef HAVE_SYS_ENDIAN_H\\n#include <sys/endian.h>\\n#endif\\n\\nint main (void)\\n{\\n#ifndef le32enc\\n(void) le32enc;\\n#endif\\n;\\nreturn 0;"
     ]
   },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "fail",
+    "real_configure_lines": 9290,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE",
+    "internal_traces": [
+      "configure.ac:4: warning: The macro `AC_CANONICAL_SYSTEM' is obsolete.",
+      "configure.ac:13: warning: The macro `AC_PROG_CC_C99' is obsolete.",
+      "configure.ac:22: warning: The macro `AC_HEADER_STDC' is obsolete.",
+      "configure.ac:4: installing './config.sub'",
+      "configure.ac:6: installing './missing'",
+      "Makefile.am: installing './depcomp'"
+    ]
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "",
+    "ours_error_context": [],
+    "ours_configure_lines": 2990,
+    "real_configure_lines": 9290,
+    "macros_ours_left_undefined": []
+  },
   "receipt": {
     "court_status": "failed",
     "probe_trace": [],
@@ -131,7 +155,7 @@
         "verified": false
       }
     ],
-    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
+    "receipt_hash": "a538dd1b607f6cd976fc862d4e8e8d63c3c1266aed35ab3625cbb61237e9478c",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -140,17 +164,21 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": [],
+    "relevant_env": [
+      "ACLOCAL_PATH=/usr/share/aclocal"
+    ],
     "kernel_version": "6.8.0-124-generic",
     "libc_name": "glibc",
     "libc_version": "2.39",
     "pkg_config_path": [],
-    "env_vars_influential": {},
+    "env_vars_influential": {
+      "ACLOCAL_PATH": "/usr/share/aclocal"
+    },
     "posix_flavor": "gnu",
     "shell": "dash",
     "oracle_tool_versions": {
       "autoconf": "2.71",
-      "automake": "1.16.5",
+      "automake": "1.18.1",
       "libtool": "2.4.7",
       "m4": "1.4.19"
     },
@@ -250,6 +278,43 @@
       "compat/jansson"
     ]
   },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 1988,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "compat/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 631,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "compat/jansson/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 639,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      }
+    ]
+  },
   "tool_requirements": {
     "detected": [
       "c++"
@@ -294,10 +359,10 @@
     "unresolved_macros": []
   },
   "conditional_context": {
-    "configure_if": 128,
-    "configure_fi": 125,
-    "configure_case": 65,
-    "configure_esac": 68,
+    "configure_if": 549,
+    "configure_fi": 503,
+    "configure_case": 159,
+    "configure_esac": 145,
     "balanced": false,
     "automake_conditionals": [
       "WANT_JANSSON",
@@ -318,11 +383,10 @@
       "missing",
       "depcomp",
       "compile",
-      "config.guess"
-    ],
-    "missing": [
+      "config.guess",
       "config.sub"
-    ]
+    ],
+    "missing": []
   },
   "language_surface": {
     "source_suffixes": {
@@ -340,11 +404,82 @@
     "needs_fortran": false,
     "sets_c_std": true
   },
+  "make_graph": {
+    "targets": [
+      "all",
+      ".SUFFIXES",
+      "am--refresh",
+      "$(srcdir)/Makefile.in",
+      "Makefile",
+      "$(top_builddir)/config.status",
+      "$(top_srcdir)/configure",
+      "$(ACLOCAL_M4)",
+      "$(am__aclocal_m4_deps)",
+      "ccminer-config.h",
+      "stamp-h1",
+      "$(srcdir)/ccminer-config.h.in",
+      "distclean-hdr",
+      "install-binPROGRAMS",
+      "uninstall-binPROGRAMS",
+      "clean-binPROGRAMS",
+      "sph/$(am__dirstamp)",
+      "sph/$(DEPDIR)/$(am__dirstamp)",
+      "sph/ccminer-fugue.$(OBJEXT)",
+      "sph/ccminer-bmw.$(OBJEXT)",
+      "sph/ccminer-blake.$(OBJEXT)",
+      "sph/ccminer-groestl.$(OBJEXT)",
+      "sph/ccminer-jh.$(OBJEXT)",
+      "sph/ccminer-keccak.$(OBJEXT)",
+      "sph/ccminer-skein.$(OBJEXT)",
+      "sph/ccminer-cubehash.$(OBJEXT)",
+      "sph/ccminer-echo.$(OBJEXT)",
+      "sph/ccminer-luffa.$(OBJEXT)",
+      "sph/ccminer-sha2.$(OBJEXT)",
+      "sph/ccminer-shavite.$(OBJEXT)",
+      "sph/ccminer-simd.$(OBJEXT)",
+      "sph/ccminer-hamsi.$(OBJEXT)",
+      "sph/ccminer-hamsi_helper.$(OBJEXT)",
+      "sph/ccminer-streebog.$(OBJEXT)",
+      "sph/ccminer-shabal.$(OBJEXT)",
+      "sph/ccminer-whirlpool.$(OBJEXT)",
+      "sph/ccminer-sha2big.$(OBJEXT)",
+      "sph/ccminer-haval.$(OBJEXT)",
+      "sph/ccminer-ripemd.$(OBJEXT)",
+      "sph/ccminer-sph_sha2.$(OBJEXT)"
+    ],
+    "key_variables": {
+      "CC": "gcc",
+      "CFLAGS": "-g -O2",
+      "CPPFLAGS": "",
+      "CXX": "g++",
+      "CXXFLAGS": "-g -O2",
+      "DEFAULT_INCLUDES": "-I.",
+      "DEFS": "-DHAVE_CONFIG_H",
+      "LDFLAGS": "",
+      "LIBS": "-lcrypto -lssl -lz",
+      "RANLIB": "ranlib"
+    },
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "stamp-h1",
+      "config.log"
+    ],
+    "recursion_depth": 2,
+    "top_targets": [
+      "all"
+    ],
+    "make_diagnostics": []
+  },
   "toolchain_interaction": {
     "compiler": "cc",
     "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
     "c_std_default_risk": false,
-    "defines_sampled": []
+    "defines_sampled": [
+      "HAVE_CONFIG_H",
+      "USE_WRAPNVML",
+      "USE_LIBSODIUM"
+    ]
   },
   "quirk_history": [
     {
@@ -367,7 +502,7 @@
     }
   ],
   "verification": {
-    "vs_gnu": "not-compared",
+    "vs_gnu": "ours-worse",
     "output_match": "not-compared"
   },
   "feature_probe_gap": {
@@ -473,10 +608,10 @@
   ],
   "scenario_context": {
     "temporal_map": {
-      "Makefile.am": -230,
-      "Makefile.in": 1121,
-      "aclocal.m4": 14,
-      "configure": 19,
+      "Makefile.am": -291,
+      "Makefile.in": 4518,
+      "aclocal.m4": 4000,
+      "configure": 4232,
       "configure.ac": 0
     },
     "m4_ancestry": {

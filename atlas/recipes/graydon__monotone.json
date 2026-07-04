@@ -120,6 +120,51 @@
       "\\ntemplate <typename T> void foo(T);\\nextern template void foo<int>(int);\\n"
     ]
   },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "fail",
+    "real_configure_lines": 12962,
+    "real_first_error": "",
+    "classification": "OURS_BUG_CONFIGURE",
+    "internal_traces": [
+      "configure.ac:8: warning: 'AM_CONFIG_HEADER': this macro is obsolete.",
+      "configure.ac:32: warning: AC_CACHE_VAL(ac_win32, ...): suspicious cache-id, must contain _cv_ to be cached",
+      "configure.ac:32: warning: The macro `AC_TRY_COMPILE' is obsolete.",
+      "configure.ac:49: warning: AC_CACHE_VAL(ac_aix, ...): suspicious cache-id, must contain _cv_ to be cached",
+      "configure.ac:49: warning: The macro `AC_TRY_COMPILE' is obsolete.",
+      "configure.ac:66: warning: The macro `AC_HEADER_STDC' is obsolete.",
+      "configure.ac:75: warning: The macro `AC_OUTPUT_COMMANDS' is obsolete.",
+      "configure.ac:75: warning: The macro `AC_TRY_LINK' is obsolete.",
+      "configure.ac:75: warning: The macro `AC_TRY_LINK' is obsolete.",
+      "configure.ac:77: warning: The macro `AC_TRY_LINK' is obsolete.",
+      "configure.ac:77: warning: The macro `AC_TRY_COMPILE' is obsolete.",
+      "configure.ac:84: warning: The macro `AC_OUTPUT_COMMANDS' is obsolete.",
+      "configure.ac:112: warning: AC_LANG_CONFTEST: no AC_LANG_SOURCE call detected in body",
+      "configure.ac:113: warning: AC_LANG_CONFTEST: no AC_LANG_SOURCE call detected in body",
+      "configure.ac:115: warning: AC_LANG_CONFTEST: no AC_LANG_SOURCE call detected in body",
+      "configure.ac:115: warning: AC_LANG_CONFTEST: no AC_LANG_SOURCE call detected in body",
+      "configure.ac:134: warning: The macro `AC_TRY_RUN' is obsolete.",
+      "configure.ac:135: warning: The macro `AC_TRY_RUN' is obsolete.",
+      "configure.ac:143: warning: The macro `AC_HELP_STRING' is obsolete.",
+      "configure.ac:143: warning: AC_LANG_CONFTEST: no AC_LANG_SOURCE call detected in body",
+      "configure.ac:146: warning: AC_LANG_CONFTEST: no AC_LANG_SOURCE call detected in body",
+      "configure.ac:15: installing './compile'",
+      "configure.ac:75: installing './config.guess'",
+      "configure.ac:75: installing './config.sub'",
+      "configure.ac:6: installing './install-sh'"
+    ]
+  },
+  "divergence": {
+    "stage": "configure",
+    "ours_error": "line 1681: esac (near `esac`)",
+    "ours_error_context": [
+      "esac"
+    ],
+    "ours_configure_lines": 4060,
+    "real_configure_lines": 12962,
+    "macros_ours_left_undefined": []
+  },
   "receipt": {
     "court_status": "failed",
     "probe_trace": [],
@@ -128,7 +173,7 @@
       "has-m4-macro-dir",
       "vendored-aclocal"
     ],
-    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
+    "receipt_hash": "a538dd1b607f6cd976fc862d4e8e8d63c3c1266aed35ab3625cbb61237e9478c",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -137,17 +182,21 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": [],
+    "relevant_env": [
+      "ACLOCAL_PATH=/usr/share/aclocal"
+    ],
     "kernel_version": "6.8.0-124-generic",
     "libc_name": "glibc",
     "libc_version": "2.39",
     "pkg_config_path": [],
-    "env_vars_influential": {},
+    "env_vars_influential": {
+      "ACLOCAL_PATH": "/usr/share/aclocal"
+    },
     "posix_flavor": "gnu",
     "shell": "dash",
     "oracle_tool_versions": {
       "autoconf": "2.71",
-      "automake": "1.16.5",
+      "automake": "1.18.1",
       "libtool": "2.4.7",
       "m4": "1.4.19"
     },
@@ -216,6 +265,30 @@
     "max_depth": 0,
     "config_h_consumers_below_root": []
   },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 10929,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "po/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": false,
+        "lines": 533,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [],
+        "recipe_tab_anomalies": 0
+      }
+    ]
+  },
   "tool_requirements": {
     "detected": [
       "c++",
@@ -246,6 +319,21 @@
         "kind": "AC"
       },
       {
+        "name": "jm_AC_HEADER_INTTYPES_H",
+        "source": "m4/inttypes_h.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gt_INTTYPES_PRI",
+        "source": "m4/inttypes-pri.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "jm_AC_TYPE_UNSIGNED_LONG_LONG",
+        "source": "m4/ulonglong.m4",
+        "kind": "project-local"
+      },
+      {
         "name": "AC_CXX_TR1_UNORDERED_MAP",
         "source": "m4/tr1unorderedmap.m4",
         "kind": "AC"
@@ -253,6 +341,36 @@
       {
         "name": "AC_CXX_TR1_UNORDERED_MAP_CONST_CORRECT",
         "source": "m4/tr1unorderedmap.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "jm_AC_HEADER_STDINT_H",
+        "source": "m4/stdint_h.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AC_LIB_LINKFLAGS",
+        "source": "m4/lib-link.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_LIB_HAVE_LINKFLAGS",
+        "source": "m4/lib-link.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_LIB_RPATH",
+        "source": "m4/lib-link.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_LIB_LINKFLAGS_BODY",
+        "source": "m4/lib-link.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_LIB_APPENDTOVAR",
+        "source": "m4/lib-link.m4",
         "kind": "AC"
       },
       {
@@ -286,6 +404,21 @@
         "kind": "AC"
       },
       {
+        "name": "jm_GLIBC21",
+        "source": "m4/glibc21.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "AM_PATH_PROG_WITH_TEST",
+        "source": "m4/progtest.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AM_LC_MESSAGES",
+        "source": "m4/lcmessage.m4",
+        "kind": "AM"
+      },
+      {
         "name": "MTN_LIB_PCRE",
         "source": "m4/pcre.m4",
         "kind": "project-local"
@@ -296,8 +429,43 @@
         "kind": "project-local"
       },
       {
+        "name": "AM_ICONV_LINKFLAGS_BODY",
+        "source": "m4/iconv.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AM_ICONV_LINK",
+        "source": "m4/iconv.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AM_ICONV",
+        "source": "m4/iconv.m4",
+        "kind": "AM"
+      },
+      {
         "name": "AC_HAVE_INADDR_NONE",
         "source": "m4/inaddrnone.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_ISC_POSIX",
+        "source": "m4/isc-posix.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_LIB_PREFIX",
+        "source": "m4/lib-prefix.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_LIB_PREPARE_PREFIX",
+        "source": "m4/lib-prefix.m4",
+        "kind": "AC"
+      },
+      {
+        "name": "AC_LIB_WITH_FINAL_PREFIX",
+        "source": "m4/lib-prefix.m4",
         "kind": "AC"
       },
       {
@@ -316,13 +484,13 @@
         "kind": "project-local"
       },
       {
-        "name": "AC_LIB_APPENDTOVAR",
-        "source": "m4/iconv_translit.m4",
+        "name": "AC_LIB_PROG_LD_GNU",
+        "source": "m4/lib-ld.m4",
         "kind": "AC"
       },
       {
-        "name": "AC_LIB_WITH_FINAL_PREFIX",
-        "source": "m4/iconv_translit.m4",
+        "name": "AC_LIB_PROG_LD",
+        "source": "m4/lib-ld.m4",
         "kind": "AC"
       },
       {
@@ -351,6 +519,16 @@
         "kind": "project-local"
       },
       {
+        "name": "jm_AC_TYPE_UINTMAX_T",
+        "source": "m4/uintmax_t.m4",
+        "kind": "project-local"
+      },
+      {
+        "name": "gt_HEADER_INTTYPES_H",
+        "source": "m4/inttypes.m4",
+        "kind": "project-local"
+      },
+      {
         "name": "AC_CXX_EXTERN_TEMPLATE",
         "source": "m4/externtemplate.m4",
         "kind": "AC"
@@ -359,6 +537,11 @@
         "name": "AC_CC_FEXCEPTIONS",
         "source": "m4/fexception.m4",
         "kind": "AC"
+      },
+      {
+        "name": "AM_LANGINFO_CODESET",
+        "source": "m4/codeset.m4",
+        "kind": "AM"
       },
       {
         "name": "AC_CXX_TEMPLATE_STATIC_CONST_BUG",
@@ -374,6 +557,31 @@
         "name": "BOOST_VERSION_SPECIFIC_BUGS",
         "source": "m4/boost.m4",
         "kind": "project-local"
+      },
+      {
+        "name": "AM_GNU_GETTEXT",
+        "source": "m4/gettext.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AM_PO_SUBDIRS",
+        "source": "m4/gettext.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AM_INTL_SUBDIR",
+        "source": "m4/gettext.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AM_MKINSTALLDIRS",
+        "source": "m4/gettext.m4",
+        "kind": "AM"
+      },
+      {
+        "name": "AM_GNU_GETTEXT_VERSION",
+        "source": "m4/gettext.m4",
+        "kind": "AM"
       },
       {
         "name": "MTN_COMPUTE_SIZEOF",
@@ -394,21 +602,6 @@
         "name": "AC_COMPUTE_INT",
         "source": "m4/numeric_vocab.m4",
         "kind": "AC"
-      },
-      {
-        "name": "MTN_ASSERT_EIGHT_BIT_CHARS",
-        "source": "m4/numeric_vocab.m4",
-        "kind": "project-local"
-      },
-      {
-        "name": "MTN_CHECK_PLAIN_CHAR_SIGNED",
-        "source": "m4/numeric_vocab.m4",
-        "kind": "project-local"
-      },
-      {
-        "name": "MTN_NUMERIC_VOCAB",
-        "source": "m4/numeric_vocab.m4",
-        "kind": "project-local"
       }
     ],
     "called_macros": [
@@ -467,10 +660,10 @@
     "unresolved_macros": []
   },
   "conditional_context": {
-    "configure_if": 271,
-    "configure_fi": 258,
-    "configure_case": 74,
-    "configure_esac": 78,
+    "configure_if": 943,
+    "configure_fi": 861,
+    "configure_case": 193,
+    "configure_esac": 181,
     "balanced": false,
     "automake_conditionals": [
       "WIN32_PLATFORM",
@@ -508,16 +701,99 @@
     "uses_gettext": true,
     "uses_intltool": false,
     "po_dir_present": true,
-    "missing_files": [
-      "config.rpath",
-      "po/Makefile.in.in"
-    ]
+    "missing_files": []
+  },
+  "make_graph": {
+    "targets": [
+      "all",
+      ".SUFFIXES",
+      "am--refresh",
+      "$(srcdir)/Makefile.in",
+      "Makefile",
+      "$(top_builddir)/config.status",
+      "$(top_srcdir)/configure",
+      "$(ACLOCAL_M4)",
+      "$(am__aclocal_m4_deps)",
+      "config.h",
+      "stamp-h1",
+      "$(srcdir)/config.h.in",
+      "distclean-hdr",
+      "util/mtnopt",
+      "install-binPROGRAMS",
+      "uninstall-binPROGRAMS",
+      "clean-binPROGRAMS",
+      "installcheck-binPROGRAMS",
+      "clean-checkPROGRAMS",
+      "clean-noinstPROGRAMS",
+      "clean-noinstLIBRARIES",
+      "botan/$(am__dirstamp)",
+      "botan/$(DEPDIR)/$(am__dirstamp)",
+      "botan/lib3rdparty_a-aes.$(OBJEXT)",
+      "botan/lib3rdparty_a-aes_tab.$(OBJEXT)",
+      "botan/lib3rdparty_a-alg_id.$(OBJEXT)",
+      "botan/lib3rdparty_a-arc4.$(OBJEXT)",
+      "botan/lib3rdparty_a-asn1_alt.$(OBJEXT)",
+      "botan/lib3rdparty_a-asn1_att.$(OBJEXT)",
+      "botan/lib3rdparty_a-asn1_dn.$(OBJEXT)",
+      "botan/lib3rdparty_a-asn1_int.$(OBJEXT)",
+      "botan/lib3rdparty_a-asn1_ku.$(OBJEXT)",
+      "botan/lib3rdparty_a-asn1_oid.$(OBJEXT)",
+      "botan/lib3rdparty_a-asn1_str.$(OBJEXT)",
+      "botan/lib3rdparty_a-asn1_tm.$(OBJEXT)",
+      "botan/lib3rdparty_a-base64.$(OBJEXT)",
+      "botan/lib3rdparty_a-base.$(OBJEXT)",
+      "botan/lib3rdparty_a-basefilt.$(OBJEXT)",
+      "botan/lib3rdparty_a-ber_dec.$(OBJEXT)",
+      "botan/lib3rdparty_a-big_code.$(OBJEXT)"
+    ],
+    "key_variables": {
+      "AR": "ar",
+      "CC": "gcc",
+      "CFLAGS": "-g -O2 -fno-strict-aliasing -fexceptions",
+      "CPPFLAGS": "",
+      "CXX": "g++",
+      "CXXFLAGS": "-g -O2 -Wall -W -Wno-unused -fno-strict-aliasing",
+      "DEFAULT_INCLUDES": "-I.",
+      "DEFS": "-DLOCALEDIR=\\\"$(localedir)\\\" -DHAVE_CONFIG_H",
+      "LDFLAGS": "",
+      "LIBS": "-lz",
+      "RANLIB": "ranlib"
+    },
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "config.h",
+      "stamp-h1",
+      "config.log"
+    ],
+    "recursion_depth": 0,
+    "top_targets": [
+      "all"
+    ],
+    "make_diagnostics": []
   },
   "toolchain_interaction": {
     "compiler": "cc",
     "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
     "c_std_default_risk": true,
-    "defines_sampled": []
+    "defines_sampled": [
+      "WIN32",
+      "NETXX_NO_PTON",
+      "NETXX_NO_NTOP",
+      "NETXX_NO_INET6",
+      "LOCALEDIR=\\\"$(localedir)\\\"",
+      "HAVE_CONFIG_H",
+      "HAVE_FDATASYNC=1",
+      "HAVE_USLEEP=1",
+      "USE_PREAD=1",
+      "TEMP_STORE=1",
+      "NDEBUG",
+      "SQLITE_OMIT_CURSOR",
+      "SQLITE_OMIT_LOAD_EXTENSION",
+      "THREADSAFE=0",
+      "SQLITE_THREAD_OVERRIDE_LOCK=-1",
+      "BUILD_UNIT_TESTS"
+    ]
   },
   "quirk_history": [
     {
@@ -540,7 +816,7 @@
     }
   ],
   "verification": {
-    "vs_gnu": "not-compared",
+    "vs_gnu": "ours-worse",
     "output_match": "not-compared"
   },
   "vpath_analysis": {
@@ -619,21 +895,21 @@
       "AC_PROG_CXX_WARNINGS",
       "AC_CXX_TR1_UNORDERED_MAP",
       "AC_CXX_TR1_UNORDERED_MAP_CONST_CORRECT",
+      "AC_LIB_LINKFLAGS",
+      "AC_LIB_HAVE_LINKFLAGS",
+      "AC_LIB_RPATH",
+      "AC_LIB_LINKFLAGS_BODY",
+      "AC_LIB_APPENDTOVAR",
       "AC_PROG_XGETTEXT_FLAG_OPTION",
       "AC_CXX_SYNC_WITH_STDIO_WORKS",
+      "AM_PATH_PROG_WITH_TEST",
+      "AM_LC_MESSAGES",
+      "AM_ICONV_LINKFLAGS_BODY",
+      "AM_ICONV_LINK",
+      "AM_ICONV",
       "AC_HAVE_INADDR_NONE",
-      "AC_CXX_GNUCXX_HASHMAP",
-      "AC_LIB_APPENDTOVAR",
-      "AC_LIB_WITH_FINAL_PREFIX",
-      "AC_FUNC_ICONV_TRANSLIT",
-      "AC_CXX_TYPEOF",
-      "AC_CXX_STLPORT_HASHMAP",
-      "AC_NET_IPV6",
-      "AC_CXX_EXTERN_TEMPLATE",
-      "AC_CC_FEXCEPTIONS",
-      "AC_CXX_TEMPLATE_STATIC_CONST_BUG",
-      "AC_LANG_BOOL_COMPILE_TRY",
-      "AC_COMPUTE_INT"
+      "AC_ISC_POSIX",
+      "AC_LIB_PREFIX"
     ]
   },
   "dialect_reconciliation": {
@@ -650,16 +926,16 @@
       "AC_PROG_CXX_WARNINGS",
       "AC_CXX_TR1_UNORDERED_MAP",
       "AC_CXX_TR1_UNORDERED_MAP_CONST_CORRECT",
+      "AC_LIB_LINKFLAGS",
+      "AC_LIB_HAVE_LINKFLAGS",
+      "AC_LIB_RPATH",
+      "AC_LIB_LINKFLAGS_BODY",
+      "AC_LIB_APPENDTOVAR",
       "AC_PROG_XGETTEXT_FLAG_OPTION",
       "AC_CXX_SYNC_WITH_STDIO_WORKS",
-      "AC_HAVE_INADDR_NONE",
-      "AC_CXX_GNUCXX_HASHMAP",
-      "AC_LIB_APPENDTOVAR",
-      "AC_LIB_WITH_FINAL_PREFIX",
-      "AC_FUNC_ICONV_TRANSLIT",
-      "AC_CXX_TYPEOF",
-      "AC_CXX_STLPORT_HASHMAP",
-      "AC_NET_IPV6"
+      "AM_PATH_PROG_WITH_TEST",
+      "AM_LC_MESSAGES",
+      "AM_ICONV_LINKFLAGS_BODY"
     ],
     "permitted_mutations": 0,
     "suspect_global_mutations": 0
@@ -717,17 +993,16 @@
     "provided_symbols_sample": []
   },
   "risk_factors": [
-    "gettext-support-files-missing",
     "parallel-build-race (gen-source not in BUILT_SOURCES)",
     "vpath-unsafe (abs-path/hardcoded-srcdir leakage)"
   ],
   "scenario_context": {
     "temporal_map": {
-      "Makefile.am": -10,
-      "Makefile.in": 1433,
-      "aclocal.m4": 65,
-      "config.h.in": 79,
-      "configure": 78,
+      "Makefile.am": -11,
+      "Makefile.in": 4754,
+      "aclocal.m4": 3521,
+      "config.h.in": 3969,
+      "configure": 3827,
       "configure.ac": 0
     },
     "m4_ancestry": {

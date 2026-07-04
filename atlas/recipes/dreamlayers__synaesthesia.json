@@ -126,6 +126,30 @@
       "\\n#include <stdio.h>\\n#include \"SDL.h\"\\n\\nint main(int argc, char *argv[])\\n{ return 0; }\\n#undef  main\\n#define main K_and_R_C_main\\n\\nint main() {  return 0;  ; return 0; }"
     ]
   },
+  "oracle": {
+    "real_autoreconf": "ok",
+    "real_configure": "ok",
+    "real_make": "ok",
+    "real_configure_lines": 10066,
+    "real_first_error": "",
+    "classification": "OURS_BUG_MAKE",
+    "internal_traces": [
+      "configure.ac:61: installing './compile'",
+      "configure.ac:31: installing './config.guess'",
+      "configure.ac:31: installing './config.sub'",
+      "configure.ac:3: installing './install-sh'",
+      "configure.ac:3: installing './missing'",
+      "Makefile.am: installing './depcomp'"
+    ]
+  },
+  "divergence": {
+    "stage": "make",
+    "ours_error": "",
+    "ours_error_context": [],
+    "ours_configure_lines": 3228,
+    "real_configure_lines": 10066,
+    "macros_ours_left_undefined": []
+  },
   "receipt": {
     "court_status": "partial",
     "probe_trace": [
@@ -179,7 +203,7 @@
       "uses-ax-archive",
       "uses-pthread-check"
     ],
-    "receipt_hash": "d0808cdadef22f846059ba86a712397f97497fa12ada82b2095621157fdc8a29",
+    "receipt_hash": "28661df867deac094c22613b95c6081fd5b04986d4bb54603e250fdd075e880f",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -188,17 +212,21 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": [],
+    "relevant_env": [
+      "ACLOCAL_PATH=/usr/share/aclocal"
+    ],
     "kernel_version": "6.8.0-124-generic",
     "libc_name": "glibc",
     "libc_version": "2.39",
     "pkg_config_path": [],
-    "env_vars_influential": {},
+    "env_vars_influential": {
+      "ACLOCAL_PATH": "/usr/share/aclocal"
+    },
     "posix_flavor": "gnu",
     "shell": "dash",
     "oracle_tool_versions": {
       "autoconf": "2.71",
-      "automake": "1.16.5",
+      "automake": "1.18.1",
       "libtool": "2.4.7",
       "m4": "1.4.19"
     },
@@ -263,7 +291,7 @@
         "path": "Makefile",
         "has_makefile_in": true,
         "has_makefile_am": true,
-        "lines": 549,
+        "lines": 946,
         "unexpanded_vars": [],
         "unexpanded_automake_tokens": [
           "$(am__"
@@ -326,10 +354,10 @@
     ]
   },
   "conditional_context": {
-    "configure_if": 164,
-    "configure_fi": 157,
-    "configure_case": 68,
-    "configure_esac": 71,
+    "configure_if": 656,
+    "configure_fi": 582,
+    "configure_case": 172,
+    "configure_esac": 159,
     "balanced": false,
     "automake_conditionals": [
       "COMPILE_EMSCRIPTEN",
@@ -350,12 +378,11 @@
       "install-sh",
       "missing",
       "depcomp",
-      "compile"
-    ],
-    "missing": [
+      "compile",
       "config.guess",
       "config.sub"
-    ]
+    ],
+    "missing": []
   },
   "language_surface": {
     "source_suffixes": {
@@ -373,73 +400,67 @@
   "make_graph": {
     "targets": [
       "all",
-      "all-am",
+      ".SUFFIXES",
+      "am--refresh",
+      "$(srcdir)/Makefile.in",
+      "Makefile",
+      "$(top_builddir)/config.status",
+      "$(top_srcdir)/configure",
+      "$(ACLOCAL_M4)",
+      "$(am__aclocal_m4_deps)",
+      "config.h",
+      "stamp-h1",
+      "$(srcdir)/config.h.in",
+      "distclean-hdr",
+      "install-binPROGRAMS",
+      "uninstall-binPROGRAMS",
+      "clean-binPROGRAMS",
+      "synaesthesia$(EXEEXT)",
+      "mostlyclean-compile",
+      "distclean-compile",
       "$(am__depfiles_remade)",
       "am--depfiles",
-      "install-exec-am",
-      "uninstall-am",
-      "install",
-      "install-am",
-      "installcheck",
-      "install-strip",
-      "install-info",
-      "install-info-am",
-      "install-dvi",
-      "install-dvi-am",
-      "install-ps",
-      "install-ps-am",
-      "install-pdf",
-      "install-pdf-am",
-      "install-html",
-      "install-html-am",
-      "install-data-hook",
-      "install-exec-hook",
-      "installdirs",
-      "installdirs-am",
-      ".PHONY",
-      "mostlyclean-am",
-      "clean-am",
-      "distclean-am",
-      "maintainer-clean-am",
-      "clean",
-      "distdir",
-      "dist",
-      "dist-all",
-      "dist-gzip",
-      "distcleancheck",
-      "distcheck",
-      "check-am",
-      "check",
+      ".cc.o",
+      ".cc.obj",
+      "ID",
+      "tags",
       "TAGS",
-      "tags"
+      "tags-am",
+      "ctags",
+      "CTAGS",
+      "ctags-am",
+      "GTAGS",
+      "cscope",
+      "clean-cscope",
+      "cscope.files",
+      "cscopelist",
+      "cscopelist-am",
+      "distclean-tags",
+      "distdir",
+      "distdir-am",
+      "dist-gzip"
     ],
     "key_variables": {
-      "AR": "ar",
-      "CC": "cc",
+      "CC": "gcc",
       "CFLAGS": "-O3 -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT",
       "CPPFLAGS": "",
       "CXX": "g++",
       "CXXFLAGS": "-O3 -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT",
-      "DEFAULT_INCLUDES": "-I. -I$(top_builddir)",
+      "DEFAULT_INCLUDES": "-I.",
       "DEFS": "-DHAVE_CONFIG_H",
       "LDFLAGS": "",
-      "LIBS": "-lSDL",
-      "RANLIB": "ranlib"
+      "LIBS": "-lSDL"
     },
     "generated_files": [
       "Makefile",
       "config.status",
       "config.h",
+      "stamp-h1",
       "config.log"
     ],
     "recursion_depth": 0,
     "top_targets": [
-      "all",
-      "install",
-      "check",
-      "clean",
-      "dist",
-      "all-am"
+      "all"
     ],
     "make_diagnostics": [
       {
@@ -507,7 +528,7 @@
     }
   ],
   "verification": {
-    "vs_gnu": "not-compared",
+    "vs_gnu": "ours-worse",
     "output_match": "not-compared"
   },
   "feature_probe_gap": {
@@ -603,10 +624,10 @@
   "scenario_context": {
     "temporal_map": {
       "Makefile.am": 0,
-      "Makefile.in": 1111,
-      "aclocal.m4": 6,
-      "config.h.in": 14,
-      "configure": 12,
+      "Makefile.in": 3511,
+      "aclocal.m4": 2984,
+      "config.h.in": 3344,
+      "configure": 3229,
       "configure.ac": 0
     },
     "m4_ancestry": {
