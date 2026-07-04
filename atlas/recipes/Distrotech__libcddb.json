@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "Distrotech/libcddb",
   "source": {
     "url": "https://github.com/Distrotech/libcddb",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -34,12 +34,43 @@
       "status": "fail"
     }
   ],
-  "probe_results": {},
+  "probe_results": {
+    "HAVE_ALARM": 1,
+    "HAVE_ARPA_INET_H": 1,
+    "HAVE_ERRNO_H": 1,
+    "HAVE_FCNTL_H": 1,
+    "HAVE_GETHOSTBYNAME": 1,
+    "HAVE_ICONV_H": 1,
+    "HAVE_LIBCDIO": 1,
+    "HAVE_MALLOC": 1,
+    "HAVE_MEMSET": 1,
+    "HAVE_MKDIR": 1,
+    "HAVE_NETDB_H": 1,
+    "HAVE_NETINET_IN_H": 1,
+    "HAVE_REALLOC": 1,
+    "HAVE_REGCOMP": 1,
+    "HAVE_REGEX_H": 1,
+    "HAVE_SELECT": 1,
+    "HAVE_SOCKET": 1,
+    "HAVE_STAT": 1,
+    "HAVE_STDLIB_H": 1,
+    "HAVE_STRCHR": 1,
+    "HAVE_STRDUP": 1,
+    "HAVE_STRING_H": 1,
+    "HAVE_STRTOL": 1,
+    "HAVE_SYS_SOCKET_H": 1,
+    "HAVE_SYS_TIME_H": 1,
+    "HAVE_TIME_H": 1,
+    "HAVE_UNISTD_H": 1,
+    "HAVE_VPRINTF": 1
+  },
   "feature_flags": {
     "configure_args": []
   },
   "dependencies": {
-    "pkg_config": [],
+    "pkg_config": [
+      "checking for libcdio >= 0.76... yes"
+    ],
     "system_libs": [],
     "headers_needed": [],
     "missing": []
@@ -53,36 +84,25 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1374: syntax error near unexpected token `fi'",
+  "diagnostic": "*** non GNU CC compiler detected.",
   "deep_expansion": {
-    "configure_lines": 2791,
+    "configure_lines": 2922,
     "leaked_macros": [],
     "heredoc_openers": 30,
     "heredoc_terminators": 30,
     "heredoc_imbalance": 0,
-    "syntax_errors": [
-      {
-        "line": 1374,
-        "token": "fi",
-        "source": "fi",
-        "block": [
-          "1370: fi",
-          "1371: ",
-          "1372: if test x$default_loglevel != x; then",
-          "1373:     # Define unquoted: LOGLEVEL",
-          "1374: fi",
-          "1375: ",
-          "1376: # Check --with-cdio option",
-          "1377: "
-        ]
-      }
-    ],
+    "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2315: do eval test \\${$as_var+y} \\"
+      "line 1465: # eval \"_acrs_sv=\\${}\"; printf '%s\\n' \"s|@@|${_acrs_sv}|g\" >",
+      "line 2445: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
+      "LIBCDDB_VERSION_NUM",
+      "LIBCDIO_CFLAGS",
+      "LIBCDIO_LIBS",
+      "with_iconv",
       "PACKAGE_NAME",
       "PACKAGE_TARNAME",
       "PACKAGE_VERSION",
@@ -103,53 +123,204 @@
       "DEFS",
       "LIBOBJS",
       "INSTALL",
-      "host_os",
-      "with_iconv",
       "host_alias",
-      "host_cpu",
-      "LIBCDIO_CFLAGS",
-      "LIBCDDB_VERSION_NUM",
       "host_vendor",
-      "LIBCDIO_LIBS"
+      "host_os",
+      "host_cpu",
+      "LD"
     ],
-    "failed_during_check": "",
+    "failed_during_check": "checking for iconv.h... yes",
     "failure_tail": [
-      "./configure: line 1374: syntax error near unexpected token `fi'",
-      "./configure: line 1374: `fi'"
+      "checking for iconv.h... yes",
+      "*** non GNU CC compiler detected.",
+      "*** This package has not been tested very well with non GNU compilers",
+      "*** you should try to use 'gcc' for compiling this package.",
+      "configure: creating Makefile"
     ],
     "conftest_corruption": [],
     "conftest_directives_intact": 20,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
-      "char connect();\\nint main() { return connect(); }",
-      "char connect();\\nint main() { return connect(); }",
+      "char connect ();\\nint main() { return connect(); }",
+      "char connect ();\\nint main() { return connect(); }",
       "#include <time.h>",
       "#include <$ac_hdr>",
       "#include <$ac_hdr>",
       "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { size_t x; return 0; }"
     ]
   },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "ok",
-    "real_make": "ok",
-    "real_configure_lines": 18316,
-    "real_first_error": "",
-    "classification": "OURS_BUG_CONFIGURE"
-  },
-  "divergence": {
-    "stage": "configure",
-    "ours_error": "line 1374: fi (near `fi`)",
-    "ours_error_context": [
-      "fi"
-    ],
-    "ours_configure_lines": 2791,
-    "real_configure_lines": 18316,
-    "macros_ours_left_undefined": []
-  },
   "receipt": {
     "court_status": "failed",
-    "probe_trace": [],
+    "probe_trace": [
+      {
+        "name": "HAVE_ALARM",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_ARPA_INET_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_ERRNO_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_FCNTL_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_GETHOSTBYNAME",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_ICONV_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_LIBCDIO",
+        "kind": "lib",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_MALLOC",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_MEMSET",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_MKDIR",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_NETDB_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_NETINET_IN_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_REALLOC",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_REGCOMP",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_REGEX_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SELECT",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SOCKET",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STAT",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STDLIB_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STRCHR",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STRDUP",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STRING_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STRTOL",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SYS_SOCKET_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_SYS_TIME_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_TIME_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_UNISTD_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_VPRINTF",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      }
+    ],
     "quirks_matched": [
       "uses-libtool-old",
       "uses-pkg-config",
@@ -164,7 +335,7 @@
         "verified": false
       }
     ],
-    "receipt_hash": "24e39ed3178d433d21c1340a6407fda16d8349c27724819539e8175382940e80",
+    "receipt_hash": "95150e09954247dcde6d9ce89846b973f058f30368f82c7b98cb63b873c3973d",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -173,6 +344,647 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "examples/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "include/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "include/cddb/Makefile",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "include/cddb/cddb_config.h",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "include/cddb/version.h",
+        "depth": 2,
+        "top_builddir": "../..",
+        "has_template": true
+      },
+      {
+        "path": "lib/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "libcddb.pc",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "tests/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "tests/settings.sh",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      }
+    ],
+    "config_headers": [
+      "config.h"
+    ],
+    "subdirs": [
+      "=",
+      "include",
+      "lib",
+      "examples",
+      "tests",
+      "=",
+      "cddb"
+    ],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [],
+        "subdirs": [
+          "=",
+          "include",
+          "lib",
+          "examples",
+          "tests"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "examples",
+        "targets": [
+          "cddb_query"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)/include -I$(top_builddir)/include $(LIBCDIO_CFLAGS)"
+      },
+      {
+        "dir": "include",
+        "targets": [],
+        "subdirs": [
+          "=",
+          "cddb"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "include/cddb",
+        "targets": [],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "lib",
+        "targets": [
+          "libcddb.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-I$(top_srcdir)/include -I$(top_builddir)/include"
+      }
+    ],
+    "max_depth": 2,
+    "config_h_consumers_below_root": [
+      "include/cddb",
+      "examples",
+      "lib"
+    ]
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 516,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "tests/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 604,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "include/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 521,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "include/cddb/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 493,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "examples/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 500,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "lib/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 501,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      }
+    ]
+  },
+  "tool_requirements": {
+    "detected": [
+      "xgettext"
+    ],
+    "missing": []
+  },
+  "macro_inventory": {
+    "macro_dirs": [],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [],
+    "called_macros": [
+      "AC_ARG_ENABLE",
+      "AC_ARG_WITH",
+      "AC_CANONICAL_HOST",
+      "AC_CHECK_FUNC",
+      "AC_CHECK_FUNCS",
+      "AC_CHECK_HEADERS",
+      "AC_CHECK_LIB",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_SRCDIR",
+      "AC_C_CONST",
+      "AC_DEFINE",
+      "AC_DEFINE_UNQUOTED",
+      "AC_FUNC_MALLOC",
+      "AC_FUNC_REALLOC",
+      "AC_FUNC_SELECT_ARGTYPES",
+      "AC_FUNC_STAT",
+      "AC_FUNC_VPRINTF",
+      "AC_HEADER_STDC",
+      "AC_HEADER_TIME",
+      "AC_HELP_STRING",
+      "AC_INIT",
+      "AC_LIBTOOL_WIN32_DLL",
+      "AC_MSG_CHECKING",
+      "AC_MSG_RESULT",
+      "AC_MSG_WARN",
+      "AC_OUTPUT",
+      "AC_PREREQ",
+      "AC_PROG_AWK",
+      "AC_PROG_CC",
+      "AC_PROG_CPP",
+      "AC_PROG_INSTALL",
+      "AC_PROG_LIBTOOL",
+      "AC_PROG_LN_S",
+      "AC_PROG_MAKE_SET",
+      "AC_SUBST",
+      "AC_TRY_COMPILE",
+      "AC_TYPE_SIZE_T",
+      "AM_CONFIG_HEADER",
+      "AM_GNU_GETTEXT_VERSION",
+      "AM_ICONV",
+      "AM_INIT_AUTOMAKE",
+      "AM_MAINTAINER_MODE",
+      "PKG_CHECK_MODULES"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 148,
+    "configure_fi": 139,
+    "configure_case": 67,
+    "configure_esac": 70,
+    "balanced": false,
+    "automake_conditionals": []
+  },
+  "config_aux_inventory": {
+    "aux_dir": ".",
+    "present": [
+      "install-sh",
+      "missing",
+      "depcomp",
+      "compile",
+      "ltmain.sh",
+      "config.guess",
+      "config.sub"
+    ],
+    "missing": []
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "c": 20,
+      "h": 19
+    },
+    "configure_macros": [
+      "AC_PROG_CC"
+    ],
+    "needs_cxx": false,
+    "needs_fortran": false,
+    "sets_c_std": true
+  },
+  "libtool_context": {
+    "uses_libtool": true,
+    "macros": [
+      "AC_PROG_LIBTOOL"
+    ],
+    "ltmain_present": true,
+    "libtool_m4_sources": [],
+    "age": "old"
+  },
+  "gettext_intl_context": {
+    "uses_gettext": true,
+    "uses_intltool": false,
+    "po_dir_present": false,
+    "missing_files": []
+  },
+  "make_graph": {
+    "targets": [
+      "all",
+      "all-am",
+      "install-data-am",
+      "uninstall-am",
+      "install-am",
+      "installcheck-am",
+      "install-strip",
+      "install-info",
+      "install-info-am",
+      "install-dvi",
+      "install-dvi-am",
+      "install-ps",
+      "install-ps-am",
+      "install-pdf",
+      "install-pdf-am",
+      "install-html",
+      "install-html-am",
+      "install-data-hook",
+      "install-exec-hook",
+      "installdirs-am",
+      ".PHONY",
+      "mostlyclean-am",
+      "clean-am",
+      "distclean-am",
+      "maintainer-clean-am",
+      "distdir",
+      "dist",
+      "dist-all",
+      "dist-gzip",
+      "distcleancheck",
+      "distcheck",
+      "check-am",
+      "TAGS",
+      "tags",
+      "TAGS-am",
+      "tags-am",
+      "cscope",
+      "cscope-am",
+      "distuninstallcheck",
+      "$(srcdir)/Makefile.in"
+    ],
+    "key_variables": {
+      "AR": "ar",
+      "CC": "cc",
+      "CFLAGS": "",
+      "CPPFLAGS": "",
+      "CXX": "c++",
+      "CXXFLAGS": "-g -O2",
+      "DEFS": "-DHAVE_CONFIG_H",
+      "LDFLAGS": "",
+      "LIBS": "",
+      "RANLIB": "ranlib"
+    },
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "config.h",
+      "libtool",
+      "config.log"
+    ],
+    "recursion_depth": 2,
+    "top_targets": [
+      "all",
+      "dist",
+      "all-am"
+    ],
+    "make_diagnostics": []
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": false,
+    "defines_sampled": [
+      "HAVE_CONFIG_H"
+    ]
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-maintainer-mode",
+      "applied_at": "configure",
+      "effect": "neutral",
+      "effectiveness": "low"
+    },
+    {
+      "quirk_id": "uses-libtool-old",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-pkg-config",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-gettext",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "arpa/inet.h",
+      "errno.h",
+      "fcntl.h",
+      "iconv.h",
+      "netdb.h",
+      "netinet/in.h",
+      "regex.h",
+      "stdlib.h",
+      "string.h",
+      "sys/socket.h",
+      "sys/time.h",
+      "time.h",
+      "unistd.h",
+      "windows.h",
+      "winsock2.h"
+    ],
+    "headers_included_unchecked": [
+      "cddb/cddb.h",
+      "cddb/cddb_cmd.h",
+      "cddb/cddb_config.h",
+      "cddb/cddb_conn.h",
+      "cddb/cddb_disc.h",
+      "cddb/cddb_error.h",
+      "cddb/cddb_log.h",
+      "cddb/cddb_ni.h",
+      "cddb/cddb_site.h",
+      "cddb/cddb_track.h",
+      "cddb/version.h",
+      "cdio/cdio.h",
+      "sys/select.h",
+      "sys/stat.h",
+      "sys/types.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 3,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "explicit",
+    "strip_modern_poison_flags": [],
+    "inject_legacy_shims": false,
+    "compiler_aliasing": {}
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 2,
+    "shadowed_builtins": [],
+    "permitted_mutations": 3,
+    "suspect_global_mutations": 0
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "cddb/cddb.h",
+      "cddb/cddb_cmd.h",
+      "cddb/cddb_config.h",
+      "cddb/cddb_conn.h",
+      "cddb/cddb_disc.h",
+      "cddb/cddb_error.h",
+      "cddb/cddb_log.h",
+      "cddb/cddb_ni.h",
+      "cddb/cddb_site.h",
+      "cddb/cddb_track.h",
+      "cddb/version.h",
+      "cdio/cdio.h",
+      "sys/select.h",
+      "sys/stat.h",
+      "sys/types.h",
+      "arpa/inet.h",
+      "errno.h",
+      "fcntl.h",
+      "iconv.h",
+      "netdb.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "subdir-config-h-include-path",
+    "ancient-libtool"
+  ],
+  "repair_hints": [
+    {
+      "id": "subdir-top-builddir",
+      "phase": "make",
+      "confidence": 0.88,
+      "evidence": [
+        "include/cddb consumes config.h below root",
+        "examples consumes config.h below root",
+        "lib consumes config.h below root"
+      ],
+      "action": "ensure ac_subst_file sets relative top_builddir per subdir (0.1.19)",
+      "expected_effect": "config.h found in subdir compiles"
+    }
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": -2,
+      "Makefile.in": 1203,
+      "aclocal.m4": 7,
+      "config.h.in": 14,
+      "configure": 11,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_ENABLE": "system-aclocal",
+      "AC_ARG_WITH": "system-aclocal",
+      "AC_CANONICAL_HOST": "system-aclocal",
+      "AC_CHECK_FUNC": "system-aclocal",
+      "AC_CHECK_FUNCS": "system-aclocal",
+      "AC_CHECK_HEADERS": "system-aclocal",
+      "AC_CHECK_LIB": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_SRCDIR": "system-aclocal",
+      "AC_C_CONST": "system-aclocal",
+      "AC_DEFINE": "system-aclocal",
+      "AC_DEFINE_UNQUOTED": "system-aclocal",
+      "AC_FUNC_MALLOC": "system-aclocal",
+      "AC_FUNC_REALLOC": "system-aclocal",
+      "AC_FUNC_SELECT_ARGTYPES": "system-aclocal",
+      "AC_FUNC_STAT": "system-aclocal",
+      "AC_FUNC_VPRINTF": "system-aclocal",
+      "AC_HEADER_STDC": "system-aclocal",
+      "AC_HEADER_TIME": "system-aclocal",
+      "AC_HELP_STRING": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_LIBTOOL_WIN32_DLL": "system-aclocal",
+      "AC_MSG_CHECKING": "system-aclocal",
+      "AC_MSG_RESULT": "system-aclocal",
+      "AC_MSG_WARN": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PREREQ": "system-aclocal",
+      "AC_PROG_AWK": "system-aclocal",
+      "AC_PROG_CC": "system-aclocal",
+      "AC_PROG_CPP": "system-aclocal",
+      "AC_PROG_INSTALL": "system-aclocal",
+      "AC_PROG_LIBTOOL": "system-aclocal",
+      "AC_PROG_LN_S": "system-aclocal",
+      "AC_PROG_MAKE_SET": "system-aclocal",
+      "AC_SUBST": "system-aclocal",
+      "AC_TRY_COMPILE": "system-aclocal",
+      "AC_TYPE_SIZE_T": "system-aclocal",
+      "AM_CONFIG_HEADER": "system-aclocal",
+      "AM_GNU_GETTEXT_VERSION": "system-aclocal",
+      "AM_ICONV": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "cddb_query_LDADD",
+        "var": "LIBICONV",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "cddb_query_LDADD",
+        "var": "LIBCDIO_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "libcddb_la_LIBADD",
+        "var": "LIBICONV",
+        "resolved_to": [],
+        "resolved": false
+      }
+    ],
+    "unresolved_refs": [
+      "cddb_query_LDADD = $(LIBICONV)",
+      "cddb_query_LDADD = $(LIBCDIO_LIBS)",
+      "libcddb_la_LIBADD = $(LIBICONV)"
+    ],
+    "indirection_count": 3
   }
 }

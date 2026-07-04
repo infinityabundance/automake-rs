@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "flyfeifan/myHtop",
   "source": {
     "url": "https://github.com/flyfeifan/myHtop",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -26,76 +26,82 @@
     {
       "step": "configure",
       "tool": "./configure",
-      "status": "ok"
-    },
-    {
-      "step": "make",
-      "tool": "make",
       "status": "fail"
     }
   ],
-  "probe_results": {
-    "HAVE_ANCIENT_VSERVER": 1,
-    "HAVE_CGROUP": 1,
-    "HAVE_LIBNCURSESW": 1,
-    "HAVE_NATIVE_AFFINITY": 1,
-    "HAVE_OPENVZ": 1,
-    "HAVE_PROC": 1,
-    "HAVE_TASKSTATS": 1,
-    "HAVE_VSERVER": 1
-  },
+  "probe_results": {},
   "feature_flags": {
     "configure_args": []
   },
   "dependencies": {
     "pkg_config": [],
-    "system_libs": [
-      "-lncurses",
-      "-lm"
-    ],
+    "system_libs": [],
     "headers_needed": [],
     "missing": []
   },
   "quirks": [
-    "libtool",
-    "LIBS=-lncurses -lm"
+    "libtool"
   ],
   "outputs": [],
-  "status": "MAKE_FAIL",
+  "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "Makefile:16: *** missing separator.  Stop.",
+  "diagnostic": "./configure: line 1899: syntax error near unexpected token `('",
   "deep_expansion": {
-    "configure_lines": 2829,
+    "configure_lines": 3022,
     "leaked_macros": [],
     "heredoc_openers": 36,
     "heredoc_terminators": 36,
     "heredoc_imbalance": 0,
-    "syntax_errors": [],
+    "syntax_errors": [
+      {
+        "line": 1899,
+        "token": "(",
+        "source": "printf '%s\\n' \"#define COPYRIGHT \"(C) 2004-$year Hisham Muhammad\"\" >> co",
+        "block": [
+          "1895:   printf '%s\\n' \"configure: error: missing headers: $missing_headers\" >&2",
+          "1896: exit 1",
+          "1897: fi",
+          "1898: ",
+          "1899: printf '%s\\n' \"#define COPYRIGHT \"(C) 2004-$year Hisham Muhammad\"\" >> confde",
+          "1900: ",
+          "1901: # We're done, let's go!",
+          "1902: # ----------------------------------------------------------------------"
+        ]
+      }
+    ],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2353: do eval test \\${$as_var+y} \\"
+      "line 2545: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
+      "wextra_flag",
+      "HTOP_LINUX_TRUE",
+      "HTOP_LINUX_FALSE",
+      "HTOP_FREEBSD_TRUE",
+      "HTOP_FREEBSD_FALSE",
+      "HTOP_DARWIN_TRUE",
+      "HTOP_DARWIN_FALSE",
+      "HTOP_UNSUPPORTED_TRUE",
+      "HTOP_UNSUPPORTED_FALSE",
+      "my_htop_platform",
       "PACKAGE_NAME",
       "PACKAGE_TARNAME",
       "PACKAGE_VERSION",
       "PACKAGE_STRING",
       "PACKAGE_BUGREPORT"
     ],
-    "failed_during_check": "checking for curses.h... yes",
+    "failed_during_check": "checking for ncursesw/curses.h... yes",
     "failure_tail": [
-      "checking for curses.h... yes",
-      "configure: creating Makefile",
-      "configure: creating htop.1",
-      "configure: creating config.h",
-      "configure: creating ./config.status"
+      "checking for ncursesw/curses.h... yes",
+      "./configure: line 1899: syntax error near unexpected token `('",
+      "./configure: line 1899: `printf '%s\\n' \"#define COPYRIGHT \"(C) 2004-$year Hisham"
     ],
     "conftest_corruption": [],
-    "conftest_directives_intact": 21,
+    "conftest_directives_intact": 19,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
-      "char ceil();\\nint main() { return ceil(); }",
+      "char ceil ();\\nint main() { return ceil(); }",
       "#include <$ac_hdr>",
       "#include <$ac_hdr>",
       "#include <$ac_hdr>",
@@ -103,71 +109,14 @@
       "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { pid_t x; return 0; }"
     ]
   },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "ok",
-    "real_make": "fail",
-    "real_configure_lines": 17712,
-    "real_first_error": "",
-    "classification": "BOTH_MAKE_FAIL"
-  },
   "receipt": {
-    "court_status": "partial",
-    "probe_trace": [
-      {
-        "name": "HAVE_ANCIENT_VSERVER",
-        "kind": "func",
-        "result": "yes",
-        "reason": "ok"
-      },
-      {
-        "name": "HAVE_CGROUP",
-        "kind": "func",
-        "result": "yes",
-        "reason": "ok"
-      },
-      {
-        "name": "HAVE_LIBNCURSESW",
-        "kind": "lib",
-        "result": "yes",
-        "reason": "ok"
-      },
-      {
-        "name": "HAVE_NATIVE_AFFINITY",
-        "kind": "func",
-        "result": "yes",
-        "reason": "ok"
-      },
-      {
-        "name": "HAVE_OPENVZ",
-        "kind": "func",
-        "result": "yes",
-        "reason": "ok"
-      },
-      {
-        "name": "HAVE_PROC",
-        "kind": "func",
-        "result": "yes",
-        "reason": "ok"
-      },
-      {
-        "name": "HAVE_TASKSTATS",
-        "kind": "func",
-        "result": "yes",
-        "reason": "ok"
-      },
-      {
-        "name": "HAVE_VSERVER",
-        "kind": "func",
-        "result": "yes",
-        "reason": "ok"
-      }
-    ],
+    "court_status": "failed",
+    "probe_trace": [],
     "quirks_matched": [
       "uses-libtool-old",
       "vendored-aclocal"
     ],
-    "receipt_hash": "8959a99624d9846e5b3222daa085fccfca88c83eda99f116f6b39a5547ae1554",
+    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -176,6 +125,597 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "htop.1",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      }
+    ],
+    "config_headers": [],
+    "subdirs": [],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [
+          "htop"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": "-DNDEBUG"
+      }
+    ],
+    "max_depth": 0,
+    "config_h_consumers_below_root": []
+  },
+  "macro_inventory": {
+    "macro_dirs": [],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [],
+    "called_macros": [
+      "AC_ARG_ENABLE",
+      "AC_ARG_WITH",
+      "AC_CANONICAL_TARGET",
+      "AC_CHECK_FILE",
+      "AC_CHECK_FUNCS",
+      "AC_CHECK_HEADERS",
+      "AC_CHECK_LIB",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_HEADER",
+      "AC_CONFIG_MACRO_DIR",
+      "AC_CONFIG_SRCDIR",
+      "AC_C_CONST",
+      "AC_DEFINE",
+      "AC_DEFINE_UNQUOTED",
+      "AC_DISABLE_SHARED",
+      "AC_ENABLE_STATIC",
+      "AC_FUNC_CLOSEDIR_VOID",
+      "AC_FUNC_STAT",
+      "AC_HEADER_DIRENT",
+      "AC_HEADER_STDBOOL",
+      "AC_HEADER_STDC",
+      "AC_HELP_STRING",
+      "AC_INCLUDES_DEFAULT",
+      "AC_INIT",
+      "AC_LANG_PROGRAM",
+      "AC_MSG_CHECKING",
+      "AC_MSG_ERROR",
+      "AC_MSG_RESULT",
+      "AC_OUTPUT",
+      "AC_PREREQ",
+      "AC_PROG_CC",
+      "AC_PROG_LIBTOOL",
+      "AC_RUN_IFELSE",
+      "AC_SUBST",
+      "AC_TRY_COMPILE",
+      "AC_TYPE_PID_T",
+      "AC_TYPE_SIGNAL",
+      "AC_TYPE_UID_T",
+      "AC_USE_SYSTEM_EXTENSIONS",
+      "AM_CONDITIONAL",
+      "AM_INIT_AUTOMAKE",
+      "AM_PROG_CC_C_O"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 145,
+    "configure_fi": 141,
+    "configure_case": 64,
+    "configure_esac": 67,
+    "balanced": false,
+    "automake_conditionals": [
+      "HTOP_LINUX",
+      "HTOP_FREEBSD",
+      "HTOP_DARWIN",
+      "HTOP_UNSUPPORTED"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": ".",
+    "present": [
+      "install-sh",
+      "missing",
+      "depcomp",
+      "compile"
+    ],
+    "missing": [
+      "ltmain.sh",
+      "config.guess",
+      "config.sub"
+    ]
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "c": 64,
+      "h": 65
+    },
+    "configure_macros": [
+      "AC_PROG_CC"
+    ],
+    "needs_cxx": false,
+    "needs_fortran": false,
+    "sets_c_std": true
+  },
+  "libtool_context": {
+    "uses_libtool": true,
+    "macros": [
+      "AC_PROG_LIBTOOL"
+    ],
+    "ltmain_present": false,
+    "libtool_m4_sources": [],
+    "age": "old"
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": false,
+    "defines_sampled": []
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-libtool-old",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "vpath_analysis": {
+    "hardcoded_src_paths": 0,
+    "abs_path_leakage": 0,
+    "built_sources": [
+      "$(myhtopheaders)",
+      "$(myhtopplatheaders)"
+    ],
+    "generated_source_targets": []
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "curses.h",
+      "execinfo.h",
+      "hwloc.h",
+      "ncurses.h",
+      "ncurses/curses.h",
+      "ncurses/ncurses.h",
+      "ncursesw/curses.h",
+      "stdlib.h",
+      "string.h",
+      "strings.h",
+      "sys/param.h",
+      "sys/time.h",
+      "unistd.h"
+    ],
+    "headers_included_unchecked": [
+      "CoreFoundation/CFString.h",
+      "CoreFoundation/CoreFoundation.h",
+      "IOKit/ps/IOPSKeys.h",
+      "IOKit/ps/IOPowerSources.h",
+      "fcntl.h",
+      "hwloc/linux.h",
+      "mach/mach_host.h",
+      "sys/mman.h",
+      "sys/resource.h",
+      "sys/stat.h",
+      "sys/syscall.h",
+      "sys/sysctl.h",
+      "sys/types.h",
+      "sys/user.h",
+      "sys/utsname.h",
+      "sys/wait.h",
+      "vm/vm_param.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 1,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "explicit",
+    "strip_modern_poison_flags": [],
+    "inject_legacy_shims": false,
+    "compiler_aliasing": {}
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 1,
+    "shadowed_builtins": [],
+    "permitted_mutations": 10,
+    "suspect_global_mutations": 0
+  },
+  "parallel_build_safety": {
+    "vpath_out_of_tree_safe": true,
+    "generators": [],
+    "unordered_generated_sources": [],
+    "built_sources_declared": true
+  },
+  "host_environment_veil": {
+    "header_injection_candidates": [
+      "sys/sysctl.h"
+    ],
+    "symbol_aliasing_candidates": []
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "CoreFoundation/CFString.h",
+      "CoreFoundation/CoreFoundation.h",
+      "IOKit/ps/IOPSKeys.h",
+      "IOKit/ps/IOPowerSources.h",
+      "fcntl.h",
+      "hwloc/linux.h",
+      "mach/mach_host.h",
+      "sys/mman.h",
+      "sys/resource.h",
+      "sys/stat.h",
+      "sys/syscall.h",
+      "sys/sysctl.h",
+      "sys/types.h",
+      "sys/user.h",
+      "sys/utsname.h",
+      "sys/wait.h",
+      "vm/vm_param.h",
+      "curses.h",
+      "execinfo.h",
+      "hwloc.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "ancient-libtool"
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": -1,
+      "Makefile.in": 1296,
+      "aclocal.m4": 5,
+      "config.h.in": 14,
+      "configure": 11,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_ENABLE": "system-aclocal",
+      "AC_ARG_WITH": "system-aclocal",
+      "AC_CANONICAL_TARGET": "system-aclocal",
+      "AC_CHECK_FILE": "system-aclocal",
+      "AC_CHECK_FUNCS": "system-aclocal",
+      "AC_CHECK_HEADERS": "system-aclocal",
+      "AC_CHECK_LIB": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_HEADER": "system-aclocal",
+      "AC_CONFIG_MACRO_DIR": "system-aclocal",
+      "AC_CONFIG_SRCDIR": "system-aclocal",
+      "AC_C_CONST": "system-aclocal",
+      "AC_DEFINE": "system-aclocal",
+      "AC_DEFINE_UNQUOTED": "system-aclocal",
+      "AC_DISABLE_SHARED": "system-aclocal",
+      "AC_ENABLE_STATIC": "system-aclocal",
+      "AC_FUNC_CLOSEDIR_VOID": "system-aclocal",
+      "AC_FUNC_STAT": "system-aclocal",
+      "AC_HEADER_DIRENT": "system-aclocal",
+      "AC_HEADER_STDBOOL": "system-aclocal",
+      "AC_HEADER_STDC": "system-aclocal",
+      "AC_HELP_STRING": "system-aclocal",
+      "AC_INCLUDES_DEFAULT": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_LANG_PROGRAM": "system-aclocal",
+      "AC_MSG_CHECKING": "system-aclocal",
+      "AC_MSG_ERROR": "system-aclocal",
+      "AC_MSG_RESULT": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PREREQ": "system-aclocal",
+      "AC_PROG_CC": "system-aclocal",
+      "AC_PROG_LIBTOOL": "system-aclocal",
+      "AC_RUN_IFELSE": "system-aclocal",
+      "AC_SUBST": "system-aclocal",
+      "AC_TRY_COMPILE": "system-aclocal",
+      "AC_TYPE_PID_T": "system-aclocal",
+      "AC_TYPE_SIGNAL": "system-aclocal",
+      "AC_TYPE_UID_T": "system-aclocal",
+      "AC_USE_SYSTEM_EXTENSIONS": "system-aclocal",
+      "AM_CONDITIONAL": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "BUILT_SOURCES",
+        "var": "myhtopheaders",
+        "resolved_to": [
+          "AvailableColumnsPanel.h",
+          "AvailableMetersPanel.h",
+          "CategoriesPanel.h",
+          "CheckItem.h",
+          "ClockMeter.h",
+          "ColorsPanel.h",
+          "ColumnsPanel.h",
+          "CPUMeter.h",
+          "CRT.h",
+          "MainPanel.h",
+          "DisplayOptionsPanel.h",
+          "FunctionBar.h",
+          "Hashtable.h",
+          "Header.h",
+          "htop.h",
+          "ListItem.h",
+          "LoadAverageMeter.h",
+          "MemoryMeter.h",
+          "BatteryMeter.h",
+          "Meter.h",
+          "MetersPanel.h",
+          "Object.h",
+          "Panel.h",
+          "ProcessList.h",
+          "RichString.h",
+          "ScreenManager.h",
+          "Settings.h",
+          "SignalsPanel.h",
+          "StringUtils.h",
+          "SwapMeter.h",
+          "TasksMeter.h",
+          "UptimeMeter.h",
+          "TraceScreen.h",
+          "UsersTable.h",
+          "Vector.h",
+          "Process.h",
+          "AffinityPanel.h",
+          "HostnameMeter.h",
+          "OpenFilesScreen.h",
+          "Affinity.h",
+          "IncSet.h",
+          "Action.h"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "BUILT_SOURCES",
+        "var": "myhtopplatheaders",
+        "resolved_to": [
+          "linux/Platform.h",
+          "linux/IOPriorityPanel.h",
+          "linux/IOPriority.h",
+          "linux/LinuxProcess.h",
+          "linux/LinuxProcessList.h",
+          "linux/LinuxCRT.h",
+          "linux/Battery.h",
+          "freebsd/Platform.h",
+          "freebsd/FreeBSDProcessList.h",
+          "freebsd/FreeBSDProcess.h",
+          "freebsd/FreeBSDCRT.h",
+          "freebsd/Battery.h",
+          "darwin/Platform.h",
+          "darwin/DarwinProcess.h",
+          "darwin/DarwinProcessList.h",
+          "darwin/DarwinCRT.h",
+          "darwin/Battery.h",
+          "unsupported/Platform.h",
+          "unsupported/UnsupportedProcess.h",
+          "unsupported/UnsupportedProcessList.h",
+          "unsupported/UnsupportedCRT.h",
+          "unsupported/Battery.h"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "htop_SOURCES",
+        "var": "myhtopheaders",
+        "resolved_to": [
+          "AvailableColumnsPanel.h",
+          "AvailableMetersPanel.h",
+          "CategoriesPanel.h",
+          "CheckItem.h",
+          "ClockMeter.h",
+          "ColorsPanel.h",
+          "ColumnsPanel.h",
+          "CPUMeter.h",
+          "CRT.h",
+          "MainPanel.h",
+          "DisplayOptionsPanel.h",
+          "FunctionBar.h",
+          "Hashtable.h",
+          "Header.h",
+          "htop.h",
+          "ListItem.h",
+          "LoadAverageMeter.h",
+          "MemoryMeter.h",
+          "BatteryMeter.h",
+          "Meter.h",
+          "MetersPanel.h",
+          "Object.h",
+          "Panel.h",
+          "ProcessList.h",
+          "RichString.h",
+          "ScreenManager.h",
+          "Settings.h",
+          "SignalsPanel.h",
+          "StringUtils.h",
+          "SwapMeter.h",
+          "TasksMeter.h",
+          "UptimeMeter.h",
+          "TraceScreen.h",
+          "UsersTable.h",
+          "Vector.h",
+          "Process.h",
+          "AffinityPanel.h",
+          "HostnameMeter.h",
+          "OpenFilesScreen.h",
+          "Affinity.h",
+          "IncSet.h",
+          "Action.h"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "htop_SOURCES",
+        "var": "myhtopplatheaders",
+        "resolved_to": [
+          "linux/Platform.h",
+          "linux/IOPriorityPanel.h",
+          "linux/IOPriority.h",
+          "linux/LinuxProcess.h",
+          "linux/LinuxProcessList.h",
+          "linux/LinuxCRT.h",
+          "linux/Battery.h",
+          "freebsd/Platform.h",
+          "freebsd/FreeBSDProcessList.h",
+          "freebsd/FreeBSDProcess.h",
+          "freebsd/FreeBSDCRT.h",
+          "freebsd/Battery.h",
+          "darwin/Platform.h",
+          "darwin/DarwinProcess.h",
+          "darwin/DarwinProcessList.h",
+          "darwin/DarwinCRT.h",
+          "darwin/Battery.h",
+          "unsupported/Platform.h",
+          "unsupported/UnsupportedProcess.h",
+          "unsupported/UnsupportedProcessList.h",
+          "unsupported/UnsupportedCRT.h",
+          "unsupported/Battery.h"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "htop_SOURCES",
+        "var": "myhtopsources",
+        "resolved_to": [
+          "AvailableMetersPanel.c",
+          "CategoriesPanel.c",
+          "CheckItem.c",
+          "ClockMeter.c",
+          "ColorsPanel.c",
+          "ColumnsPanel.c",
+          "CPUMeter.c",
+          "CRT.c",
+          "MainPanel.c",
+          "DisplayOptionsPanel.c",
+          "FunctionBar.c",
+          "Hashtable.c",
+          "Header.c",
+          "htop.c",
+          "ListItem.c",
+          "LoadAverageMeter.c",
+          "MemoryMeter.c",
+          "Meter.c",
+          "MetersPanel.c",
+          "Object.c",
+          "Panel.c",
+          "BatteryMeter.c",
+          "Process.c",
+          "ProcessList.c",
+          "RichString.c",
+          "ScreenManager.c",
+          "Settings.c",
+          "SignalsPanel.c",
+          "StringUtils.c",
+          "SwapMeter.c",
+          "TasksMeter.c",
+          "UptimeMeter.c",
+          "TraceScreen.c",
+          "UsersTable.c",
+          "Vector.c",
+          "AvailableColumnsPanel.c",
+          "AffinityPanel.c",
+          "HostnameMeter.c",
+          "OpenFilesScreen.c",
+          "Affinity.c",
+          "IncSet.c",
+          "Action.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "htop_SOURCES",
+        "var": "myhtopplatsources",
+        "resolved_to": [
+          "linux/Platform.c",
+          "linux/IOPriorityPanel.c",
+          "linux/IOPriority.c",
+          "linux/LinuxProcess.c",
+          "linux/LinuxProcessList.c",
+          "linux/LinuxCRT.c",
+          "linux/Battery.c",
+          "freebsd/Platform.c",
+          "freebsd/FreeBSDProcessList.c",
+          "freebsd/FreeBSDProcess.c",
+          "freebsd/FreeBSDCRT.c",
+          "freebsd/Battery.c",
+          "darwin/Platform.c",
+          "darwin/DarwinProcess.c",
+          "darwin/DarwinProcessList.c",
+          "darwin/DarwinCRT.c",
+          "darwin/Battery.c",
+          "unsupported/Platform.c",
+          "unsupported/UnsupportedProcess.c",
+          "unsupported/UnsupportedProcessList.c",
+          "unsupported/UnsupportedCRT.c",
+          "unsupported/Battery.c"
+        ],
+        "resolved": true
+      }
+    ],
+    "unresolved_refs": [],
+    "indirection_count": 6
   }
 }

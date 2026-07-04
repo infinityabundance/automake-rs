@@ -1,9 +1,9 @@
 {
   "schema": "automake-rs.build-atlas/v3",
-  "repo": "felix-001/tstool",
+  "repo": "DIKU-EDU/yams",
   "source": {
-    "url": "https://github.com/felix-001/tstool",
-    "git_sha": "fc4cc48de2993e05615a4606140ffee1d91afccc",
+    "url": "https://github.com/DIKU-EDU/yams",
+    "git_sha": "14199e855d098e0b87f8bdd8abfbe99adb8c2394",
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
@@ -45,64 +45,68 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1432: AC_STDC_HEADERS: command not found",
+  "diagnostic": "./configure: line 2113: syntax error near unexpected token `done'",
   "deep_expansion": {
-    "configure_lines": 2518,
+    "configure_lines": 3374,
     "leaked_macros": [],
-    "heredoc_openers": 17,
-    "heredoc_terminators": 17,
+    "heredoc_openers": 52,
+    "heredoc_terminators": 52,
     "heredoc_imbalance": 0,
-    "syntax_errors": [],
+    "syntax_errors": [
+      {
+        "line": 2113,
+        "token": "done",
+        "source": "done",
+        "block": [
+          "2109: \tprintf %s \"checking for joinable pthread attribute... \"",
+          "2110: \tattr_name=unknown",
+          "2111: \tfor attr in PTHREAD_CREATE_JOINABLE PTHREAD_CREATE_UNDETACHED; do",
+          "2112: \t    # Try link (obsolete)",
+          "2113: \tdone",
+          "2114:         printf '%s\\n' \"$attr_name\"",
+          "2115:         if test \"$attr_name\" != PTHREAD_CREATE_JOINABLE; then",
+          "2116:             printf '%s\\n' \"#define PTHREAD_CREATE_JOINABLE $attr_name\" >> co"
+        ]
+      }
+    ],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 1405: # eval \"_acrs_sv=\\${}\"; printf '%s\\n' \"s|@@|${_acrs_sv}|g\" >",
-      "line 2041: do eval test \\${$as_var+y} \\"
+      "line 1952: # eval \"_acrs_sv=\\${}\"; printf '%s\\n' \"s|@@|${_acrs_sv}|g\" >",
+      "line 2894: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
+      "ke_PRE",
+      "PTHREAD_LIBS",
+      "PTHREAD_CFLAGS",
+      "PTHREAD_CC",
+      "YAMSLIBS",
+      "INCLUDEDIRS",
+      "LIBDIRS",
+      "WARNINGFLAGS",
       "PACKAGE_NAME",
       "PACKAGE_TARNAME",
       "PACKAGE_VERSION",
       "PACKAGE_STRING",
-      "PACKAGE_BUGREPORT",
-      "PACKAGE_URL",
-      "srcdir",
-      "prefix",
-      "exec_prefix",
-      "CC",
-      "CFLAGS",
-      "CPPFLAGS",
-      "LDFLAGS",
-      "LIBS",
-      "CXX",
-      "CXXFLAGS",
-      "CPP",
-      "DEFS",
-      "LIBOBJS",
-      "INSTALL",
-      "LD",
-      "host_alias",
-      "host_os",
-      "host_vendor",
-      "host_cpu",
-      "AR",
-      "top_srcdir",
-      "top_builddir",
-      "builddir"
+      "PACKAGE_BUGREPORT"
     ],
-    "failed_during_check": "checking endianness... big-endian",
+    "failed_during_check": "checking for readline/readline.h... yes",
     "failure_tail": [
-      "checking endianness... big-endian",
-      "./configure: line 1432: AC_STDC_HEADERS: command not found",
-      "configure: creating Makefile",
-      "configure: creating doc/Makefile",
-      "configure: creating m4/Makefile"
+      "checking for readline/readline.h... yes",
+      "configure: No readline library found.",
+      "./configure: line 2113: syntax error near unexpected token `done'",
+      "./configure: line 2113: `\tdone'"
     ],
     "conftest_corruption": [],
-    "conftest_directives_intact": 0,
+    "conftest_directives_intact": 58,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
-      "int main() { int x = 1; return *(char*)&x; }"
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar gethostent ();\\nint main() { return gethostent(); }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar setsockopt ();\\nint main() { return setsockopt(); }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func ();\\nint main() { return $ac_func(); }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar alloca ();\\nint main() { return alloca(); }",
+      "#include <$ac_hdr>",
+      "#include <$ac_hdr>"
     ]
   },
   "receipt": {
@@ -172,13 +176,13 @@
         "has_template": true
       },
       {
-        "path": "doc/Makefile",
+        "path": "info/Makefile",
         "depth": 1,
         "top_builddir": "..",
         "has_template": true
       },
       {
-        "path": "m4/Makefile",
+        "path": "man/Makefile",
         "depth": 1,
         "top_builddir": "..",
         "has_template": true
@@ -194,18 +198,18 @@
       "config.h"
     ],
     "subdirs": [
-      "m4",
-      "doc",
-      "src"
+      "src",
+      "man",
+      "info"
     ],
     "build_dirs": [
       {
         "dir": ".",
         "targets": [],
         "subdirs": [
-          "m4",
-          "doc",
-          "src"
+          "src",
+          "man",
+          "info"
         ],
         "sources_include_config_h": false,
         "am_cppflags": ""
@@ -213,11 +217,12 @@
       {
         "dir": "src",
         "targets": [
-          "tstool"
+          "yams",
+          "yamst"
         ],
         "subdirs": [],
         "sources_include_config_h": true,
-        "am_cppflags": ""
+        "am_cppflags": "@INCLUDEDIRS@"
       }
     ],
     "max_depth": 1,
@@ -225,63 +230,12 @@
       "src"
     ]
   },
-  "makefile_forensics": {
-    "generated_makefiles": [
-      {
-        "path": "Makefile",
-        "has_makefile_in": true,
-        "has_makefile_am": true,
-        "lines": 523,
-        "unexpanded_vars": [],
-        "unexpanded_automake_tokens": [
-          "$(am__"
-        ],
-        "recipe_tab_anomalies": 0
-      },
-      {
-        "path": "m4/Makefile",
-        "has_makefile_in": true,
-        "has_makefile_am": true,
-        "lines": 443,
-        "unexpanded_vars": [],
-        "unexpanded_automake_tokens": [
-          "$(am__"
-        ],
-        "recipe_tab_anomalies": 0
-      },
-      {
-        "path": "src/Makefile",
-        "has_makefile_in": true,
-        "has_makefile_am": true,
-        "lines": 492,
-        "unexpanded_vars": [],
-        "unexpanded_automake_tokens": [
-          "$(am__"
-        ],
-        "recipe_tab_anomalies": 0
-      },
-      {
-        "path": "doc/Makefile",
-        "has_makefile_in": true,
-        "has_makefile_am": true,
-        "lines": 433,
-        "unexpanded_vars": [],
-        "unexpanded_automake_tokens": [
-          "$(am__"
-        ],
-        "recipe_tab_anomalies": 0
-      }
-    ]
-  },
   "tool_requirements": {
-    "detected": [],
-    "missing": [
-      {
-        "name": "AC_STDC_HEADERS",
-        "phase": "make",
-        "suggested_package": ""
-      }
-    ]
+    "detected": [
+      "yacc",
+      "lex"
+    ],
+    "missing": []
   },
   "macro_inventory": {
     "macro_dirs": [
@@ -289,25 +243,77 @@
     ],
     "aclocal_m4_present": true,
     "acinclude_m4_present": false,
-    "defined_macros": [],
+    "defined_macros": [
+      {
+        "name": "ACX_PTHREAD",
+        "source": "m4/acx_pthread.m4",
+        "kind": "project-local"
+      }
+    ],
     "called_macros": [
-      "AC_CANONICAL_HOST",
+      "AC_ARG_WITH",
+      "AC_CHECK_FUNC",
+      "AC_CHECK_FUNCS",
+      "AC_CHECK_HEADER",
+      "AC_CHECK_HEADERS",
+      "AC_CHECK_LIB",
+      "AC_CHECK_TYPES",
+      "AC_CONFIG_COMMANDS",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_HEADERS",
+      "AC_CONFIG_SRCDIR",
       "AC_C_BIGENDIAN",
+      "AC_C_CONST",
+      "AC_C_INLINE",
+      "AC_C_VOLATILE",
+      "AC_DEFINE",
+      "AC_DEFINE_UNQUOTED",
+      "AC_FUNC_ALLOCA",
+      "AC_FUNC_CLOSEDIR_VOID",
+      "AC_FUNC_FORK",
+      "AC_FUNC_MALLOC",
+      "AC_FUNC_MEMCMP",
+      "AC_FUNC_REALLOC",
+      "AC_FUNC_SELECT_ARGTYPES",
+      "AC_FUNC_STAT",
+      "AC_HEADER_DIRENT",
+      "AC_HEADER_STDC",
+      "AC_HEADER_TIME",
       "AC_INIT",
+      "AC_ISC_POSIX",
+      "AC_MSG_CHECKING",
+      "AC_MSG_ERROR",
+      "AC_MSG_NOTICE",
+      "AC_MSG_RESULT",
+      "AC_MSG_WARN",
       "AC_OUTPUT",
+      "AC_PREREQ",
       "AC_PROG_CC",
-      "AC_PROG_RANLIB",
-      "AC_STDC_HEADERS",
-      "AM_CONFIG_HEADER",
-      "AM_INIT_AUTOMAKE"
+      "AC_PROG_LEX",
+      "AC_PROG_YACC",
+      "AC_SUBST",
+      "AC_TYPE_INT16_T",
+      "AC_TYPE_INT32_T",
+      "AC_TYPE_INT64_T",
+      "AC_TYPE_INT8_T",
+      "AC_TYPE_PID_T",
+      "AC_TYPE_SIGNAL",
+      "AC_TYPE_SIZE_T",
+      "AC_TYPE_SSIZE_T",
+      "AC_TYPE_UINT16_T",
+      "AC_TYPE_UINT32_T",
+      "AC_TYPE_UINT64_T",
+      "AC_TYPE_UINT8_T",
+      "AM_INIT_AUTOMAKE",
+      "AM_PROG_LEX"
     ],
     "unresolved_macros": []
   },
   "conditional_context": {
-    "configure_if": 101,
-    "configure_fi": 98,
-    "configure_case": 65,
-    "configure_esac": 68,
+    "configure_if": 165,
+    "configure_fi": 160,
+    "configure_case": 70,
+    "configure_esac": 73,
     "balanced": false,
     "automake_conditionals": []
   },
@@ -317,16 +323,14 @@
       "install-sh",
       "missing",
       "depcomp",
-      "compile",
-      "config.guess",
-      "config.sub"
+      "compile"
     ],
     "missing": []
   },
   "language_surface": {
     "source_suffixes": {
-      "c": 7,
-      "h": 10
+      "c": 25,
+      "h": 26
     },
     "configure_macros": [
       "AC_PROG_CC"
@@ -335,83 +339,11 @@
     "needs_fortran": false,
     "sets_c_std": false
   },
-  "make_graph": {
-    "targets": [
-      "all",
-      "all-am",
-      "install-am",
-      "installcheck-am",
-      "install-strip",
-      "install-info",
-      "install-info-am",
-      "install-dvi",
-      "install-dvi-am",
-      "install-ps",
-      "install-ps-am",
-      "install-pdf",
-      "install-pdf-am",
-      "install-html",
-      "install-html-am",
-      "install-data-hook",
-      "install-exec-hook",
-      "installdirs-am",
-      ".PHONY",
-      "mostlyclean-am",
-      "clean-am",
-      "distclean-am",
-      "maintainer-clean-am",
-      "distdir",
-      "dist",
-      "dist-all",
-      "dist-gzip",
-      "distcleancheck",
-      "distcheck",
-      "check-am",
-      "TAGS",
-      "tags",
-      "TAGS-am",
-      "tags-am",
-      "cscope",
-      "cscope-am",
-      "distuninstallcheck",
-      "$(srcdir)/Makefile.in",
-      "$(am__recursive_targets)",
-      "check"
-    ],
-    "key_variables": {
-      "AR": "ar",
-      "CC": "cc",
-      "CFLAGS": "-g -O2",
-      "CPPFLAGS": "",
-      "CXX": "c++",
-      "CXXFLAGS": "-g -O2",
-      "DEFS": "-DHAVE_CONFIG_H",
-      "LDFLAGS": "",
-      "LIBS": "",
-      "RANLIB": "ranlib"
-    },
-    "generated_files": [
-      "Makefile",
-      "config.status",
-      "config.h",
-      "config.log"
-    ],
-    "recursion_depth": 1,
-    "top_targets": [
-      "all",
-      "check",
-      "dist",
-      "all-am"
-    ],
-    "make_diagnostics": []
-  },
   "toolchain_interaction": {
     "compiler": "cc",
     "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
     "c_std_default_risk": true,
-    "defines_sampled": [
-      "HAVE_CONFIG_H"
-    ]
+    "defines_sampled": []
   },
   "quirk_history": [
     {
@@ -432,23 +364,42 @@
     "output_match": "not-compared"
   },
   "feature_probe_gap": {
-    "headers_checked": [],
-    "headers_included_unchecked": [
+    "headers_checked": [
       "arpa/inet.h",
       "fcntl.h",
+      "inttypes.h",
+      "libintl.h",
+      "locale.h",
+      "malloc.h",
+      "memory.h",
+      "netdb.h",
       "netinet/in.h",
+      "pthread.h",
+      "readline/readline.h",
+      "semaphore.h",
+      "stddef.h",
       "stdint.h",
-      "sys/mman.h",
+      "stdlib.h",
+      "string.h",
+      "strings.h",
+      "sys/file.h",
+      "sys/param.h",
+      "sys/select.h",
       "sys/socket.h",
+      "sys/time.h",
+      "termios.h",
+      "unistd.h"
+    ],
+    "headers_included_unchecked": [
       "sys/stat.h",
       "sys/types.h",
-      "unistd.h"
+      "sys/un.h"
     ],
     "implicit_link_libs": []
   },
   "source_to_generated_map": {
     "configure_origins": [],
-    "m4_trace_depth": 1,
+    "m4_trace_depth": 2,
     "shadowed_macros": []
   },
   "dialect_reconciliation": {
@@ -465,22 +416,39 @@
     }
   },
   "m4_side_effect_isolation": {
-    "unquoted_subst_in_conditional": 0,
+    "unquoted_subst_in_conditional": 1,
     "shadowed_builtins": [],
-    "permitted_mutations": 0,
+    "permitted_mutations": 3,
     "suspect_global_mutations": 0
+  },
+  "host_environment_veil": {
+    "header_injection_candidates": [
+      "malloc.h"
+    ],
+    "symbol_aliasing_candidates": []
   },
   "semantic_context": {
     "included_headers_sample": [
-      "arpa/inet.h",
-      "fcntl.h",
-      "netinet/in.h",
-      "stdint.h",
-      "sys/mman.h",
-      "sys/socket.h",
       "sys/stat.h",
       "sys/types.h",
-      "unistd.h"
+      "sys/un.h",
+      "arpa/inet.h",
+      "fcntl.h",
+      "inttypes.h",
+      "libintl.h",
+      "locale.h",
+      "malloc.h",
+      "memory.h",
+      "netdb.h",
+      "netinet/in.h",
+      "pthread.h",
+      "readline/readline.h",
+      "semaphore.h",
+      "stddef.h",
+      "stdint.h",
+      "stdlib.h",
+      "string.h",
+      "strings.h"
     ],
     "undefined_symbols": [],
     "provided_symbols_sample": []
@@ -499,37 +467,58 @@
       ],
       "action": "ensure ac_subst_file sets relative top_builddir per subdir (0.1.19)",
       "expected_effect": "config.h found in subdir compiles"
-    },
-    {
-      "id": "missing-build-tool",
-      "phase": "make",
-      "confidence": 0.75,
-      "evidence": [
-        "AC_STDC_HEADERS: command not found"
-      ],
-      "action": "provide AC_STDC_HEADERS",
-      "expected_effect": "unblocks the build step needing this tool"
     }
   ],
   "scenario_context": {
     "temporal_map": {
-      "Makefile.am": -4,
-      "Makefile.in": 1133,
-      "aclocal.m4": 13,
-      "config.h.in": 19,
-      "configure": 17,
-      "configure.in": 0
+      "Makefile.am": -1,
+      "Makefile.in": 1357,
+      "aclocal.m4": 8,
+      "config.h.in": 16,
+      "configure": 14,
+      "configure.ac": 0
     },
     "m4_ancestry": {
-      "AC_CANONICAL_HOST": "system-aclocal",
+      "AC_ARG_WITH": "system-aclocal",
+      "AC_CHECK_FUNC": "system-aclocal",
+      "AC_CHECK_FUNCS": "system-aclocal",
+      "AC_CHECK_HEADER": "system-aclocal",
+      "AC_CHECK_HEADERS": "system-aclocal",
+      "AC_CHECK_LIB": "system-aclocal",
+      "AC_CHECK_TYPES": "system-aclocal",
+      "AC_CONFIG_COMMANDS": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_HEADERS": "system-aclocal",
+      "AC_CONFIG_SRCDIR": "system-aclocal",
       "AC_C_BIGENDIAN": "system-aclocal",
+      "AC_C_CONST": "system-aclocal",
+      "AC_C_INLINE": "system-aclocal",
+      "AC_C_VOLATILE": "system-aclocal",
+      "AC_DEFINE": "system-aclocal",
+      "AC_DEFINE_UNQUOTED": "system-aclocal",
+      "AC_FUNC_ALLOCA": "system-aclocal",
+      "AC_FUNC_CLOSEDIR_VOID": "system-aclocal",
+      "AC_FUNC_FORK": "system-aclocal",
+      "AC_FUNC_MALLOC": "system-aclocal",
+      "AC_FUNC_MEMCMP": "system-aclocal",
+      "AC_FUNC_REALLOC": "system-aclocal",
+      "AC_FUNC_SELECT_ARGTYPES": "system-aclocal",
+      "AC_FUNC_STAT": "system-aclocal",
+      "AC_HEADER_DIRENT": "system-aclocal",
+      "AC_HEADER_STDC": "system-aclocal",
+      "AC_HEADER_TIME": "system-aclocal",
       "AC_INIT": "system-aclocal",
+      "AC_ISC_POSIX": "system-aclocal",
+      "AC_MSG_CHECKING": "system-aclocal",
+      "AC_MSG_ERROR": "system-aclocal",
+      "AC_MSG_NOTICE": "system-aclocal",
+      "AC_MSG_RESULT": "system-aclocal",
+      "AC_MSG_WARN": "system-aclocal",
       "AC_OUTPUT": "system-aclocal",
+      "AC_PREREQ": "system-aclocal",
       "AC_PROG_CC": "system-aclocal",
-      "AC_PROG_RANLIB": "system-aclocal",
-      "AC_STDC_HEADERS": "system-aclocal",
-      "AM_CONFIG_HEADER": "system-aclocal",
-      "AM_INIT_AUTOMAKE": "system-aclocal"
+      "AC_PROG_LEX": "system-aclocal",
+      "AC_PROG_YACC": "system-aclocal"
     },
     "rebuild_trigger_risk": false
   }

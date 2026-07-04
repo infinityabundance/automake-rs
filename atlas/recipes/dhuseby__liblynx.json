@@ -1,9 +1,9 @@
 {
   "schema": "automake-rs.build-atlas/v3",
-  "repo": "EvaisaDev/libwebsock",
+  "repo": "dhuseby/liblynx",
   "source": {
-    "url": "https://github.com/EvaisaDev/libwebsock",
-    "git_sha": "76b81b69fab8f828ab39ef8c325279f6f0a2079c",
+    "url": "https://github.com/dhuseby/liblynx",
+    "git_sha": "beeb832faecee419722a249932bb85a04df8a29c",
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
@@ -34,80 +34,97 @@
       "status": "fail"
     }
   ],
-  "probe_results": {},
+  "probe_results": {
+    "HAVE_MALLOC": 1,
+    "HAVE_STDBOOL_H": 1,
+    "HAVE_STDINT_H": 1,
+    "HAVE_STDLIB_H": 1
+  },
   "feature_flags": {
     "configure_args": []
   },
   "dependencies": {
     "pkg_config": [],
-    "system_libs": [
-      "-levent_openssl",
-      "-lssl",
-      "-levent",
-      "-lpthread"
-    ],
+    "system_libs": [],
     "headers_needed": [],
     "missing": []
   },
   "quirks": [
     "libtool",
-    "subdirs",
-    "LIBS=-levent_openssl -lssl -levent -lpthread"
+    "subdirs"
   ],
   "outputs": [],
   "status": "MAKE_FAIL",
   "verified": false,
-  "diagnostic": "websock_config.h:6:30: error: stray '@' in program",
+  "diagnostic": "collect2: error: ld returned 1 exit status",
   "deep_expansion": {
-    "configure_lines": 2684,
+    "configure_lines": 2504,
     "leaked_macros": [],
-    "heredoc_openers": 26,
-    "heredoc_terminators": 26,
+    "heredoc_openers": 18,
+    "heredoc_terminators": 18,
     "heredoc_imbalance": 0,
     "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2207: do eval test \\${$as_var+y} \\"
+      "line 2026: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
-      "HAVE_SSL_TRUE",
-      "HAVE_SSL_FALSE",
       "PACKAGE_NAME",
       "PACKAGE_TARNAME",
       "PACKAGE_VERSION",
       "PACKAGE_STRING",
       "PACKAGE_BUGREPORT"
     ],
-    "failed_during_check": "checking for bufferevent_openssl_socket_new in -levent_openssl... yes",
+    "failed_during_check": "checking for malloc... yes",
     "failure_tail": [
-      "checking for bufferevent_openssl_socket_new in -levent_openssl... yes",
+      "checking for malloc... yes",
       "configure: creating Makefile",
       "configure: creating src/Makefile",
-      "configure: creating examples/Makefile",
-      "configure: creating src/config.h"
+      "configure: creating tests/Makefile",
+      "configure: creating config.h"
     ],
     "conftest_corruption": [],
-    "conftest_directives_intact": 10,
+    "conftest_directives_intact": 3,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
       "#include <$ac_hdr>",
-      "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { size_t x; return 0; }",
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar malloc ();\\nint main() { return malloc(); }",
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar realloc ();\\nint main() { return realloc(); }",
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func ();\\nint main() { return $ac_func(); }",
-      "#include <$ac_hdr>"
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar malloc ();\\nint main() { return malloc(); }"
     ]
   },
   "receipt": {
     "court_status": "partial",
-    "probe_trace": [],
+    "probe_trace": [
+      {
+        "name": "HAVE_MALLOC",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STDBOOL_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STDINT_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STDLIB_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      }
+    ],
     "quirks_matched": [
       "uses-libtool-old",
-      "has-m4-macro-dir",
       "vendored-aclocal"
     ],
-    "receipt_hash": "fc222e24136e1c7565f3970366c0a81d4ec04fa5491250e780188ba2805c06fb",
+    "receipt_hash": "da30be96d6b31672feca3311673db577e1b47b7daf13274884ff70ba37b18a0c",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -167,25 +184,25 @@
         "has_template": true
       },
       {
-        "path": "examples/Makefile",
+        "path": "src/Makefile",
         "depth": 1,
         "top_builddir": "..",
         "has_template": true
       },
       {
-        "path": "src/Makefile",
+        "path": "tests/Makefile",
         "depth": 1,
         "top_builddir": "..",
         "has_template": true
       }
     ],
     "config_headers": [
-      "src/config.h",
-      "src/websock_config.h"
+      "config.h"
     ],
     "subdirs": [
       "src",
-      "examples"
+      ".",
+      "tests"
     ],
     "build_dirs": [
       {
@@ -193,28 +210,29 @@
         "targets": [],
         "subdirs": [
           "src",
-          "examples"
+          ".",
+          "tests"
         ],
-        "sources_include_config_h": false,
-        "am_cppflags": ""
-      },
-      {
-        "dir": "examples",
-        "targets": [
-          "ws-echo",
-          "autobahn-echo"
-        ],
-        "subdirs": [],
         "sources_include_config_h": false,
         "am_cppflags": ""
       },
       {
         "dir": "src",
         "targets": [
-          "libwebsock.la"
+          "liblynx.la",
+          "main"
         ],
         "subdirs": [],
-        "sources_include_config_h": true,
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "tests",
+        "targets": [
+          "check_lynx"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
         "am_cppflags": ""
       }
     ],
@@ -227,7 +245,18 @@
         "path": "Makefile",
         "has_makefile_in": true,
         "has_makefile_am": true,
-        "lines": 522,
+        "lines": 521,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "tests/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 643,
         "unexpanded_vars": [],
         "unexpanded_automake_tokens": [
           "$(am__"
@@ -238,18 +267,7 @@
         "path": "src/Makefile",
         "has_makefile_in": true,
         "has_makefile_am": true,
-        "lines": 573,
-        "unexpanded_vars": [],
-        "unexpanded_automake_tokens": [
-          "$(am__"
-        ],
-        "recipe_tab_anomalies": 0
-      },
-      {
-        "path": "examples/Makefile",
-        "has_makefile_in": true,
-        "has_makefile_am": true,
-        "lines": 504,
+        "lines": 556,
         "unexpanded_vars": [],
         "unexpanded_automake_tokens": [
           "$(am__"
@@ -259,69 +277,61 @@
     ]
   },
   "macro_inventory": {
-    "macro_dirs": [
-      "m4"
-    ],
+    "macro_dirs": [],
     "aclocal_m4_present": true,
     "acinclude_m4_present": false,
     "defined_macros": [],
     "called_macros": [
-      "AC_ARG_WITH",
-      "AC_CHECK_FUNCS",
       "AC_CHECK_HEADERS",
-      "AC_CHECK_LIB",
+      "AC_CONFIG_AUX_DIR",
       "AC_CONFIG_FILES",
       "AC_CONFIG_HEADERS",
-      "AC_CONFIG_MACRO_DIR",
       "AC_CONFIG_SRCDIR",
-      "AC_DEFINE",
-      "AC_DEFINE_UNQUOTED",
-      "AC_DISABLE_STATIC",
+      "AC_COPYRIGHT",
       "AC_FUNC_MALLOC",
-      "AC_FUNC_REALLOC",
+      "AC_HEADER_STDC",
       "AC_INIT",
-      "AC_MSG_ERROR",
+      "AC_LANG_C",
       "AC_OUTPUT",
       "AC_PREREQ",
       "AC_PROG_CC",
+      "AC_PROG_INSTALL",
       "AC_PROG_LIBTOOL",
-      "AC_TYPE_SIZE_T",
-      "AM_CONDITIONAL",
-      "AM_INIT_AUTOMAKE"
+      "AM_INIT_AUTOMAKE",
+      "AM_PATH_CHECK"
     ],
     "unresolved_macros": []
   },
   "conditional_context": {
-    "configure_if": 111,
-    "configure_fi": 108,
+    "configure_if": 97,
+    "configure_fi": 94,
     "configure_case": 63,
     "configure_esac": 66,
     "balanced": false,
-    "automake_conditionals": [
-      "HAVE_SSL"
-    ]
+    "automake_conditionals": []
   },
   "config_aux_inventory": {
-    "aux_dir": ".",
+    "aux_dir": "build-aux",
     "present": [
       "install-sh",
-      "missing"
+      "missing",
+      "depcomp",
+      "ltmain.sh"
     ],
     "missing": [
-      "depcomp",
-      "compile",
-      "ltmain.sh"
+      "compile"
     ]
   },
   "language_surface": {
     "source_suffixes": {
-      "c": 12,
-      "h": 11
+      "c": 13,
+      "cpp": 8,
+      "h": 35
     },
     "configure_macros": [
       "AC_PROG_CC"
     ],
-    "needs_cxx": false,
+    "needs_cxx": true,
     "needs_fortran": false,
     "sets_c_std": false
   },
@@ -330,7 +340,7 @@
     "macros": [
       "AC_PROG_LIBTOOL"
     ],
-    "ltmain_present": false,
+    "ltmain_present": true,
     "libtool_m4_sources": [],
     "age": "old"
   },
@@ -386,12 +396,13 @@
       "CXXFLAGS": "-g -O2",
       "DEFS": "-DHAVE_CONFIG_H",
       "LDFLAGS": "",
-      "LIBS": "-levent_openssl -lssl -levent -lpthread",
+      "LIBS": "",
       "RANLIB": "ranlib"
     },
     "generated_files": [
       "Makefile",
       "config.status",
+      "config.h",
       "libtool",
       "config.log"
     ],
@@ -406,52 +417,22 @@
       {
         "command": "",
         "error_type": "compiler-error",
-        "message": "websock_config.h:6:30: error: stray '@' in program"
-      },
-      {
-        "command": "",
-        "error_type": "compiler-error",
-        "message": "websock_config.h:6:51: error: stray '@' in program"
-      },
-      {
-        "command": "",
-        "error_type": "compiler-error",
-        "message": "websock_config.h:6:31: error: 'WEBSOCK_PACKAGE_NAME' undeclared (first use in this function)"
-      },
-      {
-        "command": "",
-        "error_type": "compiler-error",
-        "message": "websock_config.h:5:33: error: stray '@' in program"
-      },
-      {
-        "command": "",
-        "error_type": "compiler-error",
-        "message": "websock_config.h:5:57: error: stray '@' in program"
-      },
-      {
-        "command": "",
-        "error_type": "compiler-error",
-        "message": "websock_config.h:5:34: error: 'WEBSOCK_PACKAGE_VERSION' undeclared (first use in this function)"
+        "message": "collect2: error: ld returned 1 exit status"
       },
       {
         "command": "",
         "error_type": "make-syntax",
-        "message": "make[2]: *** [Makefile:539: libwebsock_la-websock.lo] Error 1"
+        "message": "make[2]: *** [Makefile:633: check_lynx] Error 1"
       },
       {
         "command": "",
         "error_type": "make-syntax",
-        "message": "make[2]: *** Waiting for unfinished jobs...."
+        "message": "make[1]: *** [Makefile:228: all-am] Error 2"
       },
       {
         "command": "",
         "error_type": "make-syntax",
-        "message": "make[1]: *** [Makefile:246: all-am] Error 2"
-      },
-      {
-        "command": "",
-        "error_type": "make-syntax",
-        "message": "make: *** [Makefile:445: all-recursive] Error 1"
+        "message": "make: *** [Makefile:444: all-recursive] Error 1"
       }
     ]
   },
@@ -471,12 +452,6 @@
       "effectiveness": "unknown"
     },
     {
-      "quirk_id": "has-m4-macro-dir",
-      "applied_at": "detected",
-      "effect": "neutral",
-      "effectiveness": "unknown"
-    },
-    {
       "quirk_id": "vendored-aclocal",
       "applied_at": "detected",
       "effect": "neutral",
@@ -489,111 +464,72 @@
   },
   "feature_probe_gap": {
     "headers_checked": [
-      "event2/thread.h",
-      "netdb.h",
-      "stdlib.h",
-      "string.h",
-      "sys/socket.h",
-      "unistd.h"
+      "stdbool.h",
+      "stdint.h",
+      "stdlib.h"
     ],
     "headers_included_unchecked": [
-      "event2/buffer.h",
-      "event2/bufferevent.h",
-      "event2/bufferevent_ssl.h",
-      "event2/event.h",
-      "openssl/err.h",
-      "openssl/ssl.h",
-      "pthread.h",
-      "stdint.h",
-      "sys/stat.h",
-      "sys/types.h",
-      "websock/websock.h"
+      "unistd.h"
     ],
     "implicit_link_libs": []
   },
   "source_to_generated_map": {
     "configure_origins": [],
-    "m4_trace_depth": 3,
+    "m4_trace_depth": 1,
     "shadowed_macros": []
   },
   "dialect_reconciliation": {
-    "enforce_standards_tier": "c89_gnu",
-    "strip_modern_poison_flags": [
-      "-Werror=implicit-function-declaration",
-      "-Werror=int-conversion",
-      "-Werror=incompatible-pointer-types"
-    ],
-    "inject_legacy_shims": true,
-    "compiler_aliasing": {
-      "clang-18+": "-std=gnu89 -Wno-error",
-      "gcc-14+": "-std=gnu89 -fpermissive"
-    }
+    "enforce_standards_tier": "gnu++",
+    "strip_modern_poison_flags": [],
+    "inject_legacy_shims": false,
+    "compiler_aliasing": {}
   },
   "m4_side_effect_isolation": {
     "unquoted_subst_in_conditional": 0,
     "shadowed_builtins": [],
-    "permitted_mutations": 1,
+    "permitted_mutations": 0,
     "suspect_global_mutations": 0
   },
   "semantic_context": {
     "included_headers_sample": [
-      "event2/buffer.h",
-      "event2/bufferevent.h",
-      "event2/bufferevent_ssl.h",
-      "event2/event.h",
-      "openssl/err.h",
-      "openssl/ssl.h",
-      "pthread.h",
+      "unistd.h",
+      "stdbool.h",
       "stdint.h",
-      "sys/stat.h",
-      "sys/types.h",
-      "websock/websock.h",
-      "event2/thread.h",
-      "netdb.h",
-      "stdlib.h",
-      "string.h",
-      "sys/socket.h",
-      "unistd.h"
+      "stdlib.h"
     ],
     "undefined_symbols": [],
     "provided_symbols_sample": []
   },
   "risk_factors": [
-    "ancient-libtool",
-    "modern-compiler-strictness (no explicit C std)"
+    "ancient-libtool"
   ],
   "scenario_context": {
     "temporal_map": {
-      "Makefile.am": -1,
-      "Makefile.in": 1108,
-      "aclocal.m4": 4,
-      "config.h.in": -1,
-      "configure": 8,
+      "Makefile.am": -9,
+      "Makefile.in": 1157,
+      "aclocal.m4": 8,
+      "config.h.in": 12,
+      "configure": 11,
       "configure.ac": 0
     },
     "m4_ancestry": {
-      "AC_ARG_WITH": "system-aclocal",
-      "AC_CHECK_FUNCS": "system-aclocal",
       "AC_CHECK_HEADERS": "system-aclocal",
-      "AC_CHECK_LIB": "system-aclocal",
+      "AC_CONFIG_AUX_DIR": "system-aclocal",
       "AC_CONFIG_FILES": "system-aclocal",
       "AC_CONFIG_HEADERS": "system-aclocal",
-      "AC_CONFIG_MACRO_DIR": "system-aclocal",
       "AC_CONFIG_SRCDIR": "system-aclocal",
-      "AC_DEFINE": "system-aclocal",
-      "AC_DEFINE_UNQUOTED": "system-aclocal",
-      "AC_DISABLE_STATIC": "system-aclocal",
+      "AC_COPYRIGHT": "system-aclocal",
       "AC_FUNC_MALLOC": "system-aclocal",
-      "AC_FUNC_REALLOC": "system-aclocal",
+      "AC_HEADER_STDC": "system-aclocal",
       "AC_INIT": "system-aclocal",
-      "AC_MSG_ERROR": "system-aclocal",
+      "AC_LANG_C": "system-aclocal",
       "AC_OUTPUT": "system-aclocal",
       "AC_PREREQ": "system-aclocal",
       "AC_PROG_CC": "system-aclocal",
+      "AC_PROG_INSTALL": "system-aclocal",
       "AC_PROG_LIBTOOL": "system-aclocal",
-      "AC_TYPE_SIZE_T": "system-aclocal",
-      "AM_CONDITIONAL": "system-aclocal",
-      "AM_INIT_AUTOMAKE": "system-aclocal"
+      "AM_INIT_AUTOMAKE": "system-aclocal",
+      "AM_PATH_CHECK": "system-aclocal"
     },
     "rebuild_trigger_risk": false
   }

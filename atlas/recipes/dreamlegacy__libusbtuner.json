@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "dreamlegacy/libusbtuner",
   "source": {
     "url": "https://github.com/dreamlegacy/libusbtuner",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.14",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -31,10 +31,21 @@
     {
       "step": "make",
       "tool": "make",
-      "status": "fail"
+      "status": "ok"
     }
   ],
-  "probe_results": {},
+  "probe_results": {
+    "HAVE_CLOSE": 1,
+    "HAVE_FCNTL_H": 1,
+    "HAVE_LIMITS_H": 1,
+    "HAVE_OPEN": 1,
+    "HAVE_PTHREAD": 1,
+    "HAVE_REALLOC": 1,
+    "HAVE_STAT": 1,
+    "HAVE_STDLIB_H": 1,
+    "HAVE_STRING_H": 1,
+    "HAVE_UNISTD_H": 1
+  },
   "feature_flags": {
     "configure_args": []
   },
@@ -50,12 +61,43 @@
     "pkg-config",
     "subdirs"
   ],
-  "outputs": [],
-  "status": "MAKE_FAIL",
-  "verified": false,
+  "outputs": [
+    {
+      "path": "src/.libs/libusbtuner.so",
+      "sha256": "80613dcb902a5759",
+      "kind": "library"
+    },
+    {
+      "path": "src/.libs/libusbtuner.a",
+      "sha256": "7c8970c5b3685641",
+      "kind": "library"
+    },
+    {
+      "path": "missing",
+      "sha256": "4a4f76d45d999ca6",
+      "kind": "executable"
+    },
+    {
+      "path": "libtool",
+      "sha256": "198b20e625bdd9f5",
+      "kind": "executable"
+    },
+    {
+      "path": "configure",
+      "sha256": "de974077777efd53",
+      "kind": "executable"
+    },
+    {
+      "path": "install-sh",
+      "sha256": "852947c4fef9cdc1",
+      "kind": "executable"
+    }
+  ],
+  "status": "FUNC_OK",
+  "verified": true,
   "diagnostic": "",
   "deep_expansion": {
-    "configure_lines": 2532,
+    "configure_lines": 2609,
     "leaked_macros": [],
     "heredoc_openers": 22,
     "heredoc_terminators": 22,
@@ -63,13 +105,15 @@
     "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2056: do eval test \\${$as_var+y} \\"
+      "line 2132: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
       "PTHREAD_CC",
       "PTHREAD_CFLAGS",
       "PTHREAD_LIBS",
+      "LIBDLSYM_CFLAGS",
+      "LIBDLSYM_LIBS",
       "PACKAGE_NAME",
       "PACKAGE_TARNAME",
       "PACKAGE_VERSION",
@@ -92,21 +136,74 @@
       "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { off_t x; return 0; }",
       "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { size_t x; return 0; }",
       "#include <sys/types.h>\\n#include <stdint.h>\\nint main() { ssize_t x; return 0; }",
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar realloc();\\nint main() { return realloc(); }",
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func();\\nint main() { return $ac_func(); }"
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar realloc ();\\nint main() { return realloc(); }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar $ac_func ();\\nint main() { return $ac_func(); }"
     ]
   },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "fail",
-    "real_make": "skipped",
-    "real_configure_lines": 16912,
-    "real_first_error": "configure: error: Package requirements (libdlsym) were not met:",
-    "classification": "OURS_BETTER"
-  },
   "receipt": {
-    "court_status": "partial",
-    "probe_trace": [],
+    "court_status": "quirk_dependent",
+    "probe_trace": [
+      {
+        "name": "HAVE_CLOSE",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_FCNTL_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_LIMITS_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_OPEN",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_PTHREAD",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_REALLOC",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STAT",
+        "kind": "func",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STDLIB_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_STRING_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      },
+      {
+        "name": "HAVE_UNISTD_H",
+        "kind": "header",
+        "result": "yes",
+        "reason": "ok"
+      }
+    ],
     "quirks_matched": [
       "uses-libtool",
       "uses-libtool-old",
@@ -116,7 +213,7 @@
       "uses-ax-archive",
       "uses-pthread-check"
     ],
-    "receipt_hash": "492386303fdd83cef4b6801ad6296d97e30d85323659e84dacf7883d6be5eebc",
+    "receipt_hash": "669dcd7cb94cb425234772f36e8f75eaf98ce626aea844b16b2cf7fafb0d42bb",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -125,6 +222,415 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "src/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      }
+    ],
+    "config_headers": [
+      "libusbtuner-config.h"
+    ],
+    "subdirs": [
+      "src"
+    ],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [],
+        "subdirs": [
+          "src"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "src",
+        "targets": [
+          "libusbtuner.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      }
+    ],
+    "max_depth": 1,
+    "config_h_consumers_below_root": []
+  },
+  "makefile_forensics": {
+    "generated_makefiles": [
+      {
+        "path": "Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 522,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      },
+      {
+        "path": "src/Makefile",
+        "has_makefile_in": true,
+        "has_makefile_am": true,
+        "lines": 492,
+        "unexpanded_vars": [],
+        "unexpanded_automake_tokens": [
+          "$(am__"
+        ],
+        "recipe_tab_anomalies": 0
+      }
+    ]
+  },
+  "macro_inventory": {
+    "macro_dirs": [
+      "m4"
+    ],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [
+      {
+        "name": "AX_PTHREAD",
+        "source": "m4/ax_pthread.m4",
+        "kind": "AX"
+      }
+    ],
+    "called_macros": [
+      "AC_CHECK_FUNCS",
+      "AC_CHECK_HEADERS",
+      "AC_CONFIG_FILES",
+      "AC_CONFIG_HEADERS",
+      "AC_CONFIG_MACRO_DIR",
+      "AC_CONFIG_SRCDIR",
+      "AC_FUNC_REALLOC",
+      "AC_INIT",
+      "AC_OUTPUT",
+      "AC_PROG_CC",
+      "AC_PROG_LIBTOOL",
+      "AC_TYPE_OFF_T",
+      "AC_TYPE_SIZE_T",
+      "AC_TYPE_SSIZE_T",
+      "AC_USE_SYSTEM_EXTENSIONS",
+      "AM_INIT_AUTOMAKE",
+      "AM_SILENT_RULES",
+      "AX_PTHREAD",
+      "LT_INIT",
+      "PKG_CHECK_MODULES"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 103,
+    "configure_fi": 100,
+    "configure_case": 64,
+    "configure_esac": 67,
+    "balanced": false,
+    "automake_conditionals": []
+  },
+  "config_aux_inventory": {
+    "aux_dir": ".",
+    "present": [
+      "install-sh",
+      "missing"
+    ],
+    "missing": [
+      "depcomp",
+      "compile",
+      "ltmain.sh"
+    ]
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "c": 1,
+      "h": 1
+    },
+    "configure_macros": [
+      "AC_PROG_CC"
+    ],
+    "needs_cxx": false,
+    "needs_fortran": false,
+    "sets_c_std": false
+  },
+  "libtool_context": {
+    "uses_libtool": true,
+    "macros": [
+      "LT_INIT",
+      "AC_PROG_LIBTOOL"
+    ],
+    "ltmain_present": false,
+    "libtool_m4_sources": [],
+    "age": "modern"
+  },
+  "make_graph": {
+    "targets": [
+      "all",
+      "all-am",
+      "install-am",
+      "installcheck-am",
+      "install-strip",
+      "install-info",
+      "install-info-am",
+      "install-dvi",
+      "install-dvi-am",
+      "install-ps",
+      "install-ps-am",
+      "install-pdf",
+      "install-pdf-am",
+      "install-html",
+      "install-html-am",
+      "install-data-hook",
+      "install-exec-hook",
+      "installdirs-am",
+      ".PHONY",
+      "mostlyclean-am",
+      "clean-am",
+      "distclean-am",
+      "maintainer-clean-am",
+      "distdir",
+      "dist",
+      "dist-all",
+      "dist-gzip",
+      "distcleancheck",
+      "distcheck",
+      "check-am",
+      "TAGS",
+      "tags",
+      "TAGS-am",
+      "tags-am",
+      "cscope",
+      "cscope-am",
+      "distuninstallcheck",
+      "$(srcdir)/Makefile.in",
+      "$(am__recursive_targets)",
+      "check"
+    ],
+    "key_variables": {
+      "AR": "ar",
+      "CC": "cc",
+      "CFLAGS": "-g -O2",
+      "CPPFLAGS": "",
+      "CXX": "c++",
+      "CXXFLAGS": "-g -O2",
+      "DEFS": "-DHAVE_CONFIG_H",
+      "LDFLAGS": "",
+      "LIBS": "",
+      "RANLIB": "ranlib"
+    },
+    "generated_files": [
+      "Makefile",
+      "config.status",
+      "libtool",
+      "config.log"
+    ],
+    "recursion_depth": 1,
+    "top_targets": [
+      "all",
+      "check",
+      "dist",
+      "all-am"
+    ],
+    "make_diagnostics": []
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": true,
+    "defines_sampled": [
+      "HAVE_CONFIG_H"
+    ]
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-libtool",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-libtool-old",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-pkg-config",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "has-m4-macro-dir",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-ax-archive",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-pthread-check",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "ours-built"
+  },
+  "feature_probe_gap": {
+    "headers_checked": [
+      "fcntl.h",
+      "limits.h",
+      "stdlib.h",
+      "string.h",
+      "unistd.h"
+    ],
+    "headers_included_unchecked": [
+      "linux/dvb/dmx.h",
+      "linux/dvb/frontend.h",
+      "pthread.h",
+      "sys/ioctl.h",
+      "sys/stat.h",
+      "sys/types.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 2,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "c89_gnu",
+    "strip_modern_poison_flags": [
+      "-Werror=implicit-function-declaration",
+      "-Werror=int-conversion",
+      "-Werror=incompatible-pointer-types"
+    ],
+    "inject_legacy_shims": true,
+    "compiler_aliasing": {
+      "clang-18+": "-std=gnu89 -Wno-error",
+      "gcc-14+": "-std=gnu89 -fpermissive"
+    }
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 0,
+    "shadowed_builtins": [],
+    "permitted_mutations": 0,
+    "suspect_global_mutations": 0
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "linux/dvb/dmx.h",
+      "linux/dvb/frontend.h",
+      "pthread.h",
+      "sys/ioctl.h",
+      "sys/stat.h",
+      "sys/types.h",
+      "fcntl.h",
+      "limits.h",
+      "stdlib.h",
+      "string.h",
+      "unistd.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "modern-compiler-strictness (no explicit C std)"
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": 0,
+      "Makefile.in": 1142,
+      "aclocal.m4": 4,
+      "configure": 8,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_CHECK_FUNCS": "system-aclocal",
+      "AC_CHECK_HEADERS": "system-aclocal",
+      "AC_CONFIG_FILES": "system-aclocal",
+      "AC_CONFIG_HEADERS": "system-aclocal",
+      "AC_CONFIG_MACRO_DIR": "system-aclocal",
+      "AC_CONFIG_SRCDIR": "system-aclocal",
+      "AC_FUNC_REALLOC": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PROG_CC": "system-aclocal",
+      "AC_PROG_LIBTOOL": "system-aclocal",
+      "AC_TYPE_OFF_T": "system-aclocal",
+      "AC_TYPE_SIZE_T": "system-aclocal",
+      "AC_TYPE_SSIZE_T": "system-aclocal",
+      "AC_USE_SYSTEM_EXTENSIONS": "system-aclocal",
+      "AM_INIT_AUTOMAKE": "system-aclocal",
+      "AM_SILENT_RULES": "system-aclocal",
+      "AX_PTHREAD": "m4/ax_pthread.m4",
+      "LT_INIT": "system-aclocal",
+      "PKG_CHECK_MODULES": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
   }
 }

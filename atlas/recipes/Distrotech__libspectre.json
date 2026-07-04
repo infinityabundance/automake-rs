@@ -1,5 +1,5 @@
 {
-  "schema": "automake-rs.build-atlas/v2",
+  "schema": "automake-rs.build-atlas/v3",
   "repo": "Distrotech/libspectre",
   "source": {
     "url": "https://github.com/Distrotech/libspectre",
@@ -7,7 +7,7 @@
     "snapshot_utc": "2026-06-27"
   },
   "toolchain": {
-    "autoconf_rs": "autoconf-rs 0.1.15",
+    "autoconf_rs": "autoconf-rs 0.1.61",
     "automake_rs": "automake (GNU automake) UNKNOWN",
     "m4_rs_core": "0.1.4",
     "gnu_free": true
@@ -55,9 +55,9 @@
   "outputs": [],
   "status": "CONFIGURE_RUN_FAIL",
   "verified": false,
-  "diagnostic": "./configure: line 1400: AC_STDC_HEADERS: command not found",
+  "diagnostic": "./configure: line 1414: AC_STDC_HEADERS: command not found",
   "deep_expansion": {
-    "configure_lines": 2783,
+    "configure_lines": 2876,
     "leaked_macros": [],
     "heredoc_openers": 25,
     "heredoc_terminators": 25,
@@ -65,10 +65,25 @@
     "syntax_errors": [],
     "cache_var_anomalies": [
       "line 58: do eval test \\${$as_var+y} \\",
-      "line 2307: do eval test \\${$as_var+y} \\"
+      "line 2399: do eval test \\${$as_var+y} \\"
     ],
     "residual_placeholders": [
       "LIBTOOL",
+      "VERSION_INFO",
+      "LT_CURRENT_MINUS_AGE",
+      "LT_CURRENT",
+      "LT_REVISION",
+      "LT_AGE",
+      "SPECTRE_MAJOR_VERSION",
+      "SPECTRE_MINOR_VERSION",
+      "SPECTRE_MICRO_VERSION",
+      "SPECTRE_VERSION",
+      "LIB_GS",
+      "CAIRO_CFLAGS",
+      "CAIRO_LIBS",
+      "ENABLE_TEST_TRUE",
+      "ENABLE_TEST_FALSE",
+      "SPECTRE_CFLAGS",
       "PACKAGE_NAME",
       "PACKAGE_TARNAME",
       "PACKAGE_VERSION",
@@ -82,22 +97,7 @@
       "CFLAGS",
       "CPPFLAGS",
       "LDFLAGS",
-      "LIBS",
-      "CXX",
-      "CXXFLAGS",
-      "CPP",
-      "DEFS",
-      "LIBOBJS",
-      "INSTALL",
-      "SPECTRE_CFLAGS",
-      "SPECTRE_VERSION",
-      "LT_CURRENT_MINUS_AGE",
-      "VERSION_INFO",
-      "LT_REVISION",
-      "SPECTRE_MINOR_VERSION",
-      "SPECTRE_MAJOR_VERSION",
-      "LIB_GS",
-      "LT_CURRENT"
+      "LIBS"
     ],
     "failed_during_check": "checking for libgs >= 8.62... no",
     "failure_tail": [
@@ -105,32 +105,16 @@
       "configure: error: You need libgs >= 8.62 in order to compile libspectre"
     ],
     "conftest_corruption": [],
-    "conftest_directives_intact": 11,
+    "conftest_directives_intact": 8,
     "conftest_directives_mangled": 0,
     "conftest_programs": [
       "int main() { int x = 1; return *(char*)&x; }",
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar vasprintf();\\nint main() { return vasprintf(); }",
-      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar _vscprintf();\\nint main() { return _vscprintf(); }",
-      "char gsapi_new_instance();\\nint main() { return gsapi_new_instance(); }",
-      "\\n#include <ghostscript/iapi.h>\\n\\nint main() {\\ngsapi_revision_t gsrev;\\n\\nif (gsapi_revision (&gsrev, sizeof (gsrev)) != 0)\\nreturn 1;\\nif (gsrev.revision < `echo \"$LIBGS_REQUIRED\" | sed -e 's/\\.//'`)\\nreturn 1;\\n; return 0; }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar vasprintf ();\\nint main() { return vasprintf(); }",
+      "#ifdef __cplusplus\\nextern \"C\"\\n#endif\\nchar _vscprintf ();\\nint main() { return _vscprintf(); }",
+      "char gsapi_new_instance ();\\nint main() { return gsapi_new_instance(); }",
+      "\\n#[include <ghostscript/iapi.h>]\\n\\nint main() {\\ngsapi_revision_t gsrev;\\n\\nif (gsapi_revision (&gsrev, sizeof (gsrev)) != 0)\\nreturn 1;\\nif (gsrev.revision < `echo \"$LIBGS_REQUIRED\" | sed -e 's/\\.//'`)\\nreturn 1;\\n; return 0; }",
       ""
     ]
-  },
-  "oracle": {
-    "real_autoreconf": "ok",
-    "real_configure": "ok",
-    "real_make": "fail",
-    "real_configure_lines": 16984,
-    "real_first_error": "",
-    "classification": "OURS_BUG_CONFIGURE"
-  },
-  "divergence": {
-    "stage": "configure",
-    "ours_error": "",
-    "ours_error_context": [],
-    "ours_configure_lines": 2783,
-    "real_configure_lines": 16984,
-    "macros_ours_left_undefined": []
   },
   "receipt": {
     "court_status": "failed",
@@ -148,7 +132,7 @@
         "verified": false
       }
     ],
-    "receipt_hash": "24e39ed3178d433d21c1340a6407fda16d8349c27724819539e8175382940e80",
+    "receipt_hash": "022feca5f4ee32468335f52e701a31f1ac395ce1b72bf0007a8d88b601bf91c9",
     "schema": "automake-rs.build-court/v1"
   },
   "environment": {
@@ -157,6 +141,429 @@
     "host_triplet": "x86_64-linux-gnu",
     "pkg_config_version": "1.8.1",
     "make_version": "GNU Make 4.3",
-    "relevant_env": []
+    "relevant_env": [],
+    "kernel_version": "6.8.0-124-generic",
+    "libc_name": "glibc",
+    "libc_version": "2.39",
+    "pkg_config_path": [],
+    "env_vars_influential": {},
+    "posix_flavor": "gnu",
+    "shell": "dash",
+    "oracle_tool_versions": {
+      "autoconf": "2.71",
+      "automake": "1.16.5",
+      "libtool": "2.4.7",
+      "m4": "1.4.19"
+    },
+    "env_var_whitelist": [
+      "ACLOCAL_PATH",
+      "AUTOMAKE_JOBS",
+      "PKG_CONFIG_PATH",
+      "CC",
+      "CFLAGS"
+    ],
+    "shell_flavor": "dash",
+    "shell_echo_n_works": true,
+    "shell_supports_local": false,
+    "fs_case_sensitive": true,
+    "fs_supports_symlinks": true,
+    "fs_supports_hardlinks": true,
+    "fs_max_path": 4096,
+    "install_sh_version": "install (GNU coreutils) 9.4",
+    "libtool_version": "libtool (GNU libtool) 2.4.7",
+    "gettext_version": "gettext (GNU gettext-runtime) 0.21",
+    "poison_vars_present": [],
+    "poison_vars_confirmed_unset": [
+      "GREP_OPTIONS",
+      "CDPATH",
+      "CLICOLOR",
+      "GZIP",
+      "POSIXLY_CORRECT",
+      "MAKEFLAGS",
+      "IFS"
+    ]
+  },
+  "directory_context": {
+    "config_files": [
+      {
+        "path": "Makefile",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "libspectre.pc",
+        "depth": 0,
+        "top_builddir": ".",
+        "has_template": true
+      },
+      {
+        "path": "libspectre/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "libspectre/spectre-version.h",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      },
+      {
+        "path": "test/Makefile",
+        "depth": 1,
+        "top_builddir": "..",
+        "has_template": true
+      }
+    ],
+    "config_headers": [
+      "config.h"
+    ],
+    "subdirs": [
+      "libspectre",
+      "test"
+    ],
+    "build_dirs": [
+      {
+        "dir": ".",
+        "targets": [],
+        "subdirs": [
+          "libspectre",
+          "test"
+        ],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "libspectre",
+        "targets": [
+          "libspectre.la"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": true,
+        "am_cppflags": ""
+      },
+      {
+        "dir": "test",
+        "targets": [
+          "spectre-test",
+          "parser-test"
+        ],
+        "subdirs": [],
+        "sources_include_config_h": false,
+        "am_cppflags": ""
+      }
+    ],
+    "max_depth": 1,
+    "config_h_consumers_below_root": [
+      "libspectre"
+    ]
+  },
+  "tool_requirements": {
+    "detected": [],
+    "missing": [
+      {
+        "name": "AC_STDC_HEADERS",
+        "phase": "make",
+        "suggested_package": ""
+      }
+    ]
+  },
+  "macro_inventory": {
+    "macro_dirs": [],
+    "aclocal_m4_present": true,
+    "acinclude_m4_present": false,
+    "defined_macros": [],
+    "called_macros": [
+      "AC_ARG_ENABLE",
+      "AC_CACHE_CHECK",
+      "AC_CHECK_FUNC",
+      "AC_CHECK_LIB",
+      "AC_COMPILE_IFELSE",
+      "AC_CONFIG_HEADERS",
+      "AC_C_BIGENDIAN",
+      "AC_DEFINE",
+      "AC_DEFINE_UNQUOTED",
+      "AC_DEFUN",
+      "AC_HELP_STRING",
+      "AC_INIT",
+      "AC_ISC_POSIX",
+      "AC_LANG_POP",
+      "AC_LANG_PROGRAM",
+      "AC_LANG_PUSH",
+      "AC_LINK_IFELSE",
+      "AC_MSG_CHECKING",
+      "AC_MSG_ERROR",
+      "AC_MSG_RESULT",
+      "AC_MSG_WARN",
+      "AC_OUTPUT",
+      "AC_PREREQ",
+      "AC_PROG_CC",
+      "AC_PROG_CC_STDC",
+      "AC_PROG_LIBTOOL",
+      "AC_RUN_IFELSE",
+      "AC_STDC_HEADERS",
+      "AC_SUBST",
+      "AM_CONDITIONAL",
+      "AM_INIT_AUTOMAKE",
+      "AM_MAINTAINER_MODE",
+      "AM_SILENT_RULES",
+      "LT_AGE",
+      "LT_CURRENT",
+      "LT_CURRENT_MINUS_AGE",
+      "LT_REVISION",
+      "PKG_CHECK_MODULES"
+    ],
+    "unresolved_macros": []
+  },
+  "conditional_context": {
+    "configure_if": 134,
+    "configure_fi": 126,
+    "configure_case": 63,
+    "configure_esac": 66,
+    "balanced": false,
+    "automake_conditionals": [
+      "ENABLE_TEST"
+    ]
+  },
+  "config_aux_inventory": {
+    "aux_dir": ".",
+    "present": [
+      "install-sh",
+      "missing",
+      "depcomp",
+      "compile",
+      "ltmain.sh"
+    ],
+    "missing": []
+  },
+  "language_surface": {
+    "source_suffixes": {
+      "c": 13,
+      "h": 13
+    },
+    "configure_macros": [
+      "AC_PROG_CC"
+    ],
+    "needs_cxx": false,
+    "needs_fortran": false,
+    "sets_c_std": false
+  },
+  "libtool_context": {
+    "uses_libtool": true,
+    "macros": [
+      "AC_PROG_LIBTOOL"
+    ],
+    "ltmain_present": true,
+    "libtool_m4_sources": [],
+    "age": "old"
+  },
+  "toolchain_interaction": {
+    "compiler": "cc",
+    "compiler_version": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "c_std_default_risk": true,
+    "defines_sampled": []
+  },
+  "quirk_history": [
+    {
+      "quirk_id": "uses-maintainer-mode",
+      "applied_at": "configure",
+      "effect": "neutral",
+      "effectiveness": "low"
+    },
+    {
+      "quirk_id": "uses-libtool-old",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "uses-pkg-config",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    },
+    {
+      "quirk_id": "vendored-aclocal",
+      "applied_at": "detected",
+      "effect": "neutral",
+      "effectiveness": "unknown"
+    }
+  ],
+  "verification": {
+    "vs_gnu": "not-compared",
+    "output_match": "not-compared"
+  },
+  "feature_probe_gap": {
+    "headers_checked": [],
+    "headers_included_unchecked": [
+      "ghostscript/gdevdsp.h",
+      "ghostscript/iapi.h",
+      "ghostscript/ierrors.h",
+      "libspectre/spectre-document.h",
+      "libspectre/spectre-exporter.h",
+      "libspectre/spectre-macros.h",
+      "libspectre/spectre-page.h",
+      "libspectre/spectre-render-context.h",
+      "libspectre/spectre-status.h",
+      "libspectre/spectre-version.h",
+      "libspectre/spectre.h",
+      "sys/stat.h",
+      "sys/types.h",
+      "unistd.h"
+    ],
+    "implicit_link_libs": []
+  },
+  "source_to_generated_map": {
+    "configure_origins": [],
+    "m4_trace_depth": 5,
+    "shadowed_macros": []
+  },
+  "dialect_reconciliation": {
+    "enforce_standards_tier": "c89_gnu",
+    "strip_modern_poison_flags": [
+      "-Werror=implicit-function-declaration",
+      "-Werror=int-conversion",
+      "-Werror=incompatible-pointer-types"
+    ],
+    "inject_legacy_shims": true,
+    "compiler_aliasing": {
+      "clang-18+": "-std=gnu89 -Wno-error",
+      "gcc-14+": "-std=gnu89 -fpermissive"
+    }
+  },
+  "m4_side_effect_isolation": {
+    "unquoted_subst_in_conditional": 2,
+    "shadowed_builtins": [],
+    "permitted_mutations": 4,
+    "suspect_global_mutations": 0
+  },
+  "semantic_context": {
+    "included_headers_sample": [
+      "ghostscript/gdevdsp.h",
+      "ghostscript/iapi.h",
+      "ghostscript/ierrors.h",
+      "libspectre/spectre-document.h",
+      "libspectre/spectre-exporter.h",
+      "libspectre/spectre-macros.h",
+      "libspectre/spectre-page.h",
+      "libspectre/spectre-render-context.h",
+      "libspectre/spectre-status.h",
+      "libspectre/spectre-version.h",
+      "libspectre/spectre.h",
+      "sys/stat.h",
+      "sys/types.h",
+      "unistd.h"
+    ],
+    "undefined_symbols": [],
+    "provided_symbols_sample": []
+  },
+  "risk_factors": [
+    "subdir-config-h-include-path",
+    "ancient-libtool",
+    "modern-compiler-strictness (no explicit C std)"
+  ],
+  "repair_hints": [
+    {
+      "id": "subdir-top-builddir",
+      "phase": "make",
+      "confidence": 0.88,
+      "evidence": [
+        "libspectre consumes config.h below root"
+      ],
+      "action": "ensure ac_subst_file sets relative top_builddir per subdir (0.1.19)",
+      "expected_effect": "config.h found in subdir compiles"
+    },
+    {
+      "id": "missing-build-tool",
+      "phase": "make",
+      "confidence": 0.75,
+      "evidence": [
+        "AC_STDC_HEADERS: command not found"
+      ],
+      "action": "provide AC_STDC_HEADERS",
+      "expected_effect": "unblocks the build step needing this tool"
+    }
+  ],
+  "scenario_context": {
+    "temporal_map": {
+      "Makefile.am": -3,
+      "Makefile.in": 1126,
+      "aclocal.m4": 6,
+      "config.h.in": 13,
+      "configure": 10,
+      "configure.ac": 0
+    },
+    "m4_ancestry": {
+      "AC_ARG_ENABLE": "system-aclocal",
+      "AC_CACHE_CHECK": "system-aclocal",
+      "AC_CHECK_FUNC": "system-aclocal",
+      "AC_CHECK_LIB": "system-aclocal",
+      "AC_COMPILE_IFELSE": "system-aclocal",
+      "AC_CONFIG_HEADERS": "system-aclocal",
+      "AC_C_BIGENDIAN": "system-aclocal",
+      "AC_DEFINE": "system-aclocal",
+      "AC_DEFINE_UNQUOTED": "system-aclocal",
+      "AC_DEFUN": "system-aclocal",
+      "AC_HELP_STRING": "system-aclocal",
+      "AC_INIT": "system-aclocal",
+      "AC_ISC_POSIX": "system-aclocal",
+      "AC_LANG_POP": "system-aclocal",
+      "AC_LANG_PROGRAM": "system-aclocal",
+      "AC_LANG_PUSH": "system-aclocal",
+      "AC_LINK_IFELSE": "system-aclocal",
+      "AC_MSG_CHECKING": "system-aclocal",
+      "AC_MSG_ERROR": "system-aclocal",
+      "AC_MSG_RESULT": "system-aclocal",
+      "AC_MSG_WARN": "system-aclocal",
+      "AC_OUTPUT": "system-aclocal",
+      "AC_PREREQ": "system-aclocal",
+      "AC_PROG_CC": "system-aclocal",
+      "AC_PROG_CC_STDC": "system-aclocal",
+      "AC_PROG_LIBTOOL": "system-aclocal",
+      "AC_RUN_IFELSE": "system-aclocal",
+      "AC_STDC_HEADERS": "system-aclocal",
+      "AC_SUBST": "system-aclocal",
+      "AM_CONDITIONAL": "system-aclocal",
+      "AM_INIT_AUTOMAKE": "system-aclocal",
+      "AM_MAINTAINER_MODE": "system-aclocal",
+      "AM_SILENT_RULES": "system-aclocal",
+      "LT_AGE": "system-aclocal",
+      "LT_CURRENT": "system-aclocal",
+      "LT_CURRENT_MINUS_AGE": "system-aclocal",
+      "LT_REVISION": "system-aclocal",
+      "PKG_CHECK_MODULES": "system-aclocal"
+    },
+    "rebuild_trigger_risk": false
+  },
+  "variable_indirection": {
+    "indirect_primaries": [
+      {
+        "primary": "libspectre_la_SOURCES",
+        "var": "gv_sources",
+        "resolved_to": [
+          "ps.h",
+          "ps.c"
+        ],
+        "resolved": true
+      },
+      {
+        "primary": "libspectre_la_LIBADD",
+        "var": "LIB_GS",
+        "resolved_to": [],
+        "resolved": false
+      },
+      {
+        "primary": "spectre_test_LDADD",
+        "var": "CAIRO_LIBS",
+        "resolved_to": [],
+        "resolved": false
+      }
+    ],
+    "unresolved_refs": [
+      "libspectre_la_LIBADD = $(LIB_GS)",
+      "spectre_test_LDADD = $(CAIRO_LIBS)"
+    ],
+    "indirection_count": 3
   }
 }
