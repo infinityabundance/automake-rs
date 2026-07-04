@@ -3214,6 +3214,15 @@ fn write_index(out_dir: &Path) {
     let mut sugg_pkgs: BTreeMap<String, usize> = BTreeMap::new();
     let mut ours_clear = 0usize;
     let mut real_clear = 0usize;
+    // Head-to-head vs GNU autotools (only populated when ATLAS_ORACLE ran the real oracle per repo).
+    // The whole point of the differential: for every repo built by BOTH toolchains, who got further.
+    let mut compared = 0usize;
+    let mut h2h: BTreeMap<String, usize> = BTreeMap::new();       // vs_gnu class -> repos
+    let mut gnu_ladder: BTreeMap<String, usize> = BTreeMap::new(); // how far GNU got
+    let mut ours_ladder_h2h: BTreeMap<String, usize> = BTreeMap::new(); // how far ours got (compared slice)
+    let mut contingency: BTreeMap<(u8, u8), usize> = BTreeMap::new(); // (ours_rank, gnu_rank) -> repos
+    let mut ours_better_roster: Vec<(String, String)> = Vec::new();   // (repo, ours stage)
+    let mut ours_worse_roster: Vec<(String, String, String)> = Vec::new(); // (repo, gnu stage, our first error)
     // Analytics: quirk hotspots (automation candidates), dependency patterns, heavy hitters,
     // partial->full candidates (configure cleared but make fails where GNU makes — the closest wins).
     let mut quirk_hot: BTreeMap<String, usize> = BTreeMap::new();
@@ -3332,6 +3341,29 @@ fn write_index(out_dir: &Path) {
                 if let Some(orc) = v.get("oracle") {
                     if let Some(c) = orc["classification"].as_str() { *classif.entry(c.to_string()).or_default() += 1; }
                     if orc["real_configure"].as_str() == Some("ok") { real_clear += 1; }
+                    // Head-to-head: only count repos actually compared against the GNU oracle.
+                    let vsg = v.get("verification").and_then(|x| x["vs_gnu"].as_str()).unwrap_or("not-compared");
+                    if vsg != "not-compared" {
+                        // ladder rank: 3 = make ok, 2 = configure ok, 1 = configure generated, 0 = failed to generate
+                        let orank: u8 = match st.as_str() { "FUNC_OK" => 3, "MAKE_FAIL" => 2, "CONFIGURE_RUN_FAIL" => 1, _ => 0 };
+                        let grank: u8 = if orc["real_make"].as_str() == Some("ok") { 3 }
+                            else if orc["real_configure"].as_str() == Some("ok") { 2 }
+                            else if orc["real_autoreconf"].as_str() == Some("ok") { 1 } else { 0 };
+                        let label = |r: u8| -> String { match r { 3 => "make ok", 2 => "configure ok", 1 => "configure generated", _ => "failed to generate" }.to_string() };
+                        compared += 1;
+                        *h2h.entry(vsg.to_string()).or_default() += 1;
+                        *gnu_ladder.entry(label(grank)).or_default() += 1;
+                        *ours_ladder_h2h.entry(label(orank)).or_default() += 1;
+                        *contingency.entry((orank, grank)).or_default() += 1;
+                        if vsg == "ours-better" { ours_better_roster.push((repo.clone(), label(orank))); }
+                        if vsg == "ours-worse" {
+                            ours_worse_roster.push((
+                                repo.clone(),
+                                label(grank),
+                                v["diagnostic"].as_str().unwrap_or("").chars().take(80).collect::<String>(),
+                            ));
+                        }
+                    }
                 }
                 // fixable backlog: roots of repos where real got further than ours
                 if let Some(dv) = v.get("divergence") {
@@ -3388,6 +3420,15 @@ fn write_index(out_dir: &Path) {
             "fixable_backlog_roots": rank(&fixable_roots),
             "died_during_check": rank(&failed_checks),
         },
+        "head_to_head": {
+            "compared": compared,
+            "vs_gnu": h2h.clone(),
+            "ours_ladder": ours_ladder_h2h.clone(),
+            "gnu_ladder": gnu_ladder.clone(),
+            "contingency": contingency.iter().map(|((o, g), c)| serde_json::json!({"ours_rank": o, "gnu_rank": g, "repos": c})).collect::<Vec<_>>(),
+            "ours_better": ours_better_roster.iter().map(|(r, s)| serde_json::json!({"repo": r, "ours_stage": s})).collect::<Vec<_>>(),
+            "ours_worse": ours_worse_roster.iter().map(|(r, s, d)| serde_json::json!({"repo": r, "gnu_stage": s, "our_error": d})).collect::<Vec<_>>(),
+        },
         "courts": courts.clone(),
         "suggested_packages": rank(&sugg_pkgs),
         "analytics": {
@@ -3430,6 +3471,50 @@ fn write_index(out_dir: &Path) {
     };
     for (k, c) in courts.iter() {
         md.push_str(&format!("| {} | {} | {} |\n", k, c, meaning(k)));
+    }
+    // Head-to-head vs GNU autotools — the whole point of the differential. Every repo below was built by
+    // BOTH the GNU-free Rust toolchain AND real GNU autoconf/automake; the classification is who got further.
+    md.push_str("\n## Head-to-head vs GNU autotools\n\n");
+    if compared == 0 {
+        md.push_str("_No repos were compared against the GNU oracle in this scan (run with `ATLAS_ORACLE=1` to populate)._\n\n");
+    } else {
+        let g = |k: &str| h2h.get(k).copied().unwrap_or(0);
+        let pct = |n: usize| if compared > 0 { 100 * n / compared } else { 0 };
+        let (win, tie, lose, both) = (g("ours-better"), g("identical-status"), g("ours-worse"), g("both-fail"));
+        md.push_str(&format!("**{}** repos built by both toolchains. Rust vs GNU: **{} win** ({}%) · **{} tie** ({}%) · **{} loss** ({}%) · **{} both-fail** ({}%).\n\n",
+            compared, win, pct(win), tie, pct(tie), lose, pct(lose), both, pct(both)));
+        md.push_str("| outcome | repos | meaning |\n|---|---|---|\n");
+        for (k, mean) in [
+            ("ours-better", "Rust toolchain got further than GNU"),
+            ("identical-status", "both reached `make` — dead heat"),
+            ("ours-worse", "GNU got further than the Rust toolchain (our bug)"),
+            ("both-fail", "neither toolchain finished (upstream/env, not our bug)"),
+        ] { md.push_str(&format!("| {} | {} | {} |\n", k, g(k), mean)); }
+        // Ladder comparison: how far each toolchain got over the same compared slice.
+        md.push_str("\n### Ladder — how far each toolchain reached (same repos)\n\n| stage reached | Rust | GNU |\n|---|---|---|\n");
+        for st in ["make ok", "configure ok", "configure generated", "failed to generate"] {
+            md.push_str(&format!("| {} | {} | {} |\n", st, ours_ladder_h2h.get(st).copied().unwrap_or(0), gnu_ladder.get(st).copied().unwrap_or(0)));
+        }
+        // Contingency matrix: ours-stage (rows) × GNU-stage (cols). Diagonal = ties; below = our losses.
+        let rn = |r: u8| match r { 3 => "make", 2 => "config", 1 => "gen", _ => "none" };
+        md.push_str("\n### Contingency (Rust rows × GNU cols)\n\n| Rust ↓ / GNU → | make | config | gen | none |\n|---|---|---|---|---|\n");
+        for orow in (0u8..=3).rev() {
+            let mut row = format!("| **{}** |", rn(orow));
+            for gcol in (0u8..=3).rev() {
+                row.push_str(&format!(" {} |", contingency.get(&(orow, gcol)).copied().unwrap_or(0)));
+            }
+            md.push_str(&row); md.push('\n');
+        }
+        if !ours_better_roster.is_empty() {
+            md.push_str(&format!("\n### Rust wins ({}) — we build, GNU does not\n\n| repo | Rust reached |\n|---|---|\n", ours_better_roster.len()));
+            for (r, s) in ours_better_roster.iter().take(40) { md.push_str(&format!("| {} | {} |\n", r, s)); }
+        }
+        if !ours_worse_roster.is_empty() {
+            md.push_str(&format!("\n### Our bugs ({}) — GNU builds further than us (the actionable backlog)\n\n| repo | GNU reached | our first error |\n|---|---|---|\n", ours_worse_roster.len()));
+            let mut wr = ours_worse_roster.clone();
+            wr.sort_by(|a, b| a.0.to_lowercase().cmp(&b.0.to_lowercase()));
+            for (r, s, d) in wr.iter().take(80) { md.push_str(&format!("| {} | {} | {} |\n", r, s, d.replace('|', "\\|"))); }
+        }
     }
     md.push_str(&format!("\n## Oracle headroom\n\nours configure-clear: **{}** · GNU configure-clear: **{}** · fixable our-bug headroom: **{}**\n\n",
         ours_clear, real_clear, real_clear.saturating_sub(ours_clear)));
