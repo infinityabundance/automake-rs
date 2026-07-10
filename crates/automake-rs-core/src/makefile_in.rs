@@ -1065,7 +1065,27 @@ impl MakefileInGenerator {
         // Include -I$(top_builddir) so sources in a SUBDIR can find the top-level generated config.h
         // (matches GNU automake). Without it, lib/foo.c -> `config.h: No such file` even though
         // config.h exists and DEFS=-DHAVE_CONFIG_H requested it. For the top dir, top_builddir=.
-        out.push_str("DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)\n");
+        // Also add the DIRECTORY of a config header placed in a SUBDIR (AC_CONFIG_HEADERS([config/
+        // config.h])): the header is `config/config.h` but sources `#include "config.h"`, so the
+        // compile needs -I$(top_builddir)/config to resolve it. $(top_builddir) is relative to the
+        // current Makefile, so `-I$(top_builddir)/config` is `-Iconfig` from top and `-I../config`
+        // from a subdir — matching GNU automake's `-I. -I../config` (cpptest). Without it: C++/C
+        // projects with a subdir config header -> `config.h: No such file` at make (cpptest, m4gb).
+        let mut ch_inc = String::new();
+        let mut seen_dirs = std::collections::BTreeSet::new();
+        for h in &self.traces.config_headers {
+            let path = h.split(':').next().unwrap_or(h); // strip DEST:SOURCE if present
+            if let Some(slash) = path.rfind('/') {
+                let dir = &path[..slash];
+                if !dir.is_empty() && seen_dirs.insert(dir.to_string()) {
+                    ch_inc.push_str(&format!(" -I$(top_builddir)/{}", dir));
+                }
+            }
+        }
+        out.push_str(&format!(
+            "DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir){}\n",
+            ch_inc
+        ));
         out.push_str("COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \\\n");
         out.push_str("\t$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)\n");
         out.push_str("CCLD = $(CC)\n");
