@@ -164,7 +164,13 @@ pub fn run_bootstrap(dir: &Path, forbid_gnu: bool, verbose: bool) -> BootstrapRe
         let header = config_header_name(&ac_text);
         let header_in = format!("{}.in", header);
         if verbose { eprintln!("autoreconf-rs: autoheader -> {}", header_in); }
-        let _ = run(&autoheader, &[cf.file_name().unwrap().to_str().unwrap()], Some(Path::new(&header_in)));
+        // autoheader-rs writes <header>.in ITSELF (and GNU autoheader does too). Pass None — do NOT
+        // capture its stdout into header_in, which is EMPTY (it prints only a stderr diagnostic) and
+        // CLOBBERED the good template with a 0-byte file. config.status then had no `#undef PACKAGE`
+        // to convert, so a config-header project using bare PACKAGE/VERSION (dangerousben/jsonval:
+        // `printf(..., PACKAGE)`) failed `make` with `'PACKAGE' undeclared`. Same clobber the aclocal
+        // step above already avoids; autoheader wrote the header name from config_header_name().
+        let _ = run(&autoheader, &[cf.file_name().unwrap().to_str().unwrap()], None);
     }
 
     // Steps 4 + 5 (aux + Makefile.in) are automake-rs itself; the caller runs them after this
