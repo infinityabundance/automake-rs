@@ -853,13 +853,24 @@ impl MakefileInGenerator {
         }
     }
 
-    /// The sources listed for a program/library target (its `_SOURCES`, defaulting to `<name>.c`).
+    /// The sources listed for a program/library target (its `_SOURCES`). Defaults to `<name>.c` ONLY
+    /// when NO `_SOURCES` variable is declared (automake's default for a program `foo` -> `foo.c`). If
+    /// `_SOURCES` (or a dist_/nodist_ variant) IS declared — even EMPTY — honor it: an empty
+    /// `_SOURCES` means the target has NO compiled objects and is built from `_LIBADD`/`_LDADD`/
+    /// `$(LIBOBJS)` instead (e.g. `libcompat_a_SOURCES =` + `libcompat_a_LIBADD = $(LIBOBJS)`). Without
+    /// this, an empty-sources library got a bogus object derived from the LIBRARY NAME: `libcompat.a`
+    /// -> `libcompat.a.o` -> `make: No rule to make target 'libcompat.a.o'` (drycpp/libposix).
     fn target_sources(&self, name: &str) -> Vec<String> {
-        self.combined_sources(&Self::canon(name))
-            .unwrap_or_else(|| format!("{}.c", name))
-            .split_whitespace()
-            .map(String::from)
-            .collect()
+        let canon = Self::canon(name);
+        let declared = ["", "dist_", "nodist_"]
+            .iter()
+            .any(|p| self.find_variable(&format!("{}{}_SOURCES", p, canon)).is_some());
+        let raw = if declared {
+            self.combined_sources(&canon).unwrap_or_default()
+        } else {
+            format!("{}.c", name)
+        };
+        raw.split_whitespace().map(String::from).collect()
     }
 
     /// Whether a source file is C++ (selects the CXX compile/link toolchain).
