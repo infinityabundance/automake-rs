@@ -849,8 +849,41 @@ impl MakefileInGenerator {
         if parts.is_empty() {
             None
         } else {
-            Some(parts.join(" "))
+            Some(self.expand_source_vars(&parts.join(" "), &mut Vec::new()))
         }
+    }
+
+    /// Recursively expand `$(NAME)`/`${NAME}` references inside a `_SOURCES` value to the file list
+    /// each variable holds. A common factoring pattern is `foo_SOURCES = foo.c $(common_SOURCES)` (or
+    /// bundled convenience trees, e.g. advancecomp's `advzip_SOURCES = ... $(zopfli_SOURCES)`); real
+    /// automake expands these at generation time so the referenced .c files become objects and get
+    /// compiled+linked. Without expansion the token `$(zopfli_SOURCES)` survives into the source list,
+    /// no zopfli objects are built, and the link fails (`undefined reference to ZopfliCompress`).
+    /// Unresolved refs are left verbatim (make handles them at runtime); `visited` breaks cycles.
+    fn expand_source_vars(&self, raw: &str, visited: &mut Vec<String>) -> String {
+        let mut out: Vec<String> = Vec::new();
+        for tok in raw.split_whitespace() {
+            let inner = tok
+                .strip_prefix("$(")
+                .and_then(|s| s.strip_suffix(')'))
+                .or_else(|| tok.strip_prefix("${").and_then(|s| s.strip_suffix('}')));
+            match inner {
+                Some(name)
+                    if !name.is_empty()
+                        && !visited.iter().any(|v| v == name) =>
+                {
+                    if let Some(v) = self.find_variable(name) {
+                        visited.push(name.to_string());
+                        out.push(self.expand_source_vars(&v, visited));
+                        visited.pop();
+                    } else {
+                        out.push(tok.to_string());
+                    }
+                }
+                _ => out.push(tok.to_string()),
+            }
+        }
+        out.join(" ")
     }
 
     /// The sources listed for a program/library target (its `_SOURCES`). Defaults to `<name>.c` ONLY
@@ -3362,6 +3395,55 @@ mod tests {
         assert!(
             output.contains("installdirs:"),
             "Expected installdirs target"
+        );
+    }
+
+    #[test]
+    fn test_sources_variable_reference_expands_to_objects() {
+        // `advzip_SOURCES = advzip.c $(zopfli_SOURCES)` must expand the $(zopfli_SOURCES)
+        // reference so the referenced .c files become compiled objects (advancecomp pattern:
+        // without expansion, ZopfliCompress is an undefined reference at link).
+        let am = MakefileAm::parse(
+            "bin_PROGRAMS = advzip\n\
+             zopfli_SOURCES = zopfli/deflate.c zopfli/zopfli.h zopfli/lz77.c\n\
+             advzip_SOURCES = advzip.c $(zopfli_SOURCES)\n",
+        )
+        .unwrap();
+        let config = AutomakeConfig::from_options("foreign");
+        let traces = AutoconfTrace {
+            config_files: vec![],
+            config_headers: vec![],
+            substitutions: HashMap::new(),
+            package_name: Some("test".to_string()),
+            package_version: Some("1.0".to_string()),
+            bug_report: None,
+            package_tarname: None,
+            strictness: Some("foreign".to_string()),
+            conditionals: HashMap::new(),
+            languages: vec!["CC".to_string()],
+        };
+        let gen = MakefileInGenerator::new(am, config, traces);
+        let output = gen.generate();
+        assert!(
+            output.contains("zopfli/deflate.$(OBJEXT)"),
+            "Expected referenced source zopfli/deflate.c to become an object"
+        );
+        assert!(
+            output.contains("zopfli/lz77.$(OBJEXT)"),
+            "Expected referenced source zopfli/lz77.c to become an object"
+        );
+        assert!(
+            !output.contains("zopfli/zopfli.$(OBJEXT)"),
+            "Header zopfli/zopfli.h must NOT become an object"
+        );
+        // The OBJECTS var must be the expanded object list, not a literal $(zopfli_SOURCES) ref.
+        let objline = output
+            .lines()
+            .find(|l| l.starts_with("advzip_OBJECTS"))
+            .unwrap_or("");
+        assert!(
+            !objline.contains("$(zopfli_SOURCES)"),
+            "advzip_OBJECTS must hold expanded objects, got: {objline}"
         );
     }
 }
