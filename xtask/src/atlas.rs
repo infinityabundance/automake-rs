@@ -945,7 +945,7 @@ pub fn run() -> ExitCode {
                 let toolchain = Toolchain {
                     autoconf_rs: ac_ver.clone(),
                     automake_rs: am_ver.clone(),
-                    m4_rs_core: "0.1.4".into(),
+                    m4_rs_core: "0.1.16".into(),
                     gnu_free: true,
                 };
                 let court = court_status(&status, &oracle, &quirks_matched);
@@ -1063,7 +1063,7 @@ pub fn run() -> ExitCode {
                 schema: "automake-rs.build-atlas/v3",
                 repo: repo.to_string(),
                 source: Source { url: format!("https://github.com/{}", repo), git_sha, snapshot_utc: "2026-06-27".into() },
-                toolchain: Toolchain { autoconf_rs: ac_ver.clone(), automake_rs: am_ver.clone(), m4_rs_core: "0.1.4".into(), gnu_free: true },
+                toolchain: Toolchain { autoconf_rs: ac_ver.clone(), automake_rs: am_ver.clone(), m4_rs_core: "0.1.16".into(), gnu_free: true },
                 target: Target { cc: "cc".into(), cflags: "-g -O2".into(), host: "x86_64-pc-linux-gnu".into() },
                 pass_pipeline: pipeline,
                 probe_results: BTreeMap::new(),
