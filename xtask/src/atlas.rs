@@ -724,6 +724,7 @@ fn setup_compiler_shim() -> Option<PathBuf> {
 
 fn run_timed(dir: &Path, secs: u32, program: &str, args: &[&str]) -> (bool, String) {
     use std::fs::File;
+    use std::os::unix::process::CommandExt;
     let log = dir.join(".atlas_runlog");
     let f = match File::create(&log) {
         Ok(f) => f,
@@ -733,8 +734,20 @@ fn run_timed(dir: &Path, secs: u32, program: &str, args: &[&str]) -> (bool, Stri
         Ok(f) => f,
         Err(e) => return (false, e.to_string()),
     };
-    let status = Command::new("timeout")
-        .arg("-k")
+    // MEMORY CATCH — a third safety layer beside the `timeout` deadline and the file-redirect:
+    // cap each build's virtual address space (RLIMIT_AS) so a runaway m4/autoconf expansion
+    // (historically 5-7 GB before the internal 256 MB m4 guard) can NEVER balloon and OOM the whole
+    // machine/sweep. The limit is inherited by the entire timeout->autoreconf->m4->cc process tree;
+    // any malloc/mmap past the cap returns ENOMEM, so the offending repo aborts and is recorded as a
+    // clean failure instead of taking everything down. Tunable via ATLAS_MEM_LIMIT_MB (default 8192);
+    // set to 0 to disable. RLIMIT_AS (not RLIMIT_DATA) because glibc malloc serves large allocs via
+    // mmap, which RLIMIT_DATA would not bound.
+    let mem_mb: u64 = std::env::var("ATLAS_MEM_LIMIT_MB")
+        .ok()
+        .and_then(|v| v.trim().parse().ok())
+        .unwrap_or(8192);
+    let mut cmd = Command::new("timeout");
+    cmd.arg("-k")
         .arg("10")
         .arg("-s")
         .arg("KILL")
@@ -744,8 +757,23 @@ fn run_timed(dir: &Path, secs: u32, program: &str, args: &[&str]) -> (bool, Stri
         .current_dir(dir)
         .stdin(std::process::Stdio::null())
         .stdout(f)
-        .stderr(f2)
-        .status();
+        .stderr(f2);
+    if mem_mb > 0 {
+        let bytes = mem_mb.saturating_mul(1024 * 1024);
+        // SAFETY: the closure runs in the forked child before exec and only calls setrlimit,
+        // which is async-signal-safe. Best-effort: on failure the timeout layer still applies.
+        unsafe {
+            cmd.pre_exec(move || {
+                let lim = libc::rlimit {
+                    rlim_cur: bytes as libc::rlim_t,
+                    rlim_max: bytes as libc::rlim_t,
+                };
+                libc::setrlimit(libc::RLIMIT_AS, &lim);
+                Ok(())
+            });
+        }
+    }
+    let status = cmd.status();
     let text = std::fs::read_to_string(&log).unwrap_or_default();
     let _ = std::fs::remove_file(&log);
     match status {
