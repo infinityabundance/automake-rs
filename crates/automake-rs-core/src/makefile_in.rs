@@ -1093,6 +1093,13 @@ impl MakefileInGenerator {
                 out.push_str(&format!("{}_OBJECTS = $(am_{}_OBJECTS)\n", c, c));
                 let libadd = self.find_variable(&format!("{}_LIBADD", c)).unwrap_or_default();
                 out.push_str(&format!("{}_LIBADD = {}\n", c, libadd));
+                // A `.la`/`.a`/`.o` file in _LIBADD must become a build DEPENDENCY so make builds
+                // the sub-library before AR/link (else a non-recursive layout races: libfoo built
+                // before the convenience libbar.a it archives -> "libbar.a: No such file").
+                let deps = self.ldadd_deps(&libadd);
+                if !deps.is_empty() {
+                    out.push_str(&format!("{}_DEPENDENCIES = {}\n", c, deps));
+                }
             }
         }
         // Per-static-library (`.a`) object/LIBADD vars (ordinary `.$(OBJEXT)` objects).
@@ -1104,6 +1111,12 @@ impl MakefileInGenerator {
                 out.push_str(&format!("{}_OBJECTS = $(am_{}_OBJECTS)\n", c, c));
                 let libadd = self.find_variable(&format!("{}_LIBADD", c)).unwrap_or_default();
                 out.push_str(&format!("{}_LIBADD = {}\n", c, libadd));
+                // Same as above: a `.a` convenience archive listed in _LIBADD (breakpad's
+                // src_libbreakpad_a_LIBADD = .../libdisasm.a) must be an ordering dependency.
+                let deps = self.ldadd_deps(&libadd);
+                if !deps.is_empty() {
+                    out.push_str(&format!("{}_DEPENDENCIES = {}\n", c, deps));
+                }
             }
         }
         // Include -I$(top_builddir) so sources in a SUBDIR can find the top-level generated config.h
